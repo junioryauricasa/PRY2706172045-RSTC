@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION['user_session'])!="") {
-	header("Location: index.php");
+	header("Location: index");
 }
 
 include_once 'dbconnect.php';
@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
 			$_SESSION['user_session'] = $row['intUserId'];
 			$_SESSION['usr_name'] = $row['nchUserMail'];
 			
-			header("Location: admin/index.php");
+			header("Location: admin/index");
 		}else
 		//$errormsg = "Esta cuenta esta desactivada, conversa con tu administrador";
 		$errormsg = "Se te removieron los permisos, conversa con tu administrador";
@@ -53,7 +53,7 @@ if (isset($_POST['login'])) {
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.php" style="font-family: 'Lobster', cursive;">devHuayra</a>
+			<a class="navbar-brand" href="index" style="font-family: 'Lobster', cursive;">devHuayra</a>
 		</div>
 		<!-- menu items -->
 		<div class="collapse navbar-collapse" id="navbar1">

@@ -1,1 +1,11 @@
-﻿
+﻿<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+</IfModule>
+
+#Error
+ErrorDocument 404 http://localhost:8080/proyectos/PRY2706172045-RSTC/404.php
+ErrorDocument 403 http://localhost:8080/proyectos/PRY2706172045-RSTC/404.php
+ErrorDocument 405 http://localhost:8080/proyectos/PRY2706172045-RSTC/404.php

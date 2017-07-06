@@ -12,10 +12,10 @@
 session_start();
 
 if (isset($_SESSION['user_session'])){
-  header("Location: admin/index.php");
+  header("Location: admin/index");
 }else 
 if(isset($_SESSION['user_session'])!="") {
-  header("Location: index.php");
+  header("Location: index");
 }
 
 
@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
       $_SESSION['user_session'] = $row['intUserId'];
       $_SESSION['usr_name'] = $row['nchUserMail'];
       
-      header("Location: admin/index.php");
+      header("Location: admin/index");
     }else
     //$errormsg = "Esta cuenta esta desactivada, conversa con tu administrador";
     $errormsg = '
