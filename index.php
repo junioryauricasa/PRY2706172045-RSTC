@@ -34,7 +34,7 @@ if (isset($_POST['login'])) {
 
     if($row['bitUserEstado']==1){ //Verificacion de estado activo = 1
       $_SESSION['user_session'] = $row['intUserId'];
-      $_SESSION['usr_name'] = $row['nchUserMail'];
+      $_SESSION['usr_name'] = $row['nvchUserName'];
       
       header("Location: admin/index");
     }else
@@ -77,7 +77,7 @@ if (isset($_POST['login'])) {
   <!--
       logo icon
   -->
-  <link rel="shortcut icon" type="image/png" href="admin/dist/img/icon.png"/>
+  <link rel="shortcut icon" type="image/png" href="admin/dist/img/icons/025-pie-chart.png"/>
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -98,11 +98,11 @@ if (isset($_POST['login'])) {
 
     <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="loginform">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Ingrese Email" name="email" required="">
+        <input type="email" class="form-control" placeholder="Ingrese Email" name="email" required="" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Ingrese Contraseña" name="password" required="">
+        <input type="password" class="form-control" placeholder="Ingrese Contraseña" name="password" required="" autocomplete="off">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
