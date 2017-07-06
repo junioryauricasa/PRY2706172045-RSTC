@@ -37,8 +37,12 @@ if(!isset($_SESSION['user_session']))
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
 
-   <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+
+  <!--  DataTable  -->
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+  <!--link rel="stylesheet" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"-->
+  <!--  END DataTable  -->
 
   <!--icon-->
   <link rel="icon" href="dist/img/icons/025-pie-chart.png" type="image/png" sizes="16x16">

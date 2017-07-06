@@ -221,10 +221,15 @@
 <script src="dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
 <!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!--script src="plugins/datatables/jquery.dataTables.min.js"></script-->
+<!--script src="plugins/datatables/dataTables.bootstrap.min.js"></script-->
 <!--script src="plugins/datatables/bootstrap-table.js"></script-->
+
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 
 
 </body>

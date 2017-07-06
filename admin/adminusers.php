@@ -44,7 +44,7 @@
         <!-- /.box-header -->
         <div class="box-body">
           <div class="table-responsive">
-            <table class="table no-margin">
+            <table class="table table-hover table-condensed">
               <thead>
               <tr>
                 <th>Order ID</th>
@@ -124,156 +124,6 @@
       </div>
       <!-- /.box -->
 
-      <!-- TABLE: LATEST USERS -->
-      <div class="box box-info">
-        <div class="box-header with-border">
-          <h3 class="box-title">Registro de Usuarios</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="table-responsive">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th>CSS grade</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 5.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td>5</td>
-                      <td>C</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 5.5
-                      </td>
-                      <td>Win 95+</td>
-                      <td>5.5</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 6
-                      </td>
-                      <td>Win 98+</td>
-                      <td>6</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet Explorer 7</td>
-                      <td>Win XP SP2+</td>
-                      <td>7</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>AOL browser (AOL desktop)</td>
-                      <td>Win XP</td>
-                      <td>6</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Firefox 1.0</td>
-                      <td>Win 98+ / OSX.2+</td>
-                      <td>1.7</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Mozilla 1.3</td>
-                      <td>Win 95+ / OSX.1+</td>
-                      <td>1.3</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Gecko</td>
-                      <td>Mozilla 1.4</td>
-                      <td>Win 95+ / OSX.1+</td>
-                      <td>1.4</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Webkit</td>
-                      <td>Safari 3.0</td>
-                      <td>OSX.4+</td>
-                      <td>522.1</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Webkit</td>
-                      <td>OmniWeb 5.5</td>
-                      <td>OSX.4+</td>
-                      <td>420</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Presto</td>
-                      <td>Opera 9.0</td>
-                      <td>Win 95+ / OSX.3+</td>
-                      <td>-</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Presto</td>
-                      <td>Opera 9.2</td>
-                      <td>Win 88+ / OSX.3+</td>
-                      <td>-</td>
-                      <td>A</td>
-                    </tr>
-                    <tr>
-                      <td>Presto</td>
-                      <td>Nintendo DS browser</td>
-                      <td>Nintendo DS</td>
-                      <td>8.5</td>
-                      <td>C/A<sup>1</sup></td>
-                    </tr>
-                    <tr>
-                      <td>Other browsers</td>
-                      <td>All others</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>U</td>
-                    </tr>
-                    </tbody>
-                  </table>
-          </div>
-          <!-- /.table-responsive -->
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer clearfix">
-          <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Ingresar Nuevo pedido</a>
-          <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Ver Todos los Pedidos</a>
-        </div>
-        <!-- /.box-footer -->
-      </div>
       <!-- /.box -->
 
       <!-- Default box -->
@@ -302,5 +152,12 @@
   </div>
   <!-- /.content-wrapper -->
   
+
+<!-- Scripts DataTable -->
+<script>
+  $(document).ready( function () {
+      $('table').DataTable();
+  } );
+</script>
 
 <?php include('_include/rstfooter.php'); ?>
