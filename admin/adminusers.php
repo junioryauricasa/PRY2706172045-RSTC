@@ -151,7 +151,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
 
 <!-- Scripts DataTable -->
 <script>
@@ -159,5 +158,15 @@
       $('table').DataTable();
   } );
 </script>
+<!-- ENd Scripts DataTable -->
+
+<style>
+  input{
+    padding: 2px 3px;
+  }
+  select{
+    padding: 3px;
+  }
+</style>
 
 <?php include('_include/rstfooter.php'); ?>
