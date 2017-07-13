@@ -1,4 +1,7 @@
-<?php include('_include/rstheader.php'); ?>
+<?php 
+  include('_include/rstheader.php'); 
+  include('reports/querySQL4report.php');
+?>
     <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip(); 
@@ -25,7 +28,6 @@
     <section class="content">
       <div class="callout callout-info">
         <h4>Tip!</h4>
-
         <p>Add the fixed class to the body tag to get this layout. The fixed layout is your best option if your sidebar
           is bigger than your content because it prevents extra unwanted scrolling.</p>
       </div>
@@ -34,7 +36,6 @@
       <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Registro de Usuarios</h3>
-
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -47,27 +48,24 @@
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Item</th>
-                <th>Status</th>
-                <th>Popularity</th>
+                <th>#Código</th>
+                <th>Nombres</th>
+                <th>Estado</th>
+                <th>Ultimo Acceso</th>
+                <th>Opciones</th>
               </tr>
               </thead>
               <tbody>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="label label-success">Shipped</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
+                  <?php echo users_data(); ?>
+                  <!--tr>
                     <td><a href="pages/examples/invoice.html">OR1848</a></td>
                     <td>Samsung Smart TV</td>
                     <td><span class="label label-warning">Pending</span></td>
                     <td>
                       <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                    </td>
+                    <td>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                     </td>
                   </tr>
                   <tr>
@@ -76,6 +74,9 @@
                     <td><span class="label label-danger">Delivered</span></td>
                     <td>
                       <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                    </td>
+                    <td>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                     </td>
                   </tr>
                   <tr>
@@ -85,6 +86,9 @@
                     <td>
                       <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
                     </td>
+                    <td>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                    </td>
                   </tr>
                   <tr>
                     <td><a href="pages/examples/invoice.html">OR1848</a></td>
@@ -92,6 +96,9 @@
                     <td><span class="label label-warning">Pending</span></td>
                     <td>
                       <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                    </td>
+                    <td>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                     </td>
                   </tr>
                   <tr>
@@ -101,6 +108,9 @@
                     <td>
                       <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
                     </td>
+                    <td>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                    </td>
                   </tr>
                   <tr>
                     <td><a href="pages/examples/invoice.html">OR9842</a></td>
@@ -109,7 +119,10 @@
                     <td>
                       <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                     </td>
-                  </tr>
+                    <td>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                    </td>
+                  </tr-->
               </tbody>
             </table>
           </div>

@@ -274,7 +274,7 @@ if(!isset($_SESSION['user_session']))
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="reportes">
                 <i class="fa fa-circle-o"></i> 
                   Reportes
               </a>
