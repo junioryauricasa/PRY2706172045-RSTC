@@ -42,7 +42,7 @@ Examples:
 ./load_font.php silkscreen /usr/share/fonts/truetype/slkscr.ttf
 ./load_font.php 'Times New Roman' /mnt/c_drive/WINDOWS/Fonts/times.ttf
 
-./load_font.php 'Roboto' ../fonts/Roboto-Regular.ttf
+./load_font.php 'Roboto' /fonts/Roboto-Regular.ttf
 
 EOD;
 exit;

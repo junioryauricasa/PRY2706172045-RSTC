@@ -20,7 +20,7 @@
  {  
       $output = '';  
       $con = mysqli_connect("localhost", "root", "", "db_resteco");  
-      $sql = "SELECT * FROM tb_user";  
+      $sql = "SELECT * FROM tb_usuario";  
       //$result = mysqli_query($conn, $sql);  
       $result = mysqli_query($con, $sql);  
       while($row = mysqli_fetch_array($result))  
@@ -58,7 +58,7 @@
  {  
       $output = '';  
       $con = mysqli_connect("localhost", "root", "", "db_resteco");  
-      $sql = "SELECT * FROM tb_user";  
+      $sql = "SELECT * FROM tb_usuario";  
       //$result = mysqli_query($conn, $sql);  
       $result = mysqli_query($con, $sql);  
       while($row = mysqli_fetch_array($result))  
@@ -71,10 +71,10 @@
         }
 
         if($row["bitUserEstado"] == 0){
-           $row["bitUserEstado"] = 'Deshabilitado'; 
+           $row["bitUserEstado"] = '<span class="label label-danger">Deshabilitado</span>'; 
         }else
         if($row["bitUserEstado"] == 1){
-           $row["bitUserEstado"] = 'Habilitado'; 
+           $row["bitUserEstado"] = '<span class="label label-success">Habilitado</span>'; 
         }
 
 
@@ -82,15 +82,98 @@
       <tr>  
           <td>USR'.$row["intUserId"].'</td>  
           <td>'.$row["nvchUserName"].'</td>  
-          <td>'.$row["nchUserMail"].'</td>  
+          <td>
+            <a target="_blank" class="btn btn-xs btn-default btnedit" href="
+              https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&source=mailto&su=Mensaje+Resteco&to=%3C'.$row["nchUserMail"].'%3E
+            ">
+            <span class="fa fa-envelope"></span> 
+            '
+              .$row["nchUserMail"].
+            '</a>
+          </td>
           <td>'.$row["intTypeUser"].'</td>  
-          <td>'.$row["bitUserEstado"].'</td>  
-          <td> editar /eliminar /actualizar</td>  
+          <td>
+              '.$row["bitUserEstado"].'
+          </td>  
+          <td> 
+            <button type="submit" id_cust="5" class="btn btn-xs btn-warning btnedit"><i class="fa fa-edit"></i></button>
+            <button type="submit" id_cust="5" class="btn btn-xs btn-danger btnedit"><i class="fa fa-remove"></i></button>
+          </td>  
       </tr>  
       ';  
       }  
       return $output;  
  }  
 
+//Consulta historial de acceso TABLA
+ function users_HistoryAccess()  
+ {  
+      $output = '';  
+      $con = mysqli_connect("localhost", "root", "", "db_resteco");  
+      $sql = "
+        SELECT 
+          intIdHistory,
+          nvchUserName,
+          nchUserMail,
+          intTypeUser,
+          bitUserEstado,
+          nvchBrowser,
+          nvchIpAccesso,
+          dateDateAccesso
+        FROM 
+          `tb_historyaccess`
+        inner join tb_usuario
+        WHERE tb_usuario.intUserId = tb_historyaccess.intIdUser
+      ";  
+      //$result = mysqli_query($conn, $sql);  
+      $result = mysqli_query($con, $sql);  
+      while($row = mysqli_fetch_array($result))  
+      {       
+        if($row["intTypeUser"] == 0){
+          $row["intTypeUser"] = 'Usuario';
+        }else
+        if($row["intTypeUser"] == 1){
+          $row["intTypeUser"] = 'Administrador';
+        }
+
+        if($row["bitUserEstado"] == 0){
+           $row["bitUserEstado"] = '<span class="label label-danger">Deshabilitado</span>'; 
+        }else
+        if($row["bitUserEstado"] == 1){
+           $row["bitUserEstado"] = '<span class="label label-success">Habilitado</span>'; 
+        }
+
+
+      $output .= '
+      <tr>  
+          <td>HSTACC'.$row["intIdHistory"].'</td>  
+          <td>'.$row["nvchUserName"].'</td>  
+          <td>
+            <a target="_blank" class="btn btn-xs btn-default btnedit" href="
+              https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&source=mailto&su=Mensaje+Resteco&to=%3C'.$row["nchUserMail"].'%3E
+            ">
+            <span class="fa fa-envelope"></span> 
+            '
+              .$row["nchUserMail"].
+            '</a>
+          </td>
+          <td>'.$row["intTypeUser"].'</td>  
+          <td>
+              '.$row["bitUserEstado"].'
+          </td> 
+          <td> 
+            '.$row["dateDateAccesso"].'
+          </td>  
+          <td>
+              '.$row["nvchBrowser"].'
+          </td> 
+          <td>
+              '.$row["nvchIpAccesso"].'
+          </td>
+      </tr>  
+      ';  
+      }  
+      return $output;  
+ } 
 
  ?>

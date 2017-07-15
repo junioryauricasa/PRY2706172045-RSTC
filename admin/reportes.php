@@ -119,7 +119,7 @@ include('_include/rstheader.php');
         </div-->
         <!-- /.box-body -->
         <div class="box-footer clearfix">
-          <a href="reports/reportUserAll.php" class="btn btn-sm btn-info btn-flat pull-left">
+          <a href="reports/reportUserAll.php" target="_blank" class="btn btn-sm btn-info btn-flat pull-left">
               Reportes Completo de Usuarios
           </a> 
           <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">
