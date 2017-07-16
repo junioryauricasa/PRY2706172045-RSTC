@@ -189,6 +189,29 @@ if (isset($_POST['regNewUser'])) {
                       </div>
                     </div>
 
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Usuario Seaarch:</label> <br>
+                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
+                        <select class="selectpicker" data-live-search="true">
+                          <option data-tokens="User1">selecciona</option>
+                          <option data-tokens="User1">Junior Yauricasa</option>
+                          <option data-tokens="User2">Hector Vvanco</option>
+                          <option data-tokens="User3">Luis Sanchez</option>
+                        </select>
+                      </div>
+                    </div>
+
+                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+                      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+                      <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+                      <script>
+                        $('.selectpicker').selectpicker({
+                          style: 'btn-default',
+                          size: 4
+                        });
+                      </script>
+
                     <!-- /.col -->
                     <!--div class="col-md-3">
                       <div class="form-group">
