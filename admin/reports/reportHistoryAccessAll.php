@@ -56,25 +56,31 @@
 		</tr>
 	</table>
 	<br>
-		<h3 class="text-center">Reporte de usuarios</h3>
+		<h3 class="text-center">Historial de Acceso</h3>
 	</div>
 	<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam laboriosam voluptatibus, ratione deleniti, eligendi aspernatur rem a velit accusantium obcaecati sed magni ipsam repellat praesentium distinctio veniam similique repellendus nam!
+		Reporte comprendido con los inicios de sesión de los diferentes usuarios de la plataforma <b>resteco SFT</b> sirvase a lecturar la informacion comprendida a continuación haciendo enfasis en los datos los cuales son captadas a cada instante por la plataforma, esta información no puede ser actualizada o eliminada, bajo ninguna circunstancia.
+	</p>
+	<p>
+		<!-- seccion de ayuda -->
+		<b>Nota. </b> En caso de dudas le recomendamos ir a la seccion de ayuda al usuario, podra encontrar informacion referente a esta sección o comuniquese con su administrador.
 	</p>
 <br>
 <table class="table table-bordered table-sm">
   <thead>
     <tr>
-      <th>#Cod</th>
-      <th>Usuario</th>
-      <th>e-Mail</th>
-      <th>Tipo</th>
-      <th>Estado</th>
+	    <th>#Código</th>
+	    <th>Usuario / Correo</th>
+	    <th>Tipo Usuario</th>
+	    <th>Estado Actual</th>
+	    <th>Fecha</th>
+	    <th>Dispositivo</th>
+	    <th>IP Registrada</th>
     </tr>
   </thead>
   <tbody>
     <?php 
-    	echo users_data();
+    	echo users_HistoryAccessAll4Report();
     ?>
   </tbody>
 </table>
@@ -84,10 +90,12 @@
 <?php 
 	require_once('dompdf/dompdf_config.inc.php');
 	$dompdf = new DOMPDF();
+	$dompdf->set_paper('A4', 'landscape'); //Adicionar esto para hojas horizontales.
 	$dompdf -> load_html(ob_get_clean());
 	$dompdf -> render();
 	$pdf = $dompdf -> output();
 	$filename = 'nombre.pdf';
-	$dompdf -> stream($filename, array("Attachment" => 0));
-
+	//$dompdf -> stream($filename, array("Attachment" => 0)); //parmetro ultimo 0=view / 1=download
+	$dompdf -> stream( $filename, array('Attachment' => false)); // evitar descargar el archivo
+	exit(0);
  ?>

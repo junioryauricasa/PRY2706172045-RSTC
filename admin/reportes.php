@@ -20,15 +20,15 @@ include('_include/rstheader.php');
         <small>Ejemplo de reportes</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="#">Usuarios</a></li>
+        <li class="active">Reporte</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="callout callout-info">
+      <div class="callout callout-info" id="success-alert">
         <h4>Tip!</h4>
         <p>Esto es solo un ejemplo de CRUD ajax para tomar de referencia en el codd.</p>
       </div>

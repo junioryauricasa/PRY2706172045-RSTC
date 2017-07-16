@@ -246,8 +246,44 @@ if(!isset($_SESSION['user_session']))
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+        <!--Inventario-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i> <span>Inventario</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active">
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Administrar Inventario
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Administrar Ingreso
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Administrar salida
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Reportes
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!--END Inventrio-->
         <!--Usuarios-->
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-user"></i> <span>Usuarios</span>
             <span class="pull-right-container">
@@ -282,42 +318,6 @@ if(!isset($_SESSION['user_session']))
           </ul>
         </li>
         <!--END Usuarios-->
-        <!--Inventario-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Inventario</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="fixed">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Inventario
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Ingreso
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar salida
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Reportes
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!--END Inventrio-->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -349,7 +349,7 @@ if(!isset($_SESSION['user_session']))
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
+          <ul class="active treeview-menu">
             <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>

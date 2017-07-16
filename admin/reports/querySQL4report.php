@@ -176,4 +176,59 @@
       return $output;  
  } 
 
+//Consulta historial de acceso TABLA
+ function users_HistoryAccessAll4Report()  
+ {  
+      $output = '';  
+      $con = mysqli_connect("localhost", "root", "", "db_resteco");  
+      $sql = "
+        SELECT 
+          intIdHistory,
+          nvchUserName,
+          nchUserMail,
+          intTypeUser,
+          bitUserEstado,
+          nvchBrowser,
+          nvchIpAccesso,
+          dateDateAccesso 
+        FROM 
+          `tb_historyaccess`
+        inner join tb_usuario
+        WHERE tb_usuario.intUserId = tb_historyaccess.intIdUser 
+        ORDER BY `tb_historyaccess`.`intIdHistory` DESC
+      ";  
+      //$result = mysqli_query($conn, $sql);  
+      $result = mysqli_query($con, $sql);  
+      while($row = mysqli_fetch_array($result))  
+      {       
+        if($row["intTypeUser"] == 0){
+          $row["intTypeUser"] = 'Usuario';
+        }else
+        if($row["intTypeUser"] == 1){
+          $row["intTypeUser"] = 'Administrador';
+        }
+
+        if($row["bitUserEstado"] == 0){
+           $row["bitUserEstado"] = 'Deshabilitado'; 
+        }else
+        if($row["bitUserEstado"] == 1){
+           $row["bitUserEstado"] = 'Habilitado'; 
+        }
+
+
+      $output .= '
+      <tr>  
+          <td>HSTACC'.$row["intIdHistory"].'</td>  
+          <td>'.$row["nvchUserName"].' / '.$row["nchUserMail"].'</td>
+          <td>'.$row["intTypeUser"].'</td>  
+          <td>'.$row["bitUserEstado"].'</td> 
+          <td>'.$row["dateDateAccesso"].'</td>  
+          <td>'.$row["nvchBrowser"].'</td> 
+          <td>'.$row["nvchIpAccesso"].'</td>
+      </tr>  
+      ';  
+      }  
+      return $output;  
+ } 
+
  ?>
