@@ -256,7 +256,7 @@ if(!isset($_SESSION['user_session']))
           </a>
           <ul class="treeview-menu">
             <li class="active">
-              <a href="">
+              <a href="admininventario">
                 <i class="fa fa-circle-o"></i> 
                   Administrar Inventario
               </a>
