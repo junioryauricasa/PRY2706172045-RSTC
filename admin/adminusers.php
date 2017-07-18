@@ -193,7 +193,7 @@ if (isset($_POST['regNewUser'])) {
                       <div class="form-group">
                         <label>Usuario Seaarch:</label> <br>
                         <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select class="selectpicker" data-live-search="true">
+                        <select class="selectpicker" data-live-search="true" datasize="7">
                           <option data-tokens="User1">selecciona</option>
                           <option data-tokens="User1">Junior Yauricasa</option>
                           <option data-tokens="User2">Hector Vvanco</option>

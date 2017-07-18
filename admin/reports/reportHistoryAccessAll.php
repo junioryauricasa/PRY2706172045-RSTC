@@ -14,7 +14,7 @@
 	    header("Location: ../index");
 	}
 
-	include_once 'querySQL4report.php';
+	include 'querySQL4report.php';
 ?>
 
 <!DOCTYPE html>

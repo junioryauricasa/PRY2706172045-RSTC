@@ -119,9 +119,9 @@
           bitUserEstado,
           nvchBrowser,
           nvchIpAccesso,
-          dateDateAccesso
+          dateDateAccesso 
         FROM 
-          `tb_historyaccess`
+          tb_historyaccess
         inner join tb_usuario
         WHERE tb_usuario.intUserId = tb_historyaccess.intIdUser
       ";  
@@ -230,5 +230,4 @@
       }  
       return $output;  
  } 
-
  ?>

@@ -50,6 +50,8 @@ function users_data2()
           <a href="ajax/deleteUser4id.php?q='.$row["intUserId"].'" class="btn btn-xs btn-danger btnedit">
               <i class="fa fa-remove"></i> Eliminar
           </a>
+
+          <input type="submit" class="btn btn-xs btn-info btnedit" onclick="pregunta('.$row["intUserId"].');" value="Eliminar">
         </td>  
     </tr>  
     ';  
@@ -60,3 +62,13 @@ function users_data2()
 echo users_data2();
 
  ?>
+
+
+
+ <script>
+   function pregunta($iduser){ 
+    if (confirm('¿Estas seguro de eliminar el registro USR'+$iduser+'?')){ 
+           window.location="ajax/deleteUser4id.php?q="+$iduser+"";
+        } 
+    } 
+ </script>
