@@ -2,8 +2,6 @@
 include('_include/rstheader.php'); 
 ?>
 
-
-
     <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip(); 
@@ -119,10 +117,13 @@ include('_include/rstheader.php');
         </div-->
         <!-- /.box-body -->
         <div class="box-footer clearfix">
-          <a href="reports/reportUserAll.php" target="_blank" class="btn btn-sm btn-info btn-flat pull-left">
+          <a href="reports/reportUserAll" target="_blank" class="btn btn-sm btn-info btn-flat pull-left" style="margin: 0px 5px">
               Reportes Completo de Usuarios
           </a> 
-          <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">
+          <a href="reports/reportHistoryAccessAll" target="_blank" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px">
+              Historial de Accesso
+          </a> 
+          <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-left" style="margin: 0px 5px">
               Ver Todos los Pedidos
           </a>
         </div>

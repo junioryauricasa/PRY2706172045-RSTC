@@ -88,5 +88,5 @@
 			return 'Unknown Platform';
 	}
 	$ua = getPlatform($user_agent);
-	echo "OS que usas es: ".$ua;
+	//echo "".$ua;
 ?>

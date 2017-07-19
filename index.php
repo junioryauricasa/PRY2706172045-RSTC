@@ -1,5 +1,4 @@
 <?php
-
 /*
   ------------------------------
   Autor: Junior Yauricasa
@@ -18,15 +17,18 @@ if(isset($_SESSION['user_session'])!="") {
   header("Location: index");
 }
 
-
 include_once 'dbconnect.php'; //archivo de coneccion
+include_once 'funciones/os-detected.php'; //detectar OS
+//include_once 'funciones/ip-detected.php'; //detectar IP, descomentar esta parte cuando se implemente en red
+include_once 'funciones/hour-ddetected.php'; //detectar hora
 
 
-//Comprobar de envío el formulario
+//Comprobar el envío el formulario
 if (isset($_POST['login'])) {
 
   $email = mysqli_real_escape_string($con, $_POST['email']);
   $password = mysqli_real_escape_string($con, $_POST['password']);
+
   $result = mysqli_query($con, "SELECT * FROM tb_usuario WHERE nchUserMail = '" . $email. "' and nvchUserPassword = '" . md5($password) . "'");
 
   if ($row = mysqli_fetch_array($result)) {
@@ -35,8 +37,16 @@ if (isset($_POST['login'])) {
     if($row['bitUserEstado']==1){ //Verificacion de estado activo = 1
       $_SESSION['user_session'] = $row['intUserId'];
       $_SESSION['usr_name'] = $row['nvchUserName'];
-      
-      header("Location: admin/index");
+
+
+        // INSERT History access
+        $sql = "INSERT INTO tb_historyaccess (intIdHistory, intIdUser, dateDateAccesso, nvchIpAccesso, nvchBrowser) VALUES (NULL, '".$_SESSION['user_session']."', '".$datetimelogin."', '193.10.14.12', '".$ua."');";
+
+        if (mysqli_query($con, $sql)){
+          header("Location: admin/index");
+        }else 
+        echo "algo sucedio mal";
+
     }else
     //$errormsg = "Esta cuenta esta desactivada, conversa con tu administrador";
     $errormsg = '
@@ -137,6 +147,7 @@ if (isset($_POST['login'])) {
         Google+</a>
     </div-->
     <!-- /.social-auth-links -->
+
     <br>
     <a href="#">Olvide mi contraseña</a>
     <a href="#" class="text-center">Registrar nuevo cuenta</a>
