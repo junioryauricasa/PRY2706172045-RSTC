@@ -67,7 +67,7 @@ if (isset($_POST['regNewUser'])) {
     <section class="content-header">
       <h1>
         Administrar Usuarios
-        <small>Blank example to the fixed layout</small>
+        <!--small>Blank example to the fixed layout</small-->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -87,7 +87,7 @@ if (isset($_POST['regNewUser'])) {
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Registro de Usuarios</h3>
+          <h3 class="box-title">Ultimos Registros</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -145,7 +145,7 @@ if (isset($_POST['regNewUser'])) {
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" required="true">
           <!-- /.box-header -->
           <div class="box-body">
             <div class="row">
@@ -191,10 +191,9 @@ if (isset($_POST['regNewUser'])) {
 
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Usuario Seaarch:</label> <br>
+                        <label>Usuario:</label> <br>
                         <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select class="selectpicker" data-live-search="true">
-                          <option data-tokens="User1">selecciona</option>
+                        <select class="selectpicker show-tick" data-live-search="true">
                           <option data-tokens="User1">Junior Yauricasa</option>
                           <option data-tokens="User2">Hector Vvanco</option>
                           <option data-tokens="User3">Luis Sanchez</option>
@@ -208,7 +207,7 @@ if (isset($_POST['regNewUser'])) {
                       <script>
                         $('.selectpicker').selectpicker({
                           style: 'btn-default',
-                          size: 4
+                          size: 6
                         });
                       </script>
 
@@ -232,8 +231,8 @@ if (isset($_POST['regNewUser'])) {
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-              <input type="submit" name="regNewUser" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar">
-              <input type="reset" class="btn btn-sm btn-info btn-flat pull-left" value="Limpiar">
+              <input type="submit" name="regNewUser" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar" style="margin: 0px 5px">
+              <input type="reset" class="btn btn-sm btn-info btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
           </div>              
         </form>
       </div>
@@ -274,10 +273,12 @@ if (isset($_POST['regNewUser'])) {
 
 <!-- Scripts DataTable -->
 <script>
-  // add json datatable
+  // add json datatable a los elementos table
+  /*
   $(document).ready( function () {
       $('table').DataTable();
   } );
+  */
 
   // Modal
   $('#modalcust').modal({

@@ -119,9 +119,9 @@
           bitUserEstado,
           nvchBrowser,
           nvchIpAccesso,
-          dateDateAccesso
+          dateDateAccesso 
         FROM 
-          `tb_historyaccess`
+          tb_historyaccess
         inner join tb_usuario
         WHERE tb_usuario.intUserId = tb_historyaccess.intIdUser
       ";  
@@ -230,38 +230,3 @@
       }  
       return $output;  
  } 
-
-/*
-  ------------------------------
-  Autor: Héctor Vivanco
-  Fecha: 19-07-2017
-  Descripcion: 
-    1.- Creación de reportes para los productos
-  ------------------------------
-*/
-/* INICIO */
-function producto_data()  
- {  
-      $output = '';  
-      $con = mysqli_connect("localhost", "root", "", "db_resteco");  
-      $sql = "SELECT * FROM tb_producto";  
-      //$result = mysqli_query($conn, $sql);  
-      $result = mysqli_query($con, $sql);  
-      while($row = mysqli_fetch_array($result))  
-      {       
-        
-      $output .= '
-      <tr>  
-          <td>PRT'.$row["intIdProducto"].'</td>  
-          <td>'.$row["nvchNombre"].'</td>  
-          <td>'.$row["dcmPrecio"].'</td>  
-          <td>'.$row["intCantidad"].'</td>  
-          <td>'.$row["nvchDireccionImg"].'</td>
-          <td>'.$row["nvchDescripcion"].'</td> 
-      </tr>  
-      ';  
-      }  
-      return $output;  
- }
-
- ?>

@@ -5,7 +5,7 @@ function users_data2()
 {  
     $output = '';  
     $con = mysqli_connect("localhost", "root", "", "db_resteco");  
-    $sql = "SELECT * FROM tb_usuario";  
+    $sql = "SELECT * FROM tb_usuario ORDER BY intUserId DESC LIMIT 10 ";  
     //$result = mysqli_query($conn, $sql);  
     $result = mysqli_query($con, $sql);  
     while($row = mysqli_fetch_array($result))  
@@ -47,9 +47,7 @@ function users_data2()
             <i class="fa fa-edit"></i> Editar
           </button>
 
-          <a href="ajax/deleteUser4id.php?q='.$row["intUserId"].'" class="btn btn-xs btn-danger btnedit">
-              <i class="fa fa-remove"></i> Eliminar
-          </a>
+          <input type="submit" class="btn btn-xs btn-danger btnedit" onclick="pregunta('.$row["intUserId"].');" value="Eliminar">
         </td>  
     </tr>  
     ';  
@@ -60,3 +58,13 @@ function users_data2()
 echo users_data2();
 
  ?>
+
+
+
+ <script>
+   function pregunta($iduser){ 
+    if (confirm('¿Estas seguro de eliminar el registro USR'+$iduser+'?')){ 
+           window.location="ajax/deleteUser4id.php?q="+$iduser+"";
+        } 
+    } 
+ </script>

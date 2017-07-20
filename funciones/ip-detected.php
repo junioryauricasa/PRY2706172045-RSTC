@@ -10,10 +10,14 @@
 	*/
 
 	// IP compartido
-	echo "IP Share: ".$_SERVER['HTTP_CLIENT_IP']."</br>";
+	// echo "IP Share: ".$_SERVER['HTTP_CLIENT_IP']."</br>";
+	
 	// IP Proxy
-	echo "IP Proxy: ".$_SERVER['HTTP_X_FORWARDED_FOR']."</br>";
+	$ipproxy = "IP Proxy: ".$_SERVER['HTTP_X_FORWARDED_FOR']."</br>";
+
 	// IP Acceso
-	echo "IP Access: ".$_SERVER['REMOTE_ADDR']."</br>";
+	$ipacceso = "IP Acceso: ".$_SERVER['REMOTE_ADDR']."</br>";
+
+	return $ipall = $ipproxy.''.$ipacceso;
 
  ?>
