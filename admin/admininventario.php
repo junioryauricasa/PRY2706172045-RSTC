@@ -3,12 +3,12 @@
   include('reports/querySQL4report.php');
 
 
-if (isset($_POST['regNewUser'])) {
-    $nvchUserName = $_POST['nombre'];
-    $nchUserMail = $_POST['correo'];
-    $nvchUserPassword = $_POST['passw'];
-    $bitUserEstado = $_POST['cbestado'];
-    $intTypeUser = $_POST['cbtpusuario'];
+if (isset($_POST['regNuevoProducto'])) {
+    $nvchNombre = $_POST['nombre'];
+    $dcmPrecio = $_POST['precio'];
+    $intCantidad = $_POST['cantidad'];
+    $nvchDireccionImg = $_POST['direccionimg'];
+    $nvchDescripcion = $_POST['descripcion'];
 
     include '../dbconnect.php';
 
@@ -18,15 +18,15 @@ if (isset($_POST['regNewUser'])) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "INSERT INTO tb_usuario (nvchUserName, nchUserMail, nvchUserPassword, bitUserEstado,intTypeUser) VALUES ('$nvchUserName', '$nchUserMail', md5('$nvchUserPassword'),'$bitUserEstado','$intTypeUser')";
+    $sql = "INSERT INTO tb_producto (nvchNombre, dcmPrecio, intCantidad, nvchDireccionImg, nvchDescripcion) VALUES ('$nvchNombre', $dcmPrecio, $intCantidad,'$nvchDireccionImg','$nvchDescripcion')";
 
     if (mysqli_query($con, $sql)) {
         echo "Registro creado";
-          $nvchUserName = null;
-          $nchUserMail = null;
-          $nvchUserPassword = null;
-          $bitUserEstado = null;
-          $intTypeUser = null;
+          $nvchNombre = null;
+          $dcmPrecio = 0.00;
+          $intCantidad = 0;
+          $nvchDireccionImg = null;
+          $nvchDescripcion = null;
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($con);
     }
@@ -46,7 +46,7 @@ if (isset($_POST['regNewUser'])) {
     <script>
         function refresh_div() {
             jQuery.ajax({
-                url:'ajax/selectAllUsuario.php',
+                url:'ajax/selectAllProducto.php',
                 type:'POST',
                 success:function(results) {
                     jQuery("#result").html(results);
@@ -87,7 +87,7 @@ if (isset($_POST['regNewUser'])) {
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Registro de Usuarios</h3>
+          <h3 class="box-title">Registro de Productos</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -101,11 +101,11 @@ if (isset($_POST['regNewUser'])) {
               <thead>
               <tr>
                 <th>#Código</th>
-                <th>Nombres</th>
-                <th>Correo</th>
-                <th>Tipo Usuario</th>
-                <th>Estado</th>
-                <th>Opciones</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Imagen</th>
+                <th>Descripción</th>
               </tr>
               </thead>
               <tbody id="result">
@@ -114,12 +114,12 @@ if (isset($_POST['regNewUser'])) {
               </tbody>
             </table>
           </div>
-          <!-- /.table-responsive -->
+        <!-- /.table-responsive -->
         </div>
         <!-- /.box-body -->
         <div class="box-footer clearfix">
           
-          <button type="button" class="btn btn-sm btn-info btn-flat pull-left" data-toggle="modal" data-target="#modalcust">Agregar Usuario</button>
+          <button type="button" class="btn btn-sm btn-info btn-flat pull-left" data-toggle="modal" data-target="#modalcust">Agregar Producto</button>
 
           <a href="reportes" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px">Reportes</a>
 
@@ -138,7 +138,7 @@ if (isset($_POST['regNewUser'])) {
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Registro de Usuario</h3>
+          <h3 class="box-title">Registro de Producto</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -152,46 +152,38 @@ if (isset($_POST['regNewUser'])) {
                 
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Nombres:</label>
-                        <input type="text" name="nombre" class="form-control select2" placeholder="Ingrese Nombres Abreviado">
+                        <label>Nombre:</label>
+                        <input type="text" name="nombre" class="form-control select2" placeholder="Ingrese nombre del producto">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Correo:</label>
-                        <input type="text" name="correo" class="form-control select2" placeholder="Ingrese Nombres Abreviado">
+                        <label>Precio:</label>
+                        <input type="text" name="precio" class="form-control select2" placeholder="Ingrese precio del producto">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Contraseña</label>
-                        <input type="text" name="passw" class="form-control select2" placeholder="Ingrese Contraseña de Usuario">
+                        <label>Cantidad:</label>
+                        <input type="text" name="cantidad" class="form-control select2" placeholder="Ingrese cantidad del producto">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Tipo de Usuario:</label>
-                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select name="cbtpusuario" id="" class="form-control" >
-                          <option value="0">Usuario</option>
-                          <option value="1">Administrador</option>
-                        </select>
+                        <label>Imagen:</label>
+                        <input type="text" name="direccionimg" class="form-control select2" placeholder="Ingrese imagen del producto">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Estado del Usuario:</label>
-                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select name="cbestado" id="" class="form-control" >
-                          <option value="0">Deshabilitado</option>
-                          <option value="1">Habilitado</option>
-                        </select>
-                      </div>
+                        <label>Descripción:</label>
+                        <input type="text" name="descripcion" class="form-control select2" placeholder="Ingrese descripción del producto">
+                      </div>''
                     </div>
 
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Usuario Seaarch:</label> <br>
+                        <label>Buscar producto:</label> <br>
                         <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
                         <select class="selectpicker" data-live-search="true">
                           <option data-tokens="User1">selecciona</option>
@@ -232,7 +224,7 @@ if (isset($_POST['regNewUser'])) {
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-              <input type="submit" name="regNewUser" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar">
+              <input type="submit" name="regNuevoProducto" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar">
               <input type="reset" class="btn btn-sm btn-info btn-flat pull-left" value="Limpiar">
           </div>              
         </form>
