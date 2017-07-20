@@ -106,6 +106,7 @@ if (isset($_POST['regNuevoProducto'])) {
                 <th>Cantidad</th>
                 <th>Imagen</th>
                 <th>Descripción</th>
+                <th>Opciones</th>
               </tr>
               </thead>
               <tbody id="result">

@@ -16,7 +16,8 @@ function users_data2()
         <td>'.$row["nvchNombre"].'</td>
         <td>'.$row["dcmPrecio"].'</td> 
         <td>'.$row["intCantidad"].'</td>
-        <td>'.$row["nvchDireccionImg"].'</td>  
+        <td>'.$row["nvchDireccionImg"].'</td>
+        <td>'.$row["nvchDescripcion"].'</td>
         <td> 
           <button type="submit" onclick="showUser(this.'.$row["intIdProducto"].')" id_cust="5" class="btn btn-xs btn-warning btnedit">
             <i class="fa fa-edit"></i> Editar
