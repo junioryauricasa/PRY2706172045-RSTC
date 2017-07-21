@@ -90,7 +90,7 @@ if(!isset($_SESSION['user_session']))
               <span class="label label-success">4</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">Tienes 4 Mensajes</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
@@ -100,7 +100,7 @@ if(!isset($_SESSION['user_session']))
                         <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
-                        Support Team
+                        Soporte
                         <small><i class="fa fa-clock-o"></i> 5 mins</small>
                       </h4>
                       <p>Why not buy a new awesome theme?</p>
@@ -109,7 +109,7 @@ if(!isset($_SESSION['user_session']))
                   <!-- end message -->
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="#">Ver Todos los Mensajes</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -119,13 +119,13 @@ if(!isset($_SESSION['user_session']))
               <span class="label label-warning">10</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">Tienes 10 Notificaciones</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      <i class="fa fa-users text-aqua"></i> 5 Nuevos mienbros agregados Hoy
                     </a>
                   </li>
                 </ul>
@@ -245,7 +245,7 @@ if(!isset($_SESSION['user_session']))
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">MENU RESTECO SFT</li>
         <!--Inventario-->
         <li class="treeview">
           <a href="#">
@@ -318,7 +318,9 @@ if(!isset($_SESSION['user_session']))
           </ul>
         </li>
         <!--END Usuarios-->
-        <li class="treeview">
+
+        <!-- menu comentado -->
+        <!--li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Layout Options</span>
@@ -473,7 +475,9 @@ if(!isset($_SESSION['user_session']))
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li-->
+
+        <!-- menu comentado -->
       </ul>
     </section>
     <!-- /.sidebar -->

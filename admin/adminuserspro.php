@@ -2,37 +2,61 @@
   include('_include/rstheader.php'); 
   include('reports/querySQL4report.php');
 
+  require 'SControlador/usuario.entidad.php';
+  require 'SModelo/usuario.model.php';
 
-if (isset($_POST['regNewUser'])) {
-    $nvchUserName = $_POST['nombre'];
-    $nchUserMail = $_POST['correo'];
-    $nvchUserPassword = $_POST['passw'];
-    $bitUserEstado = $_POST['cbestado'];
-    $intTypeUser = $_POST['cbtpusuario'];
 
-    include '../dbconnect.php';
 
-    // Create connection
-    // Check connection
-    if (!$con) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+// Logica
+$per = new Usuario();
+$model = new UsuarioModel();
 
-    $sql = "INSERT INTO tb_usuario (nvchUserName, nchUserMail, nvchUserPassword, bitUserEstado,intTypeUser) VALUES ('$nvchUserName', '$nchUserMail', md5('$nvchUserPassword'),'$bitUserEstado','$intTypeUser')";
+if(isset($_REQUEST['action']))
+{
+  switch($_REQUEST['action'])
+  {
+    case 'actualizar':
+      $per->__SET('intUserId',$_REQUEST['intUserId']);
+      $per->__SET('nvchUserName',$_REQUEST['nvchUserName']);
+      $per->__SET('nchUserMail',$_REQUEST['nchUserMail']);
+      $per->__SET('nvchUserPassword',$_REQUEST['nvchUserPassword']);
+      $per->__SET('intIdEmpleado',$_REQUEST['intIdEmpleado']);
+      $per->__SET('intTypeUser',$_REQUEST['intTypeUser']);
+      $per->__SET('bitUserEstado',$_REQUEST['bitUserEstado']);
+      
+            //$alm->__SET('foto', $_REQUEST['foto']);
+      $model->Actualizar($per);
+      header('Location: adminuserspro');
+      break;
 
-    if (mysqli_query($con, $sql)) {
-        echo "Registro creado";
-          $nvchUserName = null;
-          $nchUserMail = null;
-          $nvchUserPassword = null;
-          $bitUserEstado = null;
-          $intTypeUser = null;
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($con);
-    }
+    case 'registrar':
+      //$per->__SET('intUserId',$_REQUEST['intUserId']);
+      $per->__SET('nvchUserName',$_REQUEST['nvchUserName']);
+      $per->__SET('nchUserMail',$_REQUEST['nchUserMail']);
+      $per->__SET('nvchUserPassword',$_REQUEST['nvchUserPassword']);
+      $per->__SET('intIdEmpleado',$_REQUEST['intIdEmpleado']);
+      $per->__SET('intTypeUser',$_REQUEST['intTypeUser']);
+      $per->__SET('bitUserEstado',$_REQUEST['bitUserEstado']);
 
-    mysqli_close($con);
+      $model->Registrar($per);
+      echo "<script>alert('Registro exitoso..!!');</script>";
+      header('Location: adminuserspro');
+      break;
+
+    case 'eliminar':
+      $model->Eliminar($_REQUEST['intUserId']);
+      echo "<script>alert('Pedido Eliminado..!!');</script>";
+      header('Location: adminuserspro');
+      break;
+
+    case 'editar':
+      $per = $model->Obtener($_REQUEST['intUserId']);
+      break;
+  }
 }
+
+
+
 
 ?>
     <script>
@@ -43,19 +67,8 @@ if (isset($_POST['regNewUser'])) {
 
     <!-- Test Script Ajax -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script>
-        function refresh_div() {
-            jQuery.ajax({
-                url:'ajax/selectAllUsuario.php',
-                type:'POST',
-                success:function(results) {
-                    jQuery("#result").html(results);
-                }
-            });
-        }
 
-        t = setInterval(refresh_div,700); //tiempo de refrescado del consulta
-    </script> 
+
     <!-- END Test Script Ajax -->
 
 
@@ -66,7 +79,7 @@ if (isset($_POST['regNewUser'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Administrar Usuarios
+        Administrar Usuarios Avanzado
         <!--small>Blank example to the fixed layout</small-->
       </h1>
       <ol class="breadcrumb">
@@ -97,6 +110,7 @@ if (isset($_POST['regNewUser'])) {
         <!-- /.box-header -->
         <div class="box-body">
           <div class="table-responsive">
+            <!--table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc"-->
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
@@ -108,9 +122,9 @@ if (isset($_POST['regNewUser'])) {
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="result">
-              <!--tbody-->
-                  <?php //echo users_data2(); ?>
+              <!--tbody id="result"-->
+              <tbody>
+                  <?php echo USERS_TABLE(); ?>
               </tbody>
             </table>
           </div>
@@ -148,34 +162,37 @@ if (isset($_POST['regNewUser'])) {
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" required="true">
+
+        <form action="?action=<?php echo $per->intUserId > 0 ? 'actualizar' : 'registrar'; ?>" method="post" class="pure-form pure-form-stacked" style="margin-bottom:30px;" enctype="multipart/form-data">
           <!-- /.box-header -->
           <div class="box-body">
             <div class="row">
-                
+                    
+                    <input class="form-control" type="" name="intUserId" value="<?php echo $per->__GET('intUserId'); ?>" />
+
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Nombres:</label>
-                        <input type="text" name="nombre" class="form-control select2" placeholder="Ingrese Nombres Abreviado">
+                        <input type="text" name="nvchUserName" class="form-control select2" placeholder="Ingrese Nombres Abreviado" value="<?php echo ($per->__GET('nvchUserName')); ?>" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Correo:</label>
-                        <input type="text" name="correo" class="form-control select2" placeholder="Ingrese Nombres Abreviado">
+                        <input type="text" name="nchUserMail" class="form-control select2" placeholder="Ingrese Nombres Abreviado" value="<?php echo ($per->__GET('nchUserMail')); ?>" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Contraseña</label>
-                        <input type="text" name="passw" class="form-control select2" placeholder="Ingrese Contraseña de Usuario">
+                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese Contraseña de Usuario" value="<?php echo ($per->__GET('nvchUserPassword')); ?>" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Tipo de Usuario:</label>
                         <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select name="cbtpusuario" id="" class="form-control" >
+                        <select name="intTypeUser" id="" class="form-control" >
                           <option value="0">Usuario</option>
                           <option value="1">Administrador</option>
                         </select>
@@ -185,7 +202,7 @@ if (isset($_POST['regNewUser'])) {
                       <div class="form-group">
                         <label>Estado del Usuario:</label>
                         <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select name="cbestado" id="" class="form-control" >
+                        <select name="bitUserEstado" id="" class="form-control" >
                           <option value="0">Deshabilitado</option>
                           <option value="1">Habilitado</option>
                         </select>
@@ -196,10 +213,10 @@ if (isset($_POST['regNewUser'])) {
                       <div class="form-group">
                         <label>Usuario:</label> <br>
                         <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select class="selectpicker show-tick" data-live-search="true">
-                          <option data-tokens="User1">Junior Yauricasa</option>
-                          <option data-tokens="User2">Hector Vvanco</option>
-                          <option data-tokens="User3">Luis Sanchez</option>
+                        <select class="selectpicker show-tick" data-live-search="true" name="intIdEmpleado">
+                          <option data-tokens="User1" value="User1">Junior Yauricasa</option>
+                          <option data-tokens="User2" value="User1">Hector Vvanco</option>
+                          <option data-tokens="User3" value="User3">Luis Sanchez</option>
                         </select>
                       </div>
                     </div>
