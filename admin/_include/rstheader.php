@@ -15,6 +15,7 @@ if(!isset($_SESSION['user_session']))
     header("Location: ../");
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -140,14 +141,14 @@ if(!isset($_SESSION['user_session']))
               <span class="label label-danger">9</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+              <li class="header">Tienes 9 Tareas</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Design some buttons
+                        Diseñar algunos botones
                         <small class="pull-right">20%</small>
                       </h3>
                       <div class="progress xs">
@@ -177,12 +178,12 @@ if(!isset($_SESSION['user_session']))
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $_SESSION['usr_name'];?> - Web Developer
+                  <?php echo $_SESSION['usr_name'];?> - <?php echo $_SESSION['user_typeuser']; ?>
                   <!--small>Member since Nov. 2012</small-->
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              <!--li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -193,7 +194,7 @@ if(!isset($_SESSION['user_session']))
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
                   </div>
-                </div>
+                </div-->
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
@@ -246,42 +247,63 @@ if(!isset($_SESSION['user_session']))
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MENU RESTECO SFT</li>
-        <!--Inventario-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Inventario</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="admininventario">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Inventario
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Ingreso
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar salida
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Reportes
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!--END Inventrio-->
+        
+
+      <!-- 
+          Autor: Junior Yauricasa
+          Fecha: 21-07-2017
+          Descripcion: 
+            1.- Intento control de permisos v0.1
+       -->
+      <?php 
+
+        if($_SESSION['user_typeuser'] == 'Administrador'){
+        echo ""
+        ?>
+
+          <!--Inventario-->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Inventario</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active">
+                <a href="admininventario">
+                  <i class="fa fa-circle-o"></i> 
+                    Administrar Inventario
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Administrar Ingreso
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Administrar salida
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Reportes
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--END Inventrio-->
+
+        <?php 
+        "";
+      }
+
+      ?>
+
         <!--Usuarios-->
         <li class="treeview">
           <a href="#">

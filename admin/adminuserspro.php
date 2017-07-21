@@ -19,7 +19,7 @@ if(isset($_REQUEST['action']))
       $per->__SET('intUserId',$_REQUEST['intUserId']);
       $per->__SET('nvchUserName',$_REQUEST['nvchUserName']);
       $per->__SET('nchUserMail',$_REQUEST['nchUserMail']);
-      $per->__SET('nvchUserPassword',$_REQUEST['nvchUserPassword']);
+      $per->__SET('nvchUserPassword',MD5($_REQUEST['nchUserMail']));
       $per->__SET('intIdEmpleado',$_REQUEST['intIdEmpleado']);
       $per->__SET('intTypeUser',$_REQUEST['intTypeUser']);
       $per->__SET('bitUserEstado',$_REQUEST['bitUserEstado']);
@@ -33,7 +33,7 @@ if(isset($_REQUEST['action']))
       //$per->__SET('intUserId',$_REQUEST['intUserId']);
       $per->__SET('nvchUserName',$_REQUEST['nvchUserName']);
       $per->__SET('nchUserMail',$_REQUEST['nchUserMail']);
-      $per->__SET('nvchUserPassword',$_REQUEST['nvchUserPassword']);
+      $per->__SET('nvchUserPassword',MD5($_REQUEST['nchUserMail']));
       $per->__SET('intIdEmpleado',$_REQUEST['intIdEmpleado']);
       $per->__SET('intTypeUser',$_REQUEST['intTypeUser']);
       $per->__SET('bitUserEstado',$_REQUEST['bitUserEstado']);
@@ -168,7 +168,7 @@ if(isset($_REQUEST['action']))
           <div class="box-body">
             <div class="row">
                     
-                    <input class="form-control" type="" name="intUserId" value="<?php echo $per->__GET('intUserId'); ?>" />
+                    <input class="form-control" type="hidden" name="intUserId" value="<?php echo $per->__GET('intUserId'); ?>" />
 
                     <div class="col-md-3">
                       <div class="form-group">
@@ -182,12 +182,12 @@ if(isset($_REQUEST['action']))
                         <input type="text" name="nchUserMail" class="form-control select2" placeholder="Ingrese Nombres Abreviado" value="<?php echo ($per->__GET('nchUserMail')); ?>" required>
                       </div>
                     </div>
-                    <div class="col-md-3">
+                    <!--div class="col-md-3">
                       <div class="form-group">
                         <label>Contraseña</label>
                         <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese Contraseña de Usuario" value="<?php echo ($per->__GET('nvchUserPassword')); ?>" required>
                       </div>
-                    </div>
+                    </div-->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Tipo de Usuario:</label>
