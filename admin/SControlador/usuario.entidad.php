@@ -1,5 +1,5 @@
 <?php
-class usuario
+class Usuario
 {
 	private $intUserId;
 	private $nvchUserName;

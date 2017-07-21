@@ -100,7 +100,7 @@ class ProductoModel
 						intCantidad            = ?, 
 						nvchDireccionImg = ?,
                         nvchDescripcion          = ?,
-                        intIdUbigeoProducto            = ?
+                        intIdUbigeoProducto            = ? 
 				    WHERE intIdProducto = ?";
 
 			$this->pdo->prepare($sql)

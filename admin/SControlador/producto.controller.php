@@ -1,30 +1,30 @@
 <?php
-require_once 'model/alumno.entidad.php';
-require_once 'model/alumno.model.php';
+require_once 'SModelo/producto.entidad.php';
+require_once 'SModelo/producto.model.php';
 
-class AlumnoController{
+class ProductoController{
     
     private $model;
     
     public function __CONSTRUCT(){
-        $this->model = new AlumnoModel();
+        $this->model = new ProductoModel();
     }
     
     public function Index(){
         require_once 'view/header.php';
-        require_once 'view/alumno/alumno.php';
+        require_once 'view/Producto/producto.php';
         require_once 'view/footer.php';
     }
     
     public function Crud(){
-        $alm = new Alumno();
+        $alm = new Producto();
         
-        if(isset($_REQUEST['id'])){
-            $alm = $this->model->Obtener($_REQUEST['id']);
+        if(isset($_REQUEST['intIdProducto'])){
+            $alm = $this->model->Obtener($_REQUEST['intIdProducto']);
         }
         
         require_once 'view/header.php';
-        require_once 'view/alumno/alumno-editar.php';
+        require_once 'view/Producto/producto-editar.php';
         require_once 'view/footer.php';
     }
     
@@ -38,11 +38,11 @@ class AlumnoController{
         
         // add img
         $alm->__SET('nvchDireccionImg',$_REQUEST['nvchDireccionImg']);
-        if( !empty( $_FILES['Foto']['name'] ) ){
-            $foto = date('ymdhis') . '-' . strtolower($_FILES['Foto']['name']);
-            move_uploaded_file ($_FILES['Foto']['tmp_name'], 'uploads/' . $foto);
+        if( !empty( $_FILES['nvchDireccionImg']['name'] ) ){
+            $foto = date('ymdhis') . '-' . strtolower($_FILES['nvchDireccionImg']['name']);
+            move_uploaded_file ($_FILES['nvchDireccionImg']['tmp_name'], 'uploads/' . $foto);
             
-            $alm->__SET('Foto', $foto);
+            $alm->__SET('nvchDireccionImg', $foto);
         }
         // END add img
 
@@ -55,7 +55,7 @@ class AlumnoController{
            $this->model->Actualizar($alm) : 
            $this->model->Registrar($alm));
         
-        header('Location: index.php');
+        header('Location: adminproducto.php');
     }
     
     /*
@@ -71,6 +71,6 @@ class AlumnoController{
     
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['intIdProducto']);
-        header('Location: index.php');
+        header('Location: adminproducto.php');
     }
 }
