@@ -246,85 +246,8 @@ if(!isset($_SESSION['user_session']))
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-<<<<<<< HEAD
-        <li class="header">MAIN NAVIGATION</li>
-        <!--Ventas-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Ventas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Cotización
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Guia Interna de Salida
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Facturación
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Clientes
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!--END Ventas-->
-        <!--Inventario-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Inventario</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="admininventario">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Productos
-              </a>
-            </li>
-            <li>
-              <a href="guiainternaentrada">
-                <i class="fa fa-circle-o"></i> 
-                  Guia Interna de Entrada
-              </a>
-            </li>
-            <!--
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar salida
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Reportes
-              </a>
-            </li>
-            -->
-          </ul>
-        </li>
-        <!--END Inventrio-->
-=======
-        <li class="header">MENU RESTECO SFT</li>
-        
+
+        <li class="header">MAIN NAVIGATION</li>        
 
       <!-- 
           Autor: Junior Yauricasa
@@ -332,92 +255,141 @@ if(!isset($_SESSION['user_session']))
           Descripcion: 
             1.- Intento control de permisos v0.1
        -->
+          
+      <!--Inventario-->
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user"></i> <span>Inventario</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="active">
+            <a href="admininventario">
+              <i class="fa fa-circle-o"></i> 
+                Administrar producto
+            </a>
+          </li>
+          <li class="active">
+            <a href="guiainternaentrada">
+              <i class="fa fa-circle-o"></i> 
+                Guia Interna de Entrada
+            </a>
+          </li>
+          <li class="active">
+            <a href="admininventario">
+              <i class="fa fa-circle-o"></i> 
+                Administrar Inventario
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-circle-o"></i> 
+                Administrar Ingreso
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-circle-o"></i> 
+                Administrar salida
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-circle-o"></i> 
+                Reportes
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!--END Inventrio-->
+
       <?php 
 
         if($_SESSION['user_typeuser'] == 'Administrador'){
         echo ""
         ?>
 
-          <!--Inventario-->
+          <!--Ventas-->
           <li class="treeview">
             <a href="#">
-              <i class="fa fa-user"></i> <span>Inventario</span>
+              <i class="fa fa-user"></i> <span>Ventas</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
               <li class="active">
-                <a href="admininventario">
+                <a href="">
                   <i class="fa fa-circle-o"></i> 
-                    Administrar Inventario
+                    Cotización
                 </a>
               </li>
               <li>
                 <a href="">
                   <i class="fa fa-circle-o"></i> 
-                    Administrar Ingreso
+                    Guia Interna de Salida
                 </a>
               </li>
               <li>
                 <a href="">
                   <i class="fa fa-circle-o"></i> 
-                    Administrar salida
+                    Facturación
                 </a>
               </li>
               <li>
                 <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Clientes
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--END Ventas-->
+
+          <!--Usuarios-->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Usuarios</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active">
+                <a href="adminusers">
+                  <i class="fa fa-circle-o"></i> 
+                    Administrar Usuarios
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Administrar Permisos
+                </a>
+              </li>
+              <li>
+                <a href="historyaccess">
+                  <i class="fa fa-circle-o"></i> 
+                   Historial de acceso
+                </a>
+              </li>
+              <li>
+                <a href="reportes">
                   <i class="fa fa-circle-o"></i> 
                     Reportes
                 </a>
               </li>
             </ul>
           </li>
-          <!--END Inventrio-->
+          <!--END Usuarios-->
 
         <?php 
         "";
       }
 
       ?>
-
->>>>>>> origin/master
-        <!--Usuarios-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Usuarios</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="adminusers">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Usuarios
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Permisos
-              </a>
-            </li>
-            <li>
-              <a href="historyaccess">
-                <i class="fa fa-circle-o"></i> 
-                 Historial de acceso
-              </a>
-            </li>
-            <li>
-              <a href="reportes">
-                <i class="fa fa-circle-o"></i> 
-                  Reportes
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!--END Usuarios-->
 
         <!-- menu comentado -->
         <!--li class="treeview">
