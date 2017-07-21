@@ -4,11 +4,6 @@
     <a class="btn btn-primary" href="?c=Producto&a=Crud">Nuevo Producto</a>
 </div>
 
-<style>
-    table, tr, th, td{
-        border:solid 1px black
-    }
-</style>
 
 <table class="table table-striped">
     <thead>
