@@ -246,6 +246,42 @@ if(!isset($_SESSION['user_session']))
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+        <!--Ventas-->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i> <span>Ventas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active">
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Cotización
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Guia Interna de Salida
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Facturación
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <i class="fa fa-circle-o"></i> 
+                  Clientes
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!--END Ventas-->
         <!--Inventario-->
         <li class="treeview">
           <a href="#">
@@ -258,15 +294,16 @@ if(!isset($_SESSION['user_session']))
             <li class="active">
               <a href="admininventario">
                 <i class="fa fa-circle-o"></i> 
-                  Administrar Inventario
+                  Administrar Productos
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="guiainternaentrada">
                 <i class="fa fa-circle-o"></i> 
-                  Administrar Ingreso
+                  Guia Interna de Entrada
               </a>
             </li>
+            <!--
             <li>
               <a href="">
                 <i class="fa fa-circle-o"></i> 
@@ -279,6 +316,7 @@ if(!isset($_SESSION['user_session']))
                   Reportes
               </a>
             </li>
+            -->
           </ul>
         </li>
         <!--END Inventrio-->
