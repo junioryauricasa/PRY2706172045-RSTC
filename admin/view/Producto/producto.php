@@ -38,7 +38,7 @@
             <td><?php echo $r->__GET('intCantidad'); ?></td>
             <td>
                 <?php if($r->__GET('nvchDireccionImg') != ''): ?>
-                    <img src="uploads/<?php echo $r->__GET('nvchDireccionImg'); ?>" style="width:100%;" />
+                    <img src="uploads/<?php echo $r->__GET('nvchDireccionImg'); ?>" height="100px" />
                 <?php endif; ?> 
             </td>
             <!--td>
@@ -55,10 +55,10 @@
     <?php endforeach; ?>
     
     <tfoot>
-        <!--tr>
+        <tr>
             <td colspan="8" class="text-center">
-                <a href="?c=Alumno&a=excel">Exportar a Excel</a>
+                <a href="?c=Producto&a=excel">Exportar a Excel</a>
             </td>
-        </tr-->
+        </tr>
     </tfoot>
 </table> 

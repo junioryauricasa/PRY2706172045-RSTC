@@ -58,16 +58,16 @@ class ProductoController{
         header('Location: adminproducto.php');
     }
     
-    /*
+    
     public function Excel(){
         header("Content-type: application/vnd.ms-excel");
-        header("Content-Disposition: attachment; filename=mi_archivo.xls");
+        header("Content-Disposition: attachment; filename=mi_archivo.xlsx");
         header("Pragma: no-cache");
         header("Expires: 0");    
         
-        require_once 'view/alumno/alumno-excel.php';
+        require_once 'view/Producto/producto-excel.php';
     }
-    */
+    
     
     public function Eliminar(){
         $this->model->Eliminar($_REQUEST['intIdProducto']);

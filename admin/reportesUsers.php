@@ -123,9 +123,9 @@ include('_include/rstheader.php');
           <a href="reports/reportHistoryAccessAll" target="_blank" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px">
               Historial de Accesso
           </a> 
-          <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-left" style="margin: 0px 5px">
+          <!--a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-left" style="margin: 0px 5px">
               Ver Todos los Pedidos
-          </a>
+          </a-->
         </div>
         <!-- /.box-footer -->
       </div>

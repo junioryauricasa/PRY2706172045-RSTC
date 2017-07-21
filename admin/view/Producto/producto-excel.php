@@ -7,19 +7,21 @@
             <thead>
                 <tr style="background:#eee;">
                     <th style="width:180px;">Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo</th>
-                    <th style="width:120px;">Sexo</th>
-                    <th style="width:120px;">Nacimiento</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th style="width:120px;">Imagen</th>
+                    <th style="width:120px;">Descripcion</th>
+                    <th style="width:120px;">Ubigeo</th>
                 </tr>
             </thead>
             <?php foreach($this->model->Listar() as $r): ?>
                 <tr>
-                    <td><?php echo $r->__GET('Nombre'); ?></td>
-                    <td><?php echo $r->__GET('Apellido'); ?></td>
-                    <td><?php echo $r->__GET('Correo'); ?></td>
-                    <td><?php echo $r->__GET('Sexo') == 1 ? 'Hombre' : 'Mujer'; ?></td>
-                    <td><?php echo $r->__GET('FechaNacimiento'); ?></td>
+                    <td><?php echo $r->__GET('nvchNombre'); ?></td>
+                    <td><?php echo $r->__GET('dcmPrecio'); ?></td>
+                    <td><?php echo $r->__GET('intCantidad'); ?></td>
+                    <td><?php echo $r->__GET('nvchDireccionImg'); ?></td>
+                    <td><?php echo $r->__GET('nvchDescripcion'); ?></td>
+                    <td><?php echo $r->__GET('intIdUbigeoProducto'); ?></td>
                 </tr>
             <?php endforeach; ?>
         </table> 
