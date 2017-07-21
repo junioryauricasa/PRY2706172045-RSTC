@@ -1,5 +1,5 @@
 <?php
-class UsuarioModel
+class ProductoModel
 {
 	private $pdo;
 
@@ -22,22 +22,22 @@ class UsuarioModel
 		{
 			$result = array();
 
-			$stm = $this->pdo->prepare("SELECT * FROM tb_usuario");
+			$stm = $this->pdo->prepare("SELECT * FROM tb_producto");
 			$stm->execute();
 
 			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 			{
-				$per = new Usuario();
-			
-				$per->__SET('intUserId', $r->intUserId);
-				$per->__SET('nvchUserName', $r->nvchUserName);
-				$per->__SET('nchUserMail', $r->nchUserMail);
-				$per->__SET('nvchUserPassword', $r->nvchUserPassword);
-				$per->__SET('intIdEmpleado', $r->intIdEmpleado);
-				$per->__SET('intTypeUser', $r->intTypeUser);
-				$per->__SET('bitUserEstado', $r->bitUserEstado);
-				
-				$result[] = $per;
+				$alm = new Producto();
+
+				$alm->__SET('intIdProducto', $r->intIdProducto);
+				$alm->__SET('nvchNombre', $r->nvchNombre);
+				$alm->__SET('dcmPrecio', $r->dcmPrecio);
+                $alm->__SET('intCantidad', $r->intCantidad);
+                $alm->__SET('nvchDireccionImg', $r->nvchDireccionImg);
+                $alm->__SET('nvchDescripcion', $r->nvchDescripcion);
+				$alm->__SET('intIdUbigeoProducto', $r->intIdUbigeoProducto);
+
+				$result[] = $alm;
 			}
 
 			return $result;
@@ -53,21 +53,23 @@ class UsuarioModel
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("SELECT * FROM tb_usuario WHERE intUserId = ?");
+			          ->prepare("SELECT * FROM tb_producto WHERE intIdProducto = ?");
+			          
+
 			$stm->execute(array($id));
 			$r = $stm->fetch(PDO::FETCH_OBJ);
 
-			$per = new Usuario();
+			$alm = new Producto();
 
-			$per->__SET('intUserId', $r->intUserId);
-			$per->__SET('nvchUserName', $r->nvchUserName);
-			$per->__SET('nchUserMail', $r->nchUserMail);
-			$per->__SET('nvchUserPassword', $r->nvchUserPassword);
-			$per->__SET('intIdEmpleado', $r->intIdEmpleado);
-			$per->__SET('intTypeUser', $r->intTypeUser);
-			$per->__SET('bitUserEstado', $r->bitUserEstado);
+			$alm->__SET('intIdProducto', $r->intIdProducto);
+			$alm->__SET('nvchNombre', $r->nvchNombre);
+			$alm->__SET('dcmPrecio', $r->dcmPrecio);
+            $alm->__SET('intCantidad', $r->intCantidad);
+            $alm->__SET('nvchDireccionImg', $r->nvchDireccionImg);
+            $alm->__SET('nvchDescripcion', $r->nvchDescripcion);
+			$alm->__SET('intIdUbigeoProducto', $r->intIdUbigeoProducto);
 
-			return $per;
+			return $alm;
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
@@ -79,7 +81,8 @@ class UsuarioModel
 		try 
 		{
 			$stm = $this->pdo
-			          ->prepare("DELETE FROM tb_usuario WHERE intUserId = ?");
+			          ->prepare("DELETE FROM tb_producto WHERE intIdProducto = ?");			          
+
 			$stm->execute(array($id));
 		} catch (Exception $e) 
 		{
@@ -87,30 +90,29 @@ class UsuarioModel
 		}
 	}
 
-	public function Actualizar(Usuario $data)
+	public function Actualizar(Producto $data)
 	{
 		try 
 		{
-			$sql = "UPDATE tb_usuario SET 
-						nvchUserName = ?,
-						nchUserMail  = ?,
-						nvchUserPassword  = ?, 
-						intIdEmpleado  = ?, 
-						intTypeUser  = ?, 
-						bitUserEstado  = ?  
-				    WHERE intUserId = ?";
+			$sql = "UPDATE tb_producto SET 
+						nvchNombre          = ?, 
+						dcmPrecio        = ?,
+						intCantidad            = ?, 
+						nvchDireccionImg = ?,
+                        nvchDescripcion          = ?,
+                        intIdUbigeoProducto            = ?
+				    WHERE intIdProducto = ?";
 
 			$this->pdo->prepare($sql)
 			     ->execute(
 				array(
-					$data->__GET('nvchUserName'), 
-					$data->__GET('nchUserMail'), 
-					$data->__GET('nvchUserPassword'),
-					$data->__GET('intIdEmpleado'),
-					$data->__GET('intTypeUser'),
-					$data->__GET('bitUserEstado'),
-
-					$data->__GET('intUserId')
+					$data->__GET('nvchNombre'), 
+					$data->__GET('dcmPrecio'), 
+					$data->__GET('intCantidad'),
+					$data->__GET('nvchDireccionImg'),
+                    $data->__GET('nvchDescripcion'),
+                    $data->__GET('intIdUbigeoProducto'),
+					$data->__GET('intIdProducto')
 					)
 				);
 		} catch (Exception $e) 
@@ -119,23 +121,30 @@ class UsuarioModel
 		}
 	}
 
-	public function Registrar(Usuario $data)
+	public function Registrar(Producto $data)
 	{
 		try 
 		{
-		$sql = "INSERT INTO tb_usuario (nvchUserName,nchUserMail,nvchUserPassword,intIdEmpleado,intTypeUser,bitUserEstado) VALUES (?, ?, ?, ?, ?, ?)";
-
-		//$sql = "INSERT INTO tb_usuario (nvchUserName,nchUserMail) VALUES (?, ?)";
+		$sql = "INSERT INTO tb_producto 
+				(
+					nvchNombre,
+					dcmPrecio,
+					intCantidad,
+					nvchDireccionImg,
+					nvchDescripcion,
+					intIdUbigeoProducto
+				) 
+		        VALUES (?, ?, ?, ?, ?, ?)";
 
 		$this->pdo->prepare($sql)
 		     ->execute(
 			array(
-				$data->__GET('nvchUserName'), 
-				$data->__GET('nchUserMail'),
-				$data->__GET('nvchUserPassword'),
-				$data->__GET('intIdEmpleado'),
-				$data->__GET('intTypeUser'),
-				$data->__GET('bitUserEstado')
+				$data->__GET('nvchNombre'), 
+				$data->__GET('dcmPrecio'), 
+				$data->__GET('intCantidad'),
+				$data->__GET('nvchDireccionImg'),
+                $data->__GET('nvchDescripcion'),
+                $data->__GET('intIdUbigeoProducto'),
 				)
 			);
 		} catch (Exception $e) 
@@ -144,58 +153,3 @@ class UsuarioModel
 		}
 	}
 }
-
-
-//TABLAS ADICIONALES
-//Consulta usuarios TABLA
- function USERS_TABLE()  
- {  
-      $output = '';  
-      $con = mysqli_connect("localhost", "root", "", "db_resteco");  
-      $sql = "SELECT * FROM tb_usuario";  
-      //$result = mysqli_query($conn, $sql);  
-      $result = mysqli_query($con, $sql);  
-      while($row = mysqli_fetch_array($result))  
-      {       
-        if($row["intTypeUser"] == 0){
-          $row["intTypeUser"] = 'Usuario';
-        }else
-        if($row["intTypeUser"] == 1){
-          $row["intTypeUser"] = 'Administrador';
-        }
-
-        if($row["bitUserEstado"] == 0){
-           $row["bitUserEstado"] = '<span class="label label-danger">Deshabilitado</span>'; 
-        }else
-        if($row["bitUserEstado"] == 1){
-           $row["bitUserEstado"] = '<span class="label label-success">Habilitado</span>'; 
-        }
-
-
-      $output .= '
-      <tr>  
-          <td>USR'.$row["intUserId"].'</td>  
-          <td>'.$row["nvchUserName"].'</td>  
-          <td>
-            <a target="_blank" class="btn btn-xs btn-default btnedit" href="
-              https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&source=mailto&su=Mensaje+Resteco&to=%3C'.$row["nchUserMail"].'%3E
-            ">
-            <span class="fa fa-envelope"></span> 
-            '
-              .$row["nchUserMail"].
-            '</a>
-          </td>
-          <td>'.$row["intTypeUser"].'</td>  
-          <td>
-              '.$row["bitUserEstado"].'
-          </td>  
-          <td> 
-            <a href="?action=editar&intUserId='.$row['intUserId'].'" class="btn btn-xs btn-warning btnedit" data-toggle="tooltip" title="Actualizar Registro"><span class="glyphicon glyphicon-pencil"></span></a>
-
-            <a onclick="return confirm("Seguro deseas eliminar este registro?");" href="?action=eliminar&intUserId='.$row['intUserId'].'" class="btn btn-xs btn-danger btnedit" data-toggle="tooltip" title="Eliminar Registro"><span class="glyphicon glyphicon-trash"></span></a>
-          </td>  
-      </tr>  
-      ';  
-      }  
-      return $output;  
- }  
