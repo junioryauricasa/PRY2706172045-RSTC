@@ -244,91 +244,11 @@ if(!isset($_SESSION['user_session']))
         </div>
       </form>
       <!-- /.search form -->
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-<<<<<<< HEAD
-
-        <li class="header">MAIN NAVIGATION</li>        
-=======
         <li class="header">MENÚ RESTECO SFT</li>
-        <!--Ventas-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Ventas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Cotización
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Guia Interna de Salida
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Facturación
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Clientes
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!--END Ventas-->
-        <!--Inventario-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Inventario</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="admininventario">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Productos
-              </a>
-            </li>
-            <li>
-              <a href="guiainternaentrada">
-                <i class="fa fa-circle-o"></i> 
-                  Guia Interna de Entrada
-              </a>
-            </li>
-            <!--
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar salida
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Reportes
-              </a>
-            </li>
-            -->
-          </ul>
-        </li>
-        <!--END Inventrio-->
-        <!--<li class="header">MENU RESTECO SFT</li>-->
-        
->>>>>>> origin/master
-
+     
       <!-- 
           Autor: Junior Yauricasa
           Fecha: 21-07-2017
@@ -470,45 +390,6 @@ if(!isset($_SESSION['user_session']))
       }
 
       ?>
-<<<<<<< HEAD
-=======
-        <!--Usuarios-->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Usuarios</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="adminusers">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Usuarios
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="fa fa-circle-o"></i> 
-                  Administrar Permisos
-              </a>
-            </li>
-            <li>
-              <a href="historyaccess">
-                <i class="fa fa-circle-o"></i> 
-                 Historial de acceso
-              </a>
-            </li>
-            <li>
-              <a href="reportes">
-                <i class="fa fa-circle-o"></i> 
-                  Reportes
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!--END Usuarios-->
->>>>>>> origin/master
 
         <!-- menu comentado -->
         <!--li class="treeview">
