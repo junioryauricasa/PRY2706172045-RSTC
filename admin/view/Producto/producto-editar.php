@@ -12,17 +12,17 @@
     
     <div class="form-group">
         <label>Nombre</label>
-        <input type="text" name="nvchNombre" value="<?php echo $alm->__GET('nvchNombre'); ?>" class="form-control" placeholder="Ingrese su nombre" data-validacion-tipo="requerido|min:3" />
+        <input type="text" name="nvchNombre" value="<?php echo $alm->__GET('nvchNombre'); ?>" class="form-control" placeholder="Ingrese Producto" data-validacion-tipo="requerido|min:3" />
     </div>
     
     <div class="form-group">
         <label>Precio</label>
-        <input type="text" name="dcmPrecio" value="<?php echo $alm->__GET('dcmPrecio'); ?>" class="form-control" placeholder="Ingrese su apellido" data-validacion-tipo="requerido|min:10" />
+        <input type="text" name="dcmPrecio" value="<?php echo $alm->__GET('dcmPrecio'); ?>" class="form-control" placeholder="Ingrese precio" data-validacion-tipo="requerido|min:10" />
     </div>
     
     <div class="form-group">
         <label>Cantidad</label>
-        <input type="text" name="intCantidad" value="<?php echo $alm->__GET('intCantidad'); ?>" class="form-control" placeholder="Ingrese su correo electrónico" data-validacion-tipo="requerido|email" />
+        <input type="text" name="intCantidad" value="<?php echo $alm->__GET('intCantidad'); ?>" class="form-control" placeholder="Ingrese cantidad" data-validacion-tipo="requerido|email" />
     </div>
 
     <div class="row">
@@ -48,12 +48,12 @@
             <option <?php //echo $alm->__GET('Sexo') == 1 ? 'selected' : ''; ?> value="1">Masculino</option>
             <option <?php //echo $alm->__GET('Sexo') == 2 ? 'selected' : ''; ?> value="2">Femenino</option>
         </select-->
-        <input type="text" name="nvchDescripcion" value="<?php echo $alm->__GET('nvchDescripcion'); ?>" class="form-control" placeholder="Ingrese su correo electrónico" data-validacion-tipo="requerido" />
+        <input type="text" name="nvchDescripcion" value="<?php echo $alm->__GET('nvchDescripcion'); ?>" class="form-control" placeholder="Ingrese Descripcion" data-validacion-tipo="requerido" />
     </div>
     
     <div class="form-group">
         <label>Ubicacion</label>
-        <input readonly type="text" name="intIdUbigeoProducto" value="<?php echo $alm->__GET('intIdUbigeoProducto'); ?>" class="form-control datepicker" placeholder="Ingrese su fecha de nacimiento" data-validacion-tipo="requerido" />
+        <input readonly type="text" name="intIdUbigeoProducto" value="<?php echo $alm->__GET('intIdUbigeoProducto'); ?>" class="form-control datepicker" placeholder="Ingrese su ubicacion" data-validacion-tipo="requerido" />
     </div>
 
     
