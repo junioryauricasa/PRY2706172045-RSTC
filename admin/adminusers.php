@@ -139,106 +139,15 @@ if (isset($_POST['regNewUser'])) {
   
       <!-- Formulario registro Usuario -->
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
+      <!--div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Registro de Usuario</h3>
-
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" required="true">
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row">
-                
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Nombres:</label>
-                        <input type="text" name="nombre" class="form-control select2" placeholder="Ingrese Nombres Abreviado">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Correo:</label>
-                        <input type="text" name="correo" class="form-control select2" placeholder="Ingrese Nombres Abreviado">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Contraseña</label>
-                        <input type="text" name="passw" class="form-control select2" placeholder="Ingrese Contraseña de Usuario">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Tipo de Usuario:</label>
-                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select name="cbtpusuario" id="" class="form-control" >
-                          <option value="0">Usuario</option>
-                          <option value="1">Administrador</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Estado del Usuario:</label>
-                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select name="cbestado" id="" class="form-control" >
-                          <option value="0">Deshabilitado</option>
-                          <option value="1">Habilitado</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Usuario:</label> <br>
-                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
-                        <select class="selectpicker show-tick" data-live-search="true">
-                          <option data-tokens="User1">Junior Yauricasa</option>
-                          <option data-tokens="User2">Hector Vvanco</option>
-                          <option data-tokens="User3">Luis Sanchez</option>
-                        </select>
-                      </div>
-                    </div>
-
-                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-                      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-                      <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-                      <script>
-                        $('.selectpicker').selectpicker({
-                          style: 'btn-default',
-                          size: 6
-                        });
-                      </script>
-
-                    <!-- /.col -->
-                    <!--div class="col-md-3">
-                      <div class="form-group">
-                        <label>Disabled Result</label>
-                        <select class="form-control select2" style="width: 100%;">
-                          <option selected="selected">Alabama</option>
-                          <option>Alaska</option>
-                          <option disabled="disabled">California (disabled)</option>
-                          <option>Delaware</option>
-                          <option>Tennessee</option>
-                          <option>Texas</option>
-                          <option>Washington</option>
-                        </select>
-                      </div>
-                    </div-->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer">
-              <input type="submit" name="regNewUser" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar" style="margin: 0px 5px">
-              <input type="reset" class="btn btn-sm btn-info btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
-          </div>              
-        </form>
-      </div>
+      </div-->
 
       <!-- /.box -->
       <!-- END Formulario registro Usuario -->
