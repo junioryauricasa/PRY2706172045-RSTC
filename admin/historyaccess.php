@@ -69,6 +69,9 @@
         <div class="box-footer clearfix">
           <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Ingresar Nuevo pedido</a>
           <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Ver Todos los Pedidos</a>
+          <a href="reports/reportHistoryAccessAll" target="_blank" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px">
+              Generar Reporte
+          </a> 
         </div>
         <!-- /.box-footer -->
       </div>
