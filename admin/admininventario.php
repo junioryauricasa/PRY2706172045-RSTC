@@ -94,7 +94,6 @@ if (isset($_POST['regNuevoProducto'])) {
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
           </div>
         </div>
-        <!-- /.box-header -->
         <div class="box-body">
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
@@ -137,7 +136,7 @@ if (isset($_POST['regNuevoProducto'])) {
   
       <!-- Formulario registro Usuario -->
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
+      <!--div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Registro de Producto</h3>
 
@@ -147,7 +146,6 @@ if (isset($_POST['regNuevoProducto'])) {
           </div>
         </div>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-          <!-- /.box-header -->
           <div class="box-body">
             <div class="row">
                 
@@ -185,7 +183,6 @@ if (isset($_POST['regNuevoProducto'])) {
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Buscar producto:</label> <br>
-                        <!--input type="text" name="" class="form-control select2" placeholder="Ingrese Nombres Abreviado"-->
                         <select class="selectpicker" data-live-search="true">
                           <option data-tokens="User1">selecciona</option>
                           <option data-tokens="User1">Junior Yauricasa</option>
@@ -205,7 +202,7 @@ if (isset($_POST['regNuevoProducto'])) {
                         });
                       </script>
 
-                    <!-- /.col -->
+                    
                     <!--div class="col-md-3">
                       <div class="form-group">
                         <label>Disabled Result</label>
@@ -219,17 +216,14 @@ if (isset($_POST['regNuevoProducto'])) {
                           <option>Washington</option>
                         </select>
                       </div>
-                    </div-->
             </div>
-            <!-- /.row -->
           </div>
-          <!-- /.box-body -->
           <div class="box-footer">
               <input type="submit" name="regNuevoProducto" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar">
               <input type="reset" class="btn btn-sm btn-info btn-flat pull-left" value="Limpiar">
           </div>              
         </form>
-      </div>
+      </div-->
 
       <!-- /.box -->
       <!-- END Formulario registro Usuario -->
