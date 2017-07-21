@@ -246,8 +246,7 @@ if(!isset($_SESSION['user_session']))
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-<<<<<<< HEAD
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">MENÚ RESTECO SFT</li>
         <!--Ventas-->
         <li class="treeview">
           <a href="#">
@@ -322,8 +321,7 @@ if(!isset($_SESSION['user_session']))
           </ul>
         </li>
         <!--END Inventrio-->
-=======
-        <li class="header">MENU RESTECO SFT</li>
+        <!--<li class="header">MENU RESTECO SFT</li>-->
         
 
       <!-- 
@@ -380,8 +378,6 @@ if(!isset($_SESSION['user_session']))
       }
 
       ?>
-
->>>>>>> origin/master
         <!--Usuarios-->
         <li class="treeview">
           <a href="#">

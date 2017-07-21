@@ -179,7 +179,7 @@ if (isset($_POST['regNuevoProducto'])) {
                       <div class="form-group">
                         <label>Descripción:</label>
                         <input type="text" name="descripcion" class="form-control select2" placeholder="Ingrese descripción del producto">
-                      </div>''
+                      </div>
                     </div>
 
                     <div class="col-md-3">
