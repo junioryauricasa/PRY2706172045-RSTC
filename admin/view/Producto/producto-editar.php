@@ -29,7 +29,7 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label>Imagen</label>
-                <input type="hidden" name="nvchDireccionImg" value="<?php echo $alm->__GET('Foto'); ?>" />
+                <input type="hidden" name="nvchDireccionImg" value="<?php echo $alm->__GET('nvchDireccionImg'); ?>" />
                 <input type="file" name="nvchDireccionImg" placeholder="Ingrese una imagen" />
             </div>     
         </div>
