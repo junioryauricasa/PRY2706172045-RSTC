@@ -265,7 +265,7 @@ if(!isset($_SESSION['user_session']))
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="active">
+          <!--<li class="active">
             <a href="admininventario">
               <i class="fa fa-circle-o"></i> 
                 Administrar producto
@@ -276,7 +276,7 @@ if(!isset($_SESSION['user_session']))
               <i class="fa fa-circle-o"></i> 
                 Guia Interna de Entrada
             </a>
-          </li>
+          </li>-->
           <li class="active">
             <a href="admininventario">
               <i class="fa fa-circle-o"></i> 
