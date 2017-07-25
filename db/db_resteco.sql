@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-07-2017 a las 01:30:34
+-- Tiempo de generación: 25-07-2017 a las 23:26:48
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -110,6 +110,27 @@ CREATE TABLE `tb_cotizacion` (
   `intIdCliente` int(11) NOT NULL,
   `dtm` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_creacion_reporte`
+--
+
+CREATE TABLE `tb_creacion_reporte` (
+  `intidReporteCreado` int(11) NOT NULL,
+  `intUserId` int(11) NOT NULL,
+  `nvchNombreReporte` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `dtFechaCreacion` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_creacion_reporte`
+--
+
+INSERT INTO `tb_creacion_reporte` (`intidReporteCreado`, `intUserId`, `nvchNombreReporte`, `dtFechaCreacion`) VALUES
+(35, 23, 'Listado de Usuarios', '25/07/2017, 4:10:45 horas'),
+(36, 23, 'Historial de Accesso Completo', '25/07/2017, 4:13:11 horas');
 
 -- --------------------------------------------------------
 
@@ -290,9 +311,8 @@ CREATE TABLE `tb_historyaccess` (
 --
 
 INSERT INTO `tb_historyaccess` (`intIdHistory`, `intIdUser`, `dateDateAccesso`, `nvchIpAccesso`, `nvchBrowser`) VALUES
-(2, 2, 'Sábado 15 de Julio del 2017, 1:47:08 horas', '102.10.10.12', 'Android'),
-(3, 1, 'Sábado 15 de Julio del 2017, 3:53:35 horas', '193.10.14.124', 'Chrome'),
-(4, 1, 'Sábado 15 de Junio del 2016, 3:53:35 horas', '193.10.14.124', 'Ipad');
+(1, 23, 'Martes 25 de Julio del 2017, 15:07:53 horas', '193.10.14.12', 'Windows 10'),
+(2, 23, 'Martes 25 de Julio del 2017, 15:35:22 horas', '193.10.14.12', 'Windows 10');
 
 -- --------------------------------------------------------
 
@@ -348,6 +368,16 @@ CREATE TABLE `tb_producto` (
   `nvchDescripcion` varchar(500) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `intIdUbigeoProducto` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_producto`
+--
+
+INSERT INTO `tb_producto` (`intIdProducto`, `nvchNombre`, `dcmPrecio`, `intCantidad`, `nvchDireccionImg`, `nvchDescripcion`, `intIdUbigeoProducto`) VALUES
+(2, 'llantas', '120.00', 800, '170722123640-8020ff29089719.55e1822d93fad.jpg', 'esta es una descripion del producto', 221122),
+(10, 'sfsdf', '0.00', 0, '170722124319-25-grandes-frases-de-nikola-tesla-para-reflexionar.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 0),
+(11, 'lkjhgfds', '345345435.00', 345345345, '170721101738-18403149_438059576570527_721908336340998427_n.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 0),
+(13, '1212', '1212.00', 120, '170722125849-velo-en-el-trabajo.png', '', 0);
 
 -- --------------------------------------------------------
 
@@ -485,9 +515,11 @@ CREATE TABLE `tb_usuario` (
 --
 
 INSERT INTO `tb_usuario` (`intUserId`, `nvchUserName`, `nchUserMail`, `nvchUserPassword`, `intIdEmpleado`, `intTypeUser`, `bitUserEstado`) VALUES
-(69, 'Junior Yauricasa', 'junioryauricasa@gmail.com', 'b06aae61bf02537aa2f6146d6697e15d', 0, 0, 1),
-(70, 'Hector Vivanco ', 'hvivanco@gmail.com', '60eaf19b52212cae6b0e69f3d4a97bfe', 0, 0, 1),
-(71, 'Luis Sanchez', 'luissanchez@gmail.com', '9bdddfd73d9b5a28816a58bedff2f817', 0, 0, 0);
+(23, 'Junior Yauricasa', 'junioryauricasa@gmail.com', 'b06aae61bf02537aa2f6146d6697e15d', 0, 1, 1),
+(24, 'Hector Vivanco', 'hctorvivanco@gmail.com', 'caad1ea01694b73af7f62b09b88a55d9', 0, 0, 0),
+(31, 'Carlos Montana', 'carlosmontana@gmail.com', 'f60896751844e0e22eebe9471e0354a8', 0, 0, 1),
+(32, 'Alberto Ibarra', 'albertoibarra@gmail.com', '7a2b838abf87646e3fe9bc0a6523216a', 0, 0, 0),
+(33, 'Pedro Morales Mantaro', 'pedromorales@gmail.com', '3f494d1e359afca1e094f4d658b5d495', 0, 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -542,6 +574,12 @@ ALTER TABLE `tb_cotizacion`
   ADD PRIMARY KEY (`intIdCotizacion`),
   ADD KEY `intIdUsuario` (`intIdUsuario`),
   ADD KEY `intIdCliente` (`intIdCliente`);
+
+--
+-- Indices de la tabla `tb_creacion_reporte`
+--
+ALTER TABLE `tb_creacion_reporte`
+  ADD PRIMARY KEY (`intidReporteCreado`);
 
 --
 -- Indices de la tabla `tb_detalle_cotizacion`
@@ -767,6 +805,11 @@ ALTER TABLE `tb_comprobante`
 ALTER TABLE `tb_cotizacion`
   MODIFY `intIdCotizacion` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `tb_creacion_reporte`
+--
+ALTER TABLE `tb_creacion_reporte`
+  MODIFY `intidReporteCreado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+--
 -- AUTO_INCREMENT de la tabla `tb_detalle_guia_interna_entrada`
 --
 ALTER TABLE `tb_detalle_guia_interna_entrada`
@@ -815,7 +858,7 @@ ALTER TABLE `tb_guia_interna_salida`
 -- AUTO_INCREMENT de la tabla `tb_historyaccess`
 --
 ALTER TABLE `tb_historyaccess`
-  MODIFY `intIdHistory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `intIdHistory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tb_justificacion_solicitud_compra`
 --
@@ -835,7 +878,7 @@ ALTER TABLE `tb_orden_compra`
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
-  MODIFY `intIdProducto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `intIdProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `tb_proveedor`
 --
@@ -855,7 +898,7 @@ ALTER TABLE `tb_tipo_usuario`
 -- AUTO_INCREMENT de la tabla `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `intUserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `intUserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
