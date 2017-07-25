@@ -136,7 +136,7 @@ if (isset($_POST['login'])) {
         <!-- /.col -->
         <div class="col-xs-12">
           <button type="submit" name="login" class="col-xs-6 btn btn-primary btn-block btn-flat">Ingresar</button>
-          <button type="reset" class="col-xs-6 btn btn-primary btn-block btn-flat">Limpiar campos</button>
+          <button type="reset" class="col-xs-6 btn btn-danger btn-block btn-flat">Limpiar campos</button>
         </div>
         <!-- /.col -->
       </div>

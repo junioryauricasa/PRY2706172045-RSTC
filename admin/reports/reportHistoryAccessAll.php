@@ -1,6 +1,7 @@
 <?php 
 	ob_start();
 	session_start();
+	ini_set("memory_limit", "128M"); //aumentamos la memoria disponible para DOMPDF
 	/*
 	  ------------------------------
 	  Autor: Junior Yauricasa
@@ -14,14 +15,16 @@
 	    header("Location: ../index");
 	}
 
-	include 'querySQL4report.php';
+	$nombreReporte = "Historial de Accesso Completo"; //titulo del reporte
+	include 'RegCreatReport.php'; //registro de creacion de reporte;
+	include 'querySQL4report.php'; //incluyendo funciones
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Reporte Usuarios</title>	
+	<title><?php echo $nombreReporte; ?></title>	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
 	<style>
@@ -56,7 +59,7 @@
 		</tr>
 	</table>
 	<br>
-		<h3 class="text-center">Historial de Acceso</h3>
+		<h3 class="text-center"><?php echo $nombreReporte; ?></h3>
 	</div>
 	<p>
 		Reporte comprendido con los inicios de sesión de los diferentes usuarios de la plataforma <b>resteco SFT</b> sirvase a lecturar la informacion comprendida a continuación haciendo enfasis en los datos los cuales son captadas a cada instante por la plataforma, esta información no puede ser actualizada o eliminada, bajo ninguna circunstancia.

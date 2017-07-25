@@ -15,15 +15,21 @@
 	    header("Location: ../index");
 	}
 
-	include 'querySQL4report.php';
+	$nombreReporte = "Listado de Usuarios"; //titulo del reporte
+
+	include 'RegCreatReport.php'; //registro de creacion de reporte;
+	include 'querySQL4report.php'; //incluyendo funciones
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Reporte Usuarios</title>	
+	<title><?php echo $nombreReporte; ?></title>	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+	<!--icon-->
+  	<link rel="icon" href="../dist/img/icons/025-pie-chart.png" type="image/png" sizes="16x16">
 
 	<style>
 		@font-face {
@@ -58,7 +64,9 @@
 		</table>
 	</div>
 	<div>
-		<h3 class="text-center" style="margin-top: 55px">Reporte de usuarios</h3>
+		<h3 class="text-center" style="margin-top: 55px">
+			<?php echo $nombreReporte; ?>
+		</h3>
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam laboriosam voluptatibus, ratione deleniti, eligendi aspernatur rem a velit accusantium obcaecati sed magni ipsam repellat praesentium distinctio veniam similique repellendus nam!
 	</p>
