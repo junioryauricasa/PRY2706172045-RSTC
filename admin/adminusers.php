@@ -121,7 +121,7 @@ if (isset($_POST['regNewUser'])) {
           
           <button type="button" class="btn btn-sm btn-info btn-flat pull-left" data-toggle="modal" data-target="#modalcust">Agregar Usuario</button>
 
-          <a href="reportes" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px">Reportes</a>
+          <a href="reportesUsers" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px">Reportes</a>
 
           <a href="adminuserspro" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Avanzado</a>
 

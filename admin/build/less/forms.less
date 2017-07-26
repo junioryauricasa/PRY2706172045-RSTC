@@ -33,9 +33,6 @@
       border-color: @green;
       box-shadow: none;
     }
-    .help-block {
-      color: @green;
-    }
   }
 
   &.has-warning {
@@ -46,9 +43,6 @@
       border-color: @yellow;
       box-shadow: none;
     }
-    .help-block {
-      color: @yellow;
-    }
   }
 
   &.has-error {
@@ -58,9 +52,6 @@
     .form-control {
       border-color: @red;
       box-shadow: none;
-    }
-    .help-block {
-      color: @red;
     }
   }
 }
@@ -73,7 +64,6 @@
     background-color: #fff;
   }
 }
-
 /* button groups */
 .btn-group-vertical {
   .btn {
@@ -89,7 +79,7 @@
 
 /* support Font Awesome icons in form-control */
 .form-control-feedback.fa {
-  line-height: @input-height-base;
+    line-height: @input-height-base;
 }
 
 .input-lg + .form-control-feedback.fa,
@@ -97,7 +87,6 @@
 .form-group-lg .form-control + .form-control-feedback.fa {
   line-height: @input-height-large;
 }
-
 .input-sm + .form-control-feedback.fa,
 .input-group-sm + .form-control-feedback.fa,
 .form-group-sm .form-control + .form-control-feedback.fa {

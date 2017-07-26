@@ -12,7 +12,7 @@
   }
   > li > a > .glyphicon,
   > li > a > .fa,
-  > li > a > .ion {
+  > li > a > .ion{
     margin-right: 10px;
   }
   > li > a:hover {
@@ -49,6 +49,7 @@
     font-size: 14px;
   }
 
+
   //Define footer class
   > .dropdown-menu > li.footer > a {
     .border-radius(0; 0; 4px; 4px);
@@ -56,10 +57,10 @@
     background-color: #fff;
     padding: 7px 10px;
     border-bottom: 1px solid #eeeeee;
-    color: #444 !important;
+    color: #444!important;
     @media (max-width: @screen-sm-max) {
-      background: #fff !important;
-      color: #444 !important;
+      background: #fff!important;
+      color: #444!important;
     }
     text-align: center;
     //Hover state
@@ -97,6 +98,7 @@
       color: #444444;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
       padding: 10px;
       // Icons inside the menu
       > .glyphicon,
@@ -153,7 +155,6 @@
 
   }
 }
-
 //Tasks menu
 .navbar-nav > .tasks-menu {
   > .dropdown-menu > li .menu {
@@ -174,7 +175,6 @@
     }
   }
 }
-
 //User menu
 .navbar-nav > .user-menu {
   > .dropdown-menu {
@@ -268,7 +268,6 @@
   .animation(flipInX .7s both);
 
 }
-
 @keyframes flipInX {
   0% {
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -294,7 +293,6 @@
     transform: perspective(400px);
   }
 }
-
 @-webkit-keyframes flipInX {
   0% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -332,7 +330,6 @@
     }
   }
 }
-
 @media (max-width: @screen-sm-max) {
   .navbar-custom-menu > .navbar-nav {
     float: right;
