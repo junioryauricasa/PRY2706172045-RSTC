@@ -21,7 +21,7 @@ function users_data2()
         </td>
         <td>'.$row["nvchDescripcion"].'</td>
         <td> 
-          <button type="submit" onclick="showUser(this.'.$row["intIdProducto"].')" id_cust="5" class="btn btn-xs btn-warning btnedit">
+          <button type="submit" id="'.$row["intIdProducto"].'" class="btn btn-xs btn-warning btnedit">
             <i class="fa fa-edit"></i> Editar
           </button>
 

@@ -42,6 +42,7 @@ if (isset($_POST['regNuevoProducto'])) {
     </script>   
 
     <!-- Test Script Ajax -->
+    <script type="text/javascript" src="negocio/productos.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         function refresh_div() {
@@ -133,7 +134,8 @@ if (isset($_POST['regNuevoProducto'])) {
         <div class="result"></div>
       </div>
 
-  
+      <div id="formulario-crud"></div>
+      <!--<?php //include('formularios/productos.php'); ?>-->
       <!-- Formulario registro Usuario -->
       <!-- SELECT2 EXAMPLE -->
       <!--div class="box box-default">
