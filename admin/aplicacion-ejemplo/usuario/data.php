@@ -11,9 +11,9 @@ $i=0;
 foreach ($data as $key) {
 	// add new button
 	$data[$i]['button'] = '
-				<button type="submit" intUserId="'.$data[$i]['intUserId'].'" class="btn btn-xs btn-warning btnedit" ><i class="fa fa-edit"></i></button> 
-				<button type="submit" intUserId="'.$data[$i]['intUserId'].'" nvchUserName="'.$data[$i]['nvchUserName'].'" class="btn btn-xs btn-danger btnhapus" ><i class="fa fa-remove"></i></button>
-				';
+		<button type="submit" intUserId="'.$data[$i]['intUserId'].'" class="btn btn-xs btn-warning btnedit" ><i class="fa fa-edit"></i></button> 
+		<button type="submit" intUserId="'.$data[$i]['intUserId'].'" nvchUserName="'.$data[$i]['nvchUserName'].'" class="btn btn-xs btn-danger btnhapus" ><i class="fa fa-remove"></i></button>
+		';
 	$i++;
 }
 $datax = array('data' => $data);

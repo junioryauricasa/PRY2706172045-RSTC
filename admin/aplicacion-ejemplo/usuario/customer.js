@@ -14,7 +14,7 @@ $(document).ready( function ()
           "type": "POST"
         },
         "columns": [
-        { "data": "urutan" },
+        //{ "data": "urutan" },
         { "data": "intUserId" },
         { "data": "nvchUserName" },
         { "data": "nchUserMail" },
@@ -22,6 +22,7 @@ $(document).ready( function ()
         { "data": "intIdEmpleado" },
         { "data": "bitUserEstado" },
         { "data": "intTypeUser" },
+        { "data": "button" },
         ]
       });
 
