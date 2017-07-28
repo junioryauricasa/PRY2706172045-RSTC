@@ -9,6 +9,7 @@ while($r = mysql_fetch_assoc($query)) {
 }
 $i=0;
 foreach ($data as $key) {
+
 	// add new button
 	$data[$i]['button'] = '
 		<button type="submit" intUserId="'.$data[$i]['intUserId'].'" class="btn btn-xs btn-warning btnedit" ><i class="fa fa-edit"></i></button> 

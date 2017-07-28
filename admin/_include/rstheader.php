@@ -385,11 +385,105 @@ if(!isset($_SESSION['user_session']))
           </li>
           <!--END Usuarios-->
 
+
+          <!--Cliente-->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Clientes</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Administrar Clientes
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                   Historial de cliente
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Reporte Cliente
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--END Cliente-->
+
+
+          <!--Cliente-->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Reportes</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Listar de Usuarios
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                   Lista Clientes
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <i class="fa fa-circle-o"></i> 
+                    Lista de Accesos
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--END Cliente-->
         <?php 
         "";
       }
 
-      ?>
+      ?>          
+
+
+          <!--Mi cuenta-->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Mi Cuenta</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="changepassword">
+                  <i class="fa fa-circle-o"></i> 
+                    Cambiar contraseña
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--END Cliente-->
+
+          <!-- user logout -->
+          <li>
+            <a href="../logout.php">
+              <i class="fa fa-circle-o text-red"></i> 
+              <span>Cerrar sesion</span>
+            </a>
+          </li>
+          <!-- END user logout -->
+
+
 
         <!-- menu comentado -->
         <!--li class="treeview">

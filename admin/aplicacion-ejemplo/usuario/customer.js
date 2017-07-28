@@ -22,7 +22,7 @@ $(document).ready( function ()
         { "data": "intIdEmpleado" },
         { "data": "bitUserEstado" },
         { "data": "intTypeUser" },
-        { "data": "button" },
+        { "data": "button" }, //button de data.php del and update
         ]
       });
 
