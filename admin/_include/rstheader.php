@@ -418,7 +418,7 @@ if(!isset($_SESSION['user_session']))
           <!--END Cliente-->
 
 
-          <!--Cliente-->
+          <!--Reportes-->
           <li class="treeview">
             <a href="#">
               <i class="fa fa-user"></i> <span>Reportes</span>
@@ -445,9 +445,15 @@ if(!isset($_SESSION['user_session']))
                     Lista de Accesos
                 </a>
               </li>
+              <li>
+                <a href="reports/formatocomprobante">
+                  <i class="fa fa-circle-o"></i> 
+                    Formato Comprobantes
+                </a>
+              </li>
             </ul>
           </li>
-          <!--END Cliente-->
+          <!--END Reportes-->
         <?php 
         "";
       }
