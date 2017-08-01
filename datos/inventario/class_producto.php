@@ -47,7 +47,6 @@ class Producto
       $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
       $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-      $contar = $sql_comando -> rowCount();
       echo '<div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Editar Producto</h3>
@@ -140,9 +139,108 @@ class Producto
     }
   }
 
-  public function ListarProductos()
+  public function ListarProductos($busqueda,$x,$y)
   {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        echo 
+        '<tr>
+        <td>PRT'.$fila["intIdProducto"].'</td>
+        <td>'.$fila["nvchNombre"].'</td>
+        <td>'.$fila["dcmPrecio"].'</td> 
+        <td>'.$fila["intCantidad"].'</td>
+        <td>
+            <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
+        </td>
+        <td>'.$fila["nvchDescripcion"].'</td>
+        <td> 
+          <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
+            <i class="fa fa-edit"></i> Editar
+          </button>
+          <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
+            <i class="fa fa-edit"></i> Eliminar
+          </button>
+        </td>  
+        </tr>';
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
 
+  public function PaginarProductos($busqueda,$x,$y)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $cantidad = $sql_comando -> rowCount();
+      $numpaginas = ceil($cantidad / $y);
+      for($i = 0; $i < $numpaginas; $i++){
+        if($i==0)
+        {
+          if($x==0)
+          {
+            $output = 
+            '<li class="page-item disabled">
+                <a class="page-link btn-pagina" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+          } else {
+            $output = 
+            '<li class="page-item">
+                <a idp="'.$i.'" class="page-link btn-pagina" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+          }
+        }
+
+          if($x==$i){
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+          }
+          else
+          {
+            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+          }
+
+        if($i==($numpaginas-1))
+        {
+          if($x==($numpaginas-1))
+          {
+            $output .= 
+            '<li class="page-item disabled">
+                <a class="page-link btn-pagina" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+          } else {
+            $output .= 
+            '<li class="page-item">
+                <a idp="'.$i.'" class="page-link btn-pagina" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+          }
+        }
+      }
+      echo $output;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
   }
   /* FIN - Métodos de Producto */
 }
@@ -179,80 +277,10 @@ switch($_POST['funcion']){
     break;
   case "L":
     $producto = new Producto();
-    $producto->ListarProducto();
+    $producto->ListarProductos($_POST['busqueda'],$_POST['x'],$_POST['y']);
     break;
-
+  case "P":
+    $producto = new Producto();
+    $producto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    break;
 }
-/*
-  require_once '../conexion/bd_conexion.php';
-    $output = array();
-    $idproducto = $_POST['producto_idproducto'];
-    try{
-      $sql_resultado_seleccionar=$bd_conexion->prepare('SELECT * FROM tb_producto WHERE intIdProducto=:idproducto');
-      $sql_resultado_seleccionar->execute(array(':idproducto' => $idproducto));
-      $fila = $sql_resultado_seleccionar -> fetch(PDO::FETCH_ASSOC);
-      $contar = $sql_resultado_seleccionar -> rowCount();
-
-      $output['intIdProducto'] = $fila['intIdProducto'];
-      $output['nvchNombre'] = $fila['nvchNombre'];
-      $output['dcmPrecio'] = $fila['dcmPrecio'];
-      $output['intCantidad'] = $fila['intCantidad'];
-      $output['nvchDireccionImg'] = $fila['nvchDireccionImg'];
-      $output['nvchDescripcion'] = $fila['nvchDescripcion'];
-      //echo json_encode($output);
-      echo '
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Registro de Producto</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
-        </div>
-        <form method="POST">
-          <div class="box-body">
-            <div class="row">
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" name="nombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="'.$output['nvchNombre'].'">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Precio:</label>
-                        <input type="text" name="precio" class="form-control select2" placeholder="Ingrese precio del producto" value="'.$output['dcmPrecio'].'">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Cantidad:</label>
-                        <input type="text" name="cantidad" class="form-control select2" placeholder="Ingrese cantidad del producto" value="'.$output['intCantidad'].'">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Imagen:</label>
-                        <input type="text" name="direccionimg" class="form-control select2" placeholder="Ingrese imagen del producto" value="'.$output['nvchDireccionImg'].'">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Descripción:</label>
-                        <input type="text" name="descripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="'.$output['nvchDescripcion'].'">
-                      </div>
-                    </div>
-          </div>
-          <div class="box-footer">
-              <input type="submit" name="regNuevoProducto" class="btn btn-sm btn-info btn-flat pull-left" value="Guardar">
-              <input type="reset" class="btn btn-sm btn-info btn-flat pull-left" value="Limpiar">
-          </div>              
-        </form>
-      </div>';
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-?>
-*/

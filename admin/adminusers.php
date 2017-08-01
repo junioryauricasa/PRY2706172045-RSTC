@@ -54,7 +54,7 @@ if (isset($_POST['regNewUser'])) {
             });
         }
 
-        t = setInterval(refresh_div,700); //tiempo de refrescado del consulta
+        refresh_div(); //tiempo de refrescado del consulta
     </script> 
     <!-- END Test Script Ajax -->
 
@@ -186,11 +186,11 @@ if (isset($_POST['regNewUser'])) {
 <!-- Scripts DataTable -->
 <script>
   // add json datatable a los elementos table
-  /*
+  
   $(document).ready( function () {
       $('table').DataTable();
   } );
-  */
+  
 
   // Modal
   $('#modalcust').modal({

@@ -8,7 +8,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { $("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");}
+	   	if (datos=="ok") { $("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>"); refresh_div();}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
@@ -76,13 +76,114 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 /* FIN - Funcion Ajax - Eliminar Producto */
 //////////////////////////////////////////////////////////////
 
-function refresh_div() {
-jQuery.ajax({
-	    url:'../../negocio/inventario/selectAllProducto.php',
-	    type:'POST',
-	    success:function(results) {
-	        jQuery("#result").html(results);
-	    }
-	});
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Producto */
+
+function ListarProducto() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "L";
+  var x = 0;
+  var y = 10;
+  $.ajax({
+      url:'../../datos/inventario/class_producto.php',
+      method:"POST",
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+      success:function(datos) {
+          $("#ListaDeProductos").html(datos);
+      }
+  });
 }
-t = setInterval(refresh_div,700); //tiempo de refrescado del consulta
+
+/* FIN - Funcion Ajax - Listar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Producto */
+
+$(document).on('change', '#num-lista', function(){
+  	  var busqueda = document.getElementById("txt-busqueda").value;
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var funcion = "L";
+	  $.ajax({
+	   url:"../../datos/inventario/class_producto.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductos").html(datos);
+	   	PaginarProducto(x,y);
+	   }
+	  });
+	 return false;
+});
+
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Paginar Producto */
+
+function PaginarProducto(x,y) {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "P";
+  $.ajax({
+      url:'../../datos/inventario/class_producto.php',
+      method:"POST",
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+      success:function(datos) {
+          $("#PaginacionDeProductos").html(datos);
+      }
+  });
+}
+
+/* FIN - Funcion Ajax - Paginar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Cambiar Página de Lista Producto */
+
+$(document).on('click', '.btn-pagina', function(){
+      var busqueda = document.getElementById("txt-busqueda").value;
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = $(this).attr("idp") * y;
+  	  var funcion = "L";
+	  $.ajax({
+	   url:"../../datos/inventario/class_producto.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductos").html(datos);
+	   	PaginarProducto((x/y),y);
+	   }
+	  });
+	 return false;
+});
+
+/* FIN - Funcion Ajax - Cambiar Página de Lista Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
+
+$(document).on('keyup', '#txt-busqueda', function(){
+	  var busqueda = document.getElementById("txt-busqueda").value;
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var funcion = "L";
+	  $.ajax({
+	   url:"../../datos/inventario/class_producto.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductos").html(datos);
+	   	PaginarProducto(x,y);
+	   }
+	  });
+	 return false;
+});
+
+/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
+//////////////////////////////////////////////////////////////

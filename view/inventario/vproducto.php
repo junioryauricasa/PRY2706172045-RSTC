@@ -5,16 +5,28 @@ include('../_include/rstheader.php');
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip(); 
       });
-    </script>   
-
+    </script>
     <script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>
     <script type="text/javascript" src="ajax/vproducto.js"></script>
-
+    <style>
+      .pagination a {
+          margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
+      }
+      hr { 
+          display: block;
+          margin-top: 0.5em;
+          margin-bottom: 0.5em;
+          margin-left: auto;
+          margin-right: auto;
+          border-style: inset;
+          border-width: 1px;
+      }
+    </style>
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
         Administrar Productos
-        <small>Blank example to the fixed layout</small>
+        <small>Módulo de Productos</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,12 +37,6 @@ include('../_include/rstheader.php');
 
     <!-- Main content -->
     <section class="content">
-      <!--div class="callout callout-info">
-        <h4>Tip!</h4>
-        <p>Add the fixed class to the body tag to get this layout. The fixed layout is your best option if your sidebar
-          is bigger than your content because it prevents extra unwanted scrolling.</p>
-      </div-->
-
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
@@ -42,6 +48,35 @@ include('../_include/rstheader.php');
           </div>
         </div>
         <div class="box-body">
+          <div class="row">
+            <div class="col-md-1">
+              <div class="form-group">
+                  <label>Mostrar:</label>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <select id="num-lista" name="num-lista">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1">
+              <div class="form-group">
+                  <label class="text-left">Ingresar Búsqueda:</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+              </div>
+            </div>
+          </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
@@ -55,9 +90,18 @@ include('../_include/rstheader.php');
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="result">
+              <tbody id="ListaDeProductos">
+                <script>ListarProducto();</script>
               </tbody>
             </table>
+          </div>
+          <hr>
+          <div class="text-center">
+            <nav aria-label="...">
+              <ul id="PaginacionDeProductos" class="pagination">
+                <script>PaginarProducto(0,10);</script>
+              </ul>
+            </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
@@ -78,16 +122,10 @@ include('../_include/rstheader.php');
   <!-- /.content-wrapper -->
 <!-- Scripts DataTable -->
 <script>
-  // add json datatable
-  $(document).ready( function () {
-      $('table').DataTable();
-  } );
-
   // Modal
   $('#modalcust').modal({
     keyboard: false
   });
-
 </script>
 <!-- ENd Scripts DataTable -->
 <style>
