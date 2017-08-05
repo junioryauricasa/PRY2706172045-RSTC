@@ -139,18 +139,35 @@ class Producto
     }
   }
 
-  public function ListarProductos($busqueda,$x,$y)
+  public function ListarProductos($busqueda,$x,$y,$tipolistado)
   {
     try{
+      $cantidad = 0;
+      $numpaginas = 0;
+      $i = 0;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
+      //Busqueda de producto por el comando LIMIT
+      if($tipolistado == "N"){
+        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $cantidad = $sql_comando -> rowCount();
+        $numpaginas = ceil($cantidad / $y);
+        $x = ($numpaginas - 1) * $y;
+        $i = 1;
+      }
+      //Busqueda de producto por el comando LIMIT
       $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        echo 
-        '<tr>
-        <td>PRT'.$fila["intIdProducto"].'</td>
+        if($i == ($cantidad - $x) && $tipolistado == "N"){
+          echo '<tr bgcolor="#BEE1EB">';
+        } else {
+          echo '<tr>';
+        }
+        echo '<td>PRT'.$fila["intIdProducto"].'</td>
         <td>'.$fila["nvchNombre"].'</td>
         <td>'.$fila["dcmPrecio"].'</td> 
         <td>'.$fila["intCantidad"].'</td>
@@ -167,6 +184,7 @@ class Producto
           </button>
         </td>  
         </tr>';
+        $i++;
       }
     }
     catch(PDPExceptio $e){
@@ -174,7 +192,7 @@ class Producto
     }  
   }
 
-  public function PaginarProductos($busqueda,$x,$y)
+  public function PaginarProductos($busqueda,$x,$y,$tipolistado)
   {
     try{
       $sql_conexion = new Conexion_BD();
@@ -183,12 +201,15 @@ class Producto
       $sql_comando -> execute(array(':busqueda' => $busqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
+      if($tipolistado == "N")
+        { $x = $numpaginas - 1; }
+      $output = "";
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
         {
           if($x==0)
           {
-            $output = 
+            $output .= 
             '<li class="page-item disabled">
                 <a class="page-link btn-pagina" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
@@ -196,7 +217,7 @@ class Producto
                 </a>
             </li>';
           } else {
-            $output = 
+            $output .= 
             '<li class="page-item">
                 <a idp="'.$i.'" class="page-link btn-pagina" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
@@ -235,6 +256,22 @@ class Producto
             </li>';
           }
         }
+      }
+      if($output == ""){
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
       }
       echo $output;
     }
@@ -277,10 +314,10 @@ switch($_POST['funcion']){
     break;
   case "L":
     $producto = new Producto();
-    $producto->ListarProductos($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $producto->ListarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
     $producto = new Producto();
-    $producto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $producto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
 }

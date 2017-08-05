@@ -91,7 +91,7 @@ include('../_include/rstheader.php');
               </tr>
               </thead>
               <tbody id="ListaDeProductos">
-                <script>ListarProducto();</script>
+                <script>ListarProducto(0,10,"T");</script>
               </tbody>
             </table>
           </div>
@@ -99,7 +99,7 @@ include('../_include/rstheader.php');
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeProductos" class="pagination">
-                <script>PaginarProducto(0,10);</script>
+                <script>PaginarProducto(0,10,"T");</script>
               </ul>
             </nav>
           </div>

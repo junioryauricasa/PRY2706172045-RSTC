@@ -2,13 +2,20 @@
 /* INICIO - Funcion Ajax - Insertar Producto */
 $(document).on('click', '#btn-crear-producto', function(){
 	  var formData = $("#form-crear-producto").serialize();
+	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "N";
 	  $.ajax({
 	   url: "../../datos/inventario/class_producto.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { $("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>"); refresh_div();}
+	   	if (datos=="ok") { 
+	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
+	   		ListarProducto(x,y,tipolistado);
+	   		PaginarProducto(x,y,tipolistado);
+		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
@@ -79,15 +86,13 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 
-function ListarProducto() {
+function ListarProducto(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
-  var x = 0;
-  var y = 10;
   $.ajax({
       url:'../../datos/inventario/class_producto.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
       success:function(datos) {
           $("#ListaDeProductos").html(datos);
       }
@@ -104,15 +109,16 @@ $(document).on('change', '#num-lista', function(){
   	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
+  	  var tipolistado = "T";
   	  var funcion = "L";
 	  $.ajax({
 	   url:"../../datos/inventario/class_producto.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductos").html(datos);
-	   	PaginarProducto(x,y);
+	   	PaginarProducto(x,y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -124,13 +130,13 @@ $(document).on('change', '#num-lista', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Producto */
 
-function PaginarProducto(x,y) {
+function PaginarProducto(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   $.ajax({
       url:'../../datos/inventario/class_producto.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
       success:function(datos) {
           $("#PaginacionDeProductos").html(datos);
       }
@@ -148,14 +154,15 @@ $(document).on('click', '.btn-pagina', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(this).attr("idp") * y;
   	  var funcion = "L";
+  	  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/inventario/class_producto.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductos").html(datos);
-	   	PaginarProducto((x/y),y);
+	   	PaginarProducto((x/y),y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -172,14 +179,15 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var funcion = "L";
+  	  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/inventario/class_producto.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductos").html(datos);
-	   	PaginarProducto(x,y);
+	   	PaginarProducto(x,y,tipolistado);
 	   }
 	  });
 	 return false;
