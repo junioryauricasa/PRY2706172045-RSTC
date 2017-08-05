@@ -207,6 +207,7 @@ class Producto
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
         {
+          //$output = 'No s eencontraron nada';
           if($x==0)
           {
             $output .= 
