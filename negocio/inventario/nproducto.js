@@ -13,6 +13,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   {
 	   	if (datos=="ok") { 
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
+	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
 		}
@@ -47,6 +48,9 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 /* INICIO - Funcion Ajax - Actualizar Producto */
 $(document).on('click', '#btn-editar-producto', function(){
   	  var intIdProducto = $(this).attr("id");
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = $(".marca").attr("idp") * y;
+  	  var tipolistado = "E";
   	  var formData = $("#form-editar-producto").serialize();
 	  $.ajax({
 	   url:"../../datos/inventario/class_producto.php",
@@ -54,7 +58,11 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   data:formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { $("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");}
+	   	if (datos=="ok") { 
+	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
+	   		ListarProducto(x,y,tipolistado);
+	   		PaginarProducto(x,y,tipolistado);
+	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
@@ -67,6 +75,9 @@ $(document).on('click', '#btn-editar-producto', function(){
 /* INICIO - Funcion Ajax - Eliminar Producto */
 $(document).on('click', '.btn-eliminar-producto', function(){
   	  var intIdProducto = $(this).attr("id");
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = $(".marca").attr("idp") * y;
+  	  var tipolistado = "D";
   	  var funcion = "E";
 	  $.ajax({
 	   url:"../../datos/inventario/class_producto.php",
@@ -74,7 +85,11 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 	   data:{intIdProducto:intIdProducto,funcion:funcion},
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { $("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");}
+	   	if (datos=="ok") { 
+	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
+	   		ListarProducto(x,y,tipolistado);
+	   		PaginarProducto(x,y,tipolistado);
+	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });

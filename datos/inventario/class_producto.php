@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../conexion/bd_conexion.php';
+$_SESSION['intIdProducto'] = 0;
 class Producto
 {
   /* INICIO - Atributos de Producto*/
@@ -118,6 +119,7 @@ class Producto
         ':intCantidad' => $this->intCantidad,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
         ':nvchDescripcion' => $this->nvchDescripcion));
+      $_SESSION['intIdProducto'] = $this->intIdProducto;
       echo "ok";
     }
     catch(PDPExceptio $e){
@@ -132,6 +134,7 @@ class Producto
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL eliminarproducto(:intIdProducto)');
       $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
+      $_SESSION['intIdProducto'] = $this->intIdProducto;
       echo 'ok';
     }
     catch(PDPExceptio $e){
@@ -142,6 +145,7 @@ class Producto
   public function ListarProductos($busqueda,$x,$y,$tipolistado)
   {
     try{
+      $residuo = 0;
       $cantidad = 0;
       $numpaginas = 0;
       $i = 0;
@@ -149,12 +153,20 @@ class Producto
       $sql_conectar = $sql_conexion->Conectar();
       //Busqueda de producto por el comando LIMIT
       if($tipolistado == "N"){
+        $busqueda = "";
         $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
         $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
+      } else if ($tipolistado == "D"){
+        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $cantidad = $sql_comando -> rowCount();
+        $residuo = $cantidad % $y;
+        if($residuo == 0)
+        {$x = $x - $y;}
       }
       //Busqueda de producto por el comando LIMIT
       $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y)');
@@ -164,7 +176,9 @@ class Producto
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
-        } else {
+        } else if($fila["intIdProducto"] == $_SESSION['intIdProducto'] && $tipolistado == "E"){
+          echo '<tr bgcolor="#B3E4C0">';
+        }else {
           echo '<tr>';
         }
         echo '<td>PRT'.$fila["intIdProducto"].'</td>
@@ -195,14 +209,18 @@ class Producto
   public function PaginarProductos($busqueda,$x,$y,$tipolistado)
   {
     try{
+      if($tipolistado == "N")
+      { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
       $sql_comando -> execute(array(':busqueda' => $busqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
-      if($tipolistado == "N")
-        { $x = $numpaginas - 1; }
+      if($tipolistado == "N" || $tipolistado == "D")
+      { $x = $numpaginas - 1; }
+      else if($tipolistado == "E")
+      { $x = $x / $y; }
       $output = "";
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
@@ -212,7 +230,7 @@ class Producto
           {
             $output .= 
             '<li class="page-item disabled">
-                <a class="page-link btn-pagina" aria-label="Previous">
+                <a class="page-link" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
@@ -220,7 +238,7 @@ class Producto
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.$i.'" class="page-link btn-pagina" aria-label="Previous">
+                <a idp="'.($x-1).'" class="page-link btn-pagina" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
@@ -229,7 +247,7 @@ class Producto
         }
 
           if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
           }
           else
           {
@@ -242,7 +260,7 @@ class Producto
           {
             $output .= 
             '<li class="page-item disabled">
-                <a class="page-link btn-pagina" aria-label="Next">
+                <a class="page-link" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
@@ -250,7 +268,7 @@ class Producto
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.$i.'" class="page-link btn-pagina" aria-label="Next">
+                <a idp="'.($x+1).'" class="page-link btn-pagina" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
