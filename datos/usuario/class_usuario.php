@@ -17,8 +17,8 @@ class Usuario
   
   public function intUserId($intUserId){ $this->intUserId = $intUserId; }
   public function nvchUserName($nvchUserName){ $this->nvchUserName = $nvchUserName; }
-  public function dcmPrecio($nchUserMail){ $this->nchUserMail = $nchUserMail; }
-  public function intCantidad($nvchUserPassword){ $this->nvchUserPassword = $nvchUserPassword; }
+  public function nchUserMail($nchUserMail){ $this->nchUserMail = $nchUserMail; }
+  public function nvchUserPassword($nvchUserPassword){ $this->nvchUserPassword = $nvchUserPassword; }
   public function intIdEmpleado($intIdEmpleado){ $this->intIdEmpleado = $intIdEmpleado; }
   public function intTypeUser($intTypeUser){ $this->intTypeUser = $intTypeUser; }
   public function bitUserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }

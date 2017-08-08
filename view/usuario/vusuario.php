@@ -7,7 +7,7 @@
       });
     </script>
     <!--script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script-->
-    <script type="text/javascript" src="../../negocio/usuario/vusuario.js"></script>
+    <script type="text/javascript" src="../../negocio/usuario/nusuario.js"></script>
     <!--script type="text/javascript" src="ajax/vproducto.js"></script-->
     <script type="text/javascript" src="ajax/vusuario.js"></script>
     <style>
