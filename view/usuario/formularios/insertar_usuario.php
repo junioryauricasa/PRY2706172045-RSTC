@@ -6,43 +6,43 @@
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <form id="form-crear-usuario" method="POST">
+        <form id="form-crear-usuario" method="POST" required="true">
           <div class="box-body">
             <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" name="nvchUserName" class="form-control select2" placeholder="Ingrese nombre del usuario" value="">
+                        <label>Nombres:</label>
+                        <input type="text" name="nvchUserName" class="form-control select2" placeholder="Ingrese nombre del usuario" value="" required="">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Correo:</label>
-                        <input type="text" name="nchUserMail" class="form-control select2" placeholder="Ingrese correo" value="">
+                        <input type="mail" name="nchUserMail" class="form-control select2" placeholder="Ingrese correo" value="" required="">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Contraseña:</label>
-                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese contraseña" value="">
+                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese contraseña" value="" required="">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Empleado:</label>
-                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Id empleado" value="">
+                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Id empleado" value="" required="">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Tipo Usuario:</label>
-                        <input type="text" name="intTypeUser" class="form-control select2" placeholder="Tipo de usuario" value="">
+                        <input type="text" name="intTypeUser" class="form-control select2" placeholder="Tipo de usuario" value="" required="">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Estado:</label>
-                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="estado del usuario" value="">
+                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="estado del usuario" value="" required="">
                       </div>
                     </div>
             </div>

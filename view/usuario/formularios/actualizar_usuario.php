@@ -6,7 +6,7 @@
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <form id="form-crear-usuario" method="POST">
+        <form id="form-crear-usuario" method="POST" required="true">
           <div class="box-body">
             <div class="row">
                     <div class="col-md-3">

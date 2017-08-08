@@ -77,37 +77,37 @@ class Usuario
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Nombre:</label>
-                        <input type="text" name="nvchUserName" class="form-control select2" placeholder="Ingrese nombre del usuario" value="'.$fila['nvchUserName'].'">
+                        <input type="text" name="nvchUserName" class="form-control select2" placeholder="Ingrese nombre del usuario" value="'.$fila['nvchUserName'].'" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>e-Mail:</label>
-                        <input type="text" name="nchUserMail" class="form-control select2" placeholder="Ingrese mail del usuario" value="'.$fila['nchUserMail'].'">
+                        <input type="email" name="nchUserMail" class="form-control select2" placeholder="Ingrese mail del usuario" value="'.$fila['nchUserMail'].'" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Contraseña:</label>
-                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese cantidad del usuario" value="'.$fila['nvchUserPassword'].'">
+                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese cantidad del usuario" value="'.$fila['nvchUserPassword'].'" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Empleado:</label>
-                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Codigo del empleado" value="'.$fila['intIdEmpleado'].'">
+                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Codigo del empleado" value="'.$fila['intIdEmpleado'].'" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Tipo Usuario:</label>
-                        <input type="text" name="intTypeUser" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['intTypeUser'].'">
+                        <input type="text" name="intTypeUser" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['intTypeUser'].'" required>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Estado:</label>
-                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['bitUserEstado'].'">
+                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['bitUserEstado'].'" required>
                       </div>
                     </div>
             </div>
@@ -209,17 +209,25 @@ class Usuario
         	estilos a datos antes de mostrar
         */
         if($fila["intTypeUser"] == 0){
-        	$fila["intTypeUser"] = 'Usuario';
+        	$fila["intTypeUser"] = '
+        		<span class="label label-default">Usuario</span>
+        	';
         }else 
         if ($fila["intTypeUser"] == 1){
-			$fila["intTypeUser"] = 'Administrador';
+			$fila["intTypeUser"] = '
+				<span class="label label-info">Administrador</span>
+			';
         }
 
 		if($fila["bitUserEstado"] == 0){
-        	$fila["bitUserEstado"] = 'Inhabilitado';
+        	$fila["bitUserEstado"] = '
+        		<span class="label label-danger">Inhabilitado</span>
+        	';
         }else 
         if ($fila["bitUserEstado"] == 1){
-			$fila["bitUserEstado"] = 'Habilitado';
+			$fila["bitUserEstado"] = '
+				<span class="label label-success">Habilitado</span>
+			';
         }
         /*
 			estilos a datos antes de mostrar

@@ -12,31 +12,31 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Nombre:</label>
-                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="">
+                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="" required="">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Precio:</label>
-                    <input type="text" name="dcmPrecio" class="form-control select2" placeholder="Ingrese precio del producto" value="">
+                    <input type="text" name="dcmPrecio" class="form-control select2" placeholder="Ingrese precio del producto" value="" required="">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Cantidad:</label>
-                    <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese cantidad del producto" value="">
+                    <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese cantidad del producto" value="" required="">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Imagen:</label>
-                    <input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="">
+                    <input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="" required="">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Descripción:</label>
-                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="">
+                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="" required="">
                   </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
           <div class="box-footer clearfix">
               <input type="hidden" name="funcion" value="I" />
               <input type="submit" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
-              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
+              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
           </div>              
         </form>
       </div>
