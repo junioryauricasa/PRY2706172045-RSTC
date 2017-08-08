@@ -204,9 +204,6 @@ if(!isset($_SESSION['user_session']))
                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Mi Perfil</a>
                 </div>
-                <div class="pull-right">
-                  <a href="../logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
-                </div>
               </li>
             </ul>
           </li>
@@ -392,6 +389,34 @@ if(!isset($_SESSION['user_session']))
       }
 
       ?>
+
+          <!--Mi cuenta-->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-user"></i> <span>Mi Cuenta</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="changepassword">
+                  <i class="fa fa-circle-o"></i> 
+                    Cambiar contraseña
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--END Cliente-->
+
+          <!-- user logout -->
+          <li>
+            <a href="../..//logout.php">
+              <i class="fa fa-circle-o text-red"></i> 
+              <span>Cerrar sesion</span>
+            </a>
+          </li>
+          <!-- END user logout -->
 
         <!-- menu comentado -->
         <!--li class="treeview">
