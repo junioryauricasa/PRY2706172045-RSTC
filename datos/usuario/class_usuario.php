@@ -235,6 +235,13 @@ class Usuario
 				<span class="label label-success">Habilitado</span>
 			';
         }
+
+        $fila["nchUserMail"] = '
+	        <a target="_blank" class="btn btn-xs btn-default btnedit" href="&#10;https://mail.google.com/mail/u/0/?view=cm&amp;fs=1&amp;tf=1&amp;source=mailto&amp;su=Mensaje+Resteco&amp;to=%3C'.$fila["nchUserMail"].'%3E&#10;          ">
+	          <span class="fa fa-envelope"></span> 
+	          '.$fila["nchUserMail"].'
+	        </a>
+        ';
         /*
 			estilos a datos antes de mostrar
         */
