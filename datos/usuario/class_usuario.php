@@ -115,7 +115,7 @@ class Usuario
           <div class="box-footer clearfix">
               <input type="hidden" name="funcion" value="A" />
               <input type="hidden" name="intUserId" value="'.$fila['intUserId'].'" />
-              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Usuario">
+              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Actualizar Usuario">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
           </div>              
         </form>
@@ -165,7 +165,7 @@ class Usuario
     }
   }
 
-  public function ListarUsuario($busqueda,$x,$y,$tipolistado)
+  public function ListarUsuarios($busqueda,$x,$y,$tipolistado)
   {
     try{
       $residuo = 0;
@@ -359,7 +359,7 @@ switch($_POST['funcion']){
     break;
   case "L":
     $usuario = new Usuario();
-    $usuario->ListarUsuario($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $usuario->ListarUsuarios($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
     $usuario = new Usuario();

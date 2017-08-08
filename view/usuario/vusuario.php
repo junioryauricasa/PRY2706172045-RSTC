@@ -6,9 +6,7 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <!--script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script-->
     <script type="text/javascript" src="../../negocio/usuario/nusuario.js"></script>
-    <!--script type="text/javascript" src="ajax/vproducto.js"></script-->
     <script type="text/javascript" src="ajax/vusuario.js"></script>
     <style>
       .pagination a {
@@ -92,8 +90,7 @@
               </tr>
               </thead>
               <tbody id="ListaDeUsuarios">
-                <!--script>ListarProducto(0,10,"T");</script-->
-                <script>ListarUsuario(0,10,"T");</script>
+                <script>ListarUsuarios(0,10,"T");</script>
               </tbody>
             </table>
           </div>
@@ -101,8 +98,7 @@
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeUsuarios" class="pagination">
-                <!--script>PaginarProducto(0,10,"T");</script-->
-                <script>PaginarUsuario(0,10,"T");</script>
+                <script>PaginarUsuarios(0,10,"T");</script>
               </ul>
             </nav>
           </div>

@@ -26,7 +26,7 @@ function users_data2()
     {       
     $output .= '
     <tr>
-        <td>PRT'.$row["intUserId"].'</td>
+        <td>'.$row["intUserId"].'</td>
         <td>'.$row["nvchUserName"].'</td>
         <td>'.$row["nchUserMail"].'</td> 
         <td>'.$row["nvchUserPassword"].'</td>
@@ -34,10 +34,10 @@ function users_data2()
         <td>'.$row["intTypeUser"].'</td>
         <td>'.$row["bitUserEstado"].'</td>
         <td> 
-          <button type="submit" id="'.$row["intUserId"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
+          <button type="submit" id="'.$row["intUserId"].'" class="btn btn-xs btn-warning btn-mostrar-usuario">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="submit" id="'.$row["intUserId"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
+          <button type="submit" id="'.$row["intUserId"].'" class="btn btn-xs btn-danger btn-eliminar-usuario">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>  
