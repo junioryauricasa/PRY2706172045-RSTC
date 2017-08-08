@@ -1,13 +1,15 @@
 <?php 
-include('../_include/rstheader.php');
+		include('../_include/rstheader.php');
 ?>
     <script>
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>
-    <script type="text/javascript" src="ajax/vproducto.js"></script>
+    <!--script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script-->
+    <script type="text/javascript" src="../../negocio/usuario/vusuario.js"></script>
+    <!--script type="text/javascript" src="ajax/vproducto.js"></script-->
+    <script type="text/javascript" src="ajax/vusuario.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -25,13 +27,13 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Administrar Productos
-        <small>Módulo de Productos</small>
+        Administrar Usuario
+        <small>Módulo de Usuario</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
+        <li class="active">Estatico</li>
       </ol>
     </section>
 
@@ -40,7 +42,7 @@ include('../_include/rstheader.php');
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Registro de Productos</h3>
+          <h3 class="box-title">Registro de Usuarios</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -81,30 +83,32 @@ include('../_include/rstheader.php');
               <thead>
               <tr>
                 <th>#Código</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Imagen</th>
-                <th>Descripción</th>
+                <th>Nombres</th>
+                <th>Correo</th>
+                <th>contraseña</th>
+                <th>Tipo Usuario</th>
+                <th>Estado</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeProductos">
-                <script>ListarProducto(0,10,"T");</script>
+              <tbody id="ListaDeUsuarios">
+                <!--script>ListarProducto(0,10,"T");</script-->
+                <script>ListarUsuario(0,10,"T");</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeProductos" class="pagination">
-                <script>PaginarProducto(0,10,"T");</script>
+              <ul id="PaginacionDeUsuarios" class="pagination">
+                <!--script>PaginarProducto(0,10,"T");</script-->
+                <script>PaginarUsuario(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat pull-left">Agregar Producto</button>
+          <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left">Agregar Usuario</button>
           <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>

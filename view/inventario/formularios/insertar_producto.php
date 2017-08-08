@@ -9,36 +9,36 @@
         <form id="form-crear-producto" method="POST">
           <div class="box-body">
             <div class="row">
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Precio:</label>
-                        <input type="text" name="dcmPrecio" class="form-control select2" placeholder="Ingrese precio del producto" value="">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Cantidad:</label>
-                        <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese cantidad del producto" value="">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Imagen:</label>
-                        <input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Descripción:</label>
-                        <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="">
-                      </div>
-                    </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Precio:</label>
+                    <input type="text" name="dcmPrecio" class="form-control select2" placeholder="Ingrese precio del producto" value="">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Cantidad:</label>
+                    <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese cantidad del producto" value="">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Imagen:</label>
+                    <input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Descripción:</label>
+                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="">
+                  </div>
+                </div>
             </div>
           </div>
           <div class="box-footer clearfix">

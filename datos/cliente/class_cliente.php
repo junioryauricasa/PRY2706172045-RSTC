@@ -47,7 +47,8 @@ class Producto
       $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
       $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-      echo '<div class="box box-default">
+      echo '
+      <div class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Editar Producto</h3>
           <div class="box-tools pull-right">
