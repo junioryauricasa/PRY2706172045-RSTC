@@ -1,6 +1,6 @@
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Editar Usuario</h3>
+          <h3 class="box-title">Editar Producto</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -49,7 +49,7 @@
           </div>
           <div class="box-footer clearfix">
               <input type="hidden" name="funcion" value="A" />
-              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Usuario">
+              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Producto">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
           </div>              
         </form>

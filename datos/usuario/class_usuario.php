@@ -2,7 +2,7 @@
 session_start();
 require_once '../conexion/bd_conexion.php';
 //$_SESSION['intIdProducto'] = 0;
-$_SESSION['intUserId'] = 0;
+$_SESSION['intUserId'] = 0; //guardar variable de session para ser sombreado
 
 class Usuario
 {
@@ -30,13 +30,23 @@ class Usuario
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarusuario(:nvchNombre,:dcmPrecio,
-        :intCantidad,:nvchDireccionImg,:nvchDescripcion)');
-      $sql_comando->execute(array(':nvchNombre' => $this->nvchNombre, 
-        ':dcmPrecio' => $this->dcmPrecio,
-        ':intCantidad' => $this->intCantidad,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
-        ':nvchDescripcion' => $this->nvchDescripcion));
+      $sql_comando = $sql_conectar->prepare('
+      		CALL insertarusuario(
+      		:nvchUserName,
+      		:nchUserMail,
+        	:nvchUserPassword,
+        	:intIdEmpleado,
+        	:intTypeUser,
+        	:bitUserEstado
+        	)');
+      $sql_comando->execute(array(
+      	':nvchUserName' => $this->nvchUserName, 
+        ':nchUserMail' => $this->nchUserMail,
+        ':nvchUserPassword' => $this->nvchUserPassword,
+        ':intIdEmpleado' => $this->intIdEmpleado,
+        ':intTypeUser' => $this->intTypeUser,
+        ':bitUserEstado' => $this->bitUserEstado
+    	));
       echo "ok";
     }
     catch(PDPExceptio $e){
@@ -105,7 +115,7 @@ class Usuario
           <div class="box-footer clearfix">
               <input type="hidden" name="funcion" value="A" />
               <input type="hidden" name="intUserId" value="'.$fila['intUserId'].'" />
-              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar usuario">
+              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Usuario">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
           </div>              
         </form>
@@ -195,22 +205,22 @@ class Usuario
           echo '<tr>';
         }
         echo '
-        <td>'.$fila["intUserId"].'</td>
-        <td>'.$fila["nvchUserName"].'</td>
-        <td>'.$fila["nchUserMail"].'</td> 
-        <td>'.$fila["nvchUserPassword"].'</td>
-        <td>'.$fila["intIdEmpleado"].'</td>
-        <td>'.$fila["intTypeUser"].'</td>
-        <td>'.$fila["bitUserEstado"].'</td>
-        <td> 
-          <button type="submit" id="'.$fila["intUserId"].'" class="btn btn-xs btn-warning btn-mostrar-usuario">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="submit" id="'.$fila["intUserId"].'" class="btn btn-xs btn-danger btn-eliminar-usuario">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>  
-        </tr>';
+	        <td>'.$fila["intUserId"].'</td>
+	        <td>'.$fila["nvchUserName"].'</td>
+	        <td>'.$fila["nchUserMail"].'</td> 
+	        <td>'.$fila["nvchUserPassword"].'</td>
+	        <td>'.$fila["intIdEmpleado"].'</td>
+	        <td>'.$fila["intTypeUser"].'</td>
+	        <td>'.$fila["bitUserEstado"].'</td>
+	        <td> 
+	          <button type="submit" id="'.$fila["intUserId"].'" class="btn btn-xs btn-warning btn-mostrar-usuario">
+	            <i class="fa fa-edit"></i> Editar
+	          </button>
+	          <button type="submit" id="'.$fila["intUserId"].'" class="btn btn-xs btn-danger btn-eliminar-usuario">
+	            <i class="fa fa-edit"></i> Eliminar
+	          </button>
+	        </td>  
+	        </tr>';
         $i++;
       }
     }

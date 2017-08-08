@@ -48,8 +48,8 @@
             </div>
           </div>
           <div class="box-footer clearfix">
-              <input type="hidden" name="funcion" value="A" />
-              <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Usuario">
+              <input type="hidden" name="funcion" value="I" />
+              <input type="submit" id="btn-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Usuario">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
           </div>              
         </form>
