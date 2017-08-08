@@ -349,7 +349,7 @@ switch($_POST['funcion']){
     break;
   case "L":
     $usuario = new Usuario();
-    $usuario->ListarUsuarios($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $usuario->ListarUsuario($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
     $usuario = new Usuario();

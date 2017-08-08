@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Visualizar Formulario Crea Producto */
+/* INICIO - Funcion Ajax - Visualizar Formulario Crea Usuario */
 $(document).on('click', '#btn-form-crear-usuario', function(){
 	  $.ajax({
 	   url:"../../view/usuario/formularios/insertar_usuario.php",
@@ -11,5 +11,5 @@ $(document).on('click', '#btn-form-crear-usuario', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Visualizar Formulario Crea Producto */
+/* FIN - Funcion Ajax - Visualizar Formulario Crea Usuario */
 //////////////////////////////////////////////////////////////
