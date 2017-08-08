@@ -36,13 +36,21 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Tipo Usuario:</label>
-                        <input type="text" name="intTypeUser" class="form-control select2" placeholder="Tipo de usuario" value="" required="">
+                        <!--input type="text" name="intTypeUser" class="form-control select2" placeholder="Tipo de usuario" value="" required=""-->
+                         <select name="intTypeUser" id="" value="" class="form-control select2" >
+                          <option value="0">Basico</option>
+                          <option value="1">Administrador</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Estado:</label>
-                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="estado del usuario" value="" required="">
+                        <!--input type="text" name="bitUserEstado" class="form-control select2" placeholder="estado del usuario" value="" required=""-->
+                        <select name="bitUserEstado" id="" value="" class="form-control select2" >
+                          <option value="0">Deshabilitar</option>
+                          <option value="1">Habilitar</option>
+                        </select>
                       </div>
                     </div>
             </div>

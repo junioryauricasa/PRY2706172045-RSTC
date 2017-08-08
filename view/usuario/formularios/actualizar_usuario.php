@@ -42,7 +42,11 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Estado:</label>
-                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="estado del usuario" value="">
+                        <!--input type="text" name="bitUserEstado" class="form-control select2" placeholder="estado del usuario" value=""-->
+                        <select name="bitUserEstado" id="" value="" class="form-control select2" >
+                          <option value="0">Deshabilitar</option>
+                          <option value="1">Habilitar</option>
+                        </select>
                       </div>
                     </div>
             </div>

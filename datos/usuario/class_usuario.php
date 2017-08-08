@@ -101,13 +101,19 @@ class Usuario
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Tipo Usuario:</label>
-                        <input type="text" name="intTypeUser" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['intTypeUser'].'" required>
+                        <select name="intTypeUser" id="" value="'.$fila['intTypeUser'].'" class="form-control select2" >
+                          <option value="0">Basico</option>
+                          <option value="1">Administrador</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Estado:</label>
-                        <input type="text" name="bitUserEstado" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['bitUserEstado'].'" required>
+                        <select name="bitUserEstado" id="" value="'.$fila['bitUserEstado'].'" class="form-control select2" >
+                          <option value="0">Deshabilitar</option>
+                          <option value="1">Habilitar</option>
+                        </select>
                       </div>
                     </div>
             </div>
