@@ -82,20 +82,20 @@ class Usuario
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Precio:</label>
-                        <input type="text" name="nchUserMail" class="form-control select2" placeholder="Ingrese precio del usuario" value="'.$fila['nchUserMail'].'">
+                        <label>e-Mail:</label>
+                        <input type="text" name="nchUserMail" class="form-control select2" placeholder="Ingrese mail del usuario" value="'.$fila['nchUserMail'].'">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Cantidad:</label>
+                        <label>Contraseña:</label>
                         <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese cantidad del usuario" value="'.$fila['nvchUserPassword'].'">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Imagen:</label>
-                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Ingrese imagen del usuario" value="'.$fila['intIdEmpleado'].'">
+                        <label>Empleado:</label>
+                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Codigo del empleado" value="'.$fila['intIdEmpleado'].'">
                       </div>
                     </div>
                     <div class="col-md-3">
@@ -106,7 +106,7 @@ class Usuario
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Tipo Usuario:</label>
+                        <label>Estado:</label>
                         <input type="text" name="bitUserEstado" class="form-control select2" placeholder="Ingrese descripción del usuario" value="'.$fila['bitUserEstado'].'">
                       </div>
                     </div>
@@ -204,6 +204,27 @@ class Usuario
         }else {
           echo '<tr>';
         }
+        
+        /*
+        	estilos a datos antes de mostrar
+        */
+        if($fila["intTypeUser"] == 0){
+        	$fila["intTypeUser"] = 'Usuario';
+        }else 
+        if ($fila["intTypeUser"] == 1){
+			$fila["intTypeUser"] = 'Administrador';
+        }
+
+		if($fila["bitUserEstado"] == 0){
+        	$fila["bitUserEstado"] = 'Inhabilitado';
+        }else 
+        if ($fila["bitUserEstado"] == 1){
+			$fila["bitUserEstado"] = 'Habilitado';
+        }
+        /*
+			estilos a datos antes de mostrar
+        */
+
         echo '
 	        <td>'.$fila["intUserId"].'</td>
 	        <td>'.$fila["nvchUserName"].'</td>
@@ -340,7 +361,7 @@ switch($_POST['funcion']){
     $usuario = new Usuario();
     $usuario->intUserId($_POST['intUserId']);
     $usuario->nvchUserName($_POST['nvchUserName']);
-    $usuario->nchUserMail($_POST['dcmPrecnchUserMailio']);
+    $usuario->nchUserMail($_POST['nchUserMail']);
     $usuario->nvchUserPassword($_POST['nvchUserPassword']);
     $usuario->intIdEmpleado($_POST['intIdEmpleado']);
     $usuario->intTypeUser($_POST['intTypeUser']);

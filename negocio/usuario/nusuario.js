@@ -14,8 +14,8 @@ $(document).on('click', '#btn-crear-usuario', function(){
 	   	if (datos=="ok") { 
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente el registro')</script>");
 	   		$('#txt-busqueda').val("");
-	   		ListarProducto(x,y,tipolistado);
-	   		PaginarProducto(x,y,tipolistado);
+	   		ListarUsuario(x,y,tipolistado);
+	   		PaginarUsuario(x,y,tipolistado);
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -28,12 +28,12 @@ $(document).on('click', '#btn-crear-usuario', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Producto */
 $(document).on('click', '.btn-mostrar-usuario', function(){
-  	  var intIdProducto = $(this).attr("id");
+  	  var intUserId = $(this).attr("id");
   	  var funcion = "M";
 	  $.ajax({
 	   url:"../../datos/usuario/class_usuario.php",
 	   method:"POST",
-	   data:{intIdProducto:intIdProducto,funcion:funcion},
+	   data:{intUserId:intUserId,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
@@ -47,7 +47,7 @@ $(document).on('click', '.btn-mostrar-usuario', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Usuario */
 $(document).on('click', '#btn-editar-usuario', function(){
-  	  var intIdProducto = $(this).attr("id");
+  	  var intUserId = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
@@ -60,8 +60,8 @@ $(document).on('click', '#btn-editar-usuario', function(){
 	   {
 	   	if (datos=="ok") { 
 	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
-	   		ListarProducto(x,y,tipolistado);
-	   		PaginarProducto(x,y,tipolistado);
+	   		ListarUsuario(x,y,tipolistado);
+	   		PaginarUsuario(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -74,7 +74,7 @@ $(document).on('click', '#btn-editar-usuario', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Producto */
 $(document).on('click', '.btn-eliminar-usuario', function(){
-  	  var intIdProducto = $(this).attr("id");
+  	  var intUserId = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
@@ -82,13 +82,13 @@ $(document).on('click', '.btn-eliminar-usuario', function(){
 	  $.ajax({
 	   url:"../../datos/usuario/class_usuario.php",
 	   method:"POST",
-	   data:{intIdProducto:intIdProducto,funcion:funcion},
+	   data:{intUserId:intUserId,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") { 
 	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
-	   		ListarProducto(x,y,tipolistado);
-	   		PaginarProducto(x,y,tipolistado);
+	   		ListarUsuario(x,y,tipolistado);
+	   		PaginarUsuario(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -101,7 +101,7 @@ $(document).on('click', '.btn-eliminar-usuario', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 
-function ListarProducto(x,y,tipolistado) {
+function ListarUsuario(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   $.ajax({
@@ -133,7 +133,7 @@ $(document).on('change', '#num-lista', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeUsuarios").html(datos);
-	   	PaginarProducto(x,y,tipolistado);
+	   	PaginarUsuario(x,y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -145,7 +145,7 @@ $(document).on('change', '#num-lista', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Producto */
 
-function PaginarProducto(x,y,tipolistado) {
+function PaginarUsuario(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   $.ajax({
@@ -177,7 +177,7 @@ $(document).on('click', '.btn-pagina', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeUsuarios").html(datos);
-	   	PaginarProducto((x/y),y,tipolistado);
+	   	PaginarUsuario((x/y),y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -202,7 +202,7 @@ $(document).on('keyup', '#txt-busqueda', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeUsuarios").html(datos);
-	   	PaginarProducto(x,y,tipolistado);
+	   	PaginarUsuario(x,y,tipolistado);
 	   }
 	  });
 	 return false;

@@ -84,6 +84,7 @@
                 <th>Nombres</th>
                 <th>Correo</th>
                 <th>contraseña</th>
+                <th>Empleado</th>
                 <th>Tipo Usuario</th>
                 <th>Estado</th>
                 <th>Opciones</th>
