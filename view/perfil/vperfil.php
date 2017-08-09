@@ -52,6 +52,9 @@
                   <p class="text-muted text-center">
                     <?php echo $_SESSION['user_typeuser']; ?>
                   </p>
+                  <p class="text-muted text-center">
+                    <a href="#">micorreo@gmail.com</a>
+                  </p>
 
                   <!--ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
