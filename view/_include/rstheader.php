@@ -277,7 +277,7 @@ if(!isset($_SESSION['user_session']))
             </a>
           </li>-->
           <li class="active">
-            <a href="admininventario">
+            <a href="../inventario/vproducto">
               <i class="fa fa-circle-o"></i> 
                 Administrar Inventario
             </a>
@@ -357,7 +357,7 @@ if(!isset($_SESSION['user_session']))
             </a>
             <ul class="treeview-menu">
               <li class="active">
-                <a href="adminusers">
+                <a href="../usuario/vusuario">
                   <i class="fa fa-circle-o"></i> 
                     Administrar Usuarios
                 </a>
@@ -369,7 +369,7 @@ if(!isset($_SESSION['user_session']))
                 </a>
               </li>
               <li>
-                <a href="historyaccess">
+                <a href="../historialacceso/vhistoryaccess">
                   <i class="fa fa-circle-o"></i> 
                    Historial de acceso
                 </a>
@@ -400,9 +400,9 @@ if(!isset($_SESSION['user_session']))
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="changepassword">
+                <a href="../perfil/vperfil">
                   <i class="fa fa-circle-o"></i> 
-                    Cambiar contraseña
+                    Mi Cuenta
                 </a>
               </li>
             </ul>
