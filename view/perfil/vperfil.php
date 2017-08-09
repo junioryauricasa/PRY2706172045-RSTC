@@ -112,12 +112,12 @@
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">Actividad</a></li>
-                  <!--li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li-->
                   <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Información</a></li>
+                  <li class=""><a href="#fotoperfil" data-toggle="tab" aria-expanded="false">Mi Foto</a></li>
                 </ul>
+
                 <div class="tab-content">
                   <div class="tab-pane active" id="activity">
-
                     <div class="box-header with-border">
                       <h3 class="box-title">Historial de Acceso</h3>
                     </div><!-- /.box-header -->
@@ -147,10 +147,7 @@
                       <!--a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
                       <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a-->
                     </div><!-- /.box-footer -->
-           
-                  </div><!-- /.tab-pane -->
-
-
+                  </div>
                   <div class="tab-pane" id="settings">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -181,11 +178,39 @@
                         </div>
                       </div>
                     </form>
-                  </div><!-- /.tab-pane -->
-                </div><!-- /.tab-content -->
-              </div><!-- /.nav-tabs-custom -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
+                  </div>
+
+                  <!-- form upload image for profile -->
+                  <div class="tab-pane" id="fotoperfil">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Cambiar mi Foto</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                      <div class="table-responsive">
+                        <form method="post" id="formulario" enctype="multipart/form-data">
+                          <div class="col-sm-12">
+                            <input type="file" name="file" class="form-control" required="">
+                          </div>
+                          <div class="col-sm-12">
+                            <div id="respuesta" style="margin: 15px;"></div>
+                          </div>
+                          <div class="col-sm-12">
+                            <!--input type="submit" class="btn btn-primary"-->
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                      <!--a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
+                      <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a-->
+                    </div>
+                  </div>
+                  <!-- END form upload image for profile -->
+
+                </div>
+              </div>
+            </div>
+          </div>
 
         </section><!-- /.content -->
       </div>
@@ -205,4 +230,27 @@
     padding: 3px;
   }
 </style>
+
+<!-- For upload image -->
+<script>
+     $(function(){
+        $("input[name='file']").on("change", function(){
+            var formData = new FormData($("#formulario")[0]);
+            var ruta = "ajax-imagen.php";
+            $.ajax({
+                url: ruta,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $("#respuesta").html(datos);
+                }
+            });
+        });
+     });
+</script>
+<!-- END For upload image -->
+
 <?php include('../_include/rstfooter.php'); ?>
