@@ -65,8 +65,7 @@
                     </li>
                   </ul-->
 
-                  <a href="#" class="btn btn-primary btn-block"><b>Cambiar Foto</b></a>
-                  <a href="#" class="btn btn-warning btn-block"><b>Cambiar Contraseña</b></a>
+                  <!--a href="#" class="btn btn-warning btn-block"><b>Cambiar Contraseña</b></a-->
                   <a href="../..//logout.php" class="btn btn-danger btn-block"><b>Cerrar Sesion</b></a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -111,7 +110,7 @@
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">Actividad</a></li>
                   <!--li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li-->
-                  <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Configuración</a></li>
+                  <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Información</a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="activity">
@@ -137,42 +136,6 @@
                               <td><span class="label label-success">Shipped</span></td>
                               <td><div class="sparkbar" data-color="#00a65a" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
                             </tr>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                              <td>Samsung Smart TV</td>
-                              <td><span class="label label-warning">Pending</span></td>
-                              <td><div class="sparkbar" data-color="#f39c12" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                              <td>iPhone 6 Plus</td>
-                              <td><span class="label label-danger">Delivered</span></td>
-                              <td><div class="sparkbar" data-color="#f56954" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                              <td>Samsung Smart TV</td>
-                              <td><span class="label label-info">Processing</span></td>
-                              <td><div class="sparkbar" data-color="#00c0ef" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                              <td>Samsung Smart TV</td>
-                              <td><span class="label label-warning">Pending</span></td>
-                              <td><div class="sparkbar" data-color="#f39c12" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                              <td>iPhone 6 Plus</td>
-                              <td><span class="label label-danger">Delivered</span></td>
-                              <td><div class="sparkbar" data-color="#f56954" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                              <td>Call of Duty IV</td>
-                              <td><span class="label label-success">Shipped</span></td>
-                              <td><div class="sparkbar" data-color="#00a65a" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
                           </tbody>
                         </table>
                       </div><!-- /.table-responsive -->
@@ -183,113 +146,35 @@
                     </div><!-- /.box-footer -->
            
                   </div><!-- /.tab-pane -->
-                  <div class="tab-pane" id="timeline">
-                    <!-- The timeline -->
-                    <ul class="timeline timeline-inverse">
-                      <!-- timeline time label -->
-                      <li class="time-label">
-                        <span class="bg-red">
-                          10 Feb. 2014
-                        </span>
-                      </li>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <li>
-                        <i class="fa fa-envelope bg-blue"></i>
-                        <div class="timeline-item">
-                          <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                          <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
-                          </div>
-                          <div class="timeline-footer">
-                            <a class="btn btn-primary btn-xs">Read more</a>
-                            <a class="btn btn-danger btn-xs">Delete</a>
-                          </div>
-                        </div>
-                      </li>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <li>
-                        <i class="fa fa-user bg-aqua"></i>
-                        <div class="timeline-item">
-                          <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-                          <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-                        </div>
-                      </li>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <li>
-                        <i class="fa fa-comments bg-yellow"></i>
-                        <div class="timeline-item">
-                          <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-                          <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                          <div class="timeline-body">
-                            Take me to your leader!
-                            Switzerland is small and neutral!
-                            We are more like Germany, ambitious and misunderstood!
-                          </div>
-                          <div class="timeline-footer">
-                            <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                          </div>
-                        </div>
-                      </li>
-                      <!-- END timeline item -->
-                      <!-- timeline time label -->
-                      <li class="time-label">
-                        <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
-                      </li>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <li>
-                        <i class="fa fa-camera bg-purple"></i>
-                        <div class="timeline-item">
-                          <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                          <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                          <div class="timeline-body">
-                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                            <img src="http://placehold.it/150x100" alt="..." class="margin">
-                          </div>
-                        </div>
-                      </li>
-                      <!-- END timeline item -->
-                      <li>
-                        <i class="fa fa-clock-o bg-gray"></i>
-                      </li>
-                    </ul>
-                  </div><!-- /.tab-pane -->
+
 
                   <div class="tab-pane" id="settings">
                     <form class="form-horizontal">
                       <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
+                          <input type="text" class="form-control" id="inputName" placeholder="Ingrese sus Generales" required="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputEmail" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                          <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su Correo Electrónico" required="">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                        <label for="inputExperience" class="col-sm-2 control-label">Contraseña</label>
+                        <div class="col-sm-5">
+                           <input type="text" class="form-control" placeholder="Ingrese Nueva Contraseña " required="">
+                        </div>
+                        <div class="col-sm-5">
+                           <input type="text" class="form-control" placeholder="Ingrese Contraseña Nuevamente" required="">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-secondary">Registrar</button>
-                          <button type="reset" class="btn btn-danger">Limpiar Celdas</button>
+                          <button type="submit" class="btn btn-primary">Registrar</button>
+                          <button type="reset" class="btn btn-secondary">Limpiar Celdas</button>
                         </div>
                       </div>
                     </form>
