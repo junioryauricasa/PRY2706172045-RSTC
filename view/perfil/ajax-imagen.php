@@ -19,9 +19,9 @@ if (isset($_FILES["file"]))
     {
       echo "<span class='label label-warning'>Error, el tamaño máximo permitido es un 1MB</span>";
     }
-    else if ($width > 250 || $height > 250) //dimensiones maximas
+    else if ($width > 350 || $height > 350) //dimensiones maximas
     {
-        echo "<span class='label label-warning'>Error la anchura y la altura máxima permitida es 250px</span>";
+        echo "<span class='label label-warning'>Error la anchura y la altura máxima permitida es 350px</span>";
     }
     else if($width < 60 || $height < 60) //dimensiones minimas
     {
@@ -29,12 +29,14 @@ if (isset($_FILES["file"]))
     }
     else if($width = $height) //tamaño cuadrado
     {
-        $src = $carpeta.$nombre;
-        move_uploaded_file($ruta_provisional, $src);
+        $nvchDireccionImg = $carpeta.$nombre;
+        move_uploaded_file($ruta_provisional, $nvchDireccionImg);
         //agregar insert de la ruta y nombre a la base de datos
 
-        echo "<img src='$src' width='120'></br>";
+        echo "<img src='$nvchDireccionImg' width='120'></br>";
         echo "<span class='label label-success'>Se actualizo su Foto de Perfil!!</span>";
+        include ('../../datos/usuario/class_perfil.php');
+    
     }
     else
     {

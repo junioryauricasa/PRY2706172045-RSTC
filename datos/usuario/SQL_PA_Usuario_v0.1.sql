@@ -150,3 +150,21 @@ DELIMITER $$
     	END 
 $$
 DELIMITER ;
+
+/*
+	Subir imgen perfil usuario
+*/
+DROP PROCEDURE IF EXISTS INSERTARIMAGENUSUARIO;
+DELIMITER $$
+	CREATE PROCEDURE INSERTARIMAGENUSUARIO(
+	IN _intUserId INT,
+	IN _nvchImgPerfil VARCHAR(250)
+    )
+	BEGIN
+		UPDATE tb_usuario
+		SET
+			nvchImgPerfil = _nvchImgPerfil 
+		WHERE intUserId = _intUserId;
+    	END 
+$$
+DELIMITER ;

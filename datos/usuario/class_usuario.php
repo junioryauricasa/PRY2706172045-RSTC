@@ -148,7 +148,7 @@ class Usuario
         ':intIdEmpleado' => $this->intIdEmpleado,
         ':intTypeUser' => $this->intTypeUser,
     	':bitUserEstado' => $this->bitUserEstado));
-      $_SESSION['intUserId'] = $this->intUserId;
+      $_SESSION['intUserId'] = $this->intUserId; //sombreado de lista
       echo "ok";
     }
     catch(PDPExceptio $e){

@@ -189,7 +189,7 @@
                       <div class="table-responsive">
                         <form method="post" id="formulario" enctype="multipart/form-data">
                           <div class="col-sm-12">
-                            <input type="file" name="file" class="form-control">
+                            <input type="file" name="file" class="form-control" required="">
                           </div>
                           <div class="col-sm-12">
                             <div id="respuesta" style="margin: 15px;"></div>
