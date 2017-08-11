@@ -45,7 +45,7 @@
               <!-- Profile Image -->
               <div class="box box-primary">
                 <div class="box-body box-profile">
-                  <img class="profile-user-img img-responsive img-circle" src="https://www.cryptocompare.com/media/19582/icon-user-default.png" alt="User profile picture">
+                  <img class="profile-user-img img-responsive img-circle" src="<?php echo $_SESSION['usr_photo']; ?>" alt="User profile picture">
                   <h3 class="profile-username text-center">
                     <?php echo $_SESSION['usr_name']; ?>
                   </h3>

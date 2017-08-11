@@ -22,7 +22,8 @@ if (isset($_POST['login'])) {
 			$_SESSION['usr_name'] = $row['nchUserMail']; //Username - campo que registrado en toda accion
 			$_SESSION['usr_type'] = $row['intTypeUser']; //Tipo de usuario - controlar el contenido qu este puede visualizar
 			
-			header("Location: admin/index");
+			//header("Location: admin/index");
+			header("Location: view/default/");
 		}else
 		//$errormsg = "Esta cuenta esta desactivada, conversa con tu administrador";
 		$errormsg = "Se te removieron los permisos, conversa con tu administrador";

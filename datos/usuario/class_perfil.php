@@ -7,4 +7,4 @@
   $sql_comando->execute(array(
     ':intUserId' => $_SESSION["user_session"],
     ':nvchImgPerfil' => $nvchDireccionImg)
- );
+  );

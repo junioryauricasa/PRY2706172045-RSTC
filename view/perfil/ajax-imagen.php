@@ -1,4 +1,7 @@
 <?php
+
+error_reporting(0); // Desactivar toda notificación de error
+
 if (isset($_FILES["file"]))
 {
     $file = $_FILES["file"];
@@ -10,10 +13,10 @@ if (isset($_FILES["file"]))
     $width = $dimensiones[0];
     $height = $dimensiones[1];
     $carpeta = "../../datos/usuario/fotos/"; //enviado a la capa de datos
-    
+
     if ($tipo !='image/jpg' && $tipo!= 'image/jpeg' && $tipo!= 'image/png' && $tipo!= 'image/gif') //definiendo si el formato es valido
     {
-      echo "<span class='label label-danger'>Error, este no es un archivo valido</span>"; 
+      echo "<span class='label label-danger'>Error, No se reconoce como un archivo valido!!</span>"; 
     }
     else if ($size > 1024*1024) //definiendo el tamaño maximo
     {
@@ -36,7 +39,7 @@ if (isset($_FILES["file"]))
         echo "<img src='$nvchDireccionImg' width='120'></br>";
         echo "<span class='label label-success'>Se actualizo su Foto de Perfil!!</span>";
         include ('../../datos/usuario/class_perfil.php');
-    
+        $_SESSION['usr_photo'] = $nvchDireccionImg;
     }
     else
     {

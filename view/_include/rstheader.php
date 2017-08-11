@@ -100,7 +100,7 @@ if(!isset($_SESSION['user_session']))
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="../../frameworks/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="<?php echo $_SESSION['usr_photo']; ?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Soporte
@@ -171,13 +171,13 @@ if(!isset($_SESSION['user_session']))
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../../frameworks/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?php echo $_SESSION['usr_photo']; ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['usr_name'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../../frameworks/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo $_SESSION['usr_photo']; ?>" class="img-circle" alt="User Image">
 
                 <p>
                   <?php echo $_SESSION['usr_name'];?> - <?php echo $_SESSION['user_typeuser']; ?>
@@ -225,7 +225,7 @@ if(!isset($_SESSION['user_session']))
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../../frameworks/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo $_SESSION['usr_photo']; ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['usr_name']; ?></p>
@@ -481,7 +481,7 @@ if(!isset($_SESSION['user_session']))
 
           <!-- user logout -->
           <li>
-            <a href="../logout.php">
+            <a href="../../logout.php">
               <i class="fa fa-circle-o text-red"></i> 
               <span>Cerrar sesion</span>
             </a>

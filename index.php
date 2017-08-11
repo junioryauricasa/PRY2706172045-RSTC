@@ -11,7 +11,8 @@
 session_start();
 
 if (isset($_SESSION['user_session'])){
-  header("Location: admin/index");
+  //header("Location: admin/index");
+  header("Location: view/default/");
 }else 
 if(isset($_SESSION['user_session'])!="") {
   header("Location: index");
@@ -37,6 +38,7 @@ if (isset($_POST['login'])) {
     if($row['bitUserEstado']==1){ //Verificacion de estado activo = 1
       $_SESSION['user_session'] = $row['intUserId'];
       $_SESSION['usr_name'] = $row['nvchUserName'];
+      $_SESSION['usr_photo'] = $row['nvchImgPerfil']; //foto usuario
       $_SESSION['user_typeuser'] = $row['intTypeUser'];
 
       // Verificando permisos del usuario
@@ -53,7 +55,8 @@ if (isset($_POST['login'])) {
         $sql = "INSERT INTO tb_historyaccess (intIdHistory, intIdUser, dateDateAccesso, nvchIpAccesso, nvchBrowser) VALUES (NULL, '".$_SESSION['user_session']."', '".$datetimelogin."', '193.10.14.12', '".$ua."');";
 
         if (mysqli_query($con, $sql)){
-          header("Location: admin/index");
+          //header("Location: admin/index");
+          header("Location: view/default/");
         }else 
         echo "algo sucedio mal";
 
