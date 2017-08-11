@@ -447,7 +447,6 @@ if(!isset($_SESSION['user_session']))
               </ul>
             </li>
             <!--END Reportes-->
-
           <?php 
           "";
         }

@@ -39,11 +39,161 @@
         <!-- Main content -->
         <section class="content">
 
+          <!-- Panel de consulta tiempo real datos -->
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">CPU Traffic</span>
+                  <span class="info-box-number">90<small>%</small></span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Likes</span>
+                  <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <div class="clearfix visible-sm-block"></div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Sales</span>
+                  <span class="info-box-number">760</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">New Members</span>
+                  <span class="info-box-number">2,000</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+          </div>
+          <!-- END Panel de consulta tiempo real datos -->
+
+          <div class="row">
+            
+            <div class="col-md-8">
+                <div class="box box-info">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Pedidos Recientes</h3>
+
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <div class="table-responsive">
+                      <table class="table no-margin">
+                        <thead>
+                        <tr>
+                          <th>Order ID</th>
+                          <th>Item</th>
+                          <th>Status</th>
+                          <th>Popularity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                          <td>Call of Duty IV</td>
+                          <td><span class="label label-success">Shipped</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR1848</a></td>
+                          <td>Samsung Smart TV</td>
+                          <td><span class="label label-warning">Pending</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                          <td>iPhone 6 Plus</td>
+                          <td><span class="label label-danger">Delivered</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                          <td>Samsung Smart TV</td>
+                          <td><span class="label label-info">Processing</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR1848</a></td>
+                          <td>Samsung Smart TV</td>
+                          <td><span class="label label-warning">Pending</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                          <td>iPhone 6 Plus</td>
+                          <td><span class="label label-danger">Delivered</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                          <td>Call of Duty IV</td>
+                          <td><span class="label label-success">Shipped</span></td>
+                          <td>
+                            <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer clearfix">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Ingresar Nuevo pedido</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Ver Todos los Pedidos</a>
+                  </div>
+                  <!-- /.box-footer -->
+                </div>
+            </div>
+
+            <div class="col-md-4">
 
               <!-- Profile Image -->
-              <div class="box box-primary">
+              <!--div class="box box-primary">
                 <div class="box-body box-profile">
                   <img class="profile-user-img img-responsive img-circle" src="<?php echo $_SESSION['usr_photo']; ?>" alt="User profile picture">
                   <h3 class="profile-username text-center">
@@ -56,147 +206,86 @@
                     <a href="#">micorreo@gmail.com</a>
                   </p>
 
-                  <!--ul class="list-group list-group-unbordered">
-                    <li class="list-group-item">
-                      <b>Followers</b> <a class="pull-right">1,322</a>
-                    </li>
-                    <li class="list-group-item">
-                      <b>Following</b> <a class="pull-right">543</a>
-                    </li>
-                    <li class="list-group-item">
-                      <b>Friends</b> <a class="pull-right">13,287</a>
-                    </li>
-                  </ul-->
-
-                  <!--a href="#" class="btn btn-warning btn-block"><b>Cambiar Contraseña</b></a-->
                   <a href="../..//logout.php" class="btn btn-danger btn-block"><b>Cerrar Sesion</b></a>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-
-              <!-- About Me Box -->
-              <!--div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Información</h3>
-                </div>
-                <div class="box-body">
-                  <strong><i class="fa fa-book margin-r-5"></i>  Educación</strong>
-                  <p class="text-muted">
-                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                  </p>
-
-                  <hr>
-
-                  <strong><i class="fa fa-map-marker margin-r-5"></i> Localización</strong>
-                  <p class="text-muted">Malibu, California</p>
-
-                  <hr>
-
-                  <strong><i class="fa fa-pencil margin-r-5"></i> Habilidades</strong>
-                  <p>
-                    <span class="label label-danger">UI Design</span>
-                    <span class="label label-success">Coding</span>
-                    <span class="label label-info">Javascript</span>
-                    <span class="label label-warning">PHP</span>
-                    <span class="label label-primary">Node.js</span>
-                  </p>
-
-                  <hr>
-
-                  <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                 </div>
               </div-->
-            </div>
 
-            <!--div class="col-md-9">
-              <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">Actividad</a></li>
-                  <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Información</a></li>
-                  <li class=""><a href="#fotoperfil" data-toggle="tab" aria-expanded="false">Mi Foto</a></li>
-                </ul>
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Ultimos Productos en Almacen</h3>
 
-                <div class="tab-content">
-                  <div class="tab-pane active" id="activity">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Historial de Acceso</h3>
-                    </div>
-                    <div class="box-body">
-                      <div class="table-responsive">
-                        <table class="table no-margin">
-                          <thead>
-                            <tr>
-                              <th>#Cod.</th>
-                              <th>Último Acceso</th>
-                              <th>IP Registrada</th>
-                              <th>Dispositivo</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                              <td>Call of Duty IV</td>
-                              <td><span class="label label-success">Shipped</span></td>
-                              <td><div class="sparkbar" data-color="#00a65a" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Nombre</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" placeholder="Ingrese sus Generales" required="">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su Correo Electrónico" required="">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Contraseña</label>
-                        <div class="col-sm-5">
-                           <input type="text" class="form-control" placeholder="Ingrese Nueva Contraseña " required="">
-                        </div>
-                        <div class="col-sm-5">
-                           <input type="text" class="form-control" placeholder="Ingrese Contraseña Nuevamente" required="">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-primary">Registrar</button>
-                          <button type="reset" class="btn btn-secondary">Limpiar Celdas</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-
-                  <div class="tab-pane" id="fotoperfil">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Cambiar mi Foto</h3>
-                    </div>
-                    <div class="box-body">
-                      <div class="table-responsive">
-                        <form method="post" id="formulario" enctype="multipart/form-data">
-                          <div class="col-sm-12">
-                            <input type="file" name="file" class="form-control" required="">
-                          </div>
-                          <div class="col-sm-12">
-                            <div id="respuesta" style="margin: 15px;"></div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <ul class="products-list product-list-in-box">
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">Samsung TV
+                          <span class="label label-warning pull-right">$1800</span></a>
+                            <span class="product-description">
+                              Samsung 32" 1080p 60Hz LED Smart HDTV.
+                            </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">Bicycle
+                          <span class="label label-info pull-right">$700</span></a>
+                            <span class="product-description">
+                              26" Mongoose Dolomite Men's 7-speed, Navy Blue.
+                            </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
+                            <span class="product-description">
+                              Xbox One Console Bundle with Halo Master Chief Collection.
+                            </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="label label-success pull-right">$399</span></a>
+                            <span class="product-description">
+                              PlayStation 4 500GB Console (PS4)
+                            </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                  </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="javascript:void(0)" class="uppercase">Ver todos los Productos</a>
+                </div>
+                <!-- /.box-footer -->
               </div>
-            </div-->
+            </div>
+
           </div>
+
 
         </section><!-- /.content -->
       </div>
