@@ -203,7 +203,10 @@ if(!isset($_SESSION['user_session']))
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Mi Perfil</a>
+                  <a href="../perfil/vperfil" class="btn btn-default btn-flat">Mi Perfil</a>
+                </div>
+                <div class="pull-right">
+                  <a href="../../logout.php" class="btn btn-default btn-flat">Salir</a>
                 </div>
               </li>
             </ul>
@@ -259,10 +262,8 @@ if(!isset($_SESSION['user_session']))
       <!--Inventario-->
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-user"></i> <span>Inventario</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
+          <i class="fa fa-th-list"></i> <span>Inventario</span>
+          <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
           <!--<li class="active">
@@ -314,10 +315,8 @@ if(!isset($_SESSION['user_session']))
             <!--Ventas-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-user"></i> <span>Ventas</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                <i class="fa fa-list-alt"></i> <span>Ventas</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li class="active">
@@ -351,10 +350,8 @@ if(!isset($_SESSION['user_session']))
             <!--Usuarios-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-user"></i> <span>Usuarios</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                <i class="fa fa-users"></i> <span>Usuarios</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li class="active">
@@ -390,9 +387,7 @@ if(!isset($_SESSION['user_session']))
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-user"></i> <span>Clientes</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li>
@@ -421,10 +416,8 @@ if(!isset($_SESSION['user_session']))
             <!--Reportes-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-user"></i> <span>Reportes</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
+                <i class="fa fa-file-pdf-o"></i> <span>Reportes</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li>
@@ -464,15 +457,14 @@ if(!isset($_SESSION['user_session']))
           <!--Mi cuenta-->
           <li class="treeview">
             <a href="#">
-              <i class="fa fa-user"></i> <span>Mi Cuenta</span>
-              <span class="pull-right-container">
+              <i class="fa fa-user"></i> 
+                <span>Mi Cuenta</span>
                 <i class="fa fa-angle-left pull-right"></i>
-              </span>
             </a>
             <ul class="treeview-menu">
               <li>
                 <a href="../perfil/vperfil">
-                  <i class="fa fa-circle-o"></i> 
+                  <i class="fa fa-dashboard"></i> 
                     Mi Perfil
                 </a>
               </li>
@@ -488,6 +480,7 @@ if(!isset($_SESSION['user_session']))
             </a>
           </li>
           <!-- END user logout -->
+
 
         <!-- menu comentado -->
         <!--li class="treeview">
@@ -652,3 +645,8 @@ if(!isset($_SESSION['user_session']))
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  <!-- Bloquear uso de mouse para ver script -->
+  <script type="text/javascript">
+    document.oncontextmenu = function(){return false;}
+  </script>

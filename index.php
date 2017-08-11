@@ -38,7 +38,9 @@ if (isset($_POST['login'])) {
     if($row['bitUserEstado']==1){ //Verificacion de estado activo = 1
       $_SESSION['user_session'] = $row['intUserId'];
       $_SESSION['usr_name'] = $row['nvchUserName'];
+      
       $_SESSION['usr_photo'] = $row['nvchImgPerfil']; //foto usuario
+
       $_SESSION['user_typeuser'] = $row['intTypeUser'];
 
       // Verificando permisos del usuario
