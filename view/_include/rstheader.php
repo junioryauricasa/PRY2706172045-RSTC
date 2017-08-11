@@ -646,6 +646,6 @@ if(!isset($_SESSION['user_session']))
   </aside>
 
   <!-- Bloquear uso de mouse para ver script -->
-  <script type="text/javascript">
+  <!--script type="text/javascript">
     document.oncontextmenu = function(){return false;}
-  </script>
+  </script-->
