@@ -24,6 +24,7 @@ class Producto
   public function InsertarProducto()
   {
     try{
+      $file = $_FILES['nvchDireccionImg']['name'];
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproducto(:nvchNombre,:dcmPrecio,
@@ -293,6 +294,16 @@ class Producto
             </li>';
       }
       echo $output;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function FiltrarImagen($file)
+  {
+    try{
+      
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

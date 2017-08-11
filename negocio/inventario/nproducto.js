@@ -1,6 +1,8 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Producto */
 $(document).on('click', '#btn-crear-producto', function(){
+	  //var form = $('#form-crear-producto')[0]; // You need to use standard javascript object here
+	  //var formData = new FormData(form);
 	  var formData = $("#form-crear-producto").serialize();
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
@@ -9,9 +11,12 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   url: "../../datos/inventario/class_producto.php",
 	   method: "POST",
 	   data: formData,
+	   contentType: false,
+       processData: false,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { 
+	   	if (datos=="ok") {
+
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
@@ -209,4 +214,40 @@ $(document).on('keyup', '#txt-busqueda', function(){
 });
 
 /* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Seleccion de imagen del producto */
+
+$(document).on('change', '#nvchDireccionImg', function(){
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("nvchDireccionImg").files[0]);
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("resultadoimagen").src = oFREvent.target.result;
+        };
+});
+
+/* FIN - Funcion Ajax - Seleccion de imagen del producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Seleccion de imagen del producto */
+
+function GuardarImagenProducto(){
+        var formData = new FormData($("#form-crear-producto")[0]);
+        var ruta = "ajax-imagen.php";
+        $.ajax({
+            url: ruta,
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(datos)
+            {
+                $("#respuesta").html(datos);
+            }
+        });
+}
+
+/* FIN - Funcion Ajax - Seleccion de imagen del producto */
 //////////////////////////////////////////////////////////////

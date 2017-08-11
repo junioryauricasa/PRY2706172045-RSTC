@@ -11,13 +11,33 @@
             <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Nombre:</label>
-                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="" required="">
+                    <label>Código del Producto:</label>
+                    <input type="text" name="nvchCodigoProducto" class="form-control select2" placeholder="Ingrese código del producto" value="" required="">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Precio:</label>
+                    <label>Código de Inventario:</label>
+                    <input type="text" name="nvchCodigoInventario" class="form-control select2" placeholder="Ingrese código de inventario" value="" required="">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Descripción:</label>
+                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="" required="">
+                  </div>
+                </div>
+                <!--
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="" required="">
+                  </div>
+                </div>
+                -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Precio: S/.</label>
                     <input type="text" name="dcmPrecio" class="form-control select2" placeholder="Ingrese precio del producto" value="" required="">
                   </div>
                 </div>
@@ -30,13 +50,9 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Imagen:</label>
-                    <input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="" required="">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Descripción:</label>
-                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="" required="">
+                    <input type="file" name="nvchDireccionImg" id="nvchDireccionImg" accept=".png, .jpg, .jpeg">
+                    <img id="resultadoimagen" style="width: 100px; height: 100px;" />
+                    <!--<input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="" required="">-->
                   </div>
                 </div>
             </div>
