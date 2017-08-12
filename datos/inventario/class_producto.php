@@ -1,7 +1,9 @@
 <?php
 session_start();
 require_once '../conexion/bd_conexion.php';
-$_SESSION['intIdProducto'] = 0;
+if(empty($_SESSION['intIdProducto'])){
+  $_SESSION['intIdProducto'] = 0;
+}
 class Producto
 {
   /* INICIO - Atributos de Producto*/
@@ -24,19 +26,23 @@ class Producto
   public function InsertarProducto()
   {
     try{
-      $file = $_FILES['nvchDireccionImg']['name'];
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(:nvchNombre,:dcmPrecio,
+      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchNombre,:dcmPrecio,
         :intCantidad,:nvchDireccionImg,:nvchDescripcion)');
-      $sql_comando->execute(array(':nvchNombre' => $this->nvchNombre, 
+      $sql_comando->execute(array(
+        ':nvchNombre' => "", 
         ':dcmPrecio' => $this->dcmPrecio,
         ':intCantidad' => $this->intCantidad,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':nvchDireccionImg' => "",
         ':nvchDescripcion' => $this->nvchDescripcion));
+      $sql_comando->closeCursor();
+      $salidas = $sql_conectar->query("select @intIdProducto as intIdProducto");
+      $salida = $salidas->fetchObject();
+      $_SESSION['intIdProducto'] = $salida->intIdProducto;
       echo "ok";
     }
-    catch(PDPExceptio $e){
+    catch(PDPExceptions $e){
       echo $e->getMessage();
     }
   }
@@ -62,13 +68,25 @@ class Producto
             <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="'.$fila['nvchNombre'].'">
+                        <label>Código del Producto:</label>
+                        <input type="text" name="nvchCodigoProducto" class="form-control select2" placeholder="Ingrese código del producto" value="" required="">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Precio:</label>
+                        <label>Código de Inventario:</label>
+                        <input type="text" name="nvchCodigoInventario" class="form-control select2" placeholder="Ingrese código de inventario" value="" required="">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Descripción:</label>
+                        <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="'.$fila['nvchDescripcion'].'">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>Precio: S/.</label>
                         <input type="text" name="dcmPrecio" class="form-control select2" placeholder="Ingrese precio del producto" value="'.$fila['dcmPrecio'].'">
                       </div>
                     </div>
@@ -81,13 +99,9 @@ class Producto
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Imagen:</label>
-                        <input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="'.$fila['nvchDireccionImg'].'">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Descripción:</label>
-                        <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese descripción del producto" value="'.$fila['nvchDescripcion'].'">
+                        <input type="file" name="nvchDireccionImg" id="nvchDireccionImg" accept=".png, .jpg, .jpeg">
+                        <img id="resultadoimagen" src="../../datos/inventario/imgproducto/'.$fila['nvchDireccionImg'].'"style="width: 100px; height: 100px;" />
+                        <div id="operacionimagen"></div>
                       </div>
                     </div>
             </div>
@@ -115,10 +129,10 @@ class Producto
       $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchNombre,:dcmPrecio,
         :intCantidad,:nvchDireccionImg,:nvchDescripcion)');
       $sql_comando->execute(array(':intIdProducto' => $this->intIdProducto,
-        ':nvchNombre' => $this->nvchNombre, 
+        ':nvchNombre' => "", 
         ':dcmPrecio' => $this->dcmPrecio,
         ':intCantidad' => $this->intCantidad,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':nvchDireccionImg' => "",
         ':nvchDescripcion' => $this->nvchDescripcion));
       $_SESSION['intIdProducto'] = $this->intIdProducto;
       echo "ok";
@@ -315,20 +329,20 @@ class Producto
 switch($_POST['funcion']){
   case "I":
     $producto = new Producto();
-    $producto->Nombre($_POST['nvchNombre']);
+    //$producto->Nombre($_POST['nvchNombre']);
     $producto->Precio($_POST['dcmPrecio']);
     $producto->Cantidad($_POST['intCantidad']);
-    $producto->DireccionImg($_POST['nvchDireccionImg']);
+    //$producto->DireccionImg($_POST['nvchDireccionImg']);
     $producto->Descripcion($_POST['nvchDescripcion']);
     $producto->InsertarProducto();
     break;
   case "A":
     $producto = new Producto();
     $producto->IdProducto($_POST['intIdProducto']);
-    $producto->Nombre($_POST['nvchNombre']);
+    //$producto->Nombre($_POST['nvchNombre']);
     $producto->Precio($_POST['dcmPrecio']);
     $producto->Cantidad($_POST['intCantidad']);
-    $producto->DireccionImg($_POST['nvchDireccionImg']);
+    //$producto->DireccionImg($_POST['nvchDireccionImg']);
     $producto->Descripcion($_POST['nvchDescripcion']);
     $producto->ActualizarProducto();
     break;

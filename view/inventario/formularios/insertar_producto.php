@@ -52,7 +52,7 @@
                     <label>Imagen:</label>
                     <input type="file" name="nvchDireccionImg" id="nvchDireccionImg" accept=".png, .jpg, .jpeg">
                     <img id="resultadoimagen" style="width: 100px; height: 100px;" />
-                    <!--<input type="text" name="nvchDireccionImg" class="form-control select2" placeholder="Ingrese imagen del producto" value="" required="">-->
+                    <div id="operacionimagen"></div>
                   </div>
                 </div>
             </div>

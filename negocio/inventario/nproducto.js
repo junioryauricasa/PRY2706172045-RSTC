@@ -1,9 +1,8 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Producto */
 $(document).on('click', '#btn-crear-producto', function(){
-	  //var form = $('#form-crear-producto')[0]; // You need to use standard javascript object here
-	  //var formData = new FormData(form);
 	  var formData = $("#form-crear-producto").serialize();
+	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "N";
@@ -11,12 +10,10 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   url: "../../datos/inventario/class_producto.php",
 	   method: "POST",
 	   data: formData,
-	   contentType: false,
-       processData: false,
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-
+	   		GuardarImagenProducto(funcion);
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
@@ -53,6 +50,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 /* INICIO - Funcion Ajax - Actualizar Producto */
 $(document).on('click', '#btn-editar-producto', function(){
   	  var intIdProducto = $(this).attr("id");
+  	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
@@ -63,7 +61,8 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   data:formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { 
+	   	if (datos=="ok") {
+	   		GuardarImagenProducto(funcion);
 	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
@@ -233,9 +232,13 @@ $(document).on('change', '#nvchDireccionImg', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Seleccion de imagen del producto */
 
-function GuardarImagenProducto(){
+function GuardarImagenProducto(funcion){
+		if(funcion == "I"){
         var formData = new FormData($("#form-crear-producto")[0]);
-        var ruta = "ajax-imagen.php";
+    	} else if(funcion == "A"){ 
+        var formData = new FormData($("#form-editar-producto")[0]);
+        }
+        var ruta = "../../datos/inventario/guardarimgproducto.php";
         $.ajax({
             url: ruta,
             type: "POST",
@@ -244,8 +247,10 @@ function GuardarImagenProducto(){
             processData: false,
             success: function(datos)
             {
-                $("#respuesta").html(datos);
-            }
+            	if (datos!="ok") {
+			   		$("#operacionimagen").html(datos); 
+				}
+			 }
         });
 }
 
