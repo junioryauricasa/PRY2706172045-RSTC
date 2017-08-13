@@ -1,5 +1,6 @@
 <?php 
 		include('../_include/rstheader.php');
+    include('../../datos/default/class_default.php');
 ?>
     <script>
       $(document).ready(function(){
@@ -46,7 +47,10 @@
                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Usuarios</span>
-                  <span class="info-box-number">12<small>%</small></span>
+                  <span class="info-box-number">
+                      <?php echo ContarUsuarios(); ?>
+                      <small> Registros</small>
+                  </span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -57,7 +61,10 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Productos</span>
-                  <span class="info-box-number">41,410</span>
+                  <span class="info-box-number">
+                      <?php echo ContarProductos(); ?>
+                      <small> Registros</small>
+                  </span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -69,8 +76,11 @@
               <div class="info-box">
                 <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Cotizaciones</span>
-                  <span class="info-box-number">760</span>
+                  <span class="info-box-text">Clientes</span>
+                  <span class="info-box-number">
+                      <?php echo ContarClientes(); ?>
+                      <small> Registros</small>
+                  </span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -81,8 +91,11 @@
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">New Members</span>
-                  <span class="info-box-number">2,000</span>
+                  <span class="info-box-text">Empleados</span>
+                  <span class="info-box-number">
+                      <?php echo ContarEmpleados(); ?>
+                      <small> Registros</small>
+                  </span>
                 </div>
                 <!-- /.info-box-content -->
               </div>

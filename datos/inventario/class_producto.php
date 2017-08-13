@@ -99,8 +99,8 @@ class Producto
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Imagen:</label>
-                        <input type="file" name="nvchDireccionImg" id="nvchDireccionImg" accept=".png, .jpg, .jpeg">
-                        <img id="resultadoimagen" src="../../datos/inventario/imgproducto/'.$fila['nvchDireccionImg'].'"style="width: 100px; height: 100px;" />
+                        <input type="file" name="nvchDireccionImg" id="nvchDireccionImg" accept=".png, .jpg, .jpeg" value="'.$fila['nvchDireccionImg'].'">
+                        <img id="resultadoimagen" src="../../datos/inventario/imgproducto/'.$fila['nvchDireccionImg'].'"style="width: 100px; height: 100px;"/>
                         <div id="operacionimagen"></div>
                       </div>
                     </div>
