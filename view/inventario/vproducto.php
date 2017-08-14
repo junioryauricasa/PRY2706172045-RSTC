@@ -7,7 +7,6 @@ include('../_include/rstheader.php');
       });
     </script>
     <script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>
-    <script type="text/javascript" src="ajax/vproducto.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -68,24 +67,20 @@ include('../_include/rstheader.php');
               </div>
             </div>
           </div>
-          <!--div class="row">
-            <div class="col-md-2">
-              <label class="text-left">Ingresar Búsqueda:</label>
-              <div class="form-group">
-                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
-              </div>
-            </div>
-          </div-->
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
                 <th>#Código</th>
+                <th>Código de Producto</th>
+                <th>Código de Inventario</th>
                 <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Imagen</th>
                 <th>Descripción</th>
+                <th>Precio de Compra</th>
+                <th>Precio de Venta</th>
+                <th>Cantidad</th>
+                <th>Descuento</th>
+                <th>Imágen</th>
                 <th>Opciones</th>
               </tr>
               </thead>

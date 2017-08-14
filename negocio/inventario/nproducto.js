@@ -1,7 +1,25 @@
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Visualizar Formulario Crear Producto */
+$(document).on('click', '#btn-form-crear-producto', function(){
+	  var funcion = "F";
+	  $.ajax({
+	   url:"../../datos/inventario/class_producto.php",
+	   method:'POST',
+	   data:{funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#formulario-crud").html(datos);
+	   }
+	  });
+	 return false;
+});
+/* FIN - Funcion Ajax - Visualizar Formulario Crear Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Producto */
 $(document).on('click', '#btn-crear-producto', function(){
-	  var formData = $("#form-crear-producto").serialize();
+	  var formData = $("#form-producto").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
@@ -13,7 +31,6 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		GuardarImagenProducto(funcion);
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
@@ -49,12 +66,11 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Producto */
 $(document).on('click', '#btn-editar-producto', function(){
-  	  var intIdProducto = $(this).attr("id");
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
-  	  var formData = $("#form-editar-producto").serialize();
+  	  var formData = $("#form-producto").serialize();
 	  $.ajax({
 	   url:"../../datos/inventario/class_producto.php",
 	   method:"POST",
@@ -62,7 +78,6 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		GuardarImagenProducto(funcion);
 	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
@@ -218,27 +233,9 @@ $(document).on('keyup', '#txt-busqueda', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Seleccion de imagen del producto */
 
-$(document).on('change', '#nvchDireccionImg', function(){
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("nvchDireccionImg").files[0]);
-        oFReader.onload = function (oFREvent) {
-            document.getElementById("resultadoimagen").src = oFREvent.target.result;
-        };
-});
-
-/* FIN - Funcion Ajax - Seleccion de imagen del producto */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Seleccion de imagen del producto */
-
-function GuardarImagenProducto(funcion){
-		if(funcion == "I"){
-        var formData = new FormData($("#form-crear-producto")[0]);
-    	} else if(funcion == "A"){ 
-        var formData = new FormData($("#form-editar-producto")[0]);
-        }
-        var ruta = "../../datos/inventario/guardarimgproducto.php";
+$(document).on('change', '#SeleccionImagen', function(){
+        var formData = new FormData($("#form-producto")[0]);
+        var ruta = "../../datos/inventario/proceso_guardarimagen.php";
         $.ajax({
             url: ruta,
             type: "POST",
@@ -247,12 +244,11 @@ function GuardarImagenProducto(funcion){
             processData: false,
             success: function(datos)
             {
-            	if (datos!="ok") {
-			   		$("#operacionimagen").html(datos); 
-				}
-			 }
+		        document.getElementById("resultadoimagen").src = datos;
+		        document.getElementById("nvchDireccionImg").value = datos;
+			}
         });
-}
+});
 
 /* FIN - Funcion Ajax - Seleccion de imagen del producto */
 //////////////////////////////////////////////////////////////
