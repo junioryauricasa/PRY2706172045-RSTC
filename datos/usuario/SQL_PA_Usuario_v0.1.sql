@@ -122,12 +122,12 @@ DELIMITER $$
 	BEGIN
 		SELECT * FROM tb_usuario 
 		WHERE 
-			intUserId LIKE CONCAT(_elemento,'%') OR 
-			nvchUserName LIKE CONCAT(_elemento,'%') OR 
-			nchUserMail LIKE CONCAT(_elemento,'%') OR 
-			intIdEmpleado LIKE CONCAT(_elemento,'%') OR 
-			intTypeUser LIKE CONCAT(_elemento,'%') OR 
-			bitUserEstado LIKE CONCAT(_elemento,'%')
+			intUserId LIKE CONCAT('%',_elemento,'%') OR 
+			nvchUserName LIKE CONCAT('%',_elemento,'%') OR 
+			nchUserMail LIKE CONCAT('%',_elemento,'%') OR 
+			intIdEmpleado LIKE CONCAT('%',_elemento,'%') OR 
+			intTypeUser LIKE CONCAT('%',_elemento,'%') OR 
+			bitUserEstado LIKE CONCAT('%',_elemento,'%')
 		LIMIT _x,_y;
     	END 
 $$
@@ -141,12 +141,12 @@ DELIMITER $$
 	BEGIN
 		SELECT * FROM tb_usuario 
 		WHERE 
-			intUserId LIKE CONCAT(_elemento,'%') OR 
-			nvchUserName LIKE CONCAT(_elemento,'%') OR 
-			nchUserMail LIKE CONCAT(_elemento,'%') OR 
-			intIdEmpleado LIKE CONCAT(_elemento,'%') OR 
-			intTypeUser LIKE CONCAT(_elemento,'%') OR 
-			bitUserEstado LIKE CONCAT(_elemento,'%');
+			intUserId LIKE CONCAT('%',_elemento,'%') OR 
+			nvchUserName LIKE CONCAT('%',_elemento,'%') OR 
+			nchUserMail LIKE CONCAT('%',_elemento,'%') OR 
+			intIdEmpleado LIKE CONCAT('%',_elemento,'%') OR 
+			intTypeUser LIKE CONCAT('%',_elemento,'%') OR 
+			bitUserEstado LIKE CONCAT('%',_elemento,'%');
     	END 
 $$
 DELIMITER ;

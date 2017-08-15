@@ -276,10 +276,11 @@ class Usuario
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
+
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-	  //$sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
-	  $sql_comando = $sql_conectar->prepare('CALL buscarusuario_ii(:busqueda)');
+  	  //$sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+  	  $sql_comando = $sql_conectar->prepare('CALL buscarusuario_ii(:busqueda)');
       $sql_comando -> execute(array(':busqueda' => $busqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
@@ -291,7 +292,7 @@ class Usuario
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
         {
-          //$output = 'No s eencontraron nada';
+          //$output = 'No se encontro nada';
           if($x==0)
           {
             $output .= 
@@ -313,7 +314,7 @@ class Usuario
         }
 
           if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
+              $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
           }
           else
           {

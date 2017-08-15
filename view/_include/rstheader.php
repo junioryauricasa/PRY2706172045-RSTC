@@ -179,7 +179,6 @@ if(!isset($_SESSION['user_session']))
               <!-- User image -->
               <li class="user-header">
                 <img src="<?php echo $_SESSION['usr_photo']; ?>" class="img-circle" alt="User Image">
-
                 <p>
                   <?php echo $_SESSION['usr_name'];?> - <?php echo $_SESSION['user_typeuser']; ?>
                   <!--small>Member since Nov. 2012</small-->
@@ -203,10 +202,16 @@ if(!isset($_SESSION['user_session']))
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="../perfil/vperfil" class="btn btn-default btn-flat">Mi Perfil</a>
+                  <a href="../perfil/vperfil" class="btn btn-default btn-flat">
+                      <i class="ion-ios-person"></i>
+                      Mi Perfil
+                  </a>
                 </div>
                 <div class="pull-right">
-                  <a href="../../logout.php" class="btn btn-default btn-flat">Salir</a>
+                  <a href="../../logout.php" class="btn btn-danger btn-flat" style="border-radius: 3px">
+                      <i class="ion-log-out"></i>
+                      Salir
+                  </a>
                 </div>
               </li>
             </ul>
@@ -259,6 +264,26 @@ if(!isset($_SESSION['user_session']))
             1.- Intento control de permisos v0.1
        -->
           
+
+
+      <!-- user dasboard -->
+      <li>
+        <a href="../default/">
+          <i class="fa fa-home"></i> 
+          <span>Inicio</span>
+        </a>
+      </li>
+      <!-- END user dasboard -->
+
+      <!-- user dasboard -->
+      <li>
+        <a href="../default/dashboard">
+          <i class="fa fa-dashboard"></i> 
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <!-- END user dasboard -->
+
       <!--Inventario-->
       <li class="treeview">
         <a href="#">
@@ -470,7 +495,7 @@ if(!isset($_SESSION['user_session']))
             <ul class="treeview-menu">
               <li>
                 <a href="../perfil/vperfil">
-                  <i class="fa fa-dashboard"></i> 
+                  <i class="fa fa-circle-o"></i> 
                     Mi Perfil
                 </a>
               </li>

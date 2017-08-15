@@ -35,6 +35,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 	  $cantidad = $sql_comando -> rowCount();
 	  echo $cantidad; 
 	  */
+	  echo '<span class="label label-danger">Pendiente</span>';
 	}
 
 	function ContarEmpleados()
@@ -48,6 +49,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 	  $cantidad = $sql_comando -> rowCount();
 	  echo $cantidad; 
 	  */
+	  echo '<span class="label label-danger">Pendiente</span>';
 	}
 
 ?>

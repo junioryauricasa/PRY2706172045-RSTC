@@ -46,7 +46,9 @@
                   <img style="padding:100px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1000px-Microsoft_logo_%282012%29.svg.png" alt="" width="100%">
                 </div>
                 <div class="box-footer clearfix">     
-		          <a href="dashboard" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Ver Dashboard</a>
+		            <a href="dashboard" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px; border-radius: 3px">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i> Ver Dashboard
+                </a>
 		        </div>
             </div>
 

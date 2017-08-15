@@ -31,9 +31,8 @@
             Bienvenido al portal Resteco <?php echo $_SESSION['usr_name']; ?>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-            <li><a href="#">Ejemplo </a></li>
-            <li class="active">Perfil Usuario</li>
+            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
           </ol>
         </section>
 
@@ -44,12 +43,11 @@
           <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="ion-bag"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Usuarios</span>
+                  <span class="info-box-text">Productos</span>
                   <span class="info-box-number">
-                      <?php echo ContarUsuarios(); ?>
-                      <small> Registros</small>
+                      <small><?php echo ContarProductos(); ?> Registros</small>
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -58,12 +56,11 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+                <span class="info-box-icon bg-red"><i class="ion-person-stalker"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Productos</span>
+                  <span class="info-box-text">Usuarios</span>
                   <span class="info-box-number">
-                      <?php echo ContarProductos(); ?>
-                      <small> Registros</small>
+                      <small><?php echo ContarUsuarios(); ?> Registros</small>
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -74,12 +71,11 @@
 
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+                <span class="info-box-icon bg-green"><i class="ion-ios-person"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Clientes</span>
                   <span class="info-box-number">
-                      <?php echo ContarClientes(); ?>
-                      <small> Registros</small>
+                      <small><?php echo ContarClientes(); ?></small>
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -88,13 +84,11 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Empleados</span>
                   <span class="info-box-number">
-                      <?php echo ContarEmpleados(); ?>
-                      <small> Registros</small>
+                      <small><?php echo ContarEmpleados(); ?></small>
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -193,8 +187,14 @@
                   </div>
                   <!-- /.box-body -->
                   <div class="box-footer clearfix">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Ingresar Nuevo pedido</a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Ver Todos los Pedidos</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">
+                        <i class="ion-plus-circled"></i>
+                        Ingresar Nuevo pedido
+                    </a>
+                    <a href="" class="btn btn-sm btn-default btn-flat pull-right">
+                        <i class="ion-eye"></i>
+                        Ver Todos los Pedidos
+                    </a>
                   </div>
                   <!-- /.box-footer -->
                 </div>
@@ -288,7 +288,9 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                  <a href="javascript:void(0)" class="uppercase">Ver todos los Productos</a>
+                  <a href="../inventario/vproducto" class="uppercase">
+                      Ver todos los Productos
+                  </a>
                 </div>
                 <!-- /.box-footer -->
               </div>
