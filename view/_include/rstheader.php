@@ -266,22 +266,10 @@ if(!isset($_SESSION['user_session']))
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <!--<li class="active">
-            <a href="admininventario">
-              <i class="fa fa-circle-o"></i> 
-                Administrar producto
-            </a>
-          </li>
-          <li class="active">
-            <a href="guiainternaentrada">
-              <i class="fa fa-circle-o"></i> 
-                Guia Interna de Entrada
-            </a>
-          </li>-->
           <li class="active">
             <a href="../inventario/vproducto">
               <i class="fa fa-circle-o"></i> 
-                Administrar Inventario
+                Registro de Productos
             </a>
           </li>
           <li>
@@ -293,7 +281,7 @@ if(!isset($_SESSION['user_session']))
           <li>
             <a href="../salida/vsalida">
               <i class="fa fa-circle-o"></i> 
-                Administrar salida
+                Administrar Salida
             </a>
           </li>
           <li>
@@ -305,7 +293,32 @@ if(!isset($_SESSION['user_session']))
         </ul>
       </li>
       <!--END Inventrio-->
-
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-cart-plus"></i> <span>Compras</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li class="active">
+            <a href="../compras/vproveedor">
+              <i class="fa fa-circle-o"></i> 
+                Registro de Proveedores
+            </a>
+          </li>
+          <li>
+            <a href="../compras/vregistrocompra">
+              <i class="fa fa-circle-o"></i> 
+                Registro de Compras
+            </a>
+          </li>
+          <li>
+            <a href="../reporte/vreporte">
+              <i class="fa fa-circle-o"></i> 
+                Reportes
+            </a>
+          </li>
+        </ul>
+      </li>
       <?php 
 
         if($_SESSION['user_typeuser'] == 'Administrador'){
@@ -326,21 +339,15 @@ if(!isset($_SESSION['user_session']))
                   </a>
                 </li>
                 <li>
-                  <a href="../salida/vsalida">
-                    <i class="fa fa-circle-o"></i> 
-                      Guia Interna de Salida
-                  </a>
-                </li>
-                <li>
                   <a href="../facturacion/vfacturacion">
                     <i class="fa fa-circle-o"></i> 
                       Facturación
                   </a>
                 </li>
                 <li>
-                  <a href="../clientes/vclientes">
+                  <a href="../reporte/vreporte">
                     <i class="fa fa-circle-o"></i> 
-                      Clientes
+                      Reportes
                   </a>
                 </li>
               </ul>

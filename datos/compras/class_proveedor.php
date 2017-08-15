@@ -1,56 +1,44 @@
 <?php
 session_start();
 require_once '../conexion/bd_conexion.php';
-require_once 'class_formulario_producto.php';
-if(empty($_SESSION['intIdProducto'])){
-  $_SESSION['intIdProducto'] = 0;
+require_once 'class_formulario_proveedor.php';
+if(empty($_SESSION['intIdProveedor'])){
+  $_SESSION['intIdProveedor'] = 0;
 }
-class Producto
+class Proveedor
 {
-  /* INICIO - Atributos de Producto*/
-  private $intIdProducto;
-  private $nvchCodigoProducto;
-  private $nvchCodigoInventario;
-  private $nvchNombre;
-  private $nvchDescripcion;
-  private $dcmPrecioCompra;
-  private $dcmPrecioVenta;
-  private $intCantidad;
-  private $nvchDescuento;
-  private $nvchDireccionImg;
-  private $nvchSucursal;
-  private $nvchGabinete;
-  private $nvchCajon;
-  private $dtmFechaIngreso;
+  /* INICIO - Atributos de Proveedor*/
+  private $intIdProveedor;
+  private $nchDNI;
+  private $nchRUC;
+  private $nvchRazonSocial;
+  private $nvchApellidoPaterno;
+  private $nvchApellidoMaterno;
+  private $nvchNombres;
+  private $intIdTipoPersona;
   
-  public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
-  public function CodigoProducto($nvchCodigoProducto){ $this->nvchCodigoProducto = $nvchCodigoProducto; }
-  public function CodigoInventario($nvchCodigoInventario){ $this->nvchCodigoInventario = $nvchCodigoInventario; }
-  public function Nombre($nvchNombre){ $this->nvchNombre = $nvchNombre; }
-  public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
-  public function PrecioCompra($dcmPrecioCompra){ $this->dcmPrecioCompra = $dcmPrecioCompra; }
-  public function PrecioVenta($dcmPrecioVenta){ $this->dcmPrecioVenta = $dcmPrecioVenta; }
-  public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-  public function Descuento($nvchDescuento){ $this->nvchDescuento = $nvchDescuento; }
-  public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
-  public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
-  public function Gabinete($nvchGabinete){ $this->nvchGabinete = $nvchGabinete; }
-  public function Cajon($nvchCajon){ $this->nvchCajon = $nvchCajon; }
-  public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
-  /* FIN - Atributos de Producto */
+  public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
+  public function DNI($nchDNI){ $this->nchDNI = $nchDNI; }
+  public function RUC($nchRUC){ $this->nchRUC = $nchRUC; }
+  public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
+  public function ApellidoPaterno($nvchApellidoPaterno){ $this->nvchApellidoPaterno = $nvchApellidoPaterno; }
+  public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
+  public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
+  public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
+  /* FIN - Atributos de Proveedor */
 
-  /* INICIO - Métodos de Producto */
-  public function InsertarProducto()
+  /* INICIO - Métodos de Proveedor */
+  public function InsertarProveedor()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(:nvchCodigoProducto,
+      $sql_comando = $sql_conectar->prepare('CALL insertarProveedor(:nvchCodigoProveedor,
         :nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,:dcmPrecioVenta,
         :intCantidad,:nvchDescuento,:nvchDireccionImg,:nvchSucursal,:nvchGabinete,:nvchCajon,
         :dtmFechaIngreso)');
       $sql_comando->execute(array(
-        ':nvchCodigoProducto' => $this->nvchCodigoProducto, 
+        ':nvchCodigoProveedor' => $this->nvchCodigoProveedor, 
         ':nvchCodigoInventario' => $this->nvchCodigoInventario,
         ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
@@ -63,7 +51,7 @@ class Producto
         ':nvchGabinete' => $this->nvchGabinete,
         ':nvchCajon' => $this->nvchCajon,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
-      $_SESSION['intIdProducto'] = $this->intIdProducto;
+      $_SESSION['intIdProveedor'] = $this->intIdProveedor;
       $_SESSION['RutaDefaultImg'] = "";
       echo "ok";
     }
@@ -72,49 +60,49 @@ class Producto
     }
   }
 
-  public function MostrarProducto($funcion)
+  public function MostrarProveedor($funcion)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
-      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
+      $sql_comando = $sql_conectar->prepare('CALL mostrarProveedor(:intIdProveedor)');
+      $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-      $formularioproducto = new FormularioProducto();
-      $formularioproducto->IdProducto($fila['intIdProducto']);
-      $formularioproducto->CodigoProducto($fila['nvchCodigoProducto']);
-      $formularioproducto->CodigoInventario($fila['nvchCodigoInventario']);
-      $formularioproducto->Nombre($fila['nvchNombre']);
-      $formularioproducto->Descripcion($fila['nvchDescripcion']);
-      $formularioproducto->PrecioCompra($fila['dcmPrecioCompra']);
-      $formularioproducto->PrecioVenta($fila['dcmPrecioVenta']);
-      $formularioproducto->Cantidad($fila['intCantidad']);
-      $formularioproducto->Descuento($fila['nvchDescuento']);
-      $formularioproducto->DireccionImg($fila['nvchDireccionImg']);
-      $formularioproducto->Sucursal($fila['nvchSucursal']);
-      $formularioproducto->Gabinete($fila['nvchGabinete']);
-      $formularioproducto->Cajon($fila['nvchCajon']);
-      $formularioproducto->FechaIngreso($fila['dtmFechaIngreso']);
-      $formularioproducto->ConsultarFormulario($funcion);
+      $formularioProveedor = new FormularioProveedor();
+      $formularioProveedor->IdProveedor($fila['intIdProveedor']);
+      $formularioProveedor->CodigoProveedor($fila['nvchCodigoProveedor']);
+      $formularioProveedor->CodigoInventario($fila['nvchCodigoInventario']);
+      $formularioProveedor->Nombre($fila['nvchNombre']);
+      $formularioProveedor->Descripcion($fila['nvchDescripcion']);
+      $formularioProveedor->PrecioCompra($fila['dcmPrecioCompra']);
+      $formularioProveedor->PrecioVenta($fila['dcmPrecioVenta']);
+      $formularioProveedor->Cantidad($fila['intCantidad']);
+      $formularioProveedor->Descuento($fila['nvchDescuento']);
+      $formularioProveedor->DireccionImg($fila['nvchDireccionImg']);
+      $formularioProveedor->Sucursal($fila['nvchSucursal']);
+      $formularioProveedor->Gabinete($fila['nvchGabinete']);
+      $formularioProveedor->Cajon($fila['nvchCajon']);
+      $formularioProveedor->FechaIngreso($fila['dtmFechaIngreso']);
+      $formularioProveedor->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }    
   }
 
-  public function ActualizarProducto()
+  public function ActualizarProveedor()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,
-        :nvchCodigoProducto,:nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,
+      $sql_comando = $sql_conectar->prepare('CALL actualizarProveedor(:intIdProveedor,
+        :nvchCodigoProveedor,:nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,
         :dcmPrecioVenta,:intCantidad,:nvchDescuento,:nvchDireccionImg,:nvchSucursal,:nvchGabinete,
         :nvchCajon,:dtmFechaIngreso)');
       $sql_comando->execute(array(
-        ':intIdProducto' => $this->intIdProducto,
-        ':nvchCodigoProducto' => $this->nvchCodigoProducto, 
+        ':intIdProveedor' => $this->intIdProveedor,
+        ':nvchCodigoProveedor' => $this->nvchCodigoProveedor, 
         ':nvchCodigoInventario' => $this->nvchCodigoInventario,
         ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
@@ -127,7 +115,7 @@ class Producto
         ':nvchGabinete' => $this->nvchGabinete,
         ':nvchCajon' => $this->nvchCajon,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
-      $_SESSION['intIdProducto'] = $this->intIdProducto;
+      $_SESSION['intIdProveedor'] = $this->intIdProveedor;
       $_SESSION['RutaDefaultImg'] = "";
       echo "ok";
     }
@@ -136,14 +124,14 @@ class Producto
     }
   }
 
-  public function EliminarProducto()
+  public function EliminarProveedor()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL eliminarproducto(:intIdProducto)');
-      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
-      $_SESSION['intIdProducto'] = $this->intIdProducto;
+      $sql_comando = $sql_conectar->prepare('CALL eliminarProveedor(:intIdProveedor)');
+      $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
+      $_SESSION['intIdProveedor'] = $this->intIdProveedor;
       echo 'ok';
     }
     catch(PDPExceptio $e){
@@ -151,7 +139,7 @@ class Producto
     }
   }
 
-  public function ListarProductos($busqueda,$x,$y,$tipolistado)
+  public function ListarProveedors($busqueda,$x,$y,$tipolistado)
   {
     try{
       $residuo = 0;
@@ -160,39 +148,39 @@ class Producto
       $i = 0;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      //Busqueda de producto por el comando LIMIT
+      //Busqueda de Proveedor por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+        $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda)');
         $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+        $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda)');
         $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
-      //Busqueda de producto por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y)');
+      //Busqueda de Proveedor por el comando LIMIT
+      $sql_comando = $sql_conectar->prepare('CALL buscarProveedor(:busqueda,:x,:y)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
-        } else if($fila["intIdProducto"] == $_SESSION['intIdProducto'] && $tipolistado == "E"){
+        } else if($fila["intIdProveedor"] == $_SESSION['intIdProveedor'] && $tipolistado == "E"){
           echo '<tr bgcolor="#B3E4C0">';
         }else {
           echo '<tr>';
         }
         echo 
-        '<td>PRT'.$fila["intIdProducto"].'</td>
-        <td>'.$fila["nvchCodigoProducto"].'</td>
+        '<td>PRT'.$fila["intIdProveedor"].'</td>
+        <td>'.$fila["nvchCodigoProveedor"].'</td>
         <td>'.$fila["nvchCodigoInventario"].'</td>
         <td>'.$fila["nvchNombre"].'</td>
         <td>'.$fila["nvchDescripcion"].'</td>
@@ -201,13 +189,13 @@ class Producto
         <td>'.$fila["intCantidad"].'</td>
         <td>'.$fila["nvchDescuento"].'</td>
         <td>
-          <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
+          <img src="../../datos/inventario/imgProveedor/'.$fila["nvchDireccionImg"].'" height="50">
         </td>
         <td> 
-          <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
+          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-Proveedor">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
+          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-danger btn-eliminar-Proveedor">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>  
@@ -220,14 +208,14 @@ class Producto
     }  
   }
 
-  public function PaginarProductos($busqueda,$x,$y,$tipolistado)
+  public function PaginarProveedors($busqueda,$x,$y,$tipolistado)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
+      $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda)');
       $sql_comando -> execute(array(':busqueda' => $busqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
@@ -322,68 +310,69 @@ class Producto
       echo $e->getMessage();
     }  
   }
-  /* FIN - Métodos de Producto */
+  /* FIN - Métodos de Proveedor */
 }
 
 switch($_POST['funcion']){
   case "I":
-    $producto = new Producto();
-    $producto->CodigoProducto($_POST['nvchCodigoProducto']);
-    $producto->CodigoInventario($_POST['nvchCodigoInventario']);
-    $producto->Nombre($_POST['nvchNombre']);
-    $producto->Descripcion($_POST['nvchDescripcion']);
-    $producto->PrecioCompra($_POST['dcmPrecioCompra']);
-    $producto->PrecioVenta($_POST['dcmPrecioVenta']);
-    $producto->Cantidad($_POST['intCantidad']);
-    $producto->Descuento($_POST['nvchDescuento']);
+    $Proveedor = new Proveedor();
+    $Proveedor->CodigoProveedor($_POST['nvchCodigoProveedor']);
+    $Proveedor->CodigoInventario($_POST['nvchCodigoInventario']);
+    $Proveedor->Nombre($_POST['nvchNombre']);
+    $Proveedor->Descripcion($_POST['nvchDescripcion']);
+    $Proveedor->PrecioCompra($_POST['dcmPrecioCompra']);
+    $Proveedor->PrecioVenta($_POST['dcmPrecioVenta']);
+    $Proveedor->Cantidad($_POST['intCantidad']);
+    $Proveedor->Descuento($_POST['nvchDescuento']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-    $producto->DireccionImg($nvchDireccionImg);
-    $producto->Sucursal($_POST['nvchSucursal']);
-    $producto->Gabinete($_POST['nvchGabinete']);
-    $producto->Cajon($_POST['nvchCajon']);
+    $Proveedor->DireccionImg($nvchDireccionImg);
+    $Proveedor->Sucursal($_POST['nvchSucursal']);
+    $Proveedor->Gabinete($_POST['nvchGabinete']);
+    $Proveedor->Cajon($_POST['nvchCajon']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
-    $producto->FechaIngreso($dtmFechaIngreso);
-    $producto->InsertarProducto();
+    $Proveedor->FechaIngreso($dtmFechaIngreso);
+    $Proveedor->InsertarProveedor();
     break;
   case "A":
-    $producto = new Producto();
-    $producto->IdProducto($_POST['intIdProducto']);
-    $producto->CodigoProducto($_POST['nvchCodigoProducto']);
-    $producto->CodigoInventario($_POST['nvchCodigoInventario']);
-    $producto->Nombre($_POST['nvchNombre']);
-    $producto->Descripcion($_POST['nvchDescripcion']);
-    $producto->PrecioCompra($_POST['dcmPrecioCompra']);
-    $producto->PrecioVenta($_POST['dcmPrecioVenta']);
-    $producto->Cantidad($_POST['intCantidad']);
-    $producto->Descuento($_POST['nvchDescuento']);
+    $Proveedor = new Proveedor();
+    $Proveedor->IdProveedor($_POST['intIdProveedor']);
+    $Proveedor->CodigoProveedor($_POST['nvchCodigoProveedor']);
+    $Proveedor->CodigoInventario($_POST['nvchCodigoInventario']);
+    $Proveedor->Nombre($_POST['nvchNombre']);
+    $Proveedor->Descripcion($_POST['nvchDescripcion']);
+    $Proveedor->PrecioCompra($_POST['dcmPrecioCompra']);
+    $Proveedor->PrecioVenta($_POST['dcmPrecioVenta']);
+    $Proveedor->Cantidad($_POST['intCantidad']);
+    $Proveedor->Descuento($_POST['nvchDescuento']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-    $producto->DireccionImg($nvchDireccionImg);
-    $producto->Sucursal($_POST['nvchSucursal']);
-    $producto->Gabinete($_POST['nvchGabinete']);
-    $producto->Cajon($_POST['nvchCajon']);
-    $producto->FechaIngreso($_POST['dtmFechaIngreso']);
-    $producto->ActualizarProducto();
+    $Proveedor->DireccionImg($nvchDireccionImg);
+    $Proveedor->Sucursal($_POST['nvchSucursal']);
+    $Proveedor->Gabinete($_POST['nvchGabinete']);
+    $Proveedor->Cajon($_POST['nvchCajon']);
+    $Proveedor->FechaIngreso($_POST['dtmFechaIngreso']);
+    $Proveedor->ActualizarProveedor();
     break;
   case "M":
-    $producto = new Producto();
-    $producto->IdProducto($_POST['intIdProducto']);
-    $producto->MostrarProducto($_POST['funcion']);
+    $Proveedor = new Proveedor();
+    $Proveedor->IdProveedor($_POST['intIdProveedor']);
+    $Proveedor->MostrarProveedor($_POST['funcion']);
     break;
   case "E":
-    $producto = new Producto();
-    $producto->IdProducto($_POST['intIdProducto']);
-    $producto->EliminarProducto();
+    $Proveedor = new Proveedor();
+    $Proveedor->IdProveedor($_POST['intIdProveedor']);
+    $Proveedor->EliminarProveedor();
     break;
   case "L":
-    $producto = new Producto();
-    $producto->ListarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Proveedor = new Proveedor();
+    $Proveedor->ListarProveedors($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
-    $producto = new Producto();
-    $producto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Proveedor = new Proveedor();
+    $Proveedor->PaginarProveedors($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "F":
-    $formularioproducto = new FormularioProducto();
-    $formularioproducto->ConsultarFormulario($_POST['funcion']);
+    $formularioProveedor = new FormularioProveedor();
+    $formularioProveedor->ConsultarFormulario($_POST['funcion']);
     break;
 }
+?>
