@@ -3,9 +3,9 @@ USE db_resteco;
 DROP PROCEDURE IF EXISTS INSERTARPROVEEDOR;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARPROVEEDOR(
-	OUT _intIdProducto INT,
-	IN _nchDNI CHAR(8),
-	IN _nchRUC CHAR(11),
+	OUT _intIdProveedor INT,
+	IN _nvchDNI CHAR(8),
+	IN _nvchRUC CHAR(11),
     IN _nvchRazonSocial VARCHAR(250),
     IN _nvchApellidoPaterno VARCHAR(120),
     IN _nvchApellidoMaterno VARCHAR(120),
@@ -14,10 +14,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_proveedor 
-		(nchDNI,nchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona)
+		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona)
 		VALUES
-		(_nchDNI,_nchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona);
-		SET _intIdProducto = LAST_INSERT_ID();
+		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona);
+		SET _intIdProveedor = LAST_INSERT_ID();
     END 
 $$
 DELIMITER ;
@@ -26,8 +26,8 @@ DROP PROCEDURE IF EXISTS ACTUALIZARPROVEEDOR;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARPROVEEDOR(
 	IN _intIdProveedor INT,
-	IN _nchDNI CHAR(8),
-	IN _nchRUC CHAR(11),
+	IN _nvchDNI CHAR(8),
+	IN _nvchRUC CHAR(11),
     IN _nvchRazonSocial VARCHAR(250),
     IN _nvchApellidoPaterno VARCHAR(120),
     IN _nvchApellidoMaterno VARCHAR(120),
@@ -37,8 +37,8 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_proveedor
 		SET
-		nchDNI = _nchDNI,
-		nchRUC = _nchRUC,
+		nvchDNI = _nvchDNI,
+		nvchRUC = _nvchRUC,
 		nvchRazonSocial = _nvchRazonSocial,
 		nvchApellidoPaterno = _nvchApellidoPaterno,
 		nvchApellidoMaterno = _nvchApellidoMaterno,
@@ -109,8 +109,8 @@ DELIMITER $$
 		SELECT * FROM tb_proveedor
 		WHERE 
 		intIdProveedor LIKE CONCAT(_elemento,'%') OR
-		nchDNI LIKE CONCAT(_elemento,'%') OR
-		nchRUC LIKE CONCAT(_elemento,'%') OR
+		nvchDNI LIKE CONCAT(_elemento,'%') OR
+		nvchRUC LIKE CONCAT(_elemento,'%') OR
 		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
@@ -123,15 +123,15 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS BUSCARPROVEEDOR_II;
 DELIMITER $$
-	CREATE PROCEDURE BUSCARPROVEEDOR_II
+	CREATE PROCEDURE BUSCARPROVEEDOR_II(
     	IN _elemento VARCHAR(250)
     )
 	BEGIN
 		SELECT * FROM tb_proveedor
 		WHERE 
 		intIdProveedor LIKE CONCAT(_elemento,'%') OR
-		nchDNI LIKE CONCAT(_elemento,'%') OR
-		nchRUC LIKE CONCAT(_elemento,'%') OR
+		nvchDNI LIKE CONCAT(_elemento,'%') OR
+		nvchRUC LIKE CONCAT(_elemento,'%') OR
 		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR

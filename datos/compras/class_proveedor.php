@@ -9,8 +9,8 @@ class Proveedor
 {
   /* INICIO - Atributos de Proveedor*/
   private $intIdProveedor;
-  private $nchDNI;
-  private $nchRUC;
+  private $nvchDNI;
+  private $nvchRUC;
   private $nvchRazonSocial;
   private $nvchApellidoPaterno;
   private $nvchApellidoMaterno;
@@ -18,8 +18,8 @@ class Proveedor
   private $intIdTipoPersona;
   
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
-  public function DNI($nchDNI){ $this->nchDNI = $nchDNI; }
-  public function RUC($nchRUC){ $this->nchRUC = $nchRUC; }
+  public function DNI($nvchDNI){ $this->nvchDNI = $nvchDNI; }
+  public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
   public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
   public function ApellidoPaterno($nvchApellidoPaterno){ $this->nvchApellidoPaterno = $nvchApellidoPaterno; }
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
@@ -33,26 +33,20 @@ class Proveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarProveedor(:nvchCodigoProveedor,
-        :nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,:dcmPrecioVenta,
-        :intCantidad,:nvchDescuento,:nvchDireccionImg,:nvchSucursal,:nvchGabinete,:nvchCajon,
-        :dtmFechaIngreso)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarproveedor(@intIdProveedor,:nvchDNI,:nvchRUC,:nvchRazonSocial,
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona)');
       $sql_comando->execute(array(
-        ':nvchCodigoProveedor' => $this->nvchCodigoProveedor, 
-        ':nvchCodigoInventario' => $this->nvchCodigoInventario,
-        ':nvchNombre' => $this->nvchNombre,
-        ':nvchDescripcion' => $this->nvchDescripcion,
-        ':dcmPrecioCompra' => $this->dcmPrecioCompra,
-        ':dcmPrecioVenta' => $this->dcmPrecioVenta,
-        ':intCantidad' => $this->intCantidad,
-        ':nvchDescuento' => $this->nvchDescuento,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
-        ':nvchSucursal' => $this->nvchSucursal,
-        ':nvchGabinete' => $this->nvchGabinete,
-        ':nvchCajon' => $this->nvchCajon,
-        ':dtmFechaIngreso' => $this->dtmFechaIngreso));
-      $_SESSION['intIdProveedor'] = $this->intIdProveedor;
-      $_SESSION['RutaDefaultImg'] = "";
+        ':nvchDNI' => $this->nvchDNI, 
+        ':nvchRUC' => $this->nvchRUC,
+        ':nvchRazonSocial' => $this->nvchRazonSocial,
+        ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
+        ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
+        ':nvchNombres' => $this->nvchNombres,
+        ':intIdTipoPersona' => $this->intIdTipoPersona));
+      $sql_comando->closeCursor();
+      $salidas = $sql_conectar->query("select @intIdProveedor as intIdProveedor");
+      $salida = $salidas->fetchObject();
+      $_SESSION['intIdProveedor'] = $salida->intIdProveedor;
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -65,26 +59,20 @@ class Proveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrarProveedor(:intIdProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL mostrarproveedor(:intIdProveedor)');
       $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-      $formularioProveedor = new FormularioProveedor();
-      $formularioProveedor->IdProveedor($fila['intIdProveedor']);
-      $formularioProveedor->CodigoProveedor($fila['nvchCodigoProveedor']);
-      $formularioProveedor->CodigoInventario($fila['nvchCodigoInventario']);
-      $formularioProveedor->Nombre($fila['nvchNombre']);
-      $formularioProveedor->Descripcion($fila['nvchDescripcion']);
-      $formularioProveedor->PrecioCompra($fila['dcmPrecioCompra']);
-      $formularioProveedor->PrecioVenta($fila['dcmPrecioVenta']);
-      $formularioProveedor->Cantidad($fila['intCantidad']);
-      $formularioProveedor->Descuento($fila['nvchDescuento']);
-      $formularioProveedor->DireccionImg($fila['nvchDireccionImg']);
-      $formularioProveedor->Sucursal($fila['nvchSucursal']);
-      $formularioProveedor->Gabinete($fila['nvchGabinete']);
-      $formularioProveedor->Cajon($fila['nvchCajon']);
-      $formularioProveedor->FechaIngreso($fila['dtmFechaIngreso']);
-      $formularioProveedor->ConsultarFormulario($funcion);
+      $formularioproveedor = new FormularioProveedor();
+      $formularioproveedor->IdProveedor($fila['intIdProveedor']);
+      $formularioproveedor->DNI($fila['nvchDNI']);
+      $formularioproveedor->RUC($fila['nvchRUC']);
+      $formularioproveedor->RazonSocial($fila['nvchRazonSocial']);
+      $formularioproveedor->ApellidoPaterno($fila['nvchApellidoPaterno']);
+      $formularioproveedor->ApellidoMaterno($fila['nvchApellidoMaterno']);
+      $formularioproveedor->Nombres($fila['nvchNombres']);
+      $formularioproveedor->IdTipoPersona($fila['intIdTipoPersona']);
+      $formularioproveedor->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -96,27 +84,18 @@ class Proveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarProveedor(:intIdProveedor,
-        :nvchCodigoProveedor,:nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,
-        :dcmPrecioVenta,:intCantidad,:nvchDescuento,:nvchDireccionImg,:nvchSucursal,:nvchGabinete,
-        :nvchCajon,:dtmFechaIngreso)');
+      $sql_comando = $sql_conectar->prepare('CALL actualizarproveedor(:intIdProveedor,:nvchDNI,:nvchRUC,
+      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor,
-        ':nvchCodigoProveedor' => $this->nvchCodigoProveedor, 
-        ':nvchCodigoInventario' => $this->nvchCodigoInventario,
-        ':nvchNombre' => $this->nvchNombre,
-        ':nvchDescripcion' => $this->nvchDescripcion,
-        ':dcmPrecioCompra' => $this->dcmPrecioCompra,
-        ':dcmPrecioVenta' => $this->dcmPrecioVenta,
-        ':intCantidad' => $this->intCantidad,
-        ':nvchDescuento' => $this->nvchDescuento,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
-        ':nvchSucursal' => $this->nvchSucursal,
-        ':nvchGabinete' => $this->nvchGabinete,
-        ':nvchCajon' => $this->nvchCajon,
-        ':dtmFechaIngreso' => $this->dtmFechaIngreso));
+        ':nvchDNI' => $this->nvchDNI, 
+        ':nvchRUC' => $this->nvchRUC,
+        ':nvchRazonSocial' => $this->nvchRazonSocial,
+        ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
+        ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
+        ':nvchNombres' => $this->nvchNombres,
+        ':intIdTipoPersona' => $this->intIdTipoPersona));
       $_SESSION['intIdProveedor'] = $this->intIdProveedor;
-      $_SESSION['RutaDefaultImg'] = "";
       echo "ok";
     }
     catch(PDPExceptio $e){
@@ -129,7 +108,7 @@ class Proveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL eliminarProveedor(:intIdProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL eliminarproveedor(:intIdProveedor)');
       $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
       $_SESSION['intIdProveedor'] = $this->intIdProveedor;
       echo 'ok';
@@ -139,7 +118,7 @@ class Proveedor
     }
   }
 
-  public function ListarProveedors($busqueda,$x,$y,$tipolistado)
+  public function ListarProveedores($busqueda,$x,$y,$tipolistado)
   {
     try{
       $residuo = 0;
@@ -151,14 +130,14 @@ class Proveedor
       //Busqueda de Proveedor por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda)');
+        $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda)');
         $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda)');
+        $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda)');
         $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
@@ -166,7 +145,7 @@ class Proveedor
         {$x = $x - $y;}
       }
       //Busqueda de Proveedor por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarProveedor(:busqueda,:x,:y)');
+      $sql_comando = $sql_conectar->prepare('CALL buscarproveedor(:busqueda,:x,:y)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
@@ -179,26 +158,21 @@ class Proveedor
           echo '<tr>';
         }
         echo 
-        '<td>PRT'.$fila["intIdProveedor"].'</td>
-        <td>'.$fila["nvchCodigoProveedor"].'</td>
-        <td>'.$fila["nvchCodigoInventario"].'</td>
-        <td>'.$fila["nvchNombre"].'</td>
-        <td>'.$fila["nvchDescripcion"].'</td>
-        <td>'.$fila["dcmPrecioCompra"].'</td>
-        <td>'.$fila["dcmPrecioVenta"].'</td>
-        <td>'.$fila["intCantidad"].'</td>
-        <td>'.$fila["nvchDescuento"].'</td>
-        <td>
-          <img src="../../datos/inventario/imgProveedor/'.$fila["nvchDireccionImg"].'" height="50">
-        </td>
+        '<td>'.$fila["intIdProveedor"].'</td>
+        <td>'.$fila["nvchDNI"].'</td>
+        <td>'.$fila["nvchRUC"].'</td>
+        <td>'.$fila["nvchRazonSocial"].'</td>
+        <td>'.$fila["nvchApellidoPaterno"].'</td>
+        <td>'.$fila["nvchApellidoMaterno"].'</td>
+        <td>'.$fila["nvchNombres"].'</td>
         <td> 
-          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-Proveedor">
+          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-proveedor">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-danger btn-eliminar-Proveedor">
+          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-danger btn-eliminar-proveedor">
             <i class="fa fa-edit"></i> Eliminar
           </button>
-        </td>  
+        </td>
         </tr>';
         $i++;
       }
@@ -208,7 +182,7 @@ class Proveedor
     }  
   }
 
-  public function PaginarProveedors($busqueda,$x,$y,$tipolistado)
+  public function PaginarProveedores($busqueda,$x,$y,$tipolistado)
   {
     try{
       if($tipolistado == "N")
@@ -316,40 +290,25 @@ class Proveedor
 switch($_POST['funcion']){
   case "I":
     $Proveedor = new Proveedor();
-    $Proveedor->CodigoProveedor($_POST['nvchCodigoProveedor']);
-    $Proveedor->CodigoInventario($_POST['nvchCodigoInventario']);
-    $Proveedor->Nombre($_POST['nvchNombre']);
-    $Proveedor->Descripcion($_POST['nvchDescripcion']);
-    $Proveedor->PrecioCompra($_POST['dcmPrecioCompra']);
-    $Proveedor->PrecioVenta($_POST['dcmPrecioVenta']);
-    $Proveedor->Cantidad($_POST['intCantidad']);
-    $Proveedor->Descuento($_POST['nvchDescuento']);
-    $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-    $Proveedor->DireccionImg($nvchDireccionImg);
-    $Proveedor->Sucursal($_POST['nvchSucursal']);
-    $Proveedor->Gabinete($_POST['nvchGabinete']);
-    $Proveedor->Cajon($_POST['nvchCajon']);
-    $dtmFechaIngreso = date("Y-m-d H:i:s");
-    $Proveedor->FechaIngreso($dtmFechaIngreso);
+    $Proveedor->DNI($_POST['nvchDNI']);
+    $Proveedor->RUC($_POST['nvchRUC']);
+    $Proveedor->RazonSocial($_POST['nvchRazonSocial']);
+    $Proveedor->ApellidoPaterno($_POST['nvchApellidoPaterno']);
+    $Proveedor->ApellidoMaterno($_POST['nvchApellidoMaterno']);
+    $Proveedor->Nombres($_POST['nvchNombres']);
+    $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
     $Proveedor->InsertarProveedor();
     break;
   case "A":
     $Proveedor = new Proveedor();
     $Proveedor->IdProveedor($_POST['intIdProveedor']);
-    $Proveedor->CodigoProveedor($_POST['nvchCodigoProveedor']);
-    $Proveedor->CodigoInventario($_POST['nvchCodigoInventario']);
-    $Proveedor->Nombre($_POST['nvchNombre']);
-    $Proveedor->Descripcion($_POST['nvchDescripcion']);
-    $Proveedor->PrecioCompra($_POST['dcmPrecioCompra']);
-    $Proveedor->PrecioVenta($_POST['dcmPrecioVenta']);
-    $Proveedor->Cantidad($_POST['intCantidad']);
-    $Proveedor->Descuento($_POST['nvchDescuento']);
-    $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-    $Proveedor->DireccionImg($nvchDireccionImg);
-    $Proveedor->Sucursal($_POST['nvchSucursal']);
-    $Proveedor->Gabinete($_POST['nvchGabinete']);
-    $Proveedor->Cajon($_POST['nvchCajon']);
-    $Proveedor->FechaIngreso($_POST['dtmFechaIngreso']);
+    $Proveedor->DNI($_POST['nvchDNI']);
+    $Proveedor->RUC($_POST['nvchRUC']);
+    $Proveedor->RazonSocial($_POST['nvchRazonSocial']);
+    $Proveedor->ApellidoPaterno($_POST['nvchApellidoPaterno']);
+    $Proveedor->ApellidoMaterno($_POST['nvchApellidoMaterno']);
+    $Proveedor->Nombres($_POST['nvchNombres']);
+    $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
     $Proveedor->ActualizarProveedor();
     break;
   case "M":
@@ -364,15 +323,15 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Proveedor = new Proveedor();
-    $Proveedor->ListarProveedors($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Proveedor->ListarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
     $Proveedor = new Proveedor();
-    $Proveedor->PaginarProveedors($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Proveedor->PaginarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "F":
-    $formularioProveedor = new FormularioProveedor();
-    $formularioProveedor->ConsultarFormulario($_POST['funcion']);
+    $formularioproveedor = new FormularioProveedor();
+    $formularioproveedor->ConsultarFormulario($_POST['funcion']);
     break;
 }
 ?>

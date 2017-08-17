@@ -6,7 +6,7 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>
+    <script type="text/javascript" src="../../negocio/compras/nproveedor.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -72,34 +72,31 @@ include('../_include/rstheader.php');
               <thead>
               <tr>
                 <th>#Código</th>
-                <th>Código de Producto</th>
-                <th>Código de Inventario</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio de Compra</th>
-                <th>Precio de Venta</th>
-                <th>Cantidad</th>
-                <th>Descuento</th>
-                <th>Imágen</th>
+                <th>DNI</th>
+                <th>RUC</th>
+                <th>Razón Social</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Nombres</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeProductos">
-                <script>ListarProducto(0,10,"T");</script>
+              <tbody id="ListaDeProveedores">
+                <script>ListarProveedor(0,10,"T");</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeProductos" class="pagination">
-                <script>PaginarProducto(0,10,"T");</script>
+              <ul id="PaginacionDeProveedores" class="pagination">
+                <script>PaginarProveedor(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat pull-left">Agregar Producto</button>
+          <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left">Agregar Proveedor</button>
           <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
