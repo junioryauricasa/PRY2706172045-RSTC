@@ -43,7 +43,7 @@
             
             <div class="col-md-12">
                 <div class="box box-info">
-                  <img style="padding:100px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1000px-Microsoft_logo_%282012%29.svg.png" alt="" width="100%">
+                  <img style="padding:50px;" src="../../frameworks\dist\img/logoResteco-for_init.JPG" alt="" width="100%">
                 </div>
                 <div class="box-footer clearfix">     
 		            <a href="dashboard" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px; border-radius: 3px">
@@ -51,10 +51,7 @@
                 </a>
 		        </div>
             </div>
-
           </div>
-
-
         </section><!-- /.content -->
       </div>
 
