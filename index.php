@@ -115,11 +115,14 @@ if (isset($_POST['login'])) {
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Resteco</b>SFT</a>
+    <!--a href="#"><b>Resteco</b>SFT</a-->
+    <a href="#">
+      <img src="frameworks\dist\img/logoResteco-for_init.JPG" alt="" width="100%">
+    </a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Ingreso de usuario</p>
+    <!--p class="login-box-msg">Login Resteco Platform</p-->
 
     <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="loginform">
       <div class="form-group has-feedback">
