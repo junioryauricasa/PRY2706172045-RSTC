@@ -1,4 +1,5 @@
 <?php 
+
 class FormularioProveedor
 {
   private $intIdProveedor;
@@ -126,18 +127,23 @@ class FormularioProveedor
                   <div class="form-group">
                     <label>Región:</label>
                     <input type="text" name="nvchRegion" class="form-control select2" placeholder="Ingrese Región" value="" required>
+                    <!--select name="" id="departamento"  name="nvchRegion" class="form-control select2">
+                    </select-->
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Provincia:</label>
                     <input type="text" name="nvchProvincia" class="form-control select2" placeholder="Ingrese Provincia" value="" required>
+                    <!--select id="provincia" name="nvchProvincia"class="form-control select2" >
+                    </select-->
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Distrito:</label>
                     <input type="text" name="nvchDistrito" class="form-control select2" placeholder="Ingrese Distrito" value="" required>
+                    <!--select id="distrito" name="nvchDistrito" class="form-control select2"></select-->
                   </div>
                 </div>
                 <div class="col-md-3">
