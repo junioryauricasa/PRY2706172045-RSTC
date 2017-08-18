@@ -56,7 +56,7 @@
 	<div style="display: inline-block;">
 		<table width="100%" style="position: fixed;">
 			<tr>
-				<td><img src="logo.JPG" alt="" width="130px"></td>
+				<td><img src="logo.JPG" alt="" width="200px"></td>
 				<td class="text-right">
 					<?php include('_include/info_header.php'); ?>
 				</td>

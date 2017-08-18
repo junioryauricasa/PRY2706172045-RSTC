@@ -43,7 +43,7 @@
             
             <div class="col-md-12">
                 <div class="box box-info">
-                  <img style="padding:50px;" src="../../frameworks\dist\img/logoResteco-for_init.JPG" alt="" width="100%">
+                  <img style="padding:50px;" src="../../frameworks/dist/img/logoResteco-for_init.JPG" alt="" width="100%">
                 </div>
                 <div class="box-footer clearfix">     
 		            <a href="dashboard" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px; border-radius: 3px">
