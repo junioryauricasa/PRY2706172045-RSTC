@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 <?php
 require_once '../conexion/bd_conexion.php';
+=======
+<?php 
+
+>>>>>>> origin/master
 class FormularioProveedor
 {
   private $intIdProveedor;
@@ -131,12 +136,20 @@ class FormularioProveedor
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
+<<<<<<< HEAD
                     <label>Direccion:</label>
                     <input type="text" name="Direccion" id="nvchDireccion" class="form-control select2" placeholder="Ingrese Dirección" value="" required>
+=======
+                    <label>Región:</label>
+                    <input type="text" name="nvchRegion" class="form-control select2" placeholder="Ingrese Región" value="" required>
+                    <!--select name="" id="departamento"  name="nvchRegion" class="form-control select2">
+                    </select-->
+>>>>>>> origin/master
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
+<<<<<<< HEAD
                     <label>Tipo de Domicilio:</label>
                     <select id="tipo-domicilio" name="tipo-domicilio"  class="form-control select2" >
                       <?php try{
@@ -152,6 +165,12 @@ class FormularioProveedor
                         echo $e->getMessage();
                       }?>
                     </select>
+=======
+                    <label>Provincia:</label>
+                    <input type="text" name="nvchProvincia" class="form-control select2" placeholder="Ingrese Provincia" value="" required>
+                    <!--select id="provincia" name="nvchProvincia"class="form-control select2" >
+                    </select-->
+>>>>>>> origin/master
                   </div>
                 </div>
             </div>
@@ -189,8 +208,14 @@ class FormularioProveedor
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
+<<<<<<< HEAD
                     <label>Medio:</label>
                     <input type="text" name="Medio" id="nvchMedio" class="form-control select2" placeholder="Ingrese Medio" value="" required>
+=======
+                    <label>Distrito:</label>
+                    <input type="text" name="nvchDistrito" class="form-control select2" placeholder="Ingrese Distrito" value="" required>
+                    <!--select id="distrito" name="nvchDistrito" class="form-control select2"></select-->
+>>>>>>> origin/master
                   </div>
                 </div>
                 <div class="col-md-3">
