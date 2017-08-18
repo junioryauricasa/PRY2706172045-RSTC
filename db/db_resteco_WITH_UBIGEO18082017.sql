@@ -1,0 +1,3416 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 18-08-2017 a las 20:48:16
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `db_resteco`
+--
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ACTUALIZARPRODUCTO` (IN `_intIdProducto` INT, IN `_nvchCodigoProducto` VARCHAR(25), IN `_nvchCodigoInventario` VARCHAR(10), IN `_nvchNombre` VARCHAR(250), IN `_nvchDescripcion` VARCHAR(500), IN `_dcmPrecioCompra` DECIMAL(11,2), IN `_dcmPrecioVenta` DECIMAL(11,2), IN `_intCantidad` INT, IN `_nvchDescuento` VARCHAR(450), IN `_nvchDireccionImg` VARCHAR(450), IN `_nvchSucursal` VARCHAR(250), IN `_nvchGabinete` VARCHAR(250), IN `_nvchCajon` VARCHAR(250), IN `_dtmFechaIngreso` DATETIME)  BEGIN
+		UPDATE tb_producto
+		SET
+		nvchCodigoProducto = _nvchCodigoProducto,
+		nvchCodigoInventario = _nvchCodigoInventario,
+		nvchNombre = _nvchNombre,
+		nvchDescripcion = _nvchDescripcion,
+		dcmPrecioCompra = _dcmPrecioCompra,
+		dcmPrecioVenta = _dcmPrecioVenta,
+		intCantidad = _intCantidad,
+		nvchDescuento = _nvchDescuento,
+		nvchDireccionImg = _nvchDireccionImg,
+		nvchSucursal = _nvchSucursal,
+		nvchGabinete = _nvchGabinete,
+		nvchCajon = _nvchCajon,
+		dtmFechaIngreso = _dtmFechaIngreso
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ACTUALIZARPROVEEDOR` (IN `_intIdProveedor` INT, IN `_nvchDNI` CHAR(8), IN `_nvchRUC` CHAR(11), IN `_nvchRazonSocial` VARCHAR(250), IN `_nvchApellidoPaterno` VARCHAR(120), IN `_nvchApellidoMaterno` VARCHAR(120), IN `_nvchNombres` VARCHAR(250), IN `_intIdTipoPersona` INT)  BEGIN
+		UPDATE tb_proveedor
+		SET
+		nvchDNI = _nvchDNI,
+		nvchRUC = _nvchRUC,
+		nvchRazonSocial = _nvchRazonSocial,
+		nvchApellidoPaterno = _nvchApellidoPaterno,
+		nvchApellidoMaterno = _nvchApellidoMaterno,
+		nvchNombres = _nvchNombres,
+		intIdTipoPersona = _intIdTipoPersona
+		WHERE 
+		intIdProveedor = _intIdProveedor;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ACTUALIZARUSUARIO` (IN `_intUserId` INT(11), IN `_nvchUserName` VARCHAR(50), IN `_nchUserMail` VARCHAR(25), IN `_nvchUserPassword` VARCHAR(1000), IN `_intIdEmpleado` INT(11), IN `_intTypeUser` INT(11), IN `_bitUserEstado` INT(11))  BEGIN
+		UPDATE tb_usuario
+		SET
+			nvchUserName = _nvchUserName,
+			nchUserMail = _nchUserMail,
+			nvchUserPassword = _nvchUserPassword,
+			intIdEmpleado = _intIdEmpleado,
+			intTypeUser = _intTypeUser,
+			bitUserEstado = _bitUserEstado 
+		WHERE intUserId = _intUserId;
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCARPRODUCTO` (IN `_elemento` VARCHAR(500), IN `_x` INT, IN `_y` INT)  BEGIN
+		SELECT * FROM tb_producto 
+		WHERE 
+		intIdProducto LIKE CONCAT(_elemento,'%') OR
+		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
+		nvchCodigoInventario LIKE CONCAT(_elemento,'%') OR
+		nvchNombre LIKE CONCAT(_elemento,'%') OR
+		nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		dcmPrecioCompra LIKE CONCAT(_elemento,'%') OR
+		dcmPrecioVenta LIKE CONCAT(_elemento,'%') OR
+		intCantidad LIKE CONCAT(_elemento,'%') OR
+		nvchDescuento LIKE CONCAT(_elemento,'%') OR
+		nvchSucursal LIKE CONCAT(_elemento,'%') OR
+		nvchGabinete LIKE CONCAT(_elemento,'%') OR 
+		nvchCajon LIKE CONCAT(_elemento,'%') OR 
+		dtmFechaIngreso LIKE CONCAT(_elemento,'%')
+		LIMIT _x,_y;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCARPRODUCTO_II` (IN `_elemento` VARCHAR(500))  BEGIN
+		SELECT * FROM tb_producto 
+		WHERE 
+		intIdProducto LIKE CONCAT(_elemento,'%') OR
+		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
+		nvchCodigoInventario LIKE CONCAT(_elemento,'%') OR
+		nvchNombre LIKE CONCAT(_elemento,'%') OR
+		nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		dcmPrecioCompra LIKE CONCAT(_elemento,'%') OR
+		dcmPrecioVenta LIKE CONCAT(_elemento,'%') OR
+		intCantidad LIKE CONCAT(_elemento,'%') OR
+		nvchDescuento LIKE CONCAT(_elemento,'%') OR
+		nvchSucursal LIKE CONCAT(_elemento,'%') OR
+		nvchGabinete LIKE CONCAT(_elemento,'%') OR 
+		nvchCajon LIKE CONCAT(_elemento,'%') OR 
+		dtmFechaIngreso LIKE CONCAT(_elemento,'%');
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCARPROVEEDOR` (IN `_elemento` VARCHAR(250), IN `_x` INT, IN `_y` INT)  BEGIN
+		SELECT * FROM tb_proveedor
+		WHERE 
+		intIdProveedor LIKE CONCAT(_elemento,'%') OR
+		nvchDNI LIKE CONCAT(_elemento,'%') OR
+		nvchRUC LIKE CONCAT(_elemento,'%') OR
+		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		nvchNombres LIKE CONCAT(_elemento,'%') OR
+		intIdTipoPersona LIKE CONCAT(_elemento,'%')
+		LIMIT _x,_y;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCARPROVEEDOR_II` (IN `_elemento` VARCHAR(250))  BEGIN
+		SELECT * FROM tb_proveedor
+		WHERE 
+		intIdProveedor LIKE CONCAT(_elemento,'%') OR
+		nvchDNI LIKE CONCAT(_elemento,'%') OR
+		nvchRUC LIKE CONCAT(_elemento,'%') OR
+		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		nvchNombres LIKE CONCAT(_elemento,'%') OR
+		intIdTipoPersona LIKE CONCAT(_elemento,'%');
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCARUSUARIO` (IN `_elemento` VARCHAR(500), IN `_x` INT, IN `_y` INT)  BEGIN
+		SELECT * FROM tb_usuario 
+		WHERE 
+			intUserId LIKE CONCAT(_elemento,'%') OR 
+			nvchUserName LIKE CONCAT(_elemento,'%') OR 
+			nchUserMail LIKE CONCAT(_elemento,'%') OR 
+			intIdEmpleado LIKE CONCAT(_elemento,'%') OR 
+			intTypeUser LIKE CONCAT(_elemento,'%') OR 
+			bitUserEstado LIKE CONCAT(_elemento,'%')
+		LIMIT _x,_y;
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCARUSUARIO_II` (IN `_elemento` VARCHAR(500))  BEGIN
+		SELECT * FROM tb_usuario 
+		WHERE 
+			intUserId LIKE CONCAT(_elemento,'%') OR 
+			nvchUserName LIKE CONCAT(_elemento,'%') OR 
+			nchUserMail LIKE CONCAT(_elemento,'%') OR 
+			intIdEmpleado LIKE CONCAT(_elemento,'%') OR 
+			intTypeUser LIKE CONCAT(_elemento,'%') OR 
+			bitUserEstado LIKE CONCAT(_elemento,'%');
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ELIMINARPRODUCTO` (IN `_intIdProducto` INT)  BEGIN
+		DELETE FROM tb_producto
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ELIMINARPROVEEDOR` (IN `_intIdProveedor` INT)  BEGIN
+		DELETE FROM tb_proveedor
+		WHERE 
+		intIdProveedor = _intIdProveedor;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ELIMINARUSUARIO` (IN `_intUserId` INT)  BEGIN
+		DELETE FROM tb_usuario 
+		WHERE 
+		intUserId = _intUserId;
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERTARIMAGENPRODUCTO` (IN `_intIdProducto` INT, IN `_nvchDireccionImg` VARCHAR(450))  BEGIN
+		UPDATE tb_producto
+		SET
+		nvchDireccionImg = _nvchDireccionImg 
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERTARPRODUCTO` (IN `_nvchCodigoProducto` VARCHAR(25), IN `_nvchCodigoInventario` VARCHAR(10), IN `_nvchNombre` VARCHAR(250), IN `_nvchDescripcion` VARCHAR(500), IN `_dcmPrecioCompra` DECIMAL(11,2), IN `_dcmPrecioVenta` DECIMAL(11,2), IN `_intCantidad` INT, IN `_nvchDescuento` VARCHAR(450), IN `_nvchDireccionImg` VARCHAR(450), IN `_nvchSucursal` VARCHAR(250), IN `_nvchGabinete` VARCHAR(250), IN `_nvchCajon` VARCHAR(250), IN `_dtmFechaIngreso` DATETIME)  BEGIN
+		INSERT INTO tb_producto 
+		(nvchCodigoProducto,nvchCodigoInventario,nvchNombre,nvchDescripcion,dcmPrecioCompra,
+		dcmPrecioVenta,intCantidad,nvchDescuento,nvchDireccionImg,nvchSucursal,nvchGabinete,nvchCajon,dtmFechaIngreso)
+		VALUES
+		(_nvchCodigoProducto,_nvchCodigoInventario,_nvchNombre,_nvchDescripcion,_dcmPrecioCompra,
+		_dcmPrecioVenta,_intCantidad,_nvchDescuento,_nvchDireccionImg,_nvchSucursal,_nvchGabinete,_nvchCajon,_dtmFechaIngreso);
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERTARPROVEEDOR` (OUT `_intIdProveedor` INT, IN `_nvchDNI` CHAR(8), IN `_nvchRUC` CHAR(11), IN `_nvchRazonSocial` VARCHAR(250), IN `_nvchApellidoPaterno` VARCHAR(120), IN `_nvchApellidoMaterno` VARCHAR(120), IN `_nvchNombres` VARCHAR(250), IN `_intIdTipoPersona` INT)  BEGIN
+		INSERT INTO tb_proveedor 
+		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona)
+		VALUES
+		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona);
+		SET _intIdProveedor = LAST_INSERT_ID();
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERTARUSUARIO` (IN `_nvchUserName` VARCHAR(50), IN `_nchUserMail` VARCHAR(25), IN `_nvchUserPassword` VARCHAR(1000), IN `_intIdEmpleado` INT(11), IN `_intTypeUser` INT(11), IN `_bitUserEstado` INT(11))  BEGIN
+		INSERT INTO tb_usuario(
+			nvchUserName,
+			nchUserMail,
+			nvchUserPassword,
+			intIdEmpleado,
+			intTypeUser,
+			bitUserEstado
+			)
+		VALUES(
+			_nvchUserName,
+			_nchUserMail,
+			_nvchUserPassword,
+			_intIdEmpleado,
+			_intTypeUser,
+			_bitUserEstado
+			);
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LISTARPRODUCTO` (IN `_x` INT, IN `_y` INT)  BEGIN
+		SELECT * FROM tb_producto
+ 		LIMIT _x,_y;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LISTARPROVEEDOR` (IN `_x` INT, IN `_y` INT)  BEGIN
+		SELECT * FROM tb_proveedor
+ 		LIMIT _x,_y;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LISTARUSUARIO` (IN `_x` INT, IN `_y` INT)  BEGIN
+		SELECT * FROM tb_usuario  
+ 		LIMIT _x,_y;
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `MOSTRARPRODUCTO` (IN `_intIdProducto` INT)  BEGIN
+		SELECT * FROM tb_producto
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `MOSTRARPROVEEDOR` (IN `_intIdProveedor` INT)  BEGIN
+		SELECT * FROM tb_proveedor
+		WHERE 
+		intIdProveedor = _intIdProveedor;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `MOSTRARUSUARIO` (IN `_intUserId` INT)  BEGIN
+		SELECT * FROM tb_usuario 
+		WHERE 
+		intUserId = _intUserId;
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TODOPRODUCTO` ()  BEGIN
+		SELECT * FROM tb_producto;
+    	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TODOPROVEEDOR` ()  BEGIN
+		SELECT * FROM tb_proveedor;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TODOUSUARIO` ()  BEGIN
+		SELECT * FROM tb_usuario;
+    	END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `departamentos`
+--
+
+CREATE TABLE `departamentos` (
+  `IdDepartamento` int(11) NOT NULL,
+  `Departamento` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `departamentos`
+--
+
+INSERT INTO `departamentos` (`IdDepartamento`, `Departamento`) VALUES
+(1, 'AMAZONAS'),
+(2, 'ANCASH'),
+(3, 'APURIMAC'),
+(4, 'AREQUIPA'),
+(5, 'AYACUCHO'),
+(6, 'CAJAMARCA'),
+(7, 'CALLAO'),
+(8, 'CUSCO'),
+(9, 'HUANCAVELICA'),
+(10, 'HUANUCO'),
+(11, 'ICA'),
+(12, 'JUNIN'),
+(13, 'LA LIBERTAD'),
+(14, 'LAMBAYEQUE'),
+(15, 'LIMA'),
+(16, 'LORETO'),
+(17, 'MADRE DE DIOS'),
+(18, 'MOQUEGUA'),
+(19, 'PASCO'),
+(20, 'PIURA'),
+(21, 'PUNO'),
+(22, 'SAN MARTIN'),
+(23, 'TACNA'),
+(24, 'TUMBES'),
+(25, 'UCAYALI');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `distritos`
+--
+
+CREATE TABLE `distritos` (
+  `IdDistrito` int(11) NOT NULL,
+  `IdProvincia` int(11) NOT NULL,
+  `Distrito` varchar(120) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `distritos`
+--
+
+INSERT INTO `distritos` (`IdDistrito`, `IdProvincia`, `Distrito`) VALUES
+(1, 1, 'CHACHAPOYAS'),
+(2, 1, 'ASUNCION'),
+(3, 1, 'BALSAS'),
+(4, 1, 'CHETO'),
+(5, 1, 'CHILIQUIN'),
+(6, 1, 'CHUQUIBAMBA'),
+(7, 1, 'GRANADA'),
+(8, 1, 'HUANCAS'),
+(9, 1, 'LA JALCA'),
+(10, 1, 'LEIMEBAMBA'),
+(11, 1, 'LEVANTO'),
+(12, 1, 'MAGDALENA'),
+(13, 1, 'MARISCAL CASTILLA'),
+(14, 1, 'MOLINOPAMPA'),
+(15, 1, 'MONTEVIDEO'),
+(16, 1, 'OLLEROS'),
+(17, 1, 'QUINJALCA'),
+(18, 1, 'SAN FRANCISCO DE DAGUAS'),
+(19, 1, 'SAN ISIDRO DE MAINO'),
+(20, 1, 'SOLOCO'),
+(21, 1, 'SONCHE'),
+(22, 2, 'LA PECA'),
+(23, 2, 'ARAMANGO'),
+(24, 2, 'COPALLIN'),
+(25, 2, 'EL PARCO'),
+(26, 2, 'IMAZA'),
+(27, 3, 'JUMBILLA'),
+(28, 3, 'CHISQUILLA'),
+(29, 3, 'CHURUJA'),
+(30, 3, 'COROSHA'),
+(31, 3, 'CUISPES'),
+(32, 3, 'FLORIDA'),
+(33, 3, 'JAZAN'),
+(34, 3, 'RECTA'),
+(35, 3, 'SAN CARLOS'),
+(36, 3, 'SHIPASBAMBA'),
+(37, 3, 'VALERA'),
+(38, 3, 'YAMBRASBAMBA'),
+(39, 4, 'NIEVA'),
+(40, 4, 'EL CENEPA'),
+(41, 4, 'RIO SANTIAGO'),
+(42, 5, 'LAMUD'),
+(43, 5, 'CAMPORREDONDO'),
+(44, 5, 'COCABAMBA'),
+(45, 5, 'COLCAMAR'),
+(46, 5, 'CONILA'),
+(47, 5, 'INGUILPATA'),
+(48, 5, 'LONGUITA'),
+(49, 5, 'LONYA CHICO'),
+(50, 5, 'LUYA'),
+(51, 5, 'LUYA VIEJO'),
+(52, 5, 'MARIA'),
+(53, 5, 'OCALLI'),
+(54, 5, 'OCUMAL'),
+(55, 5, 'PISUQUIA'),
+(56, 5, 'PROVIDENCIA'),
+(57, 5, 'SAN CRISTOBAL'),
+(58, 5, 'SAN FRANCISCO DEL YESO'),
+(59, 5, 'SAN JERONIMO'),
+(60, 5, 'SAN JUAN DE LOPECANCHA'),
+(61, 5, 'SANTA CATALINA'),
+(62, 5, 'SANTO TOMAS'),
+(63, 5, 'TINGO'),
+(64, 5, 'TRITA'),
+(65, 6, 'SAN NICOLAS'),
+(66, 6, 'CHIRIMOTO'),
+(67, 6, 'COCHAMAL'),
+(68, 6, 'HUAMBO'),
+(69, 6, 'LIMABAMBA'),
+(70, 6, 'LONGAR'),
+(71, 6, 'MARISCAL BENAVIDES'),
+(72, 6, 'MILPUC'),
+(73, 6, 'OMIA'),
+(74, 6, 'SANTA ROSA'),
+(75, 6, 'TOTORA'),
+(76, 6, 'VISTA ALEGRE'),
+(77, 7, 'BAGUA GRANDE'),
+(78, 7, 'CAJARURO'),
+(79, 7, 'CUMBA'),
+(80, 7, 'EL MILAGRO'),
+(81, 7, 'JAMALCA'),
+(82, 7, 'LONYA GRANDE'),
+(83, 7, 'YAMON'),
+(84, 8, 'HUARAZ'),
+(85, 8, 'COCHABAMBA'),
+(86, 8, 'COLCABAMBA'),
+(87, 8, 'HUANCHAY'),
+(88, 8, 'INDEPENDENCIA'),
+(89, 8, 'JANGAS'),
+(90, 8, 'LA LIBERTAD'),
+(91, 8, 'OLLEROS'),
+(92, 8, 'PAMPAS'),
+(93, 8, 'PARIACOTO'),
+(94, 8, 'PIRA'),
+(95, 8, 'TARICA'),
+(96, 9, 'AIJA'),
+(97, 9, 'CORIS'),
+(98, 9, 'HUACLLAN'),
+(99, 9, 'LA MERCED'),
+(100, 9, 'SUCCHA'),
+(101, 10, 'LLAMELLIN'),
+(102, 10, 'ACZO'),
+(103, 10, 'CHACCHO'),
+(104, 10, 'CHINGAS'),
+(105, 10, 'MIRGAS'),
+(106, 10, 'SAN JUAN DE RONTOY'),
+(107, 11, 'CHACAS'),
+(108, 11, 'ACOCHACA'),
+(109, 12, 'CHIQUIAN'),
+(110, 12, 'ABELARDO PARDO LEZAMETA'),
+(111, 12, 'ANTONIO RAYMONDI'),
+(112, 12, 'AQUIA'),
+(113, 12, 'CAJACAY'),
+(114, 12, 'CANIS'),
+(115, 12, 'COLQUIOC'),
+(116, 12, 'HUALLANCA'),
+(117, 12, 'HUASTA'),
+(118, 12, 'HUAYLLACAYAN'),
+(119, 12, 'LA PRIMAVERA'),
+(120, 12, 'MANGAS'),
+(121, 12, 'PACLLON'),
+(122, 12, 'SAN MIGUEL DE CORPANQUI'),
+(123, 12, 'TICLLOS'),
+(124, 13, 'CARHUAZ'),
+(125, 13, 'ACOPAMPA'),
+(126, 13, 'AMASHCA'),
+(127, 13, 'ANTA'),
+(128, 13, 'ATAQUERO'),
+(129, 13, 'MARCARA'),
+(130, 13, 'PARIAHUANCA'),
+(131, 13, 'SAN MIGUEL DE ACO'),
+(132, 13, 'SHILLA'),
+(133, 13, 'TINCO'),
+(134, 13, 'YUNGAR'),
+(135, 14, 'SAN LUIS'),
+(136, 14, 'SAN NICOLAS'),
+(137, 14, 'YAUYA'),
+(138, 15, 'CASMA'),
+(139, 15, 'BUENA VISTA ALTA'),
+(140, 15, 'COMANDANTE NOEL'),
+(141, 15, 'YAUTAN'),
+(142, 16, 'CORONGO'),
+(143, 16, 'ACO'),
+(144, 16, 'BAMBAS'),
+(145, 16, 'CUSCA'),
+(146, 16, 'LA PAMPA'),
+(147, 16, 'YANAC'),
+(148, 16, 'YUPAN'),
+(149, 17, 'HUARI'),
+(150, 17, 'ANRA'),
+(151, 17, 'CAJAY'),
+(152, 17, 'CHAVIN DE HUANTAR'),
+(153, 17, 'HUACACHI'),
+(154, 17, 'HUACCHIS'),
+(155, 17, 'HUACHIS'),
+(156, 17, 'HUANTAR'),
+(157, 17, 'MASIN'),
+(158, 17, 'PAUCAS'),
+(159, 17, 'PONTO'),
+(160, 17, 'RAHUAPAMPA'),
+(161, 17, 'RAPAYAN'),
+(162, 17, 'SAN MARCOS'),
+(163, 17, 'SAN PEDRO DE CHANA'),
+(164, 17, 'UCO'),
+(165, 18, 'HUARMEY'),
+(166, 18, 'COCHAPETI'),
+(167, 18, 'CULEBRAS'),
+(168, 18, 'HUAYAN'),
+(169, 18, 'MALVAS'),
+(170, 26, 'CARAZ'),
+(171, 26, 'HUALLANCA'),
+(172, 26, 'HUATA'),
+(173, 26, 'HUAYLAS'),
+(174, 26, 'MATO'),
+(175, 26, 'PAMPAROMAS'),
+(176, 26, 'PUEBLO LIBRE'),
+(177, 26, 'SANTA CRUZ'),
+(178, 26, 'SANTO TORIBIO'),
+(179, 26, 'YURACMARCA'),
+(180, 27, 'PISCOBAMBA'),
+(181, 27, 'CASCA'),
+(182, 27, 'ELEAZAR GUZMAN BARRON'),
+(183, 27, 'FIDEL OLIVAS ESCUDERO'),
+(184, 27, 'LLAMA'),
+(185, 27, 'LLUMPA'),
+(186, 27, 'LUCMA'),
+(187, 27, 'MUSGA'),
+(188, 21, 'OCROS'),
+(189, 21, 'ACAS'),
+(190, 21, 'CAJAMARQUILLA'),
+(191, 21, 'CARHUAPAMPA'),
+(192, 21, 'COCHAS'),
+(193, 21, 'CONGAS'),
+(194, 21, 'LLIPA'),
+(195, 21, 'SAN CRISTOBAL DE RAJAN'),
+(196, 21, 'SAN PEDRO'),
+(197, 21, 'SANTIAGO DE CHILCAS'),
+(198, 22, 'CABANA'),
+(199, 22, 'BOLOGNESI'),
+(200, 22, 'CONCHUCOS'),
+(201, 22, 'HUACASCHUQUE'),
+(202, 22, 'HUANDOVAL'),
+(203, 22, 'LACABAMBA'),
+(204, 22, 'LLAPO'),
+(205, 22, 'PALLASCA'),
+(206, 22, 'PAMPAS'),
+(207, 22, 'SANTA ROSA'),
+(208, 22, 'TAUCA'),
+(209, 23, 'POMABAMBA'),
+(210, 23, 'HUAYLLAN'),
+(211, 23, 'PAROBAMBA'),
+(212, 23, 'QUINUABAMBA'),
+(213, 24, 'RECUAY'),
+(214, 24, 'CATAC'),
+(215, 24, 'COTAPARACO'),
+(216, 24, 'HUAYLLAPAMPA'),
+(217, 24, 'LLACLLIN'),
+(218, 24, 'MARCA'),
+(219, 24, 'PAMPAS CHICO'),
+(220, 24, 'PARARIN'),
+(221, 24, 'TAPACOCHA'),
+(222, 24, 'TICAPAMPA'),
+(223, 25, 'CHIMBOTE'),
+(224, 25, 'CACERES DEL PERU'),
+(225, 25, 'COISHCO'),
+(226, 25, 'MACATE'),
+(227, 25, 'MORO'),
+(228, 25, 'NEPE&Ntilde;A'),
+(229, 25, 'SAMANCO'),
+(230, 25, 'SANTA'),
+(231, 25, 'NUEVO CHIMBOTE'),
+(232, 26, 'SIHUAS'),
+(233, 26, 'ACOBAMBA'),
+(234, 26, 'ALFONSO UGARTE'),
+(235, 26, 'CASHAPAMPA'),
+(236, 26, 'CHINGALPO'),
+(237, 26, 'HUAYLLABAMBA'),
+(238, 26, 'QUICHES'),
+(239, 26, 'RAGASH'),
+(240, 26, 'SAN JUAN'),
+(241, 26, 'SICSIBAMBA'),
+(242, 27, 'YUNGAY'),
+(243, 27, 'CASCAPARA'),
+(244, 27, 'MANCOS'),
+(245, 27, 'MATACOTO'),
+(246, 27, 'QUILLO'),
+(247, 27, 'RANRAHIRCA'),
+(248, 27, 'SHUPLUY'),
+(249, 27, 'YANAMA'),
+(250, 28, 'ABANCAY'),
+(251, 28, 'CHACOCHE'),
+(252, 28, 'CIRCA'),
+(253, 28, 'CURAHUASI'),
+(254, 28, 'HUANIPACA'),
+(255, 28, 'LAMBRAMA'),
+(256, 28, 'PICHIRHUA'),
+(257, 28, 'SAN PEDRO DE CACHORA'),
+(258, 28, 'TAMBURCO'),
+(259, 29, 'ANDAHUAYLAS'),
+(260, 29, 'ANDARAPA'),
+(261, 29, 'CHIARA'),
+(262, 29, 'HUANCARAMA'),
+(263, 29, 'HUANCARAY'),
+(264, 29, 'HUAYANA'),
+(265, 29, 'KISHUARA'),
+(266, 29, 'PACOBAMBA'),
+(267, 29, 'PACUCHA'),
+(268, 29, 'PAMPACHIRI'),
+(269, 29, 'POMACOCHA'),
+(270, 29, 'SAN ANTONIO DE CACHI'),
+(271, 29, 'SAN JERONIMO'),
+(272, 29, 'SAN MIGUEL DE CHACCRAMPA'),
+(273, 29, 'SANTA MARIA DE CHICMO'),
+(274, 29, 'TALAVERA'),
+(275, 29, 'TUMAY HUARACA'),
+(276, 29, 'TURPO'),
+(277, 29, 'KAQUIABAMBA'),
+(278, 30, 'ANTABAMBA'),
+(279, 30, 'EL ORO'),
+(280, 30, 'HUAQUIRCA'),
+(281, 30, 'JUAN ESPINOZA MEDRANO'),
+(282, 30, 'OROPESA'),
+(283, 30, 'PACHACONAS'),
+(284, 30, 'SABAINO'),
+(285, 31, 'CHALHUANCA'),
+(286, 31, 'CAPAYA'),
+(287, 31, 'CARAYBAMBA'),
+(288, 31, 'CHAPIMARCA'),
+(289, 31, 'COLCABAMBA'),
+(290, 31, 'COTARUSE'),
+(291, 31, 'HUAYLLO'),
+(292, 31, 'JUSTO APU SAHUARAURA'),
+(293, 31, 'LUCRE'),
+(294, 31, 'POCOHUANCA'),
+(295, 31, 'SAN JUAN DE CHAC&Ntilde;A'),
+(296, 31, 'SA&Ntilde;AYCA'),
+(297, 31, 'SORAYA'),
+(298, 31, 'TAPAIRIHUA'),
+(299, 31, 'TINTAY'),
+(300, 31, 'TORAYA'),
+(301, 31, 'YANACA'),
+(302, 32, 'TAMBOBAMBA'),
+(303, 32, 'COTABAMBAS'),
+(304, 32, 'COYLLURQUI'),
+(305, 32, 'HAQUIRA'),
+(306, 32, 'MARA'),
+(307, 32, 'CHALLHUAHUACHO'),
+(308, 33, 'CHINCHEROS'),
+(309, 33, 'ANCO-HUALLO'),
+(310, 33, 'COCHARCAS'),
+(311, 33, 'HUACCANA'),
+(312, 33, 'OCOBAMBA'),
+(313, 33, 'ONGOY'),
+(314, 33, 'URANMARCA'),
+(315, 33, 'RANRACANCHA'),
+(316, 34, 'CHUQUIBAMBILLA'),
+(317, 34, 'CURPAHUASI'),
+(318, 34, 'GAMARRA'),
+(319, 34, 'HUAYLLATI'),
+(320, 34, 'MAMARA'),
+(321, 34, 'MICAELA BASTIDAS'),
+(322, 34, 'PATAYPAMPA'),
+(323, 34, 'PROGRESO'),
+(324, 34, 'SAN ANTONIO'),
+(325, 34, 'SANTA ROSA'),
+(326, 34, 'TURPAY'),
+(327, 34, 'VILCABAMBA'),
+(328, 34, 'VIRUNDO'),
+(329, 34, 'CURASCO'),
+(330, 35, 'AREQUIPA'),
+(331, 35, 'ALTO SELVA ALEGRE'),
+(332, 35, 'CAYMA'),
+(333, 35, 'CERRO COLORADO'),
+(334, 35, 'CHARACATO'),
+(335, 35, 'CHIGUATA'),
+(336, 35, 'JACOBO HUNTER'),
+(337, 35, 'LA JOYA'),
+(338, 35, 'MARIANO MELGAR'),
+(339, 35, 'MIRAFLORES'),
+(340, 35, 'MOLLEBAYA'),
+(341, 35, 'PAUCARPATA'),
+(342, 35, 'POCSI'),
+(343, 35, 'POLOBAYA'),
+(344, 35, 'QUEQUE&Ntilde;A'),
+(345, 35, 'SABANDIA'),
+(346, 35, 'SACHACA'),
+(347, 35, 'SAN JUAN DE SIGUAS'),
+(348, 35, 'SAN JUAN DE TARUCANI'),
+(349, 35, 'SANTA ISABEL DE SIGUAS'),
+(350, 35, 'SANTA RITA DE SIGUAS'),
+(351, 35, 'SOCABAYA'),
+(352, 35, 'TIABAYA'),
+(353, 35, 'UCHUMAYO'),
+(354, 35, 'VITOR'),
+(355, 35, 'YANAHUARA'),
+(356, 35, 'YARABAMBA'),
+(357, 35, 'YURA'),
+(358, 35, 'JOSE LUIS BUSTAMANTE Y RIVERO'),
+(359, 36, 'CAMANA'),
+(360, 36, 'JOSE MARIA QUIMPER'),
+(361, 36, 'MARIANO NICOLAS VALCARCEL'),
+(362, 36, 'MARISCAL CACERES'),
+(363, 36, 'NICOLAS DE PIEROLA'),
+(364, 36, 'OCO&Ntilde;A'),
+(365, 36, 'QUILCA'),
+(366, 36, 'SAMUEL PASTOR'),
+(367, 37, 'CARAVELI'),
+(368, 37, 'ACARI'),
+(369, 37, 'ATICO'),
+(370, 37, 'ATIQUIPA'),
+(371, 37, 'BELLA UNION'),
+(372, 37, 'CAHUACHO'),
+(373, 37, 'CHALA'),
+(374, 37, 'CHAPARRA'),
+(375, 37, 'HUANUHUANU'),
+(376, 37, 'JAQUI'),
+(377, 37, 'LOMAS'),
+(378, 37, 'QUICACHA'),
+(379, 37, 'YAUCA'),
+(380, 38, 'APLAO'),
+(381, 38, 'ANDAGUA'),
+(382, 38, 'AYO'),
+(383, 38, 'CHACHAS'),
+(384, 38, 'CHILCAYMARCA'),
+(385, 38, 'CHOCO'),
+(386, 38, 'HUANCARQUI'),
+(387, 38, 'MACHAGUAY'),
+(388, 38, 'ORCOPAMPA'),
+(389, 38, 'PAMPACOLCA'),
+(390, 38, 'TIPAN'),
+(391, 38, 'U&Ntilde;ON'),
+(392, 38, 'URACA'),
+(393, 38, 'VIRACO'),
+(394, 39, 'CHIVAY'),
+(395, 39, 'ACHOMA'),
+(396, 39, 'CABANACONDE'),
+(397, 39, 'CALLALLI'),
+(398, 39, 'CAYLLOMA'),
+(399, 39, 'COPORAQUE'),
+(400, 39, 'HUAMBO'),
+(401, 39, 'HUANCA'),
+(402, 39, 'ICHUPAMPA'),
+(403, 39, 'LARI'),
+(404, 39, 'LLUTA'),
+(405, 39, 'MACA'),
+(406, 39, 'MADRIGAL'),
+(407, 39, 'SAN ANTONIO DE CHUCA'),
+(408, 39, 'SIBAYO'),
+(409, 39, 'TAPAY'),
+(410, 39, 'TISCO'),
+(411, 39, 'TUTI'),
+(412, 39, 'YANQUE'),
+(413, 39, 'MAJES'),
+(414, 40, 'CHUQUIBAMBA'),
+(415, 40, 'ANDARAY'),
+(416, 40, 'CAYARANI'),
+(417, 40, 'CHICHAS'),
+(418, 40, 'IRAY'),
+(419, 40, 'RIO GRANDE'),
+(420, 40, 'SALAMANCA'),
+(421, 40, 'YANAQUIHUA'),
+(422, 41, 'MOLLENDO'),
+(423, 41, 'COCACHACRA'),
+(424, 41, 'DEAN VALDIVIA'),
+(425, 41, 'ISLAY'),
+(426, 41, 'MEJIA'),
+(427, 41, 'PUNTA DE BOMBON'),
+(428, 42, 'COTAHUASI'),
+(429, 42, 'ALCA'),
+(430, 42, 'CHARCANA'),
+(431, 42, 'HUAYNACOTAS'),
+(432, 42, 'PAMPAMARCA'),
+(433, 42, 'PUYCA'),
+(434, 42, 'QUECHUALLA'),
+(435, 42, 'SAYLA'),
+(436, 42, 'TAURIA'),
+(437, 42, 'TOMEPAMPA'),
+(438, 42, 'TORO'),
+(439, 43, 'AYACUCHO'),
+(440, 43, 'ACOCRO'),
+(441, 43, 'ACOS VINCHOS'),
+(442, 43, 'CARMEN ALTO'),
+(443, 43, 'CHIARA'),
+(444, 43, 'OCROS'),
+(445, 43, 'PACAYCASA'),
+(446, 43, 'QUINUA'),
+(447, 43, 'SAN JOSE DE TICLLAS'),
+(448, 43, 'SAN JUAN BAUTISTA'),
+(449, 43, 'SANTIAGO DE PISCHA'),
+(450, 43, 'SOCOS'),
+(451, 43, 'TAMBILLO'),
+(452, 43, 'VINCHOS'),
+(453, 43, 'JESUS NAZARENO'),
+(454, 44, 'CANGALLO'),
+(455, 44, 'CHUSCHI'),
+(456, 44, 'LOS MOROCHUCOS'),
+(457, 44, 'MARIA PARADO DE BELLIDO'),
+(458, 44, 'PARAS'),
+(459, 44, 'TOTOS'),
+(460, 45, 'SANCOS'),
+(461, 45, 'CARAPO'),
+(462, 45, 'SACSAMARCA'),
+(463, 45, 'SANTIAGO DE LUCANAMARCA'),
+(464, 46, 'HUANTA'),
+(465, 46, 'AYAHUANCO'),
+(466, 46, 'HUAMANGUILLA'),
+(467, 46, 'IGUAIN'),
+(468, 46, 'LURICOCHA'),
+(469, 46, 'SANTILLANA'),
+(470, 46, 'SIVIA'),
+(471, 46, 'LLOCHEGUA'),
+(472, 47, 'SAN MIGUEL'),
+(473, 47, 'ANCO'),
+(474, 47, 'AYNA'),
+(475, 47, 'CHILCAS'),
+(476, 47, 'CHUNGUI'),
+(477, 47, 'LUIS CARRANZA'),
+(478, 47, 'SANTA ROSA'),
+(479, 47, 'TAMBO'),
+(480, 48, 'PUQUIO'),
+(481, 48, 'AUCARA'),
+(482, 48, 'CABANA'),
+(483, 48, 'CARMEN SALCEDO'),
+(484, 48, 'CHAVI&Ntilde;A'),
+(485, 48, 'CHIPAO'),
+(486, 48, 'HUAC-HUAS'),
+(487, 48, 'LARAMATE'),
+(488, 48, 'LEONCIO PRADO'),
+(489, 48, 'LLAUTA'),
+(490, 48, 'LUCANAS'),
+(491, 48, 'OCA&Ntilde;A'),
+(492, 48, 'OTOCA'),
+(493, 48, 'SAISA'),
+(494, 48, 'SAN CRISTOBAL'),
+(495, 48, 'SAN JUAN'),
+(496, 48, 'SAN PEDRO'),
+(497, 48, 'SAN PEDRO DE PALCO'),
+(498, 48, 'SANCOS'),
+(499, 48, 'SANTA ANA DE HUAYCAHUACHO'),
+(500, 48, 'SANTA LUCIA'),
+(501, 49, 'CORACORA'),
+(502, 49, 'CHUMPI'),
+(503, 49, 'CORONEL CASTA&Ntilde;EDA'),
+(504, 49, 'PACAPAUSA'),
+(505, 49, 'PULLO'),
+(506, 49, 'PUYUSCA'),
+(507, 49, 'SAN FRANCISCO DE RAVACAYCO'),
+(508, 49, 'UPAHUACHO'),
+(509, 50, 'PAUSA'),
+(510, 50, 'COLTA'),
+(511, 50, 'CORCULLA'),
+(512, 50, 'LAMPA'),
+(513, 50, 'MARCABAMBA'),
+(514, 50, 'OYOLO'),
+(515, 50, 'PARARCA'),
+(516, 50, 'SAN JAVIER DE ALPABAMBA'),
+(517, 50, 'SAN JOSE DE USHUA'),
+(518, 50, 'SARA SARA'),
+(519, 51, 'QUEROBAMBA'),
+(520, 51, 'BELEN'),
+(521, 51, 'CHALCOS'),
+(522, 51, 'CHILCAYOC'),
+(523, 51, 'HUACA&Ntilde;A'),
+(524, 51, 'MORCOLLA'),
+(525, 51, 'PAICO'),
+(526, 51, 'SAN PEDRO DE LARCAY'),
+(527, 51, 'SAN SALVADOR DE QUIJE'),
+(528, 51, 'SANTIAGO DE PAUCARAY'),
+(529, 51, 'SORAS'),
+(530, 52, 'HUANCAPI'),
+(531, 52, 'ALCAMENCA'),
+(532, 52, 'APONGO'),
+(533, 52, 'ASQUIPATA'),
+(534, 52, 'CANARIA'),
+(535, 52, 'CAYARA'),
+(536, 52, 'COLCA'),
+(537, 52, 'HUAMANQUIQUIA'),
+(538, 52, 'HUANCARAYLLA'),
+(539, 52, 'HUAYA'),
+(540, 52, 'SARHUA'),
+(541, 52, 'VILCANCHOS'),
+(542, 53, 'VILCAS HUAMAN'),
+(543, 53, 'ACCOMARCA'),
+(544, 53, 'CARHUANCA'),
+(545, 53, 'CONCEPCION'),
+(546, 53, 'HUAMBALPA'),
+(547, 53, 'INDEPENDENCIA'),
+(548, 53, 'SAURAMA'),
+(549, 53, 'VISCHONGO'),
+(550, 54, 'CAJAMARCA'),
+(551, 54, 'CAJAMARCA'),
+(552, 54, 'ASUNCION'),
+(553, 54, 'CHETILLA'),
+(554, 54, 'COSPAN'),
+(555, 54, 'ENCA&Ntilde;ADA'),
+(556, 54, 'JESUS'),
+(557, 54, 'LLACANORA'),
+(558, 54, 'LOS BA&Ntilde;OS DEL INCA'),
+(559, 54, 'MAGDALENA'),
+(560, 54, 'MATARA'),
+(561, 54, 'NAMORA'),
+(562, 54, 'SAN JUAN'),
+(563, 55, 'CAJABAMBA'),
+(564, 55, 'CACHACHI'),
+(565, 55, 'CONDEBAMBA'),
+(566, 55, 'SITACOCHA'),
+(567, 56, 'CELENDIN'),
+(568, 56, 'CHUMUCH'),
+(569, 56, 'CORTEGANA'),
+(570, 56, 'HUASMIN'),
+(571, 56, 'JORGE CHAVEZ'),
+(572, 56, 'JOSE GALVEZ'),
+(573, 56, 'MIGUEL IGLESIAS'),
+(574, 56, 'OXAMARCA'),
+(575, 56, 'SOROCHUCO'),
+(576, 56, 'SUCRE'),
+(577, 56, 'UTCO'),
+(578, 56, 'LA LIBERTAD DE PALLAN'),
+(579, 57, 'CHOTA'),
+(580, 57, 'ANGUIA'),
+(581, 57, 'CHADIN'),
+(582, 57, 'CHIGUIRIP'),
+(583, 57, 'CHIMBAN'),
+(584, 57, 'CHOROPAMPA'),
+(585, 57, 'COCHABAMBA'),
+(586, 57, 'CONCHAN'),
+(587, 57, 'HUAMBOS'),
+(588, 57, 'LAJAS'),
+(589, 57, 'LLAMA'),
+(590, 57, 'MIRACOSTA'),
+(591, 57, 'PACCHA'),
+(592, 57, 'PION'),
+(593, 57, 'QUEROCOTO'),
+(594, 57, 'SAN JUAN DE LICUPIS'),
+(595, 57, 'TACABAMBA'),
+(596, 57, 'TOCMOCHE'),
+(597, 57, 'CHALAMARCA'),
+(598, 58, 'CONTUMAZA'),
+(599, 58, 'CHILETE'),
+(600, 58, 'CUPISNIQUE'),
+(601, 58, 'GUZMANGO'),
+(602, 58, 'SAN BENITO'),
+(603, 58, 'SANTA CRUZ DE TOLED'),
+(604, 58, 'TANTARICA'),
+(605, 58, 'YONAN'),
+(606, 59, 'CUTERVO'),
+(607, 59, 'CALLAYUC'),
+(608, 59, 'CHOROS'),
+(609, 59, 'CUJILLO'),
+(610, 59, 'LA RAMADA'),
+(611, 59, 'PIMPINGOS'),
+(612, 59, 'QUEROCOTILLO'),
+(613, 59, 'SAN ANDRES DE CUTERVO'),
+(614, 59, 'SAN JUAN DE CUTERVO'),
+(615, 59, 'SAN LUIS DE LUCMA'),
+(616, 59, 'SANTA CRUZ'),
+(617, 59, 'SANTO DOMINGO DE LA CAPILLA'),
+(618, 59, 'SANTO TOMAS'),
+(619, 59, 'SOCOTA'),
+(620, 59, 'TORIBIO CASANOVA'),
+(621, 60, 'BAMBAMARCA'),
+(622, 60, 'CHUGUR'),
+(623, 60, 'HUALGAYOC'),
+(624, 61, 'JAEN'),
+(625, 61, 'BELLAVISTA'),
+(626, 61, 'CHONTALI'),
+(627, 61, 'COLASAY'),
+(628, 61, 'HUABAL'),
+(629, 61, 'LAS PIRIAS'),
+(630, 61, 'POMAHUACA'),
+(631, 61, 'PUCARA'),
+(632, 61, 'SALLIQUE'),
+(633, 61, 'SAN FELIPE'),
+(634, 61, 'SAN JOSE DEL ALTO'),
+(635, 61, 'SANTA ROSA'),
+(636, 62, 'SAN IGNACIO'),
+(637, 62, 'CHIRINOS'),
+(638, 62, 'HUARANGO'),
+(639, 62, 'LA COIPA'),
+(640, 62, 'NAMBALLE'),
+(641, 62, 'SAN JOSE DE LOURDES'),
+(642, 62, 'TABACONAS'),
+(643, 63, 'PEDRO GALVEZ'),
+(644, 63, 'CHANCAY'),
+(645, 63, 'EDUARDO VILLANUEVA'),
+(646, 63, 'GREGORIO PITA'),
+(647, 63, 'ICHOCAN'),
+(648, 63, 'JOSE MANUEL QUIROZ'),
+(649, 63, 'JOSE SABOGAL'),
+(650, 64, 'SAN MIGUEL'),
+(651, 64, 'SAN MIGUEL'),
+(652, 64, 'BOLIVAR'),
+(653, 64, 'CALQUIS'),
+(654, 64, 'CATILLUC'),
+(655, 64, 'EL PRADO'),
+(656, 64, 'LA FLORIDA'),
+(657, 64, 'LLAPA'),
+(658, 64, 'NANCHOC'),
+(659, 64, 'NIEPOS'),
+(660, 64, 'SAN GREGORIO'),
+(661, 64, 'SAN SILVESTRE DE COCHAN'),
+(662, 64, 'TONGOD'),
+(663, 64, 'UNION AGUA BLANCA'),
+(664, 65, 'SAN PABLO'),
+(665, 65, 'SAN BERNARDINO'),
+(666, 65, 'SAN LUIS'),
+(667, 65, 'TUMBADEN'),
+(668, 66, 'SANTA CRUZ'),
+(669, 66, 'ANDABAMBA'),
+(670, 66, 'CATACHE'),
+(671, 66, 'CHANCAYBA&Ntilde;OS'),
+(672, 66, 'LA ESPERANZA'),
+(673, 66, 'NINABAMBA'),
+(674, 66, 'PULAN'),
+(675, 66, 'SAUCEPAMPA'),
+(676, 66, 'SEXI'),
+(677, 66, 'UTICYACU'),
+(678, 66, 'YAUYUCAN'),
+(679, 67, 'CALLAO'),
+(680, 67, 'BELLAVISTA'),
+(681, 67, 'CARMEN DE LA LEGUA REYNOSO'),
+(682, 67, 'LA PERLA'),
+(683, 67, 'LA PUNTA'),
+(684, 67, 'VENTANILLA'),
+(685, 67, 'CUSCO'),
+(686, 67, 'CCORCA'),
+(687, 67, 'POROY'),
+(688, 67, 'SAN JERONIMO'),
+(689, 67, 'SAN SEBASTIAN'),
+(690, 67, 'SANTIAGO'),
+(691, 67, 'SAYLLA'),
+(692, 67, 'WANCHAQ'),
+(693, 68, 'ACOMAYO'),
+(694, 68, 'ACOPIA'),
+(695, 68, 'ACOS'),
+(696, 68, 'MOSOC LLACTA'),
+(697, 68, 'POMACANCHI'),
+(698, 68, 'RONDOCAN'),
+(699, 68, 'SANGARARA'),
+(700, 69, 'ANTA'),
+(701, 69, 'ANCAHUASI'),
+(702, 69, 'CACHIMAYO'),
+(703, 69, 'CHINCHAYPUJIO'),
+(704, 69, 'HUAROCONDO'),
+(705, 69, 'LIMATAMBO'),
+(706, 69, 'MOLLEPATA'),
+(707, 69, 'PUCYURA'),
+(708, 69, 'ZURITE'),
+(709, 70, 'CALCA'),
+(710, 70, 'COYA'),
+(711, 70, 'LAMAY'),
+(712, 70, 'LARES'),
+(713, 70, 'PISAC'),
+(714, 70, 'SAN SALVADOR'),
+(715, 70, 'TARAY'),
+(716, 70, 'YANATILE'),
+(717, 71, 'YANAOCA'),
+(718, 71, 'CHECCA'),
+(719, 71, 'KUNTURKANKI'),
+(720, 71, 'LANGUI'),
+(721, 71, 'LAYO'),
+(722, 71, 'PAMPAMARCA'),
+(723, 71, 'QUEHUE'),
+(724, 71, 'TUPAC AMARU'),
+(725, 72, 'SICUANI'),
+(726, 72, 'CHECACUPE'),
+(727, 72, 'COMBAPATA'),
+(728, 72, 'MARANGANI'),
+(729, 72, 'PITUMARCA'),
+(730, 72, 'SAN PABLO'),
+(731, 72, 'SAN PEDRO'),
+(732, 72, 'TINTA'),
+(733, 73, 'SANTO TOMAS'),
+(734, 73, 'CAPACMARCA'),
+(735, 73, 'CHAMACA'),
+(736, 73, 'COLQUEMARCA'),
+(737, 73, 'LIVITACA'),
+(738, 73, 'LLUSCO'),
+(739, 73, 'QUI&Ntilde;OTA'),
+(740, 73, 'VELILLE'),
+(741, 74, 'ESPINAR'),
+(742, 74, 'CONDOROMA'),
+(743, 74, 'COPORAQUE'),
+(744, 74, 'OCORURO'),
+(745, 74, 'PALLPATA'),
+(746, 74, 'PICHIGUA'),
+(747, 74, 'SUYCKUTAMBO'),
+(748, 74, 'ALTO PICHIGUA'),
+(749, 75, 'SANTA ANA'),
+(750, 75, 'ECHARATE'),
+(751, 75, 'HUAYOPATA'),
+(752, 75, 'MARANURA'),
+(753, 75, 'OCOBAMBA'),
+(754, 75, 'QUELLOUNO'),
+(755, 75, 'KIMBIRI'),
+(756, 75, 'SANTA TERESA'),
+(757, 75, 'VILCABAMBA'),
+(758, 75, 'PICHARI'),
+(759, 76, 'PARURO'),
+(760, 76, 'ACCHA'),
+(761, 76, 'CCAPI'),
+(762, 76, 'COLCHA'),
+(763, 76, 'HUANOQUITE'),
+(764, 76, 'OMACHA'),
+(765, 76, 'PACCARITAMBO'),
+(766, 76, 'PILLPINTO'),
+(767, 76, 'YAURISQUE'),
+(768, 77, 'PAUCARTAMBO'),
+(769, 77, 'CAICAY'),
+(770, 77, 'CHALLABAMBA'),
+(771, 77, 'COLQUEPATA'),
+(772, 77, 'HUANCARANI'),
+(773, 77, 'KOS&Ntilde;IPATA'),
+(774, 78, 'URCOS'),
+(775, 78, 'ANDAHUAYLILLAS'),
+(776, 78, 'CAMANTI'),
+(777, 78, 'CCARHUAYO'),
+(778, 78, 'CCATCA'),
+(779, 78, 'CUSIPATA'),
+(780, 78, 'HUARO'),
+(781, 78, 'LUCRE'),
+(782, 78, 'MARCAPATA'),
+(783, 78, 'OCONGATE'),
+(784, 78, 'OROPESA'),
+(785, 78, 'QUIQUIJANA'),
+(786, 79, 'URUBAMBA'),
+(787, 79, 'CHINCHERO'),
+(788, 79, 'HUAYLLABAMBA'),
+(789, 79, 'MACHUPICCHU'),
+(790, 79, 'MARAS'),
+(791, 79, 'OLLANTAYTAMBO'),
+(792, 79, 'YUCAY'),
+(793, 80, 'HUANCAVELICA'),
+(794, 80, 'ACOBAMBILLA'),
+(795, 80, 'ACORIA'),
+(796, 80, 'CONAYCA'),
+(797, 80, 'CUENCA'),
+(798, 80, 'HUACHOCOLPA'),
+(799, 80, 'HUAYLLAHUARA'),
+(800, 80, 'IZCUCHACA'),
+(801, 80, 'LARIA'),
+(802, 80, 'MANTA'),
+(803, 80, 'MARISCAL CACERES'),
+(804, 80, 'MOYA'),
+(805, 80, 'NUEVO OCCORO'),
+(806, 80, 'PALCA'),
+(807, 80, 'PILCHACA'),
+(808, 80, 'VILCA'),
+(809, 80, 'YAULI'),
+(810, 80, 'ASCENSION'),
+(811, 80, 'HUANDO'),
+(812, 81, 'ACOBAMBA'),
+(813, 81, 'ANDABAMBA'),
+(814, 81, 'ANTA'),
+(815, 81, 'CAJA'),
+(816, 81, 'MARCAS'),
+(817, 81, 'PAUCARA'),
+(818, 81, 'POMACOCHA'),
+(819, 81, 'ROSARIO'),
+(820, 82, 'LIRCAY'),
+(821, 82, 'ANCHONGA'),
+(822, 82, 'CALLANMARCA'),
+(823, 82, 'CCOCHACCASA'),
+(824, 82, 'CHINCHO'),
+(825, 82, 'CONGALLA'),
+(826, 82, 'HUANCA-HUANCA'),
+(827, 82, 'HUAYLLAY GRANDE'),
+(828, 82, 'JULCAMARCA'),
+(829, 82, 'SAN ANTONIO DE ANTAPARCO'),
+(830, 82, 'SANTO TOMAS DE PATA'),
+(831, 82, 'SECCLLA'),
+(832, 83, 'CASTROVIRREYNA'),
+(833, 83, 'ARMA'),
+(834, 83, 'AURAHUA'),
+(835, 83, 'CAPILLAS'),
+(836, 83, 'CHUPAMARCA'),
+(837, 83, 'COCAS'),
+(838, 83, 'HUACHOS'),
+(839, 83, 'HUAMATAMBO'),
+(840, 83, 'MOLLEPAMPA'),
+(841, 83, 'SAN JUAN'),
+(842, 83, 'SANTA ANA'),
+(843, 83, 'TANTARA'),
+(844, 83, 'TICRAPO'),
+(845, 84, 'CHURCAMPA'),
+(846, 84, 'ANCO'),
+(847, 84, 'CHINCHIHUASI'),
+(848, 84, 'EL CARMEN'),
+(849, 84, 'LA MERCED'),
+(850, 84, 'LOCROJA'),
+(851, 84, 'PAUCARBAMBA'),
+(852, 84, 'SAN MIGUEL DE MAYOCC'),
+(853, 84, 'SAN PEDRO DE CORIS'),
+(854, 84, 'PACHAMARCA'),
+(855, 85, 'HUAYTARA'),
+(856, 85, 'AYAVI'),
+(857, 85, 'CORDOVA'),
+(858, 85, 'HUAYACUNDO ARMA'),
+(859, 85, 'LARAMARCA'),
+(860, 85, 'OCOYO'),
+(861, 85, 'PILPICHACA'),
+(862, 85, 'QUERCO'),
+(863, 85, 'QUITO-ARMA'),
+(864, 85, 'SAN ANTONIO DE CUSICANCHA'),
+(865, 85, 'SAN FRANCISCO DE SANGAYAICO'),
+(866, 85, 'SAN ISIDRO'),
+(867, 85, 'SANTIAGO DE CHOCORVOS'),
+(868, 85, 'SANTIAGO DE QUIRAHUARA'),
+(869, 85, 'SANTO DOMINGO DE CAPILLAS'),
+(870, 85, 'TAMBO'),
+(871, 86, 'PAMPAS'),
+(872, 86, 'ACOSTAMBO'),
+(873, 86, 'ACRAQUIA'),
+(874, 86, 'AHUAYCHA'),
+(875, 86, 'COLCABAMBA'),
+(876, 86, 'DANIEL HERNANDEZ'),
+(877, 86, 'HUACHOCOLPA'),
+(878, 86, 'HUARIBAMBA'),
+(879, 86, '&Ntilde;AHUIMPUQUIO'),
+(880, 86, 'PAZOS'),
+(881, 86, 'QUISHUAR'),
+(882, 86, 'SALCABAMBA'),
+(883, 86, 'SALCAHUASI'),
+(884, 86, 'SAN MARCOS DE ROCCHAC'),
+(885, 86, 'SURCUBAMBA'),
+(886, 86, 'TINTAY PUNCU'),
+(887, 87, 'HUANUCO'),
+(888, 87, 'AMARILIS'),
+(889, 87, 'CHINCHAO'),
+(890, 87, 'CHURUBAMBA'),
+(891, 87, 'MARGOS'),
+(892, 87, 'QUISQUI'),
+(893, 87, 'SAN FRANCISCO DE CAYRAN'),
+(894, 87, 'SAN PEDRO DE CHAULAN'),
+(895, 87, 'SANTA MARIA DEL VALLE'),
+(896, 87, 'YARUMAYO'),
+(897, 87, 'PILLCO MARCA'),
+(898, 88, 'AMBO'),
+(899, 88, 'CAYNA'),
+(900, 88, 'COLPAS'),
+(901, 88, 'CONCHAMARCA'),
+(902, 88, 'HUACAR'),
+(903, 88, 'SAN FRANCISCO'),
+(904, 88, 'SAN RAFAEL'),
+(905, 88, 'TOMAY KICHWA'),
+(906, 89, 'LA UNION'),
+(907, 89, 'CHUQUIS'),
+(908, 89, 'MARIAS'),
+(909, 89, 'PACHAS'),
+(910, 89, 'QUIVILLA'),
+(911, 89, 'RIPAN'),
+(912, 89, 'SHUNQUI'),
+(913, 89, 'SILLAPATA'),
+(914, 89, 'YANAS'),
+(915, 90, 'HUACAYBAMBA'),
+(916, 90, 'CANCHABAMBA'),
+(917, 90, 'COCHABAMBA'),
+(918, 90, 'PINRA'),
+(919, 91, 'LLATA'),
+(920, 91, 'ARANCAY'),
+(921, 91, 'CHAVIN DE PARIARCA'),
+(922, 91, 'JACAS GRANDE'),
+(923, 91, 'JIRCAN'),
+(924, 91, 'MIRAFLORES'),
+(925, 91, 'MONZON'),
+(926, 91, 'PUNCHAO'),
+(927, 91, 'PU&Ntilde;OS'),
+(928, 91, 'SINGA'),
+(929, 91, 'TANTAMAYO'),
+(930, 92, 'RUPA-RUPA'),
+(931, 92, 'DANIEL ALOMIA ROBLES'),
+(932, 92, 'HERMILIO VALDIZAN'),
+(933, 92, 'JOSE CRESPO Y CASTILLO'),
+(934, 92, 'LUYANDO'),
+(935, 92, 'MARIANO DAMASO BERAUN'),
+(936, 93, 'HUACRACHUCO'),
+(937, 93, 'CHOLON'),
+(938, 93, 'SAN BUENAVENTURA'),
+(939, 94, 'PANAO'),
+(940, 94, 'CHAGLLA'),
+(941, 94, 'MOLINO'),
+(942, 94, 'UMARI'),
+(943, 95, 'PUERTO INCA'),
+(944, 95, 'CODO DEL POZUZO'),
+(945, 95, 'HONORIA'),
+(946, 95, 'TOURNAVISTA'),
+(947, 95, 'YUYAPICHIS'),
+(948, 96, 'JESUS'),
+(949, 96, 'BA&Ntilde;OS'),
+(950, 96, 'JIVIA'),
+(951, 96, 'QUEROPALCA'),
+(952, 96, 'RONDOS'),
+(953, 96, 'SAN FRANCISCO DE ASIS'),
+(954, 96, 'SAN MIGUEL DE CAURI'),
+(955, 97, 'CHAVINILLO'),
+(956, 97, 'CAHUAC'),
+(957, 97, 'CHACABAMBA'),
+(958, 97, 'APARICIO POMARES'),
+(959, 97, 'JACAS CHICO'),
+(960, 97, 'OBAS'),
+(961, 97, 'PAMPAMARCA'),
+(962, 97, 'CHORAS'),
+(963, 98, 'ICA'),
+(964, 98, 'LA TINGUI&Ntilde;A'),
+(965, 98, 'LOS AQUIJES'),
+(966, 98, 'OCUCAJE'),
+(967, 98, 'PACHACUTEC'),
+(968, 98, 'PARCONA'),
+(969, 98, 'PUEBLO NUEVO'),
+(970, 98, 'SALAS'),
+(971, 98, 'SAN JOSE DE LOS MOLINOS'),
+(972, 98, 'SAN JUAN BAUTISTA'),
+(973, 98, 'SANTIAGO'),
+(974, 98, 'SUBTANJALLA'),
+(975, 98, 'TATE'),
+(976, 98, 'YAUCA DEL ROSARIO'),
+(977, 99, 'CHINCHA ALTA'),
+(978, 99, 'ALTO LARAN'),
+(979, 99, 'CHAVIN'),
+(980, 99, 'CHINCHA BAJA'),
+(981, 99, 'EL CARMEN'),
+(982, 99, 'GROCIO PRADO'),
+(983, 99, 'PUEBLO NUEVO'),
+(984, 99, 'SAN JUAN DE YANAC'),
+(985, 99, 'SAN PEDRO DE HUACARPANA'),
+(986, 99, 'SUNAMPE'),
+(987, 99, 'TAMBO DE MORA'),
+(988, 100, 'NAZCA'),
+(989, 100, 'CHANGUILLO'),
+(990, 100, 'EL INGENIO'),
+(991, 100, 'MARCONA'),
+(992, 100, 'VISTA ALEGRE'),
+(993, 101, 'PALPA'),
+(994, 101, 'LLIPATA'),
+(995, 101, 'RIO GRANDE'),
+(996, 101, 'SANTA CRUZ'),
+(997, 101, 'TIBILLO'),
+(998, 102, 'PISCO'),
+(999, 102, 'HUANCANO'),
+(1000, 102, 'HUMAY'),
+(1001, 102, 'INDEPENDENCIA'),
+(1002, 102, 'PARACAS'),
+(1003, 102, 'SAN ANDRES'),
+(1004, 102, 'SAN CLEMENTE'),
+(1005, 102, 'TUPAC AMARU INCA'),
+(1006, 103, 'HUANCAYO'),
+(1007, 103, 'CARHUACALLANGA'),
+(1008, 103, 'CHACAPAMPA'),
+(1009, 103, 'CHICCHE'),
+(1010, 103, 'CHILCA'),
+(1011, 103, 'CHONGOS ALTO'),
+(1012, 103, 'CHUPURO'),
+(1013, 103, 'COLCA'),
+(1014, 103, 'CULLHUAS'),
+(1015, 103, 'EL TAMBO'),
+(1016, 103, 'HUACRAPUQUIO'),
+(1017, 103, 'HUALHUAS'),
+(1018, 103, 'HUANCAN'),
+(1019, 103, 'HUASICANCHA'),
+(1020, 103, 'HUAYUCACHI'),
+(1021, 103, 'INGENIO'),
+(1022, 103, 'PARIAHUANCA'),
+(1023, 103, 'PILCOMAYO'),
+(1024, 103, 'PUCARA'),
+(1025, 103, 'QUICHUAY'),
+(1026, 103, 'QUILCAS'),
+(1027, 103, 'SAN AGUSTIN'),
+(1028, 103, 'SAN JERONIMO DE TUNAN'),
+(1029, 103, 'SA&Ntilde;O'),
+(1030, 103, 'SAPALLANGA'),
+(1031, 103, 'SICAYA'),
+(1032, 103, 'SANTO DOMINGO DE ACOBAMBA'),
+(1033, 103, 'VIQUES'),
+(1034, 104, 'CONCEPCION'),
+(1035, 104, 'ACO'),
+(1036, 104, 'ANDAMARCA'),
+(1037, 104, 'CHAMBARA'),
+(1038, 104, 'COCHAS'),
+(1039, 104, 'COMAS'),
+(1040, 104, 'HEROINAS TOLEDO'),
+(1041, 104, 'MANZANARES'),
+(1042, 104, 'MARISCAL CASTILLA'),
+(1043, 104, 'MATAHUASI'),
+(1044, 104, 'MITO'),
+(1045, 104, 'NUEVE DE JULIO'),
+(1046, 104, 'ORCOTUNA'),
+(1047, 104, 'SAN JOSE DE QUERO'),
+(1048, 104, 'SANTA ROSA DE OCOPA'),
+(1049, 105, 'CHANCHAMAYO'),
+(1050, 105, 'PERENE'),
+(1051, 105, 'PICHANAQUI'),
+(1052, 105, 'SAN LUIS DE SHUARO'),
+(1053, 105, 'SAN RAMON'),
+(1054, 105, 'VITOC'),
+(1055, 106, 'JAUJA'),
+(1056, 106, 'ACOLLA'),
+(1057, 106, 'APATA'),
+(1058, 106, 'ATAURA'),
+(1059, 106, 'CANCHAYLLO'),
+(1060, 106, 'CURICACA'),
+(1061, 106, 'EL MANTARO'),
+(1062, 106, 'HUAMALI'),
+(1063, 106, 'HUARIPAMPA'),
+(1064, 106, 'HUERTAS'),
+(1065, 106, 'JANJAILLO'),
+(1066, 106, 'JULCAN'),
+(1067, 106, 'LEONOR ORDO&Ntilde;EZ'),
+(1068, 106, 'LLOCLLAPAMPA'),
+(1069, 106, 'MARCO'),
+(1070, 106, 'MASMA'),
+(1071, 106, 'MASMA CHICCHE'),
+(1072, 106, 'MOLINOS'),
+(1073, 106, 'MONOBAMBA'),
+(1074, 106, 'MUQUI'),
+(1075, 106, 'MUQUIYAUYO'),
+(1076, 106, 'PACA'),
+(1077, 106, 'PACCHA'),
+(1078, 106, 'PANCAN'),
+(1079, 106, 'PARCO'),
+(1080, 106, 'POMACANCHA'),
+(1081, 106, 'RICRAN'),
+(1082, 106, 'SAN LORENZO'),
+(1083, 106, 'SAN PEDRO DE CHUNAN'),
+(1084, 106, 'SAUSA'),
+(1085, 106, 'SINCOS'),
+(1086, 106, 'TUNAN MARCA'),
+(1087, 106, 'YAULI'),
+(1088, 106, 'YAUYOS'),
+(1089, 107, 'JUNIN'),
+(1090, 107, 'CARHUAMAYO'),
+(1091, 107, 'ONDORES'),
+(1092, 107, 'ULCUMAYO'),
+(1093, 108, 'SATIPO'),
+(1094, 108, 'COVIRIALI'),
+(1095, 108, 'LLAYLLA'),
+(1096, 108, 'MAZAMARI'),
+(1097, 108, 'PAMPA HERMOSA'),
+(1098, 108, 'PANGOA'),
+(1099, 108, 'RIO NEGRO'),
+(1100, 108, 'RIO TAMBO'),
+(1101, 109, 'TARMA'),
+(1102, 109, 'ACOBAMBA'),
+(1103, 109, 'HUARICOLCA'),
+(1104, 109, 'HUASAHUASI'),
+(1105, 109, 'LA UNION'),
+(1106, 109, 'PALCA'),
+(1107, 109, 'PALCAMAYO'),
+(1108, 109, 'SAN PEDRO DE CAJAS'),
+(1109, 109, 'TAPO'),
+(1110, 110, 'LA OROYA'),
+(1111, 110, 'CHACAPALPA'),
+(1112, 110, 'HUAY-HUAY'),
+(1113, 110, 'MARCAPOMACOCHA'),
+(1114, 110, 'MOROCOCHA'),
+(1115, 110, 'PACCHA'),
+(1116, 110, 'SANTA BARBARA DE CARHUACAYAN'),
+(1117, 110, 'SANTA ROSA DE SACCO'),
+(1118, 110, 'SUITUCANCHA'),
+(1119, 110, 'YAULI'),
+(1120, 111, 'CHUPACA'),
+(1121, 111, 'AHUAC'),
+(1122, 111, 'CHONGOS BAJO'),
+(1123, 111, 'HUACHAC'),
+(1124, 111, 'HUAMANCACA CHICO'),
+(1125, 111, 'SAN JUAN DE ISCOS'),
+(1126, 111, 'SAN JUAN DE JARPA'),
+(1127, 111, 'TRES DE DICIEMBRE'),
+(1128, 111, 'YANACANCHA'),
+(1129, 112, 'TRUJILLO'),
+(1130, 112, 'EL PORVENIR'),
+(1131, 112, 'FLORENCIA DE MORA'),
+(1132, 112, 'HUANCHACO'),
+(1133, 112, 'LA ESPERANZA'),
+(1134, 112, 'LAREDO'),
+(1135, 112, 'MOCHE'),
+(1136, 112, 'POROTO'),
+(1137, 112, 'SALAVERRY'),
+(1138, 112, 'SIMBAL'),
+(1139, 112, 'VICTOR LARCO HERRERA'),
+(1140, 113, 'ASCOPE'),
+(1141, 113, 'CHICAMA'),
+(1142, 113, 'CHOCOPE'),
+(1143, 113, 'MAGDALENA DE CAO'),
+(1144, 113, 'PAIJAN'),
+(1145, 113, 'RAZURI'),
+(1146, 113, 'SANTIAGO DE CAO'),
+(1147, 113, 'CASA GRANDE'),
+(1148, 114, 'BOLIVAR'),
+(1149, 114, 'BAMBAMARCA'),
+(1150, 114, 'CONDORMARCA'),
+(1151, 114, 'LONGOTEA'),
+(1152, 114, 'UCHUMARCA'),
+(1153, 114, 'UCUNCHA'),
+(1154, 115, 'CHEPEN'),
+(1155, 115, 'PACANGA'),
+(1156, 115, 'PUEBLO NUEVO'),
+(1157, 116, 'JULCAN'),
+(1158, 116, 'CALAMARCA'),
+(1159, 116, 'CARABAMBA'),
+(1160, 116, 'HUASO'),
+(1161, 117, 'OTUZCO'),
+(1162, 117, 'AGALLPAMPA'),
+(1163, 117, 'CHARAT'),
+(1164, 117, 'HUARANCHAL'),
+(1165, 117, 'LA CUESTA'),
+(1166, 117, 'MACHE'),
+(1167, 117, 'PARANDAY'),
+(1168, 117, 'SALPO'),
+(1169, 117, 'SINSICAP'),
+(1170, 117, 'USQUIL'),
+(1171, 118, 'SAN PEDRO DE LLOC'),
+(1172, 118, 'GUADALUPE'),
+(1173, 118, 'JEQUETEPEQUE'),
+(1174, 118, 'PACASMAYO'),
+(1175, 118, 'SAN JOSE'),
+(1176, 119, 'TAYABAMBA'),
+(1177, 119, 'BULDIBUYO'),
+(1178, 119, 'CHILLIA'),
+(1179, 119, 'HUANCASPATA'),
+(1180, 119, 'HUAYLILLAS'),
+(1181, 119, 'HUAYO'),
+(1182, 119, 'ONGON'),
+(1183, 119, 'PARCOY'),
+(1184, 119, 'PATAZ'),
+(1185, 119, 'PIAS'),
+(1186, 119, 'SANTIAGO DE CHALLAS'),
+(1187, 119, 'TAURIJA'),
+(1188, 119, 'URPAY'),
+(1189, 120, 'HUAMACHUCO'),
+(1190, 120, 'CHUGAY'),
+(1191, 120, 'COCHORCO'),
+(1192, 120, 'CURGOS'),
+(1193, 120, 'MARCABAL'),
+(1194, 120, 'SANAGORAN'),
+(1195, 120, 'SARIN'),
+(1196, 120, 'SARTIMBAMBA'),
+(1197, 121, 'SANTIAGO DE CHUCO'),
+(1198, 121, 'ANGASMARCA'),
+(1199, 121, 'CACHICADAN'),
+(1200, 121, 'MOLLEBAMBA'),
+(1201, 121, 'MOLLEPATA'),
+(1202, 121, 'QUIRUVILCA'),
+(1203, 121, 'SANTA CRUZ DE CHUCA'),
+(1204, 121, 'SITABAMBA'),
+(1205, 122, 'GRAN CHIMU'),
+(1206, 122, 'CASCAS'),
+(1207, 122, 'LUCMA'),
+(1208, 122, 'MARMOT'),
+(1209, 122, 'SAYAPULLO'),
+(1210, 123, 'VIRU'),
+(1211, 123, 'CHAO'),
+(1212, 123, 'GUADALUPITO'),
+(1213, 124, 'CHICLAYO'),
+(1214, 124, 'CHONGOYAPE'),
+(1215, 124, 'ETEN'),
+(1216, 124, 'ETEN PUERTO'),
+(1217, 124, 'JOSE LEONARDO ORTIZ'),
+(1218, 124, 'LA VICTORIA'),
+(1219, 124, 'LAGUNAS'),
+(1220, 124, 'MONSEFU'),
+(1221, 124, 'NUEVA ARICA'),
+(1222, 124, 'OYOTUN'),
+(1223, 124, 'PICSI'),
+(1224, 124, 'PIMENTEL'),
+(1225, 124, 'REQUE'),
+(1226, 124, 'SANTA ROSA'),
+(1227, 124, 'SA&Ntilde;A'),
+(1228, 124, 'CAYALTI'),
+(1229, 124, 'PATAPO'),
+(1230, 124, 'POMALCA'),
+(1231, 124, 'PUCALA'),
+(1232, 124, 'TUMAN'),
+(1233, 125, 'FERRE&Ntilde;AFE'),
+(1234, 125, 'CA&Ntilde;ARIS'),
+(1235, 125, 'INCAHUASI'),
+(1236, 125, 'MANUEL ANTONIO MESONES MURO'),
+(1237, 125, 'PITIPO'),
+(1238, 125, 'PUEBLO NUEVO'),
+(1239, 126, 'LAMBAYEQUE'),
+(1240, 126, 'CHOCHOPE'),
+(1241, 126, 'ILLIMO'),
+(1242, 126, 'JAYANCA'),
+(1243, 126, 'MOCHUMI'),
+(1244, 126, 'MORROPE'),
+(1245, 126, 'MOTUPE'),
+(1246, 126, 'OLMOS'),
+(1247, 126, 'PACORA'),
+(1248, 126, 'SALAS'),
+(1249, 126, 'SAN JOSE'),
+(1250, 126, 'TUCUME'),
+(1251, 127, 'LIMA'),
+(1252, 127, 'ANCON'),
+(1253, 127, 'ATE'),
+(1254, 127, 'BARRANCO'),
+(1255, 127, 'BRE&Ntilde;A'),
+(1256, 127, 'CARABAYLLO'),
+(1257, 127, 'CHACLACAYO'),
+(1258, 127, 'CHORRILLOS'),
+(1259, 127, 'CIENEGUILLA'),
+(1260, 127, 'COMAS'),
+(1261, 127, 'EL AGUSTINO'),
+(1262, 127, 'INDEPENDENCIA'),
+(1263, 127, 'JESUS MARIA'),
+(1264, 127, 'LA MOLINA'),
+(1265, 127, 'LA VICTORIA'),
+(1266, 127, 'LINCE'),
+(1267, 127, 'LOS OLIVOS'),
+(1268, 127, 'LURIGANCHO'),
+(1269, 127, 'LURIN'),
+(1270, 127, 'MAGDALENA DEL MAR'),
+(1271, 127, 'MAGDALENA VIEJA'),
+(1272, 127, 'MIRAFLORES'),
+(1273, 127, 'PACHACAMAC'),
+(1274, 127, 'PUCUSANA'),
+(1275, 127, 'PUENTE PIEDRA'),
+(1276, 127, 'PUNTA HERMOSA'),
+(1277, 127, 'PUNTA NEGRA'),
+(1278, 127, 'RIMAC'),
+(1279, 127, 'SAN BARTOLO'),
+(1280, 127, 'SAN BORJA'),
+(1281, 127, 'SAN ISIDRO'),
+(1282, 127, 'SAN JUAN DE LURIGANCHO'),
+(1283, 127, 'SAN JUAN DE MIRAFLORES'),
+(1284, 127, 'SAN LUIS'),
+(1285, 127, 'SAN MARTIN DE PORRES'),
+(1286, 127, 'SAN MIGUEL'),
+(1287, 127, 'SANTA ANITA'),
+(1288, 127, 'SANTA MARIA DEL MAR'),
+(1289, 127, 'SANTA ROSA'),
+(1290, 127, 'SANTIAGO DE SURCO'),
+(1291, 127, 'SURQUILLO'),
+(1292, 127, 'VILLA EL SALVADOR'),
+(1293, 127, 'VILLA MARIA DEL TRIUNFO'),
+(1294, 128, 'BARRANCA'),
+(1295, 128, 'PARAMONGA'),
+(1296, 128, 'PATIVILCA'),
+(1297, 128, 'SUPE'),
+(1298, 128, 'SUPE PUERTO'),
+(1299, 129, 'CAJATAMBO'),
+(1300, 129, 'COPA'),
+(1301, 129, 'GORGOR'),
+(1302, 129, 'HUANCAPON'),
+(1303, 129, 'MANAS'),
+(1304, 130, 'CANTA'),
+(1305, 130, 'ARAHUAY'),
+(1306, 130, 'HUAMANTANGA'),
+(1307, 130, 'HUAROS'),
+(1308, 130, 'LACHAQUI'),
+(1309, 130, 'SAN BUENAVENTURA'),
+(1310, 130, 'SANTA ROSA DE QUIVES'),
+(1311, 131, 'SAN VICENTE DE CA&Ntilde;ETE'),
+(1312, 131, 'ASIA'),
+(1313, 131, 'CALANGO'),
+(1314, 131, 'CERRO AZUL'),
+(1315, 131, 'CHILCA'),
+(1316, 131, 'COAYLLO'),
+(1317, 131, 'IMPERIAL'),
+(1318, 131, 'LUNAHUANA'),
+(1319, 131, 'MALA'),
+(1320, 131, 'NUEVO IMPERIAL'),
+(1321, 131, 'PACARAN'),
+(1322, 131, 'QUILMANA'),
+(1323, 131, 'SAN ANTONIO'),
+(1324, 131, 'SAN LUIS'),
+(1325, 131, 'SANTA CRUZ DE FLORES'),
+(1326, 131, 'ZU&Ntilde;IGA'),
+(1327, 132, 'HUARAL'),
+(1328, 132, 'ATAVILLOS ALTO'),
+(1329, 132, 'ATAVILLOS BAJO'),
+(1330, 132, 'AUCALLAMA'),
+(1331, 132, 'CHANCAY'),
+(1332, 132, 'IHUARI'),
+(1333, 132, 'LAMPIAN'),
+(1334, 132, 'PACARAOS'),
+(1335, 132, 'SAN MIGUEL DE ACOS'),
+(1336, 132, 'SANTA CRUZ DE ANDAMARCA'),
+(1337, 132, 'SUMBILCA'),
+(1338, 132, 'VEINTISIETE DE NOVIEMBRE'),
+(1339, 133, 'MATUCANA'),
+(1340, 133, 'ANTIOQUIA'),
+(1341, 133, 'CALLAHUANCA'),
+(1342, 133, 'CARAMPOMA'),
+(1343, 133, 'CHICLA'),
+(1344, 133, 'CUENCA'),
+(1345, 133, 'HUACHUPAMPA'),
+(1346, 133, 'HUANZA'),
+(1347, 133, 'HUAROCHIRI'),
+(1348, 133, 'LAHUAYTAMBO'),
+(1349, 133, 'LANGA'),
+(1350, 133, 'LARAOS'),
+(1351, 133, 'MARIATANA'),
+(1352, 133, 'RICARDO PALMA'),
+(1353, 133, 'SAN ANDRES DE TUPICOCHA'),
+(1354, 133, 'SAN ANTONIO'),
+(1355, 133, 'SAN BARTOLOME'),
+(1356, 133, 'SAN DAMIAN'),
+(1357, 133, 'SAN JUAN DE IRIS'),
+(1358, 133, 'SAN JUAN DE TANTARANCHE'),
+(1359, 133, 'SAN LORENZO DE QUINTI'),
+(1360, 133, 'SAN MATEO'),
+(1361, 133, 'SAN MATEO DE OTAO'),
+(1362, 133, 'SAN PEDRO DE CASTA'),
+(1363, 133, 'SAN PEDRO DE HUANCAYRE'),
+(1364, 133, 'SANGALLAYA'),
+(1365, 133, 'SANTA CRUZ DE COCACHACRA'),
+(1366, 133, 'SANTA EULALIA'),
+(1367, 133, 'SANTIAGO DE ANCHUCAYA'),
+(1368, 133, 'SANTIAGO DE TUNA'),
+(1369, 133, 'SANTO DOMINGO DE LOS OLLEROS'),
+(1370, 133, 'SURCO'),
+(1371, 134, 'HUACHO'),
+(1372, 134, 'AMBAR'),
+(1373, 134, 'CALETA DE CARQUIN'),
+(1374, 134, 'CHECRAS'),
+(1375, 134, 'HUALMAY'),
+(1376, 134, 'HUAURA'),
+(1377, 134, 'LEONCIO PRADO'),
+(1378, 134, 'PACCHO'),
+(1379, 134, 'SANTA LEONOR'),
+(1380, 134, 'SANTA MARIA'),
+(1381, 134, 'SAYAN'),
+(1382, 134, 'VEGUETA'),
+(1383, 135, 'OYON'),
+(1384, 135, 'ANDAJES'),
+(1385, 135, 'CAUJUL'),
+(1386, 135, 'COCHAMARCA'),
+(1387, 135, 'NAVAN'),
+(1388, 135, 'PACHANGARA'),
+(1389, 136, 'YAUYOS'),
+(1390, 136, 'ALIS'),
+(1391, 136, 'AYAUCA'),
+(1392, 136, 'AYAVIRI'),
+(1393, 136, 'AZANGARO'),
+(1394, 136, 'CACRA'),
+(1395, 136, 'CARANIA'),
+(1396, 136, 'CATAHUASI'),
+(1397, 136, 'CHOCOS'),
+(1398, 136, 'COCHAS'),
+(1399, 136, 'COLONIA'),
+(1400, 136, 'HONGOS'),
+(1401, 136, 'HUAMPARA'),
+(1402, 136, 'HUANCAYA'),
+(1403, 136, 'HUANGASCAR'),
+(1404, 136, 'HUANTAN'),
+(1405, 136, 'HUA&Ntilde;EC'),
+(1406, 136, 'LARAOS'),
+(1407, 136, 'LINCHA'),
+(1408, 136, 'MADEAN'),
+(1409, 136, 'MIRAFLORES'),
+(1410, 136, 'OMAS'),
+(1411, 136, 'PUTINZA'),
+(1412, 136, 'QUINCHES'),
+(1413, 136, 'QUINOCAY'),
+(1414, 136, 'SAN JOAQUIN'),
+(1415, 136, 'SAN PEDRO DE PILAS'),
+(1416, 136, 'TANTA'),
+(1417, 136, 'TAURIPAMPA'),
+(1418, 136, 'TOMAS'),
+(1419, 136, 'TUPE'),
+(1420, 136, 'VI&Ntilde;AC'),
+(1421, 136, 'VITIS'),
+(1422, 137, 'IQUITOS'),
+(1423, 137, 'ALTO NANAY'),
+(1424, 137, 'FERNANDO LORES'),
+(1425, 137, 'INDIANA'),
+(1426, 137, 'LAS AMAZONAS'),
+(1427, 137, 'MAZAN'),
+(1428, 137, 'NAPO'),
+(1429, 137, 'PUNCHANA'),
+(1430, 137, 'PUTUMAYO'),
+(1431, 137, 'TORRES CAUSANA'),
+(1432, 137, 'BELEN'),
+(1433, 137, 'SAN JUAN BAUTISTA'),
+(1434, 138, 'YURIMAGUAS'),
+(1435, 138, 'BALSAPUERTO'),
+(1436, 138, 'BARRANCA'),
+(1437, 138, 'CAHUAPANAS'),
+(1438, 138, 'JEBEROS'),
+(1439, 138, 'LAGUNAS'),
+(1440, 138, 'MANSERICHE'),
+(1441, 138, 'MORONA'),
+(1442, 138, 'PASTAZA'),
+(1443, 138, 'SANTA CRUZ'),
+(1444, 138, 'TENIENTE CESAR LOPEZ ROJAS'),
+(1445, 139, 'NAUTA'),
+(1446, 139, 'PARINARI'),
+(1447, 139, 'TIGRE'),
+(1448, 139, 'TROMPETEROS'),
+(1449, 139, 'URARINAS'),
+(1450, 140, 'RAMON CASTILLA'),
+(1451, 140, 'PEBAS'),
+(1452, 140, 'YAVARI'),
+(1453, 140, 'SAN PABLO'),
+(1454, 141, 'REQUENA'),
+(1455, 141, 'ALTO TAPICHE'),
+(1456, 141, 'CAPELO'),
+(1457, 141, 'EMILIO SAN MARTIN'),
+(1458, 141, 'MAQUIA'),
+(1459, 141, 'PUINAHUA'),
+(1460, 141, 'SAQUENA'),
+(1461, 141, 'SOPLIN'),
+(1462, 141, 'TAPICHE'),
+(1463, 141, 'JENARO HERRERA'),
+(1464, 141, 'YAQUERANA'),
+(1465, 142, 'CONTAMANA'),
+(1466, 142, 'INAHUAYA'),
+(1467, 142, 'PADRE MARQUEZ'),
+(1468, 142, 'PAMPA HERMOSA'),
+(1469, 142, 'SARAYACU'),
+(1470, 142, 'VARGAS GUERRA'),
+(1471, 143, 'TAMBOPATA'),
+(1472, 143, 'INAMBARI'),
+(1473, 143, 'LAS PIEDRAS'),
+(1474, 143, 'LABERINTO'),
+(1475, 144, 'MANU'),
+(1476, 144, 'FITZCARRALD'),
+(1477, 144, 'MADRE DE DIOS'),
+(1478, 144, 'HUEPETUHE'),
+(1479, 145, 'I&Ntilde;APARI'),
+(1480, 145, 'IBERIA'),
+(1481, 145, 'TAHUAMANU'),
+(1482, 146, 'MOQUEGUA'),
+(1483, 146, 'CARUMAS'),
+(1484, 146, 'CUCHUMBAYA'),
+(1485, 146, 'SAMEGUA'),
+(1486, 146, 'SAN CRISTOBAL'),
+(1487, 146, 'TORATA'),
+(1488, 147, 'OMATE'),
+(1489, 147, 'CHOJATA'),
+(1490, 147, 'COALAQUE'),
+(1491, 147, 'ICHU&Ntilde;A'),
+(1492, 147, 'LA CAPILLA'),
+(1493, 147, 'LLOQUE'),
+(1494, 147, 'MATALAQUE'),
+(1495, 147, 'PUQUINA'),
+(1496, 147, 'QUINISTAQUILLAS'),
+(1497, 147, 'UBINAS'),
+(1498, 147, 'YUNGA'),
+(1499, 148, 'ILO'),
+(1500, 148, 'EL ALGARROBAL'),
+(1501, 148, 'PACOCHA'),
+(1502, 149, 'CHAUPIMARCA'),
+(1503, 149, 'HUACHON'),
+(1504, 149, 'HUARIACA'),
+(1505, 149, 'HUAYLLAY'),
+(1506, 149, 'NINACACA'),
+(1507, 149, 'PALLANCHACRA'),
+(1508, 149, 'PAUCARTAMBO'),
+(1509, 149, 'SAN FCO.DE ASIS DE YARUSYACAN'),
+(1510, 149, 'SIMON BOLIVAR'),
+(1511, 149, 'TICLACAYAN'),
+(1512, 149, 'TINYAHUARCO'),
+(1513, 149, 'VICCO'),
+(1514, 149, 'YANACANCHA'),
+(1515, 150, 'YANAHUANCA'),
+(1516, 150, 'CHACAYAN'),
+(1517, 150, 'GOYLLARISQUIZGA'),
+(1518, 150, 'PAUCAR'),
+(1519, 150, 'SAN PEDRO DE PILLAO'),
+(1520, 150, 'SANTA ANA DE TUSI'),
+(1521, 150, 'TAPUC'),
+(1522, 150, 'VILCABAMBA'),
+(1523, 151, 'OXAPAMPA'),
+(1524, 151, 'CHONTABAMBA'),
+(1525, 151, 'HUANCABAMBA'),
+(1526, 151, 'PALCAZU'),
+(1527, 151, 'POZUZO'),
+(1528, 151, 'PUERTO BERMUDEZ'),
+(1529, 151, 'VILLA RICA'),
+(1530, 152, 'PIURA'),
+(1531, 152, 'CASTILLA'),
+(1532, 152, 'CATACAOS'),
+(1533, 152, 'CURA MORI'),
+(1534, 152, 'EL TALLAN'),
+(1535, 152, 'LA ARENA'),
+(1536, 152, 'LA UNION'),
+(1537, 152, 'LAS LOMAS'),
+(1538, 152, 'TAMBO GRANDE'),
+(1539, 153, 'AYABACA'),
+(1540, 153, 'FRIAS'),
+(1541, 153, 'JILILI'),
+(1542, 153, 'LAGUNAS'),
+(1543, 153, 'MONTERO'),
+(1544, 153, 'PACAIPAMPA'),
+(1545, 153, 'PAIMAS'),
+(1546, 153, 'SAPILLICA'),
+(1547, 153, 'SICCHEZ'),
+(1548, 153, 'SUYO'),
+(1549, 154, 'HUANCABAMBA'),
+(1550, 154, 'CANCHAQUE'),
+(1551, 154, 'EL CARMEN DE LA FRONTERA'),
+(1552, 154, 'HUARMACA'),
+(1553, 154, 'LALAQUIZ'),
+(1554, 154, 'SAN MIGUEL DE EL FAIQUE'),
+(1555, 154, 'SONDOR'),
+(1556, 154, 'SONDORILLO'),
+(1557, 155, 'CHULUCANAS'),
+(1558, 155, 'BUENOS AIRES'),
+(1559, 155, 'CHALACO'),
+(1560, 155, 'LA MATANZA'),
+(1561, 155, 'MORROPON'),
+(1562, 155, 'SALITRAL'),
+(1563, 155, 'SAN JUAN DE BIGOTE'),
+(1564, 155, 'SANTA CATALINA DE MOSSA'),
+(1565, 155, 'SANTO DOMINGO'),
+(1566, 155, 'YAMANGO'),
+(1567, 156, 'PAITA'),
+(1568, 156, 'AMOTAPE'),
+(1569, 156, 'ARENAL'),
+(1570, 156, 'COLAN'),
+(1571, 156, 'LA HUACA'),
+(1572, 156, 'TAMARINDO'),
+(1573, 156, 'VICHAYAL'),
+(1574, 157, 'SULLANA'),
+(1575, 157, 'BELLAVISTA'),
+(1576, 157, 'IGNACIO ESCUDERO'),
+(1577, 157, 'LANCONES'),
+(1578, 157, 'MARCAVELICA'),
+(1579, 157, 'MIGUEL CHECA'),
+(1580, 157, 'QUERECOTILLO'),
+(1581, 157, 'SALITRAL'),
+(1582, 158, 'PARI&Ntilde;AS'),
+(1583, 158, 'EL ALTO'),
+(1584, 158, 'LA BREA'),
+(1585, 158, 'LOBITOS'),
+(1586, 158, 'LOS ORGANOS'),
+(1587, 158, 'MANCORA'),
+(1588, 159, 'SECHURA'),
+(1589, 159, 'BELLAVISTA DE LA UNION'),
+(1590, 159, 'BERNAL'),
+(1591, 159, 'CRISTO NOS VALGA'),
+(1592, 159, 'VICE'),
+(1593, 159, 'RINCONADA LLICUAR'),
+(1594, 160, 'PUNO'),
+(1595, 160, 'ACORA'),
+(1596, 160, 'AMANTANI'),
+(1597, 160, 'ATUNCOLLA'),
+(1598, 160, 'CAPACHICA'),
+(1599, 160, 'CHUCUITO'),
+(1600, 160, 'COATA'),
+(1601, 160, 'HUATA'),
+(1602, 160, 'MA&Ntilde;AZO'),
+(1603, 160, 'PAUCARCOLLA'),
+(1604, 160, 'PICHACANI'),
+(1605, 160, 'PLATERIA'),
+(1606, 160, 'SAN ANTONIO'),
+(1607, 160, 'TIQUILLACA'),
+(1608, 160, 'VILQUE'),
+(1609, 161, 'AZANGARO'),
+(1610, 161, 'ACHAYA'),
+(1611, 161, 'ARAPA'),
+(1612, 161, 'ASILLO'),
+(1613, 161, 'CAMINACA'),
+(1614, 161, 'CHUPA'),
+(1615, 161, 'JOSE DOMINGO CHOQUEHUANCA'),
+(1616, 161, 'MU&Ntilde;ANI'),
+(1617, 161, 'POTONI'),
+(1618, 161, 'SAMAN'),
+(1619, 161, 'SAN ANTON'),
+(1620, 161, 'SAN JOSE'),
+(1621, 161, 'SAN JUAN DE SALINAS'),
+(1622, 161, 'SANTIAGO DE PUPUJA'),
+(1623, 161, 'TIRAPATA'),
+(1624, 162, 'MACUSANI'),
+(1625, 162, 'AJOYANI'),
+(1626, 162, 'AYAPATA'),
+(1627, 162, 'COASA'),
+(1628, 162, 'CORANI'),
+(1629, 162, 'CRUCERO'),
+(1630, 162, 'ITUATA'),
+(1631, 162, 'OLLACHEA'),
+(1632, 162, 'SAN GABAN'),
+(1633, 162, 'USICAYOS'),
+(1634, 163, 'JULI'),
+(1635, 163, 'DESAGUADERO'),
+(1636, 163, 'HUACULLANI'),
+(1637, 163, 'KELLUYO'),
+(1638, 163, 'PISACOMA'),
+(1639, 163, 'POMATA'),
+(1640, 163, 'ZEPITA'),
+(1641, 164, 'ILAVE'),
+(1642, 164, 'CAPAZO'),
+(1643, 164, 'PILCUYO'),
+(1644, 164, 'SANTA ROSA'),
+(1645, 164, 'CONDURIRI'),
+(1646, 165, 'HUANCANE'),
+(1647, 165, 'COJATA'),
+(1648, 165, 'HUATASANI'),
+(1649, 165, 'INCHUPALLA'),
+(1650, 165, 'PUSI'),
+(1651, 165, 'ROSASPATA'),
+(1652, 165, 'TARACO'),
+(1653, 165, 'VILQUE CHICO'),
+(1654, 166, 'LAMPA'),
+(1655, 166, 'CABANILLA'),
+(1656, 166, 'CALAPUJA'),
+(1657, 166, 'NICASIO'),
+(1658, 166, 'OCUVIRI'),
+(1659, 166, 'PALCA'),
+(1660, 166, 'PARATIA'),
+(1661, 166, 'PUCARA'),
+(1662, 166, 'SANTA LUCIA'),
+(1663, 166, 'VILAVILA'),
+(1664, 167, 'AYAVIRI'),
+(1665, 167, 'ANTAUTA'),
+(1666, 167, 'CUPI'),
+(1667, 167, 'LLALLI'),
+(1668, 167, 'MACARI'),
+(1669, 167, 'NU&Ntilde;OA'),
+(1670, 167, 'ORURILLO'),
+(1671, 167, 'SANTA ROSA'),
+(1672, 167, 'UMACHIRI'),
+(1673, 168, 'MOHO'),
+(1674, 168, 'CONIMA'),
+(1675, 168, 'HUAYRAPATA'),
+(1676, 168, 'TILALI'),
+(1677, 169, 'PUTINA'),
+(1678, 169, 'ANANEA'),
+(1679, 169, 'PEDRO VILCA APAZA'),
+(1680, 169, 'QUILCAPUNCU'),
+(1681, 169, 'SINA'),
+(1682, 170, 'JULIACA'),
+(1683, 170, 'CABANA'),
+(1684, 170, 'CABANILLAS'),
+(1685, 170, 'CARACOTO'),
+(1686, 171, 'SANDIA'),
+(1687, 171, 'CUYOCUYO'),
+(1688, 171, 'LIMBANI'),
+(1689, 171, 'PATAMBUCO'),
+(1690, 171, 'PHARA'),
+(1691, 171, 'QUIACA'),
+(1692, 171, 'SAN JUAN DEL ORO'),
+(1693, 171, 'YANAHUAYA'),
+(1694, 171, 'ALTO INAMBARI'),
+(1695, 172, 'YUNGUYO'),
+(1696, 172, 'ANAPIA'),
+(1697, 172, 'COPANI'),
+(1698, 172, 'CUTURAPI'),
+(1699, 172, 'OLLARAYA'),
+(1700, 172, 'TINICACHI'),
+(1701, 172, 'UNICACHI'),
+(1702, 173, 'MOYOBAMBA'),
+(1703, 173, 'CALZADA'),
+(1704, 173, 'HABANA'),
+(1705, 173, 'JEPELACIO'),
+(1706, 173, 'SORITOR'),
+(1707, 173, 'YANTALO'),
+(1708, 174, 'BELLAVISTA'),
+(1709, 174, 'ALTO BIAVO'),
+(1710, 174, 'BAJO BIAVO'),
+(1711, 174, 'HUALLAGA'),
+(1712, 174, 'SAN PABLO'),
+(1713, 174, 'SAN RAFAEL'),
+(1714, 175, 'SAN JOSE DE SISA'),
+(1715, 175, 'AGUA BLANCA'),
+(1716, 175, 'SAN MARTIN'),
+(1717, 175, 'SANTA ROSA'),
+(1718, 175, 'SHATOJA'),
+(1719, 176, 'SAPOSOA'),
+(1720, 176, 'ALTO SAPOSOA'),
+(1721, 176, 'EL ESLABON'),
+(1722, 176, 'PISCOYACU'),
+(1723, 176, 'SACANCHE'),
+(1724, 176, 'TINGO DE SAPOSOA'),
+(1725, 177, 'LAMAS'),
+(1726, 177, 'ALONSO DE ALVARADO'),
+(1727, 177, 'BARRANQUITA'),
+(1728, 177, 'CAYNARACHI'),
+(1729, 177, 'CU&Ntilde;UMBUQUI'),
+(1730, 177, 'PINTO RECODO'),
+(1731, 177, 'RUMISAPA'),
+(1732, 177, 'SAN ROQUE DE CUMBAZA'),
+(1733, 177, 'SHANAO'),
+(1734, 177, 'TABALOSOS'),
+(1735, 177, 'ZAPATERO'),
+(1736, 178, 'JUANJUI'),
+(1737, 178, 'CAMPANILLA'),
+(1738, 178, 'HUICUNGO'),
+(1739, 178, 'PACHIZA'),
+(1740, 178, 'PAJARILLO'),
+(1741, 179, 'PICOTA'),
+(1742, 179, 'BUENOS AIRES'),
+(1743, 179, 'CASPISAPA'),
+(1744, 179, 'PILLUANA'),
+(1745, 179, 'PUCACACA'),
+(1746, 179, 'SAN CRISTOBAL'),
+(1747, 179, 'SAN HILARION'),
+(1748, 179, 'SHAMBOYACU'),
+(1749, 179, 'TINGO DE PONASA'),
+(1750, 179, 'TRES UNIDOS'),
+(1751, 180, 'RIOJA'),
+(1752, 180, 'AWAJUN'),
+(1753, 180, 'ELIAS SOPLIN VARGAS'),
+(1754, 180, 'NUEVA CAJAMARCA'),
+(1755, 180, 'PARDO MIGUEL'),
+(1756, 180, 'POSIC'),
+(1757, 180, 'SAN FERNANDO'),
+(1758, 180, 'YORONGOS'),
+(1759, 180, 'YURACYACU'),
+(1760, 181, 'TARAPOTO'),
+(1761, 181, 'ALBERTO LEVEAU'),
+(1762, 181, 'CACATACHI'),
+(1763, 181, 'CHAZUTA'),
+(1764, 181, 'CHIPURANA'),
+(1765, 181, 'EL PORVENIR'),
+(1766, 181, 'HUIMBAYOC'),
+(1767, 181, 'JUAN GUERRA'),
+(1768, 181, 'LA BANDA DE SHILCAYO'),
+(1769, 181, 'MORALES'),
+(1770, 181, 'PAPAPLAYA'),
+(1771, 181, 'SAN ANTONIO'),
+(1772, 181, 'SAUCE'),
+(1773, 181, 'SHAPAJA'),
+(1774, 182, 'TOCACHE'),
+(1775, 182, 'NUEVO PROGRESO'),
+(1776, 182, 'POLVORA'),
+(1777, 182, 'SHUNTE'),
+(1778, 182, 'UCHIZA'),
+(1779, 183, 'TACNA'),
+(1780, 183, 'ALTO DE LA ALIANZA'),
+(1781, 183, 'CALANA'),
+(1782, 183, 'CIUDAD NUEVA'),
+(1783, 183, 'INCLAN'),
+(1784, 183, 'PACHIA'),
+(1785, 183, 'PALCA'),
+(1786, 183, 'POCOLLAY'),
+(1787, 183, 'SAMA'),
+(1788, 183, 'CORONEL GREGORIO ALBARRACIN LANCHIPA'),
+(1789, 184, 'CANDARAVE'),
+(1790, 184, 'CAIRANI'),
+(1791, 184, 'CAMILACA'),
+(1792, 184, 'CURIBAYA'),
+(1793, 184, 'HUANUARA'),
+(1794, 184, 'QUILAHUANI'),
+(1795, 185, 'LOCUMBA'),
+(1796, 185, 'ILABAYA'),
+(1797, 185, 'ITE'),
+(1798, 186, 'TARATA'),
+(1799, 186, 'CHUCATAMANI'),
+(1800, 186, 'ESTIQUE'),
+(1801, 186, 'ESTIQUE-PAMPA'),
+(1802, 186, 'SITAJARA'),
+(1803, 186, 'SUSAPAYA'),
+(1804, 186, 'TARUCACHI'),
+(1805, 186, 'TICACO'),
+(1806, 187, 'TUMBES'),
+(1807, 187, 'CORRALES'),
+(1808, 187, 'LA CRUZ'),
+(1809, 187, 'PAMPAS DE HOSPITAL'),
+(1810, 187, 'SAN JACINTO'),
+(1811, 187, 'SAN JUAN DE LA VIRGEN'),
+(1812, 188, 'ZORRITOS'),
+(1813, 188, 'CASITAS'),
+(1814, 189, 'ZARUMILLA'),
+(1815, 189, 'AGUAS VERDES'),
+(1816, 189, 'MATAPALO'),
+(1817, 189, 'PAPAYAL'),
+(1818, 190, 'CALLERIA'),
+(1819, 190, 'CAMPOVERDE'),
+(1820, 190, 'IPARIA'),
+(1821, 190, 'MASISEA'),
+(1822, 190, 'YARINACOCHA'),
+(1823, 190, 'NUEVA REQUENA'),
+(1824, 191, 'RAYMONDI'),
+(1825, 191, 'SEPAHUA'),
+(1826, 191, 'TAHUANIA'),
+(1827, 191, 'YURUA'),
+(1828, 192, 'PADRE ABAD'),
+(1829, 192, 'IRAZOLA'),
+(1830, 192, 'CURIMANA'),
+(1831, 193, 'PURUS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `provincias`
+--
+
+CREATE TABLE `provincias` (
+  `IdProvincia` int(11) NOT NULL,
+  `IdDepartamento` int(11) NOT NULL,
+  `Provincia` varchar(120) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `provincias`
+--
+
+INSERT INTO `provincias` (`IdProvincia`, `IdDepartamento`, `Provincia`) VALUES
+(1, 1, 'CHACHAPOYAS '),
+(2, 1, 'BAGUA'),
+(3, 1, 'BONGARA'),
+(4, 1, 'CONDORCANQUI'),
+(5, 1, 'LUYA'),
+(6, 1, 'RODRIGUEZ DE MENDOZA'),
+(7, 1, 'UTCUBAMBA'),
+(8, 2, 'HUARAZ'),
+(9, 2, 'AIJA'),
+(10, 2, 'ANTONIO RAYMONDI'),
+(11, 2, 'ASUNCION'),
+(12, 2, 'BOLOGNESI'),
+(13, 2, 'CARHUAZ'),
+(14, 2, 'CARLOS FERMIN FITZCARRALD'),
+(15, 2, 'CASMA'),
+(16, 2, 'CORONGO'),
+(17, 2, 'HUARI'),
+(18, 2, 'HUARMEY'),
+(19, 2, 'HUAYLAS'),
+(20, 2, 'MARISCAL LUZURIAGA'),
+(21, 2, 'OCROS'),
+(22, 2, 'PALLASCA'),
+(23, 2, 'POMABAMBA'),
+(24, 2, 'RECUAY'),
+(25, 2, 'SANTA'),
+(26, 2, 'SIHUAS'),
+(27, 2, 'YUNGAY'),
+(28, 3, 'ABANCAY'),
+(29, 3, 'ANDAHUAYLAS'),
+(30, 3, 'ANTABAMBA'),
+(31, 3, 'AYMARAES'),
+(32, 3, 'COTABAMBAS'),
+(33, 3, 'CHINCHEROS'),
+(34, 3, 'GRAU'),
+(35, 4, 'AREQUIPA'),
+(36, 4, 'CAMANA'),
+(37, 4, 'CARAVELI'),
+(38, 4, 'CASTILLA'),
+(39, 4, 'CAYLLOMA'),
+(40, 4, 'CONDESUYOS'),
+(41, 4, 'ISLAY'),
+(42, 4, 'LA UNION'),
+(43, 5, 'HUAMANGA'),
+(44, 5, 'CANGALLO'),
+(45, 5, 'HUANCA SANCOS'),
+(46, 5, 'HUANTA'),
+(47, 5, 'LA MAR'),
+(48, 5, 'LUCANAS'),
+(49, 5, 'PARINACOCHAS'),
+(50, 5, 'PAUCAR DEL SARA SARA'),
+(51, 5, 'SUCRE'),
+(52, 5, 'VICTOR FAJARDO'),
+(53, 5, 'VILCAS HUAMAN'),
+(54, 6, 'CAJAMARCA'),
+(55, 6, 'CAJABAMBA'),
+(56, 6, 'CELENDIN'),
+(57, 6, 'CHOTA '),
+(58, 6, 'CONTUMAZA'),
+(59, 6, 'CUTERVO'),
+(60, 6, 'HUALGAYOC'),
+(61, 6, 'JAEN'),
+(62, 6, 'SAN IGNACIO'),
+(63, 6, 'SAN MARCOS'),
+(64, 6, 'SAN PABLO'),
+(65, 6, 'SANTA CRUZ'),
+(66, 7, 'CALLAO'),
+(67, 8, 'CUSCO'),
+(68, 8, 'ACOMAYO'),
+(69, 8, 'ANTA'),
+(70, 8, 'CALCA'),
+(71, 8, 'CANAS'),
+(72, 8, 'CANCHIS'),
+(73, 8, 'CHUMBIVILCAS'),
+(74, 8, 'ESPINAR'),
+(75, 8, 'LA CONVENCION'),
+(76, 8, 'PARURO'),
+(77, 8, 'PAUCARTAMBO'),
+(78, 8, 'QUISPICANCHI'),
+(79, 8, 'URUBAMBA'),
+(80, 9, 'HUANCAVELICA'),
+(81, 9, 'ACOBAMBA'),
+(82, 9, 'ANGARAES'),
+(83, 9, 'CASTROVIRREYNA'),
+(84, 9, 'CHURCAMPA'),
+(85, 9, 'HUAYTARA'),
+(86, 9, 'TAYACAJA'),
+(87, 10, 'HUANUCO'),
+(88, 10, 'AMBO'),
+(89, 10, 'DOS DE MAYO'),
+(90, 10, 'HUACAYBAMBA'),
+(91, 10, 'HUAMALIES'),
+(92, 10, 'LEONCIO PRADO'),
+(93, 10, 'MARA&Ntilde;ON'),
+(94, 10, 'PACHITEA'),
+(95, 10, 'PUERTO INCA'),
+(96, 10, 'LAURICOCHA'),
+(97, 10, 'YAROWILCA'),
+(98, 11, 'ICA'),
+(99, 11, 'CHINCHA'),
+(100, 11, 'NAZCA'),
+(101, 11, 'PALPA'),
+(102, 11, 'PISCO'),
+(103, 12, 'HUANCAYO'),
+(104, 12, 'CONCEPCION'),
+(105, 12, 'CHANCHAMAYO'),
+(106, 12, 'JAUJA'),
+(107, 12, 'JUNIN'),
+(108, 12, 'SATIPO'),
+(109, 12, 'TARMA'),
+(110, 12, 'YAULI'),
+(111, 12, 'CHUPACA'),
+(112, 13, 'TRUJILLO'),
+(113, 13, 'ASCOPE'),
+(114, 13, 'BOLIVAR'),
+(115, 13, 'CHEPEN'),
+(116, 13, 'JULCAN'),
+(117, 13, 'OTUZCO'),
+(118, 13, 'PACASMAYO'),
+(119, 13, 'PATAZ'),
+(120, 13, 'SANCHEZ CARRION'),
+(121, 13, 'SANTIAGO DE CHUCO'),
+(122, 13, 'GRAN CHIMU'),
+(123, 13, 'VIRU'),
+(124, 14, 'CHICLAYO'),
+(125, 14, 'FERRE&Ntilde;AFE'),
+(126, 14, 'LAMBAYEQUE'),
+(127, 15, 'LIMA'),
+(128, 15, 'BARRANCA'),
+(129, 15, 'CAJATAMBO'),
+(130, 15, 'CANTA'),
+(131, 15, 'CA&Ntilde;ETE'),
+(132, 15, 'HUARAL'),
+(133, 15, 'HUAROCHIRI'),
+(134, 15, 'HUAURA'),
+(135, 15, 'OYON'),
+(136, 15, 'YAUYOS'),
+(137, 16, 'MAYNAS'),
+(138, 16, 'ALTO AMAZONAS'),
+(139, 16, 'LORETO'),
+(140, 16, 'MARISCAL RAMON CASTILLA'),
+(141, 16, 'REQUENA'),
+(142, 16, 'UCAYALI'),
+(143, 17, 'TAMBOPATA'),
+(144, 17, 'MANU'),
+(145, 17, 'TAHUAMANU'),
+(146, 18, 'MARISCAL NIETO'),
+(147, 18, 'GENERAL SANCHEZ CERRO'),
+(148, 18, 'ILO'),
+(149, 19, 'PASCO'),
+(150, 19, 'DANIEL ALCIDES CARRION'),
+(151, 19, 'OXAPAMPA'),
+(152, 20, 'PIURA'),
+(153, 20, 'AYABACA'),
+(154, 20, 'HUANCABAMBA'),
+(155, 20, 'MORROPON'),
+(156, 20, 'PAITA'),
+(157, 20, 'SULLANA'),
+(158, 20, 'TALARA'),
+(159, 20, 'SECHURA'),
+(160, 21, 'PUNO'),
+(161, 21, 'AZANGARO'),
+(162, 21, 'CARABAYA'),
+(163, 21, 'CHUCUITO'),
+(164, 21, 'EL COLLAO'),
+(165, 21, 'HUANCANE'),
+(166, 21, 'LAMPA'),
+(167, 21, 'MELGAR'),
+(168, 21, 'MOHO'),
+(169, 21, 'SAN ANTONIO DE PUTINA'),
+(170, 21, 'SAN ROMAN'),
+(171, 21, 'SANDIA'),
+(172, 21, 'YUNGUYO'),
+(173, 22, 'MOYOBAMBA'),
+(174, 22, 'BELLAVISTA'),
+(175, 22, 'EL DORADO'),
+(176, 22, 'HUALLAGA'),
+(177, 22, 'LAMAS'),
+(178, 22, 'MARISCAL CACERES'),
+(179, 22, 'PICOTA'),
+(180, 22, 'RIOJA'),
+(181, 22, 'SAN MARTIN'),
+(182, 22, 'TOCACHE'),
+(183, 23, 'TACNA'),
+(184, 23, 'CANDARAVE'),
+(185, 23, 'JORGE BASADRE'),
+(186, 23, 'TARATA'),
+(187, 24, 'TUMBES'),
+(188, 24, 'CONTRALMIRANTE VILLAR'),
+(189, 24, 'ZARUMILLA'),
+(190, 25, 'CORONEL PORTILLO'),
+(191, 25, 'ATALAYA'),
+(192, 25, 'PADRE ABAD'),
+(193, 25, 'PURUS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_articulo`
+--
+
+CREATE TABLE `tb_articulo` (
+  `intArticuloId` int(11) NOT NULL,
+  `nvchArticuloNombre` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_cargo`
+--
+
+CREATE TABLE `tb_cargo` (
+  `intIdCargo` int(11) NOT NULL,
+  `nvchNombre` varchar(85) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchAbreviatura` char(4) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_cliente`
+--
+
+CREATE TABLE `tb_cliente` (
+  `intIdCliente` int(11) NOT NULL,
+  `nvchDNI` varchar(8) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchRUC` varchar(11) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchRazonSocial` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchApellidoPaterno` varchar(120) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchApellidoMaterno` varchar(120) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchNombres` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `intIdTipoPersona` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_comprobante`
+--
+
+CREATE TABLE `tb_comprobante` (
+  `intIdComprobante` int(11) NOT NULL,
+  `intIdUsuario` int(11) NOT NULL,
+  `intIdCliente` int(11) NOT NULL,
+  `dtmFechaCreacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_comunicacion_cliente`
+--
+
+CREATE TABLE `tb_comunicacion_cliente` (
+  `intIdComunicacionCliente` int(11) NOT NULL,
+  `intIdCliente` int(11) DEFAULT NULL,
+  `nvchMedio` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchLugar` varchar(550) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `intIdTipoComunicacion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_comunicacion_proveedor`
+--
+
+CREATE TABLE `tb_comunicacion_proveedor` (
+  `intIdComicacionProveedor` int(11) NOT NULL,
+  `intIdProveedor` int(11) DEFAULT NULL,
+  `nvchMedio` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchLugar` varchar(550) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `intIdTipoComunicacion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_cotizacion`
+--
+
+CREATE TABLE `tb_cotizacion` (
+  `intIdCotizacion` int(11) NOT NULL,
+  `intIdUsuario` int(11) NOT NULL,
+  `intIdCliente` int(11) NOT NULL,
+  `dtm` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_creacion_reporte`
+--
+
+CREATE TABLE `tb_creacion_reporte` (
+  `intidReporteCreado` int(11) NOT NULL,
+  `intUserId` int(11) NOT NULL,
+  `nvchNombreReporte` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `dtFechaCreacion` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_creacion_reporte`
+--
+
+INSERT INTO `tb_creacion_reporte` (`intidReporteCreado`, `intUserId`, `nvchNombreReporte`, `dtFechaCreacion`) VALUES
+(35, 23, 'Listado de Usuarios', '25/07/2017, 4:10:45 horas'),
+(36, 23, 'Historial de Accesso Completo', '25/07/2017, 4:13:11 horas');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detalle_cotizacion`
+--
+
+CREATE TABLE `tb_detalle_cotizacion` (
+  `intIdOperacion` int(11) NOT NULL,
+  `intIdCotizacion` int(11) NOT NULL,
+  `intIdProducto` int(11) NOT NULL,
+  `dtmFechaCotizacion` datetime NOT NULL,
+  `intCantidad` int(11) NOT NULL,
+  `dcmPrecio` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detalle_guia_interna_entrada`
+--
+
+CREATE TABLE `tb_detalle_guia_interna_entrada` (
+  `intIdOperacion` int(11) NOT NULL,
+  `intIdGuiaInternaEntrada` int(11) NOT NULL,
+  `intIdProducto` int(11) NOT NULL,
+  `dtmFechaEntrada` datetime NOT NULL,
+  `intCantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detalle_guia_interna_salida`
+--
+
+CREATE TABLE `tb_detalle_guia_interna_salida` (
+  `intIdOperacion` int(11) NOT NULL,
+  `intIdGuiaInternaSalida` int(11) NOT NULL,
+  `intIdProducto` int(11) NOT NULL,
+  `dtmFechaSalida` datetime NOT NULL,
+  `intCantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detalle_orden_compra`
+--
+
+CREATE TABLE `tb_detalle_orden_compra` (
+  `intIdOperacion` int(11) NOT NULL,
+  `intIdOrdenCompra` int(11) NOT NULL,
+  `intIdProducto` int(11) NOT NULL,
+  `dtmFechaRecepcion` datetime NOT NULL,
+  `intCantidad` int(11) NOT NULL,
+  `dcmPrecio` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_detalle_solicitud_compra`
+--
+
+CREATE TABLE `tb_detalle_solicitud_compra` (
+  `intIdOperacion` int(11) NOT NULL,
+  `intIdSolicitudCompra` int(11) NOT NULL,
+  `intIdProducto` int(11) NOT NULL,
+  `dtmFechaRequerida` datetime NOT NULL,
+  `intCantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_domicilio_cliente`
+--
+
+CREATE TABLE `tb_domicilio_cliente` (
+  `intIdDomicilioCliente` int(11) NOT NULL,
+  `intIdCliente` int(11) NOT NULL,
+  `nvchPais` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchRegion` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchProvincia` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchDistrito` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchDireccion` varchar(450) COLLATE utf8_spanish2_ci NOT NULL,
+  `intIdTelefonoCliente` int(11) NOT NULL,
+  `intIdCelularCliente` int(11) NOT NULL,
+  `intIdTipoDomicilio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_domicilio_proveedor`
+--
+
+CREATE TABLE `tb_domicilio_proveedor` (
+  `intIdDomicilioProveedor` int(11) NOT NULL,
+  `intIdProveedor` int(11) NOT NULL,
+  `nvchPais` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchRegion` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchProvincia` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchDistrito` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchDireccion` varchar(450) COLLATE utf8_spanish2_ci NOT NULL,
+  `intIdTipoDomicilio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_empleado`
+--
+
+CREATE TABLE `tb_empleado` (
+  `intIdEmpleado` int(11) NOT NULL,
+  `nchDNI` char(8) COLLATE utf8_spanish2_ci NOT NULL,
+  `nchRUC` char(11) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchApellidoPaterno` varchar(120) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchApellidoMaterno` varchar(120) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchNombres` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+  `intIdCargo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_empleado`
+--
+
+INSERT INTO `tb_empleado` (`intIdEmpleado`, `nchDNI`, `nchRUC`, `nvchApellidoPaterno`, `nvchApellidoMaterno`, `nvchNombres`, `intIdCargo`) VALUES
+(1, '07514639', '10075146393', 'Nozcano', 'lizarzaburu', 'Pedro', 1),
+(2, '09814639', '10098146393', 'Meza', 'Lozano', 'Guillermo', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_guia_interna_entrada`
+--
+
+CREATE TABLE `tb_guia_interna_entrada` (
+  `intIdGuiaInternaEntrada` int(11) NOT NULL,
+  `intIdUsuario` int(11) NOT NULL,
+  `intIdProveedor` int(11) NOT NULL,
+  `dtmFechaCreacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_guia_interna_salida`
+--
+
+CREATE TABLE `tb_guia_interna_salida` (
+  `intIdGuiaInternaSalida` int(11) NOT NULL,
+  `intIdUsuario` int(11) NOT NULL,
+  `intIdCliente` int(11) NOT NULL,
+  `dtmFechaCreacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_historyaccess`
+--
+
+CREATE TABLE `tb_historyaccess` (
+  `intIdHistory` int(11) NOT NULL,
+  `intIdUser` int(11) NOT NULL,
+  `dateDateAccesso` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchIpAccesso` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchBrowser` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_historyaccess`
+--
+
+INSERT INTO `tb_historyaccess` (`intIdHistory`, `intIdUser`, `dateDateAccesso`, `nvchIpAccesso`, `nvchBrowser`) VALUES
+(1, 23, 'Martes 25 de Julio del 2017, 15:07:53 horas', '193.10.14.12', 'Windows 10'),
+(2, 23, 'Martes 25 de Julio del 2017, 15:35:22 horas', '193.10.14.12', 'Windows 10'),
+(3, 24, 'Jueves 27 de Julio del 2017, 13:41:21 horas', '193.10.14.12', 'Windows 10'),
+(4, 24, 'Viernes 28 de Julio del 2017, 7:11:40 horas', '193.10.14.12', 'Windows 10'),
+(5, 24, 'SÃ¡bado 29 de Julio del 2017, 14:51:05 horas', '193.10.14.12', 'Windows 10'),
+(6, 24, 'Domingo 30 de Julio del 2017, 11:56:58 horas', '193.10.14.12', 'Windows 10'),
+(7, 24, 'Martes 01 de Agosto del 2017, 8:08:34 horas', '193.10.14.12', 'Windows 10'),
+(8, 24, 'SÃ¡bado 05 de Agosto del 2017, 17:43:26 horas', '193.10.14.12', 'Windows 10'),
+(9, 24, 'SÃ¡bado 05 de Agosto del 2017, 10:26:28 horas', '193.10.14.12', 'Windows 10'),
+(10, 24, 'Lunes 07 de Agosto del 2017, 8:06:28 horas', '193.10.14.12', 'Windows 10'),
+(11, 24, 'Lunes 07 de Agosto del 2017, 13:44:19 horas', '193.10.14.12', 'Windows 10'),
+(12, 24, 'Martes 08 de Agosto del 2017, 9:59:42 horas', '193.10.14.12', 'Windows 10'),
+(13, 24, 'Miercoles 09 de Agosto del 2017, 10:47:29 horas', '193.10.14.12', 'Windows 10'),
+(14, 24, 'Jueves 10 de Agosto del 2017, 10:10:52 horas', '193.10.14.12', 'Windows 10'),
+(15, 24, 'Jueves 10 de Agosto del 2017, 14:48:48 horas', '193.10.14.12', 'iPhone'),
+(16, 24, 'Viernes 11 de Agosto del 2017, 9:18:36 horas', '193.10.14.12', 'Windows 10'),
+(17, 24, 'Viernes 11 de Agosto del 2017, 14:59:53 horas', '193.10.14.12', 'Windows 10'),
+(18, 24, 'SÃ¡bado 12 de Agosto del 2017, 11:29:44 horas', '193.10.14.12', 'Windows 10'),
+(19, 24, 'SÃ¡bado 12 de Agosto del 2017, 9:17:54 horas', '193.10.14.12', 'Windows 10'),
+(20, 24, 'Domingo 13 de Agosto del 2017, 6:09:00 horas', '193.10.14.12', 'Windows 10'),
+(21, 24, 'Lunes 14 de Agosto del 2017, 7:05:03 horas', '193.10.14.12', 'Windows 10'),
+(22, 24, 'Martes 15 de Agosto del 2017, 9:32:39 horas', '193.10.14.12', 'Windows 10'),
+(23, 24, 'Miercoles 16 de Agosto del 2017, 11:26:30 horas', '193.10.14.12', 'Windows 10'),
+(24, 23, 'Viernes 18 de Agosto del 2017, 7:01:44 horas', '193.10.14.12', 'Mac OS Classic');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_justificacion_solicitud_compra`
+--
+
+CREATE TABLE `tb_justificacion_solicitud_compra` (
+  `intIdJustificacion` int(11) NOT NULL,
+  `intIdSolicitudCompra` int(11) NOT NULL,
+  `nvchDescripcion` varchar(450) COLLATE utf8_spanish2_ci NOT NULL,
+  `dtmFechaObservacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_observacion_cotizacion`
+--
+
+CREATE TABLE `tb_observacion_cotizacion` (
+  `intIdObservacion` int(11) NOT NULL,
+  `intIdCotizacion` int(11) NOT NULL,
+  `nvchDescripcion` varchar(400) COLLATE utf8_spanish2_ci NOT NULL,
+  `dtmFechaObservacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_orden_compra`
+--
+
+CREATE TABLE `tb_orden_compra` (
+  `intIdOrdenCompra` int(11) NOT NULL,
+  `intIdUsuario` int(11) NOT NULL,
+  `intIdProveedor` int(11) NOT NULL,
+  `dtmFechaCreacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_producto`
+--
+
+CREATE TABLE `tb_producto` (
+  `intIdProducto` int(11) NOT NULL,
+  `nvchCodigoProducto` varchar(25) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchCodigoInventario` varchar(10) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchNombre` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchDescripcion` varchar(500) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `dcmPrecioCompra` decimal(11,2) DEFAULT NULL,
+  `dcmPrecioVenta` decimal(11,2) DEFAULT NULL,
+  `intCantidad` int(11) DEFAULT NULL,
+  `nvchDescuento` varchar(10) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchDireccionImg` varchar(450) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `intIdUbigeoProducto` int(11) DEFAULT NULL,
+  `nvchSucursal` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchGabinete` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchCajon` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `dtmFechaIngreso` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_producto`
+--
+
+INSERT INTO `tb_producto` (`intIdProducto`, `nvchCodigoProducto`, `nvchCodigoInventario`, `nvchNombre`, `nvchDescripcion`, `dcmPrecioCompra`, `dcmPrecioVenta`, `intCantidad`, `nvchDescuento`, `nvchDireccionImg`, `intIdUbigeoProducto`, `nvchSucursal`, `nvchGabinete`, `nvchCajon`, `dtmFechaIngreso`) VALUES
+(22, '1111111', '111111', 'Dragon', 'Hola', '345.00', '1233.00', 1, '30%', 'img-producto-id-22.png', NULL, 'Huancayo', 'Huancayo', 'Huancayo', '0000-00-00 00:00:00'),
+(40, NULL, NULL, 'Prueba2', 'Prueba 2', NULL, '5.00', 3, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(43, 'CP1RD23A', 'PROD000121', 'Prueba 4', 'perno 25x25', '0.00', '4.00', 3, '', 'hector.jpg', NULL, 'pilcomayo', 'Pernos', '23', '0000-00-00 00:00:00'),
+(44, NULL, NULL, 'Prueba 5', 'aaaa', NULL, '5.00', 6, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(45, NULL, NULL, 'Prueba 6', 'Prueba 6', NULL, '6.00', 6, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(46, NULL, NULL, 'Prueba 7', 'Prueba 7', NULL, '7.00', 7, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(47, NULL, NULL, 'Prueba 8', '888', NULL, '8.00', 8, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(48, NULL, NULL, 'Prueba 9', 'Prueba 9', NULL, '9.00', 999, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(49, NULL, NULL, 'Prueba 10', 'Prueba 10', NULL, '10.00', 10, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(54, NULL, NULL, 'Luis', 'Luis sanches', NULL, '45.00', 2, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(56, NULL, NULL, 'Luis', 'Sanchez Sanchez', NULL, '45.00', 2, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(68, NULL, NULL, 'Hector', 'HectorEliminar', NULL, '4.00', 2, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(69, NULL, NULL, 'Hector', 'HectorEliminar', NULL, '4.00', 2, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(70, NULL, NULL, 'Hector', 'HectorEliminar', NULL, '5.00', 2, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(71, NULL, NULL, 'Hector', 'HectorEliminar', NULL, '5.00', 2, NULL, 'hector.jpg', NULL, NULL, NULL, NULL, NULL),
+(72, NULL, NULL, '', '', NULL, '0.00', 0, NULL, 'img-producto-id-72.png', NULL, NULL, NULL, NULL, NULL),
+(73, NULL, NULL, NULL, '34343', NULL, '3443.00', 3434, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(74, NULL, NULL, NULL, '1111', NULL, '111.00', 1111, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(75, NULL, NULL, NULL, '1111', NULL, '111.00', 1111, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(76, NULL, NULL, NULL, 'aaa', NULL, '34.00', 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(77, NULL, NULL, NULL, 'aaa', NULL, '34.00', 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(78, NULL, NULL, '', 'Hector Arturo', NULL, '45.00', 45, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(79, NULL, NULL, '', 'Hector', NULL, '21323.00', 45, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(80, NULL, NULL, '', 'Hector', NULL, '21323.00', 45, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(81, NULL, NULL, '', 'Hector', NULL, '21323.00', 45, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(82, NULL, NULL, '', '38838', NULL, '34.00', 222, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(83, NULL, NULL, '', '38838', NULL, '34.00', 222, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(84, NULL, NULL, '', '38838', NULL, '34.00', 222, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(85, NULL, NULL, '', '38838', NULL, '34.00', 222, NULL, 'balotelli-meme-kfc.jpg', NULL, NULL, NULL, NULL, NULL),
+(86, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(87, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(88, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(89, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(90, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(91, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(92, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(93, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(94, NULL, NULL, '', '44', NULL, '44.00', 44, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(95, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(96, NULL, NULL, 'aa', 'aa', NULL, '145.00', 145, NULL, 'aa', NULL, NULL, NULL, NULL, NULL),
+(97, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(98, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(99, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(100, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(101, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(102, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(103, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(104, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(105, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(106, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(107, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(108, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(109, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(110, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(111, '', '', '', '11', '0.00', '11.00', 11, '', '20170814080234822362.jpg', NULL, 'lll', 'Ã±ll', 'lll', '0000-00-00 00:00:00'),
+(112, NULL, NULL, '', '11', NULL, '11.00', 11, NULL, 'img-producto-id-112.png', NULL, NULL, NULL, NULL, NULL),
+(113, NULL, NULL, '', '11111', NULL, '11111.00', 11111, NULL, 'img-producto-id-113.jpg', NULL, NULL, NULL, NULL, NULL),
+(114, NULL, NULL, '', '11111', NULL, '11111.00', 11111, NULL, 'img-producto-id-114.jpg', NULL, NULL, NULL, NULL, NULL),
+(115, NULL, NULL, '', '11111', NULL, '11111.00', 11111, NULL, 'balotelli-meme-kfc.jpg', NULL, NULL, NULL, NULL, NULL),
+(116, NULL, NULL, '', '11111', NULL, '11111.00', 11111, NULL, 'balotelli-meme-kfc.jpg', NULL, NULL, NULL, NULL, NULL),
+(117, NULL, NULL, '', '11111', NULL, '11111.00', 11111, NULL, 'balotelli-meme-kfc.jpg', NULL, NULL, NULL, NULL, NULL),
+(120, NULL, NULL, '', '454545', NULL, '454545.00', 454545, NULL, 'error.png', NULL, NULL, NULL, NULL, NULL),
+(121, NULL, NULL, '', '454545', NULL, '454545.00', 454545, NULL, 'cablerj45.jpg', NULL, NULL, NULL, NULL, NULL),
+(122, NULL, NULL, '', '454545', NULL, '454545.00', 454545, NULL, 'img-producto-id-122', NULL, NULL, NULL, NULL, NULL),
+(123, NULL, NULL, '', '454545', NULL, '454545.00', 454545, NULL, '', NULL, NULL, NULL, NULL, NULL),
+(124, NULL, NULL, '', '454545', NULL, '454545.00', 454545, NULL, 'img-producto-id-124', NULL, NULL, NULL, NULL, NULL),
+(127, NULL, NULL, '', 'ggggg', NULL, '45.00', 45, NULL, 'img-producto-id-127.png', NULL, NULL, NULL, NULL, NULL),
+(129, NULL, NULL, '', 'qqq', NULL, '11.00', 11, NULL, 'img-producto-id-129.png', NULL, NULL, NULL, NULL, NULL),
+(135, 'aaaa', 'AAAA00012', 'Banner para mestres', 'aaa', '12.00', '12.00', 1, '34%', '20170814080213743028.png', NULL, '111', '11', '11', '2017-08-14 09:04:53'),
+(136, '111', '111', 'Buda', '111', '111.00', '111.00', 111, '111', '20170814071021073467.jpg', NULL, '111', '111', '111', '2017-08-14 09:10:28'),
+(137, '222', '222', '222', '222', '222.00', '222.00', 222, '222', '20170814071021073467.jpg', NULL, '222', '222', '222', '2017-08-14 09:11:03'),
+(138, '222', '222', '222', '222', '222.00', '222.00', 222, '222', '20170814071111390884.jpg', NULL, '222', '222', '222', '2017-08-14 09:11:12'),
+(139, '222', '222', '222', '222', '222.00', '222.00', 222, '222', '20170814071111390884.jpg', NULL, '222', '222', '222', '2017-08-14 09:11:18'),
+(140, '4224432', '343253', 'Cable RJ45', 'Cable para interconectar', '23.00', '45.00', 21, '10%', '20170815204401305438.jpg', NULL, 'El Tambo', 'El Tambo', 'El Tambo', '2017-08-15 22:49:50'),
+(141, '222', '222', '222', '222', '222.00', '222.00', 222, '222', '20170815205738202566.jpg', NULL, '222', '222', '222', '2017-08-15 22:58:12');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_proveedor`
+--
+
+CREATE TABLE `tb_proveedor` (
+  `intIdProveedor` int(11) NOT NULL,
+  `nvchDNI` varchar(8) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchRUC` varchar(11) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchRazonSocial` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchApellidoPaterno` varchar(120) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchApellidoMaterno` varchar(120) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchNombres` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `intIdTipoPersona` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_proveedor`
+--
+
+INSERT INTO `tb_proveedor` (`intIdProveedor`, `nvchDNI`, `nvchRUC`, `nvchRazonSocial`, `nvchApellidoPaterno`, `nvchApellidoMaterno`, `nvchNombres`, `intIdTipoPersona`) VALUES
+(1, '70019168', '2018373', 'DEVHUAYRA S.A.C.', 'Vivanco', 'NuÃ±ez', 'Hector Arturo', 1),
+(2, '75500576', '10755005768', 'junior bladimir yauricasa apumayta', 'yauricasa', 'apumayta', 'junior bladimir', 1),
+(3, '75545476', '10755454768', 'MESON S.A.C', 'Calderon', 'De la Barca', 'Luis melendez', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_solicitud_compra`
+--
+
+CREATE TABLE `tb_solicitud_compra` (
+  `intIdSolicitudCompra` int(11) NOT NULL,
+  `intIdUsuario` int(11) NOT NULL,
+  `dtmFechaCreacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_tipo_cliente`
+--
+
+CREATE TABLE `tb_tipo_cliente` (
+  `intIdTipoCliente` int(11) NOT NULL,
+  `nvchNombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `nchAbreviatura` char(4) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchDescripcion` varchar(350) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_tipo_comunicacion`
+--
+
+CREATE TABLE `tb_tipo_comunicacion` (
+  `intIdTipoComunicacion` int(11) NOT NULL,
+  `nvchNombre` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nchAbreviatura` char(5) COLLATE utf8_spanish2_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_tipo_comunicacion`
+--
+
+INSERT INTO `tb_tipo_comunicacion` (`intIdTipoComunicacion`, `nvchNombre`, `nchAbreviatura`) VALUES
+(1, 'Telefono', 'TCM01'),
+(2, 'Celular', 'TCM02'),
+(3, 'Email', 'TCM03');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_tipo_domicilio`
+--
+
+CREATE TABLE `tb_tipo_domicilio` (
+  `intIdTipoDomicilio` int(11) NOT NULL,
+  `nvchNombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `nchAbreviatura` char(4) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_tipo_domicilio`
+--
+
+INSERT INTO `tb_tipo_domicilio` (`intIdTipoDomicilio`, `nvchNombre`, `nchAbreviatura`) VALUES
+(1, 'Fiscal', 'TD01'),
+(2, 'Sede', 'TD02');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_tipo_persona`
+--
+
+CREATE TABLE `tb_tipo_persona` (
+  `intIdTipoPersona` int(11) NOT NULL,
+  `nvchNombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `nchAbreviatura` char(4) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_tipo_persona`
+--
+
+INSERT INTO `tb_tipo_persona` (`intIdTipoPersona`, `nvchNombre`, `nchAbreviatura`) VALUES
+(1, 'Persona Jurídica', 'TP01'),
+(2, 'Persona Natural', 'TP02');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_tipo_usuario`
+--
+
+CREATE TABLE `tb_tipo_usuario` (
+  `intIdTipoUsuario` int(11) NOT NULL,
+  `nvchNombre` varchar(85) COLLATE utf8_spanish2_ci NOT NULL,
+  `nchAbreviatura` char(4) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_ubigeo_producto`
+--
+
+CREATE TABLE `tb_ubigeo_producto` (
+  `intIdUbigeoProducto` int(11) NOT NULL,
+  `nvchSucursal` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchGabinete` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nvchCajon` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb_usuario`
+--
+
+CREATE TABLE `tb_usuario` (
+  `intUserId` int(11) NOT NULL,
+  `nvchUserName` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `nchUserMail` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `nvchUserPassword` varchar(1000) COLLATE utf8_spanish2_ci NOT NULL,
+  `intIdEmpleado` int(11) NOT NULL,
+  `intTypeUser` int(11) NOT NULL,
+  `bitUserEstado` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `tb_usuario`
+--
+
+INSERT INTO `tb_usuario` (`intUserId`, `nvchUserName`, `nchUserMail`, `nvchUserPassword`, `intIdEmpleado`, `intTypeUser`, `bitUserEstado`) VALUES
+(23, 'Junior Yauricasa', 'junioryauricasa@gmail.com', 'b06aae61bf02537aa2f6146d6697e15d', 0, 1, 1),
+(24, 'Hector Vivanco', 'hctorvivanco@gmail.com', 'caad1ea01694b73af7f62b09b88a55d9', 1, 1, 1),
+(31, 'Carlos Montana', 'carlosmontana@gmail.com', 'f60896751844e0e22eebe9471e0354a8', 0, 0, 1),
+(32, 'Alberto Ibarra', 'albertoibarra@gmail.com', '7a2b838abf87646e3fe9bc0a6523216a', 0, 0, 0),
+(33, 'Pedro Morales Mantaro', 'pedromorales@gmail.com', '3f494d1e359afca1e094f4d658b5d495', 0, 1, 0),
+(34, 'Hector Arturo', 'hvivanco@gmail.com', 'elmono122', 1, 1, 1);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  ADD PRIMARY KEY (`IdDepartamento`);
+
+--
+-- Indices de la tabla `distritos`
+--
+ALTER TABLE `distritos`
+  ADD PRIMARY KEY (`IdDistrito`);
+
+--
+-- Indices de la tabla `provincias`
+--
+ALTER TABLE `provincias`
+  ADD PRIMARY KEY (`IdProvincia`);
+
+--
+-- Indices de la tabla `tb_articulo`
+--
+ALTER TABLE `tb_articulo`
+  ADD PRIMARY KEY (`intArticuloId`);
+
+--
+-- Indices de la tabla `tb_cargo`
+--
+ALTER TABLE `tb_cargo`
+  ADD PRIMARY KEY (`intIdCargo`);
+
+--
+-- Indices de la tabla `tb_cliente`
+--
+ALTER TABLE `tb_cliente`
+  ADD PRIMARY KEY (`intIdCliente`),
+  ADD KEY `intIdTipoPersona` (`intIdTipoPersona`);
+
+--
+-- Indices de la tabla `tb_comprobante`
+--
+ALTER TABLE `tb_comprobante`
+  ADD PRIMARY KEY (`intIdComprobante`),
+  ADD KEY `intIdUsuario` (`intIdUsuario`),
+  ADD KEY `intIdCliente` (`intIdCliente`);
+
+--
+-- Indices de la tabla `tb_comunicacion_cliente`
+--
+ALTER TABLE `tb_comunicacion_cliente`
+  ADD PRIMARY KEY (`intIdComunicacionCliente`),
+  ADD KEY `intIdTipoComunicacion` (`intIdTipoComunicacion`),
+  ADD KEY `intIdCliente` (`intIdCliente`);
+
+--
+-- Indices de la tabla `tb_comunicacion_proveedor`
+--
+ALTER TABLE `tb_comunicacion_proveedor`
+  ADD PRIMARY KEY (`intIdComicacionProveedor`),
+  ADD KEY `intIdProveedor` (`intIdProveedor`),
+  ADD KEY `intIdTipoComunicacion` (`intIdTipoComunicacion`);
+
+--
+-- Indices de la tabla `tb_cotizacion`
+--
+ALTER TABLE `tb_cotizacion`
+  ADD PRIMARY KEY (`intIdCotizacion`),
+  ADD KEY `intIdUsuario` (`intIdUsuario`),
+  ADD KEY `intIdCliente` (`intIdCliente`);
+
+--
+-- Indices de la tabla `tb_creacion_reporte`
+--
+ALTER TABLE `tb_creacion_reporte`
+  ADD PRIMARY KEY (`intidReporteCreado`);
+
+--
+-- Indices de la tabla `tb_detalle_cotizacion`
+--
+ALTER TABLE `tb_detalle_cotizacion`
+  ADD PRIMARY KEY (`intIdOperacion`),
+  ADD KEY `intIdCotizacion` (`intIdCotizacion`),
+  ADD KEY `intIdProducto` (`intIdProducto`);
+
+--
+-- Indices de la tabla `tb_detalle_guia_interna_entrada`
+--
+ALTER TABLE `tb_detalle_guia_interna_entrada`
+  ADD PRIMARY KEY (`intIdOperacion`),
+  ADD KEY `intIdGuiaInternaEntrada` (`intIdGuiaInternaEntrada`),
+  ADD KEY `intIdProducto` (`intIdProducto`);
+
+--
+-- Indices de la tabla `tb_detalle_guia_interna_salida`
+--
+ALTER TABLE `tb_detalle_guia_interna_salida`
+  ADD PRIMARY KEY (`intIdOperacion`),
+  ADD KEY `intIdGuiaInternaSalida` (`intIdGuiaInternaSalida`),
+  ADD KEY `intIdProducto` (`intIdProducto`);
+
+--
+-- Indices de la tabla `tb_detalle_orden_compra`
+--
+ALTER TABLE `tb_detalle_orden_compra`
+  ADD PRIMARY KEY (`intIdOperacion`),
+  ADD KEY `intIdProducto` (`intIdProducto`),
+  ADD KEY `intIdOrdenCompra` (`intIdOrdenCompra`);
+
+--
+-- Indices de la tabla `tb_detalle_solicitud_compra`
+--
+ALTER TABLE `tb_detalle_solicitud_compra`
+  ADD PRIMARY KEY (`intIdOperacion`),
+  ADD KEY `intIdProducto` (`intIdProducto`),
+  ADD KEY `intIdSolicitudCompra` (`intIdSolicitudCompra`);
+
+--
+-- Indices de la tabla `tb_domicilio_cliente`
+--
+ALTER TABLE `tb_domicilio_cliente`
+  ADD PRIMARY KEY (`intIdDomicilioCliente`),
+  ADD KEY `intIdTelefonoCliente` (`intIdTelefonoCliente`),
+  ADD KEY `intIdCelularCliente` (`intIdCelularCliente`),
+  ADD KEY `intIdTipoDomicilio` (`intIdTipoDomicilio`),
+  ADD KEY `intIdCliente` (`intIdCliente`);
+
+--
+-- Indices de la tabla `tb_domicilio_proveedor`
+--
+ALTER TABLE `tb_domicilio_proveedor`
+  ADD PRIMARY KEY (`intIdDomicilioProveedor`),
+  ADD KEY `intIdProveedor` (`intIdProveedor`),
+  ADD KEY `intIdTipoDomicilio` (`intIdTipoDomicilio`);
+
+--
+-- Indices de la tabla `tb_empleado`
+--
+ALTER TABLE `tb_empleado`
+  ADD PRIMARY KEY (`intIdEmpleado`),
+  ADD KEY `intIdCargo` (`intIdCargo`);
+
+--
+-- Indices de la tabla `tb_guia_interna_entrada`
+--
+ALTER TABLE `tb_guia_interna_entrada`
+  ADD PRIMARY KEY (`intIdGuiaInternaEntrada`),
+  ADD KEY `intIdUsuario` (`intIdUsuario`),
+  ADD KEY `intIdProveedor` (`intIdProveedor`);
+
+--
+-- Indices de la tabla `tb_guia_interna_salida`
+--
+ALTER TABLE `tb_guia_interna_salida`
+  ADD PRIMARY KEY (`intIdGuiaInternaSalida`),
+  ADD UNIQUE KEY `intIdCliente` (`intIdCliente`),
+  ADD KEY `intIdUsuario` (`intIdUsuario`);
+
+--
+-- Indices de la tabla `tb_historyaccess`
+--
+ALTER TABLE `tb_historyaccess`
+  ADD PRIMARY KEY (`intIdHistory`);
+
+--
+-- Indices de la tabla `tb_justificacion_solicitud_compra`
+--
+ALTER TABLE `tb_justificacion_solicitud_compra`
+  ADD PRIMARY KEY (`intIdJustificacion`),
+  ADD KEY `intIdSolicitudCompra` (`intIdSolicitudCompra`);
+
+--
+-- Indices de la tabla `tb_observacion_cotizacion`
+--
+ALTER TABLE `tb_observacion_cotizacion`
+  ADD PRIMARY KEY (`intIdObservacion`),
+  ADD KEY `intIdCotizacion` (`intIdCotizacion`);
+
+--
+-- Indices de la tabla `tb_orden_compra`
+--
+ALTER TABLE `tb_orden_compra`
+  ADD PRIMARY KEY (`intIdOrdenCompra`),
+  ADD KEY `intIdProveedor` (`intIdProveedor`),
+  ADD KEY `intIdUsuario` (`intIdUsuario`);
+
+--
+-- Indices de la tabla `tb_producto`
+--
+ALTER TABLE `tb_producto`
+  ADD PRIMARY KEY (`intIdProducto`),
+  ADD KEY `intIdUbigeoProducto` (`intIdUbigeoProducto`);
+
+--
+-- Indices de la tabla `tb_proveedor`
+--
+ALTER TABLE `tb_proveedor`
+  ADD PRIMARY KEY (`intIdProveedor`),
+  ADD KEY `intIdTipoPersona` (`intIdTipoPersona`);
+
+--
+-- Indices de la tabla `tb_solicitud_compra`
+--
+ALTER TABLE `tb_solicitud_compra`
+  ADD PRIMARY KEY (`intIdSolicitudCompra`),
+  ADD KEY `intIdUsuario` (`intIdUsuario`);
+
+--
+-- Indices de la tabla `tb_tipo_cliente`
+--
+ALTER TABLE `tb_tipo_cliente`
+  ADD PRIMARY KEY (`intIdTipoCliente`);
+
+--
+-- Indices de la tabla `tb_tipo_comunicacion`
+--
+ALTER TABLE `tb_tipo_comunicacion`
+  ADD PRIMARY KEY (`intIdTipoComunicacion`);
+
+--
+-- Indices de la tabla `tb_tipo_domicilio`
+--
+ALTER TABLE `tb_tipo_domicilio`
+  ADD PRIMARY KEY (`intIdTipoDomicilio`);
+
+--
+-- Indices de la tabla `tb_tipo_persona`
+--
+ALTER TABLE `tb_tipo_persona`
+  ADD PRIMARY KEY (`intIdTipoPersona`);
+
+--
+-- Indices de la tabla `tb_tipo_usuario`
+--
+ALTER TABLE `tb_tipo_usuario`
+  ADD PRIMARY KEY (`intIdTipoUsuario`);
+
+--
+-- Indices de la tabla `tb_ubigeo_producto`
+--
+ALTER TABLE `tb_ubigeo_producto`
+  ADD PRIMARY KEY (`intIdUbigeoProducto`);
+
+--
+-- Indices de la tabla `tb_usuario`
+--
+ALTER TABLE `tb_usuario`
+  ADD PRIMARY KEY (`intUserId`),
+  ADD KEY `intIdTipoUsuario` (`nvchUserPassword`(255)),
+  ADD KEY `intIdEmpleado` (`intIdEmpleado`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  MODIFY `IdDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT de la tabla `distritos`
+--
+ALTER TABLE `distritos`
+  MODIFY `IdDistrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1832;
+--
+-- AUTO_INCREMENT de la tabla `provincias`
+--
+ALTER TABLE `provincias`
+  MODIFY `IdProvincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+--
+-- AUTO_INCREMENT de la tabla `tb_articulo`
+--
+ALTER TABLE `tb_articulo`
+  MODIFY `intArticuloId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_cargo`
+--
+ALTER TABLE `tb_cargo`
+  MODIFY `intIdCargo` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_cliente`
+--
+ALTER TABLE `tb_cliente`
+  MODIFY `intIdCliente` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_comprobante`
+--
+ALTER TABLE `tb_comprobante`
+  MODIFY `intIdComprobante` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_comunicacion_cliente`
+--
+ALTER TABLE `tb_comunicacion_cliente`
+  MODIFY `intIdComunicacionCliente` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_comunicacion_proveedor`
+--
+ALTER TABLE `tb_comunicacion_proveedor`
+  MODIFY `intIdComicacionProveedor` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_cotizacion`
+--
+ALTER TABLE `tb_cotizacion`
+  MODIFY `intIdCotizacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_creacion_reporte`
+--
+ALTER TABLE `tb_creacion_reporte`
+  MODIFY `intidReporteCreado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT de la tabla `tb_detalle_guia_interna_entrada`
+--
+ALTER TABLE `tb_detalle_guia_interna_entrada`
+  MODIFY `intIdOperacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_detalle_guia_interna_salida`
+--
+ALTER TABLE `tb_detalle_guia_interna_salida`
+  MODIFY `intIdOperacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_detalle_orden_compra`
+--
+ALTER TABLE `tb_detalle_orden_compra`
+  MODIFY `intIdOperacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_detalle_solicitud_compra`
+--
+ALTER TABLE `tb_detalle_solicitud_compra`
+  MODIFY `intIdOperacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_domicilio_cliente`
+--
+ALTER TABLE `tb_domicilio_cliente`
+  MODIFY `intIdDomicilioCliente` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_domicilio_proveedor`
+--
+ALTER TABLE `tb_domicilio_proveedor`
+  MODIFY `intIdDomicilioProveedor` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_empleado`
+--
+ALTER TABLE `tb_empleado`
+  MODIFY `intIdEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tb_guia_interna_entrada`
+--
+ALTER TABLE `tb_guia_interna_entrada`
+  MODIFY `intIdGuiaInternaEntrada` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_guia_interna_salida`
+--
+ALTER TABLE `tb_guia_interna_salida`
+  MODIFY `intIdGuiaInternaSalida` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_historyaccess`
+--
+ALTER TABLE `tb_historyaccess`
+  MODIFY `intIdHistory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT de la tabla `tb_justificacion_solicitud_compra`
+--
+ALTER TABLE `tb_justificacion_solicitud_compra`
+  MODIFY `intIdJustificacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_observacion_cotizacion`
+--
+ALTER TABLE `tb_observacion_cotizacion`
+  MODIFY `intIdObservacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_orden_compra`
+--
+ALTER TABLE `tb_orden_compra`
+  MODIFY `intIdOrdenCompra` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_producto`
+--
+ALTER TABLE `tb_producto`
+  MODIFY `intIdProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+--
+-- AUTO_INCREMENT de la tabla `tb_proveedor`
+--
+ALTER TABLE `tb_proveedor`
+  MODIFY `intIdProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `tb_solicitud_compra`
+--
+ALTER TABLE `tb_solicitud_compra`
+  MODIFY `intIdSolicitudCompra` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_tipo_comunicacion`
+--
+ALTER TABLE `tb_tipo_comunicacion`
+  MODIFY `intIdTipoComunicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `tb_tipo_domicilio`
+--
+ALTER TABLE `tb_tipo_domicilio`
+  MODIFY `intIdTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tb_tipo_persona`
+--
+ALTER TABLE `tb_tipo_persona`
+  MODIFY `intIdTipoPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tb_tipo_usuario`
+--
+ALTER TABLE `tb_tipo_usuario`
+  MODIFY `intIdTipoUsuario` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tb_usuario`
+--
+ALTER TABLE `tb_usuario`
+  MODIFY `intUserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
