@@ -387,7 +387,7 @@ if(!isset($_SESSION['user_session']))
               </a>
               <ul class="treeview-menu">
                 <li class="active">
-                  <a href="../usuario/vusuario">
+                  <a href="../usuario/vusuario" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Administrar Usuarios
                   </a>
@@ -405,7 +405,7 @@ if(!isset($_SESSION['user_session']))
                   </a>
                 </li>
                 <li>
-                  <a href="../reporte/vreporte">
+                  <a href="../reporte/vlistarusuario">
                     <i class="fa fa-circle-o"></i> 
                       Reportes
                   </a>
@@ -453,19 +453,20 @@ if(!isset($_SESSION['user_session']))
               </a>
               <ul class="treeview-menu">
                 <li>
-                  <a href="../reporte/vlistarusuario">
+                  <a href="../reporte/vlistarusuario" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Listar de Usuarios
                   </a>
                 </li>
                 <li>
-                  <a href="../reporte/vlistarcliente">
+                  <a href="#" >
+                  <!--a href="../reporte/vlistarcliente" target="_blank"-->
                     <i class="fa fa-circle-o"></i> 
                      Lista Clientes
                   </a>
                 </li>
                 <li>
-                  <a href="../reporte/vlistaracceso">
+                  <a href="../reporte/vlistaracceso" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Lista de Accesos
                   </a>
