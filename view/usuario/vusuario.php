@@ -92,7 +92,7 @@
               </tr>
               </thead>
               <tbody id="ListaDeUsuarios">
-                <script>ListarUsuarios(0,10,"T");</script>
+                <script>ListarUsuario(0,10,"T");</script>
               </tbody>
             </table>
           </div>
@@ -100,7 +100,7 @@
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeUsuarios" class="pagination">
-                <script>PaginarUsuarios(0,10,"T");</script>
+                <script>PaginarUsuario(0,10,"T");</script>
               </ul>
             </nav>
           </div>

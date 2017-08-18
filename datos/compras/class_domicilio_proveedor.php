@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once '../conexion/bd_conexion.php';
 class DomicilioProveedor
 {
@@ -29,16 +29,18 @@ class DomicilioProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
+      foreach ($this->nvchPais as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertardomicilioproveedor(:intIdProveedor,:nvchPais,
       	:nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:intIdTipoDomicilio)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor, 
-        ':nvchPais' => $this->nvchPais,
-        ':nvchRegion' => $this->nvchRegion,
-        ':nvchProvincia' => $this->nvchProvincia,
-        ':nvchDistrito' => $this->nvchDistrito,
-        ':nvchDireccion' => $this->nvchDireccion,
-        ':intIdTipoDomicilio' => $this->intIdTipoDomicilio));
+        ':nvchPais' => $value,
+        ':nvchRegion' => $this->nvchRegion[$key],
+        ':nvchProvincia' => $this->nvchProvincia[$key],
+        ':nvchDistrito' => $this->nvchDistrito[$key],
+        ':nvchDireccion' => $this->nvchDireccion[$key],
+        ':intIdTipoDomicilio' => $this->intIdTipoDomicilio[$key]));
+      }
       echo "ok";
     }
     catch(PDPExceptions $e){

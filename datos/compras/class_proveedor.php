@@ -2,6 +2,8 @@
 session_start();
 require_once '../conexion/bd_conexion.php';
 require_once 'class_formulario_proveedor.php';
+require_once 'class_domicilio_proveedor.php';
+require_once 'class_comunicacion_proveedor.php';
 if(empty($_SESSION['intIdProveedor'])){
   $_SESSION['intIdProveedor'] = 0;
 }
@@ -298,6 +300,21 @@ switch($_POST['funcion']){
     $Proveedor->Nombres($_POST['nvchNombres']);
     $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
     $Proveedor->InsertarProveedor();
+    $DomicilioProveedor = new DomicilioProveedor();
+    $DomicilioProveedor->IdProveedor($_SESSION['intIdProveedor']);
+    $DomicilioProveedor->Pais($_POST['nvchPais']);
+    $DomicilioProveedor->Region($_POST['nvchRegion']);
+    $DomicilioProveedor->Provincia($_POST['nvchProvincia']);
+    $DomicilioProveedor->Distrito($_POST['nvchDistrito']);
+    $DomicilioProveedor->Direccion($_POST['nvchDireccion']);
+    $DomicilioProveedor->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
+    $DomicilioProveedor->InsertarDomicilioProveedor();
+    $ComunicacionProveedor = new ComunicacionProveedor();
+    $ComunicacionProveedor->IdProveedor($_SESSION['intIdProveedor']);
+    $ComunicacionProveedor->Medio($_POST['nvchMedio']);
+    $ComunicacionProveedor->Lugar($_POST['nvchLugar']);
+    $ComunicacionProveedor->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
+    $ComunicacionProveedor->InsertarComunicacionProveedor();
     break;
   case "A":
     $Proveedor = new Proveedor();

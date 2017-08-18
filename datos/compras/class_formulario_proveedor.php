@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once '../conexion/bd_conexion.php';
 class FormularioProveedor
 {
   private $intIdProveedor;
@@ -40,40 +41,56 @@ class FormularioProveedor
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Tipo de Persona:</label>
-                    <input type="text" name="intIdTipoPersona" class="form-control select2" placeholder="Ingrese la cantidad" value="<?php echo $this->intIdTipoPersona; ?>" required>
+                    <select onchange="MostrarTipoPersona()" id="tipo-persona" name="intIdTipoPersona" class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-3">
+            </div>
+            <div class="row">
+            <script>MostrarTipoPersona();</script>
+                <div class="col-md-3 nvchDNI">
                   <div class="form-group">
                     <label>DNI:</label>
                     <input type="text" name="nvchDNI" class="form-control select2" placeholder="Ingrese código del producto" value="<?php echo $this->nvchDNI; ?>" required>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 nvchRUC">
                   <div class="form-group">
                     <label>RUC:</label>
                     <input type="text" name="nvchRUC" class="form-control select2" placeholder="Ingrese código de inventario" value="<?php echo $this->nvchRUC; ?>" required>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 nvchRazonSocial">
                   <div class="form-group">
                     <label>Razón Social:</label>
                     <input type="text" name="nvchRazonSocial" class="form-control select2" placeholder="Ingrese nombre del producto" value="<?php echo $this->nvchRazonSocial; ?>" required>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 nvchApellidoPaterno">
                   <div class="form-group">
                     <label>Apellido Paterno:</label>
                     <input type="text" name="nvchApellidoPaterno" class="form-control select2" placeholder="Ingrese la descripción" value="<?php echo $this->nvchApellidoPaterno; ?>" required>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 nvchApellidoMaterno">
                   <div class="form-group">
                     <label>Apellido Materno:</label>
                     <input type="text" name="nvchApellidoMaterno" class="form-control select2" placeholder="Ingrese el precio de compra" value="<?php echo $this->nvchApellidoMaterno; ?>" required>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 nvchNombres">
                   <div class="form-group">
                     <label>Nombres:</label>
                     <input type="text" name="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de venta" value="<?php echo $this->nvchNombres; ?>" required>
@@ -81,34 +98,6 @@ class FormularioProveedor
                 </div>
             </div>
           </div>
-      <!--
-      <div class="box-header with-border">
-      </div>
-      <div class="box-header with-border">
-        <h3 class="box-title">Ubigeo</h3>
-      </div>
-        <div class="box-body">
-            <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Sucursal:</label>
-                    <input type="text" name="nvchSucursal" class="form-control select2" placeholder="Ingrese la sucursal (Ubigeo)" value="<?php //echo $this->nvchSucursal; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Gabinete:</label>
-                    <input type="text" name="nvchGabinete" class="form-control select2" placeholder="Ingrese el gabinete (Ubigeo)" value="<?php //echo $this->nvchGabinete; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Cajon:</label>
-                    <input type="text" name="nvchCajon" class="form-control select2" placeholder="Ingrese el cajón (Ubigeo)" value="<?php //echo $this->nvchCajon; ?>" required>
-                  </div>
-                </div>
-            </div>
-        </div>-->
         <div class="box-header with-border">
         </div>
         <div class="box-header with-border">
@@ -119,35 +108,139 @@ class FormularioProveedor
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>País:</label>
-                    <input type="text" name="nvchPais" class="form-control select2" placeholder="Ingrese el País" value="" required>
+                    <input type="text" name="Pais" id="nvchPais" class="form-control select2" placeholder="Ingrese el País" value="" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Región:</label>
-                    <input type="text" name="nvchRegion" class="form-control select2" placeholder="Ingrese Región" value="" required>
+                    <input type="text" name="Region" id="nvchRegion" class="form-control select2" placeholder="Ingrese Región" value="" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Provincia:</label>
-                    <input type="text" name="nvchProvincia" class="form-control select2" placeholder="Ingrese Provincia" value="" required>
+                    <input type="text" name="Provincia" id="nvchProvincia" class="form-control select2" placeholder="Ingrese Provincia" value="" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Distrito:</label>
-                    <input type="text" name="nvchDistrito" class="form-control select2" placeholder="Ingrese Distrito" value="" required>
+                    <input type="text" name="Distrito" id="nvchDistrito" class="form-control select2" placeholder="Ingrese Distrito" value="" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Direccion:</label>
-                    <input type="text" name="nvchDireccion" class="form-control select2" placeholder="Ingrese Dirección" value="" required>
+                    <input type="text" name="Direccion" id="nvchDireccion" class="form-control select2" placeholder="Ingrese Dirección" value="" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Tipo de Domicilio:</label>
+                    <select id="tipo-domicilio" name="tipo-domicilio"  class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipodomicilio()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo'<option value="'.$fila['intIdTipoDomicilio'].'">'.$fila['nvchNombre'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                    </select>
                   </div>
                 </div>
             </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <input type="button" onclick="AgregarDomicilio()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>País</th>
+                  <th>Región</th>
+                  <th>Provincia</th>
+                  <th>Distrito</th>
+                  <th>Dirección</th>
+                  <th>Tipo de Domicilio</th>
+                  <th>Opciones</th>
+                </tr>
+                </thead>
+                <tbody id="ListaDeDomicilios">
+                </tbody>
+              </table>
+            </div>
         </div>
+         <div class="box-header with-border">
+            </div>
+            <div class="box-header with-border">
+              <h3 class="box-title">Comunicación</h3>
+            </div>
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Medio:</label>
+                    <input type="text" name="Medio" id="nvchMedio" class="form-control select2" placeholder="Ingrese Medio" value="" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Lugar/Pertenencia:</label>
+                    <input type="text" name="Lugar" id="nvchLugar" class="form-control select2" placeholder="Ingrese Lugar/Pertenencia" value="" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Tipo de Comunicación:</label>
+                    <select id="tipo-comunicacion" name="tipo-comunicacion"  class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipocomunicacion()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo'<option value="'.$fila['intIdTipoComunicacion'].'">'.$fila['nvchNombre'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input type="button" onclick="AgregarComunicacion()" id="btn-agregar-comunicacion" name="btn-agregar-comunicacion" class="btn btn-sm btn-success btn-flat" value="Agregar Comunicación">
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                  <thead>
+                  <tr>
+                    <th>Medio</th>
+                    <th>Lugar</th>
+                    <th>Tipo de Comunicación</th>
+                    <th>Opciones</th>
+                  </tr>
+                  </thead>
+                  <tbody id="ListaDeComunicaciones">
+                  </tbody>
+                </table>
+              </div>
+            </div>
         <div class="box-footer clearfix">
             <?php if($funcion == "F"){ ?>
             <input type="hidden" name="funcion" value="I" />

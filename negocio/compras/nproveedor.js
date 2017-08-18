@@ -30,7 +30,7 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") {
+	   	if (datos=="okokok") {
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
 	   		$('#txt-busqueda').val("");
 	   		ListarProveedor(x,y,tipolistado);
@@ -228,4 +228,82 @@ $(document).on('keyup', '#txt-busqueda', function(){
 });
 
 /* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Campos de acuerdo al Tipo de Persona */
+
+function MostrarTipoPersona() {
+  var tipo_persona = document.getElementById("tipo-persona").value;
+      if(tipo_persona == "1"){
+      	$(".nvchDNI").hide();
+      	$(".nvchApellidoPaterno").hide();
+      	$(".nvchApellidoMaterno").hide();
+      	$(".nvchNombres").hide();
+      	$(".nvchRUC").show();
+      	$(".nvchRazonSocial").show();
+      } else if(tipo_persona == "2"){
+      	$(".nvchDNI").show();
+      	$(".nvchApellidoPaterno").show();
+      	$(".nvchApellidoMaterno").show();
+      	$(".nvchNombres").show();
+      	$(".nvchRUC").show();
+      	$(".nvchRazonSocial").hide();
+      }
+}
+
+/* FIN - Mostrar Campos de acuerdo al Tipo de Persona */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Domicilios según Ingresa */
+
+function AgregarDomicilio() {
+	$('#ListaDeDomicilios').append('<tr>'+
+		'<td>'+'<input type="hidden" name="nvchPais[]" value="'+
+		document.getElementById("nvchPais").value+'"/>'+document.getElementById("nvchPais").value+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchRegion[]" value="'+
+		document.getElementById("nvchRegion").value+'"/>'+document.getElementById("nvchRegion").value+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchProvincia[]" value="'+
+		document.getElementById("nvchProvincia").value+'"/>'+document.getElementById("nvchProvincia").value+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchDistrito[]" value="'+
+		document.getElementById("nvchDistrito").value+'"/>'+document.getElementById("nvchDistrito").value+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchDireccion[]" value="'+
+		document.getElementById("nvchDireccion").value+'"/>'+document.getElementById("nvchDireccion").value+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdTipoDomicilio[]" value="'+
+		document.getElementById("tipo-domicilio").value+'"/>'+$("#tipo-domicilio option:selected").html()+'</td>'+
+		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
+		'</tr>');
+}
+
+/* FIN - Listar Domicilios según Ingresa */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Comunicaciones según Ingresa */
+
+function AgregarComunicacion() {
+	$('#ListaDeComunicaciones').append('<tr>'+
+		'<td>'+'<input type="hidden" name="nvchMedio[]" value="'
+		+document.getElementById("nvchMedio").value+'"/>'+document.getElementById("nvchMedio").value+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchLugar[]" value="'
+		+document.getElementById("nvchLugar").value+'"/>'+document.getElementById("nvchLugar").value+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdTipoComunicacion[]" value="'
+		+document.getElementById("tipo-comunicacion").value+'"/>'+$("#tipo-comunicacion option:selected").html()+'</td>'+
+		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
+		'</tr>');
+}
+
+/* FIN - Listar Comunicaciones según Ingresa */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Eliminar Fila Seleccionada */
+
+function EliminarFila(btn) {
+	var fila = btn.parentNode.parentNode;
+  	fila.parentNode.removeChild(fila);
+}
+
+/* FIN - Eliminar Fila Seleccionada */
 //////////////////////////////////////////////////////////////

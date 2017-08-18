@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once '../conexion/bd_conexion.php';
 class ComunicacionProveedor
 {
@@ -23,13 +23,15 @@ class ComunicacionProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarComunicacionProveedor(:intIdProveedor,:nvchMedio,
-      	:nvchLugar,:intIdTipoDomicilio)');
+      foreach ($this->nvchMedio as $key => $value) {
+      $sql_comando = $sql_conectar->prepare('CALL insertarcomunicacionproveedor(:intIdProveedor,:nvchMedio,
+      	:nvchLugar,:intIdTipoComunicacion)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor, 
-        ':nvchMedio' => $this->nvchMedio,
-        ':nvchLugar' => $this->nvchLugar,
-        ':intIdTipoComunicacion' => $this->intIdTipoComunicacion));
+        ':nvchMedio' => $value,
+        ':nvchLugar' => $this->nvchLugar[$key],
+        ':intIdTipoComunicacion' => $this->intIdTipoComunicacion[$key]));
+      }
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -73,16 +75,13 @@ class ComunicacionProveedor
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarComunicacionProveedor(:intIdComunicacionProveedor,
-      	:intIdProveedor,:nvchPais,:nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:intIdTipoDomicilio)');
+        :intIdProveedor,:nvchMedio,:nvchLugar,:intIdTipoComunicacion)');
       $sql_comando->execute(array(
         ':intIdComunicacionProveedor' => $this->intIdComunicacionProveedor,
         ':intIdProveedor' => $this->intIdProveedor, 
-        ':nvchPais' => $this->nvchPais,
-        ':nvchRegion' => $this->nvchRegion,
-        ':nvchProvincia' => $this->nvchProvincia,
-        ':nvchDistrito' => $this->nvchDistrito,
-        ':nvchDireccion' => $this->nvchDireccion,
-        ':intIdTipoDomicilio' => $this->intIdTipoDomicilio));
+        ':nvchMedio' => $this->nvchMedio,
+        ':nvchLugar' => $this->nvchLugar,
+        ':intIdTipoComunicacion' => $this->intIdTipoComunicacion));
       $_SESSION['intIdComunicacionProveedor'] = $salida->intIdComunicacionProveedor;
       echo "ok";
     }

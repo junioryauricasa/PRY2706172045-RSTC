@@ -88,7 +88,7 @@ include('../_include/rstheader.php');
               </tr>
               </thead>
               <tbody id="ListaDeHistorialAccesos">
-                <script>ListarProducto(0,10,"T");</script>
+                <script>ListarHistorialDeAcceso(0,10,"T");</script>
               </tbody>
             </table>
           </div>
@@ -96,7 +96,7 @@ include('../_include/rstheader.php');
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeHistorialAccesos" class="pagination">
-                <script>PaginarProducto(0,10,"T");</script>
+                <script>PaginarHistorialDeAcceso(0,10,"T");</script>
               </ul>
             </nav>
           </div>

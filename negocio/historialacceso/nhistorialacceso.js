@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 
-function ListarUsuario(x,y,tipolistado) {
+function ListarHistorialDeAcceso(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   $.ajax({
@@ -33,7 +33,7 @@ $(document).on('change', '#num-lista', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeHistorialAccesos").html(datos);
-	   	PaginarUsuario(x,y,tipolistado);
+	   	PaginarHistorialDeAcceso(x,y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -44,7 +44,7 @@ $(document).on('change', '#num-lista', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Producto */
-function PaginarUsuario(x,y,tipolistado) {
+function PaginarHistorialDeAcceso(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   $.ajax({
@@ -76,7 +76,7 @@ $(document).on('click', '.btn-pagina', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeHistorialAccesos").html(datos);
-	   	PaginarUsuario((x/y),y,tipolistado);
+	   	PaginarHistorialDeAcceso((x/y),y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -101,7 +101,7 @@ $(document).on('keyup', '#txt-busqueda', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeHistorialAccesos").html(datos);
-	   	PaginarUsuario(x,y,tipolistado);
+	   	PaginarHistorialDeAcceso(x,y,tipolistado);
 	   }
 	  });
 	 return false;
