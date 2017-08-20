@@ -3,7 +3,7 @@
 $(document).on('click', '#btn-form-crear-proveedor', function(){
 	  var funcion = "F";
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:'POST',
 	   data:{funcion:funcion},
 	   success:function(datos)
@@ -25,7 +25,7 @@ $(document).on('click', '#btn-crear-proveedor', function(){
   	  var x = 0;
   	  var tipolistado = "N";
 	  $.ajax({
-	   url: "../../datos/compras/class_proveedor.php",
+	   url: "../../datos/compras/funcion_proveedor.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
@@ -50,12 +50,14 @@ $(document).on('click', '.btn-mostrar-proveedor', function(){
   	  var intIdProveedor = $(this).attr("id");
   	  var funcion = "M";
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	MostrarDomicilio(intIdProveedor);
+	   	MostrarComunicacion(intIdProveedor);
 	   }
 	  });
 	 return false;
@@ -72,7 +74,7 @@ $(document).on('click', '#btn-editar-proveedor', function(){
   	  var tipolistado = "E";
   	  var formData = $("#form-proveedor").serialize();
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
@@ -99,7 +101,7 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
   	  var tipolistado = "D";
   	  var funcion = "E";
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
 	   success:function(datos)
@@ -124,7 +126,7 @@ function ListarProveedor(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   $.ajax({
-      url:'../../datos/compras/class_proveedor.php',
+      url:'../../datos/compras/funcion_proveedor.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
       success:function(datos) {
@@ -146,7 +148,7 @@ $(document).on('change', '#num-lista', function(){
   	  var tipolistado = "T";
   	  var funcion = "L";
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
@@ -168,7 +170,7 @@ function PaginarProveedor(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   $.ajax({
-      url:'../../datos/compras/class_proveedor.php',
+      url:'../../datos/compras/funcion_proveedor.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
       success:function(datos) {
@@ -190,7 +192,7 @@ $(document).on('click', '.btn-pagina', function(){
   	  var funcion = "L";
   	  var tipolistado = "T";
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
@@ -215,7 +217,7 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	  var funcion = "L";
   	  var tipolistado = "T";
 	  $.ajax({
-	   url:"../../datos/compras/class_proveedor.php",
+	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
@@ -306,4 +308,42 @@ function EliminarFila(btn) {
 }
 
 /* FIN - Eliminar Fila Seleccionada */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Domicilios del Proveedor Seleccionado */
+
+function MostrarDomicilio(intIdProveedor) {
+	var funcion = "MD";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeDomicilios").html(datos);
+	   }
+	  });
+}
+
+/* FIN - Mostrar Domicilios del Proveedor Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Comunicaciones del Proveedor Seleccionado */
+
+function MostrarComunicacion(intIdProveedor) {
+	var funcion = "MC";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeComunicaciones").html(datos);
+	   }
+	  });
+}
+
+/* FIN - Mostrar Comunicaciones del Proveedor Seleccionado */
 //////////////////////////////////////////////////////////////

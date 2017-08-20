@@ -30,11 +30,9 @@ DELIMITER $$
 		UPDATE tb_comunicacion_proveedor
 		SET
 		intIdProveedor = _intIdProveedor,
-		nvchPais = _nvchPais,
-		nvchRegion = _nvchRegion,
-		nvchProvincia = _nvchProvincia,
-		nvchDistrito = _nvchDistrito,
-		nvchDireccion = _nvchDireccion
+		nvchMedio = _nvchMedio,
+		nvchLugar = _nvchLugar,
+		intIdTipoComunicacion = _intIdTipoComunicacion
 		WHERE 
 		intIdComunicacionProveedor = _intIdComunicacionProveedor;
     END 
@@ -54,26 +52,14 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS MOSTRARDOMICILIOSPROVEEDOR;
+DROP PROCEDURE IF EXISTS MOSTRARCOMUNICACIONESPROVEEDOR;
 DELIMITER $$
-	CREATE PROCEDURE MOSTRARDOMICILIOSPROVEEDOR(
+	CREATE PROCEDURE MOSTRARCOMUNICACIONESPROVEEDOR(
     	IN _intIdProveedor INT
     )
 	BEGIN
-		SELECT * FROM tb_comunicacion_proveedor
-		WHERE 
-		intIdProveedor = _intIdProveedor;
-    END 
-$$
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS ELIMINARDOMICILIOSPROVEEDOR;
-DELIMITER $$
-	CREATE PROCEDURE ELIMINARDOMICILIOSPROVEEDOR(
-    	IN _intIdProveedor INT
-    )
-	BEGIN
-		DELETE FROM tb_comunicacion_proveedor
+		SELECT CP.*,TC.nvchNombre AS NombreTC FROM tb_comunicacion_proveedor CP
+		INNER JOIN tb_tipo_comunicacion TC ON CP.intIdTipoComunicacion = TC.intIdTipoComunicacion
 		WHERE 
 		intIdProveedor = _intIdProveedor;
     END 

@@ -66,9 +66,10 @@ DELIMITER $$
     	IN _intIdProveedor INT
     )
 	BEGIN
-		SELECT * FROM tb_domicilio_proveedor
+		SELECT DP.*,TP.nvchNombre as NombreTD FROM tb_domicilio_proveedor DP
+		INNER JOIN tb_tipo_domicilio TP ON DP.intIdTipoDomicilio = TP.intIdTipoDomicilio
 		WHERE 
-		intIdProveedor = _intIdProveedor;
+		DP.intIdProveedor = _intIdProveedor;
     END 
 $$
 DELIMITER ;

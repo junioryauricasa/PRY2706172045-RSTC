@@ -39,20 +39,20 @@ class ComunicacionProveedor
     }
   }
 
-  public function MostrarComunicacionProveedor($funcion)
+  public function MostrarComunicacionProveedor()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrarComunicacionProveedor(:intIdProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL mostrarComunicacionesProveedor(:intIdProveedor)');
       $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
       	echo
-      	'<tr>
-        <td>'.$fila['nvchMedio'].'</td>
-        <td>'.$fila['nvchLugar'].'</td>
-        <td>'.$fila['nvchIdTipoDomicilio'].'</td>
+      	'<tr bgcolor="#F7FCCF">
+        <td><input type="hidden" name="nvchMedio[]" value="'.$fila['nvchMedio'].'"/>'.$fila['nvchMedio'].'</td>
+        <td><input type="hidden" name="nvchLugar[]" value="'.$fila['nvchLugar'].'"/>'.$fila['nvchLugar'].'</td>
+        <td><input type="hidden" name="intIdTipoComunicacion[]" value="'.$fila['intIdTipoComunicacion'].'"/>'.$fila['NombreTC'].'</td>
         <td> 
           <button type="submit" idcp="'.$fila['intIdComunicacionProveedor'].'" class="btn btn-xs btn-warning btn-mostrar-proveedor">
             <i class="fa fa-edit"></i> Editar

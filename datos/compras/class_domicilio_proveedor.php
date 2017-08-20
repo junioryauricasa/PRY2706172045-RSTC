@@ -48,23 +48,23 @@ class DomicilioProveedor
     }
   }
 
-  public function MostrarDomicilioProveedor($funcion)
+  public function MostrarDomicilioProveedor()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrardomicilioproveedor(:intIdProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL mostrardomiciliosproveedor(:intIdProveedor)');
       $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
       	echo
-      	'<tr>
-        <td>'.$fila['nvchPais'].'</td>
-        <td>'.$fila['nvchRegion'].'</td>
-        <td>'.$fila['nvchProvincia'].'</td>
-        <td>'.$fila['nvchDistrito'].'</td>
-        <td>'.$fila['nvchDireccion'].'</td>
-        <td>'.$fila['intIdTipoDomicilio'].'</td>
+      	'<tr bgcolor="#F7FCCF">
+        <td><input type="hidden" name="nvchPais[]" value="'.$fila['nvchPais'].'"/>'.$fila['nvchPais'].'</td>
+        <td><input type="hidden" name="nvchRegion[]" value="'.$fila['nvchRegion'].'"/>'.$fila['nvchRegion'].'</td>
+        <td><input type="hidden" name="nvchProvincia[]" value="'.$fila['nvchProvincia'].'"/>'.$fila['nvchProvincia'].'</td>
+        <td><input type="hidden" name="nvchDistrito[]" value="'.$fila['nvchDistrito'].'"/>'.$fila['nvchDistrito'].'</td>
+        <td><input type="hidden" name="nvchDireccion[]" value="'.$fila['nvchDireccion'].'"/>'.$fila['nvchDireccion'].'</td>
+        <td><input type="hidden" name="intIdTipoDomicilio[]" value="'.$fila['intIdTipoDomicilio'].'"/>'.$fila['NombreTD'].'</td>
         <td> 
           <button type="submit" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-warning btn-editar-domicilio-proveedor">
             <i class="fa fa-edit"></i> Editar
