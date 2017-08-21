@@ -39,6 +39,19 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS SELECCIONARCOMUNICACIONPROVEEDOR;
+DELIMITER $$
+	CREATE PROCEDURE SELECCIONARCOMUNICACIONPROVEEDOR(
+    	IN _intIdComunicacionProveedor INT
+    )
+	BEGIN
+		SELECT * FROM tb_comunicacion_proveedor
+		WHERE 
+		intIdComunicacionProveedor = _intIdComunicacionProveedor;
+    END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS ELIMINARCOMUNICACIONPROVEEDOR;
 DELIMITER $$
 	CREATE PROCEDURE ELIMINARCOMUNICACIONPROVEEDOR(
@@ -59,7 +72,7 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT CP.*,TC.nvchNombre AS NombreTC FROM tb_comunicacion_proveedor CP
-		INNER JOIN tb_tipo_comunicacion TC ON CP.intIdTipoComunicacion = TC.intIdTipoComunicacion
+		LEFT JOIN tb_tipo_comunicacion TC ON CP.intIdTipoComunicacion = TC.intIdTipoComunicacion
 		WHERE 
 		intIdProveedor = _intIdProveedor;
     END 

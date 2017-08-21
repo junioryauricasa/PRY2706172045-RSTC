@@ -49,6 +49,7 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 $(document).on('click', '.btn-mostrar-proveedor', function(){
   	  var intIdProveedor = $(this).attr("id");
   	  var funcion = "M";
+  	  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
@@ -56,8 +57,10 @@ $(document).on('click', '.btn-mostrar-proveedor', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
-	   	MostrarDomicilio(intIdProveedor);
-	   	MostrarComunicacion(intIdProveedor);
+	   	$("#tipo-persona").val(document.getElementById("intIdTipoPersona").value);
+	   	MostrarTipoPersona();
+	   	MostrarDomicilio(intIdProveedor,tipolistado);
+	   	MostrarComunicacion(intIdProveedor,tipolistado);
 	   }
 	  });
 	 return false;
@@ -313,12 +316,12 @@ function EliminarFila(btn) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Domicilios del Proveedor Seleccionado */
 
-function MostrarDomicilio(intIdProveedor) {
+function MostrarDomicilio(intIdProveedor,tipolistado) {
 	var funcion = "MD";
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
-	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
+	   data:{intIdProveedor:intIdProveedor,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeDomicilios").html(datos);
@@ -332,12 +335,12 @@ function MostrarDomicilio(intIdProveedor) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Comunicaciones del Proveedor Seleccionado */
 
-function MostrarComunicacion(intIdProveedor) {
+function MostrarComunicacion(intIdProveedor,tipolistado) {
 	var funcion = "MC";
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
-	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
+	   data:{intIdProveedor:intIdProveedor,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeComunicaciones").html(datos);
@@ -346,4 +349,287 @@ function MostrarComunicacion(intIdProveedor) {
 }
 
 /* FIN - Mostrar Comunicaciones del Proveedor Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Insertar Comunicacion Nueva */
+
+function AgregarComunicacion_II() {
+	var intIdProveedor = document.getElementById("intIdProveedor").value;
+	var nvchMedio = document.getElementById("nvchMedio").value;
+	var nvchLugar = document.getElementById("nvchLugar").value;
+	var intIdTipoComunicacion = document.getElementById("tipo-comunicacion").value;
+	var tipolistado = "I";
+	var funcion = "IC";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdProveedor:intIdProveedor,
+	   		nvchMedio:nvchMedio,
+	   		nvchLugar:nvchLugar,
+	   		intIdTipoComunicacion:intIdTipoComunicacion,
+	   		funcion:funcion},
+	   success:function(datos)
+	   {
+	   	if(datos == "ok"){
+	   		alert("Se insertó correctamente la comunicación");
+	   		MostrarComunicacion(intIdProveedor,tipolistado);
+	   	} else {
+	   		alert(datos);
+	   	}
+	   }
+	  });
+}
+
+/* FIN - Insertar Comunicacion Nueva */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Insertar Domicilio Nuevo */
+
+function AgregarDomicilio_II() {
+	var intIdProveedor = document.getElementById("intIdProveedor").value;
+	var nvchPais = document.getElementById("nvchPais").value;
+	var nvchRegion = document.getElementById("nvchRegion").value;
+	var nvchProvincia = document.getElementById("nvchProvincia").value;
+	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var nvchDireccion = document.getElementById("nvchDireccion").value;
+	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
+	var tipolistado = "I";
+	var funcion = "ID";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdProveedor:intIdProveedor,
+	   		nvchPais:nvchPais,
+	   		nvchRegion:nvchRegion,
+	   		nvchProvincia:nvchProvincia,
+	   		nvchDistrito:nvchDistrito,
+	   		nvchDireccion:nvchDireccion,
+	   		intIdTipoDomicilio:intIdTipoDomicilio,
+	   		funcion:funcion},
+	   success:function(datos)
+	   {
+	   	if(datos == "ok"){
+	   		alert("Se insertó correctamente el domicilio");
+	   		MostrarDomicilio(intIdProveedor,tipolistado);
+	   	} else {
+	   		alert(datos);
+	   	}
+	   }
+	  });
+}
+
+/* FIN - Insertar Domicilio Nuevo */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Actualizar Comunicacion Seleccionado */
+
+function ActualizarComunicacion() {
+	var intIdComunicacionProveedor = document.getElementById("intIdComunicacionProveedor").value;
+	var intIdProveedor = document.getElementById("intIdProveedor").value;
+	var nvchMedio = document.getElementById("nvchMedio").value;
+	var nvchLugar = document.getElementById("nvchLugar").value;
+	var intIdTipoComunicacion = document.getElementById("tipo-comunicacion").value;
+	var tipolistado = "A";
+	var accion = "I";
+	var funcion = "AC";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdComunicacionProveedor:intIdComunicacionProveedor,
+	   		intIdProveedor:intIdProveedor,
+	   		nvchMedio:nvchMedio,
+	   		nvchLugar:nvchLugar,
+	   		intIdTipoComunicacion:intIdTipoComunicacion,
+	   		funcion:funcion},
+	   success:function(datos)
+	   {
+	   	if(datos == "ok"){
+	   		alert("Se modificó correctamente la comunicación");
+	   		MostrarComunicacion(intIdProveedor,tipolistado);
+	   		BotonesComunicacion(accion);
+	   	} else {
+	   		alert(datos);
+	   	}
+	   }
+	  });
+}
+
+/* FIN - Actualizar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Actualizar Domicilio Seleccionado */
+
+function ActualizarDomicilio() {
+	var intIdDomicilioProveedor = document.getElementById("intIdDomicilioProveedor").value;
+	var intIdProveedor = document.getElementById("intIdProveedor").value;
+	var nvchPais = document.getElementById("nvchPais").value;
+	var nvchRegion = document.getElementById("nvchRegion").value;
+	var nvchProvincia = document.getElementById("nvchProvincia").value;
+	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var nvchDireccion = document.getElementById("nvchDireccion").value;
+	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
+	var tipolistado = "A";
+	var accion = "I";
+	var funcion = "AD";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdDomicilioProveedor:intIdDomicilioProveedor,
+	   		intIdProveedor:intIdProveedor,
+	   		nvchPais:nvchPais,
+	   		nvchRegion:nvchRegion,
+	   		nvchProvincia:nvchProvincia,
+	   		nvchDistrito:nvchDistrito,
+	   		nvchDireccion:nvchDireccion,
+	   		intIdTipoDomicilio:intIdTipoDomicilio,
+	   		funcion:funcion},
+	   success:function(datos)
+	   {
+	   	if(datos == "ok"){
+	   		alert("Se modificó correctamente el domicilio");
+	   		MostrarDomicilio(intIdProveedor,tipolistado);
+	   		BotonesDomicilio(accion);
+	   	} else {
+	   		alert(datos);
+	   	}
+	   }
+	  });
+}
+
+/* FIN - Actualizar Domicilio Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Domicilio Seleccionado */
+
+function SeleccionarDomicilio(seleccion) {
+	var intIdDomicilioProveedor = $(seleccion).attr("iddp");
+	var funcion = "SD";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdDomicilioProveedor:intIdDomicilioProveedor,funcion:funcion},
+	   dataType:"json",
+	   success:function(datos)
+	   {
+	   	$("#nvchPais").val(datos.nvchPais);
+	   	$("#nvchRegion").val(datos.nvchRegion);
+	   	$("#nvchProvincia").val(datos.nvchProvincia);
+	   	$("#nvchDistrito").val(datos.nvchDistrito);
+	   	$("#nvchDireccion").val(datos.nvchDireccion);
+	   	$("#tipo-domicilio").val(datos.intIdTipoDomicilio);
+	   	$("#intIdDomicilioProveedor").val(datos.intIdDomicilioProveedor);
+	   	BotonesDomicilio('A');
+	   }
+	  });
+}
+
+/* FIN - Mostrar Domicilio Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Comunicacion Seleccionado */
+
+function SeleccionarComunicacion(seleccion) {
+	var intIdComunicacionProveedor = $(seleccion).attr("idcp");
+	var funcion = "SC";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdComunicacionProveedor:intIdComunicacionProveedor,funcion:funcion},
+	   dataType:"json",
+	   success:function(datos)
+	   {
+	   	$("#nvchMedio").val(datos.nvchMedio);
+	   	$("#nvchLugar").val(datos.nvchLugar);
+	   	$("#tipo-comunicacion").val(datos.intIdTipoComunicacion);
+	   	$("#intIdComunicacionProveedor").val(datos.intIdComunicacionProveedor);
+	   	BotonesComunicacion('A');
+	   }
+	  });
+}
+
+/* FIN - Mostrar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Eliminar Comunicacion Seleccionado */
+
+function EliminarDomicilio(seleccion) {
+	var intIdDomicilioProveedor = $(seleccion).attr("iddp");
+	var funcion = "ED";
+	var tipolistado = "T";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdDomicilioProveedor:intIdDomicilioProveedor,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	 if(datos=="ok"){
+	   	 	alert("Se eliminó correctamente el Domicilio Seleccionado");
+	   	 	MostrarDomicilio(intIdProveedor,tipolistado);
+	   	 }
+	   }
+	  });
+}
+
+/* FIN - Eliminar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Eliminar Comunicacion Seleccionado */
+
+function EliminarComunicacion(seleccion) {
+	var intIdComunicacionProveedor = $(seleccion).attr("idcp");
+	var funcion = "EC";
+	var tipolistado = "T";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{intIdComunicacionProveedor:intIdComunicacionProveedor,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	 if(datos=="ok"){
+	   	 	alert("Se eliminó correctamente la Comunicación Seleccionada");
+	   	 	MostrarComunicacion(intIdProveedor,tipolistado);
+	   	 }
+	   }
+	  });
+}
+
+/* FIN - Eliminar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+
+function BotonesComunicacion(accion) {
+	if(accion == "I"){
+		$("#btn-agregar-comunicacion").show();
+		$("#btn-actualizar-comunicacion").hide();
+		$("#btn-cancelar-comunicacion").hide();
+	} else if (accion == "A") {
+		$("#btn-agregar-comunicacion").hide();
+		$("#btn-actualizar-comunicacion").show();
+		$("#btn-cancelar-comunicacion").show();
+	}
+}
+
+function BotonesDomicilio(accion) {
+	if(accion == "I"){
+		$("#btn-agregar-domicilio").show();
+		$("#btn-actualizar-domicilio").hide();
+		$("#btn-cancelar-domicilio").hide();
+	} else if (accion == "A") {
+		$("#btn-agregar-domicilio").hide();
+		$("#btn-actualizar-domicilio").show();
+		$("#btn-cancelar-domicilio").show();
+	}
+}
+
+/* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////

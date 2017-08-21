@@ -48,33 +48,85 @@ class DomicilioProveedor
     }
   }
 
-  public function MostrarDomicilioProveedor()
+  public function InsertarDomicilioProveedor_II()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL insertardomicilioproveedor(:intIdProveedor,:nvchPais,
+        :nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:intIdTipoDomicilio)');
+      $sql_comando->execute(array(
+        ':intIdProveedor' => $this->intIdProveedor, 
+        ':nvchPais' => $this->nvchPais,
+        ':nvchRegion' => $this->nvchRegion,
+        ':nvchProvincia' => $this->nvchProvincia,
+        ':nvchDistrito' => $this->nvchDistrito,
+        ':nvchDireccion' => $this->nvchDireccion,
+        ':intIdTipoDomicilio' => $this->intIdTipoDomicilio));
+      echo "ok";
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function MostrarDomicilioProveedor($tipolistado)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL mostrardomiciliosproveedor(:intIdProveedor)');
       $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
+      $cantidad = $sql_comando -> rowCount();
+      $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-      	echo
-      	'<tr bgcolor="#F7FCCF">
-        <td><input type="hidden" name="nvchPais[]" value="'.$fila['nvchPais'].'"/>'.$fila['nvchPais'].'</td>
+        if($_SESSION['intIdDomicilioProveedor'] == $fila['intIdDomicilioProveedor'] && $tipolistado == "A"){
+          echo '<tr bgcolor="#B3E4C0">';
+        } else if($cantidad == $i && $tipolistado == "I"){
+          echo '<tr bgcolor="#BEE1EB">';
+        } else {
+          echo '<tr bgcolor="#F7FCCF">';
+        }
+        echo '<td><input type="hidden" name="nvchPais[]" value="'.$fila['nvchPais'].'"/>'.$fila['nvchPais'].'</td>
         <td><input type="hidden" name="nvchRegion[]" value="'.$fila['nvchRegion'].'"/>'.$fila['nvchRegion'].'</td>
         <td><input type="hidden" name="nvchProvincia[]" value="'.$fila['nvchProvincia'].'"/>'.$fila['nvchProvincia'].'</td>
         <td><input type="hidden" name="nvchDistrito[]" value="'.$fila['nvchDistrito'].'"/>'.$fila['nvchDistrito'].'</td>
         <td><input type="hidden" name="nvchDireccion[]" value="'.$fila['nvchDireccion'].'"/>'.$fila['nvchDireccion'].'</td>
         <td><input type="hidden" name="intIdTipoDomicilio[]" value="'.$fila['intIdTipoDomicilio'].'"/>'.$fila['NombreTD'].'</td>
         <td> 
-          <button type="submit" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-warning btn-editar-domicilio-proveedor">
+          <button type="button" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="submit" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-danger btn-eliminar-domicilio-proveedor">
+          <button type="button" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-danger" onclick="EliminarDomicilio(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
         </tr>';
+        $i++;
       }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }    
+  }
+
+  public function SeleccionarDomicilioProveedor()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL seleccionardomicilioproveedor(:intIdDomicilioProveedor)');
+      $sql_comando -> execute(array(':intIdDomicilioProveedor' => $this->intIdDomicilioProveedor));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      $salida['intIdDomicilioProveedor'] = $fila['intIdDomicilioProveedor'];
+      $salida['nvchPais'] = $fila['nvchPais'];
+      $salida['nvchRegion'] = $fila['nvchRegion'];
+      $salida['nvchProvincia'] = $fila['nvchProvincia'];
+      $salida['nvchDistrito'] = $fila['nvchDistrito'];
+      $salida['nvchDireccion'] = $fila['nvchDireccion'];
+      $salida['intIdTipoDomicilio'] = $fila['intIdTipoDomicilio'];
+      echo json_encode($salida);
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -97,7 +149,7 @@ class DomicilioProveedor
         ':nvchDistrito' => $this->nvchDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
         ':intIdTipoDomicilio' => $this->intIdTipoDomicilio));
-      $_SESSION['intIdDomicilioProveedor'] = $salida->intIdDomicilioProveedor;
+      $_SESSION['intIdDomicilioProveedor'] = $this->intIdDomicilioProveedor;
       echo "ok";
     }
     catch(PDPExceptio $e){

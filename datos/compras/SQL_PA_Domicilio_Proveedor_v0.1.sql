@@ -40,7 +40,21 @@ DELIMITER $$
 		nvchRegion = _nvchRegion,
 		nvchProvincia = _nvchProvincia,
 		nvchDistrito = _nvchDistrito,
-		nvchDireccion = _nvchDireccion
+		nvchDireccion = _nvchDireccion,
+		intIdTipoDomicilio = _intIdTipoDomicilio
+		WHERE 
+		intIdDomicilioProveedor = _intIdDomicilioProveedor;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SELECCIONARDOMICILIOPROVEEDOR;
+DELIMITER $$
+	CREATE PROCEDURE SELECCIONARDOMICILIOPROVEEDOR(
+    	IN _intIdDomicilioProveedor INT
+    )
+	BEGIN
+		SELECT * FROM tb_domicilio_proveedor
 		WHERE 
 		intIdDomicilioProveedor = _intIdDomicilioProveedor;
     END 
@@ -55,7 +69,7 @@ DELIMITER $$
 	BEGIN
 		DELETE FROM tb_domicilio_proveedor
 		WHERE 
-		intIdComunicacionProveedor = _intIdComunicacionProveedor;
+		intIdDomicilioProveedor = _intIdDomicilioProveedor;
     END 
 $$
 DELIMITER ;
@@ -67,7 +81,7 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT DP.*,TP.nvchNombre as NombreTD FROM tb_domicilio_proveedor DP
-		INNER JOIN tb_tipo_domicilio TP ON DP.intIdTipoDomicilio = TP.intIdTipoDomicilio
+		LEFT JOIN tb_tipo_domicilio TP ON DP.intIdTipoDomicilio = TP.intIdTipoDomicilio
 		WHERE 
 		DP.intIdProveedor = _intIdProveedor;
     END 

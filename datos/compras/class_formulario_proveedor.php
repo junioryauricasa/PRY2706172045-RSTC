@@ -56,6 +56,7 @@ class FormularioProveedor
                       }?>
                     </select>
                   </div>
+                <input type="hidden" id="intIdTipoPersona" value="<?php echo $this->intIdTipoPersona; ?>">
                 </div>
             </div>
             <div class="row">
@@ -97,6 +98,16 @@ class FormularioProveedor
                   </div>
                 </div>
             </div>
+            <?php if($funcion == "M") { ?>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <input type="submit" id="btn-editar-proveedor" class="btn btn-sm btn-warning btn-flat" value="Editar Proveedor"> 
+                  <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
+                </div>
+              </div>
+            </div>
+            <?php } ?>
           </div>
         <div class="box-header with-border">
         </div>
@@ -153,12 +164,20 @@ class FormularioProveedor
                       }?>
                     </select>
                   </div>
+                  <input type="hidden" name="IdDomicilioProveedor" id="intIdDomicilioProveedor" value="" />
                 </div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-5">
                 <div class="form-group">
+                  <script type="text/javascript">BotonesDomicilio('I');</script>
+                  <?php if($funcion == "F"){ ?>
                   <input type="button" onclick="AgregarDomicilio()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
+                  <?php } else if($funcion == "M") { ?>
+                  <input type="button" onclick="AgregarDomicilio_II()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
+                  <?php } ?>
+                  <input type="button" onclick="ActualizarDomicilio()" id="btn-actualizar-domicilio" name="btn-actualizar-domicilio" class="btn btn-sm btn-warning btn-flat" value="Editar Domicilio">
+                    <input type="button" onclick="BotonesDomicilio('I')" id="btn-cancelar-domicilio" name="btn-cancelar-domicilio" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
                 </div>
               </div>
             </div>
@@ -217,12 +236,20 @@ class FormularioProveedor
                       }?>
                     </select>
                   </div>
+                  <input type="hidden" name="IdComunicacionProveedor" id="intIdComunicacionProveedor" value="" />
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-5">
                   <div class="form-group">
+                    <script type="text/javascript">BotonesComunicacion('I');</script>
+                    <?php if($funcion == "F"){ ?>
                     <input type="button" onclick="AgregarComunicacion()" id="btn-agregar-comunicacion" name="btn-agregar-comunicacion" class="btn btn-sm btn-success btn-flat" value="Agregar Comunicación">
+                    <?php } else if($funcion == "M") { ?>
+                    <input type="button" onclick="AgregarComunicacion_II()" id="btn-agregar-comunicacion" name="btn-agregar-comunicacion" class="btn btn-sm btn-success btn-flat" value="Agregar Comunicación">
+                    <?php } ?>
+                    <input type="button" onclick="ActualizarComunicacion()" id="btn-actualizar-comunicacion" name="btn-actualizar-comunicacion" class="btn btn-sm btn-warning btn-flat" value="Editar Comunicación">
+                    <input type="button" onclick="BotonesComunicacion('I')" id="btn-cancelar-comunicacion" name="btn-cancelar-comunicacion" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
                   </div>
                 </div>
               </div>
@@ -247,13 +274,11 @@ class FormularioProveedor
             <?php } else if($funcion == "M") { ?>
             <input type="hidden" name="funcion" value="A" />
             <?php } ?>
-            <input type="hidden" name="intIdProveedor" value="<?php echo $this->intIdProveedor; ?>" />
+            <input type="hidden" name="intIdProveedor" id="intIdProveedor" value="<?php echo $this->intIdProveedor; ?>" />
             <?php if($funcion == "F"){ ?>
             <input type="submit" id="btn-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Proveedor">
-            <?php } else if($funcion == "M") { ?>
-            <input type="submit" id="btn-editar-proveedor" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Proveedor">
-            <?php } ?>
             <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
+            <?php } ?>
         </div>              
         </form>
         <div id="resultadocrud"></div>
