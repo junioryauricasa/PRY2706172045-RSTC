@@ -298,13 +298,13 @@ if(!isset($_SESSION['user_session']))
             </a>
           </li>
           <li>
-            <a href="../ingreso/vingreso">
+            <a href="../inventario/ventrada">
               <i class="fa fa-circle-o"></i> 
                 Administrar Ingreso
             </a>
           </li>
           <li>
-            <a href="../salida/vsalida">
+            <a href="../inventario/vsalida">
               <i class="fa fa-circle-o"></i> 
                 Administrar Salida
             </a>

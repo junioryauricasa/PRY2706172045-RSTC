@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once '../conexion/bd_conexion.php';
 class FormularioProducto
 {
   private $intIdProducto;

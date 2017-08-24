@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once 'class_formulario_producto.php';
+require_once 'clases_producto/class_formulario_producto.php';
+require_once 'clases_producto/class_producto.php';
 if(empty($_SESSION['intIdProducto'])){
   $_SESSION['intIdProducto'] = 0;
 }

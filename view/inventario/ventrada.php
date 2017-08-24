@@ -6,7 +6,7 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>
+    <script type="text/javascript" src="../../negocio/inventario/nentrada.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -24,7 +24,7 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Administrar Productos
+        Administrar Entrada de Productos
         <small>Módulo de Inventario</small>
       </h1>
       <ol class="breadcrumb">
@@ -72,34 +72,28 @@ include('../_include/rstheader.php');
               <thead>
               <tr>
                 <th>#Código</th>
-                <th>Código de Producto</th>
-                <th>Código de Inventario</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio de Compra</th>
-                <th>Precio de Venta</th>
-                <th>Cantidad</th>
-                <th>Descuento</th>
-                <th>Imágen</th>
+                <th>Usuario</th>
+                <th>Proveedor</th>
+                <th>Fecha de Creación</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeProductos">
-                <script>ListarProducto(0,10,"T");</script>
+              <tbody id="ListaDeEntradas">
+                <script>ListarEntrada(0,10,"T");</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeProductos" class="pagination">
-                <script>PaginarProducto(0,10,"T");</script>
+              <ul id="PaginacionDeEntradas" class="pagination">
+                <script>PaginarEntrada(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat pull-left">Agregar Producto</button>
+          <button type="button" id="btn-form-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left">Agregar Entrada de Productos</button>
           <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
