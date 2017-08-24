@@ -271,16 +271,6 @@ class Proveedor
       echo $e->getMessage();
     }  
   }
-
-  public function FiltrarImagen($file)
-  {
-    try{
-      
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }  
-  }
   /* FIN - Métodos de Proveedor */
 }
 ?>

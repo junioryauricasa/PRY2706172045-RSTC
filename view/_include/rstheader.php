@@ -331,7 +331,7 @@ if(!isset($_SESSION['user_session']))
             </a>
           </li>
           <li>
-            <a href="../compras/vregistrocompra">
+            <a href="../compras/vordencompra">
               <i class="fa fa-circle-o"></i> 
                 Registro de Compras
             </a>

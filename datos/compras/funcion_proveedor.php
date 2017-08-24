@@ -1,9 +1,9 @@
 <?php 
 session_start();
-require_once 'class_proveedor.php';
-require_once 'class_domicilio_proveedor.php';
-require_once 'class_comunicacion_proveedor.php';
-require_once 'class_formulario_proveedor.php';
+require_once 'clases_proveedor/class_proveedor.php';
+require_once 'clases_proveedor/class_domicilio_proveedor.php';
+require_once 'clases_proveedor/class_comunicacion_proveedor.php';
+require_once 'clases_proveedor/class_formulario_proveedor.php';
 if(empty($_SESSION['intIdProveedor'])){
   $_SESSION['intIdProveedor'] = 0;
 }
