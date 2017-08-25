@@ -195,7 +195,10 @@ class OrdenCompra{
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
           <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-danger btn-eliminar-ordencompra">
-            <i class="fa fa-edit"></i> Eliminar
+            <i class="fa fa-trash"></i> Eliminar
+          </button>
+          <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-default btn-download-report">
+            <i class="fa fa-download"></i> Reporte
           </button>
         </td>
         </tr>';
