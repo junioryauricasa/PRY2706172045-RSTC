@@ -258,7 +258,6 @@ $(document).on('keyup', '#BusquedaProveedor', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Proveedor */
-
 function SeleccionarProveedor(seleccion) {
 	var intIdProveedor = $(seleccion).attr("idsprd");
 	var funcion = "SPD";
@@ -280,7 +279,6 @@ function SeleccionarProveedor(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Seleccion del Proveedor */
 //////////////////////////////////////////////////////////////
 

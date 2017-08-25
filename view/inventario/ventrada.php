@@ -78,22 +78,22 @@ include('../_include/rstheader.php');
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeEntradas">
-                <script>ListarEntrada(0,10,"T");</script>
+              <tbody id="ListaDeGuiasInternaEntrada">
+                <script>ListarGuiaInternaEntrada(0,10,"T");</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeEntradas" class="pagination">
-                <script>PaginarEntrada(0,10,"T");</script>
+              <ul id="PaginacionDeGuiasInternaEntrada" class="pagination">
+                <script>PaginarGuiaInternaEntrada(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left">Agregar Entrada de Productos</button>
+          <button type="button" id="btn-form-crear-guiainternaentrada" class="btn btn-sm btn-info btn-flat pull-left">Agregar Entrada de Productos</button>
           <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
