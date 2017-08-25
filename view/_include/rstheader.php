@@ -300,7 +300,7 @@ if(!isset($_SESSION['user_session']))
           <li>
             <a href="../inventario/ventrada">
               <i class="fa fa-circle-o"></i> 
-                Administrar Ingreso
+                Administrar Entrada
             </a>
           </li>
           <li>

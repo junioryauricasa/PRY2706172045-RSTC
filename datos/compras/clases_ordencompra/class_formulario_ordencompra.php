@@ -46,11 +46,12 @@ class FormularioOrdenCompra
                   <input type="text" id="BusquedaProveedor" name="BusquedaProveedor" class="form-control select2" placeholder="Ingresar Búsqueda" required>
                 </div>
               </div>
+              <!--
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Tipo de Persona:</label>
                   <select id="tipo-persona" name="tipo-persona" class="form-control select2">
-                    <?php try{
+                    <?php /* try{
                             $sql_conexion = new Conexion_BD();
                             $sql_conectar = $sql_conexion->Conectar();
                             $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
@@ -61,34 +62,19 @@ class FormularioOrdenCompra
                             }
                           }catch(PDPExceptions $e){
                             echo $e->getMessage();
-                          }?>
+                          }*/?>
                   </select>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Tipo de Búsqueda:</label>
-                  <select id="tipo-busqueda-proveedor" name="tipo-busqueda-proveedor" class="form-control select2">
-                    <option value="RUC">RUC</option>
-                    <option value="DNI">DNI</option>
-                    <option value="RS">Razón Social</option>
-                    <option value="N">Nombres</option>
-                    <option value="AP">Apellido Paterno</option>
-                    <option value="AM">Apellido Materno</option>
-                  </select>
-                </div>
-              </div>
+              -->
             </div>
               <div class="table-responsive">
                 <table class="table table-hover table-condensed">
                   <thead>
                   <tr>
-                    <th>RUC</th>
-                    <th>Razón Social</th>
-                    <th>DNI</th>
-                    <th>Nombres</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
+                    <th>RUC/DNI</th>
+                    <th>Razón Social/Nombres</th>
+                    <th>Tipo de Persona</th>
                     <th>Opción</th>
                   </tr>
                   </thead>
@@ -187,16 +173,6 @@ class FormularioOrdenCompra
             <div class="form-group">
               <label>Ingresar Búsqueda:</label>
               <input type="text" id="BusquedaProducto" name="BusquedaProducto" class="form-control select2" placeholder="Ingresar Búsqueda" required>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Tipo de Búsqueda:</label>
-              <select id="num-lista" name="num-lista" class="form-control select2">
-                <option value="C">Código</option>
-                <option value="N">Nombre</option>
-                <option value="D">Descripción</option>
-              </select>
             </div>
           </div>
         </div>

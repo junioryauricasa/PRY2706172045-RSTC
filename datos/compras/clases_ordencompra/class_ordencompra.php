@@ -72,8 +72,14 @@ class OrdenCompra{
         echo 
         '<tr>
         <td>'.$fila['IdentificadorProveedor'].'</td>
-        <td>'.$fila['NombreProveedor'].'</td>
-        <td> 
+        <td>'.$fila['NombreProveedor'].'</td>';
+        if($fila['intIdTipoPersona'] == 1){
+          echo '<td>Persona Jurídica</td>';
+        } else if($fila['intIdTipoPersona'] == 2){
+          echo '<td>Persona Natural</td>';
+        }
+        echo 
+        '<td> 
           <button type="button" idsprd="'.$fila['intIdProveedor'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProveedor(this)">
             <i class="fa fa-edit"></i> Seleccionar
           </button>

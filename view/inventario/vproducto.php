@@ -53,10 +53,10 @@ include('../_include/rstheader.php');
                 <label>Mostrar:</label>
                 <br>
                 <select id="num-lista" name="num-lista"  class="form-control select2" >
-                      <option value="10">Ver 10 Resultados</option>
-                      <option value="25">Ver 25 Resultados</option>
-                      <option value="50">Ver 50 Resultados</option>
-                      <option value="100">Ver 100 Resultados</option>
+                  <option value="10">Ver 10 Resultados</option>
+                  <option value="25">Ver 25 Resultados</option>
+                  <option value="50">Ver 50 Resultados</option>
+                  <option value="100">Ver 100 Resultados</option>
                 </select>
               </div>
             </div>

@@ -103,19 +103,20 @@ DELIMITER $$
 	CREATE PROCEDURE BUSCARPROVEEDOR(
     	IN _elemento VARCHAR(250),
 		IN _x INT,
-		IN _y INT
+		IN _y INT,
+		IN _intIdTipoPersona INT
     )
 	BEGIN
 		SELECT * FROM tb_proveedor
 		WHERE 
-		intIdProveedor LIKE CONCAT(_elemento,'%') OR
+		( intIdProveedor LIKE CONCAT(_elemento,'%') OR
 		nvchDNI LIKE CONCAT(_elemento,'%') OR
 		nvchRUC LIKE CONCAT(_elemento,'%') OR
 		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		nvchNombres LIKE CONCAT(_elemento,'%') OR
-		intIdTipoPersona LIKE CONCAT(_elemento,'%')
+		nvchNombres LIKE CONCAT(_elemento,'%') ) AND
+		intIdTipoPersona = _intIdTipoPersona
 		LIMIT _x,_y;
     END 
 $$
@@ -124,19 +125,20 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS BUSCARPROVEEDOR_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARPROVEEDOR_II(
-    	IN _elemento VARCHAR(250)
+    	IN _elemento VARCHAR(250),
+    	IN _intIdTipoPersona INT
     )
 	BEGIN
 		SELECT * FROM tb_proveedor
 		WHERE 
-		intIdProveedor LIKE CONCAT(_elemento,'%') OR
+		( intIdProveedor LIKE CONCAT(_elemento,'%') OR
 		nvchDNI LIKE CONCAT(_elemento,'%') OR
 		nvchRUC LIKE CONCAT(_elemento,'%') OR
 		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		nvchNombres LIKE CONCAT(_elemento,'%') OR
-		intIdTipoPersona LIKE CONCAT(_elemento,'%');
+		nvchNombres LIKE CONCAT(_elemento,'%') ) AND
+		intIdTipoPersona = _intIdTipoPersona;
     END 
 $$
 DELIMITER ;

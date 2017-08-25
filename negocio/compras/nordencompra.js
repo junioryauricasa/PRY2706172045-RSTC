@@ -66,6 +66,25 @@ $(document).on('click', '.btn-mostrar-ordencompra', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Proveedor */
+$(document).on('click', '.btn-download-report', function(){
+  	  var intIdOrdenCompra = $(this).attr("id");
+  	  //var funcion = "OCR";
+	  $.ajax({
+	   url:"../../view/reporte/reportes_internos/consultaSQL4Report.php",
+	   method:"POST",
+	   data:{intIdOrdenCompra:intIdOrdenCompra},
+	   success:function(datos)
+	   {
+	   	//$("#formulario-crud").html(datos);
+	   }
+	  });
+	 return false;
+});
+/* FIN - Funcion Ajax - Mostrar Proveedor */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Proveedor */
 $(document).on('click', '#btn-editar-ordencompra', function(){
   	  var funcion = "A";

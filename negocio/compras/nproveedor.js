@@ -24,6 +24,7 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "N";
+  	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
 	  $.ajax({
 	   url: "../../datos/compras/funcion_proveedor.php",
 	   method: "POST",
@@ -33,8 +34,9 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	   	if (datos=="okokok") {
 	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
 	   		$('#txt-busqueda').val("");
-	   		ListarProveedor(x,y,tipolistado);
-	   		PaginarProveedor(x,y,tipolistado);
+	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
+	   		$("#lista-persona").val($("#tipo-persona").val());
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -57,7 +59,7 @@ $(document).on('click', '.btn-mostrar-proveedor', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
-	   	$("#tipo-persona").val(document.getElementById("intIdTipoPersona").value);
+	   	$("#tipo-persona").val($("#tipo-persona").val());
 	   	MostrarTipoPersona();
 	   	MostrarDomicilio(intIdProveedor,tipolistado);
 	   	MostrarComunicacion(intIdProveedor,tipolistado);
@@ -76,6 +78,7 @@ $(document).on('click', '#btn-editar-proveedor', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-proveedor").serialize();
+  	  var intIdTipoPersona = ddocument.getElementById("tipo-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
@@ -84,8 +87,8 @@ $(document).on('click', '#btn-editar-proveedor', function(){
 	   {
 	   	if (datos=="ok") {
 	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
-	   		ListarProveedor(x,y,tipolistado);
-	   		PaginarProveedor(x,y,tipolistado);
+	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -103,6 +106,7 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
+  	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
@@ -111,8 +115,8 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
 	   {
 	   	if (datos=="ok") { 
 	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
-	   		ListarProveedor(x,y,tipolistado);
-	   		PaginarProveedor(x,y,tipolistado);
+	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -125,13 +129,14 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Proveedor */
 
-function ListarProveedor(x,y,tipolistado) {
+function ListarProveedor(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   $.ajax({
       url:'../../datos/compras/funcion_proveedor.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
+      intIdTipoPersona:intIdTipoPersona},
       success:function(datos) {
           $("#ListaDeProveedores").html(datos);
       }
@@ -143,101 +148,139 @@ function ListarProveedor(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
-
 $(document).on('change', '#num-lista', function(){
   	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "T";
   	  var funcion = "L";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
+	   intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor(x,y,tipolistado);
+	   	PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   }
 	  });
 	 return false;
 });
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+$(document).on('change', '#lista-persona', function(){
+  	  var busqueda = document.getElementById("txt-busqueda").value;
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var funcion = "L";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  if(intIdTipoPersona == 1){
+  	  	$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+  	  } else if(intIdTipoPersona == 2){
+  	  	$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+  	  }
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
+	   	intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProveedores").html(datos);
+	   	PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
+	   }
+	  });
+	 return false;
+});
 /* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Proveedor */
-
-function PaginarProveedor(x,y,tipolistado) {
+function PaginarProveedor(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   $.ajax({
       url:'../../datos/compras/funcion_proveedor.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
+      intIdTipoPersona:intIdTipoPersona},
       success:function(datos) {
           $("#PaginacionDeProveedores").html(datos);
       }
   });
 }
-
 /* FIN - Funcion Ajax - Paginar Proveedor */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Cambiar Página de Lista Proveedor */
-
 $(document).on('click', '.btn-pagina', function(){
       var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(this).attr("idp") * y;
   	  var funcion = "L";
   	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
+	   	intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor((x/y),y,tipolistado);
+	   	PaginarProveedor((x/y),y,tipolistado,intIdTipoPersona);
 	   }
 	  });
 	 return false;
 });
-
 /* FIN - Funcion Ajax - Cambiar Página de Lista Proveedor */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
-
 $(document).on('keyup', '#txt-busqueda', function(){
 	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var funcion = "L";
   	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
+	   	intIdTipoPersona,intIdTipoPersona},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor(x,y,tipolistado);
+	   	PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   }
 	  });
 	 return false;
 });
-
 /* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Campos de acuerdo al Tipo de Persona */
-
 function MostrarTipoPersona() {
   var tipo_persona = document.getElementById("tipo-persona").value;
       if(tipo_persona == "1"){
@@ -256,13 +299,11 @@ function MostrarTipoPersona() {
       	$(".nvchRazonSocial").hide();
       }
 }
-
 /* FIN - Mostrar Campos de acuerdo al Tipo de Persona */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
-
 function AgregarDomicilio() {
 	$('#ListaDeDomicilios').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchPais[]" value="'+
@@ -280,13 +321,11 @@ function AgregarDomicilio() {
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }
-
 /* FIN - Listar Domicilios según Ingresa */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Comunicaciones según Ingresa */
-
 function AgregarComunicacion() {
 	$('#ListaDeComunicaciones').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchMedio[]" value="'
@@ -298,18 +337,15 @@ function AgregarComunicacion() {
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }
-
 /* FIN - Listar Comunicaciones según Ingresa */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Fila Seleccionada */
-
 function EliminarFila(btn) {
 	var fila = btn.parentNode.parentNode;
   	fila.parentNode.removeChild(fila);
 }
-
 /* FIN - Eliminar Fila Seleccionada */
 //////////////////////////////////////////////////////////////
 
@@ -606,7 +642,6 @@ function EliminarComunicacion(seleccion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Botones */
-
 function BotonesComunicacion(accion) {
 	if(accion == "I"){
 		$("#btn-agregar-comunicacion").show();
@@ -618,7 +653,6 @@ function BotonesComunicacion(accion) {
 		$("#btn-cancelar-comunicacion").show();
 	}
 }
-
 function BotonesDomicilio(accion) {
 	if(accion == "I"){
 		$("#btn-agregar-domicilio").show();
@@ -630,6 +664,27 @@ function BotonesDomicilio(accion) {
 		$("#btn-cancelar-domicilio").show();
 	}
 }
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function AccionCabecerasTabla(intIdTipoPersona) {
+	if(intIdTipoPersona == "1"){
+		$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+	} else if (intIdTipoPersona == "2") {
+		$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+	}
+}
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////

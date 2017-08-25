@@ -108,6 +108,10 @@ switch($_POST['funcion']){
     $DetalleOrdenCompra = new DetalleOrdenCompra();
     $DetalleOrdenCompra->PaginarProductosOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
     break;
+  case "OCR":
+    $DetalleOrdenCompra = new DetalleOrdenCompra();
+    $DetalleOrdenCompra->PaginarProductosOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    break;
   case "F":
     $FormularioOrdenCompra = new FormularioOrdenCompra();
     $FormularioOrdenCompra->ConsultarFormulario($_POST['funcion']);

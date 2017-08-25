@@ -53,10 +53,10 @@ include('../_include/rstheader.php');
                 <label>Mostrar:</label>
                 <br>
                 <select id="num-lista" name="num-lista"  class="form-control select2">
-                      <option value="10">Ver 10 Resultados</option>
-                      <option value="25">Ver 25 Resultados</option>
-                      <option value="50">Ver 50 Resultados</option>
-                      <option value="100">Ver 100 Resultados</option>
+                  <option value="10">Ver 10 Resultados</option>
+                  <option value="25">Ver 25 Resultados</option>
+                  <option value="50">Ver 50 Resultados</option>
+                  <option value="100">Ver 100 Resultados</option>
                 </select>
               </div>
             </div>
@@ -66,31 +66,54 @@ include('../_include/rstheader.php');
                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Tipo Persona:</label>
+                <br>
+                <select id="lista-persona" name="lista-persona"  class="form-control select2">
+                  <?php 
+                    require_once '../../datos/conexion/bd_conexion.php';
+                    try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
                 <th>#Código</th>
-                <th>DNI</th>
-                <th>RUC</th>
-                <th>Razón Social</th>
-                <th>Apellido Paterno</th>
-                <th>Apellido Materno</th>
-                <th>Nombres</th>
+                <th class="ListaDNI">DNI</th>
+                <th class="ListaRUC">RUC</th>
+                <th class="ListaRazonSocial">Razón Social</th>
+                <th class="ListaApellidoPaterno">Apellido Paterno</th>
+                <th class="ListaApellidoMaterno">Apellido Materno</th>
+                <th class="ListaNombres">Nombres</th>
                 <th>Opciones</th>
               </tr>
               </thead>
               <tbody id="ListaDeProveedores">
-                <script>ListarProveedor(0,10,"T");</script>
+                <script>ListarProveedor(0,10,"T",1);</script>
               </tbody>
             </table>
+            <script>AccionCabecerasTabla("1");</script>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeProveedores" class="pagination">
-                <script>PaginarProveedor(0,10,"T");</script>
+                <script>PaginarProveedor(0,10,"T",1);</script>
               </ul>
             </nav>
           </div>

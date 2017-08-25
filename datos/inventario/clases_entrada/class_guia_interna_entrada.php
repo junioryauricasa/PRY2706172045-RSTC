@@ -137,8 +137,8 @@ class GuiaInternaEntrada
         }
         echo
         '<td>'.$fila["intIdGuiaInternaEntrada"].'</td>
-        <td>'.$fila["NombreProveedor"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
+        <td>'.$fila["NombreProveedor"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
         <td> 
           <button type="submit" id="'.$fila["intIdGuiaInternaEntrada"].'" class="btn btn-xs btn-warning btn-mostrar-guiainternaentrada">

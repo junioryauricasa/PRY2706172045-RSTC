@@ -83,11 +83,11 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Proveedor = new Proveedor();
-    $Proveedor->ListarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Proveedor->ListarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoPersona']);
     break;
   case "P":
     $Proveedor = new Proveedor();
-    $Proveedor->PaginarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Proveedor->PaginarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoPersona']);
     break;
   case "F":
     $FormularioProveedor = new FormularioProveedor();

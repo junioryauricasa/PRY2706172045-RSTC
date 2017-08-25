@@ -123,7 +123,8 @@ DELIMITER $$
 			CASE 
 				WHEN intIdTipoPersona = 1 THEN nvchRazonSocial
 				WHEN intIdTipoPersona = 2 THEN CONCAT(nvchNombres,' ',nvchApellidoPaterno,' ',nvchApellidoMaterno)
-			END AS NombreProveedor 
+			END AS NombreProveedor,
+		intIdTipoPersona 
 		FROM tb_proveedor 
 		WHERE
 		nvchDNI LIKE CONCAT(_elemento,'%') OR

@@ -114,7 +114,7 @@ class Proveedor
     }
   }
 
-  public function ListarProveedores($busqueda,$x,$y,$tipolistado)
+  public function ListarProveedores($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
   {
     try{
       $salida = "";
@@ -127,23 +127,23 @@ class Proveedor
       //Busqueda de Proveedor por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda,:intIdTipoPersona)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda,:intIdTipoPersona)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Proveedor por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarproveedor(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproveedor(:busqueda,:x,:y,:intIdTipoPersona)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -154,15 +154,16 @@ class Proveedor
         }else {
           echo '<tr>';
         }
-        echo
-        '<td>'.$fila["intIdProveedor"].'</td>
-        <td>'.$fila["nvchDNI"].'</td>
-        <td>'.$fila["nvchRUC"].'</td>
-        <td>'.$fila["nvchRazonSocial"].'</td>
-        <td>'.$fila["nvchApellidoPaterno"].'</td>
+        echo '<td>'.$fila["intIdProveedor"].'</td>';
+        if($intIdTipoPersona == 2) { echo '<td>'.$fila["nvchDNI"].'</td>'; }
+        echo '<td>'.$fila["nvchRUC"].'</td>';
+        if($intIdTipoPersona == 1) { echo '<td>'.$fila["nvchRazonSocial"].'</td>'; }
+        if($intIdTipoPersona == 2) {
+        echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
         <td>'.$fila["nvchApellidoMaterno"].'</td>
-        <td>'.$fila["nvchNombres"].'</td>
-        <td> 
+        <td>'.$fila["nvchNombres"].'</td>';
+        }
+        echo '<td> 
           <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-proveedor">
             <i class="fa fa-edit"></i> Editar
           </button>
@@ -179,15 +180,15 @@ class Proveedor
     }  
   }
 
-  public function PaginarProveedores($busqueda,$x,$y,$tipolistado)
+  public function PaginarProveedores($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda,:intIdTipoPersona)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

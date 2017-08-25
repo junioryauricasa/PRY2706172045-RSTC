@@ -52,14 +52,8 @@ class FormularioProducto
             <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Código del Producto:</label>
+                    <label>Código del Producto Principal:</label>
                     <input type="text" name="nvchCodigoProducto" class="form-control select2" placeholder="Ingrese código del producto" value="<?php echo $this->nvchCodigoProducto; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Código de Inventario:</label>
-                    <input type="text" name="nvchCodigoInventario" class="form-control select2" placeholder="Ingrese código de inventario" value="<?php echo $this->nvchCodigoInventario; ?>" required>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -76,26 +70,8 @@ class FormularioProducto
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Precio Compra: S/.</label>
+                    <label>Unidad de Medida:</label>
                     <input type="text" name="dcmPrecioCompra" class="form-control select2" placeholder="Ingrese el precio de compra" value="<?php echo $this->dcmPrecioCompra; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Precio Venta: S/.</label>
-                    <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el precio de venta" value="<?php echo $this->dcmPrecioVenta; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Cantidad:</label>
-                    <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese la cantidad" value="<?php echo $this->intCantidad; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Descuento:</label>
-                    <input type="text" name="nvchDescuento" class="form-control select2" placeholder="Ingrese el descuento" value="<?php echo $this->nvchDescuento; ?>" required>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -116,29 +92,108 @@ class FormularioProducto
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
+        <h3 class="box-title">Códigos Adicionales</h3>
+      </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Código Adicional:</label>
+                <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el Precio de Venta" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              <input type="button" class="form-control select2" placeholder="Ingrese el código" value="Agregar Código" onclick="AgregarCodigoAdicional(this)">
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Código Adicional</th>>
+                <th>Opción</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDeCodigosAdicionales">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <div class="box-header with-border">
+      </div>
+      <div class="box-header with-border">
+        <h3 class="box-title">Precios de Venta</h3>
+      </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Ingresar Precio de Venta:</label>
+                <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el Precio de Venta" value="">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Cantidad Mínima:</label>
+                <input type="text" name="intCantidadMinima" class="form-control select2" placeholder="Ingrese Cantidad Mínima" value="">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Cantidad Máxima:</label>
+                <input type="text" name="intCantidadMaxima" class="form-control select2" placeholder="Ingrese Cantidad Máxima" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              <input type="button" class="form-control select2" placeholder="Ingrese la cantidad" value="Agregar Precio" onclick="AgregarPrecioVenta(this)">
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Precio de Venta</th>
+                <th>Cantidad Mínima</th>
+                <th>Cantidad Máxima</th>
+                <th>Opción</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDePreciosVenta">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <div class="box-header with-border">
+      </div>
+      <div class="box-header with-border">
         <h3 class="box-title">Ubigeo</h3>
       </div>
         <div class="box-body">
-            <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Sucursal:</label>
-                    <input type="text" name="nvchSucursal" class="form-control select2" placeholder="Ingrese la sucursal (Ubigeo)" value="<?php echo $this->nvchSucursal; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Gabinete:</label>
-                    <input type="text" name="nvchGabinete" class="form-control select2" placeholder="Ingrese el gabinete (Ubigeo)" value="<?php echo $this->nvchGabinete; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Cajon:</label>
-                    <input type="text" name="nvchCajon" class="form-control select2" placeholder="Ingrese el cajón (Ubigeo)" value="<?php echo $this->nvchCajon; ?>" required>
-                  </div>
-                </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Sucursal:</label>
+                <select id="nvchSucursal" name="nvchSucursal" class="form-control select2">
+                  <option value="Huancayo">Huancayo</option>
+                  <option value="San Jerónimo">San Jerónimo</option>
+                </select>
+              </div>
             </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Ubicación en el Almacén:</label>
+                <input type="text" name="nvchUbicacion" class="form-control select2" placeholder="Ingrese la cantidad" value="<?php echo $this->intCantidad; ?>" required>
+              </div>
+            </div>
+          </div>
         </div>  
           <div class="box-footer clearfix">
               <?php if($funcion == "F"){ ?>
