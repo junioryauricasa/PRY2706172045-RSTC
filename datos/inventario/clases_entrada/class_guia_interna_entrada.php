@@ -380,6 +380,7 @@ class GuiaInternaEntrada
         <td><input type="hidden" name="SnvchNombre['.$fila['intIdOperacionOrdenCompra'].']" value="'.$fila['nvchNombre'].'"/>'.$fila['nvchNombre'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdOperacionOrdenCompra'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="SintCantidadO['.$fila['intIdOperacionOrdenCompra'].']" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
+        <td><input type="hidden" name="SintCantidadP['.$fila['intIdOperacionOrdenCompra'].']" value="'.$fila['intCantidadPendiente'].'"/>'.$fila['intCantidadPendiente'].'</td>
         <td><input type="text" name="SintCantidad['.$fila['intIdOperacionOrdenCompra'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>
         <td> 
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="AgregarDetalleGuiaInternaEntrada(this)">

@@ -8,6 +8,7 @@ class DetalleOrdenCompra
   private $intIdProducto;
   private $dtmFechaSolicitud;
   private $intCantidad;
+  private $intCantidadPendiente;
   private $dcmPrecio;
   
   public function IdOperacionOrdenCompra($intIdOperacionOrdenCompra){ $this->intIdOperacionOrdenCompra = $intIdOperacionOrdenCompra; }
@@ -15,6 +16,7 @@ class DetalleOrdenCompra
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function FechaSolicitud($dtmFechaSolicitud){ $this->dtmFechaSolicitud = $dtmFechaSolicitud; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
+  public function CantidadPendiente($intCantidadPendiente){ $this->intCantidadPendiente = $intCantidadPendiente; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
   /* FIN - Atributos de Detalle Orden Compra */
 
@@ -26,12 +28,13 @@ class DetalleOrdenCompra
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleOrdenCompra(:intIdOrdenCompra,
-      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:dcmPrecio)');
+      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio)');
       $sql_comando->execute(array(
         ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
         ':intIdProducto' => $value,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
         ':intCantidad' => $this->intCantidad[$key],
+        ':intCantidadPendiente' => $this->intCantidad[$key],
         ':dcmPrecio' => $this->dcmPrecio[$key]));
       }
       echo "ok";
@@ -47,12 +50,13 @@ class DetalleOrdenCompra
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleOrdenCompra(:intIdOrdenCompra,
-      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:dcmPrecio)');
+      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio)');
       $sql_comando->execute(array(
         ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
         ':intIdProducto' => $this->intIdProducto,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
         ':intCantidad' => $this->intCantidad,
+        ':intCantidadPendiente' => $this->intCantidad,
         ':dcmPrecio' => $this->dcmPrecio));
       echo "ok";
     }

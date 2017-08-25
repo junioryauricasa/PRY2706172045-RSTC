@@ -7,13 +7,14 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaSolicitud DATETIME,
 	IN _intCantidad INT,
+	IN _intCantidadPendiente INT,
 	IN _dcmPrecio DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_detalle_orden_compra 
-		(intIdOrdenCompra,intIdProducto,dtmFechaSolicitud,intCantidad,dcmPrecio)
+		(intIdOrdenCompra,intIdProducto,dtmFechaSolicitud,intCantidad,intCantidadPendiente,dcmPrecio)
 		VALUES
-		(_intIdOrdenCompra,_intIdProducto,_dtmFechaSolicitud,_intCantidad,_dcmPrecio);
+		(_intIdOrdenCompra,_intIdProducto,_dtmFechaSolicitud,_intCantidad,_intCantidadPendiente,_dcmPrecio);
     END 
 $$
 DELIMITER ;
@@ -48,7 +49,7 @@ DELIMITER $$
     	IN _intIdOperacionOrdenCompra INT
     )
 	BEGIN
-		SELECT DOC.*,P.nvchNombre,P.nvchDescripcion FROM tb_detalle_orden_compra DOC
+		SELECT DOC.*,P.nvchNombre,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_orden_compra DOC
 		LEFT JOIN tb_producto P ON DOC.intIdProducto = P.intIdProducto
 		WHERE 
 		intIdOperacionOrdenCompra = _intIdOperacionOrdenCompra;

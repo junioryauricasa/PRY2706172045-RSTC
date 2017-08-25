@@ -93,3 +93,35 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS DESCONTARDETALLEORDENCOMPRA;
+DELIMITER $$
+	CREATE PROCEDURE DESCONTARDETALLEORDENCOMPRA(
+	IN _intIdOperacionOrdenCompra INT,
+	IN _intCantidadPendiente INT
+    )
+	BEGIN
+		UPDATE tb_detalle_orden_compra
+		SET
+		intCantidadPendiente = _intCantidadPendiente
+		WHERE 
+		intIdOperacionOrdenCompra = _intIdOperacionOrdenCompra;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS INGRESARCANTIDADPRODUCTO;
+DELIMITER $$
+	CREATE PROCEDURE INGRESARCANTIDADPRODUCTO(
+	IN _intIdProducto INT,
+	IN _intCantidad INT
+    )
+	BEGIN
+		UPDATE tb_producto
+		SET
+		intCantidad = _intCantidad
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END 
+$$
+DELIMITER ;

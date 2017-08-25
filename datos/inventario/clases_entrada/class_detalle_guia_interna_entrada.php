@@ -30,6 +30,8 @@ class DetalleGuiaInternaEntrada
         ':intIdOperacionOrdenCompra' => $value,
         ':dtmFechaEntrada' => $this->dtmFechaEntrada,
         ':intCantidad' => $this->intCantidad[$key]));
+      $this->DescontarDetalleOrdenCompra($value,$this->intCantidad[$key]);
+      $this->IngresarCantidadProducto($value,$this->intCantidad[$key]);
       }
       echo "ok";
     }
@@ -144,6 +146,47 @@ class DetalleGuiaInternaEntrada
       $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleGuiaInternaEntrada(:intIdOperacionGuiaInternaEntrada)');
       $sql_comando -> execute(array(':intIdOperacionGuiaInternaEntrada' => $this->intIdOperacionGuiaInternaEntrada));
       echo 'ok';
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function DescontarDetalleOrdenCompra($intIdOperacionOrdenCompra,$intCantidadDescontar)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL SELECCIONARDETALLEORDENCOMPRA(:intIdOperacionOrdenCompra)');
+      $sql_comando -> execute(array(':intIdOperacionOrdenCompra' => $intIdOperacionOrdenCompra));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      $intCantidadPendiente = $fila['intCantidadPendiente'];
+      $intCantidadPendiente = $intCantidadPendiente - $intCantidadDescontar;
+      $sql_comando = $sql_conectar->prepare('CALL DescontarDetalleOrdenCompra(:intIdOperacionOrdenCompra,:intCantidadPendiente)');
+      $sql_comando -> execute(array(
+        ':intIdOperacionOrdenCompra' => $intIdOperacionOrdenCompra,
+        ':intCantidadPendiente' => $intCantidadPendiente));
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function IngresarCantidadProducto($intIdOperacionOrdenCompra,$intCantidadAumentar)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL SELECCIONARDETALLEORDENCOMPRA(:intIdOperacionOrdenCompra)');
+      $sql_comando -> execute(array(':intIdOperacionOrdenCompra' => $intIdOperacionOrdenCompra));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      $intIdProducto = $fila['intIdProducto'];
+      $intCantidadIngresar = $fila['CantidadProducto'];
+      $intCantidadIngresar = $intCantidadIngresar + $intCantidadAumentar;
+      $sql_comando = $sql_conectar->prepare('CALL IngresarCantidadProducto(:intIdProducto,:intCantidad)');
+      $sql_comando -> execute(array(
+        ':intIdProducto' => $intIdProducto,
+        ':intCantidad' => $intCantidadIngresar));
     }
     catch(PDPExceptions $e){
       echo $e->getMessage();

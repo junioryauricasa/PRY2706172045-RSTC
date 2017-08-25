@@ -35,6 +35,7 @@ $(document).on('click', '#btn-crear-guiainternaentrada', function(){
 	   		$('#txt-busqueda').val("");
 	   		ListarGuiaInternaEntrada(x,y,tipolistado);
 	   		PaginarGuiaInternaEntrada(x,y,tipolistado);
+	   		MostrarDetalleOrdenCompra($("#intIdOrdenCompra").val());
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -231,8 +232,8 @@ function AgregarDetalleGuiaInternaEntrada(seleccion) {
 	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdOperacionOrdenCompra+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdOperacionOrdenCompra+"]']").val();
 	var intCantidadO = $("input[type=hidden][name='SintCantidadO["+intIdOperacionOrdenCompra+"]']").val();
-
-	if(intCantidadO < intCantidad){
+	var intCantidadP = $("input[type=hidden][name='SintCantidadP["+intIdOperacionOrdenCompra+"]']").val();
+	if(Number(intCantidadP) < Number(intCantidad)){
 		alert('Esta Pasando el Limite de lo que Compró');
 		return false;
 	}
@@ -474,7 +475,6 @@ function MostrarDetalleOrdenCompra(intIdOrdenCompra) {
 	   	$("#ListaDeDetallesOrdenCompra").html(datos);
 	   }
 	  });
-
 }
 /* FIN - Seleccion del Proveedor */
 //////////////////////////////////////////////////////////////
