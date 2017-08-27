@@ -78,7 +78,7 @@ $(document).on('click', '#btn-editar-proveedor', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-proveedor").serialize();
-  	  var intIdTipoPersona = ddocument.getElementById("tipo-persona").value;
+  	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",

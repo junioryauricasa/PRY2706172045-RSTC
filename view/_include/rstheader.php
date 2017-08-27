@@ -309,12 +309,6 @@ if(!isset($_SESSION['user_session']))
                 Administrar Salida
             </a>
           </li>
-          <li>
-            <a href="../reporte/vreporte">
-              <i class="fa fa-circle-o"></i> 
-                Reportes
-            </a>
-          </li>
         </ul>
       </li>
       <!--END Inventrio-->
@@ -336,12 +330,6 @@ if(!isset($_SESSION['user_session']))
                 Registro de Compras
             </a>
           </li>
-          <li>
-            <a href="../reporte/vreporte">
-              <i class="fa fa-circle-o"></i> 
-                Reportes
-            </a>
-          </li>
         </ul>
       </li>
       <?php 
@@ -358,21 +346,21 @@ if(!isset($_SESSION['user_session']))
               </a>
               <ul class="treeview-menu">
                 <li class="active">
-                  <a href="../cotizacion/vcotizacion">
+                  <a href="../ventas/vcliente">
+                    <i class="fa fa-circle-o"></i> 
+                      Clientes
+                  </a>
+                </li>
+                <li>
+                  <a href="../ventas/vcotizacion">
                     <i class="fa fa-circle-o"></i> 
                       Cotización
                   </a>
                 </li>
                 <li>
-                  <a href="../facturacion/vfacturacion">
+                  <a href="../ventas/vfacturacion">
                     <i class="fa fa-circle-o"></i> 
                       Facturación
-                  </a>
-                </li>
-                <li>
-                  <a href="../reporte/vreporte">
-                    <i class="fa fa-circle-o"></i> 
-                      Reportes
                   </a>
                 </li>
               </ul>
@@ -404,45 +392,9 @@ if(!isset($_SESSION['user_session']))
                      Historial de acceso
                   </a>
                 </li>
-                <li>
-                  <a href="../reporte/vlistarusuario">
-                    <i class="fa fa-circle-o"></i> 
-                      Reportes
-                  </a>
-                </li>
               </ul>
             </li>
             <!--END Usuarios-->
-
-
-            <!--Cliente-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-user"></i> <span>Clientes</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li>
-                  <a href="../cliente/vcliente">
-                    <i class="fa fa-circle-o"></i> 
-                      Administrar Clientes
-                  </a>
-                </li>
-                <li>
-                  <a href="../historialcliente/vhistorialcliente">
-                    <i class="fa fa-circle-o"></i> 
-                     Historial de cliente
-                  </a>
-                </li>
-                <li>
-                  <a href="../reporte/vreportecliente">
-                    <i class="fa fa-circle-o"></i> 
-                      Reporte Cliente
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!--END Cliente-->
 
 
             <!--Reportes-->

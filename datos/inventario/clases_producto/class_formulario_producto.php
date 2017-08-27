@@ -99,14 +99,14 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Código Adicional:</label>
-                <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el Precio de Venta" value="">
+                <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el Precio de Venta" value=""/>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-              <input type="button" class="form-control select2" placeholder="Ingrese el código" value="Agregar Código" onclick="AgregarCodigoAdicional(this)">
+              <input type="button" class="form-control select2 btn btn-success" placeholder="Ingrese el código" value="Agregar Código" onclick="AgregarCodigoAdicional(this)"/>
               </div>
             </div>
           </div>
@@ -152,7 +152,7 @@ class FormularioProducto
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-              <input type="button" class="form-control select2" placeholder="Ingrese la cantidad" value="Agregar Precio" onclick="AgregarPrecioVenta(this)">
+              <input type="button" class="form-control select2 form-control select2 btn btn-success" placeholder="Ingrese la cantidad" value="Agregar Precio" onclick="AgregarPrecioVenta(this)">
               </div>
             </div>
           </div>

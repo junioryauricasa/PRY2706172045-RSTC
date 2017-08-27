@@ -11,8 +11,8 @@ require_once dirname(__FILE__).'/PHPWord-master/src/PhpWord/Autoloader.php';
 use PhpOffice\PhpWord\TemplateProcessor;
 $templateWord = new TemplateProcessor('test.docx'); // Formato de donde sacara la plantilla
 
-//$OC_Id = $_GET['OCID'];
-$OC_Id = 12;
+$OC_Id = $_POST['intIdOrdenCompra'];
+//$OC_Id = 12;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
