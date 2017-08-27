@@ -59,7 +59,7 @@ $(document).on('click', '.btn-mostrar-cliente', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
-	   	$("#tipo-persona").val($("#tipo-persona").val());
+	   	$("#tipo-persona").val($("#intIdTipoPersona").val());
 	   	MostrarTipoPersona();
 	   	MostrarDomicilio(intIdCliente,tipolistado);
 	   	MostrarComunicacion(intIdCliente,tipolistado);
@@ -89,6 +89,7 @@ $(document).on('click', '#btn-editar-cliente', function(){
 	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
+	   		$("#lista-persona").val($("#tipo-persona").val());
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -106,7 +107,7 @@ $(document).on('click', '.btn-eliminar-cliente', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
-  	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cliente.php",
 	   method:"POST",

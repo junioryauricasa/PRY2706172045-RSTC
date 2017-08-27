@@ -59,7 +59,7 @@ $(document).on('click', '.btn-mostrar-proveedor', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
-	   	$("#tipo-persona").val($("#tipo-persona").val());
+	   	$("#tipo-persona").val($("#intIdTipoPersona").val());
 	   	MostrarTipoPersona();
 	   	MostrarDomicilio(intIdProveedor,tipolistado);
 	   	MostrarComunicacion(intIdProveedor,tipolistado);
@@ -89,6 +89,7 @@ $(document).on('click', '#btn-editar-proveedor', function(){
 	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
 	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
+	   		$("#lista-persona").val($("#tipo-persona").val());
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -106,7 +107,7 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
-  	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
