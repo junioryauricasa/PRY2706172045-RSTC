@@ -352,15 +352,15 @@ if(!isset($_SESSION['user_session']))
                   </a>
                 </li>
                 <li>
-                  <a href="../ventas/vcotizacion">
+                  <a href="../ventas/vventa">
                     <i class="fa fa-circle-o"></i> 
-                      Cotización
+                      Registro de Ventas
                   </a>
                 </li>
                 <li>
-                  <a href="../ventas/vfacturacion">
+                  <a href="../ventas/vcotizacion">
                     <i class="fa fa-circle-o"></i> 
-                      Facturación
+                      Registro de Cotización
                   </a>
                 </li>
               </ul>

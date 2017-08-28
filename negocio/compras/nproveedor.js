@@ -595,7 +595,6 @@ function SeleccionarComunicacion(seleccion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Comunicacion Seleccionado */
-
 function EliminarDomicilio(seleccion) {
 	var intIdDomicilioProveedor = $(seleccion).attr("iddp");
 	var funcion = "ED";
@@ -613,7 +612,6 @@ function EliminarDomicilio(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Eliminar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 

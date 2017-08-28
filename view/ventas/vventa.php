@@ -6,7 +6,8 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/compras/nproveedor.js"></script>
+    <script type="text/javascript" src="../../negocio/ventas/nventa.js"></script>
+    <script type="text/javascript" src="../../negocio/ventas/ndetalleventa.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -24,8 +25,8 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Registro de Proveedores
-        <small>Módulo de Compras</small>
+        Registro de Ventas
+        <small>Módulo de Ventas</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -39,7 +40,7 @@ include('../_include/rstheader.php');
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Proveedores</h3>
+          <h3 class="box-title">Ventas</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -53,10 +54,10 @@ include('../_include/rstheader.php');
                 <label>Mostrar:</label>
                 <br>
                 <select id="num-lista" name="num-lista"  class="form-control select2">
-                  <option value="10">Ver 10 Resultados</option>
-                  <option value="25">Ver 25 Resultados</option>
-                  <option value="50">Ver 50 Resultados</option>
-                  <option value="100">Ver 100 Resultados</option>
+                      <option value="10">Ver 10 Resultados</option>
+                      <option value="25">Ver 25 Resultados</option>
+                      <option value="50">Ver 50 Resultados</option>
+                      <option value="100">Ver 100 Resultados</option>
                 </select>
               </div>
             </div>
@@ -68,9 +69,9 @@ include('../_include/rstheader.php');
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                <label>Tipo Persona:</label>
+                <label>Tipo Comprobante:</label>
                 <br>
-                <select id="lista-persona" name="lista-persona"  class="form-control select2">
+                <select id="lista-comprobante" name="lista-comprobante"  class="form-control select2">
                   <?php 
                     require_once '../../datos/conexion/bd_conexion.php';
                     try{
@@ -93,34 +94,32 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>#Código</th>
-                <th class="ListaDNI">DNI</th>
-                <th class="ListaRUC">RUC</th>
-                <th class="ListaRazonSocial">Razón Social</th>
-                <th class="ListaApellidoPaterno">Apellido Paterno</th>
-                <th class="ListaApellidoMaterno">Apellido Materno</th>
-                <th class="ListaNombres">Nombres</th>
+                <th class="listaNumFactura">Número de Factura</th>
+                <th class="listaNumBoletaVenta">Número de Boleta</th>
+                <th>Cliente</th>
+                <th>Usuario que Generó</th>
+                <th>Fecha de Creación</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeProveedores">
-                <script>ListarProveedor(0,10,"T",1);</script>
+              <tbody id="ListaDeVentas">
+                <script>ListarVenta(0,10,"T",1);</script>
               </tbody>
             </table>
-            <script>AccionCabecerasTabla("1");</script>
+            <script>AccionCabecerasTabla(1);</script>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeProveedores" class="pagination">
-                <script>PaginarProveedor(0,10,"T",1);</script>
+              <ul id="PaginacionDeVenta" class="pagination">
+                <script>PaginarVenta(0,10,"T",1);</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left">Agregar Proveedor</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
+          <button type="button" id="btn-form-crear-venta" class="btn btn-sm btn-info btn-flat pull-left">Crear Venta</button>
+          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte de las Ventas</a>
         </div>
       </div>
 
