@@ -5,33 +5,27 @@ class Producto
 {
   /* INICIO - Atributos de Producto*/
   private $intIdProducto;
-  private $nvchCodigoProducto;
-  private $nvchCodigoInventario;
   private $nvchNombre;
   private $nvchDescripcion;
-  private $dcmPrecioCompra;
-  private $dcmPrecioVenta;
+  private $nvchUnidadMedida;
   private $intCantidad;
-  private $nvchDescuento;
   private $nvchDireccionImg;
-  private $nvchSucursal;
-  private $nvchGabinete;
-  private $nvchCajon;
+  private $dcmPrecioVenta1;
+  private $dcmPrecioVenta2;
+  private $dcmPrecioVenta3;
   private $dtmFechaIngreso;
   
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
-  public function CodigoProducto($nvchCodigoProducto){ $this->nvchCodigoProducto = $nvchCodigoProducto; }
-  public function CodigoInventario($nvchCodigoInventario){ $this->nvchCodigoInventario = $nvchCodigoInventario; }
   public function Nombre($nvchNombre){ $this->nvchNombre = $nvchNombre; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
-  public function PrecioCompra($dcmPrecioCompra){ $this->dcmPrecioCompra = $dcmPrecioCompra; }
-  public function PrecioVenta($dcmPrecioVenta){ $this->dcmPrecioVenta = $dcmPrecioVenta; }
+  public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-  public function Descuento($nvchDescuento){ $this->nvchDescuento = $nvchDescuento; }
   public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
+  public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
+  public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
+  public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
   public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
-  public function Gabinete($nvchGabinete){ $this->nvchGabinete = $nvchGabinete; }
-  public function Cajon($nvchCajon){ $this->nvchCajon = $nvchCajon; }
+  public function Ubicacion($nvchUbicacion){ $this->nvchUbicacion = $nvchUbicacion; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   /* FIN - Atributos de Producto */
 
@@ -41,23 +35,20 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(:nvchCodigoProducto,
-        :nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,:dcmPrecioVenta,
-        :intCantidad,:nvchDescuento,:nvchDireccionImg,:nvchSucursal,:nvchGabinete,:nvchCajon,
-        :dtmFechaIngreso)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(:nvchNombre,:nvchDescripcion,
+        :nvchUnidadMedida,:intCantidad,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
+        :dcmPrecioVenta3,:nvchSucursal,:nvchUbicacion,:dtmFechaIngreso)');
       $sql_comando->execute(array(
-        ':nvchCodigoProducto' => $this->nvchCodigoProducto, 
-        ':nvchCodigoInventario' => $this->nvchCodigoInventario,
         ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
-        ':dcmPrecioCompra' => $this->dcmPrecioCompra,
-        ':dcmPrecioVenta' => $this->dcmPrecioVenta,
+        ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => $this->intCantidad,
-        ':nvchDescuento' => $this->nvchDescuento,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
+        ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
+        ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
         ':nvchSucursal' => $this->nvchSucursal,
-        ':nvchGabinete' => $this->nvchGabinete,
-        ':nvchCajon' => $this->nvchCajon,
+        ':nvchUbicacion' => $this->nvchUbicacion,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
       $_SESSION['intIdProducto'] = $this->intIdProducto;
       $_SESSION['RutaDefaultImg'] = "";
@@ -77,22 +68,20 @@ class Producto
       $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-      $formularioproducto = new FormularioProducto();
-      $formularioproducto->IdProducto($fila['intIdProducto']);
-      $formularioproducto->CodigoProducto($fila['nvchCodigoProducto']);
-      $formularioproducto->CodigoInventario($fila['nvchCodigoInventario']);
-      $formularioproducto->Nombre($fila['nvchNombre']);
-      $formularioproducto->Descripcion($fila['nvchDescripcion']);
-      $formularioproducto->PrecioCompra($fila['dcmPrecioCompra']);
-      $formularioproducto->PrecioVenta($fila['dcmPrecioVenta']);
-      $formularioproducto->Cantidad($fila['intCantidad']);
-      $formularioproducto->Descuento($fila['nvchDescuento']);
-      $formularioproducto->DireccionImg($fila['nvchDireccionImg']);
-      $formularioproducto->Sucursal($fila['nvchSucursal']);
-      $formularioproducto->Gabinete($fila['nvchGabinete']);
-      $formularioproducto->Cajon($fila['nvchCajon']);
-      $formularioproducto->FechaIngreso($fila['dtmFechaIngreso']);
-      $formularioproducto->ConsultarFormulario($funcion);
+      $FormularioProducto = new FormularioProducto();
+      $FormularioProducto->IdProducto($fila['intIdProducto']);
+      $FormularioProducto->Nombre($fila['nvchNombre']);
+      $FormularioProducto->Descripcion($fila['nvchDescripcion']);
+      $FormularioProducto->UnidadMedida($fila['nvchUnidadMedida']);
+      $FormularioProducto->Cantidad($fila['intCantidad']);
+      $FormularioProducto->DireccionImg($fila['nvchDireccionImg']);
+      $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
+      $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
+      $FormularioProducto->PrecioVenta3($fila['dcmPrecioVenta3']);
+      $FormularioProducto->Sucursal($fila['nvchSucursal']);
+      $FormularioProducto->Ubicacion($fila['nvchUbicacion']);
+      $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
+      $FormularioProducto->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -104,24 +93,21 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,
-        :nvchCodigoProducto,:nvchCodigoInventario,:nvchNombre,:nvchDescripcion,:dcmPrecioCompra,
-        :dcmPrecioVenta,:intCantidad,:nvchDescuento,:nvchDireccionImg,:nvchSucursal,:nvchGabinete,
-        :nvchCajon,:dtmFechaIngreso)');
+      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchNombre,:nvchDescripcion,
+        :nvchUnidadMedida,:intCantidad,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,
+        :nvchSucursal,:nvchUbicacion,:dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
-        ':nvchCodigoProducto' => $this->nvchCodigoProducto, 
-        ':nvchCodigoInventario' => $this->nvchCodigoInventario,
         ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
-        ':dcmPrecioCompra' => $this->dcmPrecioCompra,
-        ':dcmPrecioVenta' => $this->dcmPrecioVenta,
+        ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => $this->intCantidad,
-        ':nvchDescuento' => $this->nvchDescuento,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
+        ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
+        ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
         ':nvchSucursal' => $this->nvchSucursal,
-        ':nvchGabinete' => $this->nvchGabinete,
-        ':nvchCajon' => $this->nvchCajon,
+        ':nvchUbicacion' => $this->nvchUbicacion,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
       $_SESSION['intIdProducto'] = $this->intIdProducto;
       $_SESSION['RutaDefaultImg'] = "";
@@ -189,7 +175,6 @@ class Producto
         echo 
         '<td>PRT'.$fila["intIdProducto"].'</td>
         <td>'.$fila["nvchCodigoProducto"].'</td>
-        <td>'.$fila["nvchCodigoInventario"].'</td>
         <td>'.$fila["nvchNombre"].'</td>
         <td>'.$fila["nvchDescripcion"].'</td>
         <td>'.$fila["dcmPrecioCompra"].'</td>
@@ -303,16 +288,6 @@ class Producto
             </li>';
       }
       echo $output;
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }  
-  }
-
-  public function FiltrarImagen($file)
-  {
-    try{
-      
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

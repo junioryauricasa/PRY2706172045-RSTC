@@ -3,33 +3,27 @@ require_once '../conexion/bd_conexion.php';
 class FormularioProducto
 {
   private $intIdProducto;
-  private $nvchCodigoProducto;
-  private $nvchCodigoInventario;
   private $nvchNombre;
   private $nvchDescripcion;
-  private $dcmPrecioCompra;
-  private $dcmPrecioVenta;
+  private $nvchUnidadMedida;
   private $intCantidad;
-  private $nvchDescuento;
   private $nvchDireccionImg;
-  private $nvchSucursal;
-  private $nvchGabinete;
-  private $nvchCajon;
+  private $dcmPrecioVenta1;
+  private $dcmPrecioVenta2;
+  private $dcmPrecioVenta3;
   private $dtmFechaIngreso;
 
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
-  public function CodigoProducto($nvchCodigoProducto){ $this->nvchCodigoProducto = $nvchCodigoProducto; }
-  public function CodigoInventario($nvchCodigoInventario){ $this->nvchCodigoInventario = $nvchCodigoInventario; }
   public function Nombre($nvchNombre){ $this->nvchNombre = $nvchNombre; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
-  public function PrecioCompra($dcmPrecioCompra){ $this->dcmPrecioCompra = $dcmPrecioCompra; }
-  public function PrecioVenta($dcmPrecioVenta){ $this->dcmPrecioVenta = $dcmPrecioVenta; }
+  public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-  public function Descuento($nvchDescuento){ $this->nvchDescuento = $nvchDescuento; }
   public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
+  public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
+  public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
+  public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
   public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
-  public function Gabinete($nvchGabinete){ $this->nvchGabinete = $nvchGabinete; }
-  public function Cajon($nvchCajon){ $this->nvchCajon = $nvchCajon; }
+  public function Ubicacion($nvchUbicacion){ $this->nvchUbicacion = $nvchUbicacion; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
 
   function ConsultarFormulario($funcion)
@@ -52,26 +46,26 @@ class FormularioProducto
             <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Código del Producto Principal:</label>
-                    <input type="text" name="nvchCodigoProducto" class="form-control select2" placeholder="Ingrese código del producto" value="<?php echo $this->nvchCodigoProducto; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
                     <label>Nombre:</label>
-                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese nombre del producto" value="<?php echo $this->nvchNombre; ?>" required>
+                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese Nombre del Producto" value="<?php echo $this->nvchNombre; ?>" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Descripción:</label>
-                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese la descripción" value="<?php echo $this->nvchDescripcion; ?>" required>
+                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese la Descripción" value="<?php echo $this->nvchDescripcion; ?>" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Unidad de Medida:</label>
-                    <input type="text" name="dcmPrecioCompra" class="form-control select2" placeholder="Ingrese el precio de compra" value="<?php echo $this->dcmPrecioCompra; ?>" required>
+                    <input type="text" name="nvchUnidadMedida" class="form-control select2" placeholder="Ingrese Unidad de Medida" value="<?php echo $this->nvchUnidadMedida; ?>" required>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Cantidad:</label>
+                    <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese Cantidad" value="<?php echo $this->intCantidad; ?>" required>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -98,8 +92,27 @@ class FormularioProducto
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>Código Adicional:</label>
-                <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el Precio de Venta" value=""/>
+                <label>Código:</label>
+                <input type="text" class="form-control select2" placeholder="Ingrese Código Adicional" value=""/>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Tipo de Código:</label>
+                <select id="tipo-codigo-producto" class="form-control select2" >
+                  <?php try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipocodigoproducto()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoCodigoProducto'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
               </div>
             </div>
           </div>
@@ -114,11 +127,12 @@ class FormularioProducto
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>Código Adicional</th>>
+                <th>Código</th>
+                <th>Tipo</th>
                 <th>Opción</th>
               </tr>
               </thead>
-              <tbody id="ListaDeCodigosAdicionales">
+              <tbody id="ListaDeCodigos">
               </tbody>
             </table>
           </div>
@@ -132,49 +146,28 @@ class FormularioProducto
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>Ingresar Precio de Venta:</label>
-                <input type="text" name="dcmPrecioVenta" class="form-control select2" placeholder="Ingrese el Precio de Venta" value="">
+                <label>Precio de Venta 1:</label>
+                <input type="text" name="dcmPrecioVenta1" class="form-control select2" placeholder="Ingrese el Precio de Venta 1" value="">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Cantidad Mínima:</label>
-                <input type="text" name="intCantidadMinima" class="form-control select2" placeholder="Ingrese Cantidad Mínima" value="">
+                <label>Precio de Venta 2:</label>
+                <input type="text" name="dcmPrecioVenta2" class="form-control select2" placeholder="Ingrese el Precio de Venta 2" value="">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Cantidad Máxima:</label>
-                <input type="text" name="intCantidadMaxima" class="form-control select2" placeholder="Ingrese Cantidad Máxima" value="">
+                <label>Precio de Venta 3:</label>
+                <input type="text" name="dcmPrecioVenta3" class="form-control select2" placeholder="Ingrese el Precio de Venta 3" value="">
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-              <input type="button" class="form-control select2 form-control select2 btn btn-success" placeholder="Ingrese la cantidad" value="Agregar Precio" onclick="AgregarPrecioVenta(this)">
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-              <thead>
-              <tr>
-                <th>Precio de Venta</th>
-                <th>Cantidad Mínima</th>
-                <th>Cantidad Máxima</th>
-                <th>Opción</th>
-              </tr>
-              </thead>
-              <tbody id="ListaDePreciosVenta">
-              </tbody>
-            </table>
           </div>
         </div>
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
-        <h3 class="box-title">Ubigeo</h3>
+        <h3 class="box-title">Ubicación del Producto</h3>
       </div>
         <div class="box-body">
           <div class="row">
@@ -190,7 +183,7 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Ubicación en el Almacén:</label>
-                <input type="text" name="nvchUbicacion" class="form-control select2" placeholder="Ingrese la cantidad" value="<?php echo $this->intCantidad; ?>" required>
+                <input type="text" name="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" value="<?php echo $this->nvchUbicacion; ?>" required>
               </div>
             </div>
           </div>

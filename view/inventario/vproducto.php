@@ -24,7 +24,7 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Administrar Productos
+        Registro de Productos
         <small>Módulo de Inventario</small>
       </h1>
       <ol class="breadcrumb">
@@ -39,7 +39,7 @@ include('../_include/rstheader.php');
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Registro de Productos</h3>
+          <h3 class="box-title">Productos</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -62,8 +62,8 @@ include('../_include/rstheader.php');
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                  <label class="text-left">Ingresar Búsqueda:</label>
-                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+                <label class="text-left">Ingresar Búsqueda:</label>
+                <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
           </div>
@@ -71,15 +71,11 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>#Código</th>
-                <th>Código de Producto</th>
-                <th>Código de Inventario</th>
+                <th>Código</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Precio de Compra</th>
-                <th>Precio de Venta</th>
+                <th>Unidad de Medida</th>
                 <th>Cantidad</th>
-                <th>Descuento</th>
                 <th>Imágen</th>
                 <th>Opciones</th>
               </tr>
