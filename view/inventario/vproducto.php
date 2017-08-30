@@ -66,15 +66,28 @@ include('../_include/rstheader.php');
                 <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Tipo de Búsqueda:</label>
+                <br>
+                <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2" >
+                  <option value="T">Resto de Campos</option>
+                  <option value="C">Por Códigos</option>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
+                <th>Id</th>
                 <th>Código</th>
-                <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Unidad de Medida</th>
+                <th>Precio de Venta 1</th>
+                <th>Precio de Venta 2</th>
+                <th>Precio de Venta 3</th>
                 <th>Cantidad</th>
                 <th>Imágen</th>
                 <th>Opciones</th>

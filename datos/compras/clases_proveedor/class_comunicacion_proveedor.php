@@ -1,5 +1,4 @@
 <?php
-//session_start();
 require_once '../conexion/bd_conexion.php';
 class ComunicacionProveedor
 {

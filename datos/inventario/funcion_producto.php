@@ -1,70 +1,100 @@
 <?php
 session_start();
-require_once 'clases_producto/class_formulario_producto.php';
 require_once 'clases_producto/class_producto.php';
+require_once 'clases_producto/class_codigo_producto.php';
+require_once 'clases_producto/class_ubigeo_producto.php';
+require_once 'clases_producto/class_formulario_producto.php';
 if(empty($_SESSION['intIdProducto'])){
   $_SESSION['intIdProducto'] = 0;
 }
 switch($_POST['funcion']){
   case "I":
-    $producto = new Producto();
-    $producto->CodigoProducto($_POST['nvchCodigoProducto']);
-    $producto->CodigoInventario($_POST['nvchCodigoInventario']);
-    $producto->Nombre($_POST['nvchNombre']);
-    $producto->Descripcion($_POST['nvchDescripcion']);
-    $producto->PrecioCompra($_POST['dcmPrecioCompra']);
-    $producto->PrecioVenta($_POST['dcmPrecioVenta']);
-    $producto->Cantidad($_POST['intCantidad']);
-    $producto->Descuento($_POST['nvchDescuento']);
+    $Producto = new Producto();
+    $Producto->Nombre($_POST['nvchNombre']);
+    $Producto->Descripcion($_POST['nvchDescripcion']);
+    $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
+    $Producto->Cantidad($_POST['intCantidad']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-    $producto->DireccionImg($nvchDireccionImg);
-    $producto->Sucursal($_POST['nvchSucursal']);
-    $producto->Gabinete($_POST['nvchGabinete']);
-    $producto->Cajon($_POST['nvchCajon']);
+    $Producto->DireccionImg($nvchDireccionImg);
+    $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
+    $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
+    $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
-    $producto->FechaIngreso($dtmFechaIngreso);
-    $producto->InsertarProducto();
+    $Producto->FechaIngreso($dtmFechaIngreso);
+    $Producto->InsertarProducto();
+    $CodigoProducto = new CodigoProducto();
+    $CodigoProducto->IdProducto($_SESSION['intIdProducto']);
+    $CodigoProducto->Codigo($_POST['nvchCodigo']);
+    $CodigoProducto->FechaInicio($dtmFechaIngreso);
+    $CodigoProducto->FechaFinal('0000-00-00 00:00:00');
+    $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
+    $CodigoProducto->InsertarCodigoProducto();
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdProducto($_SESSION['intIdProducto']);
+    $UbigeoProducto->Sucursal($_POST['nvchSucursal']);
+    $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
+    $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
+    $UbigeoProducto->InsertarUbigeoProducto();
+    break;
+  case "ICP":
+    $CodigoProducto = new CodigoProducto();
+    $CodigoProducto->IdProveedor($_POST['intIdProveedor']);
+    $CodigoProducto->Pais($_POST['nvchPais']);
+    $CodigoProducto->Region($_POST['nvchRegion']);
+    $CodigoProducto->Provincia($_POST['nvchProvincia']);
+    $CodigoProducto->Distrito($_POST['nvchDistrito']);
+    $CodigoProducto->Direccion($_POST['nvchDireccion']);
+    $CodigoProducto->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
+    $CodigoProducto->InsertarCodigoProducto_II();
+    break;
+  case "IUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdProveedor($_POST['intIdProveedor']);
+    $UbigeoProducto->Pais($_POST['nvchPais']);
+    $UbigeoProducto->Region($_POST['nvchRegion']);
+    $UbigeoProducto->Provincia($_POST['nvchProvincia']);
+    $UbigeoProducto->Distrito($_POST['nvchDistrito']);
+    $UbigeoProducto->Direccion($_POST['nvchDireccion']);
+    $UbigeoProducto->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
+    $UbigeoProducto->InsertarCodigoProducto_II();
     break;
   case "A":
-    $producto = new Producto();
-    $producto->IdProducto($_POST['intIdProducto']);
-    $producto->CodigoProducto($_POST['nvchCodigoProducto']);
-    $producto->CodigoInventario($_POST['nvchCodigoInventario']);
-    $producto->Nombre($_POST['nvchNombre']);
-    $producto->Descripcion($_POST['nvchDescripcion']);
-    $producto->PrecioCompra($_POST['dcmPrecioCompra']);
-    $producto->PrecioVenta($_POST['dcmPrecioVenta']);
-    $producto->Cantidad($_POST['intCantidad']);
-    $producto->Descuento($_POST['nvchDescuento']);
+    $Producto = new Producto();
+    $Producto->IdProducto($_POST['intIdProducto']);
+    $Producto->Nombre($_POST['nvchNombre']);
+    $Producto->Descripcion($_POST['nvchDescripcion']);
+    $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
+    $Producto->Cantidad($_POST['intCantidad']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-    $producto->DireccionImg($nvchDireccionImg);
-    $producto->Sucursal($_POST['nvchSucursal']);
-    $producto->Gabinete($_POST['nvchGabinete']);
-    $producto->Cajon($_POST['nvchCajon']);
-    $producto->FechaIngreso($_POST['dtmFechaIngreso']);
-    $producto->ActualizarProducto();
+    $Producto->DireccionImg($nvchDireccionImg);
+    $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
+    $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
+    $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
+    $dtmFechaIngreso = date("Y-m-d H:i:s");
+    $Producto->FechaIngreso($dtmFechaIngreso);
+    $Producto->ActualizarProducto();
     break;
   case "M":
-    $producto = new Producto();
-    $producto->IdProducto($_POST['intIdProducto']);
-    $producto->MostrarProducto($_POST['funcion']);
+    $Producto = new Producto();
+    $Producto->IdProducto($_POST['intIdProducto']);
+    $Producto->MostrarProducto($_POST['funcion']);
     break;
   case "E":
-    $producto = new Producto();
-    $producto->IdProducto($_POST['intIdProducto']);
-    $producto->EliminarProducto();
+    $Producto = new Producto();
+    $Producto->IdProducto($_POST['intIdProducto']);
+    $Producto->EliminarProducto();
     break;
   case "L":
-    $producto = new Producto();
-    $producto->ListarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Producto = new Producto();
+    $Producto->ListarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['TipoBusqueda']);
     break;
   case "P":
-    $producto = new Producto();
-    $producto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Producto = new Producto();
+    $Producto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['TipoBusqueda']);
     break;
   case "F":
-    $formularioproducto = new FormularioProducto();
-    $formularioproducto->ConsultarFormulario($_POST['funcion']);
+    $FormularioProducto = new FormularioProducto();
+    $FormularioProducto->ConsultarFormulario($_POST['funcion']);
     break;
 }
 ?>

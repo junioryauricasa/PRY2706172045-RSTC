@@ -3,28 +3,26 @@ USE db_resteco;
 DROP PROCEDURE IF EXISTS INSERTARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARPRODUCTO(
-	IN _nvchCodigoProducto VARCHAR(25),
-	IN _nvchCodigoInventario VARCHAR(10),
+	OUT _intIdProducto INT,
     IN _nvchNombre VARCHAR(250),
     IN _nvchDescripcion VARCHAR(500),
-    IN _dcmPrecioCompra DECIMAL(11,2),
-	IN _dcmPrecioVenta DECIMAL(11,2),
-	IN _intCantidad INT,
-	IN _nvchDescuento VARCHAR(450),
-	IN _nvchDireccionImg VARCHAR(450),
-	IN _nvchSucursal VARCHAR(250),
-	IN _nvchGabinete VARCHAR(250),
-	IN _nvchCajon VARCHAR(250),
+    IN _nvchUnidadMedida VARCHAR(50),
+    IN _intCantidad INT,
+    IN _nvchDireccionImg VARCHAR(450),
+	IN _dcmPrecioVenta1 DECIMAL(11,2),
+	IN _dcmPrecioVenta2 DECIMAL(11,2),
+	IN _dcmPrecioVenta3 DECIMAL(11,2),
 	IN _dtmFechaIngreso DATETIME
     )
 	BEGIN
 		INSERT INTO tb_producto 
-		(nvchCodigoProducto,nvchCodigoInventario,nvchNombre,nvchDescripcion,dcmPrecioCompra,
-		dcmPrecioVenta,intCantidad,nvchDescuento,nvchDireccionImg,nvchSucursal,nvchGabinete,nvchCajon,dtmFechaIngreso)
+		(nvchNombre,nvchDescripcion,nvchUnidadMedida,intCantidad,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
+		dcmPrecioVenta3,dtmFechaIngreso)
 		VALUES
-		(_nvchCodigoProducto,_nvchCodigoInventario,_nvchNombre,_nvchDescripcion,_dcmPrecioCompra,
-		_dcmPrecioVenta,_intCantidad,_nvchDescuento,_nvchDireccionImg,_nvchSucursal,_nvchGabinete,_nvchCajon,_dtmFechaIngreso);
-    END 
+		(_nvchNombre,_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
+		_dcmPrecioVenta3,_dtmFechaIngreso);
+		SET _intIdProducto = LAST_INSERT_ID();
+    END
 $$
 DELIMITER ;
 
@@ -32,35 +30,27 @@ DROP PROCEDURE IF EXISTS ACTUALIZARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARPRODUCTO(
 	IN _intIdProducto INT,
-    IN _nvchCodigoProducto VARCHAR(25),
-	IN _nvchCodigoInventario VARCHAR(10),
     IN _nvchNombre VARCHAR(250),
     IN _nvchDescripcion VARCHAR(500),
-    IN _dcmPrecioCompra DECIMAL(11,2),
-	IN _dcmPrecioVenta DECIMAL(11,2),
-	IN _intCantidad INT,
-	IN _nvchDescuento VARCHAR(450),
-	IN _nvchDireccionImg VARCHAR(450),
-	IN _nvchSucursal VARCHAR(250),
-	IN _nvchGabinete VARCHAR(250),
-	IN _nvchCajon VARCHAR(250),
+    IN _nvchUnidadMedida VARCHAR(50),
+    IN _intCantidad INT,
+    IN _nvchDireccionImg VARCHAR(450),
+	IN _dcmPrecioVenta1 DECIMAL(11,2),
+	IN _dcmPrecioVenta2 DECIMAL(11,2),
+	IN _dcmPrecioVenta3 DECIMAL(11,2),
 	IN _dtmFechaIngreso DATETIME
     )
 	BEGIN
 		UPDATE tb_producto
 		SET
-		nvchCodigoProducto = _nvchCodigoProducto,
-		nvchCodigoInventario = _nvchCodigoInventario,
 		nvchNombre = _nvchNombre,
 		nvchDescripcion = _nvchDescripcion,
-		dcmPrecioCompra = _dcmPrecioCompra,
-		dcmPrecioVenta = _dcmPrecioVenta,
+		nvchUnidadMedida = _nvchUnidadMedida,
 		intCantidad = _intCantidad,
-		nvchDescuento = _nvchDescuento,
 		nvchDireccionImg = _nvchDireccionImg,
-		nvchSucursal = _nvchSucursal,
-		nvchGabinete = _nvchGabinete,
-		nvchCajon = _nvchCajon,
+		dcmPrecioVenta1 = _dcmPrecioVenta1,
+		dcmPrecioVenta2 = _dcmPrecioVenta2,
+		dcmPrecioVenta3 = _dcmPrecioVenta3,
 		dtmFechaIngreso = _dtmFechaIngreso
 		WHERE 
 		intIdProducto = _intIdProducto;
@@ -98,7 +88,7 @@ DROP PROCEDURE IF EXISTS LISTARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE LISTARPRODUCTO(
     	IN _x INT,
-	IN _y INT
+		IN _y INT
     )
 	BEGIN
 		SELECT * FROM tb_producto
@@ -120,51 +110,70 @@ DROP PROCEDURE IF EXISTS BUSCARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARPRODUCTO(
     	IN _elemento VARCHAR(500),
-	IN _x INT,
-	IN _y INT
+		IN _x INT,
+		IN _y INT,
+		IN _TipoBusqueda VARCHAR(2)
     )
 	BEGIN
-		SELECT * FROM tb_producto 
+	IF(_TipoBusqueda = "T") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
-		intIdProducto LIKE CONCAT(_elemento,'%') OR
-		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
-		nvchCodigoInventario LIKE CONCAT(_elemento,'%') OR
-		nvchNombre LIKE CONCAT(_elemento,'%') OR
-		nvchDescripcion LIKE CONCAT(_elemento,'%') OR
-		dcmPrecioCompra LIKE CONCAT(_elemento,'%') OR
-		dcmPrecioVenta LIKE CONCAT(_elemento,'%') OR
-		intCantidad LIKE CONCAT(_elemento,'%') OR
-		nvchDescuento LIKE CONCAT(_elemento,'%') OR
-		nvchSucursal LIKE CONCAT(_elemento,'%') OR
-		nvchGabinete LIKE CONCAT(_elemento,'%') OR 
-		nvchCajon LIKE CONCAT(_elemento,'%') OR 
-		dtmFechaIngreso LIKE CONCAT(_elemento,'%')
+		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
+		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
+		P.intCantidad LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta1 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta2 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta3 LIKE CONCAT(_elemento,'%') OR
+		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
+		CP.intIdTipoCodigoProducto = 1
 		LIMIT _x,_y;
-    END 
+	END IF;
+	IF(_TipoBusqueda = "C") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%')
+		LIMIT _x,_y;
+	END IF;
+    END
 $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS BUSCARPRODUCTO_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARPRODUCTO_II(
-    	IN _elemento VARCHAR(500)
+    	IN _elemento VARCHAR(500),
+    	IN _TipoBusqueda VARCHAR(2)
     )
 	BEGIN
-		SELECT * FROM tb_producto 
+		IF(_TipoBusqueda = "T") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
-		intIdProducto LIKE CONCAT(_elemento,'%') OR
-		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
-		nvchCodigoInventario LIKE CONCAT(_elemento,'%') OR
-		nvchNombre LIKE CONCAT(_elemento,'%') OR
-		nvchDescripcion LIKE CONCAT(_elemento,'%') OR
-		dcmPrecioCompra LIKE CONCAT(_elemento,'%') OR
-		dcmPrecioVenta LIKE CONCAT(_elemento,'%') OR
-		intCantidad LIKE CONCAT(_elemento,'%') OR
-		nvchDescuento LIKE CONCAT(_elemento,'%') OR
-		nvchSucursal LIKE CONCAT(_elemento,'%') OR
-		nvchGabinete LIKE CONCAT(_elemento,'%') OR 
-		nvchCajon LIKE CONCAT(_elemento,'%') OR 
-		dtmFechaIngreso LIKE CONCAT(_elemento,'%');
+		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
+		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
+		P.intCantidad LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta1 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta2 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta3 LIKE CONCAT(_elemento,'%') OR
+		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
+		CP.intIdTipoCodigoProducto = 1;
+	END IF;
+	IF(_TipoBusqueda = "C") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%');
+	END IF;
     END 
 $$
 DELIMITER ;

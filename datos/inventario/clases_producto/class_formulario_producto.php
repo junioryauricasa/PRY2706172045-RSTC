@@ -22,8 +22,6 @@ class FormularioProducto
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
-  public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
-  public function Ubicacion($nvchUbicacion){ $this->nvchUbicacion = $nvchUbicacion; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
 
   function ConsultarFormulario($funcion)
@@ -93,7 +91,7 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Código:</label>
-                <input type="text" class="form-control select2" placeholder="Ingrese Código Adicional" value=""/>
+                <input type="text" id="nvchCodigo" class="form-control select2" placeholder="Ingrese Código Adicional" value=""/>
               </div>
             </div>
             <div class="col-md-3">
@@ -119,7 +117,7 @@ class FormularioProducto
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-              <input type="button" class="form-control select2 btn btn-success" placeholder="Ingrese el código" value="Agregar Código" onclick="AgregarCodigoAdicional(this)"/>
+              <input type="button" class="form-control select2 btn btn-success" value="Agregar Código" onclick="AgregarCodigo()"/>
               </div>
             </div>
           </div>
@@ -183,9 +181,35 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Ubicación en el Almacén:</label>
-                <input type="text" name="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" value="<?php echo $this->nvchUbicacion; ?>" required>
+                <input type="text" id="nvchUbicacion" name="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" required>
               </div>
             </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Cantidad:</label>
+                <input type="text" id="intCantidadUbigeo" name="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Ubicacion" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              <input type="button" class="form-control select2 btn btn-success" value="Agregar Ubicación" onclick="AgregarUbicacion()"/>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Sucursal</th>
+                <th>Ubicación en el Almacén</th>
+                <th>Opción</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDeUbicaciones">
+              </tbody>
+            </table>
           </div>
         </div>  
           <div class="box-footer clearfix">

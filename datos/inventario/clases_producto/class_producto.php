@@ -24,8 +24,6 @@ class Producto
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
-  public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
-  public function Ubicacion($nvchUbicacion){ $this->nvchUbicacion = $nvchUbicacion; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   /* FIN - Atributos de Producto */
 
@@ -35,9 +33,9 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(:nvchNombre,:nvchDescripcion,
+      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchNombre,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
-        :dcmPrecioVenta3,:nvchSucursal,:nvchUbicacion,:dtmFechaIngreso)');
+        :dcmPrecioVenta3,:dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
@@ -47,10 +45,11 @@ class Producto
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
-        ':nvchSucursal' => $this->nvchSucursal,
-        ':nvchUbicacion' => $this->nvchUbicacion,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
-      $_SESSION['intIdProducto'] = $this->intIdProducto;
+      $sql_comando->closeCursor();
+      $salidas = $sql_conectar->query("select @intIdProducto as intIdProducto");
+      $salida = $salidas->fetchObject();
+      $_SESSION['intIdProducto'] = $salida->intIdProducto;
       $_SESSION['RutaDefaultImg'] = "";
       echo "ok";
     }
@@ -78,8 +77,6 @@ class Producto
       $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
       $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
       $FormularioProducto->PrecioVenta3($fila['dcmPrecioVenta3']);
-      $FormularioProducto->Sucursal($fila['nvchSucursal']);
-      $FormularioProducto->Ubicacion($fila['nvchUbicacion']);
       $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
       $FormularioProducto->ConsultarFormulario($funcion);
     }
@@ -95,7 +92,7 @@ class Producto
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchNombre,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,
-        :nvchSucursal,:nvchUbicacion,:dtmFechaIngreso)');
+        :dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
         ':nvchNombre' => $this->nvchNombre,
@@ -106,8 +103,6 @@ class Producto
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
-        ':nvchSucursal' => $this->nvchSucursal,
-        ':nvchUbicacion' => $this->nvchUbicacion,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
       $_SESSION['intIdProducto'] = $this->intIdProducto;
       $_SESSION['RutaDefaultImg'] = "";
@@ -133,7 +128,7 @@ class Producto
     }
   }
 
-  public function ListarProductos($busqueda,$x,$y,$tipolistado)
+  public function ListarProductos($busqueda,$x,$y,$tipolistado,$TipoBusqueda)
   {
     try{
       $residuo = 0;
@@ -145,55 +140,57 @@ class Producto
       //Busqueda de producto por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de producto por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':TipoBusqueda' => $TipoBusqueda));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($i == ($cantidad - $x) && $tipolistado == "N"){
-          echo '<tr bgcolor="#BEE1EB">';
-        } else if($fila["intIdProducto"] == $_SESSION['intIdProducto'] && $tipolistado == "E"){
-          echo '<tr bgcolor="#B3E4C0">';
-        }else {
-          echo '<tr>';
+        if($fila["nvchCodigo"]!=""){
+          if($i == ($cantidad - $x) && $tipolistado == "N"){
+            echo '<tr bgcolor="#BEE1EB">';
+          } else if($fila["intIdProducto"] == $_SESSION['intIdProducto'] && $tipolistado == "E"){
+            echo '<tr bgcolor="#B3E4C0">';
+          }else {
+            echo '<tr>';
+          }
+          echo 
+          '<td>PRT'.$fila["intIdProducto"].'</td>
+          <td>'.$fila["nvchCodigo"].'</td>
+          <td>'.$fila["nvchDescripcion"].'</td>
+          <td>'.$fila["nvchUnidadMedida"].'</td>
+          <td>'.$fila["dcmPrecioVenta1"].'</td>
+          <td>'.$fila["dcmPrecioVenta2"].'</td>
+          <td>'.$fila["dcmPrecioVenta3"].'</td>
+          <td>'.$fila["intCantidad"].'</td>
+          <td>
+            <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
+          </td>
+          <td> 
+            <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
+              <i class="fa fa-edit"></i> Editar
+            </button>
+            <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
+              <i class="fa fa-edit"></i> Eliminar
+            </button>
+          </td>  
+          </tr>';
+          $i++;
         }
-        echo 
-        '<td>PRT'.$fila["intIdProducto"].'</td>
-        <td>'.$fila["nvchCodigoProducto"].'</td>
-        <td>'.$fila["nvchNombre"].'</td>
-        <td>'.$fila["nvchDescripcion"].'</td>
-        <td>'.$fila["dcmPrecioCompra"].'</td>
-        <td>'.$fila["dcmPrecioVenta"].'</td>
-        <td>'.$fila["intCantidad"].'</td>
-        <td>'.$fila["nvchDescuento"].'</td>
-        <td>
-          <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
-        </td>
-        <td> 
-          <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>  
-        </tr>';
-        $i++;
       }
     }
     catch(PDPExceptio $e){
@@ -201,15 +198,15 @@ class Producto
     }  
   }
 
-  public function PaginarProductos($busqueda,$x,$y,$tipolistado)
+  public function PaginarProductos($busqueda,$x,$y,$tipolistado,$TipoBusqueda)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':TipoBusqueda' => $TipoBusqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
