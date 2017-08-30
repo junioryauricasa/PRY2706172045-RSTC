@@ -38,25 +38,21 @@ switch($_POST['funcion']){
     break;
   case "ICP":
     $CodigoProducto = new CodigoProducto();
-    $CodigoProducto->IdProveedor($_POST['intIdProveedor']);
-    $CodigoProducto->Pais($_POST['nvchPais']);
-    $CodigoProducto->Region($_POST['nvchRegion']);
-    $CodigoProducto->Provincia($_POST['nvchProvincia']);
-    $CodigoProducto->Distrito($_POST['nvchDistrito']);
-    $CodigoProducto->Direccion($_POST['nvchDireccion']);
-    $CodigoProducto->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
+    $CodigoProducto->IdProducto($_POST['intIdProducto']);
+    $CodigoProducto->Codigo($_POST['nvchCodigo']);
+    $dtmFechaInicio = date("Y-m-d H:i:s");
+    $CodigoProducto->FechaInicio($dtmFechaInicio);
+    $CodigoProducto->FechaFinal('0000-00-00 00:00:00');
+    $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
     $CodigoProducto->InsertarCodigoProducto_II();
     break;
   case "IUP":
     $UbigeoProducto = new UbigeoProducto();
-    $UbigeoProducto->IdProveedor($_POST['intIdProveedor']);
-    $UbigeoProducto->Pais($_POST['nvchPais']);
-    $UbigeoProducto->Region($_POST['nvchRegion']);
-    $UbigeoProducto->Provincia($_POST['nvchProvincia']);
-    $UbigeoProducto->Distrito($_POST['nvchDistrito']);
-    $UbigeoProducto->Direccion($_POST['nvchDireccion']);
-    $UbigeoProducto->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
-    $UbigeoProducto->InsertarCodigoProducto_II();
+    $UbigeoProducto->IdProducto($_POST['intIdProducto']);
+    $UbigeoProducto->Sucursal($_POST['nvchSucursal']);
+    $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
+    $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
+    $UbigeoProducto->InsertarUbigeoProducto_II();
     break;
   case "A":
     $Producto = new Producto();
@@ -74,15 +70,65 @@ switch($_POST['funcion']){
     $Producto->FechaIngreso($dtmFechaIngreso);
     $Producto->ActualizarProducto();
     break;
+  case "ACP":
+    $CodigoProducto = new CodigoProducto();
+    $CodigoProducto->IdCodigoProducto($_POST['intIdCodigoProducto']);
+    $CodigoProducto->IdProducto($_POST['intIdProducto']);
+    $CodigoProducto->Codigo($_POST['nvchCodigo']);
+    $dtmFechaInicio = date("Y-m-d H:i:s");
+    $CodigoProducto->FechaInicio($dtmFechaInicio);
+    $CodigoProducto->FechaFinal('0000-00-00 00:00:00');
+    $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
+    $CodigoProducto->ActualizarCodigoProducto();
+    break;
+  case "AUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdUbigeoProducto($_POST['intIdUbigeoProducto']);
+    $UbigeoProducto->IdProducto($_POST['intIdProducto']);
+    $UbigeoProducto->Sucursal($_POST['nvchSucursal']);
+    $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
+    $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
+    $UbigeoProducto->ActualizarUbigeoProducto();
+    break;
   case "M":
     $Producto = new Producto();
     $Producto->IdProducto($_POST['intIdProducto']);
     $Producto->MostrarProducto($_POST['funcion']);
     break;
+  case "MCP":
+    $CodigoProducto = new CodigoProducto();
+    $CodigoProducto->IdProducto($_POST['intIdProducto']);
+    $CodigoProducto->MostrarCodigoProducto($_POST['tipolistado']);
+    break;
+  case "MUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdProducto($_POST['intIdProducto']);
+    $UbigeoProducto->MostrarUbigeoProducto($_POST['tipolistado']);
+    break;
+  case "SCP":
+    $CodigoProducto = new CodigoProducto();
+    $CodigoProducto->IdCodigoProducto($_POST['intIdCodigoProducto']);
+    $CodigoProducto->SeleccionarCodigoProducto();
+    break;
+  case "SUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdUbigeoProducto($_POST['intIdUbigeoProducto']);
+    $UbigeoProducto->SeleccionarUbigeoProducto();
+    break;
   case "E":
     $Producto = new Producto();
     $Producto->IdProducto($_POST['intIdProducto']);
     $Producto->EliminarProducto();
+    break;
+  case "ECP":
+    $CodigoProducto = new CodigoProducto();
+    $CodigoProducto->IdCodigoProducto($_POST['intIdCodigoProducto']);
+    $CodigoProducto->EliminarCodigoProducto();
+    break;
+  case "EUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdUbigeoProducto($_POST['intIdUbigeoProducto']);
+    $UbigeoProducto->EliminarUbigeoProducto();
     break;
   case "L":
     $Producto = new Producto();
