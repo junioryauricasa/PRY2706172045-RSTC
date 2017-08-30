@@ -84,10 +84,10 @@ class CodigoProducto
         <td><input type="hidden" name="dtmFechaFinal[]" value="'.$fila['dtmFechaFinal'].'"/>'.$fila['dtmFechaFinal'].'</td>
         <td><input type="hidden" name="intIdTipoCodigoProducto[]" value="'.$fila['intIdTipoCodigoProducto'].'"/>'.$fila['NombreTipoCodigo'].'</td>
         <td> 
-          <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
+          <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCodigo(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+          <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarCodigo(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>

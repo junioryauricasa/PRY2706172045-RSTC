@@ -74,7 +74,7 @@ DELIMITER $$
     	IN _intIdProducto INT
     )
 	BEGIN
-		SELECT CP.*,TC.nvchNombre AS NombreTipoCodigo FROM tb_codigo_producto CP
+		SELECT CP.*,TCP.nvchNombre AS NombreTipoCodigo FROM tb_codigo_producto CP
 		LEFT JOIN tb_tipo_codigo_producto TCP ON CP.intIdTipoCodigoProducto = TCP.intIdTipoCodigoProducto
 		WHERE 
 		intIdProducto = _intIdProducto;

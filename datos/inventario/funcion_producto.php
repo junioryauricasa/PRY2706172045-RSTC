@@ -7,6 +7,12 @@ require_once 'clases_producto/class_formulario_producto.php';
 if(empty($_SESSION['intIdProducto'])){
   $_SESSION['intIdProducto'] = 0;
 }
+if(empty($_SESSION['intIdCodigoProducto'])){
+  $_SESSION['intIdCodigoProducto'] = 0;
+}
+if(empty($_SESSION['intIdUbigeoProducto'])){
+  $_SESSION['intIdUbigeoProducto'] = 0;
+}
 switch($_POST['funcion']){
   case "I":
     $Producto = new Producto();

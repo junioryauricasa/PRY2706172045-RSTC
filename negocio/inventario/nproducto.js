@@ -49,6 +49,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 $(document).on('click', '.btn-mostrar-producto', function(){
   	  var intIdProducto = $(this).attr("id");
   	  var funcion = "M";
+  	  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
 	   method:"POST",
@@ -56,6 +57,8 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	MostrarCodigo(intIdProducto,tipolistado);
+	   	MostrarUbigeo(intIdProducto,tipolistado);
 	   }
 	  });
 	 return false;

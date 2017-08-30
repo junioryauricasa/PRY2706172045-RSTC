@@ -1,6 +1,5 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
-
 function PaginacionProveedores(seleccion) {
 	var busqueda = document.getElementById("BusquedaProveedor").value;
 	var y = 5;
@@ -17,13 +16,11 @@ function PaginacionProveedores(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Paginar Proveedores para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
-
 function PaginacionProductos(seleccion) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var y = 5;
@@ -41,13 +38,11 @@ function PaginacionProductos(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Paginar Proveedores para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
-
 function PaginarProveedoresSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProveedor").value;
 	var funcion = "PPD";
@@ -61,13 +56,11 @@ function PaginarProveedoresSeleccion(x,y) {
 	   }
 	  });
 }
-
 /* FIN - Paginar Proveedores para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
-
 function PaginarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "PPT";
@@ -81,13 +74,11 @@ function PaginarProductosSeleccion(x,y) {
 	   }
 	  });
 }
-
 /* FIN - Paginar Proveedores para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Proveedores para la Selección */
-
 function ListarProveedoresSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProveedor").value;
 	var funcion = "MPD";
@@ -101,13 +92,11 @@ function ListarProveedoresSeleccion(x,y) {
 	   }
 	  });
 }
-
 /* FIN - Listar Proveedores para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Productos para la Selección */
-
 function ListarProductosSeleccion(x,y,tipofuncion) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
@@ -121,13 +110,11 @@ function ListarProductosSeleccion(x,y,tipofuncion) {
 	   }
 	  });
 }
-
 /* FIN - Listar Productos para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Comunicacion Nueva */
-
 function AgregarDetalleOrdenCompra_II(seleccion) {
 	var intIdOrdenCompra = document.getElementById("intIdOrdenCompra").value;
 	var intIdProducto = $(seleccion).attr("idsprt");
@@ -154,13 +141,11 @@ function AgregarDetalleOrdenCompra_II(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Insertar Comunicacion Nueva */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-
 function MostrarDetalleOrdenCompra(intIdOrdenCompra,tipolistado) {
 	var funcion = "MDOC";
 	  $.ajax({
@@ -173,13 +158,11 @@ function MostrarDetalleOrdenCompra(intIdOrdenCompra,tipolistado) {
 	   }
 	  });
 }
-
 /* FIN - Mostrar Detalle Orden Compra Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Comunicacion Seleccionado */
-
 function ActualizarDetalleOrdenCompra() {
 	var intIdOperacionOrdenCompra = document.getElementById("intIdOperacionOrdenCompra").value;
 	var intIdOrdenCompra = document.getElementById("intIdOrdenCompra").value;
@@ -210,13 +193,11 @@ function ActualizarDetalleOrdenCompra() {
 	   }
 	  });
 }
-
 /* FIN - Actualizar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Domicilio Seleccionado */
-
 function SeleccionarDetalleOrdenCompra(seleccion) {
 	var intIdOperacionOrdenCompra = $(seleccion).attr("idooc");
 	var funcion = "SDOC";
@@ -237,13 +218,11 @@ function SeleccionarDetalleOrdenCompra(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Mostrar Domicilio Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Comunicacion Seleccionado */
-
 function EliminarDetalleOrdenCompra(seleccion) {
 	var intIdOperacionOrdenCompra = $(seleccion).attr("idooc");
 	var intIdOrdenCompra = document.getElementById("intIdOrdenCompra").value;
@@ -262,13 +241,11 @@ function EliminarDetalleOrdenCompra(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Eliminar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Elemento Proveedor*/
-
 $(document).on('keyup', '#BusquedaProducto', function(){
 	  var busqueda = document.getElementById("BusquedaProducto").value;
   	  var y = 5;
@@ -287,13 +264,11 @@ $(document).on('keyup', '#BusquedaProducto', function(){
 	  });
 	 return false;
 });
-
 /* FIN - Funcion Ajax - Buscar Elemento Proveedor */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
-
 function SeleccionarProducto(seleccion) {
 	var intIdProducto = $(seleccion).attr("idsprt");
 	var nvchNombre = $("input[type=hidden][name='SnvchNombre["+intIdProducto+"]']").val();
@@ -310,18 +285,15 @@ function SeleccionarProducto(seleccion) {
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }
-
 /* FIN - Listar Domicilios según Ingresa */
 ////////////////////////////////////////////////////////////// 
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Fila Seleccionada */
-
 function EliminarFila(btn) {
 	var fila = btn.parentNode.parentNode;
   	fila.parentNode.removeChild(fila);
 }
-
 /* FIN - Eliminar Fila Seleccionada */
 //////////////////////////////////////////////////////////////
 

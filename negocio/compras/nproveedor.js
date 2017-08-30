@@ -352,7 +352,6 @@ function EliminarFila(btn) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Domicilios del Proveedor Seleccionado */
-
 function MostrarDomicilio(intIdProveedor,tipolistado) {
 	var funcion = "MD";
 	  $.ajax({
@@ -365,13 +364,11 @@ function MostrarDomicilio(intIdProveedor,tipolistado) {
 	   }
 	  });
 }
-
 /* FIN - Mostrar Domicilios del Proveedor Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Comunicaciones del Proveedor Seleccionado */
-
 function MostrarComunicacion(intIdProveedor,tipolistado) {
 	var funcion = "MC";
 	  $.ajax({
@@ -384,13 +381,11 @@ function MostrarComunicacion(intIdProveedor,tipolistado) {
 	   }
 	  });
 }
-
 /* FIN - Mostrar Comunicaciones del Proveedor Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Comunicacion Nueva */
-
 function AgregarComunicacion_II() {
 	var intIdProveedor = document.getElementById("intIdProveedor").value;
 	var nvchMedio = document.getElementById("nvchMedio").value;
@@ -417,13 +412,11 @@ function AgregarComunicacion_II() {
 	   }
 	  });
 }
-
 /* FIN - Insertar Comunicacion Nueva */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Domicilio Nuevo */
-
 function AgregarDomicilio_II() {
 	var intIdProveedor = document.getElementById("intIdProveedor").value;
 	var nvchPais = document.getElementById("nvchPais").value;
@@ -456,13 +449,11 @@ function AgregarDomicilio_II() {
 	   }
 	  });
 }
-
 /* FIN - Insertar Domicilio Nuevo */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Comunicacion Seleccionado */
-
 function ActualizarComunicacion() {
 	var intIdComunicacionProveedor = document.getElementById("intIdComunicacionProveedor").value;
 	var intIdProveedor = document.getElementById("intIdProveedor").value;
@@ -493,13 +484,11 @@ function ActualizarComunicacion() {
 	   }
 	  });
 }
-
 /* FIN - Actualizar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Domicilio Seleccionado */
-
 function ActualizarDomicilio() {
 	var intIdDomicilioProveedor = document.getElementById("intIdDomicilioProveedor").value;
 	var intIdProveedor = document.getElementById("intIdProveedor").value;
@@ -536,13 +525,11 @@ function ActualizarDomicilio() {
 	   }
 	  });
 }
-
 /* FIN - Actualizar Domicilio Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Domicilio Seleccionado */
-
 function SeleccionarDomicilio(seleccion) {
 	var intIdDomicilioProveedor = $(seleccion).attr("iddp");
 	var funcion = "SD";
@@ -564,13 +551,11 @@ function SeleccionarDomicilio(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Mostrar Domicilio Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Comunicacion Seleccionado */
-
 function SeleccionarComunicacion(seleccion) {
 	var intIdComunicacionProveedor = $(seleccion).attr("idcp");
 	var funcion = "SC";
@@ -589,7 +574,6 @@ function SeleccionarComunicacion(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Mostrar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 
@@ -617,7 +601,6 @@ function EliminarDomicilio(seleccion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Comunicacion Seleccionado */
-
 function EliminarComunicacion(seleccion) {
 	var intIdComunicacionProveedor = $(seleccion).attr("idcp");
 	var funcion = "EC";
@@ -635,7 +618,6 @@ function EliminarComunicacion(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Eliminar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 

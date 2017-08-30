@@ -2,7 +2,7 @@
 require_once '../conexion/bd_conexion.php';
 class UbigeoProducto
 {
-  /* INICIO - Atributos de Comunicacion Proveedor*/
+  /* INICIO - Atributos de Ubigeo Proveedor*/
   private $intIdUbigeoProducto;
   private $intIdProducto;
   private $nvchSucursal;
@@ -14,9 +14,9 @@ class UbigeoProducto
   public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
   public function Ubicacion($nvchUbicacion){ $this->nvchUbicacion = $nvchUbicacion; }
   public function CantidadUbigeo($intCantidadUbigeo){ $this->intCantidadUbigeo = $intCantidadUbigeo; }
-  /* FIN - Atributos de Comunicacion Proveedor */
+  /* FIN - Atributos de Ubigeo Proveedor */
 
-  /* INICIO - Métodos de Comunicacion Proveedor */
+  /* INICIO - Métodos de Ubigeo Proveedor */
   public function InsertarUbigeoProducto()
   {
     try{
@@ -79,10 +79,10 @@ class UbigeoProducto
         <td><input type="hidden" name="nvchUbicacion[]" value="'.$fila['nvchUbicacion'].'"/>'.$fila['nvchUbicacion'].'</td>
         <td><input type="hidden" name="intCantidadUbigeo[]" value="'.$fila['intCantidadUbigeo'].'"/>'.$fila['intCantidadUbigeo'].'</td>
         <td> 
-          <button type="button" idcp="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
+          <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarUbigeo(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" idcp="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+          <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarUbigeo(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
@@ -104,9 +104,8 @@ class UbigeoProducto
       $sql_comando -> execute(array(':intIdUbigeoProducto' => $this->intIdUbigeoProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
       $salida['intIdUbigeoProducto'] = $fila['intIdUbigeoProducto'];
-      $salida['nvchCodigo'] = $fila['nvchCodigo'];
-      $salida['dtmFechaInicio'] = $fila['dtmFechaInicio'];
-      $salida['dtmFechaFinal'] = $fila['dtmFechaFinal'];
+      $salida['nvchSucursal'] = $fila['nvchSucursal'];
+      $salida['nvchUbicacion'] = $fila['nvchUbicacion'];
       $salida['intCantidadUbigeo'] = $fila['intCantidadUbigeo'];
       echo json_encode($salida);
     }
@@ -149,6 +148,6 @@ class UbigeoProducto
       echo $e->getMessage();
     }
   }
-  /* FIN - Métodos de Comunicacion Proveedor */
+  /* FIN - Métodos de Ubigeo Proveedor */
 }
 ?>

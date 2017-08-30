@@ -177,7 +177,7 @@ class FormularioProveedor
                   <input type="button" onclick="AgregarDomicilio_II()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
                   <?php } ?>
                   <input type="button" onclick="ActualizarDomicilio()" id="btn-actualizar-domicilio" name="btn-actualizar-domicilio" class="btn btn-sm btn-warning btn-flat" value="Editar Domicilio">
-                    <input type="button" onclick="BotonesDomicilio('I')" id="btn-cancelar-domicilio" name="btn-cancelar-domicilio" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                  <input type="button" onclick="BotonesDomicilio('I')" id="btn-cancelar-domicilio" name="btn-cancelar-domicilio" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
                 </div>
               </div>
             </div>

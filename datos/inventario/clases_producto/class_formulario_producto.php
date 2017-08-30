@@ -91,9 +91,23 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Código:</label>
-                <input type="text" id="nvchCodigo" class="form-control select2" placeholder="Ingrese Código Adicional" value=""/>
+                <input type="text" id="nvchCodigo" class="form-control select2" placeholder="Ingrese Código"/>
               </div>
             </div>
+            <?php if($funcion == "M") { ?>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Fecha de Inicio:</label>
+                <input type="text" id="dtmFechaInicio" class="form-control select2" placeholder="Ingrese Fecha de Inicio"/>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Fecha de Finalización:</label>
+                <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="Ingrese Fecha de Finalización"/>
+              </div>
+            </div>
+            <?php } ?>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Tipo de Código:</label>
@@ -113,11 +127,19 @@ class FormularioProducto
                 </select>
               </div>
             </div>
+            <input type="hidden" id="intIdCodigoProducto" />
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-5">
               <div class="form-group">
-              <input type="button" class="form-control select2 btn btn-success" value="Agregar Código" onclick="AgregarCodigo()"/>
+              <script type="text/javascript">BotonesCodigo('I');</script>
+              <?php if($funcion == "F") { ?>
+              <input type="button" id="btn-agregar-codigo" class="form-control select2 btn btn-success" value="Agregar Código" onclick="AgregarCodigo()"/>
+              <?php } else if($funcion == "M") { ?>
+              <input type="button" id="btn-agregar-codigo" class="form-control select2 btn btn-success" value="Agregar Código" onclick="AgregarCodigo_II()"/>
+              <?php } ?>
+              <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código">
+              <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
               </div>
             </div>
           </div>
@@ -126,6 +148,10 @@ class FormularioProducto
               <thead>
               <tr>
                 <th>Código</th>
+                <?php if($funcion == "M") { ?>
+                <th>Fecha Inicio</th>
+                <th>Fecha Final</th>
+                <?php } ?>
                 <th>Tipo</th>
                 <th>Opción</th>
               </tr>
@@ -181,20 +207,27 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Ubicación en el Almacén:</label>
-                <input type="text" id="nvchUbicacion" name="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" required>
+                <input type="text" id="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" required>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Cantidad:</label>
-                <input type="text" id="intCantidadUbigeo" name="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Ubicacion" required>
+                <input type="text" id="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Ubicacion" required>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-5">
               <div class="form-group">
-              <input type="button" class="form-control select2 btn btn-success" value="Agregar Ubicación" onclick="AgregarUbicacion()"/>
+              <script type="text/javascript">BotonesUbigeo('I');</script>
+              <?php if($funcion == "F") { ?>
+              <input type="button" id="btn-agregar-ubigeo" class="form-control select2 btn btn-success" value="Agregar Ubigeo" onclick="AgregarUbigeo()"/>
+              <?php } else if($funcion == "M") { ?>
+              <input type="button" id="btn-agregar-ubigeo" class="form-control select2 btn btn-success" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()"/>
+              <?php } ?>
+              <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat" value="Editar Ubicación">
+              <input type="button" onclick="BotonesUbigeo('I')" id="btn-cancelar-ubigeo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
               </div>
             </div>
           </div>
@@ -211,6 +244,7 @@ class FormularioProducto
               </tbody>
             </table>
           </div>
+          <input type="hidden" id="intIdUbigeoProducto" />
         </div>  
           <div class="box-footer clearfix">
               <?php if($funcion == "F"){ ?>
@@ -218,7 +252,7 @@ class FormularioProducto
               <?php } else if($funcion == "M") { ?>
               <input type="hidden" name="funcion" value="A" />
               <?php } ?>
-              <input type="hidden" name="intIdProducto" value="<?php echo $this->intIdProducto; ?>" />
+              <input type="hidden" id="intIdProducto" name="intIdProducto" value="<?php echo $this->intIdProducto; ?>" />
               <input type="hidden" name="dtmFechaIngreso" value="<?php echo $this->dtmFechaIngreso; ?>" />
               <?php if($funcion == "F"){ ?>
               <input type="submit" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
