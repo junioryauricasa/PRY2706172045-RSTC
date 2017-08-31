@@ -165,21 +165,24 @@ class DetalleVenta
     }
   }
 
-  public function ListarProductoVenta($busqueda,$x,$y,$tipofuncion)
+  public function ListarProductoVenta($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
   {
   	try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ListarProductoVenta(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':TipoBusqueda' => $TipoBusqueda));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
       	echo 
       	'<tr>
-        <td><input type="hidden" name="SintIdProducto['.$fila['intIdProducto'].']" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
+        <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="SnvchNombre['.$fila['intIdProducto'].']" value="'.$fila['nvchNombre'].'"/>'.$fila['nvchNombre'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Precio"></td>
+        <td><input type="hidden" name="SdcmPrecioVenta1['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta1'].'"/>'.$fila['dcmPrecioVenta1'].'</td>
+        <td><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>'.$fila['dcmPrecioVenta2'].'</td>
+        <td><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta3'].'</td>
+        <td><input type="text" name="SdcmPrecioVenta['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Precio"></td>
         <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>
         <td>';
         if($tipofuncion == "F") {
@@ -203,13 +206,13 @@ class DetalleVenta
     }
   }
 
-  public function PaginarProductosVenta($busqueda,$x,$y)
+  public function PaginarProductosVenta($busqueda,$x,$y,$TipoBusqueda)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL PAGINARPRODUCTOVenta(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       $output = "";

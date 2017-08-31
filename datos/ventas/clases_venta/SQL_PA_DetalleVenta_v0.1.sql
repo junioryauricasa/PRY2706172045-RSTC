@@ -146,12 +146,31 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT * FROM tb_producto 
-		WHERE
-		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
-		nvchNombre LIKE CONCAT(_elemento,'%') OR
-		nvchDescripcion LIKE CONCAT(_elemento,'%')
- 		LIMIT _x,_y;
+	IF(_TipoBusqueda = "T") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
+		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
+		P.intCantidad LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta1 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta2 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta3 LIKE CONCAT(_elemento,'%') OR
+		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
+		CP.intIdTipoCodigoProducto = 1
+		LIMIT _x,_y;
+	END IF;
+	IF(_TipoBusqueda = "C") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%')
+		LIMIT _x,_y;
+	END IF;
     END 
 $$
 DELIMITER ;
@@ -189,11 +208,29 @@ DELIMITER $$
 		IN _elemento VARCHAR(600)
     )
 	BEGIN
-		SELECT * FROM tb_producto 
-		WHERE
-		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
-		nvchNombre LIKE CONCAT(_elemento,'%') OR
-		nvchDescripcion LIKE CONCAT(_elemento,'%');
+	IF(_TipoBusqueda = "T") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
+		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
+		P.intCantidad LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta1 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta2 LIKE CONCAT(_elemento,'%') OR
+		P.dcmPrecioVenta3 LIKE CONCAT(_elemento,'%') OR
+		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
+		CP.intIdTipoCodigoProducto = 1;
+	END IF;
+	IF(_TipoBusqueda = "C") THEN
+		SELECT P.*, CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%');
+	END IF;
     END 
 $$
 DELIMITER ;

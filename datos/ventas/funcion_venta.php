@@ -109,15 +109,15 @@ switch($_POST['funcion']){
     break;
   case "MPT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->ListarProductoVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion']);
+    $DetalleVenta->ListarProductoVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion'],$_POST['TipoBusqueda']);
     break;
   case "PPT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
     break;
   case "PPV":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
     break;
   case "F":
     $FormularioVenta = new FormularioVenta();

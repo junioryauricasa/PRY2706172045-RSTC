@@ -151,7 +151,7 @@ DELIMITER $$
     	IN _TipoBusqueda VARCHAR(2)
     )
 	BEGIN
-		IF(_TipoBusqueda = "T") THEN
+	IF(_TipoBusqueda = "T") THEN
 		SELECT P.*, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
