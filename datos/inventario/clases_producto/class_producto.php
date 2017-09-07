@@ -9,6 +9,7 @@ class Producto
   private $nvchDescripcion;
   private $nvchUnidadMedida;
   private $intCantidad;
+  private $intCantidadMinima;
   private $nvchDireccionImg;
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
@@ -20,6 +21,7 @@ class Producto
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
+  public function CantidadMinima($intCantidadMinima){ $this->intCantidadMinima = $intCantidadMinima; }
   public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
@@ -34,13 +36,14 @@ class Producto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchNombre,:nvchDescripcion,
-        :nvchUnidadMedida,:intCantidad,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
+        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
         :dcmPrecioVenta3,:dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
-        ':intCantidad' => $this->intCantidad,
+        ':intCantidad' => 0,
+        ':intCantidadMinima' => $this->intCantidadMinima,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
@@ -73,6 +76,7 @@ class Producto
       $FormularioProducto->Descripcion($fila['nvchDescripcion']);
       $FormularioProducto->UnidadMedida($fila['nvchUnidadMedida']);
       $FormularioProducto->Cantidad($fila['intCantidad']);
+      $FormularioProducto->CantidadMinima($fila['intCantidadMinima']);
       $FormularioProducto->DireccionImg($fila['nvchDireccionImg']);
       $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
       $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
@@ -91,7 +95,7 @@ class Producto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchNombre,:nvchDescripcion,
-        :nvchUnidadMedida,:intCantidad,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,
+        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,
         :dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
@@ -99,6 +103,7 @@ class Producto
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => $this->intCantidad,
+        ':intCantidadMinima' => $this->intCantidadMinima,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
@@ -169,7 +174,7 @@ class Producto
             echo '<tr>';
           }
           echo 
-          '<td>PRT'.$fila["intIdProducto"].'</td>
+          '<td>'.$fila["intIdProducto"].'</td>
           <td>'.$fila["nvchCodigo"].'</td>
           <td>'.$fila["nvchDescripcion"].'</td>
           <td>'.$fila["nvchUnidadMedida"].'</td>
@@ -217,7 +222,6 @@ class Producto
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
         {
-          //$output = 'No s eencontraron nada';
           if($x==0)
           {
             $output .= 

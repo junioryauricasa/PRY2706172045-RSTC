@@ -6,7 +6,7 @@ function PaginacionClientes(seleccion) {
 	var x = $(seleccion).attr("idcli") * y;
 	var funcion = "MCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
 	   success:function(datos)
@@ -29,7 +29,7 @@ function PaginacionProductos(seleccion) {
 	var tipofuncion = document.getElementById("tipofuncion").value;
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -48,7 +48,7 @@ function PaginarClientesSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "PCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
 	   success:function(datos)
@@ -67,7 +67,7 @@ function PaginarProductosSeleccion(x,y) {
 	var funcion = "PPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -85,7 +85,7 @@ function ListarClientesSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "MCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
 	   success:function(datos)
@@ -104,7 +104,7 @@ function ListarProductosSeleccion(x,y,tipofuncion) {
 	var funcion = "MPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -118,17 +118,17 @@ function ListarProductosSeleccion(x,y,tipofuncion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Comunicacion Nueva */
-function AgregarDetalleVenta_II(seleccion) {
-	var intIdVenta = document.getElementById("intIdVenta").value;
+function AgregarDetalleCotizacion_II(seleccion) {
+	var intIdCotizacion = document.getElementById("intIdCotizacion").value;
 	var intIdProducto = $(seleccion).attr("idsprt");
 	var dcmPrecio = $("input[type=text][name='SdcmPrecio["+intIdProducto+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
 	var tipolistado = "I";
 	var funcion = "IDV";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,
+	   data:{intIdCotizacion:intIdCotizacion,
 	   		intIdProducto:intIdProducto,
 	   		intCantidad:intCantidad,
 	   		dcmPrecio:dcmPrecio,
@@ -137,7 +137,7 @@ function AgregarDetalleVenta_II(seleccion) {
 	   {
 	   	if(datos == "ok"){
 	   		alert("Se insertó correctamente la comunicación");
-	   		MostrarDetalleVenta(intIdVenta,tipolistado);
+	   		MostrarDetalleCotizacion(intIdCotizacion,tipolistado);
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -149,12 +149,12 @@ function AgregarDetalleVenta_II(seleccion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-function MostrarDetalleVenta(intIdVenta,tipolistado) {
-	var funcion = "MDV";
+function MostrarDetalleCotizacion(intIdCotizacion,tipolistado) {
+	var funcion = "MDCT";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosComprar").html(datos);
@@ -167,20 +167,20 @@ function MostrarDetalleVenta(intIdVenta,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Comunicacion Seleccionado */
-function ActualizarDetalleVenta() {
+function ActualizarDetalleCotizacion() {
 	var intIdOperacionVenta = document.getElementById("intIdOperacionVenta").value;
-	var intIdVenta = document.getElementById("intIdVenta").value;
+	var intIdCotizacion = document.getElementById("intIdCotizacion").value;
 	var intIdProducto = document.getElementById("intIdProducto").value;
 	var intCantidad = document.getElementById("intCantidad").value;
 	var dcmPrecio = document.getElementById("dcmPrecio").value;
 	var tipolistado = "A";
 	var accion = "C";
-	var funcion = "ADV";
+	var funcion = "ADCT";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{intIdOperacionVenta:intIdOperacionVenta,
-	   		intIdVenta:intIdVenta,
+	   		intIdCotizacion:intIdCotizacion,
 	   		intIdProducto:intIdProducto,
 	   		intCantidad:intCantidad,
 	   		dcmPrecio:dcmPrecio,
@@ -189,8 +189,8 @@ function ActualizarDetalleVenta() {
 	   {
 	   	if(datos == "ok"){
 	   		alert("Se modificó correctamente el Detalle de Orden de Compra");
-	   		MostrarDetalleVenta(intIdVenta,tipolistado);
-	   		CamposDetalleVenta(accion);
+	   		MostrarDetalleCotizacion(intIdCotizacion,tipolistado);
+	   		CamposDetalleCotizacion(accion);
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -202,11 +202,11 @@ function ActualizarDetalleVenta() {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Domicilio Seleccionado */
-function SeleccionarDetalleVenta(seleccion) {
+function SeleccionarDetalleCotizacion(seleccion) {
 	var intIdOperacionVenta = $(seleccion).attr("idov");
-	var funcion = "SDV";
+	var funcion = "SDCT";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{intIdOperacionVenta:intIdOperacionVenta,funcion:funcion},
 	   dataType:"json",
@@ -218,7 +218,7 @@ function SeleccionarDetalleVenta(seleccion) {
 	   	$("#nvchDescripcion").val(datos.nvchDescripcion);
 	   	$("#dcmPrecio").val(datos.dcmPrecio);
 	   	$("#intCantidad").val(datos.intCantidad);
-	   	CamposDetalleVenta('I');
+	   	CamposDetalleCotizacion('I');
 	   }
 	  });
 }
@@ -227,20 +227,20 @@ function SeleccionarDetalleVenta(seleccion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Comunicacion Seleccionado */
-function EliminarDetalleVenta(seleccion) {
+function EliminarDetalleCotizacion(seleccion) {
 	var intIdOperacionVenta = $(seleccion).attr("idov");
-	var intIdVenta = document.getElementById("intIdVenta").value;
-	var funcion = "EDV";
+	var intIdCotizacion = document.getElementById("intIdCotizacion").value;
+	var funcion = "EDCT";
 	var tipolistado = "T";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{intIdOperacionVenta:intIdOperacionVenta,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	 if(datos=="ok"){
 	   	 	alert("Se eliminó correctamente el Domicilio Seleccionado");
-	   	 	MostrarDetalleVenta(intIdVenta,tipolistado);
+	   	 	MostrarDetalleCotizacion(intIdCotizacion,tipolistado);
 	   	 }
 	   }
 	  });
@@ -258,7 +258,7 @@ $(document).on('keyup', '#BusquedaProducto', function(){
   	  var tipofuncion = document.getElementById("tipofuncion").value;
   	  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -282,7 +282,7 @@ $(document).on('change', '#tipo-busqueda', function(){
   	  var tipofuncion = document.getElementById("tipofuncion").value;
   	  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -318,24 +318,6 @@ function SeleccionarProducto(seleccion) {
 ////////////////////////////////////////////////////////////// 
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Listar Domicilios según Ingresa */
-function InsertarCotizacion() {
-	var nvchNumeracionCotizacion =  document.getElementById("nvchNumeracionCotizacion").value;
-	var funcion = "ICT";
-	$.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
-	   method:"POST",
-	   data:{nvchNumeracionCotizacion:nvchNumeracionCotizacion,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProductosComprar").append(datos); 
-	   }
-	  });
-}
-/* FIN - Listar Domicilios según Ingresa */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Fila Seleccionada */
 function EliminarFila(btn) {
 	var fila = btn.parentNode.parentNode;
@@ -346,11 +328,11 @@ function EliminarFila(btn) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Campos */
-function CamposDetalleVenta(accion) {
+function CamposDetalleCotizacion(accion) {
 	if(accion == "I"){
-		$("#CamposDetalleVenta").show();
+		$("#CamposDetalleCotizacion").show();
 	} else if (accion == "C") {
-		$("#CamposDetalleVenta").hide();
+		$("#CamposDetalleCotizacion").hide();
 	}
 }
 /* FIN - Ocultar Campos */

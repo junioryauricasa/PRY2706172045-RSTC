@@ -298,7 +298,7 @@ function AgregarCodigo() {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Ubicaciones según Ingresa */
-function AgregarUbicacion() {
+function AgregarUbigeo() {
 	var nvchSucursal = document.getElementById("nvchSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;

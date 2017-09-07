@@ -1,115 +1,114 @@
 USE db_resteco;
 
-DROP PROCEDURE IF EXISTS INSERTARDETALLEVENTA;
+DROP PROCEDURE IF EXISTS INSERTARDETALLECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE INSERTARDETALLEVENTA(
-	IN _intIdVenta INT,
+	CREATE PROCEDURE INSERTARDETALLECOTIZACION(
+	IN _intIdCotizacion INT,
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _intCantidadPendiente INT,
 	IN _dcmPrecio DECIMAL(11,2)
     )
 	BEGIN
-		INSERT INTO tb_detalle_venta 
-		(intIdVenta,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadPendiente,dcmPrecio)
+		INSERT INTO tb_detalle_cotizacion 
+		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,dcmPrecio)
 		VALUES
-		(_intIdVenta,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadPendiente,_dcmPrecio);
+		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_dcmPrecio);
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS ACTUALIZARDETALLEVENTA;
+DROP PROCEDURE IF EXISTS ACTUALIZARDETALLECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE ACTUALIZARDETALLEVENTA(
-	IN _intIdOperacionVenta INT,
-	IN _intIdVenta INT,
+	CREATE PROCEDURE ACTUALIZARDETALLECOTIZACION(
+	IN _intIdOperacionCotizacion INT,
+	IN _intIdCotizacion INT,
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
 	IN _dcmPrecio DECIMAL(11,2)
     )
 	BEGIN
-		UPDATE tb_detalle_venta
+		UPDATE tb_detalle_cotizacion
 		SET
-		intIdVenta = _intIdVenta,
+		intIdCotizacion = _intIdCotizacion,
 		intIdProducto = _intIdProducto,
 		dtmFechaRealizada = _dtmFechaRealizada,
 		intCantidad = _intCantidad,
 		dcmPrecio = _dcmPrecio
 		WHERE 
-		intIdOperacionVenta = _intIdOperacionVenta;
+		intIdOperacionCotizacion = _intIdOperacionCotizacion;
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS SELECCIONARDETALLEVENTA;
+DROP PROCEDURE IF EXISTS SELECCIONARDETALLECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE SELECCIONARDETALLEVENTA(
-    	IN _intIdOperacionVenta INT
+	CREATE PROCEDURE SELECCIONARDETALLECOTIZACION(
+    	IN _intIdOperacionCotizacion INT
     )
 	BEGIN
-		SELECT DV.*,P.nvchNombre,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_venta DV
-		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
+		SELECT DCT.*,P.nvchNombre,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_cotizacion DCT
+		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
 		WHERE 
-		intIdOperacionVenta = _intIdOperacionVenta;
+		intIdOperacionCotizacion = _intIdOperacionCotizacion;
     END 
 $$
 DELIMITER ;
 
 
-DROP PROCEDURE IF EXISTS ELIMINARDETALLEVENTA;
+DROP PROCEDURE IF EXISTS ELIMINARDETALLECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE ELIMINARDETALLEVENTA(
-    	IN _intIdOperacionVenta INT
+	CREATE PROCEDURE ELIMINARDETALLECOTIZACION(
+    	IN _intIdOperacionCotizacion INT
     )
 	BEGIN
-		DELETE FROM tb_detalle_venta
+		DELETE FROM tb_detalle_cotizacion
 		WHERE 
-		intIdOperacionVenta = _intIdOperacionVenta;
+		intIdOperacionCotizacion = _intIdOperacionCotizacion;
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS ELIMINARDETALLESVENTA;
+DROP PROCEDURE IF EXISTS ELIMINARDETALLESCOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE ELIMINARDETALLESVENTA(
-    	IN _intIdVenta INT
+	CREATE PROCEDURE ELIMINARDETALLESCOTIZACION(
+    	IN _intIdCotizacion INT
     )
 	BEGIN
-		DELETE FROM tb_detalle_venta
+		DELETE FROM tb_detalle_cotizacion
 		WHERE 
-		intIdVenta = _intIdVenta;
+		intIdCotizacion = _intIdCotizacion;
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS MOSTRARDETALLEVENTA;
+DROP PROCEDURE IF EXISTS MOSTRARDETALLECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE MOSTRARDETALLEVENTA(
-    	IN _intIdVenta INT
+	CREATE PROCEDURE MOSTRARDETALLECOTIZACION(
+    	IN _intIdCotizacion INT
     )
 	BEGIN
-		SELECT DV.*,P.nvchNombre,P.nvchDescripcion FROM tb_detalle_venta DV
-		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
+		SELECT DCT.*,P.nvchNombre,P.nvchDescripcion FROM tb_detalle_cotizacion DCT
+		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
 		WHERE
-		intIdVenta = _intIdVenta;
+		intIdCotizacion = _intIdCotizacion;
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS TODODETALLEVENTA;
+DROP PROCEDURE IF EXISTS TODODETALLECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE TODODETALLEVENTA()
+	CREATE PROCEDURE TODODETALLECOTIZACION()
 	BEGIN
-		SELECT * FROM tb_detalle_venta;
+		SELECT * FROM tb_detalle_cotizacion;
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS LISTARCLIENTEVENTA;
+DROP PROCEDURE IF EXISTS LISTARCLIENTECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE LISTARCLIENTEVENTA(
+	CREATE PROCEDURE LISTARCLIENTECOTIZACION(
 		IN _elemento VARCHAR(600),
     	IN _x INT,
 		IN _y INT
@@ -138,9 +137,9 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS LISTARPRODUCTOVENTA;
+DROP PROCEDURE IF EXISTS LISTARPRODUCTOCOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE LISTARPRODUCTOVENTA(
+	CREATE PROCEDURE LISTARPRODUCTOCOTIZACION(
 		IN _elemento VARCHAR(600),
     	IN _x INT,
 		IN _y INT
@@ -175,9 +174,9 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS PAGINARCLIENTEVENTA;
+DROP PROCEDURE IF EXISTS PAGINARCLIENTECOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE PAGINARCLIENTEVENTA(
+	CREATE PROCEDURE PAGINARCLIENTECOTIZACION(
 		IN _elemento VARCHAR(600)
     )
 	BEGIN
@@ -202,9 +201,9 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS PAGINARPRODUCTOVENTA;
+DROP PROCEDURE IF EXISTS PAGINARPRODUCTOCOTIZACION;
 DELIMITER $$
-	CREATE PROCEDURE PAGINARPRODUCTOVENTA(
+	CREATE PROCEDURE PAGINARPRODUCTOCOTIZACION(
 		IN _elemento VARCHAR(600)
     )
 	BEGIN
@@ -231,21 +230,6 @@ DELIMITER $$
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%');
 	END IF;
-    END 
-$$
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS InsertarCotizacionVenta;
-DELIMITER $$
-	CREATE PROCEDURE InsertarCotizacionVenta(
-    	IN _nvchNumeracion VARCHAR(30)
-    )
-	BEGIN
-		SELECT DCT.*,P.nvchNombre,P.nvchDescripcion FROM tb_cotizacion CT
-		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
-		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
-		WHERE
-		CT.nvchNumeracion = _nvchNumeracion;
     END 
 $$
 DELIMITER ;

@@ -18,8 +18,8 @@ require_once '../../datos/conexion/bd_conexion.php';
 	  $sql_conexion = new Conexion_BD();
 	  $sql_conectar = $sql_conexion->Conectar();
 	  $busqueda = "";
-	  $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda)');
-	  $sql_comando -> execute(array(':busqueda' => $busqueda));
+	  $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+	  $sql_comando -> execute(array(':busqueda' => $busqueda,':TipoBusqueda' => 'T'));
 	  $cantidad = $sql_comando -> rowCount();
 	  echo $cantidad; 
 	}

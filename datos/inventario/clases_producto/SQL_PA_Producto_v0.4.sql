@@ -8,6 +8,7 @@ DELIMITER $$
     IN _nvchDescripcion VARCHAR(500),
     IN _nvchUnidadMedida VARCHAR(50),
     IN _intCantidad INT,
+    IN _intCantidadMinima INT,
     IN _nvchDireccionImg VARCHAR(450),
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
@@ -16,10 +17,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_producto 
-		(nvchNombre,nvchDescripcion,nvchUnidadMedida,intCantidad,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
+		(nvchNombre,nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
 		dcmPrecioVenta3,dtmFechaIngreso)
 		VALUES
-		(_nvchNombre,_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
+		(_nvchNombre,_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
 		_dcmPrecioVenta3,_dtmFechaIngreso);
 		SET _intIdProducto = LAST_INSERT_ID();
     END

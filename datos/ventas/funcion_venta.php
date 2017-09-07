@@ -119,6 +119,10 @@ switch($_POST['funcion']){
     $DetalleVenta = new DetalleVenta();
     $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
     break;
+  case "ICT":
+    $DetalleVenta = new DetalleVenta();
+    $DetalleVenta->InsertarCotizacion($_POST['nvchNumeracionCotizacion']);
+    break;
   case "F":
     $FormularioVenta = new FormularioVenta();
     $FormularioVenta->ConsultarFormulario($_POST['funcion']);

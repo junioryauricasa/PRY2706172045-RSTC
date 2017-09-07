@@ -19,7 +19,7 @@ switch($_POST['funcion']){
     $Producto->Nombre($_POST['nvchNombre']);
     $Producto->Descripcion($_POST['nvchDescripcion']);
     $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
-    $Producto->Cantidad($_POST['intCantidad']);
+    $Producto->CantidadMinima($_POST['intCantidadMinima']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
     $Producto->DireccionImg($nvchDireccionImg);
     $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);

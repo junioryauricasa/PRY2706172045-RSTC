@@ -7,6 +7,7 @@ class FormularioProducto
   private $nvchDescripcion;
   private $nvchUnidadMedida;
   private $intCantidad;
+  private $intCantidadMinima;
   private $nvchDireccionImg;
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
@@ -18,6 +19,7 @@ class FormularioProducto
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
+  public function CantidadMinima($intCantidadMinima){ $this->intCantidadMinima = $intCantidadMinima; }
   public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
@@ -62,8 +64,8 @@ class FormularioProducto
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Cantidad:</label>
-                    <input type="text" name="intCantidad" class="form-control select2" placeholder="Ingrese Cantidad" value="<?php echo $this->intCantidad; ?>" required>
+                    <label>Cantidad Mínima:</label>
+                    <input type="text" name="intCantidadMinima" class="form-control select2" placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" required>
                   </div>
                 </div>
                 <div class="col-md-3">

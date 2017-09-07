@@ -219,10 +219,10 @@
                   <a href="../..//logout.php" class="btn btn-danger btn-block"><b>Cerrar Sesion</b></a>
                 </div>
               </div-->
-
+              <!--////////////////-->
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Ultimos Productos en Almacen</h3>
+                  <h3 class="box-title">Productos con Stock Mínimo</h3>
 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -233,57 +233,34 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                   <ul class="products-list product-list-in-box">
+                    <?php  
+                      try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+                        $sql_comando -> execute(array(':busqueda' => '', ':TipoBusqueda' => 'T'));
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                    ?>
                     <li class="item">
                       <div class="product-img">
                         <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
                       </div>
                       <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">Samsung TV
-                          <span class="label label-warning pull-right">$1800</span></a>
+                        <a href="javascript:void(0)" class="product-title"><?php echo $fila['nvchNombre']; ?>
+                          <span class="label label-warning pull-right"><?php echo $fila['dcmPrecioVenta1']; ?></span></a>
                             <span class="product-description">
-                              Samsung 32" 1080p 60Hz LED Smart HDTV.
+                              <?php echo $fila['nvchDescripcion']; ?>
                             </span>
                       </div>
                     </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">Bicycle
-                          <span class="label label-info pull-right">$700</span></a>
-                            <span class="product-description">
-                              26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                            </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
-                            <span class="product-description">
-                              Xbox One Console Bundle with Halo Master Chief Collection.
-                            </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="label label-success pull-right">$399</span></a>
-                            <span class="product-description">
-                              PlayStation 4 500GB Console (PS4)
-                            </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
+                    <?php
+                        }
+                      }
+                      catch(PDPExceptio $e){
+                        echo $e->getMessage();
+                      }
+                    ?>
                   </ul>
                 </div>
                 <!-- /.box-body -->

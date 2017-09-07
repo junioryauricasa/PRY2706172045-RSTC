@@ -6,8 +6,8 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/ventas/nventa.js"></script>
-    <script type="text/javascript" src="../../negocio/ventas/ndetalleventa.js"></script>
+    <script type="text/javascript" src="../../negocio/ventas/ncotizacion.js"></script>
+    <script type="text/javascript" src="../../negocio/ventas/ndetallecotizacion.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -25,7 +25,7 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Registro de Ventas
+        Cotización
         <small>Módulo de Ventas</small>
       </h1>
       <ol class="breadcrumb">
@@ -40,7 +40,7 @@ include('../_include/rstheader.php');
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Ventas</h3>
+          <h3 class="box-title">Cotizaciones</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -67,59 +67,34 @@ include('../_include/rstheader.php');
                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Tipo Comprobante:</label>
-                <br>
-                <select id="lista-comprobante" name="lista-comprobante"  class="form-control select2">
-                  <?php 
-                    require_once '../../datos/conexion/bd_conexion.php';
-                    try{
-                    $sql_conexion = new Conexion_BD();
-                    $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
-                    $sql_comando->execute(array(':intTipoDetalle' => 1));
-                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                    {
-                      echo '<option value="'.$fila['intIdTipoComprobante'].'">'.$fila['nvchNombre'].'</option>';
-                    }
-                  }catch(PDPExceptions $e){
-                    echo $e->getMessage();
-                  }?>
-                </select>
-              </div>
-            </div>
           </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th class="listaNumFactura">Número de Factura</th>
-                <th class="listaNumBoletaVenta">Número de Boleta</th>
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeVentas">
-                <script>ListarVenta(0,10,"T",1);</script>
+              <tbody id="ListaDeCotizaciones">
+                <script>ListarCotizacion(0,10,"T");</script>
               </tbody>
             </table>
-            <script>AccionCabecerasTabla(1);</script>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeVenta" class="pagination">
-                <script>PaginarVenta(0,10,"T",1);</script>
+              <ul id="PaginacionDeCotizacion" class="pagination">
+                <script>PaginarCotizacion(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-venta" class="btn btn-sm btn-info btn-flat pull-left">Crear Venta</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte de las Ventas</a>
+          <button type="button" id="btn-form-crear-cotizacion" class="btn btn-sm btn-info btn-flat pull-left">Crear Cotización</button>
+          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte de Cotizaciones</a>
         </div>
       </div>
 

@@ -1,40 +1,37 @@
 <?php 
 require_once '../conexion/bd_conexion.php';
-class DetalleVenta
+class DetalleCotizacion
 {	
-  /* INICIO - Atributos de Detalle Orden Compra*/
-  private $intIdOperacionVenta;
-  private $intIdVenta;
+  /* INICIO - Atributos de Detalle Cotizacion*/
+  private $intIdOperacionCotizacion;
+  private $intIdCotizacion;
   private $intIdProducto;
   private $dtmFechaRealizada;
   private $intCantidad;
-  private $intCantidadPendiente;
   private $dcmPrecio;
   
-  public function IdOperacionVenta($intIdOperacionVenta){ $this->intIdOperacionVenta = $intIdOperacionVenta; }
-  public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
+  public function IdOperacionCotizacion($intIdOperacionCotizacion){ $this->intIdOperacionCotizacion = $intIdOperacionCotizacion; }
+  public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function FechaRealizada($dtmFechaRealizada){ $this->dtmFechaRealizada = $dtmFechaRealizada; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-  public function CantidadPendiente($intCantidadPendiente){ $this->intCantidadPendiente = $intCantidadPendiente; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
-  /* FIN - Atributos de Detalle Orden Compra */
+  /* FIN - Atributos de Detalle Cotizacion */
 
-  /* INICIO - Métodos de Detalle Orden Compra */
-  public function InsertarDetalleVenta()
+  /* INICIO - Métodos de Detalle Cotizacion */
+  public function InsertarDetalleCotizacion()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadPendiente,:dcmPrecio)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
+      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
       $sql_comando->execute(array(
-        ':intIdVenta' => $this->intIdVenta, 
+        ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $value,
         ':dtmFechaRealizada' => $this->dtmFechaRealizada,
         ':intCantidad' => $this->intCantidad[$key],
-        ':intCantidadPendiente' => $this->intCantidad[$key],
         ':dcmPrecio' => $this->dcmPrecio[$key]));
       }
       echo "ok";
@@ -44,15 +41,15 @@ class DetalleVenta
     }
   }
 
-  public function InsertarDetalleVenta_II()
+  public function InsertarDetalleCotizacion_II()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadPendiente,:dcmPrecio)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
+      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
       $sql_comando->execute(array(
-        ':intIdVenta' => $this->intIdVenta, 
+        ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $this->intIdProducto,
         ':dtmFechaRealizada' => $this->dtmFechaRealizada,
         ':intCantidad' => $this->intCantidad,
@@ -65,18 +62,18 @@ class DetalleVenta
     }
   }
 
-  public function MostrarDetalleVenta($tipolistado)
+  public function MostrarDetalleCotizacion($tipolistado)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleVenta(:intIdVenta)');
-      $sql_comando -> execute(array(':intIdVenta' => $this->intIdVenta));
+      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
+      $sql_comando -> execute(array(':intIdCotizacion' => $this->intIdCotizacion));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($_SESSION['intIdOperacionVenta'] == $fila['intIdOperacionVenta'] && $tipolistado == "A"){
+        if($_SESSION['intIdOperacionCotizacion'] == $fila['intIdOperacionCotizacion'] && $tipolistado == "A"){
           echo '<tr bgcolor="#B3E4C0">';
         } else if($cantidad == $i && $tipolistado == "I"){
           echo '<tr bgcolor="#BEE1EB">';
@@ -90,10 +87,10 @@ class DetalleVenta
         <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
         <td> 
-          <button type="button" idov="'.$fila['intIdOperacionVenta'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleVenta(this)">
+          <button type="button" idov="'.$fila['intIdOperacionCotizacion'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleCotizacion(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" idov="'.$fila['intIdOperacionVenta'].'" class="btn btn-xs btn-danger" onclick="EliminarDetalleVenta(this)">
+          <button type="button" idov="'.$fila['intIdOperacionCotizacion'].'" class="btn btn-xs btn-danger" onclick="EliminarDetalleCotizacion(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
@@ -106,16 +103,16 @@ class DetalleVenta
     }    
   }
 
-  public function SeleccionarDetalleVenta()
+  public function SeleccionarDetalleCotizacion()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL seleccionarDetalleVenta(:intIdOperacionVenta)');
-      $sql_comando -> execute(array(':intIdOperacionVenta' => $this->intIdOperacionVenta));
+      $sql_comando = $sql_conectar->prepare('CALL seleccionarDetalleCotizacion(:intIdOperacionCotizacion)');
+      $sql_comando -> execute(array(':intIdOperacionCotizacion' => $this->intIdOperacionCotizacion));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-      $salida['intIdOperacionVenta'] = $fila['intIdOperacionVenta'];
-      $salida['intIdVenta'] = $fila['intIdVenta'];
+      $salida['intIdOperacionCotizacion'] = $fila['intIdOperacionCotizacion'];
+      $salida['intIdCotizacion'] = $fila['intIdCotizacion'];
       $salida['intIdProducto'] = $fila['intIdProducto'];
       $salida['nvchNombre'] = $fila['nvchNombre'];
       $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
@@ -129,21 +126,21 @@ class DetalleVenta
     }    
   }
 
-  public function ActualizarDetalleVenta()
+  public function ActualizarDetalleCotizacion()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarDetalleVenta(:intIdOperacionVenta,
-        :intIdVenta,:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
+      $sql_comando = $sql_conectar->prepare('CALL actualizarDetalleCotizacion(:intIdOperacionCotizacion,
+        :intIdCotizacion,:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
       $sql_comando->execute(array(
-        ':intIdOperacionVenta' => $this->intIdOperacionVenta,
-        ':intIdVenta' => $this->intIdVenta, 
+        ':intIdOperacionCotizacion' => $this->intIdOperacionCotizacion,
+        ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $this->intIdProducto, 
         ':dtmFechaRealizada' => $this->dtmFechaRealizada,
         ':intCantidad' => $this->intCantidad,
         ':dcmPrecio' => $this->dcmPrecio));
-      $_SESSION['intIdOperacionVenta'] = $this->intIdOperacionVenta;
+      $_SESSION['intIdOperacionCotizacion'] = $this->intIdOperacionCotizacion;
       echo "ok";
     }
     catch(PDPExceptio $e){
@@ -151,13 +148,13 @@ class DetalleVenta
     }
   }
 
-  public function EliminarDetalleVenta()
+  public function EliminarDetalleCotizacion()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleVenta(:intIdOperacionVenta)');
-      $sql_comando -> execute(array(':intIdOperacionVenta' => $this->intIdOperacionVenta));
+      $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleCotizacion(:intIdOperacionCotizacion)');
+      $sql_comando -> execute(array(':intIdOperacionCotizacion' => $this->intIdOperacionCotizacion));
       echo 'ok';
     }
     catch(PDPExceptio $e){
@@ -165,7 +162,7 @@ class DetalleVenta
     }
   }
 
-  public function ListarProductoVenta($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
+  public function ListarProductoCotizacion($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
   {
   	try{
       $sql_conexion = new Conexion_BD();
@@ -192,7 +189,7 @@ class DetalleVenta
           </button>';
         } else if ($tipofuncion == "M") {
         echo 
-         '<button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="AgregarDetalleVenta_II(this)">
+         '<button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="AgregarDetalleCotizacion_II(this)">
             <i class="fa fa-edit"></i> Agregar
           </button>';
         }
@@ -206,7 +203,7 @@ class DetalleVenta
     }
   }
 
-  public function PaginarProductosVenta($busqueda,$x,$y,$TipoBusqueda)
+  public function PaginarProductosCotizacion($busqueda,$x,$y,$TipoBusqueda)
   {
     try{
       $sql_conexion = new Conexion_BD();
@@ -292,30 +289,6 @@ class DetalleVenta
       echo $e->getMessage();
     }  
   }
-
-  public function InsertarCotizacion($nvchNumeracionCotizacion)
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:nvchNumeracion)');
-      $sql_comando -> execute(array(':nvchNumeracion' => $nvchNumeracionCotizacion));
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        echo '<tr> 
-        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
-        <td>'.$fila['nvchNombre'].'</td>
-        <td>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
-        </tr>';
-      }
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }    
-  }
-  /* FIN - Métodos de Detalle Orden Compra */
+  /* FIN - Métodos de Detalle Cotizacion */
 }
 ?>
