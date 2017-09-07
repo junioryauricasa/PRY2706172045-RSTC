@@ -78,7 +78,6 @@ class DetalleGuiaInternaEntrada
         }
       	echo 
       	'<td>'.$fila['intIdOperacionGuiaInternaEntrada'].'</td>
-      	<td>'.$fila['NombreProducto'].'</td>
         <td>'.$fila['DescripcionProducto'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
         <td> 
@@ -107,7 +106,6 @@ class DetalleGuiaInternaEntrada
       $sql_comando -> execute(array(':intIdOperacionGuiaInternaEntrada' => $this->intIdOperacionGuiaInternaEntrada));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
       $salida['intIdOperacionGuiaInternaEntrada'] = $fila['intIdOperacionGuiaInternaEntrada'];
-      $salida['NombreProducto'] = $fila['NombreProducto'];
       $salida['DescripcionProducto'] = $fila['DescripcionProducto'];
       $salida['intCantidad'] = $fila['intCantidad'];
       echo json_encode($salida);

@@ -85,7 +85,6 @@ class DetalleVenta
         }
       	echo 
       	'<td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
-        <td><input type="hidden" name="nvchNombre[]" value="'.$fila['nvchNombre'].'"/>'.$fila['nvchNombre'].'</td>
         <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
@@ -117,7 +116,6 @@ class DetalleVenta
       $salida['intIdOperacionVenta'] = $fila['intIdOperacionVenta'];
       $salida['intIdVenta'] = $fila['intIdVenta'];
       $salida['intIdProducto'] = $fila['intIdProducto'];
-      $salida['nvchNombre'] = $fila['nvchNombre'];
       $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
       $salida['dtmFechaRealizada'] = $fila['dtmFechaRealizada'];
       $salida['intCantidad'] = $fila['intCantidad'];
@@ -177,7 +175,6 @@ class DetalleVenta
       	echo 
       	'<tr>
         <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td><input type="hidden" name="SnvchNombre['.$fila['intIdProducto'].']" value="'.$fila['nvchNombre'].'"/>'.$fila['nvchNombre'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta1['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta1'].'"/>'.$fila['dcmPrecioVenta1'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>'.$fila['dcmPrecioVenta2'].'</td>
@@ -304,7 +301,6 @@ class DetalleVenta
       {
         echo '<tr> 
         <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
-        <td>'.$fila['nvchNombre'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>

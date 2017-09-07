@@ -85,7 +85,6 @@ class DetalleOrdenCompra
         }
       	echo 
       	'<td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
-        <td><input type="hidden" name="nvchNombre[]" value="'.$fila['nvchNombre'].'"/>'.$fila['nvchNombre'].'</td>
         <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
@@ -117,7 +116,6 @@ class DetalleOrdenCompra
       $salida['intIdOperacionOrdenCompra'] = $fila['intIdOperacionOrdenCompra'];
       $salida['intIdOrdenCompra'] = $fila['intIdOrdenCompra'];
       $salida['intIdProducto'] = $fila['intIdProducto'];
-      $salida['nvchNombre'] = $fila['nvchNombre'];
       $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
       $salida['dtmFechaSolicitud'] = $fila['dtmFechaSolicitud'];
       $salida['intCantidad'] = $fila['intCantidad'];
@@ -177,7 +175,6 @@ class DetalleOrdenCompra
       	echo 
       	'<tr>
         <td><input type="hidden" name="SintIdProducto['.$fila['intIdProducto'].']" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
-        <td><input type="hidden" name="SnvchNombre['.$fila['intIdProducto'].']" value="'.$fila['nvchNombre'].'"/>'.$fila['nvchNombre'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Precio"></td>
         <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>

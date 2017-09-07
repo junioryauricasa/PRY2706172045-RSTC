@@ -83,7 +83,6 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>Id</th>
                 <th>Código</th>
                 <th>Descripción</th>
                 <th>Unidad de Medida</th>

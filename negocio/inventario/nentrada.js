@@ -228,7 +228,6 @@ $(document).on('keyup', '#txt-busqueda', function(){
 /* INICIO - Listar DetalleGuiaInternaEntradaes según Ingresa */
 function AgregarDetalleGuiaInternaEntrada(seleccion) {
 	var intIdOperacionOrdenCompra = $(seleccion).attr("idooc");
-	var nvchNombre = $("input[type=hidden][name='SnvchNombre["+intIdOperacionOrdenCompra+"]']").val();
 	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdOperacionOrdenCompra+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdOperacionOrdenCompra+"]']").val();
 	var intCantidadO = $("input[type=hidden][name='SintCantidadO["+intIdOperacionOrdenCompra+"]']").val();
@@ -240,7 +239,6 @@ function AgregarDetalleGuiaInternaEntrada(seleccion) {
 
 	$('#ListaDeDetallesGuiasInternaEntrada').append('<tr>'+
 		'<td>'+'<input type="hidden" name="intIdOperacionOrdenCompra[]" value="'+intIdOperacionOrdenCompra+'"/>'+intIdOperacionOrdenCompra+'</td>'+
-		'<td>'+nvchNombre+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
@@ -352,7 +350,6 @@ function SeleccionarDetalleGuiaInternaEntrada(seleccion) {
 	   {
 	   	$("#intIdOperacionGuiaInternaEntrada").val(datos.intIdOperacionGuiaInternaEntrada);
 	   	$("#intIdOperacionOrdenCompra").val(datos.intIdOperacionOrdenCompra);
-	   	$("#NombreProducto").val(datos.NombreProducto);
 	   	$("#DescripcionProducto").val(datos.DescripcionProducto);
 	   	$("#intCantidad").val(datos.intCantidad);
 	   }

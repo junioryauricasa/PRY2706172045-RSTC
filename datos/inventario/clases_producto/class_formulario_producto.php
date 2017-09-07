@@ -3,7 +3,6 @@ require_once '../conexion/bd_conexion.php';
 class FormularioProducto
 {
   private $intIdProducto;
-  private $nvchNombre;
   private $nvchDescripcion;
   private $nvchUnidadMedida;
   private $intCantidad;
@@ -15,7 +14,6 @@ class FormularioProducto
   private $dtmFechaIngreso;
 
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
-  public function Nombre($nvchNombre){ $this->nvchNombre = $nvchNombre; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
@@ -44,12 +42,6 @@ class FormularioProducto
         <form id="form-producto" method="POST">
           <div class="box-body">
             <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Nombre:</label>
-                    <input type="text" name="nvchNombre" class="form-control select2" placeholder="Ingrese Nombre del Producto" value="<?php echo $this->nvchNombre; ?>" required>
-                  </div>
-                </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Descripción:</label>
@@ -173,19 +165,19 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Precio de Venta 1:</label>
-                <input type="text" name="dcmPrecioVenta1" class="form-control select2" placeholder="Ingrese el Precio de Venta 1" value="">
+                <input type="text" name="dcmPrecioVenta1" class="form-control select2" placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Precio de Venta 2:</label>
-                <input type="text" name="dcmPrecioVenta2" class="form-control select2" placeholder="Ingrese el Precio de Venta 2" value="">
+                <input type="text" name="dcmPrecioVenta2" class="form-control select2" placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Precio de Venta 3:</label>
-                <input type="text" name="dcmPrecioVenta3" class="form-control select2" placeholder="Ingrese el Precio de Venta 3" value="">
+                <input type="text" name="dcmPrecioVenta3" class="form-control select2" placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>">
               </div>
             </div>
           </div>

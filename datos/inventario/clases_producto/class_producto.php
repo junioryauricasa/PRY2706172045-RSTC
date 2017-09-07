@@ -5,7 +5,6 @@ class Producto
 {
   /* INICIO - Atributos de Producto*/
   private $intIdProducto;
-  private $nvchNombre;
   private $nvchDescripcion;
   private $nvchUnidadMedida;
   private $intCantidad;
@@ -17,7 +16,6 @@ class Producto
   private $dtmFechaIngreso;
   
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
-  public function Nombre($nvchNombre){ $this->nvchNombre = $nvchNombre; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
@@ -35,11 +33,10 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchNombre,:nvchDescripcion,
+      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
         :dcmPrecioVenta3,:dtmFechaIngreso)');
       $sql_comando->execute(array(
-        ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => 0,
@@ -72,7 +69,6 @@ class Producto
 
       $FormularioProducto = new FormularioProducto();
       $FormularioProducto->IdProducto($fila['intIdProducto']);
-      $FormularioProducto->Nombre($fila['nvchNombre']);
       $FormularioProducto->Descripcion($fila['nvchDescripcion']);
       $FormularioProducto->UnidadMedida($fila['nvchUnidadMedida']);
       $FormularioProducto->Cantidad($fila['intCantidad']);
@@ -94,12 +90,11 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchNombre,:nvchDescripcion,
+      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,
         :dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
-        ':nvchNombre' => $this->nvchNombre,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => $this->intCantidad,
@@ -174,8 +169,7 @@ class Producto
             echo '<tr>';
           }
           echo 
-          '<td>'.$fila["intIdProducto"].'</td>
-          <td>'.$fila["nvchCodigo"].'</td>
+          '<td>'.$fila["nvchCodigo"].'</td>
           <td>'.$fila["nvchDescripcion"].'</td>
           <td>'.$fila["nvchUnidadMedida"].'</td>
           <td>'.$fila["dcmPrecioVenta1"].'</td>

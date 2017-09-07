@@ -182,7 +182,6 @@ class FormularioCotizacion
             <thead>
             <tr>
               <th>Código</th>
-              <th>Nombre</th>
               <th>Descripción</th>
               <th>Precio de Venta 1</th>
               <th>Precio de Venta 2</th>
@@ -221,7 +220,6 @@ class FormularioCotizacion
             <thead>
             <tr>
               <th>Código</th>
-              <th>Nombre</th>
               <th>Descripción</th>
               <th>Precio Negociable</th>
               <th>Cantidad</th>

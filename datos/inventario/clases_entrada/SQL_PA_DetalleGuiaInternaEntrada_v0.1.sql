@@ -71,7 +71,7 @@ DELIMITER $$
     	IN _intIdGuiaInternaEntrada INT
     )
 	BEGIN
-		SELECT DGIE.*,P.nvchNombre AS NombreProducto, P.nvchDescripcion AS DescripcionProducto
+		SELECT DGIE.*, P.nvchDescripcion AS DescripcionProducto
 		FROM tb_detalle_guia_interna_entrada DGIE
 		LEFT JOIN tb_detalle_orden_compra DOC ON DGIE.intIdOperacionOrdenCompra = DOC.intIdOperacionOrdenCompra
 		LEFT JOIN tb_producto P ON DOC.intIdProducto = P.intIdProducto

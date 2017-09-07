@@ -181,7 +181,6 @@ class FormularioOrdenCompra
             <thead>
             <tr>
               <th>Código</th>
-              <th>Nombre</th>
               <th>Descripción</th>
               <th>Precio Negociable</th>
               <th>Cantidad</th>
@@ -217,7 +216,6 @@ class FormularioOrdenCompra
             <thead>
             <tr>
               <th>Código</th>
-              <th>Nombre</th>
               <th>Descripción</th>
               <th>Precio Negociable</th>
               <th>Cantidad</th>

@@ -16,7 +16,6 @@ if(empty($_SESSION['intIdUbigeoProducto'])){
 switch($_POST['funcion']){
   case "I":
     $Producto = new Producto();
-    $Producto->Nombre($_POST['nvchNombre']);
     $Producto->Descripcion($_POST['nvchDescripcion']);
     $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
     $Producto->CantidadMinima($_POST['intCantidadMinima']);
@@ -63,7 +62,6 @@ switch($_POST['funcion']){
   case "A":
     $Producto = new Producto();
     $Producto->IdProducto($_POST['intIdProducto']);
-    $Producto->Nombre($_POST['nvchNombre']);
     $Producto->Descripcion($_POST['nvchDescripcion']);
     $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
     $Producto->Cantidad($_POST['intCantidad']);

@@ -49,7 +49,7 @@ DELIMITER $$
     	IN _intIdOperacionOrdenCompra INT
     )
 	BEGIN
-		SELECT DOC.*,P.nvchNombre,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_orden_compra DOC
+		SELECT DOC.*,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_orden_compra DOC
 		LEFT JOIN tb_producto P ON DOC.intIdProducto = P.intIdProducto
 		WHERE 
 		intIdOperacionOrdenCompra = _intIdOperacionOrdenCompra;
@@ -90,7 +90,7 @@ DELIMITER $$
     	IN _intIdOrdenCompra INT
     )
 	BEGIN
-		SELECT DOC.*,P.nvchNombre,P.nvchDescripcion FROM tb_detalle_orden_compra DOC
+		SELECT DOC.*,P.nvchDescripcion FROM tb_detalle_orden_compra DOC
 		LEFT JOIN tb_producto P ON DOC.intIdProducto = P.intIdProducto
 		WHERE
 		intIdOrdenCompra = _intIdOrdenCompra;
@@ -148,8 +148,6 @@ DELIMITER $$
 	BEGIN
 		SELECT * FROM tb_producto 
 		WHERE
-		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
-		nvchNombre LIKE CONCAT(_elemento,'%') OR
 		nvchDescripcion LIKE CONCAT(_elemento,'%')
  		LIMIT _x,_y;
     END 
@@ -191,8 +189,6 @@ DELIMITER $$
 	BEGIN
 		SELECT * FROM tb_producto 
 		WHERE
-		nvchCodigoProducto LIKE CONCAT(_elemento,'%') OR
-		nvchNombre LIKE CONCAT(_elemento,'%') OR
 		nvchDescripcion LIKE CONCAT(_elemento,'%');
     END 
 $$

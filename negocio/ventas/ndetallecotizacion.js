@@ -214,7 +214,6 @@ function SeleccionarDetalleCotizacion(seleccion) {
 	   {
 	   	$("#intIdOperacionVenta").val(datos.intIdOperacionVenta);
 	   	$("#intIdProducto").val(datos.intIdProducto);
-	   	$("#nvchNombre").val(datos.nvchNombre);
 	   	$("#nvchDescripcion").val(datos.nvchDescripcion);
 	   	$("#dcmPrecio").val(datos.dcmPrecio);
 	   	$("#intCantidad").val(datos.intCantidad);
@@ -300,14 +299,12 @@ $(document).on('change', '#tipo-busqueda', function(){
 /* INICIO - Listar Domicilios según Ingresa */
 function SeleccionarProducto(seleccion) {
 	var intIdProducto = $(seleccion).attr("idsprt");
-	var nvchNombre = $("input[type=hidden][name='SnvchNombre["+intIdProducto+"]']").val();
 	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdProducto+"]']").val();
 	var dcmPrecio = $("input[type=text][name='SdcmPrecio["+intIdProducto+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
 
 	$('#ListaDeProductosComprar').append('<tr>'+
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+intIdProducto+'</td>'+
-		'<td>'+nvchNombre+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+

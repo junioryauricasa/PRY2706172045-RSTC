@@ -49,7 +49,7 @@ DELIMITER $$
     	IN _intIdOperacionVenta INT
     )
 	BEGIN
-		SELECT DV.*,P.nvchNombre,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_venta DV
+		SELECT DV.*,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_venta DV
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
 		WHERE 
 		intIdOperacionVenta = _intIdOperacionVenta;
@@ -90,7 +90,7 @@ DELIMITER $$
     	IN _intIdVenta INT
     )
 	BEGIN
-		SELECT DV.*,P.nvchNombre,P.nvchDescripcion FROM tb_detalle_venta DV
+		SELECT DV.*,P.nvchDescripcion FROM tb_detalle_venta DV
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
 		WHERE
 		intIdVenta = _intIdVenta;
@@ -152,7 +152,6 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
 		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
@@ -214,7 +213,6 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
 		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
@@ -241,7 +239,7 @@ DELIMITER $$
     	IN _nvchNumeracion VARCHAR(30)
     )
 	BEGIN
-		SELECT DCT.*,P.nvchNombre,P.nvchDescripcion FROM tb_cotizacion CT
+		SELECT DCT.*,P.nvchDescripcion FROM tb_cotizacion CT
 		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
 		WHERE

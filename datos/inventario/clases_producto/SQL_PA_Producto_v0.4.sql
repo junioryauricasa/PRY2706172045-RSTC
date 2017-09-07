@@ -4,7 +4,6 @@ DROP PROCEDURE IF EXISTS INSERTARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARPRODUCTO(
 	OUT _intIdProducto INT,
-    IN _nvchNombre VARCHAR(250),
     IN _nvchDescripcion VARCHAR(500),
     IN _nvchUnidadMedida VARCHAR(50),
     IN _intCantidad INT,
@@ -17,10 +16,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_producto 
-		(nvchNombre,nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
+		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
 		dcmPrecioVenta3,dtmFechaIngreso)
 		VALUES
-		(_nvchNombre,_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
+		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
 		_dcmPrecioVenta3,_dtmFechaIngreso);
 		SET _intIdProducto = LAST_INSERT_ID();
     END
@@ -31,7 +30,6 @@ DROP PROCEDURE IF EXISTS ACTUALIZARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARPRODUCTO(
 	IN _intIdProducto INT,
-    IN _nvchNombre VARCHAR(250),
     IN _nvchDescripcion VARCHAR(500),
     IN _nvchUnidadMedida VARCHAR(50),
     IN _intCantidad INT,
@@ -44,7 +42,6 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_producto
 		SET
-		nvchNombre = _nvchNombre,
 		nvchDescripcion = _nvchDescripcion,
 		nvchUnidadMedida = _nvchUnidadMedida,
 		intCantidad = _intCantidad,
@@ -122,7 +119,6 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
 		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
@@ -158,7 +154,6 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
 		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
