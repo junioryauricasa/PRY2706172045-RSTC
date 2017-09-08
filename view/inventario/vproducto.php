@@ -89,7 +89,8 @@ include('../_include/rstheader.php');
                 <th>Precio de Venta 1</th>
                 <th>Precio de Venta 2</th>
                 <th>Precio de Venta 3</th>
-                <th>Cantidad</th>
+                <th>Cant. Huancayo</th>
+                <th>Cant. San Jerónimo</th>
                 <th>Imágen</th>
                 <th>Opciones</th>
               </tr>

@@ -174,9 +174,12 @@ class Producto
           <td>'.$fila["nvchUnidadMedida"].'</td>
           <td>'.$fila["dcmPrecioVenta1"].'</td>
           <td>'.$fila["dcmPrecioVenta2"].'</td>
-          <td>'.$fila["dcmPrecioVenta3"].'</td>
-          <td>'.$fila["intCantidad"].'</td>
-          <td>
+          <td>'.$fila["dcmPrecioVenta3"].'</td>';
+          $sql_comando_cantidad = $sql_conectar->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');
+          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto'],':nvchSucursal' => 'Huancayo'));
+          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+          echo '<td>'.$fila_cantidad["CantidadUbigeo"].'</td>';
+          echo '<td>
             <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
           </td>
           <td> 

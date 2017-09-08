@@ -189,3 +189,20 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS CANTIDADUBIGEO;
+DELIMITER $$
+CREATE PROCEDURE CANTIDADUBIGEO(
+	IN _intIdProducto INT,
+	IN _nvchSucursal VARCHAR(500)
+    )
+	BEGIN
+		SELECT UP.nvchSucursal,SUM(UP.intCantidadUbigeo) AS CantidadUbigeo
+		FROM tb_producto P
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
+		WHERE 
+		P.intIdProducto = _intIdProducto AND UP.nvchSucursal = _nvchSucursal
+		GROUP BY UP.nvchSucursal,UP.intIdProducto;
+	END
+$$
+DELIMITER ;
