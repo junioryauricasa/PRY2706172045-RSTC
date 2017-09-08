@@ -45,19 +45,19 @@ class FormularioProducto
                 <div class="col-md-5">
                   <div class="form-group">
                     <label>Descripción:</label>
-                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese la Descripción" value="<?php echo $this->nvchDescripcion; ?>" required>
+                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese la Descripción" value="<?php echo $this->nvchDescripcion; ?>" maxlength="850" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Unidad de Medida:</label>
-                    <input type="text" name="nvchUnidadMedida" class="form-control select2" placeholder="Ingrese Unidad de Medida" value="<?php echo $this->nvchUnidadMedida; ?>" required>
+                    <input type="text" name="nvchUnidadMedida" class="form-control select2" placeholder="Ingrese Unidad de Medida" value="<?php echo $this->nvchUnidadMedida; ?>" maxlength="20" required>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Cantidad Mínima:</label>
-                    <input type="text" name="intCantidadMinima" class="form-control select2" placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" required>
+                    <input type="text" name="intCantidadMinima" class="form-control select2" placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" pattern="[0-9.]+" maxlength="11" required>
                   </div>
                 </div>
             </div>
@@ -87,19 +87,19 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Precio de Venta 1:</label>
-                <input type="text" name="dcmPrecioVenta1" class="form-control select2" placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>">
+                <input type="text" name="dcmPrecioVenta1" class="form-control select2" placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>" onkeypress="return EsNumeroTecla(event)" maxlength="15">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Precio de Venta 2:</label>
-                <input type="text" name="dcmPrecioVenta2" class="form-control select2" placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>">
+                <input type="text" name="dcmPrecioVenta2" class="form-control select2" placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" onkeypress="return EsNumeroTecla(event)" maxlength="15">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Precio de Venta 3:</label>
-                <input type="text" name="dcmPrecioVenta3" class="form-control select2" placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>">
+                <input type="text" name="dcmPrecioVenta3" class="form-control select2" placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" onkeypress="return EsNumeroTecla(event)" maxlength="15">
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Código:</label>
-                <input type="text" id="nvchCodigo" class="form-control select2" placeholder="Ingrese Código"/>
+                <input type="text" id="nvchCodigo" class="form-control select2" placeholder="Ingrese Código" maxlength="85"/>
               </div>
             </div>
             <?php if($funcion == "M") { ?>
@@ -203,13 +203,13 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Ubicación en el Almacén:</label>
-                <input type="text" id="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" required>
+                <input type="text" id="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" maxlength="45">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Cantidad:</label>
-                <input type="text" id="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Ubicacion" required>
+                <input type="text" id="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Ubicacion"  maxlength="11">
               </div>
             </div>
           </div>
