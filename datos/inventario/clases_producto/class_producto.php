@@ -175,8 +175,14 @@ class Producto
           <td>'.$fila["dcmPrecioVenta1"].'</td>
           <td>'.$fila["dcmPrecioVenta2"].'</td>
           <td>'.$fila["dcmPrecioVenta3"].'</td>';
-          $sql_comando_cantidad = $sql_conectar->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');
+          $sql_conexion_cantidad = new Conexion_BD();
+          $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
+          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');
           $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto'],':nvchSucursal' => 'Huancayo'));
+          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+          echo '<td>'.$fila_cantidad["CantidadUbigeo"].'</td>';
+          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');
+          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto'],':nvchSucursal' => 'San Jerónimo'));
           $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
           echo '<td>'.$fila_cantidad["CantidadUbigeo"].'</td>';
           echo '<td>
