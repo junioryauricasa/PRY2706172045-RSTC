@@ -22,10 +22,13 @@ function EsVacio(NombreId)
   if (Valor == "" || Valor == null){
     $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Se debe rellenar el campo");
     return false;
   } else if(Valor != "" || Valor != null) {
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
     return true;
   }
 }
@@ -37,10 +40,13 @@ function EsNumeroEntero(NombreId){
   } else if(/^\d+$/.test(Valor) == false) {
     $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Debe ser solo numérico");
     return false;
   } else {
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
     return true;
   }
 }
@@ -52,10 +58,13 @@ function EsDecimal(NombreId){
   } else if(/^\d+\.\d+$/.test(Valor) == false && /^\d+$/.test(Valor) == false) {
     $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Debe ser solo numérico o decimal");
     return false;
   } else {
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
     return true;
   }
 }

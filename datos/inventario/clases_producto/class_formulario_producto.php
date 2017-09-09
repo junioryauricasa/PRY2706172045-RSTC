@@ -49,6 +49,7 @@ class FormularioProducto
                     placeholder="Ingrese la Descripción" value="<?php echo $this->nvchDescripcion; ?>" maxlength="850" 
                     onkeyup="EsVacio('nvchDescripcion')" required>
                     <span id="nvchDescripcionIcono" class="" aria-hidden=""></span>
+                    <div id="nvchDescripcionObs" class=""></div>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -64,6 +65,7 @@ class FormularioProducto
                     placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" 
                     onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadMinima')" maxlength="11" required>
                     <span id="intCantidadMinimaIcono" class="" aria-hidden=""></span>
+                    <div id="intCantidadMinimaObs" class=""></div>
                   </div>
                 </div>
             </div>
@@ -97,6 +99,7 @@ class FormularioProducto
                 placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>" 
                 onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta1')" maxlength="15" required>
                 <span id="dcmPrecioVenta1Icono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioVenta1Obs" class=""></div>
               </div>
             </div>
             <div class="col-md-3">
@@ -106,6 +109,7 @@ class FormularioProducto
                 placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" 
                 onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta2')" maxlength="15" required>
                 <span id="dcmPrecioVenta2Icono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioVenta2Obs" class=""></div>
               </div>
             </div>
             <div class="col-md-3">
@@ -115,6 +119,7 @@ class FormularioProducto
                 placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" 
                 onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta3')" maxlength="15" required>
                 <span id="dcmPrecioVenta3Icono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioVenta3Obs" class=""></div>
               </div>
             </div>
           </div>
