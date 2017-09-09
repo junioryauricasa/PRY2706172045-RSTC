@@ -26,8 +26,8 @@ class FormularioProducto
 
   function ConsultarFormulario($funcion)
   {
-  ?> 
-      <div class="box box-default">
+  ?>
+      <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
           <h3 class="box-title">Nuevo Producto</h3>
@@ -36,28 +36,34 @@ class FormularioProducto
           <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button id="btn-form-producto-remove" type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
         <form id="form-producto" method="POST">
           <div class="box-body">
             <div class="row">
                 <div class="col-md-5">
-                  <div class="form-group">
+                  <div id="nvchDescripcionGroup" class="form-group">
                     <label>Descripción:</label>
-                    <input type="text" name="nvchDescripcion" class="form-control select2" placeholder="Ingrese la Descripción" value="<?php echo $this->nvchDescripcion; ?>" maxlength="850" required>
+                    <input type="text" id="nvchDescripcion" name="nvchDescripcion" class="form-control select2" 
+                    placeholder="Ingrese la Descripción" value="<?php echo $this->nvchDescripcion; ?>" maxlength="850" 
+                    onkeyup="EsVacio('nvchDescripcion')" required>
+                    <span id="nvchDescripcionIcono" class="" aria-hidden=""></span>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Unidad de Medida:</label>
-                    <input type="text" name="nvchUnidadMedida" class="form-control select2" placeholder="Ingrese Unidad de Medida" value="<?php echo $this->nvchUnidadMedida; ?>" maxlength="20" required>
+                    <input type="text" name="nvchUnidadMedida" class="form-control select2" placeholder="Ingrese Unidad de Medida" value="UND" maxlength="20" readonly required>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="form-group">
+                  <div id="intCantidadMinimaGroup" class="form-group">
                     <label>Cantidad Mínima:</label>
-                    <input type="text" name="intCantidadMinima" class="form-control select2" placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" pattern="[0-9.]+" maxlength="11" required>
+                    <input type="text" id="intCantidadMinima" name="intCantidadMinima" class="form-control select2" 
+                    placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" 
+                    onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadMinima')" maxlength="11" required>
+                    <span id="intCantidadMinimaIcono" class="" aria-hidden=""></span>
                   </div>
                 </div>
             </div>
@@ -85,21 +91,30 @@ class FormularioProducto
         <div class="box-body">
           <div class="row">
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="dcmPrecioVenta1Group" class="form-group">
                 <label>Precio de Venta 1:</label>
-                <input type="text" name="dcmPrecioVenta1" class="form-control select2" placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>" onkeypress="return EsNumeroTecla(event)" maxlength="15">
+                <input type="text" id="dcmPrecioVenta1" name="dcmPrecioVenta1" class="form-control select2" 
+                placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta1')" maxlength="15" required>
+                <span id="dcmPrecioVenta1Icono" class="" aria-hidden=""></span>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="dcmPrecioVenta2Group" class="form-group">
                 <label>Precio de Venta 2:</label>
-                <input type="text" name="dcmPrecioVenta2" class="form-control select2" placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" onkeypress="return EsNumeroTecla(event)" maxlength="15">
+                <input type="text" id="dcmPrecioVenta2" name="dcmPrecioVenta2" class="form-control select2" 
+                placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta2')" maxlength="15" required>
+                <span id="dcmPrecioVenta2Icono" class="" aria-hidden=""></span>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="dcmPrecioVenta3Group"  class="form-group">
                 <label>Precio de Venta 3:</label>
-                <input type="text" name="dcmPrecioVenta3" class="form-control select2" placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" onkeypress="return EsNumeroTecla(event)" maxlength="15">
+                <input type="text" id="dcmPrecioVenta3" name="dcmPrecioVenta3" class="form-control select2" 
+                placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta3')" maxlength="15" required>
+                <span id="dcmPrecioVenta3Icono" class="" aria-hidden=""></span>
               </div>
             </div>
           </div>
@@ -209,7 +224,7 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Cantidad:</label>
-                <input type="text" id="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Ubicacion"  maxlength="11">
+                <input type="text" id="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Cantidad" onkeypress="return EsNumeroEnteroTecla(event)" maxlength="11">
               </div>
             </div>
           </div>

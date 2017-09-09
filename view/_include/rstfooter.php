@@ -238,5 +238,7 @@
 
 
 </script>
+
+<?php require_once '../modals/vmensajes.php'; ?>
 </body>
 </html>

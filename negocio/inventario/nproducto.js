@@ -9,6 +9,7 @@ $(document).on('click', '#btn-form-crear-producto', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	goToBox("#Formulario");
 	   }
 	  });
 	 return false;
@@ -19,6 +20,25 @@ $(document).on('click', '#btn-form-crear-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Producto */
 $(document).on('click', '#btn-crear-producto', function(){
+	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
+	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+	  if(EsVacio("nvchDescripcion") == false){
+	  	return false;
+	  } else if(EsNumeroEntero("intCantidadMinima") == false){
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioVenta1") == false){
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioVenta2") == false){
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioVenta3") == false){
+	  	return false;
+	  } else if(num_filas_codigo == 0){
+	  	MensajeNormal("Ingrese por lo menos un Código de Producto",2);
+	  	return false;
+	  } else if(num_filas_ubicacion == 0){
+	  	MensajeNormal("Ingresar por lo menos una Ubicación del Producto",2);
+	  	return false;
+	  }
 	  var formData = $("#form-producto").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
@@ -31,7 +51,9 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="okokok") {
-	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
+	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
+	   		$("#btn-form-producto-remove").click();
+	   		$("#tipo-busqueda").val("T");
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
@@ -59,6 +81,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   	$("#formulario-crud").html(datos);
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
+	   	window.location.href = "#Formulario";
 	   }
 	  });
 	 return false;
@@ -81,7 +104,9 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
+	   		MensajeNormal("Se modificó correctamente el Producto",1);
+	   		$("#btn-form-producto-remove").click();
+	   		$("#tipo-busqueda").val("T");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
 	   	}
@@ -108,7 +133,7 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") { 
-	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
+	   		MensajeNormal("Se eliminó correctamente el Producto",1);
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
 	   	}
@@ -285,6 +310,10 @@ $(document).on('change', '#SeleccionImagen', function(){
 function AgregarCodigo() {
 	var nvchCodigo = document.getElementById("nvchCodigo").value;
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
+	if(nvchCodigo == ""){
+		MensajeNormal("Rellenar el campo Código",2);
+		return false;
+	}
 	$('#ListaDeCodigos').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'
 		+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
@@ -302,6 +331,14 @@ function AgregarUbigeo() {
 	var nvchSucursal = document.getElementById("nvchSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
+	if(nvchUbicacion == ""){
+		MensajeNormal("Rellenar el Campo Ubicación en el Almacén",2);
+		return false;
+	}
+	if(intCantidadUbigeo == ""){
+		MensajeNormal("Rellenar el Campo Cantidad",2);
+		return false;
+	}
 	$('#ListaDeUbicaciones').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchSucursal[]" value="'
 		+nvchSucursal+'"/>'+nvchSucursal+'</td>'+
