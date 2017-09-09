@@ -132,22 +132,32 @@ class FormularioProducto
         <div class="box-body">
           <div class="row">
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="nvchCodigoGroup" class="form-group">
                 <label>Código:</label>
-                <input type="text" id="nvchCodigo" class="form-control select2" placeholder="Ingrese Código" maxlength="85"/>
+                <input type="text" id="nvchCodigo" class="form-control select2" 
+                placeholder="Ingrese Código" onkeyup="EsVacio('nvchCodigo')"
+                maxlength="85"/>
+                <span id="nvchCodigoIcono" class="" aria-hidden=""></span>
+                <div id="nvchCodigoObs" class=""></div>
               </div>
             </div>
             <?php if($funcion == "M") { ?>
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="dtmFechaInicioGroup" class="form-group">
                 <label>Fecha de Inicio:</label>
-                <input type="text" id="dtmFechaInicio" class="form-control select2" placeholder="Ingrese Fecha de Inicio"/>
+                <input type="text" id="dtmFechaInicio" class="form-control select2" 
+                placeholder="Ingrese Fecha de Inicio" onkeyup="EsVacio('dtmFechaInicio')"/>
+                <span id="dtmFechaInicioIcono" class="" aria-hidden=""></span>
+                <div id="dtmFechaInicioObs" class=""></div>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="dtmFechaFinalGroup" class="form-group">
                 <label>Fecha de Finalización:</label>
-                <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="Ingrese Fecha de Finalización"/>
+                <input type="text" id="dtmFechaFinal" class="form-control select2" 
+                placeholder="Ingrese Fecha de Finalización" onkeyup="EsVacio('dtmFechaFinal')"/>
+                <span id="dtmFechaFinalIcono" class="" aria-hidden=""></span>
+                <div id="dtmFechaFinalObs" class=""></div>
               </div>
             </div>
             <?php } ?>
@@ -221,15 +231,22 @@ class FormularioProducto
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="nvchUbicacionGroup" class="form-group">
                 <label>Ubicación en el Almacén:</label>
-                <input type="text" id="nvchUbicacion" class="form-control select2" placeholder="Ingrese Ubicacion" maxlength="45">
+                <input type="text" id="nvchUbicacion" class="form-control select2" 
+                placeholder="Ingrese Ubicacion" onkeyup="EsVacio('nvchUbicacion')" maxlength="45">
+                <span id="nvchUbicacionIcono" class="" aria-hidden=""></span>
+                <div id="nvchUbicacionObs" class=""></div>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="intCantidadUbigeoGroup" class="form-group">
                 <label>Cantidad:</label>
-                <input type="text" id="intCantidadUbigeo" class="form-control select2" placeholder="Ingrese Cantidad" onkeypress="return EsNumeroEnteroTecla(event)" maxlength="11">
+                <input type="text" id="intCantidadUbigeo" class="form-control select2" 
+                placeholder="Ingrese Cantidad" onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadUbigeo')"
+                maxlength="11">
+                <span id="intCantidadUbigeoIcono" class="" aria-hidden=""></span>
+                <div id="intCantidadUbigeoObs" class=""></div>
               </div>
             </div>
           </div>

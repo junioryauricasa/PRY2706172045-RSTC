@@ -310,8 +310,7 @@ $(document).on('change', '#SeleccionImagen', function(){
 function AgregarCodigo() {
 	var nvchCodigo = document.getElementById("nvchCodigo").value;
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
-	if(nvchCodigo == ""){
-		MensajeNormal("Rellenar el campo Código",2);
+	if(EsVacio("nvchCodigo") == false){
 		return false;
 	}
 	$('#ListaDeCodigos').append('<tr>'+
@@ -331,12 +330,10 @@ function AgregarUbigeo() {
 	var nvchSucursal = document.getElementById("nvchSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
-	if(nvchUbicacion == ""){
-		MensajeNormal("Rellenar el Campo Ubicación en el Almacén",2);
+	if(EsVacio("nvchUbicacion") == false){
 		return false;
 	}
-	if(intCantidadUbigeo == ""){
-		MensajeNormal("Rellenar el Campo Cantidad",2);
+	if(EsNumeroEntero("intCantidadUbigeo") == false){
 		return false;
 	}
 	$('#ListaDeUbicaciones').append('<tr>'+
