@@ -11,6 +11,7 @@ class FormularioProducto
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
   private $dcmPrecioVenta3;
+  private $intIdTipoMoneda;
   private $dtmFechaIngreso;
 
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
@@ -22,6 +23,7 @@ class FormularioProducto
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
 
   function ConsultarFormulario($funcion)
@@ -92,6 +94,26 @@ class FormularioProducto
       </div>
         <div class="box-body">
           <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Tipo de Moneda:</label>
+                <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
+                  <?php try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
+                <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
+              </div>
+            </div>
             <div class="col-md-3">
               <div id="dcmPrecioVenta1Group" class="form-group">
                 <label>Precio de Venta 1:</label>

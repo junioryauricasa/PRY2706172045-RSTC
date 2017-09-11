@@ -76,11 +76,11 @@ include('../_include/rstheader.php');
                     try{
                     $sql_conexion = new Conexion_BD();
                     $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante()');
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipoPersona()');
                     $sql_comando->execute();
                     while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                     {
-                      echo '<option value="'.$fila['intIdTipoComprobante'].'">'.$fila['nvchNombre'].'</option>';
+                      echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
                     }
                   }catch(PDPExceptions $e){
                     echo $e->getMessage();
@@ -120,7 +120,6 @@ include('../_include/rstheader.php');
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left">Agregar Proveedor</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
 

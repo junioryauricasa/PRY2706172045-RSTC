@@ -48,14 +48,14 @@ DELIMITER $$
     	IN _intIdOperacionCotizacion INT
     )
 	BEGIN
-		SELECT DCT.*,P.nvchNombre,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_cotizacion DCT
+		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_cotizacion DCT
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
-		intIdOperacionCotizacion = _intIdOperacionCotizacion;
+		DCT.intIdOperacionCotizacion = _intIdOperacionCotizacion;
     END 
 $$
 DELIMITER ;
-
 
 DROP PROCEDURE IF EXISTS ELIMINARDETALLECOTIZACION;
 DELIMITER $$
@@ -89,10 +89,11 @@ DELIMITER $$
     	IN _intIdCotizacion INT
     )
 	BEGIN
-		SELECT DCT.*,P.nvchNombre,P.nvchDescripcion FROM tb_detalle_cotizacion DCT
+		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_detalle_cotizacion DCT
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE
-		intIdCotizacion = _intIdCotizacion;
+		DCT.intIdCotizacion = _intIdCotizacion AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;

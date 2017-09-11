@@ -84,8 +84,6 @@
                 <th>#Código</th>
                 <th>Nombres</th>
                 <th>Correo</th>
-                <th>contraseña</th>
-                <th>Empleado</th>
                 <th>Tipo Usuario</th>
                 <th>Estado</th>
                 <th>Opciones</th>
@@ -107,7 +105,6 @@
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left">Agregar Usuario</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
 

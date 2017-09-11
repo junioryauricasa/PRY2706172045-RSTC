@@ -9,9 +9,9 @@
 	------------------------------
 */
 
-$host = 'localhost';
-$user = 'root';
-$pass = '';
+$host = '166.62.72.130';
+$user = 'restecoadmindb';
+$pass = 'restecoadmin123';
 $db = 'db_resteco';
 
 $con = mysqli_connect($host, $user, $pass, $db) or die("Error " . mysqli_error($con));

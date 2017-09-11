@@ -84,6 +84,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	$("#tipo-moneda").val($("#intIdTipoMoneda").val());
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
 	   	goToBox("#Formulario");

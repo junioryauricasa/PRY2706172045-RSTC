@@ -24,6 +24,7 @@ switch($_POST['funcion']){
     $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
     $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
     $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
+    $Producto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $Producto->FechaIngreso($dtmFechaIngreso);
     $Producto->InsertarProducto();
@@ -65,6 +66,7 @@ switch($_POST['funcion']){
     $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
     $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
     $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
+    $Producto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $Producto->FechaIngreso($dtmFechaIngreso);
     $Producto->ActualizarProducto();

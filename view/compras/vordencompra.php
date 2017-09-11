@@ -95,7 +95,6 @@ include('../_include/rstheader.php');
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-info btn-flat pull-left">Crear Orden de Compra</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte de los Ordenes de Compra</a>
         </div>
       </div>
 

@@ -94,7 +94,6 @@ include('../_include/rstheader.php');
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-guiainternaentrada" class="btn btn-sm btn-info btn-flat pull-left">Agregar Entrada de Productos</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
 

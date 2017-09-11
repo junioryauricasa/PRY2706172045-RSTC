@@ -247,7 +247,7 @@
                         <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
                       </div>
                       <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title"><?php echo $fila['nvchNombre']; ?>
+                        <a href="javascript:void(0)" class="product-title"><?php echo $fila['nvchCodigo']; ?>
                           <span class="label label-warning pull-right"><?php echo $fila['dcmPrecioVenta1']; ?></span></a>
                             <span class="product-description">
                               <?php echo $fila['nvchDescripcion']; ?>

@@ -13,6 +13,7 @@ class Producto
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
   private $dcmPrecioVenta3;
+  private $intIdTipoMoneda;
   private $dtmFechaIngreso;
   
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
@@ -24,6 +25,7 @@ class Producto
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   /* FIN - Atributos de Producto */
 
@@ -35,7 +37,7 @@ class Producto
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
-        :dcmPrecioVenta3,:dtmFechaIngreso)');
+        :dcmPrecioVenta3,:intIdTipoMoneda,:dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
@@ -45,6 +47,7 @@ class Producto
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdProducto as intIdProducto");
@@ -77,6 +80,7 @@ class Producto
       $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
       $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
       $FormularioProducto->PrecioVenta3($fila['dcmPrecioVenta3']);
+      $FormularioProducto->IdTipoMoneda($fila['intIdTipoMoneda']);
       $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
       $FormularioProducto->ConsultarFormulario($funcion);
     }
@@ -91,8 +95,8 @@ class Producto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchDescripcion,
-        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,
-        :dtmFechaIngreso)');
+        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
+        :dcmPrecioVenta3,:intIdTipoMoneda,:dtmFechaIngreso)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
         ':nvchDescripcion' => $this->nvchDescripcion,
@@ -103,6 +107,7 @@ class Producto
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso));
       $_SESSION['intIdProducto'] = $this->intIdProducto;
       $_SESSION['RutaDefaultImg'] = "";
@@ -174,7 +179,8 @@ class Producto
           <td>'.$fila["nvchUnidadMedida"].'</td>
           <td>'.$fila["dcmPrecioVenta1"].'</td>
           <td>'.$fila["dcmPrecioVenta2"].'</td>
-          <td>'.$fila["dcmPrecioVenta3"].'</td>';
+          <td>'.$fila["dcmPrecioVenta3"].'</td>
+          <td>'.$fila["nvchSimbolo"].'</td>';
           $sql_conexion_cantidad = new Conexion_BD();
           $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
           $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');

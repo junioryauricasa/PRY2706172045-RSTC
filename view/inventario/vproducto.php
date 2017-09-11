@@ -91,6 +91,7 @@ include('../_include/rstheader.php');
                 <th>Precio de Venta 1</th>
                 <th>Precio de Venta 2</th>
                 <th>Precio de Venta 3</th>
+                <th>Tipo de Moneda</th>
                 <th>Cant. Huancayo</th>
                 <th>Cant. San Jerónimo</th>
                 <th>Imágen</th>
@@ -113,7 +114,6 @@ include('../_include/rstheader.php');
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat pull-left">Agregar Producto</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte del Registro</a>
         </div>
       </div>
 

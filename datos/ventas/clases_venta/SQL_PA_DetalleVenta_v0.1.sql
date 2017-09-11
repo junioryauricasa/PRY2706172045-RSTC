@@ -49,10 +49,11 @@ DELIMITER $$
     	IN _intIdOperacionVenta INT
     )
 	BEGIN
-		SELECT DV.*,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_venta DV
+		SELECT DV.*,CP.nvchCodigo,P.nvchDescripcion,P.intCantidad AS CantidadProducto FROM tb_detalle_venta DV
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
-		intIdOperacionVenta = _intIdOperacionVenta;
+		DV.intIdOperacionVenta = _intIdOperacionVenta;
     END 
 $$
 DELIMITER ;
@@ -90,10 +91,11 @@ DELIMITER $$
     	IN _intIdVenta INT
     )
 	BEGIN
-		SELECT DV.*,P.nvchDescripcion FROM tb_detalle_venta DV
+		SELECT DV.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_detalle_venta DV
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE
-		intIdVenta = _intIdVenta;
+		DV.intIdVenta = _intIdVenta AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;
@@ -236,14 +238,15 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS InsertarCotizacionVenta;
 DELIMITER $$
 	CREATE PROCEDURE InsertarCotizacionVenta(
-    	IN _nvchNumeracion VARCHAR(30)
+    	IN _intIdCotizacion INT
     )
 	BEGIN
-		SELECT DCT.*,P.nvchDescripcion FROM tb_cotizacion CT
+		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_cotizacion CT
 		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE
-		CT.nvchNumeracion = _nvchNumeracion;
+		CT.intIdCotizacion = _intIdCotizacion AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;

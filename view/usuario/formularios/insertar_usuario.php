@@ -29,12 +29,6 @@
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Empleado:</label>
-                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Id empleado" value="" required="">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
                         <label>Tipo Usuario:</label>
                         <!--input type="text" name="intTypeUser" class="form-control select2" placeholder="Tipo de usuario" value="" required=""-->
                          <select name="intTypeUser" id="" value="" class="form-control select2" >

@@ -12,15 +12,16 @@ DELIMITER $$
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
+	IN _intIdTipoMoneda INT,
 	IN _dtmFechaIngreso DATETIME
     )
 	BEGIN
 		INSERT INTO tb_producto 
 		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
-		dcmPrecioVenta3,dtmFechaIngreso)
+		dcmPrecioVenta3,intIdTipoMoneda,dtmFechaIngreso)
 		VALUES
 		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
-		_dcmPrecioVenta3,_dtmFechaIngreso);
+		_dcmPrecioVenta3,_intIdTipoMoneda,_dtmFechaIngreso);
 		SET _intIdProducto = LAST_INSERT_ID();
     END
 $$
@@ -38,6 +39,7 @@ DELIMITER $$
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
+	IN _intIdTipoMoneda INT,
 	IN _dtmFechaIngreso DATETIME
     )
 	BEGIN
@@ -51,6 +53,7 @@ DELIMITER $$
 		dcmPrecioVenta1 = _dcmPrecioVenta1,
 		dcmPrecioVenta2 = _dcmPrecioVenta2,
 		dcmPrecioVenta3 = _dcmPrecioVenta3,
+		intIdTipoMoneda = _intIdTipoMoneda,
 		dtmFechaIngreso = _dtmFechaIngreso
 		WHERE 
 		intIdProducto = _intIdProducto;
@@ -116,9 +119,10 @@ DELIMITER $$
     )
 	BEGIN
 	IF(_TipoBusqueda = "T") THEN
-		SELECT P.*, CP.*
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
@@ -132,9 +136,10 @@ DELIMITER $$
 		LIMIT _x,_y;
 	END IF;
 	IF(_TipoBusqueda = "C") THEN
-		SELECT P.*, CP.*
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%')
 		LIMIT _x,_y;
@@ -151,9 +156,10 @@ DELIMITER $$
     )
 	BEGIN
 	IF(_TipoBusqueda = "T") THEN
-		SELECT P.*, CP.*
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
@@ -166,9 +172,10 @@ DELIMITER $$
 		CP.intIdTipoCodigoProducto = 1;
 	END IF;
 	IF(_TipoBusqueda = "C") THEN
-		SELECT P.*, CP.*
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%');
 	END IF;

@@ -72,6 +72,7 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
+                <th>Id</th>
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
@@ -94,7 +95,6 @@ include('../_include/rstheader.php');
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-cotizacion" class="btn btn-sm btn-info btn-flat pull-left">Crear Cotización</button>
-          <a href="reportes" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte de Cotizaciones</a>
         </div>
       </div>
 

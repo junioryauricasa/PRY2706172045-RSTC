@@ -42,8 +42,8 @@ class Usuario
       $sql_comando->execute(array(
       	':nvchUserName' => $this->nvchUserName, 
         ':nchUserMail' => $this->nchUserMail,
-        ':nvchUserPassword' => $this->nvchUserPassword,
-        ':intIdEmpleado' => $this->intIdEmpleado,
+        ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),
+        ':intIdEmpleado' => 0,
         ':intTypeUser' => $this->intTypeUser,
         ':bitUserEstado' => $this->bitUserEstado
     	));
@@ -89,13 +89,7 @@ class Usuario
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Contraseña:</label>
-                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese cantidad del usuario" value="'.$fila['nvchUserPassword'].'" required>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Empleado:</label>
-                        <input type="text" name="intIdEmpleado" class="form-control select2" placeholder="Codigo del empleado" value="'.$fila['intIdEmpleado'].'" required>
+                        <input type="text" name="nvchUserPassword" class="form-control select2" placeholder="Ingrese la Contraseña" value="" required>
                       </div>
                     </div>
                     <div class="col-md-3">
@@ -144,7 +138,7 @@ class Usuario
       	':intUserId' => $this->intUserId,
         ':nvchUserName' => $this->nvchUserName, 
         ':nchUserMail' => $this->nchUserMail,
-        ':nvchUserPassword' => $this->nvchUserPassword,
+        ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),
         ':intIdEmpleado' => $this->intIdEmpleado,
         ':intTypeUser' => $this->intTypeUser,
     	':bitUserEstado' => $this->bitUserEstado));
@@ -202,7 +196,8 @@ class Usuario
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
+      { if($fila["intUserId"] != 23 || $fila["intUserId"] != 34 || $fila["intUserId"] != 36)
+        {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intUserId"] == $_SESSION['intUserId'] && $tipolistado == "E"){
@@ -249,9 +244,7 @@ class Usuario
         echo '
 	        <td>'.$fila["intUserId"].'</td>
 	        <td>'.$fila["nvchUserName"].'</td>
-	        <td>'.$fila["nchUserMail"].'</td> 
-	        <td>'.$fila["nvchUserPassword"].'</td>
-	        <td>'.$fila["intIdEmpleado"].'</td>
+	        <td>'.$fila["nchUserMail"].'</td>
 	        <td>'.$fila["intTypeUser"].'</td>
 	        <td>'.$fila["bitUserEstado"].'</td>
 	        <td> 
@@ -264,6 +257,7 @@ class Usuario
 	        </td>  
 	        </tr>';
         $i++;
+      }
       }
     }
     catch(PDPExceptio $e){
@@ -374,7 +368,7 @@ switch($_POST['funcion']){
     $usuario->nvchUserName($_POST['nvchUserName']);
     $usuario->nchUserMail($_POST['nchUserMail']);
     $usuario->nvchUserPassword($_POST['nvchUserPassword']);
-    $usuario->intIdEmpleado($_POST['intIdEmpleado']);
+    $usuario->intIdEmpleado(0);
     $usuario->intTypeUser($_POST['intTypeUser']);
     $usuario->bitUserEstado($_POST['bitUserEstado']);
     $usuario->InsertarUsuario();
@@ -385,7 +379,7 @@ switch($_POST['funcion']){
     $usuario->nvchUserName($_POST['nvchUserName']);
     $usuario->nchUserMail($_POST['nchUserMail']);
     $usuario->nvchUserPassword($_POST['nvchUserPassword']);
-    $usuario->intIdEmpleado($_POST['intIdEmpleado']);
+    $usuario->intIdEmpleado(0);
     $usuario->intTypeUser($_POST['intTypeUser']);
     $usuario->bitUserEstado($_POST['bitUserEstado']);
     $usuario->ActualizarUsuario();
