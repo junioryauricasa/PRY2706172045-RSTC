@@ -30,8 +30,6 @@ switch($_POST['funcion']){
     $CodigoProducto = new CodigoProducto();
     $CodigoProducto->IdProducto($_SESSION['intIdProducto']);
     $CodigoProducto->Codigo($_POST['nvchCodigo']);
-    $CodigoProducto->FechaInicio($dtmFechaIngreso);
-    $CodigoProducto->FechaFinal('0000-00-00 00:00:00');
     $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
     $CodigoProducto->InsertarCodigoProducto();
     $UbigeoProducto = new UbigeoProducto();
@@ -45,9 +43,6 @@ switch($_POST['funcion']){
     $CodigoProducto = new CodigoProducto();
     $CodigoProducto->IdProducto($_POST['intIdProducto']);
     $CodigoProducto->Codigo($_POST['nvchCodigo']);
-    $dtmFechaInicio = date("Y-m-d H:i:s");
-    $CodigoProducto->FechaInicio($dtmFechaInicio);
-    $CodigoProducto->FechaFinal('0000-00-00 00:00:00');
     $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
     $CodigoProducto->InsertarCodigoProducto_II();
     break;
@@ -79,9 +74,6 @@ switch($_POST['funcion']){
     $CodigoProducto->IdCodigoProducto($_POST['intIdCodigoProducto']);
     $CodigoProducto->IdProducto($_POST['intIdProducto']);
     $CodigoProducto->Codigo($_POST['nvchCodigo']);
-    $dtmFechaInicio = date("Y-m-d H:i:s");
-    $CodigoProducto->FechaInicio($dtmFechaInicio);
-    $CodigoProducto->FechaFinal('0000-00-00 00:00:00');
     $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
     $CodigoProducto->ActualizarCodigoProducto();
     break;

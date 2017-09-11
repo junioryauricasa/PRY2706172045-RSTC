@@ -123,6 +123,10 @@ class FormularioProducto
               </div>
             </div>
           </div>
+          <?php if($funcion == "M") { ?>
+          <input type="submit" id="btn-editar-producto" class="btn btn-sm btn-warning btn-flat pull-left" value="Editar Producto">
+          <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
+          <?php } ?>
         </div>
       <div class="box-header with-border">
       </div>
@@ -141,26 +145,6 @@ class FormularioProducto
                 <div id="nvchCodigoObs" class=""></div>
               </div>
             </div>
-            <?php if($funcion == "M") { ?>
-            <div class="col-md-3">
-              <div id="dtmFechaInicioGroup" class="form-group">
-                <label>Fecha de Inicio:</label>
-                <input type="text" id="dtmFechaInicio" class="form-control select2" 
-                placeholder="Ingrese Fecha de Inicio" onkeyup="EsVacio('dtmFechaInicio')"/>
-                <span id="dtmFechaInicioIcono" class="" aria-hidden=""></span>
-                <div id="dtmFechaInicioObs" class=""></div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div id="dtmFechaFinalGroup" class="form-group">
-                <label>Fecha de Finalización:</label>
-                <input type="text" id="dtmFechaFinal" class="form-control select2" 
-                placeholder="Ingrese Fecha de Finalización" onkeyup="EsVacio('dtmFechaFinal')"/>
-                <span id="dtmFechaFinalIcono" class="" aria-hidden=""></span>
-                <div id="dtmFechaFinalObs" class=""></div>
-              </div>
-            </div>
-            <?php } ?>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Tipo de Código:</label>
@@ -201,10 +185,6 @@ class FormularioProducto
               <thead>
               <tr>
                 <th>Código</th>
-                <?php if($funcion == "M") { ?>
-                <th>Fecha Inicio</th>
-                <th>Fecha Final</th>
-                <?php } ?>
                 <th>Tipo</th>
                 <th>Opción</th>
               </tr>
@@ -289,10 +269,8 @@ class FormularioProducto
               <input type="hidden" name="dtmFechaIngreso" value="<?php echo $this->dtmFechaIngreso; ?>" />
               <?php if($funcion == "F"){ ?>
               <input type="submit" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
-              <?php } else if($funcion == "M") { ?>
-              <input type="submit" id="btn-editar-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Editar Producto">
+              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
               <?php } ?>
-              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
           </div>              
         </form>
         <div id="resultadocrud"></div>

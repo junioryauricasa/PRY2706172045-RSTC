@@ -23,14 +23,19 @@ $(document).on('click', '#btn-crear-producto', function(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
 	  if(EsVacio("nvchDescripcion") == false){
+	  	goToBox("#nvchDescripcionGroup");
 	  	return false;
 	  } else if(EsNumeroEntero("intCantidadMinima") == false){
+	  	goToBox("#intCantidadMinimaGroup");
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioVenta1") == false){
+	  	goToBox("#dcmPrecioVenta1Group");
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioVenta2") == false){
+	  	goToBox("#dcmPrecioVenta2Group");
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioVenta3") == false){
+	  	goToBox("#dcmPrecioVenta3Group");
 	  	return false;
 	  } else if(num_filas_codigo == 0){
 	  	MensajeNormal("Ingrese por lo menos un Código de Producto",2);
@@ -81,7 +86,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   	$("#formulario-crud").html(datos);
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
-	   	window.location.href = "#Formulario";
+	   	goToBox("#Formulario");
 	   }
 	  });
 	 return false;
@@ -92,6 +97,30 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Producto */
 $(document).on('click', '#btn-editar-producto', function(){
+	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
+	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+	  if(EsVacio("nvchDescripcion") == false){
+	  	goToBox("#nvchDescripcionGroup");
+	  	return false;
+	  } else if(EsNumeroEntero("intCantidadMinima") == false){
+	  	goToBox("#intCantidadMinimaGroup");
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioVenta1") == false){
+	  	goToBox("#dcmPrecioVenta1Group");
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioVenta2") == false){
+	  	goToBox("#dcmPrecioVenta2Group");
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioVenta3") == false){
+	  	goToBox("#dcmPrecioVenta3Group");
+	  	return false;
+	  } else if(num_filas_codigo == 0){
+	  	MensajeNormal("Ingrese por lo menos un Código de Producto",2);
+	  	return false;
+	  } else if(num_filas_ubicacion == 0){
+	  	MensajeNormal("Ingresar por lo menos una Ubicación del Producto",2);
+	  	return false;
+	  }
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
@@ -308,11 +337,23 @@ $(document).on('change', '#SeleccionImagen', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Códigos según Ingresa */
 function AgregarCodigo() {
-	var nvchCodigo = document.getElementById("nvchCodigo").value;
+	var nvchCodigo = document.getElementById("nvchCodigo").value;	
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
-	if(EsVacio("nvchCodigo") == false){
+	var validacion = true;
+	$('#ListaDeCodigos tr').each(function(){
+        if($(this).find('td').eq(1).text() == 'Principal'){
+            validacion = false;
+        }
+    });
+    if(EsVacio("nvchCodigo") == false){
 		return false;
 	}
+    else if(validacion == false){
+    	if (intIdTipoCodigoProducto == 1) {
+	    	MensajeNormal("No puede haber más de un Código Principal",2);
+	    	return false;
+    	}
+    }
 	$('#ListaDeCodigos').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'
 		+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
@@ -327,15 +368,15 @@ function AgregarCodigo() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Ubicaciones según Ingresa */
 function AgregarUbigeo() {
-	var nvchSucursal = document.getElementById("nvchSucursal").value;
-	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
-	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
 	if(EsVacio("nvchUbicacion") == false){
 		return false;
 	}
 	if(EsNumeroEntero("intCantidadUbigeo") == false){
 		return false;
 	}
+	var nvchSucursal = document.getElementById("nvchSucursal").value;
+	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
+	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
 	$('#ListaDeUbicaciones').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchSucursal[]" value="'
 		+nvchSucursal+'"/>'+nvchSucursal+'</td>'+

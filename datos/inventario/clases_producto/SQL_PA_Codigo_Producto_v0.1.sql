@@ -5,15 +5,13 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARCODIGOPRODUCTO(
 	IN _intIdProducto INT,
     IN _nvchCodigo VARCHAR(100),
-    IN _dtmFechaInicio DATETIME,
-    IN _dtmFechaFinal DATETIME,
 	IN _intIdTipoCodigoProducto INT
     )
 	BEGIN
 		INSERT INTO tb_codigo_producto
-		(intIdProducto,nvchCodigo,dtmFechaInicio,dtmFechaFinal,intIdTipoCodigoProducto)
+		(intIdProducto,nvchCodigo,intIdTipoCodigoProducto)
 		VALUES
-		(_intIdProducto,_nvchCodigo,_dtmFechaInicio,_dtmFechaFinal,_intIdTipoCodigoProducto);
+		(_intIdProducto,_nvchCodigo,_intIdTipoCodigoProducto);
     END 
 $$
 DELIMITER ;
@@ -24,8 +22,6 @@ DELIMITER $$
 	IN _intIdCodigoProducto INT,
 	IN _intIdProducto INT,
     IN _nvchCodigo VARCHAR(100),
-    IN _dtmFechaInicio DATETIME,
-    IN _dtmFechaFinal DATETIME,
 	IN _intIdTipoCodigoProducto INT
     )
 	BEGIN
@@ -33,8 +29,6 @@ DELIMITER $$
 		SET
 		intIdProducto = _intIdProducto,
 		nvchCodigo = _nvchCodigo,
-		dtmFechaInicio = _dtmFechaInicio,
-		dtmFechaFinal = _dtmFechaFinal,
 		intIdTipoCodigoProducto = _intIdTipoCodigoProducto
 		WHERE 
 		intIdCodigoProducto = _intIdCodigoProducto;

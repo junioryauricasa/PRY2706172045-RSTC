@@ -6,15 +6,11 @@ class CodigoProducto
   private $intIdCodigoProducto;
   private $intIdProducto;
   private $nvchCodigo;
-  private $dtmFechaInicio;
-  private $dtmFechaFinal;
   private $intIdTipoCodigoProducto;
   
   public function IdCodigoProducto($intIdCodigoProducto){ $this->intIdCodigoProducto = $intIdCodigoProducto; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
-  public function FechaInicio($dtmFechaInicio){ $this->dtmFechaInicio = $dtmFechaInicio; }
-  public function FechaFinal($dtmFechaFinal){ $this->dtmFechaFinal = $dtmFechaFinal; }
   public function IdTipoCodigoProducto($intIdTipoCodigoProducto){ $this->intIdTipoCodigoProducto = $intIdTipoCodigoProducto; }
   /* FIN - Atributos de Comunicacion Proveedor */
 
@@ -25,13 +21,10 @@ class CodigoProducto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->nvchCodigo as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarCodigoProducto(:intIdProducto,:nvchCodigo,
-      	:dtmFechaInicio,:dtmFechaFinal,:intIdTipoCodigoProducto)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarCodigoProducto(:intIdProducto,:nvchCodigo,:intIdTipoCodigoProducto)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto, 
         ':nvchCodigo' => $value,
-        ':dtmFechaInicio' => $this->dtmFechaInicio,
-        ':dtmFechaFinal' => $this->dtmFechaFinal,
         ':intIdTipoCodigoProducto' => $this->intIdTipoCodigoProducto[$key]));
       }
       echo "ok";
@@ -47,12 +40,10 @@ class CodigoProducto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCodigoProducto(:intIdProducto,:nvchCodigo,
-        :dtmFechaInicio,:dtmFechaFinal,:intIdTipoCodigoProducto)');
+        :intIdTipoCodigoProducto)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto, 
         ':nvchCodigo' => $this->nvchCodigo,
-        ':dtmFechaInicio' => $this->dtmFechaInicio,
-        ':dtmFechaFinal' => $this->dtmFechaFinal,
         ':intIdTipoCodigoProducto' => $this->intIdTipoCodigoProducto));
       echo "ok";
     }
@@ -80,8 +71,6 @@ class CodigoProducto
           echo '<tr bgcolor="#F7FCCF">';
         }
       	echo '<td><input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td><input type="hidden" name="dtmFechaInicio[]" value="'.$fila['dtmFechaInicio'].'"/>'.$fila['dtmFechaInicio'].'</td>
-        <td><input type="hidden" name="dtmFechaFinal[]" value="'.$fila['dtmFechaFinal'].'"/>'.$fila['dtmFechaFinal'].'</td>
         <td><input type="hidden" name="intIdTipoCodigoProducto[]" value="'.$fila['intIdTipoCodigoProducto'].'"/>'.$fila['NombreTipoCodigo'].'</td>
         <td> 
           <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCodigo(this)">
@@ -110,8 +99,6 @@ class CodigoProducto
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
       $salida['intIdCodigoProducto'] = $fila['intIdCodigoProducto'];
       $salida['nvchCodigo'] = $fila['nvchCodigo'];
-      $salida['dtmFechaInicio'] = $fila['dtmFechaInicio'];
-      $salida['dtmFechaFinal'] = $fila['dtmFechaFinal'];
       $salida['intIdTipoCodigoProducto'] = $fila['intIdTipoCodigoProducto'];
       echo json_encode($salida);
     }
@@ -125,14 +112,12 @@ class CodigoProducto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarCodigoProducto(:intIdCodigoProducto,:intIdProducto,:nvchCodigo,
-        :dtmFechaInicio,:dtmFechaFinal,:intIdTipoCodigoProducto)');
+      $sql_comando = $sql_conectar->prepare('CALL actualizarCodigoProducto(:intIdCodigoProducto,:intIdProducto,
+        :nvchCodigo,:intIdTipoCodigoProducto)');
       $sql_comando->execute(array(
         ':intIdCodigoProducto' => $this->intIdCodigoProducto,
         ':intIdProducto' => $this->intIdProducto, 
         ':nvchCodigo' => $this->nvchCodigo,
-        ':dtmFechaInicio' => $this->dtmFechaInicio,
-        ':dtmFechaFinal' => $this->dtmFechaFinal,
         ':intIdTipoCodigoProducto' => $this->intIdTipoCodigoProducto));
       $_SESSION['intIdCodigoProducto'] = $this->intIdCodigoProducto;
       echo "ok";

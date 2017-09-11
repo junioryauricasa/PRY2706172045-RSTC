@@ -68,3 +68,13 @@ function EsDecimal(NombreId){
     return true;
   }
 }
+
+function RestablecerValidacion(NombreId,Tipo){
+  if(Tipo==1){
+    $("#"+NombreId).val("");
+  }
+  $("#"+NombreId+"Group").attr("class","form-group");
+  $("#"+NombreId+"Icono").attr({"class":"", "aria-hidden":""});
+  $("#"+NombreId+"Obs").attr("class","");
+  $("#"+NombreId+"Obs").html("");
+}

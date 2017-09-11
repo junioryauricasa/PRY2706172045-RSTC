@@ -21,6 +21,20 @@ function AgregarCodigo_II() {
 	var intIdProducto = document.getElementById("intIdProducto").value;
 	var nvchCodigo = document.getElementById("nvchCodigo").value;
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
+	var validacion = true;
+	$('#ListaDeCodigos tr').each(function(){
+        if($(this).find('td').eq(1).text() == 'Principal'){
+            validacion = false;
+        }
+    });
+	if(EsVacio("nvchCodigo") == false){
+		return false;
+	} else if(validacion == false){
+    	if (intIdTipoCodigoProducto == 1) {
+	    	MensajeNormal("No puede haber más de un Código Principal",2);
+	    	return false;
+    	}
+    }
 	var tipolistado = "I";
 	var funcion = "ICP";
 	  $.ajax({
@@ -33,8 +47,11 @@ function AgregarCodigo_II() {
 	   success:function(datos)
 	   {
 	   	if(datos == "ok"){
-	   		alert("Se insertó correctamente la comunicación");
+	   		MensajeNormal("Se agregó correctamente el Código del Producto",1);
 	   		MostrarCodigo(intIdProducto,tipolistado);
+	   		$("#tipo-busqueda").val("T");
+	   		ListarProducto(x,y,"T");
+	   		PaginarProducto(x,y,"T");
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -50,9 +67,23 @@ function ActualizarCodigo() {
 	var intIdCodigoProducto = document.getElementById("intIdCodigoProducto").value;
 	var intIdProducto = document.getElementById("intIdProducto").value;
 	var nvchCodigo = document.getElementById("nvchCodigo").value;
-	var dtmFechaInicio = document.getElementById("dtmFechaInicio").value;
-	var dtmFechaFinal = document.getElementById("dtmFechaFinal").value;
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
+	var validacion = true;
+	$('#ListaDeCodigos tr').each(function(){
+        if($(this).find('td').eq(1).text() == 'Principal'){
+            validacion = false;
+        }
+    });
+	if(EsVacio("nvchCodigo") == false){
+		return false;
+	} else if(validacion == false){
+    	if (intIdTipoCodigoProducto == 1) {
+	    	MensajeNormal("No puede haber más de un Código Principal",2);
+	    	return false;
+    	}
+    }
+    var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
 	var tipolistado = "A";
 	var accion = "I";
 	var funcion = "ACP";
@@ -62,16 +93,17 @@ function ActualizarCodigo() {
 	   data:{intIdCodigoProducto:intIdCodigoProducto,
 	   		intIdProducto:intIdProducto,
 	   		nvchCodigo:nvchCodigo,
-	   		dtmFechaInicio:dtmFechaInicio,
-	   		dtmFechaFinal:dtmFechaFinal,
 	   		intIdTipoCodigoProducto:intIdTipoCodigoProducto,
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
 	   	if(datos == "ok"){
-	   		alert("Se modificó correctamente la comunicación");
+	   		MensajeNormal("Se modificó correctamente el Código del Producto",1);
 	   		MostrarCodigo(intIdProducto,tipolistado);
 	   		BotonesCodigo(accion);
+	   		$("#tipo-busqueda").val("T");
+	   		ListarProducto(x,y,"T");
+	   		PaginarProducto(x,y,"T");
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -95,8 +127,6 @@ function SeleccionarCodigo(seleccion) {
 	   {
 	   	$("#intIdCodigoProducto").val(datos.intIdCodigoProducto);
 	   	$("#nvchCodigo").val(datos.nvchCodigo);
-	   	$("#dtmFechaInicio").val(datos.dtmFechaInicio);
-	   	$("#dtmFechaFinal").val(datos.dtmFechaFinal);
 	   	$("#tipo-codigo-producto").val(datos.intIdTipoCodigoProducto);
 	   	BotonesCodigo('A');
 	   }
@@ -109,6 +139,7 @@ function SeleccionarCodigo(seleccion) {
 /* INICIO - Eliminar Codigo Seleccionado */
 function EliminarCodigo(seleccion) {
 	var intIdCodigoProducto = $(seleccion).attr("idcp");
+	var intIdProducto = document.getElementById("intIdProducto").value;
 	var funcion = "ECP";
 	var tipolistado = "T";
 	  $.ajax({
@@ -118,7 +149,7 @@ function EliminarCodigo(seleccion) {
 	   success:function(datos)
 	   {
 	   	 if(datos=="ok"){
-	   	 	alert("Se eliminó correctamente la Comunicación Seleccionada");
+	   	 	MensajeNormal("Se eliminó correctamente el Código del Producto",1);
 	   	 	MostrarCodigo(intIdProducto,tipolistado);
 	   	 }
 	   }
@@ -131,10 +162,12 @@ function EliminarCodigo(seleccion) {
 /* INICIO - Ocultar Botones */
 function BotonesCodigo(accion) {
 	if(accion == "I"){
+		RestablecerValidacion("nvchCodigo",1);
 		$("#btn-agregar-codigo").show();
 		$("#btn-actualizar-codigo").hide();
 		$("#btn-cancelar-codigo").hide();
 	} else if (accion == "A") {
+		RestablecerValidacion("nvchCodigo",2);
 		$("#btn-agregar-codigo").hide();
 		$("#btn-actualizar-codigo").show();
 		$("#btn-cancelar-codigo").show();

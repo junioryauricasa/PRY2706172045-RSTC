@@ -18,6 +18,12 @@ function MostrarUbigeo(intIdProducto,tipolistado) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Ubigeo Nueva */
 function AgregarUbigeo_II() {
+	if(EsVacio("nvchUbicacion") == false){
+		return false;
+	}
+	if(EsNumeroEntero("intCantidadUbigeo") == false){
+		return false;
+	}
 	var intIdProducto = document.getElementById("intIdProducto").value;
 	var nvchSucursal = document.getElementById("nvchSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
@@ -35,8 +41,11 @@ function AgregarUbigeo_II() {
 	   success:function(datos)
 	   {
 	   	if(datos == "ok"){
-	   		alert("Se insertó correctamente la comunicación");
+	   		MensajeNormal("Se agregó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
+	   		$("#tipo-busqueda").val("T");
+	   		ListarProducto(x,y,"T");
+	   		PaginarProducto(x,y,"T");
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -49,6 +58,12 @@ function AgregarUbigeo_II() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Ubigeo Seleccionado */
 function ActualizarUbigeo() {
+	if(EsVacio("nvchUbicacion") == false){
+		return false;
+	}
+	if(EsNumeroEntero("intCantidadUbigeo") == false){
+		return false;
+	}
 	var intIdUbigeoProducto = document.getElementById("intIdUbigeoProducto").value;
 	var intIdProducto = document.getElementById("intIdProducto").value;
 	var nvchSucursal = document.getElementById("nvchSucursal").value;
@@ -57,6 +72,8 @@ function ActualizarUbigeo() {
 	var tipolistado = "A";
 	var accion = "I";
 	var funcion = "AUP";
+	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
 	   method:"POST",
@@ -69,9 +86,12 @@ function ActualizarUbigeo() {
 	   success:function(datos)
 	   {
 	   	if(datos == "ok"){
-	   		alert("Se modificó correctamente la comunicación");
+	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
 	   		BotonesUbigeo(accion);
+	   		$("#tipo-busqueda").val("T");
+	   		ListarProducto(x,y,"T");
+	   		PaginarProducto(x,y,"T");
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -108,6 +128,7 @@ function SeleccionarUbigeo(seleccion) {
 /* INICIO - Eliminar Ubigeo Seleccionado */
 function EliminarUbigeo(seleccion) {
 	var intIdUbigeoProducto = $(seleccion).attr("idup");
+	var intIdProducto = document.getElementById("intIdProducto").value;
 	var funcion = "EUP";
 	var tipolistado = "T";
 	  $.ajax({
@@ -117,7 +138,7 @@ function EliminarUbigeo(seleccion) {
 	   success:function(datos)
 	   {
 	   	 if(datos=="ok"){
-	   	 	alert("Se eliminó correctamente la Comunicación Seleccionada");
+	   	 	MensajeNormal("Se eliminó correctamente el Ubigeo del Producto",1);
 	   	 	MostrarUbigeo(intIdProducto,tipolistado);
 	   	 }
 	   }
@@ -130,10 +151,14 @@ function EliminarUbigeo(seleccion) {
 /* INICIO - Ocultar Botones */
 function BotonesUbigeo(accion) {
 	if(accion == "I"){
+		RestablecerValidacion("nvchUbicacion",1);
+		RestablecerValidacion("intCantidadUbigeo",1);
 		$("#btn-agregar-ubigeo").show();
 		$("#btn-actualizar-ubigeo").hide();
 		$("#btn-cancelar-ubigeo").hide();
 	} else if (accion == "A") {
+		RestablecerValidacion("nvchUbicacion",2);
+		RestablecerValidacion("intCantidadUbigeo",2);
 		$("#btn-agregar-ubigeo").hide();
 		$("#btn-actualizar-ubigeo").show();
 		$("#btn-cancelar-ubigeo").show();
