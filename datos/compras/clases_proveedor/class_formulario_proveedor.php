@@ -10,6 +10,7 @@ class FormularioProveedor
   private $nvchApellidoMaterno;
   private $nvchNombres;
   private $intIdTipoPersona;
+  private $nvchObservacion;
 
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
   public function DNI($nvchDNI){ $this->nvchDNI = $nvchDNI; }
@@ -19,6 +20,7 @@ class FormularioProveedor
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
   public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
   {
@@ -95,6 +97,14 @@ class FormularioProveedor
                   <div class="form-group">
                     <label>Nombres:</label>
                     <input type="text" name="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de venta" value="<?php echo $this->nvchNombres; ?>" required>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label>Observación y/o Datos Adicionales (Opcional):</label>
+                    <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-proveedor" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                   </div>
                 </div>
             </div>

@@ -597,9 +597,10 @@ function SeleccionarComunicacion(seleccion) {
 /* INICIO - Eliminar Comunicacion Seleccionado */
 
 function EliminarDomicilio(seleccion) {
-	var intIdDomicilioCliente = $(seleccion).attr("iddp");
+	var intIdDomicilioCliente = $(seleccion).attr("iddcl");
 	var funcion = "ED";
 	var tipolistado = "T";
+	var intIdCliente = $("#intIdCliente").val();
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cliente.php",
 	   method:"POST",
@@ -621,9 +622,10 @@ function EliminarDomicilio(seleccion) {
 /* INICIO - Eliminar Comunicacion Seleccionado */
 
 function EliminarComunicacion(seleccion) {
-	var intIdComunicacionCliente = $(seleccion).attr("idcp");
+	var intIdComunicacionCliente = $(seleccion).attr("idccl");
 	var funcion = "EC";
 	var tipolistado = "T";
+	var intIdCliente = $("#intIdCliente").val();
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cliente.php",
 	   method:"POST",

@@ -12,6 +12,7 @@ class Proveedor
   private $nvchApellidoMaterno;
   private $nvchNombres;
   private $intIdTipoPersona;
+  private $nvchObservacion;
   
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
   public function DNI($nvchDNI){ $this->nvchDNI = $nvchDNI; }
@@ -21,6 +22,7 @@ class Proveedor
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
   public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Proveedor */
 
   /* INICIO - Métodos de Proveedor */
@@ -30,7 +32,7 @@ class Proveedor
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproveedor(@intIdProveedor,:nvchDNI,:nvchRUC,:nvchRazonSocial,
-      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona)');
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDNI' => $this->nvchDNI, 
         ':nvchRUC' => $this->nvchRUC,
@@ -38,7 +40,8 @@ class Proveedor
         ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
-        ':intIdTipoPersona' => $this->intIdTipoPersona));
+        ':intIdTipoPersona' => $this->intIdTipoPersona,
+        ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdProveedor as intIdProveedor");
       $salida = $salidas->fetchObject();
@@ -68,6 +71,7 @@ class Proveedor
       $formularioproveedor->ApellidoMaterno($fila['nvchApellidoMaterno']);
       $formularioproveedor->Nombres($fila['nvchNombres']);
       $formularioproveedor->IdTipoPersona($fila['intIdTipoPersona']);
+      $formularioproveedor->Observacion($fila['nvchObservacion']);
       $formularioproveedor->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
@@ -81,7 +85,7 @@ class Proveedor
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproveedor(:intIdProveedor,:nvchDNI,:nvchRUC,
-      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona)');
+      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor,
         ':nvchDNI' => $this->nvchDNI, 
@@ -90,7 +94,8 @@ class Proveedor
         ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
-        ':intIdTipoPersona' => $this->intIdTipoPersona));
+        ':intIdTipoPersona' => $this->intIdTipoPersona,
+        ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdProveedor'] = $this->intIdProveedor;
       echo "ok";
     }

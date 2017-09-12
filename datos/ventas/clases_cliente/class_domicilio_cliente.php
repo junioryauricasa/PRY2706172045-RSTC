@@ -95,10 +95,10 @@ class DomicilioCliente
         <td><input type="hidden" name="nvchDireccion[]" value="'.$fila['nvchDireccion'].'"/>'.$fila['nvchDireccion'].'</td>
         <td><input type="hidden" name="intIdTipoDomicilio[]" value="'.$fila['intIdTipoDomicilio'].'"/>'.$fila['NombreTD'].'</td>
         <td> 
-          <button type="button" iddp="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
+          <button type="button" iddcl="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" iddp="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarDomicilio(this)">
+          <button type="button" iddcl="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarDomicilio(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>

@@ -10,13 +10,16 @@ DELIMITER $$
     IN _nvchApellidoPaterno VARCHAR(120),
     IN _nvchApellidoMaterno VARCHAR(120),
 	IN _nvchNombres VARCHAR(250),
-	IN _intIdTipoPersona INT
+	IN _intIdTipoPersona INT,
+	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		INSERT INTO tb_cliente 
-		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona)
+		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona,
+			nvchObservacion)
 		VALUES
-		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona);
+		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona,
+			_nvchObservacion);
 		SET _intIdCliente = LAST_INSERT_ID();
     END 
 $$
@@ -32,7 +35,8 @@ DELIMITER $$
     IN _nvchApellidoPaterno VARCHAR(120),
     IN _nvchApellidoMaterno VARCHAR(120),
 	IN _nvchNombres VARCHAR(250),
-	IN _intIdTipoPersona INT
+	IN _intIdTipoPersona INT,
+	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		UPDATE tb_cliente
@@ -43,7 +47,8 @@ DELIMITER $$
 		nvchApellidoPaterno = _nvchApellidoPaterno,
 		nvchApellidoMaterno = _nvchApellidoMaterno,
 		nvchNombres = _nvchNombres,
-		intIdTipoPersona = _intIdTipoPersona
+		intIdTipoPersona = _intIdTipoPersona,
+		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdCliente = _intIdCliente;
     END 
@@ -69,6 +74,12 @@ DELIMITER $$
     	IN _intIdCliente INT
     )
 	BEGIN
+		DELETE FROM tb_comunicacion_cliente
+		WHERE 
+		intIdCliente = _intIdCliente;
+		DELETE FROM tb_domicilio_cliente
+		WHERE 
+		intIdCliente = _intIdCliente;
 		DELETE FROM tb_cliente
 		WHERE 
 		intIdCliente = _intIdCliente;

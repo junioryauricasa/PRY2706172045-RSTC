@@ -80,10 +80,10 @@ class ComunicacionCliente
         <td><input type="hidden" name="nvchLugar[]" value="'.$fila['nvchLugar'].'"/>'.$fila['nvchLugar'].'</td>
         <td><input type="hidden" name="intIdTipoComunicacion[]" value="'.$fila['intIdTipoComunicacion'].'"/>'.$fila['NombreTC'].'</td>
         <td> 
-          <button type="button" idcp="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
+          <button type="button" idccl="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" idcp="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+          <button type="button" idccl="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>

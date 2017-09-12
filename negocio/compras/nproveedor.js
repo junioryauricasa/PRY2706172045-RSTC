@@ -583,6 +583,7 @@ function EliminarDomicilio(seleccion) {
 	var intIdDomicilioProveedor = $(seleccion).attr("iddp");
 	var funcion = "ED";
 	var tipolistado = "T";
+	var intIdProveedor = $("#intIdProveedor").val();
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
@@ -605,6 +606,7 @@ function EliminarComunicacion(seleccion) {
 	var intIdComunicacionProveedor = $(seleccion).attr("idcp");
 	var funcion = "EC";
 	var tipolistado = "T";
+	var intIdProveedor = $("#intIdProveedor").val();
 	  $.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",

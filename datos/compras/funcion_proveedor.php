@@ -23,6 +23,7 @@ switch($_POST['funcion']){
     $Proveedor->ApellidoMaterno($_POST['nvchApellidoMaterno']);
     $Proveedor->Nombres($_POST['nvchNombres']);
     $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
+    $Proveedor->Observacion($_POST['nvchObservacion']);
     $Proveedor->InsertarProveedor();
     $DomicilioProveedor = new DomicilioProveedor();
     $DomicilioProveedor->IdProveedor($_SESSION['intIdProveedor']);
@@ -69,6 +70,7 @@ switch($_POST['funcion']){
     $Proveedor->ApellidoMaterno($_POST['nvchApellidoMaterno']);
     $Proveedor->Nombres($_POST['nvchNombres']);
     $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
+    $Proveedor->Observacion($_POST['nvchObservacion']);
     $Proveedor->ActualizarProveedor();
     break;
   case "M":
