@@ -16,10 +16,10 @@ function EsNumeroEnteroTecla(evt)
   return true;
 }
 
-function EsLetraTeclado(evt)
+function EsLetraTecla(evt)
 {
-    var keyCode = (evt.which) ? evt.which : evt.keyCode
-    if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if ((charCode > 47 && charCode < 58) && charCode != 192) {
       return false;
     }
     return true;
@@ -46,11 +46,11 @@ function EsLetra(NombreId){
   var Valor = $("#"+NombreId).val();
   if (EsVacio(NombreId) == false){
     return false;
-  } else if(/^[a-zA-Z]*$/g.test(Valor) == false) {
+  } else if(/^[A-zÀ-ÖØ-öø-ÿ]+$/.test(Valor) == false) {
     $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
     $("#"+NombreId+"Obs").attr("class","text-danger");
-    $("#"+NombreId+"Obs").html("Debe ser solo numérico");
+    $("#"+NombreId+"Obs").html("Debe ser solo alfabético");
     return false;
   } else {
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
