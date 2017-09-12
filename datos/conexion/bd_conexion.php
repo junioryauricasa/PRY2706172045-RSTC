@@ -1,10 +1,10 @@
 <?php
 class Conexion_BD
 {
-	private $bd_hostname = '166.62.72.130';
+	private $bd_hostname = 'localhost';
 	private $bd_basededatos = 'db_resteco';
-	private $bd_username = 'restecoadmindb';
-	private $bd_password = 'restecoadmin123';
+	private $bd_username = 'root';
+	private $bd_password = '';
 
 	public function Conectar()
 	{

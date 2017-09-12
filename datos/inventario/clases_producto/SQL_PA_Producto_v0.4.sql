@@ -13,15 +13,16 @@ DELIMITER $$
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
 	IN _intIdTipoMoneda INT,
-	IN _dtmFechaIngreso DATETIME
+	IN _dtmFechaIngreso DATETIME,
+	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		INSERT INTO tb_producto 
 		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
-		dcmPrecioVenta3,intIdTipoMoneda,dtmFechaIngreso)
+		dcmPrecioVenta3,intIdTipoMoneda,dtmFechaIngreso,nvchObservacion)
 		VALUES
 		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
-		_dcmPrecioVenta3,_intIdTipoMoneda,_dtmFechaIngreso);
+		_dcmPrecioVenta3,_intIdTipoMoneda,_dtmFechaIngreso,_nvchObservacion);
 		SET _intIdProducto = LAST_INSERT_ID();
     END
 $$
@@ -40,7 +41,8 @@ DELIMITER $$
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
 	IN _intIdTipoMoneda INT,
-	IN _dtmFechaIngreso DATETIME
+	IN _dtmFechaIngreso DATETIME,
+	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		UPDATE tb_producto
@@ -54,7 +56,8 @@ DELIMITER $$
 		dcmPrecioVenta2 = _dcmPrecioVenta2,
 		dcmPrecioVenta3 = _dcmPrecioVenta3,
 		intIdTipoMoneda = _intIdTipoMoneda,
-		dtmFechaIngreso = _dtmFechaIngreso
+		dtmFechaIngreso = _dtmFechaIngreso,
+		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdProducto = _intIdProducto;
     END 
@@ -80,6 +83,12 @@ DELIMITER $$
     	IN _intIdProducto INT
     )
 	BEGIN
+		DELETE FROM tb_codigo_producto
+		WHERE 
+		intIdProducto = _intIdProducto;
+		DELETE FROM tb_ubigeo_producto
+		WHERE 
+		intIdProducto = _intIdProducto;
 		DELETE FROM tb_producto
 		WHERE 
 		intIdProducto = _intIdProducto;

@@ -27,6 +27,7 @@ switch($_POST['funcion']){
     $Producto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $Producto->FechaIngreso($dtmFechaIngreso);
+    $Producto->Observacion($_POST['nvchObservacion']);
     $Producto->InsertarProducto();
     $CodigoProducto = new CodigoProducto();
     $CodigoProducto->IdProducto($_SESSION['intIdProducto']);
@@ -69,6 +70,7 @@ switch($_POST['funcion']){
     $Producto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $Producto->FechaIngreso($dtmFechaIngreso);
+    $Producto->Observacion($_POST['nvchObservacion']);
     $Producto->ActualizarProducto();
     break;
   case "ACP":

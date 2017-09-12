@@ -13,6 +13,7 @@ class FormularioProducto
   private $dcmPrecioVenta3;
   private $intIdTipoMoneda;
   private $dtmFechaIngreso;
+  private $nvchObservacion;
 
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
@@ -25,6 +26,7 @@ class FormularioProducto
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
   {
@@ -83,6 +85,14 @@ class FormularioProducto
                     <?php } ?>
                     <input type="hidden" id="nvchDireccionImg" name="nvchDireccionImg" value="<?php echo $this->nvchDireccionImg; ?>" />
                     <div id="operacionimagen"></div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label>Observación y/o Datos Adicionales (Opcional):</label>
+                    <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-producto" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                   </div>
                 </div>
             </div>
