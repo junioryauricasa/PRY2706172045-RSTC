@@ -117,6 +117,15 @@ $(document).on('click', '#btn-editar-cliente', function(){
   	  var tipolistado = "E";
   	  var formData = $("#form-cliente").serialize();
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
+  	  var num_filas_domicilio = document.getElementById('ListaDeDomicilios').rows.length;
+	  var num_filas_comunicacion = document.getElementById('ListaDeComunicaciones').rows.length;
+	  if(num_filas_domicilio == 0){
+	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
+	  	return false;
+	  } else if(num_filas_comunicacion == 0){
+	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
+	  	return false;
+	  }
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cliente.php",
 	   method:"POST",
@@ -154,7 +163,7 @@ $(document).on('click', '.btn-eliminar-cliente', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") { 
-	   		MensajeNormal("Se Eliminó correctamente el nuevo Cliente",1);
+	   		MensajeNormal("Se Eliminó correctamente el Cliente",1);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   	}
@@ -388,6 +397,11 @@ function AgregarDomicilio() {
 		intIdTipoDomicilio+'"/>'+$("#tipo-domicilio option:selected").html()+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
+	RestablecerValidacion('nvchPais',1);
+	RestablecerValidacion('nvchRegion',1);
+	RestablecerValidacion('nvchProvincia',1);
+	RestablecerValidacion('nvchDistrito',1);
+	RestablecerValidacion('nvchDireccion',1);
 }
 /* FIN - Listar Domicilios según Ingresa */
 //////////////////////////////////////////////////////////////
@@ -412,6 +426,8 @@ function AgregarComunicacion() {
 		+intIdTipoComunicacion+'"/>'+$("#tipo-comunicacion option:selected").html()+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
+	RestablecerValidacion('nvchMedio',1);
+	RestablecerValidacion('nvchLugar',1);
 }
 /* FIN - Listar Comunicaciones según Ingresa */
 //////////////////////////////////////////////////////////////
@@ -486,6 +502,8 @@ function AgregarComunicacion_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente la nueva Comunicación",1);
 	   		MostrarComunicacion(intIdCliente,tipolistado);
+	   		RestablecerValidacion('nvchMedio',1);
+			RestablecerValidacion('nvchLugar',1);
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -545,6 +563,11 @@ function AgregarDomicilio_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
 	   		MostrarDomicilio(intIdCliente,tipolistado);
+	   		RestablecerValidacion('nvchPais',1);
+			RestablecerValidacion('nvchRegion',1);
+			RestablecerValidacion('nvchProvincia',1);
+			RestablecerValidacion('nvchDistrito',1);
+			RestablecerValidacion('nvchDireccion',1);
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -720,7 +743,7 @@ function EliminarDomicilio(seleccion) {
 	   success:function(datos)
 	   {
 	   	 if(datos=="ok"){
-	   	 	MensajeNormal("Se eliminó correctamente el Cliente",1);
+	   	 	MensajeNormal("Se eliminó correctamente el Domicilio",1);
 	   	 	MostrarDomicilio(intIdCliente,tipolistado);
 	   	 }
 	   }

@@ -83,7 +83,7 @@ class FormularioCliente
                     <div id="nvchRUCObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-3 nvchRazonSocial">
+                <div class="col-md-5 nvchRazonSocial">
                   <div id="nvchRazonSocialGroup" class="form-group">
                     <label>Razón Social:</label>
                     <input type="text" id="nvchRazonSocial" name="nvchRazonSocial" class="form-control select2" placeholder="Ingrese Razón Social" 
@@ -112,7 +112,9 @@ class FormularioCliente
                     <div id="nvchApellidoMaternoObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-3 nvchNombres">
+            </div>
+            <div class="row">
+                <div class="col-md-5 nvchNombres">
                   <div id="nvchNombresGroup" class="form-group">
                     <label>Nombres:</label>
                     <input type="text" id="nvchNombres" name="nvchNombres" class="form-control select2" 
@@ -141,7 +143,7 @@ class FormularioCliente
               </div>
             </div>
             <?php } ?>
-          </div>
+        </div>
         <div class="box-header with-border">
         </div>
         <div class="box-header with-border">
@@ -154,7 +156,7 @@ class FormularioCliente
                     <label>País:</label>
                     <input type="text" name="Pais" id="nvchPais" class="form-control select2" 
                     placeholder="Ingrese el País" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchPais')" maxlength="150" required>
+                    onkeyup="EsLetra('nvchPais')" maxlength="150">
                     <span id="nvchPaisIcono" class="" aria-hidden=""></span>
                     <div id="nvchPaisObs" class=""></div>
                   </div>
@@ -164,7 +166,7 @@ class FormularioCliente
                     <label>Región:</label>
                     <input type="text" name="Region" id="nvchRegion" class="form-control select2" 
                     placeholder="Ingrese Región" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchRegion')" maxlength="150" required>
+                    onkeyup="EsLetra('nvchRegion')" maxlength="150">
                     <span id="nvchRegionIcono" class="" aria-hidden=""></span>
                     <div id="nvchRegionObs" class=""></div>
                   </div>
@@ -174,7 +176,7 @@ class FormularioCliente
                     <label>Provincia:</label>
                     <input type="text" name="Provincia" id="nvchProvincia" class="form-control select2" 
                     placeholder="Ingrese Provincia" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchProvincia')" maxlength="150" required>
+                    onkeyup="EsLetra('nvchProvincia')" maxlength="150">
                     <span id="nvchProvinciaIcono" class="" aria-hidden=""></span>
                     <div id="nvchProvinciaObs" class=""></div>
                   </div>
@@ -184,16 +186,18 @@ class FormularioCliente
                     <label>Distrito:</label>
                     <input type="text" name="Distrito" id="nvchDistrito" class="form-control select2" 
                     placeholder="Ingrese Distrito" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchDistrito')" maxlength="150" required>
+                    onkeyup="EsLetra('nvchDistrito')" maxlength="150">
                     <span id="nvchDistritoIcono" class="" aria-hidden=""></span>
                     <div id="nvchDistritoObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-3">
+            </div>
+            <div class="row">
+                <div class="col-md-5">
                   <div id="nvchDireccionGroup" class="form-group">
                     <label>Direccion:</label>
                     <input type="text" name="Direccion" id="nvchDireccion" class="form-control select2" 
-                    placeholder="Ingrese Dirección" value="" onkeyup="EsVacio('nvchDireccion')" maxlength="450" required>
+                    placeholder="Ingrese Dirección" value="" onkeyup="EsVacio('nvchDireccion')" maxlength="450">
                     <span id="nvchDireccionIcono" class="" aria-hidden=""></span>
                     <div id="nvchDireccionObs" class=""></div>
                   </div>
@@ -251,18 +255,18 @@ class FormularioCliente
               </table>
             </div>
         </div>
-         <div class="box-header with-border">
-            </div>
-            <div class="box-header with-border">
-              <h3 class="box-title">Comunicación</h3>
-            </div>
+        <div class="box-header with-border">
+        </div>
+        <div class="box-header with-border">
+          <h3 class="box-title">Comunicación</h3>
+        </div>
             <div class="box-body">
               <div class="row">
                 <div class="col-md-3">
                   <div id="nvchMedioGroup" class="form-group">
                     <label>Medio:</label>
                     <input type="text" name="Medio" id="nvchMedio" class="form-control select2" placeholder="Ingrese Medio" 
-                    value="" onkeyup="EsVacio('nvchMedio')" maxlength="100" required>
+                    value="" onkeyup="EsVacio('nvchMedio')" maxlength="100">
                     <span id="nvchMedioIcono" class="" aria-hidden=""></span>
                     <div id="nvchMedioObs" class=""></div>
                   </div>
@@ -271,13 +275,13 @@ class FormularioCliente
                   <div id="nvchLugarGroup" class="form-group">
                     <label>Lugar/Pertenencia:</label>
                     <input type="text" name="Lugar" id="nvchLugar" class="form-control select2" placeholder="Ingrese Lugar/Pertenencia" 
-                    value="" onkeyup="EsVacio('nvchLugar')" maxlength="550" required>
+                    value="" onkeyup="EsVacio('nvchLugar')" maxlength="550">
                     <span id="nvchLugarIcono" class="" aria-hidden=""></span>
                     <div id="nvchLugarObs" class=""></div>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div id="nvchDireccionGroup" class="form-group">
+                  <div class="form-group">
                     <label>Tipo de Comunicación:</label>
                     <select id="tipo-comunicacion" name="tipo-comunicacion"  class="form-control select2" >
                       <?php try{
@@ -335,7 +339,7 @@ class FormularioCliente
             <input type="hidden" name="intIdCliente" id="intIdCliente" value="<?php echo $this->intIdCliente; ?>" />
             <?php if($funcion == "F"){ ?>
             <input type="submit" id="btn-crear-cliente" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
-            <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
+            <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
             <?php } ?>
         </div>              
         </form>
