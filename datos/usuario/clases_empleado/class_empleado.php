@@ -1,4 +1,6 @@
 <?php 
+require_once '../conexion/bd_conexion.php';
+require_once 'class_formulario_empleado.php';
 class Empleado
 {
   /* INICIO - Atributos de Empleado*/
