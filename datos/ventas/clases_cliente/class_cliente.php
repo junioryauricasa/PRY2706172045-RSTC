@@ -159,7 +159,6 @@ class Cliente
         }else {
           echo '<tr>';
         }
-        echo '<td>'.$fila["intIdCliente"].'</td>';
         if($intIdTipoPersona == 2) { echo '<td>'.$fila["nvchDNI"].'</td>'; }
         echo '<td>'.$fila["nvchRUC"].'</td>';
         if($intIdTipoPersona == 1) { echo '<td>'.$fila["nvchRazonSocial"].'</td>'; }

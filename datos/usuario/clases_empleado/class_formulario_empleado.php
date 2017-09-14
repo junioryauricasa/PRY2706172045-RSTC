@@ -5,21 +5,31 @@ class FormularioEmpleado
   private $intIdEmpleado;
   private $nvchDNI;
   private $nvchRUC;
-  private $nvchRazonSocial;
   private $nvchApellidoPaterno;
   private $nvchApellidoMaterno;
   private $nvchNombres;
-  private $intIdTipoPersona;
+  private $nvchGenero;
+  private $nvchPais;
+  private $nvchRegion;
+  private $nvchProvincia;
+  private $nvchDistrito;
+  private $nvchDireccion;
+  private $intIdCargo;
   private $nvchObservacion;
 
   public function IdEmpleado($intIdEmpleado){ $this->intIdEmpleado = $intIdEmpleado; }
   public function DNI($nvchDNI){ $this->nvchDNI = $nvchDNI; }
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
-  public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
   public function ApellidoPaterno($nvchApellidoPaterno){ $this->nvchApellidoPaterno = $nvchApellidoPaterno; }
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
-  public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
+  public function Genero($Genero){ $this->nvchGenero = $nvchGenero; }
+  public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
+  public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
+  public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
+  public function Distrito($nvchDistrito){ $this->nvchDistrito = $nvchDistrito; }
+  public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
+  public function IdCargo($intIdCargo){ $this->intIdCargo = $intIdCargo; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
@@ -41,29 +51,6 @@ class FormularioEmpleado
           <div class="box-body">
             <div class="row">
                 <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Tipo de Persona:</label>
-                    <select onchange="MostrarTipoPersona()" id="tipo-persona" name="intIdTipoPersona" class="form-control select2" >
-                      <?php try{
-                        $sql_conexion = new Conexion_BD();
-                        $sql_conectar = $sql_conexion->Conectar();
-                        $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
-                        $sql_comando->execute();
-                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                        {
-                          echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
-                        }
-                      }catch(PDPExceptions $e){
-                        echo $e->getMessage();
-                      }?>
-                    </select>
-                  </div>
-                <input type="hidden" id="intIdTipoPersona" value="<?php echo $this->intIdTipoPersona; ?>">
-                </div>
-            </div>
-            <div class="row">
-            <script>MostrarTipoPersona();</script>
-                <div class="col-md-3 nvchDNI">
                   <div id="nvchDNIGroup" class="form-group">
                     <label>DNI:</label>
                     <input type="text" id="nvchDNI" name="nvchDNI" class="form-control select2" placeholder="Ingrese DNI" 
@@ -73,9 +60,9 @@ class FormularioEmpleado
                     <div id="nvchDNIObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-3 nvchRUC">
+                <div class="col-md-3">
                   <div id="nvchRUCGroup" class="form-group">
-                    <label>RUC:</label>
+                    <label>RUC:(Opcional)</label>
                     <input type="text" id="nvchRUC" name="nvchRUC" class="form-control select2" placeholder="Ingrese RUC" 
                     value="<?php echo $this->nvchRUC; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
                     onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11" required>
@@ -83,16 +70,7 @@ class FormularioEmpleado
                     <div id="nvchRUCObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-5 nvchRazonSocial">
-                  <div id="nvchRazonSocialGroup" class="form-group">
-                    <label>Razón Social:</label>
-                    <input type="text" id="nvchRazonSocial" name="nvchRazonSocial" class="form-control select2" placeholder="Ingrese Razón Social" 
-                    value="<?php echo $this->nvchRazonSocial; ?>" onkeyup="EsVacio('nvchRazonSocial')" maxlength="250" required>
-                    <span id="nvchRazonSocialIcono" class="" aria-hidden=""></span>
-                    <div id="nvchRazonSocialObs" class=""></div>
-                  </div>
-                </div>
-                <div class="col-md-3 nvchApellidoPaterno">
+                <div class="col-md-3">
                   <div id="nvchApellidoPaternoGroup" class="form-group">
                     <label>Apellido Paterno:</label>
                     <input type="text" id="nvchApellidoPaterno" name="nvchApellidoPaterno" class="form-control select2" 
@@ -133,23 +111,6 @@ class FormularioEmpleado
                   </div>
                 </div>
             </div>
-            <?php if($funcion == "M") { ?>
-            <div class="row">
-              <div class="col-md-5">
-                <div class="form-group">
-                  <input type="submit" id="btn-editar-empleado" class="btn btn-sm btn-warning btn-flat" value="Editar Empleado"> 
-                  <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
-                </div>
-              </div>
-            </div>
-            <?php } ?>
-        </div>
-        <div class="box-header with-border">
-        </div>
-        <div class="box-header with-border">
-          <h3 class="box-title">Domicilio</h3>
-        </div>
-        <div class="box-body">
             <div class="row">
                 <div class="col-md-3">
                   <div id="nvchPaisGroup" class="form-group">
@@ -181,16 +142,6 @@ class FormularioEmpleado
                     <div id="nvchProvinciaObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div id="nvchDistritoGroup" class="form-group">
-                    <label>Distrito:</label>
-                    <input type="text" name="Distrito" id="nvchDistrito" class="form-control select2" 
-                    placeholder="Ingrese Distrito" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchDistrito')" maxlength="150">
-                    <span id="nvchDistritoIcono" class="" aria-hidden=""></span>
-                    <div id="nvchDistritoObs" class=""></div>
-                  </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-5">
@@ -202,58 +153,17 @@ class FormularioEmpleado
                     <div id="nvchDireccionObs" class=""></div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Tipo de Domicilio:</label>
-                    <select id="tipo-domicilio" name="tipo-domicilio"  class="form-control select2" >
-                      <?php try{
-                        $sql_conexion = new Conexion_BD();
-                        $sql_conectar = $sql_conexion->Conectar();
-                        $sql_comando = $sql_conectar->prepare('CALL mostrartipodomicilio()');
-                        $sql_comando->execute();
-                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                        {
-                          echo'<option value="'.$fila['intIdTipoDomicilio'].'">'.$fila['nvchNombre'].'</option>';
-                        }
-                      }catch(PDPExceptions $e){
-                        echo $e->getMessage();
-                      }?>
-                    </select>
-                  </div>
-                  <input type="hidden" name="IdDomicilioEmpleado" id="intIdDomicilioEmpleado" value="" />
-                </div>
             </div>
+            <?php if($funcion == "M") { ?>
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <script type="text/javascript">BotonesDomicilio('I');</script>
-                  <?php if($funcion == "F"){ ?>
-                  <input type="button" onclick="AgregarDomicilio()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
-                  <?php } else if($funcion == "M") { ?>
-                  <input type="button" onclick="AgregarDomicilio_II()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
-                  <?php } ?>
-                  <input type="button" onclick="ActualizarDomicilio()" id="btn-actualizar-domicilio" name="btn-actualizar-domicilio" class="btn btn-sm btn-warning btn-flat" value="Editar Domicilio">
-                    <input type="button" onclick="BotonesDomicilio('I')" id="btn-cancelar-domicilio" name="btn-cancelar-domicilio" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                  <input type="submit" id="btn-editar-empleado" class="btn btn-sm btn-warning btn-flat" value="Editar Empleado"> 
+                  <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                  <th>País</th>
-                  <th>Región</th>
-                  <th>Provincia</th>
-                  <th>Distrito</th>
-                  <th>Dirección</th>
-                  <th>Tipo de Domicilio</th>
-                  <th>Opciones</th>
-                </tr>
-                </thead>
-                <tbody id="ListaDeDomicilios">
-                </tbody>
-              </table>
-            </div>
+            <?php } ?>
         </div>
         <div class="box-header with-border">
         </div>

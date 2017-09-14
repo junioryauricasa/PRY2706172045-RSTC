@@ -8,8 +8,14 @@ class Empleado
   private $nvchApellidoPaterno;
   private $nvchApellidoMaterno;
   private $nvchNombres;
-  private $nvchDireccionImg;
+  private $nvchGenero;
+  private $nvchPais;
+  private $nvchRegion;
+  private $nvchProvincia;
+  private $nvchDistrito;
+  private $nvchDireccion;
   private $intIdCargo;
+  private $nvchObservacion;
 
   public function IdEmpleado($intIdEmpleado){ $this->intIdEmpleado = $intIdEmpleado; }
   public function DNI($nvchDNI){ $this->nvchDNI = $nvchDNI; }
@@ -17,8 +23,14 @@ class Empleado
   public function ApellidoPaterno($nvchApellidoPaterno){ $this->nvchApellidoPaterno = $nvchApellidoPaterno; }
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
-  public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
+  public function Genero($Genero){ $this->nvchGenero = $nvchGenero; }
+  public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
+  public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
+  public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
+  public function Distrito($nvchDistrito){ $this->nvchDistrito = $nvchDistrito; }
+  public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function IdCargo($intIdCargo){ $this->intIdCargo = $intIdCargo; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* INICIO - Atributos de Empleado*/
 
   /* INICIO - Métodos de Empleado */
@@ -28,14 +40,20 @@ class Empleado
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarEmpleado(@intIdEmpleado,:nvchDNI,:nvchRUC,
-      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:nvchDireccionImg,:intIdCargo,:nvchObservacion)');
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:nvchGenero,:nvchPais,:nvchRegion,:nvchProvincia,
+      	:nvchDistrito,:nvchDireccion,:intIdCargo,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDNI' => $this->nvchDNI,
         ':nvchRUC' => $this->nvchRUC,
         ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':nvchGenero' => $this->nvchGenero,
+        ':nvchPais' => $this->nvchPais,
+        ':nvchRegion' => $this->nvchRegion,
+        ':nvchProvincia' => $this->nvchProvincia,
+        ':nvchDistrito' => $this->nvchDistrito,
+        ':nvchDireccion' => $this->nvchDireccion,
         ':intIdCargo' => $this->intIdCargo,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -66,7 +84,12 @@ class Empleado
       $FormularioEmpleado->ApellidoPaterno($fila['nvchApellidoPaterno']);
       $FormularioEmpleado->ApellidoMaterno($fila['nvchApellidoMaterno']);
       $FormularioEmpleado->Nombres($fila['nvchNombres']);
-      $FormularioEmpleado->DireccionImg($fila['nvchDireccionImg']);
+      $FormularioEmpleado->Genero($fila['nvchGenero']);
+      $FormularioEmpleado->Pais($fila['nvchPais']);
+	    $FormularioEmpleado->Region($fila['nvchRegion']);
+	    $FormularioEmpleado->Provincia($fila['nvchProvincia']);
+	    $FormularioEmpleado->Distrito($fila['nvchDistrito']);
+	    $FormularioEmpleado->Direccion($fila['nvchDireccion']);
       $FormularioEmpleado->IdCargo($fila['intIdCargo']);
       $FormularioEmpleado->Observacion($fila['nvchObservacion']);
       $FormularioEmpleado->ConsultarFormulario($funcion);
@@ -82,7 +105,8 @@ class Empleado
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarEmpleado(:intIdEmpleado,:nvchDNI,:nvchRUC,
-      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:nvchDireccionImg,:intIdCargo,:nvchObservacion)');
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,nvchGenero,:nvchPais,:nvchRegion,:nvchProvincia,
+      	:nvchDistrito,:nvchDireccion,:intIdCargo,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdEmpleado' => $this->intIdEmpleado,
         ':nvchDNI' => $this->nvchDNI,
@@ -90,7 +114,12 @@ class Empleado
         ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
-        ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':nvchGenero' => $this->nvchGenero,
+        ':nvchPais' => $this->nvchPais,
+        ':nvchRegion' => $this->nvchRegion,
+        ':nvchProvincia' => $this->nvchProvincia,
+        ':nvchDistrito' => $this->nvchDistrito,
+        ':nvchDireccion' => $this->nvchDireccion,
         ':intIdCargo' => $this->intIdCargo,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdEmpleado'] = $this->intIdEmpleado;
@@ -117,7 +146,7 @@ class Empleado
     }
   }
 
-  public function ListarEmpleados($busqueda,$x,$y,$tipolistado,$TipoBusqueda)
+  public function ListarEmpleados($busqueda,$x,$y,$tipolistado)
   {
     try{
       $residuo = 0;
@@ -129,23 +158,23 @@ class Empleado
       //Busqueda de Empleado por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado_ii(:busqueda,:TipoBusqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado_ii(:busqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado_ii(:busqueda,:TipoBusqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado_ii(:busqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Empleado por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado(:busqueda,:x,:y,:TipoBusqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':TipoBusqueda' => $TipoBusqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado(:busqueda,:x,:y)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -158,8 +187,7 @@ class Empleado
             echo '<tr>';
           }
           echo 
-          '<td>'.$fila["intIdEmpleado"].'</td>
-          <td>'.$fila["nvchDNI"].'</td>
+          '<td>'.$fila["nvchDNI"].'</td>
           <td>'.$fila["nvchRUC"].'</td>
           <td>'.$fila["nvchApellidoPaterno"].'</td>
           <td>'.$fila["nvchApellidoMaterno"].'</td>
@@ -185,15 +213,15 @@ class Empleado
     }  
   }
 
-  public function PaginarEmpleados($busqueda,$x,$y,$tipolistado,$TipoBusqueda)
+  public function PaginarEmpleados($busqueda,$x,$y,$tipolistado)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado_ii(:busqueda,:TipoBusqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':TipoBusqueda' => $TipoBusqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarEmpleado_ii(:busqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
