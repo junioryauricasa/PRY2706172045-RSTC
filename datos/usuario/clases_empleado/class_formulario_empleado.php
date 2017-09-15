@@ -62,7 +62,7 @@ class FormularioEmpleado
                 </div>
                 <div class="col-md-3">
                   <div id="nvchRUCGroup" class="form-group">
-                    <label>RUC:(Opcional)</label>
+                    <label>RUC (Opcional):</label>
                     <input type="text" id="nvchRUC" name="nvchRUC" class="form-control select2" placeholder="Ingrese RUC" 
                     value="<?php echo $this->nvchRUC; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
                     onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11" required>
@@ -100,6 +100,15 @@ class FormularioEmpleado
                     onkeyup="EsVacio('nvchNombres')" maxlength="250" required>
                     <span id="nvchNombresIcono" class="" aria-hidden=""></span>
                     <div id="nvchNombresObs" class=""></div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Género:</label>
+                    <select id="nvchGenero" name="nvchGenero" class="form-control select2">
+                      <option value="Masculino">Masculino</option>
+                      <option value="Femenino">Femenino</option>
+                    </select>
                   </div>
                 </div>
             </div>
@@ -140,6 +149,16 @@ class FormularioEmpleado
                     onkeyup="EsLetra('nvchProvincia')" maxlength="150">
                     <span id="nvchProvinciaIcono" class="" aria-hidden=""></span>
                     <div id="nvchProvinciaObs" class=""></div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div id="nvchDistritoGroup" class="form-group">
+                    <label>Distrito:</label>
+                    <input type="text" name="Distrito" id="nvchDistrito" class="form-control select2" 
+                    placeholder="Ingrese Distrito" value="" onkeypress="return EsLetraTecla(event)" 
+                    onkeyup="EsLetra('nvchDistrito')" maxlength="150">
+                    <span id="nvchDistritoIcono" class="" aria-hidden=""></span>
+                    <div id="nvchDistritoObs" class=""></div>
                   </div>
                 </div>
             </div>

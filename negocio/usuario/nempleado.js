@@ -29,9 +29,6 @@ $(document).on('click', '#btn-crear-empleado', function(){
 	  	if(EsNumeroEntero("nvchDNI") == false){
 	  		goToBox("#nvchDNI");
 	  		return false;
-	  	} else if(EsNumeroEntero("nvchRUC") == false){
-	  		goToBox("#nvchRUC");
-	  		return false;
 	  	} else if(EsVacio("nvchApellidoPaterno") == false){
 	  		goToBox("#nvchApellidoPaterno");
 	  		return false;
@@ -52,7 +49,7 @@ $(document).on('click', '#btn-crear-empleado', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok") {
+	   	if (datos=="okok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Empleado",1);
 	   		$('#txt-busqueda').val("");
 	   		ListarEmpleado(x,y,tipolistado);
@@ -98,6 +95,19 @@ $(document).on('click', '#btn-editar-empleado', function(){
   	  var tipolistado = "E";
   	  var formData = $("#form-empleado").serialize();
 	  var num_filas_comunicacion = document.getElementById('ListaDeComunicaciones').rows.length;
+	  	if(EsNumeroEntero("nvchDNI") == false){
+	  		goToBox("#nvchDNI");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoPaterno") == false){
+	  		goToBox("#nvchApellidoPaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoMaterno") == false){
+	  		goToBox("#nvchApellidoMaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchNombres") == false){
+	  		goToBox("#nvchNombres");
+	  		return false;
+	  	}
 	  if(num_filas_comunicacion == 0){
 	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
 	  	return false;
@@ -176,46 +186,6 @@ $(document).on('change', '#num-lista', function(){
   	  var x = 0;
   	  var tipolistado = "T";
   	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/usuario/funcion_empleado.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeEmpleados").html(datos);
-	   	PaginarEmpleado(x,y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Empleado */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Empleado */
-$(document).on('change', '#lista-persona', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-  	  if(intIdTipoPersona == 1){
-  	  	$(".ListaDNI").hide();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").show();
-  	  	$(".ListaApellidoPaterno").hide();
-  	  	$(".ListaApellidoMaterno").hide();
-  	  	$(".ListaNombres").hide();
-  	  } else if(intIdTipoPersona == 2){
-  	  	$(".ListaDNI").show();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").hide();
-  	  	$(".ListaApellidoPaterno").show();
-  	  	$(".ListaApellidoMaterno").show();
-  	  	$(".ListaNombres").show();
-  	  }
 	  $.ajax({
 	   url:"../../datos/usuario/funcion_empleado.php",
 	   method:"POST",
@@ -256,7 +226,6 @@ $(document).on('click', '.btn-pagina', function(){
   	  var x = $(this).attr("idp") * y;
   	  var funcion = "L";
   	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/usuario/funcion_empleado.php",
 	   method:"POST",
@@ -280,7 +249,6 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	  var x = 0;
   	  var funcion = "L";
   	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/usuario/funcion_empleado.php",
 	   method:"POST",
@@ -294,29 +262,6 @@ $(document).on('keyup', '#txt-busqueda', function(){
 	 return false;
 });
 /* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Empleado II */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Mostrar Campos de acuerdo al Tipo de Persona */
-function MostrarTipoPersona() {
-  var tipo_persona = document.getElementById("tipo-persona").value;
-      if(tipo_persona == "1"){
-      	$(".nvchDNI").hide();
-      	$(".nvchApellidoPaterno").hide();
-      	$(".nvchApellidoMaterno").hide();
-      	$(".nvchNombres").hide();
-      	$(".nvchRUC").show();
-      	$(".nvchRazonSocial").show();
-      } else if(tipo_persona == "2"){
-      	$(".nvchDNI").show();
-      	$(".nvchApellidoPaterno").show();
-      	$(".nvchApellidoMaterno").show();
-      	$(".nvchNombres").show();
-      	$(".nvchRUC").show();
-      	$(".nvchRazonSocial").hide();
-      }
-}
-/* FIN - Mostrar Campos de acuerdo al Tipo de Persona */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -447,32 +392,6 @@ function ActualizarComunicacion() {
 	  });
 }
 /* FIN - Actualizar Comunicacion Seleccionado */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Mostrar Domicilio Seleccionado */
-function SeleccionarDomicilio(seleccion) {
-	var intIdDomicilioEmpleado = $(seleccion).attr("iddcl");
-	var funcion = "SD";
-	  $.ajax({
-	   url:"../../datos/usuario/funcion_empleado.php",
-	   method:"POST",
-	   data:{intIdDomicilioEmpleado:intIdDomicilioEmpleado,funcion:funcion},
-	   dataType:"json",
-	   success:function(datos)
-	   {
-	   	$("#nvchPais").val(datos.nvchPais);
-	   	$("#nvchRegion").val(datos.nvchRegion);
-	   	$("#nvchProvincia").val(datos.nvchProvincia);
-	   	$("#nvchDistrito").val(datos.nvchDistrito);
-	   	$("#nvchDireccion").val(datos.nvchDireccion);
-	   	$("#tipo-domicilio").val(datos.intIdTipoDomicilio);
-	   	$("#intIdDomicilioEmpleado").val(datos.intIdDomicilioEmpleado);
-	   	BotonesDomicilio('A');
-	   }
-	  });
-}
-/* FIN - Mostrar Domicilio Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

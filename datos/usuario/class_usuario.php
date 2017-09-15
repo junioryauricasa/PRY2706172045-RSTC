@@ -1,8 +1,7 @@
 <?php
 session_start();
 require_once '../conexion/bd_conexion.php';
-//$_SESSION['intIdProducto'] = 0;
-$_SESSION['intUserId'] = 0; //guardar variable de session para ser sombreado
+$_SESSION['intUserId'] = 0;
 
 class Usuario
 {

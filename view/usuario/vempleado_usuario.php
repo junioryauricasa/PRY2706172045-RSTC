@@ -90,8 +90,8 @@ include('../_include/rstheader.php');
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeClientes" class="pagination">
-                <script>PaginarCliente(0,10,"T");</script>
+              <ul id="PaginacionDeEmpleados" class="pagination">
+                <script>PaginarEmpleado(0,10,"T");</script>
               </ul>
             </nav>
           </div>
