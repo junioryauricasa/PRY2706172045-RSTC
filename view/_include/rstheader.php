@@ -5,12 +5,12 @@
   Autor: Junior Yauricasa
   Fecha: 23-06-2017
   Descripcion: 
-    1.- Script de comprobacion de inicio de session si no existe la variable user_session (creada al logearse, redirige afuera del portal)
+    1.- Script de comprobacion de inicio de session si no existe la variable intIdUsuario (creada al logearse, redirige afuera del portal)
   ------------------------------
 */
 session_start();
 
-if(!isset($_SESSION['user_session']))
+if(!isset($_SESSION['intIdUsuario']))
 {
     header("Location: ../../");
 }
@@ -90,15 +90,15 @@ if(!isset($_SESSION['user_session']))
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo $_SESSION['usr_photo']; ?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $_SESSION['usr_name'];?></span>
+              <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?php echo $_SESSION['nvchUserName'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo $_SESSION['usr_photo']; ?>" class="img-circle" alt="User Image">
+                <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $_SESSION['usr_name'];?> - <?php echo $_SESSION['user_typeuser']; ?>
+                  <?php echo $_SESSION['nvchUserName'];?> - <?php echo $_SESSION['NombrePermiso']; ?>
                   <!--small>Member since Nov. 2012</small-->
                 </p>
               </li>
@@ -148,10 +148,10 @@ if(!isset($_SESSION['user_session']))
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo $_SESSION['usr_photo']; ?>" class="img-circle" alt="User Image">
+          <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $_SESSION['usr_name']; ?></p>
+          <p><?php echo $_SESSION['nvchUserName']; ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
         </div>
       </div>
@@ -236,7 +236,7 @@ if(!isset($_SESSION['user_session']))
       </li>
       <?php 
 
-        if($_SESSION['user_typeuser'] == 'Administrador'){
+        if($_SESSION['NombrePermiso'] == 'Administrador'){
           echo ""
           ?>
 

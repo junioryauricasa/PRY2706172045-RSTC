@@ -28,7 +28,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Bienvenido al portal Resteco <?php echo $_SESSION['usr_name']; ?>
+            Bienvenido al portal Resteco <?php echo $_SESSION['nvchUserName']; ?>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>

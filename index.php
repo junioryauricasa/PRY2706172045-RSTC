@@ -1,47 +1,33 @@
 <?php
-/*
-  ------------------------------
-  Autor: Junior Yauricasa
-  Fecha: 23-06-2017
-  Descripcion: 
-    1.- Login Usuario con verificacion de inicio de session (si existe user_session redirecciona hacia el panel de control de caso contrario no permite ingresar)
-  ------------------------------
-*/
 session_start();
-
-if (isset($_SESSION['intIdUsuario'])){
-  header("Location: view/default/");
-}else if(isset($_SESSION['intIdUsuario'])!="") {
-  header("Location: index");
-}
-
 include_once 'datos/conexion/bd_conexion.php';
 include_once 'funciones/os-detected.php';
 include_once 'funciones/hour-ddetected.php';
-
-//Comprobar el envío el formulario
-if (isset($_POST['login'])) {
-
+if (isset($_SESSION['intIdUsuario'])){
+  header("Location: view/default/");
+} else if(isset($_SESSION['intIdUsuario'])!="") {
+  header("Location: index");
+}
+if (isset($_POST['btnIngresar'])) {
   $nvchUserName = $_POST['nvchUserName'];
   $nvchUserPassword = $_POST['nvchUserPassword'];
-
   try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL VERIFICARUSUARIO(:nvchUserName)');
       $sql_comando->execute(array(':nvchUserName' => $nvchUserName));
       $cantidad = $sql_comando -> rowCount();
-      if($cantidad >= 1) {
-        $sql_comando = $sql_conectar->prepare('CALL VERIFICARPASSWORD(:nvchUserPassword)');
-        $sql_comando->execute(array(':nvchUserName' => $nvchUserName,
-              ':nvchUserPassword' => hash('sha256', $nvchUserPassword)));
+      if($cantidad == 1) {
+        $sql_comando = $sql_conectar->prepare('CALL VERIFICARPASSWORD(:nvchUserName,:nvchUserPassword)');
+        $sql_comando->execute(array(':nvchUserName' => $nvchUserName,':nvchUserPassword' => hash('sha256', $nvchUserPassword)));
         $cantidad = $sql_comando -> rowCount();
-        if($cantidad >= 1) {
-          if($row['bitUserEstado']==1){
-            $_SESSION['intIdUsuario'] = $row['intUserId'];
-            $_SESSION['nvchUserName'] = $row['nvchUserName'];
-            $_SESSION['nvchImgPerfil'] = $row['nvchImgPerfil'];
-            $_SESSION['intIdTipoUsuario'] = $row['intIdTipoUsuario'];
+        if($cantidad == 1) {
+          $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+          if($fila['bitUserEstado']==1){
+            $_SESSION['intIdUsuario'] = $fila['intIdUsuario'];
+            $_SESSION['nvchUserName'] = $fila['nvchUserName'];
+            $_SESSION['nvchImgPerfil'] = $fila['nvchImgPerfil'];
+            $_SESSION['intIdTipoUsuario'] = $fila['intIdTipoUsuario'];
 
             if($_SESSION['intIdTipoUsuario'] == 1){
                 $_SESSION['NombrePermiso'] = "Administrador";
@@ -49,68 +35,35 @@ if (isset($_POST['login'])) {
                 $_SESSION['NombrePermiso'] = "Vendedor";
             } else if ($_SESSION['intIdTipoUsuario'] == 3){
                 $_SESSION['NombrePermiso'] = "Almacenero";
-            } 
-            header("Location: view/default/");
             }
-        } else {
 
+            //$sql_comando = $sql_conectar->prepare('CALL INSERTARHISTORIALACCESO(:nvchUserPassword)');
+            //$sql_comando->execute(array(':nvchUserName' => $nvchUserName,
+            //      ':nvchUserPassword' => hash('sha256', $nvchUserPassword)));
+            //$sql = "INSERT INTO tb_historyaccess (intIdHistory, intIdUser, dateDateAccesso, nvchIpAccesso, nvchBrowser) VALUES (NULL, '".$_SESSION['user_session']."', '".$datetimelogin."', '193.10.14.12', '".$ua."');";
+            header("Location: view/default/");
+          }
+        } else {
+            $MensajeError = '
+              <div class="alert alert-warning"  id="success-alert" style="margin-top: 20px">
+                     Se te removieron los permisos, conversa con tu administrador
+              </div>
+              ';
         }
       } else {
-
+            $MensajeError = '
+              <div class="alert alert-warning"  id="success-alert" style="margin-top: 20px">
+                      Error con los datos de las credenciales
+              </div>
+              ';
       }
       echo "ok";
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }
-
-  $result = mysqli_query($con, "SELECT * FROM tb_usuario WHERE nvchUserName = '" . $email. "' and nvchUserPassword = '" . hash('sha256', $password) . "'");
-
-  if ($row = mysqli_fetch_array($result)) {
-
-    if($row['bitUserEstado']==1){
-      $_SESSION['intIdUsuario'] = $row['intUserId'];
-      $_SESSION['nvchUserName'] = $row['nvchUserName'];
-      $_SESSION['nvchImgPerfil'] = $row['nvchImgPerfil'];
-      $_SESSION['intIdTipoUsuario'] = $row['intIdTipoUsuario'];
-
-      // Verificando permisos del usuario
-      if($_SESSION['intIdTipoUsuario'] == 1){
-          $_SESSION['NombrePermiso'] = "Administrador";
-      } else if ($_SESSION['intIdTipoUsuario'] == 2){
-          $_SESSION['NombrePermiso'] = "Vendedor";
-      } else if ($_SESSION['intIdTipoUsuario'] == 3){
-          $_SESSION['NombrePermiso'] = "Almacenero";
-      }
-      // END Verificando permisos del usuario     
-
-
-        // INSERT History access
-        $sql = "INSERT INTO tb_historyaccess (intIdHistory, intIdUser, dateDateAccesso, nvchIpAccesso, nvchBrowser) VALUES (NULL, '".$_SESSION['user_session']."', '".$datetimelogin."', '193.10.14.12', '".$ua."');";
-
-        if (mysqli_query($con, $sql)){
-          //header("Location: frameworks/index");
-          header("Location: view/default/");
-        }else 
-        echo "algo sucedio mal";
-
-    }else
-    //$errormsg = "Esta cuenta esta desactivada, conversa con tu administrador";
-    $errormsg = '
-        <div class="alert alert-warning"  id="success-alert" style="margin-top: 20px">
-               Se te removieron los permisos, conversa con tu administrador
-        </div>
-        ';
-  } else {
-    $errormsg = '
-        <div class="alert alert-warning"  id="success-alert" style="margin-top: 20px">
-              Revisa los datos!!!
-        </div>
-        ';
-  }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,13 +97,13 @@ if (isset($_POST['login'])) {
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" name="login" class="col-xs-6 btn btn-primary btn-block btn-flat">Ingresar</button>
+          <button type="submit" name="btnIngresar" class="col-xs-6 btn btn-primary btn-block btn-flat">Ingresar</button>
           <button type="reset" class="col-xs-6 btn btn-danger btn-block btn-flat">Limpiar campos</button>
         </div>
       </div>
     </form>
     <div class="col-12">
-        <?php if (isset($errormsg)) { echo $errormsg; } ?>
+        <?php if (isset($MensajeError)) { echo $MensajeError; } ?>
     </div>
     <br>
     <!--
@@ -174,16 +127,6 @@ if (isset($_POST['login'])) {
       increaseArea: '20%' // optional
     });
   });
-
-
-/*
-  ------------------------------
-  Autor: Junior Yauricasa
-  Fecha: 27-06-2017
-  Descripcion: 
-    1.- Alert autoclose
-  ------------------------------
-*/
 $("#success-alert").fadeTo(5000, 500).slideUp(500, function(){
     $("#success-alert").slideUp(500);
 });
