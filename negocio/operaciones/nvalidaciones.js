@@ -42,6 +42,40 @@ function EsVacio(NombreId)
   }
 }
 
+function EsVacioOp(NombreId)
+{
+  var Valor = $("#"+NombreId).val();
+  if (Valor == "" || Valor == null){
+    $("#"+NombreId+"Group").attr("class","form-group");
+    $("#"+NombreId+"Icono").attr({"class":"", "aria-hidden":""});
+    $("#"+NombreId+"Obs").html("");
+    return true;
+  } else if(Valor != "" || Valor != null) {
+    $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
+    return true;
+  }
+}
+
+function EsLetraOp(NombreId){
+  var Valor = $("#"+NombreId).val();
+  if (EsVacioOp(NombreId) == true){
+    return true;
+  } else if(/^[A-zÀ-ÖØ-öø-ÿ]+$/.test(Valor) == false) {
+    $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Debe ser solo alfabético");
+    return false;
+  } else {
+    $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
+    return true;
+  }
+}
+
 function EsLetra(NombreId){
   var Valor = $("#"+NombreId).val();
   if (EsVacio(NombreId) == false){

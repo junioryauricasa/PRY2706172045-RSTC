@@ -32,7 +32,7 @@ class FormularioUsuario
   public function UserPassword($nvchUserPassword){ $this->nvchUserPassword = $nvchUserPassword; }
   public function IdTipoUsuario($intIdTipoUsuario){ $this->intIdTipoUsuario = $intIdTipoUsuario; }
   public function ImgPerfil($nvchImgPerfil){$this->nvchImgPerfil = $nvchImgPerfil; }
-  public function bitUserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
+  public function UserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
   public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
   public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
   public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
@@ -73,7 +73,7 @@ class FormularioUsuario
                     <label>RUC (Opcional):</label>
                     <input type="text" id="nvchRUC" name="nvchRUC" class="form-control select2" placeholder="Ingrese RUC" 
                     value="<?php echo $this->nvchRUC; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
-                    onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11" required>
+                    onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11">
                     <span id="nvchRUCIcono" class="" aria-hidden=""></span>
                     <div id="nvchRUCObs" class=""></div>
                   </div>
@@ -121,72 +121,131 @@ class FormularioUsuario
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-5">
-                  <div id="nvchUserNameGroup" class="form-group">
-                    <label>Nombre de Usuario:</label>
-                    <input type="text" id="nvchUserName" name="nvchUserName" class="form-control select2" 
-                    placeholder="Ingrese los Nombres" value="<?php echo $this->nvchUserName; ?>" 
-                    onkeyup="EsVacio('nvchUserName')" maxlength="250" required>
-                    <span id="nvchUserNameIcono" class="" aria-hidden=""></span>
-                    <div id="nvchUserNameObs" class=""></div>
-                  </div>
-                </div>
-                <div id="nvchUserPasswordGroup" class="col-md-3">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label>Contraseña de Usuario:</label>
-                    <input type="text" id="nvchUserPassword" name="nvchUserPassword" class="form-control select2" 
-                    placeholder="Ingrese los Nombres" value="<?php echo $this->nvchUserPassword; ?>" 
-                    onkeyup="EsVacio('nvchUserPassword')" maxlength="250" required>
-                    <span id="nvchUserPasswordIcono" class="" aria-hidden=""></span>
-                    <div id="nvchUserPasswordObs" class=""></div>
+                    <label>Imagen:</label>
+                    <input type="file" name="SeleccionImagen" id="SeleccionImagen" accept=".png, .jpg, .jpeg">
+                    <?php if($funcion == "F"){ ?>
+                    <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
+                    <?php } else if($funcion == "M") { ?>
+                    <img id="resultadoimagen" src="<?php echo '../../datos/inventario/imgproducto/'.$this->nvchImgPerfil; ?>" style="width: 100px; height: 100px;" />
+                    <?php } ?>
+                    <input type="hidden" id="nvchImgPerfil" name="nvchImgPerfil" value="<?php echo $this->nvchImgPerfil; ?>" />
+                    <div id="operacionimagen"></div>
                   </div>
                 </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div id="nvchUserNameGroup" class="form-group">
+                  <label>Nombre de Usuario:</label>
+                  <input type="text" id="nvchUserName" name="nvchUserName" class="form-control select2" 
+                  placeholder="Ingrese los Nombres" value="<?php echo $this->nvchUserName; ?>" 
+                  onkeyup="EsVacio('nvchUserName')" maxlength="250" required>
+                  <span id="nvchUserNameIcono" class="" aria-hidden=""></span>
+                  <div id="nvchUserNameObs" class=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchUserPasswordGroup" class="form-group">
+                  <label>Contraseña del Usuario:</label>
+                  <input type="password" id="nvchUserPassword" name="nvchUserPassword" class="form-control select2" 
+                  placeholder="Ingrese la contraseña" value="<?php if($funcion == "F") { echo ""; } else if($funcion == "M") { echo "********"; } ?>" 
+                  onkeyup="EsVacio('nvchUserPassword')" maxlength="250">
+                  <span id="nvchUserPasswordIcono" class="" aria-hidden=""></span>
+                  <div id="nvchUserPasswordObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchUserPasswordRepGroup" class="form-group">
+                  <label>Escribir nuevamente la Contraseña:</label>
+                  <input type="password" id="nvchUserPasswordRep" name="nvchUserPasswordRep" class="form-control select2" 
+                  placeholder="Ingrese la contraseña nuevamente" value="<?php if($funcion == "F") { echo ""; } else if($funcion == "M") { echo "********"; } ?>" 
+                  onkeyup="EsVacio('nvchUserPasswordRep')" maxlength="250">
+                  <span id="nvchUserPasswordRepIcono" class="" aria-hidden=""></span>
+                  <div id="nvchUserPasswordRepObs" class=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Usuario:</label>
+                  <select id="tipo-usuario" name="intIdTipoUsuario"  class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipousuario()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo'<option value="'.$fila['intIdTipoUsuario'].'">'.$fila['nvchNombre'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                  </select>
+                  <input type="hidden" id="intIdTipoUsuario" value="<?php echo $this->intIdTipoUsuario; ?>">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchUserPasswordGroup" class="form-group">
+                  <label>Habilitación de Usuario:</label>
+                  <select id="tipo-estado" name="bitUserEstado"  class="form-control select2" >
+                      <option value="1">Habilitado</option>
+                      <option value="0">Inhabilitado</option>
+                  </select>
+                  <input type="hidden" id="bitUserEstado" value="<?php echo $this->bitUserEstado; ?>">
+                </div>
+              </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
                   <div class="form-group">
                     <label>Observación y/o Datos Adicionales (Opcional):</label>
-                    <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-Usuario" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+                    <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-usuario" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                   </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
                   <div id="nvchPaisGroup" class="form-group">
-                    <label>País:</label>
-                    <input type="text" name="Pais" id="nvchPais" class="form-control select2" 
+                    <label>País (Opcional):</label>
+                    <input type="text" name="nvchPais" id="nvchPais" class="form-control select2" 
                     placeholder="Ingrese el País" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchPais')" maxlength="150">
+                    onkeyup="EsLetraOp('nvchPais')" maxlength="150">
                     <span id="nvchPaisIcono" class="" aria-hidden=""></span>
                     <div id="nvchPaisObs" class=""></div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div id="nvchRegionGroup" class="form-group">
-                    <label>Región:</label>
-                    <input type="text" name="Region" id="nvchRegion" class="form-control select2" 
+                    <label>Región (Opcional):</label>
+                    <input type="text" name="nvchRegion" id="nvchRegion" class="form-control select2" 
                     placeholder="Ingrese Región" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchRegion')" maxlength="150">
+                    onkeyup="EsLetraOp('nvchRegion')" maxlength="150">
                     <span id="nvchRegionIcono" class="" aria-hidden=""></span>
                     <div id="nvchRegionObs" class=""></div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div id="nvchProvinciaGroup" class="form-group">
-                    <label>Provincia:</label>
-                    <input type="text" name="Provincia" id="nvchProvincia" class="form-control select2" 
+                    <label>Provincia (Opcional):</label>
+                    <input type="text" name="nvchProvincia" id="nvchProvincia" class="form-control select2" 
                     placeholder="Ingrese Provincia" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchProvincia')" maxlength="150">
+                    onkeyup="EsLetraOp('nvchProvincia')" maxlength="150">
                     <span id="nvchProvinciaIcono" class="" aria-hidden=""></span>
                     <div id="nvchProvinciaObs" class=""></div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div id="nvchDistritoGroup" class="form-group">
-                    <label>Distrito:</label>
-                    <input type="text" name="Distrito" id="nvchDistrito" class="form-control select2" 
+                    <label>Distrito (Opcional):</label>
+                    <input type="text" name="nvchDistrito" id="nvchDistrito" class="form-control select2" 
                     placeholder="Ingrese Distrito" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetra('nvchDistrito')" maxlength="150">
+                    onkeyup="EsLetraOp('nvchDistrito')" maxlength="150">
                     <span id="nvchDistritoIcono" class="" aria-hidden=""></span>
                     <div id="nvchDistritoObs" class=""></div>
                   </div>
@@ -195,9 +254,9 @@ class FormularioUsuario
             <div class="row">
                 <div class="col-md-5">
                   <div id="nvchDireccionGroup" class="form-group">
-                    <label>Direccion:</label>
-                    <input type="text" name="Direccion" id="nvchDireccion" class="form-control select2" 
-                    placeholder="Ingrese Dirección" value="" onkeyup="EsVacio('nvchDireccion')" maxlength="450">
+                    <label>Direccion (Opcional):</label>
+                    <input type="text" name="nvchDireccion" id="nvchDireccion" class="form-control select2" 
+                    placeholder="Ingrese Dirección" value="" onkeyup="EsVacioOp('nvchDireccion')" maxlength="450">
                     <span id="nvchDireccionIcono" class="" aria-hidden=""></span>
                     <div id="nvchDireccionObs" class=""></div>
                   </div>
@@ -207,7 +266,7 @@ class FormularioUsuario
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <input type="submit" id="btn-editar-Usuario" class="btn btn-sm btn-warning btn-flat" value="Editar Usuario"> 
+                  <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-warning btn-flat" value="Editar Usuario"> 
                   <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                 </div>
               </div>
@@ -217,7 +276,7 @@ class FormularioUsuario
         <div class="box-header with-border">
         </div>
         <div class="box-header with-border">
-          <h3 class="box-title">Comunicación</h3>
+          <h3 class="box-title">Comunicación (Opcional)</h3>
         </div>
             <div class="box-body">
               <div class="row">
@@ -225,7 +284,7 @@ class FormularioUsuario
                   <div id="nvchMedioGroup" class="form-group">
                     <label>Medio:</label>
                     <input type="text" name="Medio" id="nvchMedio" class="form-control select2" placeholder="Ingrese Medio" 
-                    value="" onkeyup="EsVacio('nvchMedio')" maxlength="100">
+                    value="" onkeyup="EsVacioOp('nvchMedio')" maxlength="100">
                     <span id="nvchMedioIcono" class="" aria-hidden=""></span>
                     <div id="nvchMedioObs" class=""></div>
                   </div>
@@ -234,7 +293,7 @@ class FormularioUsuario
                   <div id="nvchLugarGroup" class="form-group">
                     <label>Lugar/Pertenencia:</label>
                     <input type="text" name="Lugar" id="nvchLugar" class="form-control select2" placeholder="Ingrese Lugar/Pertenencia" 
-                    value="" onkeyup="EsVacio('nvchLugar')" maxlength="550">
+                    value="" onkeyup="EsVacioOp('nvchLugar')" maxlength="550">
                     <span id="nvchLugarIcono" class="" aria-hidden=""></span>
                     <div id="nvchLugarObs" class=""></div>
                   </div>
@@ -297,7 +356,7 @@ class FormularioUsuario
             <?php } ?>
             <input type="hidden" name="intIdUsuario" id="intIdUsuario" value="<?php echo $this->intIdUsuario; ?>" />
             <?php if($funcion == "F"){ ?>
-            <input type="submit" id="btn-crear-Usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Usuario">
+            <input type="submit" id="btn-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Usuario">
             <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
             <?php } ?>
         </div>              

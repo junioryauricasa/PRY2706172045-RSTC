@@ -34,7 +34,7 @@ class Usuario
   public function UserPassword($nvchUserPassword){ $this->nvchUserPassword = $nvchUserPassword; }
   public function IdTipoUsuario($intIdTipoUsuario){ $this->intIdTipoUsuario = $intIdTipoUsuario; }
   public function ImgPerfil($nvchImgPerfil){$this->nvchImgPerfil = $nvchImgPerfil; }
-  public function bitUserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
+  public function UserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
   public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
   public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
   public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
@@ -51,7 +51,7 @@ class Usuario
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('
       		CALL insertarusuario(@intIdUsuario,:nvchDNI,:nvchRUC,:nvchApellidoPaterno,:nvchApellidoMaterno,
-          :nvchNombres,:nvchGenero,:nvchUserName,:nchUserMail,:nvchUserPassword,
+          :nvchNombres,:nvchGenero,:nvchUserName,:nvchUserPassword,
           :intIdTipoUsuario,:nvchImgPerfil,:bitUserEstado,:nvchPais,:nvchRegion,:nvchProvincia,
         :nvchDistrito,:nvchDireccion,:nvchObservacion)');
       $sql_comando->execute(array(
@@ -62,7 +62,6 @@ class Usuario
         ':nvchNombres' => $this->nvchNombres,
         ':nvchGenero' => $this->nvchGenero,
       	':nvchUserName' => $this->nvchUserName, 
-        ':nchUserMail' => $this->nchUserMail,
         ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),
         ':intIdTipoUsuario' => $this->intIdTipoUsuario,
         ':nvchImgPerfil' => $this->nvchImgPerfil,
@@ -72,7 +71,6 @@ class Usuario
         ':nvchProvincia' => $this->nvchProvincia,
         ':nvchDistrito' => $this->nvchDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
-        ':intIdCargo' => $this->intIdCargo,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdUsuario as intIdUsuario");
@@ -103,10 +101,9 @@ class Usuario
       $FormularioUsuario->Nombres($fila['nvchNombres']);
       $FormularioUsuario->Genero($fila['nvchGenero']);
       $FormularioUsuario->UserName($fila['nvchUserName']);
-      $FormularioUsuario->UserPassword($fila['nvchUserPassword']);
       $FormularioUsuario->IdTipoUsuario($fila['intIdTipoUsuario']);
       $FormularioUsuario->ImgPerfil($fila['nvchImgPerfil']);
-      $FormularioUsuario->bitUserEstado($fila['bitUserEstado']);
+      $FormularioUsuario->UserEstado($fila['bitUserEstado']);
       $FormularioUsuario->Pais($fila['nvchPais']);
       $FormularioUsuario->Region($fila['nvchRegion']);
       $FormularioUsuario->Provincia($fila['nvchProvincia']);
@@ -126,9 +123,8 @@ class Usuario
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarusuario(:intIdUsuario,:nvchDNI,:nvchRUC,:nvchApellidoPaterno,
-        :nvchApellidoMaterno,:nvchNombres,:nvchGenero,:nvchUserName,:nchUserMail,:nvchUserPassword,
-          :intIdTipoUsuario,:nvchImgPerfil,:bitUserEstado,:nvchPais,:nvchRegion,:nvchProvincia,
-        :nvchDistrito,:nvchDireccion,:nvchObservacion)');
+        :nvchApellidoMaterno,:nvchNombres,:nvchGenero,:nvchUserName,:intIdTipoUsuario,:nvchImgPerfil,:bitUserEstado,
+        :nvchPais,:nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:nvchObservacion)');
       $sql_comando->execute(array(
       	':intIdUsuario' => $this->intIdUsuario,
         ':nvchDNI' => $this->nvchDNI,
@@ -138,8 +134,6 @@ class Usuario
         ':nvchNombres' => $this->nvchNombres,
         ':nvchGenero' => $this->nvchGenero,
         ':nvchUserName' => $this->nvchUserName, 
-        ':nchUserMail' => $this->nchUserMail,
-        ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),
         ':intIdTipoUsuario' => $this->intIdTipoUsuario,
         ':nvchImgPerfil' => $this->nvchImgPerfil,
         ':bitUserEstado' => $this->bitUserEstado,
@@ -148,7 +142,6 @@ class Usuario
         ':nvchProvincia' => $this->nvchProvincia,
         ':nvchDistrito' => $this->nvchDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
-        ':intIdCargo' => $this->intIdCargo,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdUsuario'] = $this->intIdUsuario;
       echo "ok";

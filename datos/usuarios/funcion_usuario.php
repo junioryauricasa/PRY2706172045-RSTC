@@ -20,9 +20,9 @@ switch($_POST['funcion']){
     $Usuario->Genero($_POST['nvchGenero']);
     $Usuario->UserName($_POST['nvchUserName']);
     $Usuario->UserPassword($_POST['nvchUserPassword']);
-    $Usuario->intIdTipoUsuario($_POST['intIdTipoUsuario']);
+    $Usuario->IdTipoUsuario($_POST['intIdTipoUsuario']);
     $Usuario->ImgPerfil($_POST['nvchImgPerfil']);
-    $Usuario->bitUserEstado($_POST['bitUserEstado']);
+    $Usuario->UserEstado($_POST['bitUserEstado']);
     $Usuario->Pais($_POST['nvchPais']);
     $Usuario->Region($_POST['nvchRegion']);
     $Usuario->Provincia($_POST['nvchProvincia']);
@@ -41,10 +41,9 @@ switch($_POST['funcion']){
     $Usuario->Nombres($_POST['nvchNombres']);
     $Usuario->Genero($_POST['nvchGenero']);
     $Usuario->UserName($_POST['nvchUserName']);
-    $Usuario->UserPassword($_POST['nvchUserPassword']);
-    $Usuario->intIdTipoUsuario($_POST['intIdTipoUsuario']);
+    $Usuario->IdTipoUsuario($_POST['intIdTipoUsuario']);
     $Usuario->ImgPerfil($_POST['nvchImgPerfil']);
-    $Usuario->bitUserEstado($_POST['bitUserEstado']);
+    $Usuario->UserEstado($_POST['bitUserEstado']);
     $Usuario->Pais($_POST['nvchPais']);
     $Usuario->Region($_POST['nvchRegion']);
     $Usuario->Provincia($_POST['nvchProvincia']);

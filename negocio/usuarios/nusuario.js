@@ -18,37 +18,53 @@ $(document).on('click', '#btn-form-crear-usuario', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Insertar Producto */
+/* INICIO - Funcion Ajax - Insertar Usuario */
 $(document).on('click', '#btn-crear-usuario', function(){
 	  var formData = $("#form-usuario").serialize();
+	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "N";
+	  	if(EsNumeroEntero("nvchDNI") == false){
+	  		goToBox("#nvchDNI");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoPaterno") == false){
+	  		goToBox("#nvchApellidoPaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoMaterno") == false){
+	  		goToBox("#nvchApellidoMaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchNombres") == false){
+	  		goToBox("#nvchNombres");
+	  		return false;
+	  	}
 	  $.ajax({
 	   url: "../../datos/usuarios/funcion_usuario.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { 
-	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente el registro')</script>");
+	   	if (datos=="ok") {
+	   		MensajeNormal("Se agregó correctamente el nuevo Usuario",1);
 	   		$('#txt-busqueda').val("");
 	   		ListarUsuario(x,y,tipolistado);
 	   		PaginarUsuario(x,y,tipolistado);
+	   		$("#btn-form-usuario-remove").click();
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Insertar Producto */
+/* FIN - Funcion Ajax - Insertar Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Producto */
+/* INICIO - Funcion Ajax - Mostrar Usuario */
 $(document).on('click', '.btn-mostrar-usuario', function(){
   	  var intIdUsuario = $(this).attr("id");
   	  var funcion = "M";
+  	  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/usuarios/funcion_usuario.php",
 	   method:"POST",
@@ -56,6 +72,8 @@ $(document).on('click', '.btn-mostrar-usuario', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	MostrarComunicacion(intIdUsuario,tipolistado);
+	   	goToBox("#Formulario");
 	   }
 	  });
 	 return false;
@@ -66,32 +84,46 @@ $(document).on('click', '.btn-mostrar-usuario', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Usuario */
 $(document).on('click', '#btn-editar-usuario', function(){
-  	  var intIdUsuario = $(this).attr("id");
+  	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-usuario").serialize();
+	  	if(EsNumeroEntero("nvchDNI") == false){
+	  		goToBox("#nvchDNI");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoPaterno") == false){
+	  		goToBox("#nvchApellidoPaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoMaterno") == false){
+	  		goToBox("#nvchApellidoMaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchNombres") == false){
+	  		goToBox("#nvchNombres");
+	  		return false;
+	  	}
 	  $.ajax({
 	   url:"../../datos/usuarios/funcion_usuario.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") { 
-	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
+	   	if (datos=="ok") {
+	   		MensajeNormal("Se modificó correctamente el Usuario",1);
 	   		ListarUsuario(x,y,tipolistado);
 	   		PaginarUsuario(x,y,tipolistado);
+	   		$("#btn-form-usuario-remove").click();
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Actualizar Producto */
+/* FIN - Funcion Ajax - Actualizar Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Eliminar Producto */
+/* INICIO - Funcion Ajax - Eliminar Usuario */
 $(document).on('click', '.btn-eliminar-usuario', function(){
   	  var intIdUsuario = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
@@ -105,7 +137,7 @@ $(document).on('click', '.btn-eliminar-usuario', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") { 
-	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
+	   		MensajeNormal("Se Eliminó correctamente el Usuario",1);
 	   		ListarUsuario(x,y,tipolistado);
 	   		PaginarUsuario(x,y,tipolistado);
 	   	}
@@ -114,11 +146,12 @@ $(document).on('click', '.btn-eliminar-usuario', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Eliminar Producto */
+/* FIN - Funcion Ajax - Eliminar Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Producto */
+/* INICIO - Funcion Ajax - Listar Usuario */
+
 function ListarUsuario(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
@@ -131,11 +164,12 @@ function ListarUsuario(x,y,tipolistado) {
       }
   });
 }
-/* FIN - Funcion Ajax - Listar Producto */
+
+/* FIN - Funcion Ajax - Listar Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Producto */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Usuario */
 $(document).on('change', '#num-lista', function(){
   	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -154,11 +188,11 @@ $(document).on('change', '#num-lista', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Producto */
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Paginar Producto */
+/* INICIO - Funcion Ajax - Paginar Usuario */
 function PaginarUsuario(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
@@ -171,11 +205,11 @@ function PaginarUsuario(x,y,tipolistado) {
       }
   });
 }
-/* FIN - Funcion Ajax - Paginar Producto */
+/* FIN - Funcion Ajax - Paginar Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Producto */
+/* INICIO - Funcion Ajax - Cambiar Página de Lista Usuario */
 $(document).on('click', '.btn-pagina', function(){
       var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -194,11 +228,11 @@ $(document).on('click', '.btn-pagina', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Cambiar Página de Lista Producto */
+/* FIN - Funcion Ajax - Cambiar Página de Lista Usuario */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
+/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Usuario II */
 $(document).on('keyup', '#txt-busqueda', function(){
 	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -217,7 +251,7 @@ $(document).on('keyup', '#txt-busqueda', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
+/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Usuario II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -353,7 +387,7 @@ function ActualizarComunicacion() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Comunicacion Seleccionado */
 function SeleccionarComunicacion(seleccion) {
-	var intIdComunicacionUsuario = $(seleccion).attr("idccl");
+	var intIdComunicacionUsuario = $(seleccion).attr("idcu");
 	var funcion = "SC";
 	  $.ajax({
 	   url:"../../datos/usuarios/funcion_usuario.php",
@@ -376,7 +410,7 @@ function SeleccionarComunicacion(seleccion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Comunicacion Seleccionado */
 function EliminarComunicacion(seleccion) {
-	var intIdComunicacionUsuario = $(seleccion).attr("idccl");
+	var intIdComunicacionUsuario = $(seleccion).attr("idcu");
 	var funcion = "EC";
 	var tipolistado = "T";
 	var intIdUsuario = $("#intIdUsuario").val();

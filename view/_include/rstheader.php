@@ -218,19 +218,19 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </a>
               <ul class="treeview-menu">
                 <li class="active">
-                  <a href="../usuario/vusuario" target="_blank">
+                  <a href="../usuarios/vusuario" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Administrar Usuarios
                   </a>
                 </li>
                 <li>
-                  <a href="../permisos/vpermisos">
+                  <a href="../usuarios/vpermisos">
                     <i class="fa fa-circle-o"></i> 
                       Administrar Permisos
                   </a>
                 </li>
                 <li>
-                  <a href="../historialacceso/vhistoryaccess">
+                  <a href="../usuarios/vhistoryaccess">
                     <i class="fa fa-circle-o"></i> 
                      Historial de acceso
                   </a>

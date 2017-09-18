@@ -13,6 +13,7 @@ DELIMITER $$
 	IN _nvchUserName VARCHAR(50),
 	IN _nvchUserPassword VARCHAR(1000),
 	IN _intIdTipoUsuario INT,
+	IN _nvchImgPerfil VARCHAR(500),
 	IN _bitUserEstado INT,
 	IN _nvchPais VARCHAR(150),
     IN _nvchRegion VARCHAR(150),
@@ -23,10 +24,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_usuario(nvchDNI,nvchRUC,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,nvchGenero,nvchUserName,
-			nvchUserPassword,intIdTipoUsuario,bitUserEstado,nvchPais,nvchRegion,nvchProvincia,nvchDistrito,nvchDireccion,
+			nvchUserPassword,intIdTipoUsuario,nvchImgPerfil,bitUserEstado,nvchPais,nvchRegion,nvchProvincia,nvchDistrito,nvchDireccion,
 			nvchObservacion)
 		VALUES(_nvchDNI,_nvchRUC,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_nvchGenero,_nvchUserName,_nvchUserPassword,
-			_intIdTipoUsuario,_bitUserEstado,_nvchPais,_nvchRegion,_nvchProvincia,_nvchDistrito,_nvchDireccion,_nvchObservacion);
+			_intIdTipoUsuario,_nvchImgPerfil,_bitUserEstado,_nvchPais,_nvchRegion,_nvchProvincia,_nvchDistrito,_nvchDireccion,_nvchObservacion);
     	SET _intIdUsuario = LAST_INSERT_ID();
     END 
 $$
@@ -44,6 +45,7 @@ DELIMITER $$
 	IN _nvchGenero VARCHAR(25),
 	IN _nvchUserName VARCHAR(50),
 	IN _intIdTipoUsuario INT,
+	IN _nvchImgPerfil VARCHAR(500),
 	IN _bitUserEstado INT,
 	IN _nvchPais VARCHAR(150),
     IN _nvchRegion VARCHAR(150),
@@ -63,12 +65,14 @@ DELIMITER $$
 			nvchGenero = _nvchGenero,
 			nvchUserName = _nvchUserName,
 			intIdTipoUsuario = _intIdTipoUsuario,
+			nvchImgPerfil = _nvchImgPerfil,
 			bitUserEstado = _bitUserEstado,
 			nvchPais = _nvchPais,
 			nvchRegion = _nvchRegion,
 			nvchProvincia = _nvchProvincia,
 			nvchDistrito = _nvchDistrito,
-			nvchDireccion = _nvchDireccion
+			nvchDireccion = _nvchDireccion,
+			nvchObservacion = _nvchObservacion
 		WHERE intIdUsuario = _intIdUsuario;
     	END 
 $$
