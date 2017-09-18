@@ -49,9 +49,9 @@ function AgregarCodigo_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el Código del Producto",1);
 	   		MostrarCodigo(intIdProducto,tipolistado);
-	   		$("#tipo-busqueda").val("T");
-	   		ListarProducto(x,y,"T");
-	   		PaginarProducto(x,y,"T");
+	   		$("#tipo-busqueda").val();
+	   		ListarProducto(x,y,$("#tipo-busqueda").val());
+	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -101,9 +101,8 @@ function ActualizarCodigo() {
 	   		MensajeNormal("Se modificó correctamente el Código del Producto",1);
 	   		MostrarCodigo(intIdProducto,tipolistado);
 	   		BotonesCodigo(accion);
-	   		$("#tipo-busqueda").val("T");
-	   		ListarProducto(x,y,"T");
-	   		PaginarProducto(x,y,"T");
+	   		ListarProducto(x,y,$("#tipo-busqueda").val());
+	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -151,6 +150,8 @@ function EliminarCodigo(seleccion) {
 	   	 if(datos=="ok"){
 	   	 	MensajeNormal("Se eliminó correctamente el Código del Producto",1);
 	   	 	MostrarCodigo(intIdProducto,tipolistado);
+	   	 	ListarProducto(x,y,$("#tipo-busqueda").val());
+	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	 }
 	   }
 	  });

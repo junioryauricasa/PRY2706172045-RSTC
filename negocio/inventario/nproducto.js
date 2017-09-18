@@ -136,7 +136,6 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se modificó correctamente el Producto",1);
 	   		$("#btn-form-producto-remove").click();
-	   		$("#tipo-busqueda").val("T");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
 	   	}

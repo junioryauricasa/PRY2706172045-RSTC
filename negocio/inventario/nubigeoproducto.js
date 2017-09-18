@@ -43,9 +43,8 @@ function AgregarUbigeo_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
-	   		$("#tipo-busqueda").val("T");
-	   		ListarProducto(x,y,"T");
-	   		PaginarProducto(x,y,"T");
+	   		ListarProducto(x,y,$("#tipo-busqueda").val());
+	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -89,9 +88,8 @@ function ActualizarUbigeo() {
 	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
 	   		BotonesUbigeo(accion);
-	   		$("#tipo-busqueda").val("T");
-	   		ListarProducto(x,y,"T");
-	   		PaginarProducto(x,y,"T");
+	   		ListarProducto(x,y,$("#tipo-busqueda").val());
+	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -140,6 +138,8 @@ function EliminarUbigeo(seleccion) {
 	   	 if(datos=="ok"){
 	   	 	MensajeNormal("Se eliminó correctamente el Ubigeo del Producto",1);
 	   	 	MostrarUbigeo(intIdProducto,tipolistado);
+	   	 	ListarProducto(x,y,$("#tipo-busqueda").val());
+	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	 }
 	   }
 	  });

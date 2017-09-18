@@ -149,8 +149,14 @@ DELIMITER $$
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		CP.nvchCodigo LIKE CONCAT(_elemento,'%')
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
 		LIMIT _x,_y;
 	END IF;
     END
@@ -185,8 +191,14 @@ DELIMITER $$
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		CP.nvchCodigo LIKE CONCAT(_elemento,'%');
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1;
 	END IF;
     END 
 $$
@@ -222,5 +234,27 @@ CREATE PROCEDURE CANTIDADUBIGEO(
 		P.intIdProducto = _intIdProducto AND UP.nvchSucursal = _nvchSucursal
 		GROUP BY UP.nvchSucursal,UP.intIdProducto;
 	END
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARPRODUCTOCODIGO;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARPRODUCTOCODIGO(
+    	IN _elemento VARCHAR(500)
+    )
+	BEGIN
+		SELECT CP.nvchCodigo
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT('A23','%')) AND CP.intIdTipoCodigoProducto = 1;
+    END 
 $$
 DELIMITER ;
