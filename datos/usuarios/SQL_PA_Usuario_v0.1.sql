@@ -43,7 +43,6 @@ DELIMITER $$
 	IN _nvchNombres VARCHAR(250),
 	IN _nvchGenero VARCHAR(25),
 	IN _nvchUserName VARCHAR(50),
-	IN _nvchUserPassword VARCHAR(1000),
 	IN _intIdTipoUsuario INT,
 	IN _bitUserEstado INT,
 	IN _nvchPais VARCHAR(150),
@@ -58,13 +57,11 @@ DELIMITER $$
 		SET
 			nvchDNI = _nvchDNI,
 			nvchRUC = _nvchRUC,
-			nvchRazonSocial = _nvchRazonSocial,
 			nvchApellidoPaterno = _nvchApellidoPaterno,
 			nvchApellidoMaterno = _nvchApellidoMaterno,
 			nvchNombres = _nvchNombres,
 			nvchGenero = _nvchGenero,
 			nvchUserName = _nvchUserName,
-			nvchUserPassword = _nvchUserPassword,
 			intIdTipoUsuario = _intIdTipoUsuario,
 			bitUserEstado = _bitUserEstado,
 			nvchPais = _nvchPais,
@@ -130,18 +127,20 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT * FROM tb_usuario 
+		SELECT U.*,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombresApellidos,
+		TU.nvchNombre AS NombreTipoUsuario
+		FROM tb_usuario U
+		LEFT JOIN tb_tipo_usuario TU ON U.intIdTipoUsuario = TU.intIdTipoUsuario
 		WHERE 
-			nvchDNI LIKE CONCAT(_elemento,'%') OR
-			nvchRUC LIKE CONCAT(_elemento,'%') OR
-			nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-			nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-			nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-			nvchNombres LIKE CONCAT(_elemento,'%') OR
-			nvchGenero LIKE CONCAT(_elemento,'%') OR
-			nvchUserName LIKE CONCAT(_elemento,'%') OR
-			nvchUserPassword LIKE CONCAT(_elemento,'%') OR
-			bitUserEstado LIKE CONCAT(_elemento,'%')
+			U.nvchDNI LIKE CONCAT(_elemento,'%') OR
+			U.nvchRUC LIKE CONCAT(_elemento,'%') OR
+			U.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+			U.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+			U.nvchNombres LIKE CONCAT(_elemento,'%') OR
+			U.nvchGenero LIKE CONCAT(_elemento,'%') OR
+			U.nvchUserName LIKE CONCAT(_elemento,'%') OR
+			TU.nvchNombre LIKE CONCAT(_elemento,'%')
 		LIMIT _x,_y;
     	END 
 $$
@@ -153,18 +152,20 @@ DELIMITER $$
     	IN _elemento VARCHAR(500)
     )
 	BEGIN
-		SELECT * FROM tb_usuario 
+		SELECT U.*,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombresApellidos,
+		TU.nvchNombre AS NombreTipoUsuario
+		FROM tb_usuario U
+		LEFT JOIN tb_tipo_usuario TU ON U.intIdTipoUsuario = TU.intIdTipoUsuario
 		WHERE 
-			nvchDNI LIKE CONCAT(_elemento,'%') OR
-			nvchRUC LIKE CONCAT(_elemento,'%') OR
-			nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-			nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-			nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-			nvchNombres LIKE CONCAT(_elemento,'%') OR
-			nvchGenero LIKE CONCAT(_elemento,'%') OR
-			nvchUserName LIKE CONCAT(_elemento,'%') OR
-			nvchUserPassword LIKE CONCAT(_elemento,'%') OR
-			bitUserEstado LIKE CONCAT(_elemento,'%');
+			U.nvchDNI LIKE CONCAT(_elemento,'%') OR
+			U.nvchRUC LIKE CONCAT(_elemento,'%') OR
+			U.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+			U.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+			U.nvchNombres LIKE CONCAT(_elemento,'%') OR
+			U.nvchGenero LIKE CONCAT(_elemento,'%') OR
+			U.nvchUserName LIKE CONCAT(_elemento,'%') OR
+			TU.nvchNombre LIKE CONCAT(_elemento,'%');
     	END 
 $$
 DELIMITER ;

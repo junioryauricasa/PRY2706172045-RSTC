@@ -6,11 +6,12 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/usuario/nusuario.js"></script>
-    <script type="text/javascript" src="ajax/vusuario.js"></script>
+    <script type="text/javascript" src="../../negocio/usuarios/nusuario.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>
       .pagination a {
-          margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
+          margin: 0 4px;
       }
       hr { 
           display: block;
@@ -69,21 +70,13 @@
               </div>
             </div>
           </div>
-          <!--div class="row">
-            <div class="col-md-2">
-              <label class="text-left">Ingresar Búsqueda:</label>
-              <div class="form-group">
-                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
-              </div>
-            </div>
-          </div-->
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>#Código</th>
-                <th>Nombres</th>
-                <th>Correo</th>
+                <th>DNI</th>
+                <th>Nombres y Apellidos</th>
+                <th>Usuario</th>
                 <th>Tipo Usuario</th>
                 <th>Estado</th>
                 <th>Opciones</th>
@@ -115,17 +108,12 @@
       <div id="formulario-crud"></div>
       <div id="resultadocrud"></div>
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-<!-- Scripts DataTable -->
 <script>
-  // Modal
   $('#modalcust').modal({
     keyboard: false
   });
 </script>
-<!-- ENd Scripts DataTable -->
 <style>
   input{
     padding: 2px 3px;

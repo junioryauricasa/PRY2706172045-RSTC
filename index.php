@@ -3,9 +3,9 @@ session_start();
 include_once 'datos/conexion/bd_conexion.php';
 include_once 'funciones/os-detected.php';
 include_once 'funciones/hour-ddetected.php';
-if (isset($_SESSION['intIdUsuario'])){
+if (isset($_SESSION['intIdUsuarioSesion'])){
   header("Location: view/default/");
-} else if(isset($_SESSION['intIdUsuario'])!="") {
+} else if(isset($_SESSION['intIdUsuarioSesion'])!="") {
   header("Location: index");
 }
 if (isset($_POST['btnIngresar'])) {
@@ -24,7 +24,8 @@ if (isset($_POST['btnIngresar'])) {
         if($cantidad == 1) {
           $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
           if($fila['bitUserEstado']==1){
-            $_SESSION['intIdUsuario'] = $fila['intIdUsuario'];
+            $_SESSION['intIdUsuarioSesion'] = $fila['intIdUsuario'];
+            $_SESSION['NombresApellidos'] = $fila['Nombres'] + " " + $fila['ApellidoPaterno'] + " " + $fila['ApellidoMaterno'];
             $_SESSION['nvchUserName'] = $fila['nvchUserName'];
             $_SESSION['nvchImgPerfil'] = $fila['nvchImgPerfil'];
             $_SESSION['intIdTipoUsuario'] = $fila['intIdTipoUsuario'];
@@ -57,7 +58,6 @@ if (isset($_POST['btnIngresar'])) {
               </div>
               ';
       }
-      echo "ok";
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

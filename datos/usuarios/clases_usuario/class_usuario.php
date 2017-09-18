@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../conexion/bd_conexion.php';
 require_once 'class_formulario_usuario.php';
 class Usuario
@@ -24,13 +23,13 @@ class Usuario
   private $nvchDireccion;
   private $nvchObservacion;
   
-  public function intIdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
+  public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function DNI($nvchDNI){ $this->nvchDNI = $nvchDNI; }
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
   public function ApellidoPaterno($nvchApellidoPaterno){ $this->nvchApellidoPaterno = $nvchApellidoPaterno; }
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
-  public function Genero($Genero){ $this->nvchGenero = $nvchGenero; }
+  public function Genero($nvchGenero){ $this->nvchGenero = $nvchGenero; }
   public function UserName($nvchUserName){ $this->nvchUserName = $nvchUserName; }
   public function UserPassword($nvchUserPassword){ $this->nvchUserPassword = $nvchUserPassword; }
   public function IdTipoUsuario($intIdTipoUsuario){ $this->intIdTipoUsuario = $intIdTipoUsuario; }
@@ -86,7 +85,7 @@ class Usuario
     }
   }
 
-  public function MostrarUsuario()
+  public function MostrarUsuario($funcion)
   {
     try{
       $sql_conexion = new Conexion_BD();
@@ -96,24 +95,25 @@ class Usuario
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $FormularioUsuario = new FormularioUsuario();
-      $FormularioUsuario->IdUsuario();
-      $FormularioUsuario->DNI($_POST['nvchDNI']);
-      $FormularioUsuario->RUC($_POST['nvchRUC']);
-      $FormularioUsuario->ApellidoPaterno($_POST['nvchApellidoPaterno']);
-      $FormularioUsuario->ApellidoMaterno($_POST['nvchApellidoMaterno']);
-      $FormularioUsuario->Nombres($_POST['nvchNombres']);
-      $FormularioUsuario->Genero($_POST['nvchGenero']);
-      $FormularioUsuario->UserName($_POST['nvchUserName']);
-      $FormularioUsuario->UserPassword($_POST['nvchUserPassword']);
-      $FormularioUsuario->intIdTipoUsuario($_POST['intIdTipoUsuario']);
-      $FormularioUsuario->ImgPerfil($_POST['nvchImgPerfil']);
-      $FormularioUsuario->bitUserEstado($_POST['bitUserEstado']);
-      $FormularioUsuario->Pais($_POST['nvchPais']);
-      $FormularioUsuario->Region($_POST['nvchRegion']);
-      $FormularioUsuario->Provincia($_POST['nvchProvincia']);
-      $FormularioUsuario->Distrito($_POST['nvchDistrito']);
-      $FormularioUsuario->Direccion($_POST['nvchDireccion']);
-      $FormularioUsuario->Observacion($_POST['nvchObservacion']);
+      $FormularioUsuario->IdUsuario($fila['intIdUsuario']);
+      $FormularioUsuario->DNI($fila['nvchDNI']);
+      $FormularioUsuario->RUC($fila['nvchRUC']);
+      $FormularioUsuario->ApellidoPaterno($fila['nvchApellidoPaterno']);
+      $FormularioUsuario->ApellidoMaterno($fila['nvchApellidoMaterno']);
+      $FormularioUsuario->Nombres($fila['nvchNombres']);
+      $FormularioUsuario->Genero($fila['nvchGenero']);
+      $FormularioUsuario->UserName($fila['nvchUserName']);
+      $FormularioUsuario->UserPassword($fila['nvchUserPassword']);
+      $FormularioUsuario->IdTipoUsuario($fila['intIdTipoUsuario']);
+      $FormularioUsuario->ImgPerfil($fila['nvchImgPerfil']);
+      $FormularioUsuario->bitUserEstado($fila['bitUserEstado']);
+      $FormularioUsuario->Pais($fila['nvchPais']);
+      $FormularioUsuario->Region($fila['nvchRegion']);
+      $FormularioUsuario->Provincia($fila['nvchProvincia']);
+      $FormularioUsuario->Distrito($fila['nvchDistrito']);
+      $FormularioUsuario->Direccion($fila['nvchDireccion']);
+      $FormularioUsuario->Observacion($fila['nvchObservacion']);
+      $FormularioUsuario->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -219,8 +219,9 @@ class Usuario
 			     $fila["bitUserEstado"] = '<span class="label label-success">Habilitado</span>';
         }
         echo '
-	        <td>'.$fila["nvchUserName"].'</td>
+          <td>'.$fila["nvchDNI"].'</td>
           <td>'.$fila["NombresApellidos"].'</td>
+	        <td>'.$fila["nvchUserName"].'</td>
 	        <td>'.$fila["NombreTipoUsuario"].'</td>
 	        <td>'.$fila["bitUserEstado"].'</td>
 	        <td> 

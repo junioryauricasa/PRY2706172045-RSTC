@@ -1,78 +1,38 @@
 <?php 
-
-/*
-  ------------------------------
-  Autor: Junior Yauricasa
-  Fecha: 23-06-2017
-  Descripcion: 
-    1.- Script de comprobacion de inicio de session si no existe la variable intIdUsuario (creada al logearse, redirige afuera del portal)
-  ------------------------------
-*/
 session_start();
-
-if(!isset($_SESSION['intIdUsuario']))
+if(!isset($_SESSION['intIdUsuarioSesion']))
 {
     header("Location: ../../");
 }
-
-
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Panel Control | RestecoSFT</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../frameworks/bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
   <link rel="stylesheet" href="../../frameworks/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../../frameworks/dist/css/skins/_all-skins.min.css">
 
-
-  <!--  DataTable  -->
-  <!--script src="https://code.jquery.com/jquery-1.11.1.min.js"></script-->
   <script src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
-  <!--link rel="stylesheet" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"-->
-  <!--  END DataTable  -->
-
-  <!--icon-->
   <link rel="icon" href="../../frameworks/dist/img/icons/025-pie-chart.png" type="image/png" sizes="16x16">
 
-  <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
   <script type="text/javascript" src="../../frameworks/bootstrap-filestyle/src/bootstrap-filestyle.min.js">$(":file").filestyle({input: false});</script>
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
-<!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
-<!-- the fixed layout is not compatible with sidebar-mini -->
 <body class="hold-transition skin-blue fixed sidebar-mini">
-<!-- Site wrapper -->
 <div class="wrapper">
 
   <header class="main-header">
-    <!-- Logo -->
     <a href="index" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>R</b>SF</span>
-      <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Resteco</b>SFT</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
@@ -91,14 +51,14 @@ if(!isset($_SESSION['intIdUsuario']))
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $_SESSION['nvchUserName'];?></span>
+              <span class="hidden-xs"><?php echo $_SESSION['NombresApellidos'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $_SESSION['nvchUserName'];?> - <?php echo $_SESSION['NombrePermiso']; ?>
+                  <?php echo $_SESSION['NombresApellidos'];?> - <?php echo $_SESSION['NombrePermiso']; ?>
                   <!--small>Member since Nov. 2012</small-->
                 </p>
               </li>
@@ -151,42 +111,25 @@ if(!isset($_SESSION['intIdUsuario']))
           <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $_SESSION['nvchUserName']; ?></p>
+          <p><?php echo $_SESSION['NombresApellidos']; ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
         </div>
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MENÚ RESTECO SFT</li>
-     
-      <!-- 
-          Autor: Junior Yauricasa
-          Fecha: 21-07-2017
-          Descripcion: 
-            1.- Intento control de permisos v0.1
-       -->
-          
-
-
-      <!-- user dasboard -->
       <li>
         <a href="../default/">
           <i class="fa fa-home"></i> 
           <span>Inicio</span>
         </a>
       </li>
-      <!-- END user dasboard -->
-
-      <!-- user dasboard -->
       <li>
         <a href="../default/dashboard">
           <i class="fa fa-dashboard"></i> 
           <span>Dashboard</span>
         </a>
       </li>
-      <!-- END user dasboard -->
-
-      <!--Inventario-->
       <li class="treeview">
         <a href="#">
           <i class="fa fa-th-list"></i> <span>Inventario</span>
@@ -213,7 +156,6 @@ if(!isset($_SESSION['intIdUsuario']))
           </li>
         </ul>
       </li>
-      <!--END Inventrio-->
       <li class="treeview">
         <a href="#">
           <i class="fa fa-cart-plus"></i> <span>Compras</span>
@@ -235,10 +177,9 @@ if(!isset($_SESSION['intIdUsuario']))
         </ul>
       </li>
       <?php 
-
         if($_SESSION['NombrePermiso'] == 'Administrador'){
           echo ""
-          ?>
+      ?>
 
             <!--Ventas-->
             <li class="treeview">
@@ -356,9 +297,6 @@ if(!isset($_SESSION['intIdUsuario']))
               </li>
             </ul>
           </li>
-          <!--END Cliente-->
-
-          <!-- user logout -->
           <li>
             <a href="../../logout.php">
               <i class="fa fa-circle-o text-red"></i> 
@@ -370,8 +308,3 @@ if(!isset($_SESSION['intIdUsuario']))
     </section>
     <!-- /.sidebar -->
   </aside>
-
-  <!-- Bloquear uso de mouse para ver script -->
-  <!--script type="text/javascript">
-    document.oncontextmenu = function(){return false;}
-  </script-->

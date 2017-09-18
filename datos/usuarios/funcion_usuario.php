@@ -33,7 +33,7 @@ switch($_POST['funcion']){
     break;
   case "A":
     $Usuario = new Usuario();
-    $Usuario->intIdUsuario($_POST['intIdUsuario']);
+    $Usuario->IdUsuario($_POST['intIdUsuario']);
     $Usuario->DNI($_POST['nvchDNI']);
     $Usuario->RUC($_POST['nvchRUC']);
     $Usuario->ApellidoPaterno($_POST['nvchApellidoPaterno']);
@@ -55,12 +55,12 @@ switch($_POST['funcion']){
     break;
   case "M":
     $Usuario = new Usuario();
-    $Usuario->intIdUsuario($_POST['intIdUsuario']);
-    $Usuario->MostrarUsuario();
+    $Usuario->IdUsuario($_POST['intIdUsuario']);
+    $Usuario->MostrarUsuario($_POST['funcion']);
     break;
   case "E":
     $Usuario = new Usuario();
-    $Usuario->intIdUsuario($_POST['intIdUsuario']);
+    $Usuario->IdUsuario($_POST['intIdUsuario']);
     $Usuario->EliminarUsuario();
     break;
   case "L":
@@ -70,6 +70,34 @@ switch($_POST['funcion']){
   case "P":
     $Usuario = new Usuario();
     $Usuario->PaginarUsuarios($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    break;
+  case "F":
+    $FormularioUsuario = new FormularioUsuario();
+    $FormularioUsuario->ConsultarFormulario($_POST['funcion']);
+    break;
+  case "AC":
+    $ComunicacionUsuario = new ComunicacionUsuario();
+    $ComunicacionUsuario->IdComunicacionUsuario($_POST['intIdComunicacionUsuario']);
+    $ComunicacionUsuario->IdUsuario($_POST['intIdUsuario']);
+    $ComunicacionUsuario->Medio($_POST['nvchMedio']);
+    $ComunicacionUsuario->Lugar($_POST['nvchLugar']);
+    $ComunicacionUsuario->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
+    $ComunicacionUsuario->ActualizarComunicacionUsuario();
+    break;
+  case "MC":
+    $ComunicacionUsuario = new ComunicacionUsuario();
+    $ComunicacionUsuario->IdUsuario($_POST['intIdUsuario']);
+    $ComunicacionUsuario->MostrarComunicacionUsuario($_POST['tipolistado']);
+    break;
+  case "SC":
+    $ComunicacionUsuario = new ComunicacionUsuario();
+    $ComunicacionUsuario->IdComunicacionUsuario($_POST['intIdComunicacionUsuario']);
+    $ComunicacionUsuario->SeleccionarComunicacionUsuario();
+    break;
+  case "EC":
+    $ComunicacionUsuario = new ComunicacionUsuario();
+    $ComunicacionUsuario->IdComunicacionUsuario($_POST['intIdComunicacionUsuario']);
+    $ComunicacionUsuario->EliminarComunicacionUsuario();
     break;
 }
 ?>
