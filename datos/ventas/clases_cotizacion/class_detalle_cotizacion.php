@@ -8,14 +8,20 @@ class DetalleCotizacion
   private $intIdProducto;
   private $dtmFechaRealizada;
   private $intCantidad;
+  private $intCantidadDisponible;
   private $dcmPrecio;
+  private $dcmDescuento;
+  private $dcmTotal;
   
   public function IdOperacionCotizacion($intIdOperacionCotizacion){ $this->intIdOperacionCotizacion = $intIdOperacionCotizacion; }
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function FechaRealizada($dtmFechaRealizada){ $this->dtmFechaRealizada = $dtmFechaRealizada; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
+  public function CantidadDisponible($intCantidadDisponible){ $this->intCantidadDisponible = $intCantidadDisponible; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
+  public function Descuento($dcmDescuento){ $this->dcmDescuento = $dcmDescuento; }
+  public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
   /* FIN - Atributos de Detalle Cotizacion */
 
   /* INICIO - Métodos de Detalle Cotizacion */
@@ -26,13 +32,16 @@ class DetalleCotizacion
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
+      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmTotal)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $value,
         ':dtmFechaRealizada' => $this->dtmFechaRealizada,
         ':intCantidad' => $this->intCantidad[$key],
-        ':dcmPrecio' => $this->dcmPrecio[$key]));
+        ':intCantidadDisponible' => $this->intCantidadDisponible[$key],
+        ':dcmPrecio' => $this->dcmPrecio[$key],
+        ':dcmDescuento' => $this->dcmDescuento[$key],
+        ':dcmTotal' => $this->dcmTotal[$key]));
       }
       echo "ok";
     }
@@ -73,26 +82,16 @@ class DetalleCotizacion
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($_SESSION['intIdOperacionCotizacion'] == $fila['intIdOperacionCotizacion'] && $tipolistado == "A"){
-          echo '<tr bgcolor="#B3E4C0">';
-        } else if($cantidad == $i && $tipolistado == "I"){
-          echo '<tr bgcolor="#BEE1EB">';
-        } else {
-          echo '<tr bgcolor="#F7FCCF">';
-        }
-      	echo 
-      	'<td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td> 
-          <button type="button" idov="'.$fila['intIdOperacionCotizacion'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleCotizacion(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" idov="'.$fila['intIdOperacionCotizacion'].'" class="btn btn-xs btn-danger" onclick="EliminarDetalleCotizacion(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+      	echo
+        '<td>'.$i.'</td>
+      	<td>'.$fila['CodigoProducto'].'</td>
+        <td>'.$fila['DescripcionProducto'].'</td>
+        <td>'.$fila['intCantidad'].'</td>
+        <td>'.$fila['intCantidadDisponible'].'</td>
+        <td>'.$fila['dcmPrecio'].'</td>
+        <td>'.$fila['dcmDescuento'].'</td>
+        <td>'.''.'</td>
+        <td>'.$fila['dcmTotal'].'</td>
         </tr>';
         $i++;
       }

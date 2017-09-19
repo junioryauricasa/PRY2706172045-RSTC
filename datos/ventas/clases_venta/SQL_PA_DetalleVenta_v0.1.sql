@@ -238,7 +238,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS InsertarCotizacionVenta;
 DELIMITER $$
 	CREATE PROCEDURE InsertarCotizacionVenta(
-    	IN _intIdCotizacion INT
+    	IN _nvchNumeracion VARCHAR(25)
     )
 	BEGIN
 		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_cotizacion CT
@@ -246,7 +246,7 @@ DELIMITER $$
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE
-		CT.intIdCotizacion = _intIdCotizacion AND CP.intIdTipoCodigoProducto = 1;
+		CT.nvchNumeracion = _nvchNumeracion AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;

@@ -42,10 +42,39 @@ class FormularioCotizacion
           <div id="TablaDeClientes">
             <script>AccionSeleccionClientes('S');</script>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <div class="form-group">
                   <label>Ingresar Búsqueda:</label>
                   <input type="text" id="BusquedaCliente" name="BusquedaCliente" class="form-control select2" placeholder="Ingresar Búsqueda">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Tipo Persona:</label>
+                  <br>
+                  <select id="lista-persona" name="lista-persona"  class="form-control select2">
+                    <?php 
+                      require_once '../../datos/conexion/bd_conexion.php';
+                      try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Nuevo Cliente:</label>
+                  <br>
+                  <a href="../ventas/vcliente" class="btn btn-sm btn-primary btn-flat" target="_blank">+ Agregar</a>
                 </div>
               </div>
             </div>
@@ -53,10 +82,13 @@ class FormularioCotizacion
                 <table class="table table-hover table-condensed">
                   <thead>
                   <tr>
-                    <th>RUC/DNI</th>
-                    <th>Razón Social/Nombres</th>
-                    <th>Tipo de Persona</th>
-                    <th>Opción</th>
+                    <th class="ListaDNI">DNI</th>
+                    <th class="ListaRUC">RUC</th>
+                    <th class="ListaRazonSocial">Razón Social</th>
+                    <th class="ListaApellidoPaterno">Apellido Paterno</th>
+                    <th class="ListaApellidoMaterno">Apellido Materno</th>
+                    <th class="ListaNombres">Nombres</th>
+                    <th>Opciones</th>
                   </tr>
                   </thead>
                   <tbody id="ListaDeClientesSeleccion">
@@ -221,8 +253,12 @@ class FormularioCotizacion
             <tr>
               <th>Código</th>
               <th>Descripción</th>
-              <th>Precio Negociable</th>
               <th>Cantidad</th>
+              <th>Cantidad Disp.</th>
+              <th>Precio Venta</th>
+              <th>Descuento</th>
+              <th>Precio Unit.</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
@@ -289,6 +325,95 @@ class FormularioCotizacion
         <div id="resultadocrud"></div>
       </div>
 <?php
+  }
+  function MostrarDetalle(){
+  ?>
+  <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Detalle de la Cotización:</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
+          <div class="box-header with-border">
+            <h3 class="box-title">Cliente</h3>
+          </div>
+          <div class="box-body">
+            <div id="DatosDelCliente">
+            <div class="row">
+              <div class="col-md-3 nvchDNI">
+                <div class="form-group">
+                  <label>DNI:</label>
+                  <input type="text" id="nvchDNI" class="form-control select2" placeholder="Ingrese código del producto">
+                </div>
+              </div>
+              <div class="col-md-3 nvchRUC">
+                <div class="form-group">
+                  <label>RUC:</label>
+                  <input type="text" id="nvchRUC" class="form-control select2" placeholder="Ingrese código de inCotizacionrio">
+                </div>
+              </div>
+              <div class="col-md-3 nvchRazonSocial">
+                <div class="form-group">
+                  <label>Razón Social:</label>
+                  <input type="text" id="nvchRazonSocial" class="form-control select2" placeholder="Ingrese nombre del producto">
+                </div>
+              </div>
+              <div class="col-md-3 nvchApellidoPaterno">
+                <div class="form-group">
+                  <label>Apellido Paterno:</label>
+                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" placeholder="Ingrese la descripción">
+                </div>
+              </div>
+              <div class="col-md-3 nvchApellidoMaterno">
+                <div class="form-group">
+                  <label>Apellido Materno:</label>
+                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" placeholder="Ingrese el precio de compra">
+                </div>
+              </div>
+              <div class="col-md-3 nvchNombres">
+                <div class="form-group">
+                  <label>Nombres:</label>
+                  <input type="text" id="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de Cotizacion">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-header with-border">
+          </div>
+          <div class="box-header with-border">
+            <h3 class="box-title">Productos</h3>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>Ítem</th>
+                  <th>Código</th>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Cantidad Disp.</th>
+                  <th>Precio Venta</th>
+                  <th>Descuento</th>
+                  <th>Precio Unit.</th>
+                  <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="ListaDeProductosComprar">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box-footer clearfix">
+              <input type="hidden" id="intIdCotizacion" name="intIdCotizacion" value="<?php echo $this->intIdCotizacion; ?>" />
+              <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
+              <input type="submit" id="" class="btn btn-sm btn-info btn-flat pull-left" value="Cerrar Detalle">
+          </div>              
+        <div id="resultadocrud"></div>
+      </div>
+  <?php 
   }
 }
 ?>

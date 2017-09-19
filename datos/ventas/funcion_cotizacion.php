@@ -12,11 +12,11 @@ if(empty($_SESSION['intIdOperacionCotizacion'])){
 switch($_POST['funcion']){
   case "I":
     $Cotizacion = new Cotizacion();
-    //$Cotizacion->Numeracion($_POST['nvchNumeracion']);
-    $Cotizacion->IdUsuario($_SESSION['user_session']);
+    $Cotizacion->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Cotizacion->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Cotizacion->FechaCreacion($dtmFechaCreacion);
+    $Cotizacion->Observacion($_POST['nvchObservacion']);
     $Cotizacion->InsertarCotizacion();
     $DetalleCotizacion = new DetalleCotizacion();
     $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);

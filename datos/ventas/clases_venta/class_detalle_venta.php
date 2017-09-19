@@ -295,8 +295,8 @@ class DetalleVenta
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $nvchNumeracionCotizacion));
+      $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:nvchNumeracion)');
+      $sql_comando -> execute(array(':nvchNumeracion' => $nvchNumeracionCotizacion));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         echo '<tr> 

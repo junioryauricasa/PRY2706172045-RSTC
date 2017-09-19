@@ -60,7 +60,7 @@ DELIMITER $$
 			END AS NombreCliente,
 		U.nvchUsername as NombreUsuario
 	    FROM tb_venta V 
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
 		WHERE 
 		V.intIdVenta = _intIdVenta;
@@ -93,7 +93,7 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_venta V 
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
  		LIMIT _x,_y;
     END 
@@ -123,7 +123,7 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_venta V 
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
 		WHERE 
 		(V.intIdVenta LIKE CONCAT(_elemento,'%') OR
@@ -151,7 +151,7 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_venta V 
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
 		WHERE 
 		(V.intIdVenta LIKE CONCAT(_elemento,'%') OR

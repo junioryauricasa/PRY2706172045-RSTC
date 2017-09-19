@@ -1,5 +1,6 @@
 <?php 
 require_once '../conexion/bd_conexion.php';
+require_once '../numeraciones/class_numeraciones.php';
 require_once 'clases_cotizacion/class_formulario_cotizacion.php';
 class Cotizacion{
   /* INICIO - Atributos de Orden Compra*/
@@ -8,12 +9,15 @@ class Cotizacion{
   private $intIdUsuario;
   private $intIdCliente;
   private $dtmFechaCreacion;
+  private $nvchObservacion;
   
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
+  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
 
   /* INICIO - Métodos de Orden Compra */
@@ -23,16 +27,24 @@ class Cotizacion{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:nvchNumeracion,
-        :intIdUsuario,:intIdCliente,:dtmFechaCreacion)');
+        :intIdUsuario,:intIdCliente,:dtmFechaCreacion,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
-        ':dtmFechaCreacion' => $this->dtmFechaCreacion));
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':bitEstado' => 1,
+        ':nvchObservacion' => $this->nvchObservacio));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdCotizacion as intIdCotizacion");
       $salida = $salidas->fetchObject();
       $_SESSION['intIdCotizacion'] = $salida->intIdCotizacion;
+      $Numeraciones = new Numeraciones();
+      $nvchNumeracion = $Numeraciones -> NumeracionSimpleInterna($_SESSION['intIdCotizacion']);
+      $sql_comando = $sql_conectar->prepare('CALL InsertarNumeracionCotizacion(:intIdCotizacion,:nvchNumeracion)');
+      $sql_comando->execute(array(
+        ':intIdCotizacion' => $_SESSION['intIdCotizacion'],
+        ':nvchNumeracion' => $nvchNumeracion));
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -197,7 +209,7 @@ class Cotizacion{
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["intIdCotizacion"].'</td>
+        '<td>'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
@@ -205,8 +217,8 @@ class Cotizacion{
           <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
-          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-eliminar-cotizacion">
-            <i class="fa fa-trash"></i> Eliminar
+          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion">
+            <i class="fa fa-trash"></i> Anular
           </button>
           <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-download-report">
             <i class="fa fa-download"></i> Reporte

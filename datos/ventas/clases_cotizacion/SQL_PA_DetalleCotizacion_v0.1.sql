@@ -7,13 +7,17 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _dcmPrecio DECIMAL(11,2)
+	IN _intCantidadDisponible INT,
+	IN _dcmPrecio DECIMAL(11,2),
+	IN _dcmDescuento DECIMAL(11,2),
+	IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_detalle_cotizacion 
-		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,dcmPrecio)
+		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,dcmTotal)
 		VALUES
-		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_dcmPrecio);
+		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadDisponible,_dcmPrecio,_dcmDescuento,
+			_dcmTotal);
     END 
 $$
 DELIMITER ;
@@ -89,7 +93,7 @@ DELIMITER $$
     	IN _intIdCotizacion INT
     )
 	BEGIN
-		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_detalle_cotizacion DCT
+		SELECT DCT.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto FROM tb_detalle_cotizacion DCT
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE

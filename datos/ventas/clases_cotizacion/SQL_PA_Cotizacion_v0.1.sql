@@ -7,14 +7,32 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
-	IN _dtmFechaCreacion DATETIME
+	IN _dtmFechaCreacion DATETIME,
+	IN _bitEstado INT,
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_cotizacion 
-		(intIdUsuario,nvchNumeracion,intIdCliente,dtmFechaCreacion)
+		(nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,bitEstado,nvchObservacion)
 		VALUES
-		(_intIdUsuario,_nvchNumeracion,_intIdCliente,_dtmFechaCreacion);
+		(_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_bitEstado,_nvchObservacion);
 		SET _intIdCotizacion = LAST_INSERT_ID();
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS INSERTARNUMERACIONCOTIZACION;
+DELIMITER $$
+	CREATE PROCEDURE INSERTARNUMERACIONCOTIZACION(
+	IN _intIdCotizacion INT,
+	IN _nvchNumeracion VARCHAR(10)
+    )
+	BEGIN
+		UPDATE tb_cotizacion
+		SET
+		nvchNumeracion = _nvchNumeracion
+		WHERE 
+		intIdCotizacion = _intIdCotizacion;
     END 
 $$
 DELIMITER ;
@@ -54,7 +72,7 @@ DELIMITER $$
 			END AS NombreCliente,
 		U.nvchUsername as NombreUsuario
 	    FROM tb_cotizacion CT 
-		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		WHERE 
 		CT.intIdCotizacion = _intIdCotizacion;
@@ -87,7 +105,7 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_cotizacion CT 
-		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
  		LIMIT _x,_y;
     END 
@@ -116,7 +134,7 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_cotizacion CT 
-		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		WHERE 
 		CT.intIdCotizacion LIKE CONCAT(_elemento,'%') OR
@@ -142,7 +160,7 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_cotizacion CT 
-		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		WHERE 
 		CT.intIdCotizacion LIKE CONCAT(_elemento,'%') OR

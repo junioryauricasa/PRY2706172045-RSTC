@@ -14,7 +14,7 @@ switch($_POST['funcion']){
     $Venta = new Venta();
     $Venta->NumFactura($_POST['nvchNumFactura']);
     $Venta->NumBoletaVenta($_POST['nvchNumBoletaVenta']);
-    $Venta->IdUsuario($_SESSION['user_session']);
+    $Venta->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Venta->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Venta->FechaCreacion($dtmFechaCreacion);

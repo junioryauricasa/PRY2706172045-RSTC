@@ -215,8 +215,8 @@ class Venta{
           <button type="submit" id="'.$fila["intIdVenta"].'" class="btn btn-xs btn-warning btn-mostrar-venta">
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
-          <button type="submit" id="'.$fila["intIdVenta"].'" class="btn btn-xs btn-danger btn-eliminar-venta">
-            <i class="fa fa-trash"></i> Eliminar
+          <button type="submit" id="'.$fila["intIdVenta"].'" class="btn btn-xs btn-danger btn-anular-venta">
+            <i class="fa fa-trash"></i> Anular
           </button>
           <button type="submit" id="'.$fila["intIdVenta"].'" class="btn btn-xs btn-default btn-download-report">
             <i class="fa fa-download"></i> Reporte

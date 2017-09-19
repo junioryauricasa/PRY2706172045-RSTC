@@ -95,7 +95,6 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>#Código</th>
                 <th class="ListaDNI">DNI</th>
                 <th class="ListaRUC">RUC</th>
                 <th class="ListaRazonSocial">Razón Social</th>
