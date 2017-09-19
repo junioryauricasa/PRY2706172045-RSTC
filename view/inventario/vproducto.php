@@ -110,9 +110,9 @@ include('../_include/rstheader.php');
               </ul>
             </nav>
           </div>
-          <hr>
           <div id="TablaDetalleUbigeo">
-            <div class="text-left"><h4>Detalle Ubicación del Producto</h4></div>
+          <hr>
+            <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
             <div class="table-responsive">
               <table class="table table-hover table-condensed">
                 <thead>
@@ -128,8 +128,13 @@ include('../_include/rstheader.php');
             </div>
           </div>
         </div>
-        <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat pull-left">Agregar Producto</button>
+        <div class="box-footer clearfix">
+          <div class="row">
+            <div class="col-md-5">  
+              <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat">Agregar Producto</button>
+              <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-sm btn-success btn-flat">Limpiar Detalle de Ubicación</button>
+            </div>
+          </div>
         </div>
       </div>
       <div id="formulario-crud"></div>

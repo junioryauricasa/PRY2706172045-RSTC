@@ -207,12 +207,14 @@ class Producto
           }
           echo 
           '<td>
-            <button onclick="VerDetalleUbigeo(this)" type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+            <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
               <i class="fa fa-edit"></i> Ver Detalle
             </button>
           </td>
           <td>
-            <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
+            <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
+              <i class="fa fa-search"></i> Ver 
+            </button>
           </td>
           <td> 
             <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">

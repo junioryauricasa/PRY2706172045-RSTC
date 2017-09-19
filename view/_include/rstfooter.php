@@ -240,5 +240,6 @@
 </script>
 
 <?php require_once '../modals/vmensajes.php'; ?>
+<?php require_once '../modals/vcuadros.php'; ?>
 </body>
 </html>

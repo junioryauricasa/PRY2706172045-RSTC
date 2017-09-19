@@ -445,3 +445,17 @@ function CalcularPrecioVenta3(dcmDescuentoVenta3) {
 }
 /* FIN - Calcular Precios */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ver Imagen */
+function VerImagenProducto(seleccion) {
+	var nvchDireccionImg = $(seleccion).attr("imagen");
+	$("#CuadroImagenHeader").css("background-color", "#78909c");
+    $("#CuadroImagenTitulo").css("color", "#FFFFFF");
+    $("#CuadroImagenFooter").css("background-color", "#cfd8dc");
+    $("#CuadroImagenTitulo").html("Imágen del Producto");
+	$("#DireccionImgProducto").html("<img class='img-responsive center-block' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+	$("#CuadroImagen").modal("show");
+}
+/* FIN - Ver Imagen */
+//////////////////////////////////////////////////////////////

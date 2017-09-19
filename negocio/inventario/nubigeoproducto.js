@@ -168,9 +168,10 @@ function BotonesUbigeo(accion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Eliminar Ubigeo Seleccionado */
+/* INICIO - Ver Detalle del Ubigeo del Producto Solicitado */
 function VerDetalleUbigeo(seleccion) {
-	var intIdProducto = $(seleccion).attr("id");;
+	var nvchCodigo = $(seleccion).attr("codigo");
+	var intIdProducto = $(seleccion).attr("id");
 	var funcion = "VDU";
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
@@ -178,10 +179,20 @@ function VerDetalleUbigeo(seleccion) {
 	   data:{intIdProducto:intIdProducto,funcion:funcion},
 	   success:function(datos)
 	   {
+	   	$("#CodigoProducto").html(nvchCodigo);
 	   	$("#DetalleUbigeo").html(datos);
 	   	goToBox("#TablaDetalleUbigeo");
 	   }
 	  });
 }
-/* FIN - Eliminar Ubigeo Seleccionado */
+/* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ver Detalle del Ubigeo del Producto Solicitado */
+function LimpiarDetalleUbigeo() {
+   	$("#CodigoProducto").html("");
+   	$("#DetalleUbigeo").html("");
+}
+/* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////

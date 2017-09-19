@@ -309,6 +309,7 @@ class FormularioProducto
                 <th>Sucursal</th>
                 <th>Ubicación en el Almacén</th>
                 <th>Cantidad</th>
+                <th>Opciones</th>
               </tr>
               </thead>
               <tbody id="ListaDeUbicaciones">
