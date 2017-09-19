@@ -24,6 +24,8 @@ switch($_POST['funcion']){
     $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
     $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
     $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
+    $Producto->DescuentoVenta2($_POST['dcmDescuentoVenta2']);
+    $Producto->DescuentoVenta3($_POST['dcmDescuentoVenta3']);
     $Producto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $Producto->FechaIngreso($dtmFechaIngreso);
@@ -67,6 +69,8 @@ switch($_POST['funcion']){
     $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
     $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
     $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
+    $Producto->DescuentoVenta2($_POST['dcmDescuentoVenta2']);
+    $Producto->DescuentoVenta3($_POST['dcmDescuentoVenta3']);
     $Producto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $Producto->FechaIngreso($dtmFechaIngreso);
@@ -129,6 +133,11 @@ switch($_POST['funcion']){
     $UbigeoProducto = new UbigeoProducto();
     $UbigeoProducto->IdUbigeoProducto($_POST['intIdUbigeoProducto']);
     $UbigeoProducto->EliminarUbigeoProducto();
+    break;
+  case "VDU":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->IdProducto($_POST['intIdProducto']);
+    $UbigeoProducto->VerDetalleUbigeoProducto();
     break;
   case "L":
     $Producto = new Producto();

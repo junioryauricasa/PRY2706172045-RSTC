@@ -148,6 +148,30 @@ class UbigeoProducto
       echo $e->getMessage();
     }
   }
+
+  public function VerDetalleUbigeoProducto()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL MOSTRARUBIGEOSPRODUCTO(:intIdProducto)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
+      $cantidad = $sql_comando -> rowCount();
+      $i = 1;
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        echo '<tr bgcolor="#F9FAD4"> 
+        <td>'.$fila['nvchSucursal'].'</td>
+        <td>'.$fila['nvchUbicacion'].'</td>
+        <td>'.$fila['intCantidadUbigeo'].'</td>
+        </tr>';
+        $i++;
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }    
+  }
   /* FIN - Métodos de Ubigeo Proveedor */
 }
 ?>

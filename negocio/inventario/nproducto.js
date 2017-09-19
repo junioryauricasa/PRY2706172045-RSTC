@@ -37,6 +37,12 @@ $(document).on('click', '#btn-crear-producto', function(){
 	  } else if(EsDecimal("dcmPrecioVenta3") == false){
 	  	goToBox("#dcmPrecioVenta3Group");
 	  	return false;
+	  } else if(EsDecimal("dcmDescuentoVenta2") == false){
+	  	goToBox("#dcmDescuentoVenta2Group");
+	  	return false;
+	  } else if(EsDecimal("dcmDescuentoVenta3") == false){
+	  	goToBox("#dcmDescuentoVenta3Group");
+	  	return false;
 	  } else if(num_filas_codigo == 0){
 	  	MensajeNormal("Ingrese por lo menos un Código de Producto",2);
 	  	return false;
@@ -58,7 +64,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   	if (datos=="okokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
-	   		$("#tipo-busqueda").val("T");
+	   		$("#tipo-busqueda").val("C");
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
@@ -114,6 +120,12 @@ $(document).on('click', '#btn-editar-producto', function(){
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioVenta3") == false){
 	  	goToBox("#dcmPrecioVenta3Group");
+	  	return false;
+	  } else if(EsDecimal("dcmDescuentoVenta2") == false){
+	  	goToBox("#dcmDescuentoVenta2Group");
+	  	return false;
+	  } else if(EsDecimal("dcmDescuentoVenta3") == false){
+	  	goToBox("#dcmDescuentoVenta3Group");
 	  	return false;
 	  } else if(num_filas_codigo == 0){
 	  	MensajeNormal("Ingrese por lo menos un Código de Producto",2);
@@ -397,4 +409,39 @@ function EliminarFila(btn) {
   	fila.parentNode.removeChild(fila);
 }
 /* FIN - Eliminar Fila Seleccionada */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Calcular Precios */
+function CalcularPrecios(dcmPrecioVenta1) {
+	var dcmDescuentoVenta2 = $("#dcmDescuentoVenta2").val();
+	var dcmDescuentoVenta3 = $("#dcmDescuentoVenta3").val();
+	var dcmPrecioVenta2 = dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuentoVenta2/100));
+	var dcmPrecioVenta3 = dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuentoVenta3/100));
+	$("#dcmPrecioVenta2").val(dcmPrecioVenta2.toFixed(2));
+	$("#dcmPrecioVenta3").val(dcmPrecioVenta3.toFixed(2));
+}
+/* FIN - Calcular Precios */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Calcular Precios */
+function CalcularPrecioVenta2(dcmDescuentoVenta2) {
+	var dcmPrecioVenta1 = $("#dcmPrecioVenta1").val();
+	var dcmDescuentoVenta2 = $("#dcmDescuentoVenta2").val();
+	var dcmPrecioVenta2 = dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuentoVenta2/100));
+	$("#dcmPrecioVenta2").val(dcmPrecioVenta2.toFixed(2));
+}
+/* FIN - Calcular Precios */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Calcular Precios */
+function CalcularPrecioVenta3(dcmDescuentoVenta3) {
+	var dcmPrecioVenta1 = $("#dcmPrecioVenta1").val();
+	var dcmDescuentoVenta3 = $("#dcmDescuentoVenta3").val();
+	var dcmPrecioVenta3 = dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuentoVenta3/100));
+	$("#dcmPrecioVenta3").val(dcmPrecioVenta3.toFixed(2));
+}
+/* FIN - Calcular Precios */
 //////////////////////////////////////////////////////////////

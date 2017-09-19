@@ -12,6 +12,8 @@ DELIMITER $$
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
+	IN _dcmDescuentoVenta2 DECIMAL(11,2),
+	IN _dcmDescuentoVenta3 DECIMAL(11,2),
 	IN _intIdTipoMoneda INT,
 	IN _dtmFechaIngreso DATETIME,
 	IN _nvchObservacion VARCHAR(800)
@@ -19,10 +21,10 @@ DELIMITER $$
 	BEGIN
 		INSERT INTO tb_producto 
 		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
-		dcmPrecioVenta3,intIdTipoMoneda,dtmFechaIngreso,nvchObservacion)
+		dcmPrecioVenta3,dcmDescuentoVenta2,dcmDescuentoVenta3,intIdTipoMoneda,dtmFechaIngreso,nvchObservacion)
 		VALUES
 		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
-		_dcmPrecioVenta3,_intIdTipoMoneda,_dtmFechaIngreso,_nvchObservacion);
+		_dcmPrecioVenta3,_dcmDescuentoVenta2,_dcmDescuentoVenta3,_intIdTipoMoneda,_dtmFechaIngreso,_nvchObservacion);
 		SET _intIdProducto = LAST_INSERT_ID();
     END
 $$
@@ -40,6 +42,8 @@ DELIMITER $$
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
+	IN _dcmDescuentoVenta2 DECIMAL(11,2),
+	IN _dcmDescuentoVenta3 DECIMAL(11,2),
 	IN _intIdTipoMoneda INT,
 	IN _dtmFechaIngreso DATETIME,
 	IN _nvchObservacion VARCHAR(800)
@@ -55,6 +59,8 @@ DELIMITER $$
 		dcmPrecioVenta1 = _dcmPrecioVenta1,
 		dcmPrecioVenta2 = _dcmPrecioVenta2,
 		dcmPrecioVenta3 = _dcmPrecioVenta3,
+		dcmDescuentoVenta2 = _dcmDescuentoVenta2,
+		dcmDescuentoVenta3 = _dcmDescuentoVenta3,
 		intIdTipoMoneda = _intIdTipoMoneda,
 		dtmFechaIngreso = _dtmFechaIngreso,
 		nvchObservacion = _nvchObservacion
@@ -133,13 +139,9 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		(P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
-		P.dcmPrecioVenta1 LIKE CONCAT(_elemento,'%') OR
-		P.dcmPrecioVenta2 LIKE CONCAT(_elemento,'%') OR
-		P.dcmPrecioVenta3 LIKE CONCAT(_elemento,'%') OR
 		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
 		CP.intIdTipoCodigoProducto = 1
 		LIMIT _x,_y;
@@ -176,13 +178,9 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
+		(P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
-		P.dcmPrecioVenta1 LIKE CONCAT(_elemento,'%') OR
-		P.dcmPrecioVenta2 LIKE CONCAT(_elemento,'%') OR
-		P.dcmPrecioVenta3 LIKE CONCAT(_elemento,'%') OR
 		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
 		CP.intIdTipoCodigoProducto = 1;
 	END IF;
@@ -255,6 +253,21 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT('A23','%')) AND CP.intIdTipoCodigoProducto = 1;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS CANTIDADTOTALPRODUCTO;
+DELIMITER $$
+	CREATE PROCEDURE CANTIDADTOTALPRODUCTO(
+    	IN _intIdProducto INT
+    )
+	BEGIN
+		SELECT SUM(UP.intCantidadUbigeo) AS CantidadTotal
+		FROM tb_producto P
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
+		WHERE 
+		P.intIdProducto = _intIdProducto;
     END 
 $$
 DELIMITER ;

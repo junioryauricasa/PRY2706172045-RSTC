@@ -11,6 +11,8 @@ class FormularioProducto
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
   private $dcmPrecioVenta3;
+  private $dcmDescuentoVenta2;
+  private $dcmDescuentoVenta3;
   private $intIdTipoMoneda;
   private $dtmFechaIngreso;
   private $nvchObservacion;
@@ -24,6 +26,8 @@ class FormularioProducto
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
+  public function DescuentoVenta2($dcmDescuentoVenta2){ $this->dcmDescuentoVenta2 = $dcmDescuentoVenta2; }
+  public function DescuentoVenta3($dcmDescuentoVenta3){ $this->dcmDescuentoVenta3 = $dcmDescuentoVenta3; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
@@ -102,7 +106,7 @@ class FormularioProducto
       <div class="box-header with-border">
         <h3 class="box-title">Precios de Venta</h3>
       </div>
-        <div class="box-body">
+      <div class="box-body">
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
@@ -124,34 +128,56 @@ class FormularioProducto
                 <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
               </div>
             </div>
-            <div class="col-md-3">
+          </div>
+          <div class="row">
+            <div class="col-md-2">
               <div id="dcmPrecioVenta1Group" class="form-group">
                 <label>Precio de Venta 1:</label>
                 <input type="text" id="dcmPrecioVenta1" name="dcmPrecioVenta1" class="form-control select2" 
-                placeholder="Ingrese el Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>" 
+                placeholder="Precio de Venta 1" value="<?php echo $this->dcmPrecioVenta1; ?>" 
                 onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta1')" maxlength="15" required>
                 <span id="dcmPrecioVenta1Icono" class="" aria-hidden=""></span>
                 <div id="dcmPrecioVenta1Obs" class=""></div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div id="dcmPrecioVenta2Group" class="form-group">
                 <label>Precio de Venta 2:</label>
                 <input type="text" id="dcmPrecioVenta2" name="dcmPrecioVenta2" class="form-control select2" 
-                placeholder="Ingrese el Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" 
-                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta2')" maxlength="15" required>
+                placeholder="Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta2')" maxlength="15" readonly required>
                 <span id="dcmPrecioVenta2Icono" class="" aria-hidden=""></span>
                 <div id="dcmPrecioVenta2Obs" class=""></div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
+              <div id="dcmDescuentoVenta2Group" class="form-group">
+                <label>Descuento 2 (%):</label>
+                <input type="text" id="dcmDescuentoVenta2" name="dcmDescuentoVenta2" class="form-control select2" 
+                placeholder="Descuento 2" value="<?php if($funcion == "F") { echo "7"; } else if($funcion == "M") { echo $this->dcmDescuentoVenta2; } ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmDescuentoVenta2')" maxlength="6" required>
+                <span id="dcmDescuentoVenta2Icono" class="" aria-hidden=""></span>
+                <div id="dcmDescuentoVenta2Obs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-2">
               <div id="dcmPrecioVenta3Group"  class="form-group">
                 <label>Precio de Venta 3:</label>
                 <input type="text" id="dcmPrecioVenta3" name="dcmPrecioVenta3" class="form-control select2" 
-                placeholder="Ingrese el Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" 
-                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta3')" maxlength="15" required>
+                placeholder="Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta3')" maxlength="15" readonly required>
                 <span id="dcmPrecioVenta3Icono" class="" aria-hidden=""></span>
                 <div id="dcmPrecioVenta3Obs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div id="dcmDescuentoVenta3Group" class="form-group">
+                <label>Descuento 3 (%):</label>
+                <input type="text" id="dcmDescuentoVenta3" name="dcmDescuentoVenta3" class="form-control select2" 
+                placeholder="Descuento 3" value="<?php if($funcion == "F") { echo "15"; } else if($funcion == "M") { echo $this->dcmDescuentoVenta3; } ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmDescuentoVenta3')" maxlength="6" required>
+                <span id="dcmDescuentoVenta3Icono" class="" aria-hidden=""></span>
+                <div id="dcmDescuentoVenta3Obs" class=""></div>
               </div>
             </div>
           </div>
@@ -159,7 +185,7 @@ class FormularioProducto
           <input type="submit" id="btn-editar-producto" class="btn btn-sm btn-warning btn-flat pull-left" value="Editar Producto">
           <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
           <?php } ?>
-        </div>
+      </div>
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
@@ -282,7 +308,7 @@ class FormularioProducto
               <tr>
                 <th>Sucursal</th>
                 <th>Ubicación en el Almacén</th>
-                <th>Opción</th>
+                <th>Cantidad</th>
               </tr>
               </thead>
               <tbody id="ListaDeUbicaciones">

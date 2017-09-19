@@ -126,6 +126,15 @@ function EsDecimal(NombreId){
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
     $("#"+NombreId+"Obs").html("");
+    if(NombreId == "dcmPrecioVenta1") {
+      CalcularPrecios(Valor);
+    }
+    if(NombreId == "dcmDescuentoVenta2") {
+      CalcularPrecioVenta2(Valor);
+    }
+    if(NombreId == "dcmDescuentoVenta3") {
+      CalcularPrecioVenta3(Valor);
+    }
     return true;
   }
 }

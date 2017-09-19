@@ -13,6 +13,8 @@ class Producto
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
   private $dcmPrecioVenta3;
+  private $dcmDescuentoVenta2;
+  private $dcmDescuentoVenta3;
   private $intIdTipoMoneda;
   private $dtmFechaIngreso;
   private $nvchObservacion;
@@ -26,6 +28,8 @@ class Producto
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
+  public function DescuentoVenta2($dcmDescuentoVenta2){ $this->dcmDescuentoVenta2 = $dcmDescuentoVenta2; }
+  public function DescuentoVenta3($dcmDescuentoVenta3){ $this->dcmDescuentoVenta3 = $dcmDescuentoVenta3; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
@@ -39,7 +43,7 @@ class Producto
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
-        :dcmPrecioVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
+        :dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
@@ -49,6 +53,8 @@ class Producto
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
+        ':dcmDescuentoVenta2' => $this->dcmDescuentoVenta2,
+        ':dcmDescuentoVenta3' => $this->dcmDescuentoVenta3,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso,
         ':nvchObservacion' => $this->nvchObservacion));
@@ -83,6 +89,8 @@ class Producto
       $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
       $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
       $FormularioProducto->PrecioVenta3($fila['dcmPrecioVenta3']);
+      $FormularioProducto->DescuentoVenta2($fila['dcmDescuentoVenta2']);
+      $FormularioProducto->DescuentoVenta3($fila['dcmDescuentoVenta3']);
       $FormularioProducto->IdTipoMoneda($fila['intIdTipoMoneda']);
       $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
       $FormularioProducto->Observacion($fila['nvchObservacion']);
@@ -100,7 +108,7 @@ class Producto
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
-        :dcmPrecioVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
+        :dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
         ':nvchDescripcion' => $this->nvchDescripcion,
@@ -111,6 +119,8 @@ class Producto
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
+        ':dcmDescuentoVenta2' => $this->dcmDescuentoVenta2,
+        ':dcmDescuentoVenta3' => $this->dcmDescuentoVenta3,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso,
         ':nvchObservacion' => $this->nvchObservacion));
@@ -181,30 +191,27 @@ class Producto
           echo 
           '<td>'.$fila["nvchCodigo"].'</td>
           <td>'.$fila["nvchDescripcion"].'</td>
-          <td>'.$fila["nvchUnidadMedida"].'</td>
+          <td>'.$fila["nvchSimbolo"].'</td>
           <td>'.$fila["dcmPrecioVenta1"].'</td>
           <td>'.$fila["dcmPrecioVenta2"].'</td>
-          <td>'.$fila["dcmPrecioVenta3"].'</td>
-          <td>'.$fila["nvchSimbolo"].'</td>';
+          <td>'.$fila["dcmPrecioVenta3"].'</td>';
           $sql_conexion_cantidad = new Conexion_BD();
           $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');
-          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto'],':nvchSucursal' => 'Huancayo'));
+          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
+          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto']));
           $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-          if($fila_cantidad["CantidadUbigeo"] == "" || $fila_cantidad["CantidadUbigeo"] == NULL){
+          if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
             echo '<td>0</td>';
           } else {
-            echo '<td>'.$fila_cantidad["CantidadUbigeo"].'</td>';
+            echo '<td>'.$fila_cantidad["CantidadTotal"].'</td>';
           }
-          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADUBIGEO(:intIdProducto,:nvchSucursal)');
-          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto'],':nvchSucursal' => 'San Jerónimo'));
-          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-          if($fila_cantidad["CantidadUbigeo"] == "" || $fila_cantidad["CantidadUbigeo"] == NULL){
-            echo '<td>0</td>';
-          } else {
-            echo '<td>'.$fila_cantidad["CantidadUbigeo"].'</td>';
-          }
-          echo '<td>
+          echo 
+          '<td>
+            <button onclick="VerDetalleUbigeo(this)" type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+              <i class="fa fa-edit"></i> Ver Detalle
+            </button>
+          </td>
+          <td>
             <img src="../../datos/inventario/imgproducto/'.$fila["nvchDireccionImg"].'" height="50">
           </td>
           <td> 

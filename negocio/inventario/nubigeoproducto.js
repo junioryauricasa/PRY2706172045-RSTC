@@ -166,3 +166,22 @@ function BotonesUbigeo(accion) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Eliminar Ubigeo Seleccionado */
+function VerDetalleUbigeo(seleccion) {
+	var intIdProducto = $(seleccion).attr("id");;
+	var funcion = "VDU";
+	  $.ajax({
+	   url:"../../datos/inventario/funcion_producto.php",
+	   method:"POST",
+	   data:{intIdProducto:intIdProducto,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#DetalleUbigeo").html(datos);
+	   	goToBox("#TablaDetalleUbigeo");
+	   }
+	  });
+}
+/* FIN - Eliminar Ubigeo Seleccionado */
+//////////////////////////////////////////////////////////////

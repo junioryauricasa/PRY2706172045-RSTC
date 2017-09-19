@@ -75,8 +75,8 @@ include('../_include/rstheader.php');
                 <label>Tipo de Búsqueda:</label>
                 <br>
                 <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2" >
-                  <option value="T">Resto de Campos</option>
                   <option value="C">Por Códigos</option>
+                  <option value="T">Resto de Campos</option>
                 </select>
               </div>
             </div>
@@ -87,13 +87,12 @@ include('../_include/rstheader.php');
               <tr>
                 <th>Código</th>
                 <th>Descripción</th>
-                <th>Unidad de Medida</th>
+                <th>Tipo de Moneda</th>
                 <th>Precio de Venta 1</th>
                 <th>Precio de Venta 2</th>
                 <th>Precio de Venta 3</th>
-                <th>Tipo de Moneda</th>
-                <th>Cant. Huancayo</th>
-                <th>Cant. San Jerónimo</th>
+                <th>Cant. Total</th>
+                <th>Ubicación</th>
                 <th>Imágen</th>
                 <th>Opciones</th>
               </tr>
@@ -111,19 +110,32 @@ include('../_include/rstheader.php');
               </ul>
             </nav>
           </div>
+          <hr>
+          <div id="TablaDetalleUbigeo">
+            <div class="text-left"><h4>Detalle Ubicación del Producto</h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>Sucursal</th>
+                  <th>Ubicación en el Almacén</th>
+                  <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody id="DetalleUbigeo">
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <div class="box-footer clearfix">     
           <button type="button" id="btn-form-crear-producto" class="btn btn-sm btn-info btn-flat pull-left">Agregar Producto</button>
         </div>
       </div>
-
-      <div>
-        <div class="result"></div>
-      </div>
-
       <div id="formulario-crud"></div>
       <div id="resultadocrud"></div>
     </section>
+      
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -124,11 +124,6 @@ include('../_include/rstheader.php');
           <button type="button" id="btn-form-crear-cliente" class="btn btn-sm btn-info btn-flat pull-left">Agregar Cliente</button>
         </div>
       </div>
-
-      <div>
-        <div class="result"></div>
-      </div>
-
       <div id="formulario-crud"></div>
       <div id="resultadocrud"></div>
     </section>
