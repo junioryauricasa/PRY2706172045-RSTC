@@ -8,6 +8,8 @@ include('../_include/rstheader.php');
     </script>
     <script type="text/javascript" src="../../negocio/ventas/nventa.js"></script>
     <script type="text/javascript" src="../../negocio/ventas/ndetalleventa.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */

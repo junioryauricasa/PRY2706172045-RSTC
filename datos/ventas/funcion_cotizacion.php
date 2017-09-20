@@ -23,7 +23,10 @@ switch($_POST['funcion']){
     $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
     $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
     $DetalleCotizacion->Cantidad($_POST['intCantidad']);
+    $DetalleCotizacion->CantidadDisponible($_POST['intCantidadDisponible']);
     $DetalleCotizacion->Precio($_POST['dcmPrecio']);
+    $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
+    $DetalleCotizacion->Total($_POST['dcmTotal']);
     $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
   case "IDCT":
@@ -98,11 +101,11 @@ switch($_POST['funcion']){
     break;
   case "MCL":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->ListarClienteCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $Cotizacion->ListarClienteCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
     break;
   case "PCL":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->PaginarClientesCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $Cotizacion->PaginarClientesCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
     break;
   case "MPT":
     $DetalleCotizacion = new DetalleCotizacion();

@@ -8,7 +8,10 @@ class FormularioCotizacion
   private $intIdCliente;
   private $NombreUsuario;
   private $NombreCliente;
+  private $DNICliente;
+  private $RUCCliente;
   private $dtmFechaCreacion;
+  private $nvchObservacion;
 
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
@@ -16,7 +19,10 @@ class FormularioCotizacion
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
   public function NombreCliente($NombreCliente){ $this->NombreCliente = $NombreCliente; }
+  public function DNICliente($DNICliente){ $this->DNICliente = $DNICliente; }
+  public function RUCCliente($RUCCliente){ $this->RUCCliente = $RUCCliente; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
   {
@@ -93,16 +99,17 @@ class FormularioCotizacion
                   </thead>
                   <tbody id="ListaDeClientesSeleccion">
                   <?php if($funcion == "F"){ ?>
-                    <script type="text/javascript">ListarClientesSeleccion(0,5);</script>
+                    <script type="text/javascript">ListarClientesSeleccion(0,5,1);</script>
                   <?php } ?>
                   </tbody>
                 </table>
+                <script>AccionCabecerasTabla("1");</script>
               </div>
               <hr>
               <div class="text-center">
                 <nav aria-label="...">
                   <ul id="PaginacionDeClientes" class="pagination">
-                    <script>PaginarClientesSeleccion(0,5);</script>
+                    <script>PaginarClientesSeleccion(0,5,1);</script>
                   </ul>
                 </nav>
               </div>
@@ -112,37 +119,37 @@ class FormularioCotizacion
               <div class="col-md-3 nvchDNI">
                 <div class="form-group">
                   <label>DNI:</label>
-                  <input type="text" id="nvchDNI" class="form-control select2" placeholder="Ingrese código del producto" value="" required>
+                  <input type="text" id="nvchDNI" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRUC">
                 <div class="form-group">
                   <label>RUC:</label>
-                  <input type="text" id="nvchRUC" class="form-control select2" placeholder="Ingrese código de inCotizacionrio" value="" required>
+                  <input type="text" id="nvchRUC" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRazonSocial">
                 <div class="form-group">
                   <label>Razón Social:</label>
-                  <input type="text" id="nvchRazonSocial" class="form-control select2" placeholder="Ingrese nombre del producto" value="" required>
+                  <input type="text" id="nvchRazonSocial" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchApellidoPaterno">
                 <div class="form-group">
                   <label>Apellido Paterno:</label>
-                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" placeholder="Ingrese la descripción" value="" required>
+                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchApellidoMaterno">
                 <div class="form-group">
                   <label>Apellido Materno:</label>
-                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" placeholder="Ingrese el precio de compra" value="" required>
+                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchNombres">
                 <div class="form-group">
                   <label>Nombres:</label>
-                  <input type="text" id="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de Cotizacion" value="" required>
+                  <input type="text" id="nvchNombres" class="form-control select2" readonly>
                 </div>
               </div>
             </div>
@@ -215,10 +222,14 @@ class FormularioCotizacion
             <tr>
               <th>Código</th>
               <th>Descripción</th>
-              <th>Precio de Venta 1</th>
-              <th>Precio de Venta 2</th>
-              <th>Precio de Venta 3</th>
-              <th>Precio Negociable</th>
+              <th>Moneda</th>
+              <th>Precio Venta 1</th>
+              <th>Precio Venta 2</th>
+              <th>Precio Venta 3</th>
+              <th>Cantidad Disp.</th>
+              <th>Ubicación</th>
+              <th>Imágen</th>
+              <th>Precio Nego.</th>
               <th>Cantidad</th>
               <th>Opción</th>
             </tr>
@@ -240,6 +251,23 @@ class FormularioCotizacion
             </ul>
           </nav>
         </div>
+        <div id="TablaDetalleUbigeo">
+          <hr>
+            <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>Sucursal</th>
+                  <th>Ubicación en el Almacén</th>
+                  <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody id="DetalleUbigeo">
+                </tbody>
+              </table>
+            </div>
+          </div>
       </div>
       <div class="box-header with-border">
       </div>
@@ -265,6 +293,14 @@ class FormularioCotizacion
             <tbody id="ListaDeProductosComprar">
             </tbody>
           </table>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label>Observación y/o Datos Adicionales (Opcional):</label>
+              <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+            </div>
+          </div>
         </div>
         <div id="CamposDetalleCotizacion">
         <script>CamposDetalleCotizacion('C');</script>
@@ -344,22 +380,29 @@ class FormularioCotizacion
             <div class="row">
               <div class="col-md-3 nvchDNI">
                 <div class="form-group">
+                  <label>Usuario que Generó:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreUsuario ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchDNI">
+                <div class="form-group">
                   <label>DNI:</label>
-                  <input type="text" id="nvchDNI" class="form-control select2" placeholder="Ingrese código del producto">
+                  <input type="text" class="form-control select2" value="<?php echo $this->DNICliente ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRUC">
                 <div class="form-group">
                   <label>RUC:</label>
-                  <input type="text" id="nvchRUC" class="form-control select2" placeholder="Ingrese código de inCotizacionrio">
+                  <input type="text" class="form-control select2" value="<?php echo $this->RUCCliente ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRazonSocial">
                 <div class="form-group">
-                  <label>Razón Social:</label>
-                  <input type="text" id="nvchRazonSocial" class="form-control select2" placeholder="Ingrese nombre del producto">
+                  <label>Razón Social/Nombres:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreCliente ?>" readonly>
                 </div>
               </div>
+              <!--
               <div class="col-md-3 nvchApellidoPaterno">
                 <div class="form-group">
                   <label>Apellido Paterno:</label>
@@ -378,6 +421,7 @@ class FormularioCotizacion
                   <input type="text" id="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de Cotizacion">
                 </div>
               </div>
+              -->
             </div>
           </div>
           <div class="box-header with-border">
@@ -404,6 +448,14 @@ class FormularioCotizacion
                 <tbody id="ListaDeProductosComprar">
                 </tbody>
               </table>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6" readonly="true"><?php echo $this->nvchObservacion; ?></textarea>
+                </div>
+              </div>
             </div>
           </div>
           <div class="box-footer clearfix">

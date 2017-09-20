@@ -51,7 +51,7 @@ DELIMITER $$
 			END AS NombreProveedor,
 		U.nvchUsername as NombreUsuario
 	    FROM tb_orden_compra OC 
-		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
 		OC.intIdOrdenCompra = _intIdOrdenCompra;
@@ -84,7 +84,7 @@ DELIMITER $$
 				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
 				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
 			END AS NombreProveedor FROM tb_orden_compra OC 
-		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
  		LIMIT _x,_y;
     END 
@@ -113,7 +113,7 @@ DELIMITER $$
 				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
 				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
 			END AS NombreProveedor FROM tb_orden_compra OC 
-		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
 		OC.intIdOrdenCompra LIKE CONCAT(_elemento,'%') OR
@@ -139,7 +139,7 @@ DELIMITER $$
 				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
 				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
 			END AS NombreProveedor FROM tb_orden_compra OC 
-		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
 		OC.intIdOrdenCompra LIKE CONCAT(_elemento,'%') OR

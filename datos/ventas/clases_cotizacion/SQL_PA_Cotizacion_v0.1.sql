@@ -70,6 +70,8 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente,
+		C.nvchDNI AS DNICliente,
+		C.nvchRUC AS RUCCliente,
 		U.nvchUsername as NombreUsuario
 	    FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario

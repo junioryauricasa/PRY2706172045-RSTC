@@ -83,7 +83,8 @@ class DetalleCotizacion
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
       	echo
-        '<td>'.$i.'</td>
+        '<tr>
+        <td>'.$i.'</td>
       	<td>'.$fila['CodigoProducto'].'</td>
         <td>'.$fila['DescripcionProducto'].'</td>
         <td>'.$fila['intCantidad'].'</td>
@@ -173,16 +174,38 @@ class DetalleCotizacion
       	'<tr>
         <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
+        <td><input type="hidden" name="SnvchSimbolo['.$fila['intIdProducto'].']" value="'.$fila['nvchSimbolo'].'"/>'.$fila['nvchSimbolo'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta1['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta1'].'"/>'.$fila['dcmPrecioVenta1'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>'.$fila['dcmPrecioVenta2'].'</td>
-        <td><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta3'].'</td>
+        <td><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta3'].'</td>';
+          $sql_conexion_cantidad = new Conexion_BD();
+          $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
+          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
+          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+          if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
+            echo '<td>0</td>';
+          } else {
+            echo '<td><input type="hidden" name="SCantidadTotal['.$fila['intIdProducto'].']" value="'.$fila_cantidad["CantidadTotal"].'"/>'.$fila_cantidad["CantidadTotal"].'</td>';
+          }
+        echo 
+        '<td>
+          <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+            <i class="fa fa-edit"></i> Ver Detalle
+          </button>
+        </td>
+        <td>
+          <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
+            <i class="fa fa-search"></i> Ver 
+          </button>
+        </td>
         <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Precio"></td>
         <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>
         <td>';
         if($tipofuncion == "F") {
         echo 
          '<button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProducto(this)">
-            <i class="fa fa-edit"></i> Seleccionar
+            <i class="fa fa-edit"></i> Elegir
           </button>';
         } else if ($tipofuncion == "M") {
         echo 

@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Visualizar Formulario Crear Proveedor */
+/* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
 $(document).on('click', '#btn-form-crear-cliente', function(){
 	  var funcion = "F";
 	  $.ajax({
@@ -14,11 +14,11 @@ $(document).on('click', '#btn-form-crear-cliente', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Visualizar Formulario Crear Proveedor */
+/* FIN - Funcion Ajax - Visualizar Formulario Crear Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Insertar Proveedor */
+/* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-cliente', function(){
 	  var formData = $("#form-cliente").serialize();
 	  var funcion = "I";
@@ -80,11 +80,11 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Insertar Proveedor */
+/* FIN - Funcion Ajax - Insertar Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Proveedor */
+/* INICIO - Funcion Ajax - Mostrar Cliente */
 $(document).on('click', '.btn-mostrar-cliente', function(){
   	  var intIdCliente = $(this).attr("id");
   	  var funcion = "M";
@@ -105,11 +105,11 @@ $(document).on('click', '.btn-mostrar-cliente', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Mostrar Proveedor */
+/* FIN - Funcion Ajax - Mostrar Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Actualizar Proveedor */
+/* INICIO - Funcion Ajax - Actualizar Cliente */
 $(document).on('click', '#btn-editar-cliente', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
@@ -144,11 +144,11 @@ $(document).on('click', '#btn-editar-cliente', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Actualizar Proveedor */
+/* FIN - Funcion Ajax - Actualizar Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Eliminar Proveedor */
+/* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-cliente', function(){
   	  var intIdCliente = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
@@ -172,11 +172,11 @@ $(document).on('click', '.btn-eliminar-cliente', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Eliminar Proveedor */
+/* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Proveedor */
+/* INICIO - Funcion Ajax - Listar Cliente */
 
 function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
@@ -192,11 +192,11 @@ function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
   });
 }
 
-/* FIN - Funcion Ajax - Listar Proveedor */
+/* FIN - Funcion Ajax - Listar Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 $(document).on('change', '#num-lista', function(){
   	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -217,11 +217,11 @@ $(document).on('change', '#num-lista', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 $(document).on('change', '#lista-persona', function(){
   	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -257,11 +257,11 @@ $(document).on('change', '#lista-persona', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Paginar Proveedor */
+/* INICIO - Funcion Ajax - Paginar Cliente */
 function PaginarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
@@ -275,11 +275,11 @@ function PaginarCliente(x,y,tipolistado,intIdTipoPersona) {
       }
   });
 }
-/* FIN - Funcion Ajax - Paginar Proveedor */
+/* FIN - Funcion Ajax - Paginar Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Proveedor */
+/* INICIO - Funcion Ajax - Cambiar Página de Lista Cliente */
 $(document).on('click', '.btn-pagina', function(){
       var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -300,11 +300,11 @@ $(document).on('click', '.btn-pagina', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Cambiar Página de Lista Proveedor */
+/* FIN - Funcion Ajax - Cambiar Página de Lista Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
+/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
 $(document).on('keyup', '#txt-busqueda', function(){
 	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -325,7 +325,7 @@ $(document).on('keyup', '#txt-busqueda', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
+/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -442,7 +442,7 @@ function EliminarFila(btn) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Mostrar Domicilios del Proveedor Seleccionado */
+/* INICIO - Mostrar Domicilios del Cliente Seleccionado */
 function MostrarDomicilio(intIdCliente,tipolistado) {
 	var funcion = "MD";
 	  $.ajax({
@@ -455,11 +455,11 @@ function MostrarDomicilio(intIdCliente,tipolistado) {
 	   }
 	  });
 }
-/* FIN - Mostrar Domicilios del Proveedor Seleccionado */
+/* FIN - Mostrar Domicilios del Cliente Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Mostrar Comunicaciones del Proveedor Seleccionado */
+/* INICIO - Mostrar Comunicaciones del Cliente Seleccionado */
 function MostrarComunicacion(intIdCliente,tipolistado) {
 	var funcion = "MC";
 	  $.ajax({
@@ -472,7 +472,7 @@ function MostrarComunicacion(intIdCliente,tipolistado) {
 	   }
 	  });
 }
-/* FIN - Mostrar Comunicaciones del Proveedor Seleccionado */
+/* FIN - Mostrar Comunicaciones del Cliente Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

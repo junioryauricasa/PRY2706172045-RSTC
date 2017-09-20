@@ -246,20 +246,59 @@ $(document).on('keyup', '#txt-busqueda', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+$(document).on('change', '#lista-persona', function(){
+  	  var busqueda = document.getElementById("BusquedaCliente").value;
+  	  var y = 5;
+  	  var x = 0;
+  	  var funcion = "MCL";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  if(intIdTipoPersona == 1){
+  	  	$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+  	  } else if(intIdTipoPersona == 2){
+  	  	$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+  	  }
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeClientesSeleccion").html(datos);
+	   	PaginarClientesSeleccion(x,y,intIdTipoPersona);
+	   }
+	  });
+	 return false;
+});
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Elemento Cliente*/
 $(document).on('keyup', '#BusquedaCliente', function(){
 	  var busqueda = document.getElementById("BusquedaCliente").value;
+	  var intIdTipoPersona = document.getElementById("lista-persona").value;
   	  var y = 5;
   	  var x = 0;
   	  var funcion = "MCL";
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeClientesSeleccion").html(datos);
-	   	PaginarClientesSeleccion((x/y),y);
+	   	PaginarClientesSeleccion(x,y,intIdTipoPersona);
 	   }
 	  });
 	 return false;
@@ -327,4 +366,83 @@ function AccionSeleccionClientes(funcion) {
 	  }
 }
 /* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginacionClientes(seleccion) {
+	var busqueda = document.getElementById("BusquedaCliente").value;
+	var y = 5;
+	var x = $(seleccion).attr("idcli") * y;
+	var funcion = "MCL";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeClientesSeleccion").html(datos);
+	   	PaginarClientesSeleccion((x/y),y,intIdTipoPersona);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
+	var busqueda = document.getElementById("BusquedaCliente").value;
+	var funcion = "PCL";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#PaginacionDeClientes").html(datos);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Clientes para la Selección */
+function ListarClientesSeleccion(x,y,intIdTipoPersona) {
+	var busqueda = document.getElementById("BusquedaCliente").value;
+	var funcion = "MCL";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeClientesSeleccion").html(datos);
+	   }
+	  });
+}
+/* FIN - Listar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function AccionCabecerasTabla(intIdTipoPersona) {
+	if(intIdTipoPersona == "1"){
+		$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+	} else if (intIdTipoPersona == "2") {
+		$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+	}
+}
+/* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////

@@ -34,7 +34,7 @@ class Cotizacion{
         ':intIdCliente' => $this->intIdCliente,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':bitEstado' => 1,
-        ':nvchObservacion' => $this->nvchObservacio));
+        ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdCotizacion as intIdCotizacion");
       $salida = $salidas->fetchObject();
@@ -68,31 +68,39 @@ class Cotizacion{
       $FormularioCotizacion->IdCliente($fila['intIdCliente']);
       $FormularioCotizacion->NombreUsuario($fila['NombreUsuario']);
       $FormularioCotizacion->NombreCliente($fila['NombreCliente']);
+      $FormularioCotizacion->DNICliente($fila['DNICliente']);
+      $FormularioCotizacion->RUCCliente($fila['RUCCliente']);
       $FormularioCotizacion->FechaCreacion($fila['dtmFechaCreacion']);
-      $FormularioCotizacion->ConsultarFormulario($funcion);
+      $FormularioCotizacion->Observacion($fila['nvchObservacion']);
+      //$FormularioCotizacion->ConsultarFormulario($funcion);
+      $FormularioCotizacion->MostrarDetalle();
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }    
   }
 
-  public function ListarClienteCotizacion($busqueda,$x,$y)
+  public function ListarClienteCotizacion($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ListarClienteCotizacion(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        echo 
-        '<tr>
-        <td>'.$fila['IdentificadorCliente'].'</td>
-        <td>'.$fila['NombreCliente'].'</td>';
-        if($fila['intIdTipoPersona'] == 1){
-          echo '<td>Persona Jurídica</td>';
-        } else if($fila['intIdTipoPersona'] == 2){
-          echo '<td>Persona Natural</td>';
+        echo '<tr>';
+        if($intIdTipoPersona == 2) { 
+          echo '<td>'.$fila["nvchDNI"].'</td>'; 
+        }
+        echo '<td>'.$fila["nvchRUC"].'</td>';
+        if($intIdTipoPersona == 1) { 
+          echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
+        }
+        if($intIdTipoPersona == 2) {
+        echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
+        <td>'.$fila["nvchApellidoMaterno"].'</td>
+        <td>'.$fila["nvchNombres"].'</td>';
         }
         echo 
         '<td> 
@@ -326,13 +334,13 @@ class Cotizacion{
     }  
   }
 
-  public function PaginarClientesCotizacion($busqueda,$x,$y)
+  public function PaginarClientesCotizacion($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL PAGINARClienteCotizacion(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarcliente_ii(:busqueda,:intIdTipoPersona)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       $output = "";
