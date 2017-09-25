@@ -11,6 +11,7 @@ class DetalleCotizacion
   private $intCantidadDisponible;
   private $dcmPrecio;
   private $dcmDescuento;
+  private $dcmPrecioUnitario;
   private $dcmTotal;
   
   public function IdOperacionCotizacion($intIdOperacionCotizacion){ $this->intIdOperacionCotizacion = $intIdOperacionCotizacion; }
@@ -21,6 +22,7 @@ class DetalleCotizacion
   public function CantidadDisponible($intCantidadDisponible){ $this->intCantidadDisponible = $intCantidadDisponible; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
   public function Descuento($dcmDescuento){ $this->dcmDescuento = $dcmDescuento; }
+  public function PrecioUnitario($dcmPrecioUnitario){ $this->dcmPrecioUnitario = $dcmPrecioUnitario; }
   public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
   /* FIN - Atributos de Detalle Cotizacion */
 
@@ -32,7 +34,8 @@ class DetalleCotizacion
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmTotal)');
+      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
+        :dcmTotal)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $value,
@@ -41,6 +44,7 @@ class DetalleCotizacion
         ':intCantidadDisponible' => $this->intCantidadDisponible[$key],
         ':dcmPrecio' => $this->dcmPrecio[$key],
         ':dcmDescuento' => $this->dcmDescuento[$key],
+        ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
         ':dcmTotal' => $this->dcmTotal[$key]));
       }
       echo "ok";
@@ -56,14 +60,18 @@ class DetalleCotizacion
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
+        :intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
+        :dcmTotal)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $this->intIdProducto,
         ':dtmFechaRealizada' => $this->dtmFechaRealizada,
         ':intCantidad' => $this->intCantidad,
-        ':intCantidadPendiente' => $this->intCantidad,
-        ':dcmPrecio' => $this->dcmPrecio));
+        ':intCantidadDisponible' => $this->intCantidadDisponible,
+        ':dcmPrecio' => $this->dcmPrecio,
+        ':dcmDescuento' => $this->dcmDescuento,
+        ':dcmPrecioUnitario' => $this->dcmPrecioUnitario,
+        ':dcmTotal' => $this->dcmTotal));
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -91,7 +99,7 @@ class DetalleCotizacion
         <td>'.$fila['intCantidadDisponible'].'</td>
         <td>'.$fila['dcmPrecio'].'</td>
         <td>'.$fila['dcmDescuento'].'</td>
-        <td>'.''.'</td>
+        <td>'.$fila['dcmPrecioUnitario'].'</td>
         <td>'.$fila['dcmTotal'].'</td>
         </tr>';
         $i++;
@@ -176,8 +184,8 @@ class DetalleCotizacion
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="SnvchSimbolo['.$fila['intIdProducto'].']" value="'.$fila['nvchSimbolo'].'"/>'.$fila['nvchSimbolo'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta1['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta1'].'"/>'.$fila['dcmPrecioVenta1'].'</td>
-        <td><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>'.$fila['dcmPrecioVenta2'].'</td>
-        <td><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta3'].'</td>';
+        <td><input type="hidden" name="SdcmDescuentoVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta2'].'"/><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>'.$fila['dcmPrecioVenta2'].'</td>
+        <td><input type="hidden" name="SdcmDescuentoVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta3'].'"/><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta3'].'</td>';
           $sql_conexion_cantidad = new Conexion_BD();
           $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
           $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
@@ -199,7 +207,8 @@ class DetalleCotizacion
             <i class="fa fa-search"></i> Ver 
           </button>
         </td>
-        <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Precio"></td>
+        <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" onkeyup="CalcularPrecioLista(this)" name="SdcmDescuento['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Porcentaje"></td>
+        <td><input type="text" name="SdcmPrecioLista['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
         <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>
         <td>';
         if($tipofuncion == "F") {

@@ -9,6 +9,7 @@ $(document).on('click', '#btn-form-crear-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	goToBox("#Formulario");
 	   }
 	  });
 	 return false;
@@ -19,6 +20,21 @@ $(document).on('click', '#btn-form-crear-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-cotizacion', function(){
+	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
+	  var intIdCliente = $("#intIdCliente").val();
+	  if(intIdCliente == "" || intIdCliente == null){
+	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  	return false;
+	  } else if(EsVacio("nvchAtencion") == false){
+	  	goToBox("#nvchAtencionGroup");
+	  	return false;
+	  } else if(EsNumeroEntero("intDiasValidez") == false){
+	  	goToBox("#intDiasValidezGroup");
+	  	return false;
+	  } else if(num_filas_detalle_cotizacion == 0){
+	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+	  	return false;
+	  }
 	  var formData = $("#form-cotizacion").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
@@ -31,7 +47,8 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="okok") {
-	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
+	   		MensajeNormal("Se generó correctamente la cotización",1);
+	   		$("#btn-form-cotizacion-remove").click();
 	   		$('#txt-busqueda').val("");
 	   		ListarCotizacion(x,y,tipolistado);
 	   		PaginarCotizacion(x,y,tipolistado);
@@ -57,6 +74,7 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	goToBox("#Formulario");
 	   	MostrarDetalleCotizacion(intIdCotizacion,tipolistado);
 	   }
 	  });
@@ -99,7 +117,8 @@ $(document).on('click', '#btn-editar-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
+	   		MensajeNormal("Se modificó correctamente la cotización",1);
+	   		$("#btn-form-cotizacion-remove").click();
 	   		ListarCotizacion(x,y,tipolistado);
 	   		PaginarCotizacion(x,y,tipolistado);
 	   	}
@@ -119,7 +138,6 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
-  	  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
@@ -127,7 +145,7 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
+	   		MensajeNormal("Se anuló correctamente la cotización",1);
 	   		ListarCotizacion(x,y,tipolistado);
 	   		PaginarCotizacion(x,y,tipolistado);
 	   	}
@@ -164,7 +182,6 @@ $(document).on('change', '#num-lista', function(){
   	  var x = 0;
   	  var tipolistado = "T";
   	  var funcion = "L";
-  	  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
@@ -205,7 +222,6 @@ $(document).on('click', '.btn-pagina', function(){
   	  var x = $(this).attr("idp") * y;
   	  var funcion = "L";
   	  var tipolistado = "T";
-  	  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
@@ -213,7 +229,7 @@ $(document).on('click', '.btn-pagina', function(){
 	   success:function(datos)
 	   {
 	   	$("#ListaDeCotizaciones").html(datos);
-	   	PaginarCotizacion((x/y),y,tipolistado,intIdTipoComprobante);
+	   	PaginarCotizacion((x/y),y,tipolistado);
 	   }
 	  });
 	 return false;
@@ -229,7 +245,6 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	  var x = 0;
   	  var funcion = "L";
   	  var tipolistado = "T";
-  	  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
@@ -325,6 +340,8 @@ function SeleccionarCliente(seleccion) {
 	   	$("#nvchApellidoPaterno").val(datos.nvchApellidoPaterno);
 	   	$("#nvchApellidoMaterno").val(datos.nvchApellidoMaterno);
 	   	$("#nvchNombres").val(datos.nvchNombres);
+	   	$("#TipoCliente").val(datos.TipoCliente);
+	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 	   	MostrarSeleccionCliente(datos.intIdTipoPersona);
 	   }
 	  });

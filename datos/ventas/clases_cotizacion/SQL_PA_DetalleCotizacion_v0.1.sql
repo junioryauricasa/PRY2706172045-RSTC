@@ -10,14 +10,16 @@ DELIMITER $$
 	IN _intCantidadDisponible INT,
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
+	IN _dcmPrecioUnitario DECIMAL(11,2),
 	IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_detalle_cotizacion 
-		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,dcmTotal)
+		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,
+			dcmPrecioUnitario,dcmTotal)
 		VALUES
 		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadDisponible,_dcmPrecio,_dcmDescuento,
-			_dcmTotal);
+			_dcmPrecioUnitario,_dcmTotal);
     END 
 $$
 DELIMITER ;
@@ -25,12 +27,15 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS ACTUALIZARDETALLECOTIZACION;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARDETALLECOTIZACION(
-	IN _intIdOperacionCotizacion INT,
 	IN _intIdCotizacion INT,
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _dcmPrecio DECIMAL(11,2)
+	IN _intCantidadDisponible INT,
+	IN _dcmPrecio DECIMAL(11,2),
+	IN _dcmDescuento DECIMAL(11,2),
+	IN _dcmPrecioUnitario DECIMAL(11,2),
+	IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		UPDATE tb_detalle_cotizacion
@@ -39,7 +44,11 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		dtmFechaRealizada = _dtmFechaRealizada,
 		intCantidad = _intCantidad,
-		dcmPrecio = _dcmPrecio
+		intCantidadDisponible = _intCantidadDisponible,
+		dcmPrecio = _dcmPrecio,
+		dcmDescuento = _dcmDescuento,
+		dcmPrecioUnitario = _dcmPrecioUnitario,
+		dcmTotal = _dcmTotal
 		WHERE 
 		intIdOperacionCotizacion = _intIdOperacionCotizacion;
     END 

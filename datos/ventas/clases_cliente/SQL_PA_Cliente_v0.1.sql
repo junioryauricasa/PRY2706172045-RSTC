@@ -11,15 +11,16 @@ DELIMITER $$
     IN _nvchApellidoMaterno VARCHAR(120),
 	IN _nvchNombres VARCHAR(250),
 	IN _intIdTipoPersona INT,
+	IN _intIdTipoCliente INT,
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		INSERT INTO tb_cliente 
 		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona,
-			nvchObservacion)
+			intIdTipoCliente,nvchObservacion)
 		VALUES
 		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona,
-			_nvchObservacion);
+			_intIdTipoCliente,_nvchObservacion);
 		SET _intIdCliente = LAST_INSERT_ID();
     END 
 $$
@@ -36,6 +37,7 @@ DELIMITER $$
     IN _nvchApellidoMaterno VARCHAR(120),
 	IN _nvchNombres VARCHAR(250),
 	IN _intIdTipoPersona INT,
+	IN _intIdTipoCliente INT,
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
@@ -48,6 +50,7 @@ DELIMITER $$
 		nvchApellidoMaterno = _nvchApellidoMaterno,
 		nvchNombres = _nvchNombres,
 		intIdTipoPersona = _intIdTipoPersona,
+		intIdTipoCliente = _intIdTipoCliente,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdCliente = _intIdCliente;
@@ -61,9 +64,10 @@ DELIMITER $$
     	IN _intIdCliente INT
     )
 	BEGIN
-		SELECT * FROM tb_cliente
+		SELECT CL.*,TCL.intIdTipoCliente, TCL.nvchNombre AS TipoCliente FROM tb_cliente CL
+		LEFT JOIN tb_tipo_cliente TCL ON CL.intIdTipoCliente = TCL.intIdTipoCliente
 		WHERE 
-		intIdCliente = _intIdCliente;
+		CL.intIdCliente = _intIdCliente;
     END 
 $$
 DELIMITER ;
@@ -118,16 +122,17 @@ DELIMITER $$
 		IN _intIdTipoPersona INT
     )
 	BEGIN
-		SELECT * FROM tb_cliente
+		SELECT CL.*,TCL.nvchNombre AS TipoCliente FROM tb_cliente CL
+		LEFT JOIN tb_tipo_cliente TCL ON TCL.intIdTipoCliente = CL.intIdTipoCliente
 		WHERE 
-		( intIdCliente LIKE CONCAT(_elemento,'%') OR
-		nvchDNI LIKE CONCAT(_elemento,'%') OR
-		nvchRUC LIKE CONCAT(_elemento,'%') OR
-		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		nvchNombres LIKE CONCAT(_elemento,'%') ) AND
-		intIdTipoPersona = _intIdTipoPersona
+		( CL.intIdCliente LIKE CONCAT(_elemento,'%') OR
+		CL.nvchDNI LIKE CONCAT(_elemento,'%') OR
+		CL.nvchRUC LIKE CONCAT(_elemento,'%') OR
+		CL.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		CL.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		CL.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		CL.nvchNombres LIKE CONCAT(_elemento,'%') ) AND
+		CL.intIdTipoPersona = _intIdTipoPersona
 		LIMIT _x,_y;
     END 
 $$
@@ -140,16 +145,17 @@ DELIMITER $$
     	IN _intIdTipoPersona INT
     )
 	BEGIN
-		SELECT * FROM tb_cliente
+		SELECT CL.*,TCL.nvchNombre AS TipoCliente FROM tb_cliente CL
+		LEFT JOIN tb_tipo_cliente TCL ON TCL.intIdTipoCliente = CL.intIdTipoCliente
 		WHERE 
-		( intIdCliente LIKE CONCAT(_elemento,'%') OR
-		nvchDNI LIKE CONCAT(_elemento,'%') OR
-		nvchRUC LIKE CONCAT(_elemento,'%') OR
-		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		nvchNombres LIKE CONCAT(_elemento,'%') ) AND
-		intIdTipoPersona = _intIdTipoPersona;
+		( CL.intIdCliente LIKE CONCAT(_elemento,'%') OR
+		CL.nvchDNI LIKE CONCAT(_elemento,'%') OR
+		CL.nvchRUC LIKE CONCAT(_elemento,'%') OR
+		CL.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		CL.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		CL.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		CL.nvchNombres LIKE CONCAT(_elemento,'%') ) AND
+		CL.intIdTipoPersona = _intIdTipoPersona;
     END 
 $$
 DELIMITER ;

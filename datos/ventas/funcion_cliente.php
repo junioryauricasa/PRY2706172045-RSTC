@@ -23,6 +23,7 @@ switch($_POST['funcion']){
     $Cliente->ApellidoMaterno($_POST['nvchApellidoMaterno']);
     $Cliente->Nombres($_POST['nvchNombres']);
     $Cliente->IdTipoPersona($_POST['intIdTipoPersona']);
+    $Cliente->IdTipoCliente($_POST['intIdTipoCliente']);
     $Cliente->Observacion($_POST['nvchObservacion']);
     $Cliente->InsertarCliente();
     $DomicilioCliente = new DomicilioCliente();
@@ -70,6 +71,7 @@ switch($_POST['funcion']){
     $Cliente->ApellidoMaterno($_POST['nvchApellidoMaterno']);
     $Cliente->Nombres($_POST['nvchNombres']);
     $Cliente->IdTipoPersona($_POST['intIdTipoPersona']);
+    $Cliente->IdTipoCliente($_POST['intIdTipoCliente']);
     $Cliente->Observacion($_POST['nvchObservacion']);
     $Cliente->ActualizarCliente();
     break;

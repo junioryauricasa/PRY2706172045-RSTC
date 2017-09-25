@@ -12,6 +12,7 @@ class Cliente
   private $nvchApellidoMaterno;
   private $nvchNombres;
   private $intIdTipoPersona;
+  private $intIdTipoCliente;
   private $nvchObservacion;
   
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
@@ -22,6 +23,7 @@ class Cliente
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
   public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
+  public function IdTipoCliente($intIdTipoCliente){ $this->intIdTipoCliente = $intIdTipoCliente; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Cliente */
 
@@ -32,7 +34,7 @@ class Cliente
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCliente(@intIdCliente,:nvchDNI,:nvchRUC,:nvchRazonSocial,
-      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:nvchObservacion)');
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:intIdTipoCliente,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDNI' => $this->nvchDNI, 
         ':nvchRUC' => $this->nvchRUC,
@@ -41,6 +43,7 @@ class Cliente
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
         ':intIdTipoPersona' => $this->intIdTipoPersona,
+        ':intIdTipoCliente' => $this->intIdTipoCliente,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdCliente as intIdCliente");
@@ -71,6 +74,7 @@ class Cliente
       $formularioCliente->ApellidoMaterno($fila['nvchApellidoMaterno']);
       $formularioCliente->Nombres($fila['nvchNombres']);
       $formularioCliente->IdTipoPersona($fila['intIdTipoPersona']);
+      $formularioCliente->IdTipoCliente($fila['intIdTipoCliente']);
       $formularioCliente->Observacion($fila['nvchObservacion']);
       $formularioCliente->ConsultarFormulario($funcion);
     }
@@ -85,7 +89,8 @@ class Cliente
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarCliente(:intIdCliente,:nvchDNI,:nvchRUC,
-      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:nvchObservacion)');
+      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,
+        :intIdTipoCliente,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCliente' => $this->intIdCliente,
         ':nvchDNI' => $this->nvchDNI, 
@@ -95,6 +100,7 @@ class Cliente
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
         ':intIdTipoPersona' => $this->intIdTipoPersona,
+        ':intIdTipoCliente' => $this->intIdTipoCliente,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdCliente'] = $this->intIdCliente;
       echo "ok";

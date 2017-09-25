@@ -8,6 +8,10 @@ class Cotizacion{
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
+  private $nvchAtencion;
+  private $intIdTipoMoneda;
+  private $intIdTipoPago;
+  private $intDiasValidez;
   private $dtmFechaCreacion;
   private $nvchObservacion;
   
@@ -15,6 +19,10 @@ class Cotizacion{
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
+  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
+  public function DiasValidez($intDiasValidez){ $this->intDiasValidez = $intDiasValidez; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
@@ -27,11 +35,16 @@ class Cotizacion{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:nvchNumeracion,
-        :intIdUsuario,:intIdCliente,:dtmFechaCreacion,:bitEstado,:nvchObservacion)');
+        :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,
+        :dtmFechaCreacion,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
+        ':nvchAtencion' => $this->nvchAtencion,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoPago' => $this->intIdTipoPago,
+        ':intDiasValidez' => $this->intDiasValidez,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':bitEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
@@ -66,6 +79,10 @@ class Cotizacion{
       $FormularioCotizacion->Numeracion($fila['nvchNumeracion']);
       $FormularioCotizacion->IdUsuario($fila['intIdUsuario']);
       $FormularioCotizacion->IdCliente($fila['intIdCliente']);
+      $FormularioCotizacion->Atencion($fila['nvchAtencion']);
+      $FormularioCotizacion->IdTipoMoneda($fila['intIdTipoMoneda']);
+      $FormularioCotizacion->IdTipoPago($fila['intIdTipoPago']);
+      $FormularioCotizacion->DiasValidez($fila['intDiasValidez']);
       $FormularioCotizacion->NombreUsuario($fila['NombreUsuario']);
       $FormularioCotizacion->NombreCliente($fila['NombreCliente']);
       $FormularioCotizacion->DNICliente($fila['DNICliente']);
@@ -103,7 +120,8 @@ class Cotizacion{
         <td>'.$fila["nvchNombres"].'</td>';
         }
         echo 
-        '<td> 
+        '<td>'.$fila["TipoCliente"].'</td>
+        <td> 
           <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCliente(this)">
             <i class="fa fa-edit"></i> Seleccionar
           </button>
@@ -133,6 +151,8 @@ class Cotizacion{
       $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
       $salida['nvchNombres'] = $fila['nvchNombres'];
       $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
+      $salida['TipoCliente'] = $fila['TipoCliente'];
+      $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
       echo json_encode($salida);
     }
     catch(PDPExceptio $e){
@@ -146,13 +166,19 @@ class Cotizacion{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarCotizacion(:intIdCotizacion,:nvchNumeracion,
-        :intIdUsuario,:intIdCliente,:dtmFechaCreacion)');
+        :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,
+        :dtmFechaCreacion,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
-        ':intIdCotizacion' => $this->intIdCotizacion,
         ':nvchNumeracion' => $this->nvchNumeracion,
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
-        ':dtmFechaCreacion' => $this->dtmFechaCreacion));
+        ':nvchAtencion' => $this->nvchAtencion,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoPago' => $this->intIdTipoPago,
+        ':intDiasValidez' => $this->intDiasValidez,
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':bitEstado' => 1,
+        ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdCotizacion'] = $this->intIdCotizacion;
       echo "ok";
     }

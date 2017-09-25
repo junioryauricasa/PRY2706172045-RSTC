@@ -163,7 +163,7 @@ class FormularioProveedor
                 </div>
                 <div class="col-md-3">
                   <div id="nvchRegionGroup" class="form-group">
-                    <label>Región:</label>
+                    <label>Departamento:</label>
                     <input type="text" name="Region" id="nvchRegion" class="form-control select2" 
                     placeholder="Ingrese Región" value="" onkeypress="return EsLetraTecla(event)" 
                     onkeyup="EsLetra('nvchRegion')" maxlength="150">

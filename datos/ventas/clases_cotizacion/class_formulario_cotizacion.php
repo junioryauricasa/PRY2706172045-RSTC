@@ -6,6 +6,10 @@ class FormularioCotizacion
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
+  private $nvchAtencion;
+  private $intIdTipoMoneda;
+  private $intIdTipoPago;
+  private $intDiasValidez;
   private $NombreUsuario;
   private $NombreCliente;
   private $DNICliente;
@@ -17,6 +21,10 @@ class FormularioCotizacion
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
+  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
+  public function DiasValidez($intDiasValidez){ $this->intDiasValidez = $intDiasValidez; }
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
   public function NombreCliente($NombreCliente){ $this->NombreCliente = $NombreCliente; }
   public function DNICliente($DNICliente){ $this->DNICliente = $DNICliente; }
@@ -27,7 +35,7 @@ class FormularioCotizacion
   function ConsultarFormulario($funcion)
   {
   ?> 
-      <div class="box box-default">
+      <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
           <h3 class="box-title">Nueva Cotización</h3>
@@ -36,7 +44,7 @@ class FormularioCotizacion
           <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-cotizacion-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
         <form id="form-cotizacion" method="POST">
@@ -94,6 +102,7 @@ class FormularioCotizacion
                     <th class="ListaApellidoPaterno">Apellido Paterno</th>
                     <th class="ListaApellidoMaterno">Apellido Materno</th>
                     <th class="ListaNombres">Nombres</th>
+                    <th>Tipo de Cliente</th>
                     <th>Opciones</th>
                   </tr>
                   </thead>
@@ -150,6 +159,74 @@ class FormularioCotizacion
                 <div class="form-group">
                   <label>Nombres:</label>
                   <input type="text" id="nvchNombres" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Cliente:</label>
+                  <input type="text" id="TipoCliente" class="form-control select2" readonly>
+                  <input type="hidden" id="intIdTipoCliente">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchAtencionGroup" class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="<?php echo $this->nvchAtencion; ?>" onkeyup="EsVacio('nvchAtencion')" maxlength="250" required>
+                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchAtencionObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <select id="tipo-cliente" name="intIdTipoMoneda" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Forma de Pago:</label>
+                  <select id="tipo-cliente" name="intIdTipoPago" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopago()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoPago'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+              </div>
+              <div class="col-md-3">
+                <div id="intDiasValidezGroup" class="form-group">
+                  <label>Validez de Oferta:</label>
+                  <input type="text" id="intDiasValidez" name="intDiasValidez" class="form-control select2" placeholder="Ingrese número de días" 
+                  value="<?php echo $this->intDiasValidez; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
+                  onkeyup="EsNumeroEntero('intDiasValidez')" maxlength="3" required>
+                  <span id="intDiasValidezIcono" class="" aria-hidden=""></span>
+                  <div id="intDiasValidezObs" class=""></div>
                 </div>
               </div>
             </div>
@@ -229,7 +306,8 @@ class FormularioCotizacion
               <th>Cantidad Disp.</th>
               <th>Ubicación</th>
               <th>Imágen</th>
-              <th>Precio Nego.</th>
+              <th>Porcentaje Desc.</th>
+              <th>Precio Lista</th>
               <th>Cantidad</th>
               <th>Opción</th>
             </tr>
@@ -353,7 +431,7 @@ class FormularioCotizacion
               <input type="hidden" id="intIdCotizacion" name="intIdCotizacion" value="<?php echo $this->intIdCotizacion; ?>" />
               <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
               <?php if($funcion == "F"){ ?>
-              <input type="submit" id="btn-crear-cotizacion" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cotizacion">
+              <input type="button" id="btn-crear-cotizacion" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cotizacion">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
               <?php } ?>
           </div>              

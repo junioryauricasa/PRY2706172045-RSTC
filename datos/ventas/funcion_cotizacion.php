@@ -26,6 +26,7 @@ switch($_POST['funcion']){
     $DetalleCotizacion->CantidadDisponible($_POST['intCantidadDisponible']);
     $DetalleCotizacion->Precio($_POST['dcmPrecio']);
     $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
+    $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleCotizacion->Total($_POST['dcmTotal']);
     $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
@@ -53,13 +54,17 @@ switch($_POST['funcion']){
   case "ADCT":
     $DetalleCotizacion = new DetalleCotizacion();
     $DetalleCotizacion->IdOperacionCotizacion($_POST['intIdOperacionCotizacion']);
-    $DetalleCotizacion->IdCotizacion($_POST['intIdCotizacion']);
-    $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
     $dtmFechaRealizada = date("Y-m-d H:i:s");
-    $DetalleCotizacion->FechaRealizada($dtmFechaRealizada);
+    $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);
+    $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
+    $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
     $DetalleCotizacion->Cantidad($_POST['intCantidad']);
+    $DetalleCotizacion->CantidadDisponible($_POST['intCantidadDisponible']);
     $DetalleCotizacion->Precio($_POST['dcmPrecio']);
-    $DetalleCotizacion->ActualizarDetalleCotizacion();
+    $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
+    $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
+    $DetalleCotizacion->Total($_POST['dcmTotal']);
+    $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
   case "M":
     $Cotizacion = new Cotizacion();

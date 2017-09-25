@@ -7,15 +7,21 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
+	IN _nvchAtencion INT,
+	IN _intIdTipoMoneda INT,
+	IN _intIdTipoPago INT,
+	IN _intDiasValidez INT,
 	IN _dtmFechaCreacion DATETIME,
 	IN _bitEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_cotizacion 
-		(nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,bitEstado,nvchObservacion)
+		(nvchNumeracion,intIdUsuario,intIdCliente,nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,
+			dtmFechaCreacion,bitEstado,nvchObservacion)
 		VALUES
-		(_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_bitEstado,_nvchObservacion);
+		(_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,
+			_dtmFechaCreacion,_bitEstado,_nvchObservacion);
 		SET _intIdCotizacion = LAST_INSERT_ID();
     END 
 $$
@@ -44,7 +50,12 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
-	IN _dtmFechaCreacion DATETIME
+	IN _nvchAtencion INT,
+	IN _intIdTipoMoneda INT,
+	IN _intIdTipoPago INT,
+	IN _intDiasValidez INT,
+	IN _dtmFechaCreacion DATETIME,
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		UPDATE tb_cotizacion
@@ -52,7 +63,12 @@ DELIMITER $$
 		nvchNumeracion = _nvchNumeracion,
 		intIdUsuario = _intIdUsuario,
 		intIdCliente = _intIdCliente,
-		dtmFechaCreacion = _dtmFechaCreacion
+		nvchAtencion = _nvchAtencion,
+		intIdTipoMoneda = _intIdTipoMoneda,
+		intIdTipoPago = _intIdTipoPago,
+		intDiasValidez = _intDiasValidez,
+		dtmFechaCreacion = _dtmFechaCreacion,
+		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdCotizacion = _intIdCotizacion;
     END 

@@ -90,6 +90,11 @@ class Venta{
         } else if($fila['intIdTipoPersona'] == 2){
           echo '<td>Persona Natural</td>';
         }
+        if($fila['intIdTipoCliente'] == 1){
+          echo '<td>Cliente Final</td>';
+        } else if($fila['intIdTipoCliente'] == 2){
+          echo '<td>Cliente Revendedor</td>';
+        }
         echo 
         '<td> 
           <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCliente(this)">
