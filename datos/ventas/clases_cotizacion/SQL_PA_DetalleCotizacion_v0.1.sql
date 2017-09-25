@@ -11,15 +11,17 @@ DELIMITER $$
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
 	IN _dcmPrecioUnitario DECIMAL(11,2),
-	IN _dcmTotal DECIMAL(11,2)
+	IN _dcmTotal DECIMAL(11,2),
+	IN _intIdTipoVenta INT,
+	IN _nvchDescripcionServicio VARCHAR(500)
     )
 	BEGIN
 		INSERT INTO tb_detalle_cotizacion 
 		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,
-			dcmPrecioUnitario,dcmTotal)
+			dcmPrecioUnitario,dcmTotal,intIdTipoVenta,nvchDescripcionServicio)
 		VALUES
 		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadDisponible,_dcmPrecio,_dcmDescuento,
-			_dcmPrecioUnitario,_dcmTotal);
+			_dcmPrecioUnitario,_dcmTotal,_intIdTipoVenta,_nvchDescripcionServicio);
     END 
 $$
 DELIMITER ;
@@ -35,7 +37,9 @@ DELIMITER $$
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
 	IN _dcmPrecioUnitario DECIMAL(11,2),
-	IN _dcmTotal DECIMAL(11,2)
+	IN _dcmTotal DECIMAL(11,2),
+	IN _intIdTipoVenta INT,
+	IN _nvchDescripcionServicio VARCHAR(500)
     )
 	BEGIN
 		UPDATE tb_detalle_cotizacion
@@ -48,7 +52,9 @@ DELIMITER $$
 		dcmPrecio = _dcmPrecio,
 		dcmDescuento = _dcmDescuento,
 		dcmPrecioUnitario = _dcmPrecioUnitario,
-		dcmTotal = _dcmTotal
+		dcmTotal = _dcmTotal,
+		intIdTipoVenta = _intIdTipoVenta,
+		nvchDescripcionServicio = _nvchDescripcionServicio
 		WHERE 
 		intIdOperacionCotizacion = _intIdOperacionCotizacion;
     END 

@@ -463,3 +463,18 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function MostrarTipoVenta() {
+	var intIdTipoVenta = $("#tipo-venta").val();
+	if(intIdTipoVenta == "1"){
+		$("#repuestos").show();
+  	  	$("#servicios").hide();
+	} else if (intIdTipoVenta == "2") {
+		$("#repuestos").hide();
+  	  	$("#servicios").show();
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////

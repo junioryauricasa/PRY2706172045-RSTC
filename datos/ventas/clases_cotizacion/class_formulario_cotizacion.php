@@ -10,12 +10,20 @@ class FormularioCotizacion
   private $intIdTipoMoneda;
   private $intIdTipoPago;
   private $intDiasValidez;
+  private $intIdTipoVenta;
+  private $nvchTipo;
+  private $nvchModelo;
+  private $nvchMarca;
+  private $nvchHorometro;
+
   private $NombreUsuario;
   private $NombreCliente;
   private $DNICliente;
   private $RUCCliente;
   private $SimboloMoneda;
   private $NombrePago;
+  private $NombreVenta;
+
   private $dtmFechaCreacion;
   private $nvchObservacion;
 
@@ -27,12 +35,20 @@ class FormularioCotizacion
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function DiasValidez($intDiasValidez){ $this->intDiasValidez = $intDiasValidez; }
+  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
+  public function Tipo($nvchTipo){ $this->nvchTipo = $nvchTipo; }
+  public function Modelo($nvchModelo){ $this->nvchModelo = $nvchModelo; }
+  public function Marca($nvchMarca){ $this->nvchMarca = $nvchMarca; }
+  public function Horometro($nvchHorometro){ $this->nvchHorometro = $nvchHorometro; }
+
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
   public function NombreCliente($NombreCliente){ $this->NombreCliente = $NombreCliente; }
   public function DNICliente($DNICliente){ $this->DNICliente = $DNICliente; }
   public function RUCCliente($RUCCliente){ $this->RUCCliente = $RUCCliente; }
   public function SimboloMoneda($SimboloMoneda){ $this->SimboloMoneda = $SimboloMoneda; }
   public function NombrePago($NombrePago){ $this->NombrePago = $NombrePago; }
+  public function NombreVenta($NombreVenta){ $this->NombreVenta = $NombreVenta; }
+
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
@@ -186,7 +202,7 @@ class FormularioCotizacion
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Tipo de Moneda:</label>
-                  <select id="tipo-cliente" name="intIdTipoMoneda" class="form-control select2" >
+                  <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
@@ -206,7 +222,7 @@ class FormularioCotizacion
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Forma de Pago:</label>
-                  <select id="tipo-cliente" name="intIdTipoPago" class="form-control select2" >
+                  <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" >
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
@@ -276,149 +292,231 @@ class FormularioCotizacion
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
-        <h3 class="box-title">Productos</h3>
+        <h3 class="box-title">Tipo de Cotizacion</h3>
       </div>
       <div class="box-body">
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
-              <label>Ingresar Búsqueda:</label>
-              <input type="text" id="BusquedaProducto" name="BusquedaProducto" class="form-control select2" placeholder="Ingresar Búsqueda">
+              <label>Seleccionar el Tipo de Cotizacion:</label>
+                <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
+                  <?php try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
+            </div>
+            <input type="hidden" id="intIdTipoVenta" value="<?php echo $this->intIdTipoVenta; ?>">
+          </div>
+        </div>
+      </div>
+      <script>MostrarTipoVenta();</script>
+      <div id="repuestos">
+        <div class="box-header with-border">
+        </div>
+        <div class="box-header with-border">
+          <h3 class="box-title">Productos</h3>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Ingresar Búsqueda:</label>
+                <input type="text" id="BusquedaProducto" name="BusquedaProducto" class="form-control select2" placeholder="Ingresar Búsqueda">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Tipo de Búsqueda:</label>
+                <br>
+                <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2">
+                  <option value="T">Resto de Campos</option>
+                  <option value="C">Por Códigos</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Tipo de Búsqueda:</label>
-              <br>
-              <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2">
-                <option value="T">Resto de Campos</option>
-                <option value="C">Por Códigos</option>
-              </select>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Moneda</th>
+                <th>Precio Venta 1</th>
+                <th>Precio Venta 2</th>
+                <th>Precio Venta 3</th>
+                <th>Cantidad Disp.</th>
+                <th>Ubicación</th>
+                <th>Imágen</th>
+                <th>Porcentaje Desc.</th>
+                <th>Precio Lista</th>
+                <th>Cantidad</th>
+                <th>Opción</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDeProductosSeleccion">
+                <?php if($funcion == "F") { ?>
+                <script type="text/javascript">ListarProductosSeleccion(0,5,'F');</script>
+                <?php } else if($funcion == "M") { ?>
+                <script type="text/javascript">ListarProductosSeleccion(0,5,'M');</script>
+                <?php } ?>
+              </tbody>
+            </table>
           </div>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-condensed">
-            <thead>
-            <tr>
-              <th>Código</th>
-              <th>Descripción</th>
-              <th>Moneda</th>
-              <th>Precio Venta 1</th>
-              <th>Precio Venta 2</th>
-              <th>Precio Venta 3</th>
-              <th>Cantidad Disp.</th>
-              <th>Ubicación</th>
-              <th>Imágen</th>
-              <th>Porcentaje Desc.</th>
-              <th>Precio Lista</th>
-              <th>Cantidad</th>
-              <th>Opción</th>
-            </tr>
-            </thead>
-            <tbody id="ListaDeProductosSeleccion">
-              <?php if($funcion == "F") { ?>
-              <script type="text/javascript">ListarProductosSeleccion(0,5,'F');</script>
-              <?php } else if($funcion == "M") { ?>
-              <script type="text/javascript">ListarProductosSeleccion(0,5,'M');</script>
-              <?php } ?>
-            </tbody>
-          </table>
-        </div>
-        <hr>
-        <div class="text-center">
-          <nav aria-label="...">
-            <ul id="PaginacionDeProductos" class="pagination">
-              <script>PaginarProductosSeleccion(0,5);</script>
-            </ul>
-          </nav>
-        </div>
-        <div id="TablaDetalleUbigeo">
           <hr>
-            <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
-            <div class="table-responsive">
-              <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                  <th>Sucursal</th>
-                  <th>Ubicación en el Almacén</th>
-                  <th>Cantidad</th>
-                </tr>
-                </thead>
-                <tbody id="DetalleUbigeo">
-                </tbody>
-              </table>
+          <div class="text-center">
+            <nav aria-label="...">
+              <ul id="PaginacionDeProductos" class="pagination">
+                <script>PaginarProductosSeleccion(0,5);</script>
+              </ul>
+            </nav>
+          </div>
+          <div id="TablaDetalleUbigeo">
+            <hr>
+              <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
+              <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                  <thead>
+                  <tr>
+                    <th>Sucursal</th>
+                    <th>Ubicación en el Almacén</th>
+                    <th>Cantidad</th>
+                  </tr>
+                  </thead>
+                  <tbody id="DetalleUbigeo">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+        <div class="box-header with-border">
+        </div>
+        <div class="box-header with-border">
+          <h3 class="box-title">Productos a Comprar</h3>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Cantidad Disp.</th>
+                <th>Precio Venta</th>
+                <th>Descuento</th>
+                <th>Precio Unit.</th>
+                <th>Total</th>
+                <th>Opción</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDeProductosComprar">
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label>Observación y/o Datos Adicionales (Opcional):</label>
+                <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+              </div>
             </div>
           </div>
-      </div>
-      <div class="box-header with-border">
-      </div>
-      <div class="box-header with-border">
-        <h3 class="box-title">Productos a Comprar</h3>
-      </div>
-      <div class="box-body">
-        <div class="table-responsive">
-          <table class="table table-hover table-condensed">
-            <thead>
-            <tr>
-              <th>Código</th>
-              <th>Descripción</th>
-              <th>Cantidad</th>
-              <th>Cantidad Disp.</th>
-              <th>Precio Venta</th>
-              <th>Descuento</th>
-              <th>Precio Unit.</th>
-              <th>Total</th>
-              <th>Opción</th>
-            </tr>
-            </thead>
-            <tbody id="ListaDeProductosComprar">
-            </tbody>
-          </table>
-        </div>
-        <div class="row">
-          <div class="col-md-8">
-            <div class="form-group">
-              <label>Observación y/o Datos Adicionales (Opcional):</label>
-              <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+          <div id="CamposDetalleCotizacion">
+          <script>CamposDetalleCotizacion('C');</script>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Nombre del Producto:</label>
+                  <input type="text" class="form-control select2" id="nvchNombre">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Descripción del Producto:</label>
+                  <input type="text" class="form-control select2" id="nvchDescripcionServicio">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Precio Negociable:</label>
+                  <input type="text" class="form-control select2" id="dcmPrecio">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Cantidad:</label>
+                  <input type="text" class="form-control select2" id="intCantidad">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <input type="hidden" class="form-control select2" id="intIdProducto">
+                  <input type="hidden" class="form-control select2" id="intIdOperacionCotizacion">
+                  <input type="button" onclick="ActualizarDetalleCotizacion()" id="btn-agregar-detalleCotizacion" class="btn btn-sm btn-warning btn-flat" value="Editar Detalle del Orden de Compra">
+                  <input type="button" onclick="CamposDetalleCotizacion('C')" id="btn-cancelar-detalleCotizacion" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div id="CamposDetalleCotizacion">
-        <script>CamposDetalleCotizacion('C');</script>
+      </div>
+      <div id="servicios">
+        <div class="box-header with-border">
+        </div>
+        <div class="box-header with-border">
+          <h3 class="box-title">Servicios</h3>
+        </div>
+        <div class="box-body">
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>Nombre del Producto:</label>
-                <input type="text" class="form-control select2" id="nvchNombre">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Descripción del Producto:</label>
-                <input type="text" class="form-control select2" id="nvchDescripcion">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Precio Negociable:</label>
-                <input type="text" class="form-control select2" id="dcmPrecio">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Cantidad:</label>
-                <input type="text" class="form-control select2" id="intCantidad">
+                <label>Descripción del Servicio:</label>
+                <input type="text" id="nvchDescripcionServicio" name="nvchDescripcionServicio" class="form-control select2" 
+                placeholder="Ingrese la Descripción" maxlength="850" 
+                onkeyup="EsVacio('nvchDescripcionServicio')" required>
+                <span id="nvchDescripcionServicioIcono" class="" aria-hidden=""></span>
+                <div id="nvchDescripcionServicioObs" class=""></div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
+              <div id="intCantidadServicioGroup" class="form-group">
+                <label>Cantidad Mínima:</label>
+                <input type="text" id="intCantidadServicio" name="intCantidadServicio" class="form-control select2" 
+                placeholder="Ingrese Cantidad Minima"  
+                onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadServicio')" maxlength="11" required>
+                <span id="intCantidadServicioIcono" class="" aria-hidden=""></span>
+                <div id="intCantidadServicioObs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div id="dcmPrecioUnitarioServicioGroup" class="form-group">
+                <label>Precio de Venta 1:</label>
+                <input type="text" id="dcmPrecioUnitarioServicio" name="dcmPrecioUnitarioServicio" class="form-control select2" 
+                placeholder="Precio de Venta 1" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioUnitarioServicio')" maxlength="15" required>
+                <span id="dcmPrecioUnitarioServicioIcono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioUnitarioServicioObs" class=""></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
               <div class="form-group">
-                <input type="hidden" class="form-control select2" id="intIdProducto">
-                <input type="hidden" class="form-control select2" id="intIdOperacionCotizacion">
-                <input type="button" onclick="ActualizarDetalleCotizacion()" id="btn-agregar-detalleCotizacion" class="btn btn-sm btn-warning btn-flat" value="Editar Detalle del Orden de Compra">
-                <input type="button" onclick="CamposDetalleCotizacion('C')" id="btn-cancelar-detalleCotizacion" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                <input type="button" onclick="AgregarServicio()" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Servicio"/>
               </div>
             </div>
           </div>

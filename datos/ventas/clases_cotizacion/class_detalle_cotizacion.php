@@ -13,6 +13,8 @@ class DetalleCotizacion
   private $dcmDescuento;
   private $dcmPrecioUnitario;
   private $dcmTotal;
+  private $intIdTipoVenta;
+  private $nvchDescripcionServicio;
   
   public function IdOperacionCotizacion($intIdOperacionCotizacion){ $this->intIdOperacionCotizacion = $intIdOperacionCotizacion; }
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
@@ -24,6 +26,8 @@ class DetalleCotizacion
   public function Descuento($dcmDescuento){ $this->dcmDescuento = $dcmDescuento; }
   public function PrecioUnitario($dcmPrecioUnitario){ $this->dcmPrecioUnitario = $dcmPrecioUnitario; }
   public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
+  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
+  public function DescripcionServicio($nvchDescripcionServicio){ $this->nvchDescripcionServicio = $nvchDescripcionServicio; }
   /* FIN - Atributos de Detalle Cotizacion */
 
   /* INICIO - Métodos de Detalle Cotizacion */
@@ -35,7 +39,7 @@ class DetalleCotizacion
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
       	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
-        :dcmTotal)');
+        :dcmTotal,:intIdTipoVenta,:nvchDescripcionServicio)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion, 
         ':intIdProducto' => $value,
@@ -45,7 +49,9 @@ class DetalleCotizacion
         ':dcmPrecio' => $this->dcmPrecio[$key],
         ':dcmDescuento' => $this->dcmDescuento[$key],
         ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-        ':dcmTotal' => $this->dcmTotal[$key]));
+        ':dcmTotal' => $this->dcmTotal[$key],
+        ':intIdTipoVenta' => $this->intIdTipoVenta,
+        ':nvchDescripcionServicio' => $this->nvchDescripcionServicio[$key]));
       }
       echo "ok";
     }

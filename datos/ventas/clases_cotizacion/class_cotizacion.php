@@ -12,7 +12,13 @@ class Cotizacion{
   private $intIdTipoMoneda;
   private $intIdTipoPago;
   private $intDiasValidez;
+  private $intIdTipoVenta;
+  private $nvchTipo;
+  private $nvchModelo;
+  private $nvchMarca;
+  private $nvchHorometro;
   private $dtmFechaCreacion;
+  private $bitEstado;
   private $nvchObservacion;
   
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
@@ -23,6 +29,11 @@ class Cotizacion{
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function DiasValidez($intDiasValidez){ $this->intDiasValidez = $intDiasValidez; }
+  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
+  public function Tipo($nvchTipo){ $this->nvchTipo = $nvchTipo; }
+  public function Modelo($nvchModelo){ $this->nvchModelo = $nvchModelo; }
+  public function Marca($nvchMarca){ $this->nvchMarca = $nvchMarca; }
+  public function Horometro($nvchHorometro){ $this->nvchHorometro = $nvchHorometro; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
@@ -35,8 +46,8 @@ class Cotizacion{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:nvchNumeracion,
-        :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,
-        :dtmFechaCreacion,:bitEstado,:nvchObservacion)');
+        :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,
+        :nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,:dtmFechaCreacion,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
@@ -45,6 +56,11 @@ class Cotizacion{
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intDiasValidez' => $this->intDiasValidez,
+        ':intIdTipoVenta' => $this->intIdTipoVenta,
+        ':nvchTipo' => $this->nvchTipo,
+        ':nvchModelo' => $this->nvchModelo,
+        ':nvchMarca' => $this->nvchMarca,
+        ':nvchHorometro' => $this->nvchHorometro, 
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':bitEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
@@ -83,12 +99,20 @@ class Cotizacion{
       $FormularioCotizacion->IdTipoMoneda($fila['intIdTipoMoneda']);
       $FormularioCotizacion->IdTipoPago($fila['intIdTipoPago']);
       $FormularioCotizacion->DiasValidez($fila['intDiasValidez']);
+      $FormularioCotizacion->IdTipoVenta($fila['intIdTipoVenta']);
+      $FormularioCotizacion->Tipo($fila['nvchTipo']);
+      $FormularioCotizacion->Modelo($fila['nvchModelo']);
+      $FormularioCotizacion->Marca($fila['nvchMarca']);
+      $FormularioCotizacion->Horometro($fila['nvchHorometro']);
+      
       $FormularioCotizacion->NombreUsuario($fila['NombreUsuario']);
       $FormularioCotizacion->NombreCliente($fila['NombreCliente']);
       $FormularioCotizacion->DNICliente($fila['DNICliente']);
       $FormularioCotizacion->RUCCliente($fila['RUCCliente']);
       $FormularioCotizacion->SimboloMoneda($fila['SimboloMoneda']);
       $FormularioCotizacion->NombrePago($fila['NombrePago']);
+      $FormularioCotizacion->NombreVenta($fila['NombreVenta']);
+
       $FormularioCotizacion->FechaCreacion($fila['dtmFechaCreacion']);
       $FormularioCotizacion->Observacion($fila['nvchObservacion']);
       //$FormularioCotizacion->ConsultarFormulario($funcion);

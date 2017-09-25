@@ -11,6 +11,11 @@ DELIMITER $$
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intDiasValidez INT,
+	IN _intIdTipoVenta INT,
+	IN _nvchTipo VARCHAR(25),
+	IN _nvchModelo VARCHAR(75),
+	IN _nvchMarca VARCHAR(75),
+	IN _nvchHorometro VARCHAR(65),
 	IN _dtmFechaCreacion DATETIME,
 	IN _bitEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
@@ -18,10 +23,10 @@ DELIMITER $$
 	BEGIN
 		INSERT INTO tb_cotizacion 
 		(nvchNumeracion,intIdUsuario,intIdCliente,nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,
-			dtmFechaCreacion,bitEstado,nvchObservacion)
+			intIdTipoVenta,nvchTipo,nvchModelo,nvchMarca,nvchHorometro,dtmFechaCreacion,bitEstado,nvchObservacion)
 		VALUES
 		(_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,
-			_dtmFechaCreacion,_bitEstado,_nvchObservacion);
+			_intIdTipoVenta,_nvchTipo,_nvchModelo,_nvchMarca,_nvchHorometro,_dtmFechaCreacion,_bitEstado,_nvchObservacion);
 		SET _intIdCotizacion = LAST_INSERT_ID();
     END 
 $$
@@ -54,6 +59,11 @@ DELIMITER $$
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intDiasValidez INT,
+	IN _intIdTipoVenta INT,
+	IN _nvchTipo VARCHAR(25),
+	IN _nvchModelo VARCHAR(75),
+	IN _nvchMarca VARCHAR(75),
+	IN _nvchHorometro VARCHAR(65),
 	IN _dtmFechaCreacion DATETIME,
 	IN _nvchObservacion VARCHAR(2500)
     )
@@ -67,6 +77,11 @@ DELIMITER $$
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
 		intDiasValidez = _intDiasValidez,
+		intIdTipoVenta = _intIdTipoVenta,
+		nvchTipo = _nvchTipo,
+		nvchModelo = _nvchModelo,
+		nvchMarca = _nvchMarca,
+		nvchHorometro = _nvchHorometro,
 		dtmFechaCreacion = _dtmFechaCreacion,
 		nvchObservacion = _nvchObservacion
 		WHERE 
@@ -159,7 +174,7 @@ DELIMITER $$
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		WHERE 
-		CT.intIdCotizacion LIKE CONCAT(_elemento,'%') OR
+		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
@@ -184,8 +199,8 @@ DELIMITER $$
 			END AS NombreCliente FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
-		WHERE 
-		CT.intIdCotizacion LIKE CONCAT(_elemento,'%') OR
+		WHERE
+		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR

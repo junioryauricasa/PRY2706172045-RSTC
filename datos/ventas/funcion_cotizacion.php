@@ -20,6 +20,11 @@ switch($_POST['funcion']){
     $Cotizacion->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $Cotizacion->IdTipoPago($_POST['intIdTipoPago']);
     $Cotizacion->DiasValidez($_POST['intDiasValidez']);
+    $Cotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+    $Cotizacion->Tipo($_POST['nvchTipo']);
+    $Cotizacion->Modelo($_POST['nvchModelo']);
+    $Cotizacion->Marca($_POST['nvchMarca']);
+    $Cotizacion->Horometro($_POST['nvchHorometro']);
     $Cotizacion->Observacion($_POST['nvchObservacion']);
     $Cotizacion->InsertarCotizacion();
     $DetalleCotizacion = new DetalleCotizacion();
@@ -32,6 +37,8 @@ switch($_POST['funcion']){
     $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
     $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleCotizacion->Total($_POST['dcmTotal']);
+    $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+    $DetalleCotizacion->DescripcionServicio($_POST['nvchDescripcionServicio']);
     $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
   case "IDCT":
