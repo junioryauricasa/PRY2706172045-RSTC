@@ -7,7 +7,7 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
-	IN _nvchAtencion INT,
+	IN _nvchAtencion VARCHAR(250),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intDiasValidez INT,
@@ -50,7 +50,7 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
-	IN _nvchAtencion INT,
+	IN _nvchAtencion VARCHAR(250),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intDiasValidez INT,
@@ -88,10 +88,14 @@ DELIMITER $$
 			END AS NombreCliente,
 		C.nvchDNI AS DNICliente,
 		C.nvchRUC AS RUCCliente,
-		U.nvchUsername as NombreUsuario
+		U.nvchUsername AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		TPG.nvchNombre AS NombrePago
 	    FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_pago TPG ON CT.intIdTipoPago = TPG.intIdTipoPago
 		WHERE 
 		CT.intIdCotizacion = _intIdCotizacion;
     END 

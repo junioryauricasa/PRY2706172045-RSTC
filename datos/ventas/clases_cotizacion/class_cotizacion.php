@@ -87,6 +87,8 @@ class Cotizacion{
       $FormularioCotizacion->NombreCliente($fila['NombreCliente']);
       $FormularioCotizacion->DNICliente($fila['DNICliente']);
       $FormularioCotizacion->RUCCliente($fila['RUCCliente']);
+      $FormularioCotizacion->SimboloMoneda($fila['SimboloMoneda']);
+      $FormularioCotizacion->NombrePago($fila['NombrePago']);
       $FormularioCotizacion->FechaCreacion($fila['dtmFechaCreacion']);
       $FormularioCotizacion->Observacion($fila['nvchObservacion']);
       //$FormularioCotizacion->ConsultarFormulario($funcion);

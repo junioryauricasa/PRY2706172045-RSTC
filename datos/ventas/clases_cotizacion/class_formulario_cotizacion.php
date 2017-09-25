@@ -14,6 +14,8 @@ class FormularioCotizacion
   private $NombreCliente;
   private $DNICliente;
   private $RUCCliente;
+  private $SimboloMoneda;
+  private $NombrePago;
   private $dtmFechaCreacion;
   private $nvchObservacion;
 
@@ -29,6 +31,8 @@ class FormularioCotizacion
   public function NombreCliente($NombreCliente){ $this->NombreCliente = $NombreCliente; }
   public function DNICliente($DNICliente){ $this->DNICliente = $DNICliente; }
   public function RUCCliente($RUCCliente){ $this->RUCCliente = $RUCCliente; }
+  public function SimboloMoneda($SimboloMoneda){ $this->SimboloMoneda = $SimboloMoneda; }
+  public function NombrePago($NombrePago){ $this->NombrePago = $NombrePago; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
@@ -442,7 +446,7 @@ class FormularioCotizacion
   }
   function MostrarDetalle(){
   ?>
-  <div class="box box-default">
+  <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <h3 class="box-title">Detalle de la Cotización:</h3>
           <div class="box-tools pull-right">
@@ -456,10 +460,10 @@ class FormularioCotizacion
           <div class="box-body">
             <div id="DatosDelCliente">
             <div class="row">
-              <div class="col-md-3 nvchDNI">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Usuario que Generó:</label>
-                  <input type="text" class="form-control select2" value="<?php echo $this->NombreUsuario ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreUsuario; ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchDNI">
@@ -471,35 +475,39 @@ class FormularioCotizacion
               <div class="col-md-3 nvchRUC">
                 <div class="form-group">
                   <label>RUC:</label>
-                  <input type="text" class="form-control select2" value="<?php echo $this->RUCCliente ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->RUCCliente; ?>" readonly>
                 </div>
               </div>
-              <div class="col-md-3 nvchRazonSocial">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Razón Social/Nombres:</label>
-                  <input type="text" class="form-control select2" value="<?php echo $this->NombreCliente ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreCliente; ?>" readonly>
                 </div>
               </div>
-              <!--
-              <div class="col-md-3 nvchApellidoPaterno">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label>Apellido Paterno:</label>
-                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" placeholder="Ingrese la descripción">
+                  <label>Atención:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchAtencion; ?>" readonly>
                 </div>
               </div>
-              <div class="col-md-3 nvchApellidoMaterno">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label>Apellido Materno:</label>
-                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" placeholder="Ingrese el precio de compra">
+                  <label>Tipo de Moneda:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->SimboloMoneda; ?>" readonly>
                 </div>
               </div>
-              <div class="col-md-3 nvchNombres">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label>Nombres:</label>
-                  <input type="text" id="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de Cotizacion">
+                  <label>Tipo de Pago:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombrePago; ?>" readonly>
                 </div>
               </div>
-              -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Validez de Oferta:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->intDiasValidez; ?>" readonly>
+                </div>
+              </div>
             </div>
           </div>
           <div class="box-header with-border">

@@ -16,6 +16,10 @@ switch($_POST['funcion']){
     $Cotizacion->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Cotizacion->FechaCreacion($dtmFechaCreacion);
+    $Cotizacion->Atencion($_POST['nvchAtencion']);
+    $Cotizacion->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $Cotizacion->IdTipoPago($_POST['intIdTipoPago']);
+    $Cotizacion->DiasValidez($_POST['intDiasValidez']);
     $Cotizacion->Observacion($_POST['nvchObservacion']);
     $Cotizacion->InsertarCotizacion();
     $DetalleCotizacion = new DetalleCotizacion();
