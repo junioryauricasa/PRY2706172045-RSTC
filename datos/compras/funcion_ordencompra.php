@@ -12,10 +12,14 @@ if(empty($_SESSION['intIdOperacionOrdenCompra'])){
 switch($_POST['funcion']){
   case "I":
     $OrdenCompra = new OrdenCompra();
-    $OrdenCompra->IdUsuario($_SESSION['user_session']);
+    $OrdenCompra->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $OrdenCompra->IdProveedor($_POST['intIdProveedor']);
+    $OrdenCompra->Atencion($_POST['nvchAtencion']);
+    $OrdenCompra->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $OrdenCompra->IdTipoPago($_POST['intIdTipoPago']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $OrdenCompra->FechaCreacion($dtmFechaCreacion);
+    $OrdenCompra->Observacion($_POST['nvchObservacion']);
     $OrdenCompra->InsertarOrdenCompra();
     $DetalleOrdenCompra = new DetalleOrdenCompra();
     $DetalleOrdenCompra->IdOrdenCompra($_SESSION['intIdOrdenCompra']);
@@ -23,6 +27,7 @@ switch($_POST['funcion']){
     $DetalleOrdenCompra->FechaSolicitud($dtmFechaCreacion);
     $DetalleOrdenCompra->Cantidad($_POST['intCantidad']);
     $DetalleOrdenCompra->Precio($_POST['dcmPrecio']);
+    $DetalleOrdenCompra->Total($_POST['dcmTotal']);
     $DetalleOrdenCompra->InsertarDetalleOrdenCompra();
     break;
   case "IDOC":

@@ -8,6 +8,8 @@ include('../_include/rstheader.php');
     </script>
     <script type="text/javascript" src="../../negocio/compras/nordencompra.js"></script>
     <script type="text/javascript" src="../../negocio/compras/ndetalleordencompra.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -72,7 +74,7 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th>#Código</th>
+                <th>Numeración</th>
                 <th>Proveedor</th>
                 <th>Usuario</th>
                 <th>Fecha de Creación</th>

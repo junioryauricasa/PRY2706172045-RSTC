@@ -6,17 +6,38 @@ DELIMITER $$
 	OUT _intIdOrdenCompra INT,
 	IN _intIdUsuario INT,
 	IN _intIdProveedor INT,
-	IN _dtmFechaCreacion DATETIME
+	IN _nvchAtencion VARCHAR(250),
+	IN _intIdTipoMoneda INT,
+	IN _intIdTipoPago INT,
+	IN _dtmFechaCreacion DATETIME,
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_orden_compra 
-		(intIdUsuario,intIdProveedor,dtmFechaCreacion)
+		(intIdUsuario,intIdProveedor,nvchAtencion,intIdTipoMoneda,intIdTipoPago,dtmFechaCreacion,nvchObservacion)
 		VALUES
-		(_intIdUsuario,_intIdProveedor,_dtmFechaCreacion);
+		(_intIdUsuario,_intIdProveedor,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_dtmFechaCreacion,_nvchObservacion);
 		SET _intIdOrdenCompra = LAST_INSERT_ID();
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS INSERTARNUMERACIONORDENCOMPRA;
+DELIMITER $$
+	CREATE PROCEDURE INSERTARNUMERACIONORDENCOMPRA(
+	IN _intIdOrdenCompra INT,
+	IN _nvchNumeracion VARCHAR(10)
+    )
+	BEGIN
+		UPDATE tb_orden_compra
+		SET
+		nvchNumeracion = _nvchNumeracion
+		WHERE 
+		intIdOrdenCompra = _intIdOrdenCompra;
+    END 
+$$
+DELIMITER ;
+
 
 DROP PROCEDURE IF EXISTS ACTUALIZARORDENCOMPRA;
 DELIMITER $$
@@ -24,14 +45,22 @@ DELIMITER $$
 	IN _intIdOrdenCompra INT,
 	IN _intIdUsuario INT,
 	IN _intIdProveedor INT,
-	IN _dtmFechaCreacion DATETIME
+	IN _nvchAtencion VARCHAR(250),
+	IN _intIdTipoMoneda INT,
+	IN _intIdTipoPago INT,
+	IN _dtmFechaCreacion DATETIME,
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		UPDATE tb_orden_compra
 		SET
 		intIdUsuario = _intIdUsuario,
 		intIdProveedor = _intIdProveedor,
-		dtmFechaCreacion = _dtmFechaCreacion
+		nvchAtencion = _nvchAtencion,
+		intIdTipoMoneda = _intIdTipoMoneda,
+		intIdTipoPago = _intIdTipoPago,
+		dtmFechaCreacion = _dtmFechaCreacion,
+		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdOrdenCompra = _intIdOrdenCompra;
     END 
@@ -116,7 +145,7 @@ DELIMITER $$
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
-		OC.intIdOrdenCompra LIKE CONCAT(_elemento,'%') OR
+		OC.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		P.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		P.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		P.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
@@ -142,7 +171,7 @@ DELIMITER $$
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
-		OC.intIdOrdenCompra LIKE CONCAT(_elemento,'%') OR
+		OC.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		P.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		P.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		P.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR

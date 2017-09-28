@@ -10,6 +10,7 @@ class DetalleOrdenCompra
   private $intCantidad;
   private $intCantidadPendiente;
   private $dcmPrecio;
+  private $dcmTotal;
   
   public function IdOperacionOrdenCompra($intIdOperacionOrdenCompra){ $this->intIdOperacionOrdenCompra = $intIdOperacionOrdenCompra; }
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
@@ -18,6 +19,7 @@ class DetalleOrdenCompra
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
   public function CantidadPendiente($intCantidadPendiente){ $this->intCantidadPendiente = $intCantidadPendiente; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
+  public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
   /* FIN - Atributos de Detalle Orden Compra */
 
   /* INICIO - Métodos de Detalle Orden Compra */
@@ -28,14 +30,15 @@ class DetalleOrdenCompra
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleOrdenCompra(:intIdOrdenCompra,
-      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio)');
+      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio,:dcmTotal)');
       $sql_comando->execute(array(
         ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
         ':intIdProducto' => $value,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
         ':intCantidad' => $this->intCantidad[$key],
         ':intCantidadPendiente' => $this->intCantidad[$key],
-        ':dcmPrecio' => $this->dcmPrecio[$key]));
+        ':dcmPrecio' => $this->dcmPrecio[$key],
+        ':dcmTotal' => $this->dcmTotal[$key]));
       }
       echo "ok";
     }
@@ -50,14 +53,15 @@ class DetalleOrdenCompra
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleOrdenCompra(:intIdOrdenCompra,
-      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio)');
+      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio,:dcmTotal)');
       $sql_comando->execute(array(
         ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
         ':intIdProducto' => $this->intIdProducto,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
         ':intCantidad' => $this->intCantidad,
         ':intCantidadPendiente' => $this->intCantidad,
-        ':dcmPrecio' => $this->dcmPrecio));
+        ':dcmPrecio' => $this->dcmPrecio,
+        ':dcmTotal' => $this->dcmTotal));
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -84,10 +88,12 @@ class DetalleOrdenCompra
           echo '<tr bgcolor="#F7FCCF">';
         }
       	echo 
-      	'<td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
+      	'<td>'.$i.'</td>
+        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
+        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
+        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
         <td> 
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleOrdenCompra(this)">
             <i class="fa fa-edit"></i> Editar

@@ -129,7 +129,7 @@ class FormularioProveedor
                 <div class="col-md-8">
                   <div class="form-group">
                     <label>Observación y/o Datos Adicionales (Opcional):</label>
-                    <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cliente" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+                    <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-proveedor" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                   </div>
                 </div>
             </div>

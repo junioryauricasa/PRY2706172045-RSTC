@@ -1,26 +1,5 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
-function PaginacionProveedores(seleccion) {
-	var busqueda = document.getElementById("BusquedaProveedor").value;
-	var y = 5;
-	var x = $(seleccion).attr("idprd") * y;
-	var funcion = "MPD";
-	  $.ajax({
-	   url:"../../datos/compras/funcion_ordencompra.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedoresSeleccion").html(datos);
-	   	PaginarProveedoresSeleccion((x/y),y);
-	   }
-	  });
-}
-/* FIN - Paginar Proveedores para la Selección */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Paginar Proveedores para la Selección */
 function PaginacionProductos(seleccion) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var y = 5;
@@ -44,24 +23,6 @@ function PaginacionProductos(seleccion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
-function PaginarProveedoresSeleccion(x,y) {
-	var busqueda = document.getElementById("BusquedaProveedor").value;
-	var funcion = "PPD";
-	  $.ajax({
-	   url:"../../datos/compras/funcion_ordencompra.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
-	   success:function(datos)
-	   {
-	   	$("#PaginacionDeProveedores").html(datos);
-	   }
-	  });
-}
-/* FIN - Paginar Proveedores para la Selección */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Paginar Proveedores para la Selección */
 function PaginarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "PPT";
@@ -77,24 +38,6 @@ function PaginarProductosSeleccion(x,y) {
 	  });
 }
 /* FIN - Paginar Proveedores para la Selección */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Listar Proveedores para la Selección */
-function ListarProveedoresSeleccion(x,y) {
-	var busqueda = document.getElementById("BusquedaProveedor").value;
-	var funcion = "MPD";
-	  $.ajax({
-	   url:"../../datos/compras/funcion_ordencompra.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedoresSeleccion").html(datos);
-	   }
-	  });
-}
-/* FIN - Listar Proveedores para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -298,15 +241,18 @@ $(document).on('change', '#tipo-busqueda', function(){
 /* INICIO - Listar Domicilios según Ingresa */
 function SeleccionarProducto(seleccion) {
 	var intIdProducto = $(seleccion).attr("idsprt");
+	var nvchCodigo = $("input[type=hidden][name='SnvchCodigo["+intIdProducto+"]']").val();
 	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdProducto+"]']").val();
 	var dcmPrecio = $("input[type=text][name='SdcmPrecio["+intIdProducto+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
+	var Total = Number(dcmPrecio) * Number(intCantidad);
 
 	$('#ListaDeProductosComprar').append('<tr>'+
-		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+intIdProducto+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }
@@ -332,4 +278,18 @@ function CamposDetalleOrdenCompra(accion) {
 	}
 }
 /* FIN - Ocultar Campos */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ver Imagen */
+function VerImagenProducto(seleccion) {
+	var nvchDireccionImg = $(seleccion).attr("imagen");
+	$("#CuadroImagenHeader").css("background-color", "#78909c");
+    $("#CuadroImagenTitulo").css("color", "#FFFFFF");
+    $("#CuadroImagenFooter").css("background-color", "#cfd8dc");
+    $("#CuadroImagenTitulo").html("Imágen del Producto");
+	$("#DireccionImgProducto").html("<img class='img-responsive center-block' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+	$("#CuadroImagen").modal("show");
+}
+/* FIN - Ver Imagen */
 //////////////////////////////////////////////////////////////

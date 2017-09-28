@@ -607,7 +607,7 @@ class FormularioCotizacion
           <h3 class="box-title">Detalle de la Cotización:</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-ordencompra-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
           <div class="box-header with-border">

@@ -5,21 +5,41 @@ class FormularioOrdenCompra
   private $intIdOrdenCompra;
   private $intIdUsuario;
   private $intIdProveedor;
+  private $nvchAtencion;
+  private $intIdTipoMoneda;
+  private $intIdTipoPago;
+
   private $NombreUsuario;
   private $NombreProveedor;
+  private $DNICliente;
+  private $RUCCliente;
+  private $SimboloMoneda;
+  private $NombrePago;
+
   private $dtmFechaCreacion;
+  private $nvchObservacion;
 
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
+  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
+
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
   public function NombreProveedor($NombreProveedor){ $this->NombreProveedor = $NombreProveedor; }
+  public function DNICliente($DNICliente){ $this->DNICliente = $DNICliente; }
+  public function RUCCliente($RUCCliente){ $this->RUCCliente = $RUCCliente; }
+  public function SimboloMoneda($SimboloMoneda){ $this->SimboloMoneda = $SimboloMoneda; }
+  public function NombrePago($NombrePago){ $this->NombrePago = $NombrePago; }
+
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
   {
   ?> 
-      <div class="box box-default">
+      <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
           <h3 class="box-title">Nuevo Orden de Compra</h3>
@@ -28,7 +48,7 @@ class FormularioOrdenCompra
           <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-ordencompra-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
         <form id="form-ordencompra" method="POST">
@@ -46,36 +66,47 @@ class FormularioOrdenCompra
                   <input type="text" id="BusquedaProveedor" name="BusquedaProveedor" class="form-control select2" placeholder="Ingresar Búsqueda" required>
                 </div>
               </div>
-              <!--
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <div class="form-group">
-                  <label>Tipo de Persona:</label>
-                  <select id="tipo-persona" name="tipo-persona" class="form-control select2">
-                    <?php /* try{
-                            $sql_conexion = new Conexion_BD();
-                            $sql_conectar = $sql_conexion->Conectar();
-                            $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
-                            $sql_comando->execute();
-                            while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                            {
-                              echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
-                            }
-                          }catch(PDPExceptions $e){
-                            echo $e->getMessage();
-                          }*/?>
+                  <label>Tipo Persona:</label>
+                  <br>
+                  <select id="lista-persona" name="lista-persona"  class="form-control select2">
+                    <?php 
+                      require_once '../../datos/conexion/bd_conexion.php';
+                      try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopersona()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
                   </select>
                 </div>
               </div>
-              -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Nuevo Proveedor:</label>
+                  <br>
+                  <a href="../compras/vproveedor" class="btn btn-sm btn-primary btn-flat" target="_blank">+ Agregar</a>
+                </div>
+              </div>
             </div>
               <div class="table-responsive">
                 <table class="table table-hover table-condensed">
                   <thead>
                   <tr>
-                    <th>RUC/DNI</th>
-                    <th>Razón Social/Nombres</th>
-                    <th>Tipo de Persona</th>
-                    <th>Opción</th>
+                    <th class="ListaDNI">DNI</th>
+                    <th class="ListaRUC">RUC</th>
+                    <th class="ListaRazonSocial">Razón Social</th>
+                    <th class="ListaApellidoPaterno">Apellido Paterno</th>
+                    <th class="ListaApellidoMaterno">Apellido Materno</th>
+                    <th class="ListaNombres">Nombres</th>
+                    <th>Opciones</th>
                   </tr>
                   </thead>
                   <tbody id="ListaDeProveedoresSeleccion">
@@ -84,6 +115,7 @@ class FormularioOrdenCompra
                   <?php } ?>
                   </tbody>
                 </table>
+                <script>AccionCabecerasTabla("1");</script>
               </div>
               <hr>
               <div class="text-center">
@@ -99,37 +131,96 @@ class FormularioOrdenCompra
               <div class="col-md-3 nvchDNI">
                 <div class="form-group">
                   <label>DNI:</label>
-                  <input type="text" id="nvchDNI" class="form-control select2" placeholder="Ingrese código del producto" value="" required>
+                  <input type="text" id="nvchDNI" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRUC">
                 <div class="form-group">
                   <label>RUC:</label>
-                  <input type="text" id="nvchRUC" class="form-control select2" placeholder="Ingrese código de inventario" value="" required>
+                  <input type="text" id="nvchRUC" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRazonSocial">
                 <div class="form-group">
                   <label>Razón Social:</label>
-                  <input type="text" id="nvchRazonSocial" class="form-control select2" placeholder="Ingrese nombre del producto" value="" required>
+                  <input type="text" id="nvchRazonSocial" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchApellidoPaterno">
                 <div class="form-group">
                   <label>Apellido Paterno:</label>
-                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" placeholder="Ingrese la descripción" value="" required>
+                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchApellidoMaterno">
                 <div class="form-group">
                   <label>Apellido Materno:</label>
-                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" placeholder="Ingrese el precio de compra" value="" required>
+                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchNombres">
                 <div class="form-group">
                   <label>Nombres:</label>
-                  <input type="text" id="nvchNombres" class="form-control select2" placeholder="Ingrese el precio de venta" value="" required>
+                  <input type="text" id="nvchNombres" class="form-control select2" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchAtencionGroup" class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="<?php echo $this->nvchAtencion; ?>" onkeyup="EsVacio('nvchAtencion')" maxlength="250" required>
+                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchAtencionObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Forma de Pago:</label>
+                  <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopago()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoPago'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-ordencompra" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                 </div>
               </div>
             </div>
@@ -228,8 +319,9 @@ class FormularioOrdenCompra
             <tr>
               <th>Código</th>
               <th>Descripción</th>
-              <th>Precio Negociable</th>
               <th>Cantidad</th>
+              <th>Precio Unit.</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
@@ -288,9 +380,9 @@ class FormularioOrdenCompra
               <input type="hidden" id="intIdOrdenCompra" name="intIdOrdenCompra" value="<?php echo $this->intIdOrdenCompra; ?>" />
               <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
               <?php if($funcion == "F"){ ?>
-              <input type="submit" id="btn-crear-ordencompra" class="btn btn-sm btn-info btn-flat pull-left" value="Crear OrdenCompra">
+              <input type="button" id="btn-crear-ordencompra" class="btn btn-sm btn-info btn-flat pull-left" value="Crear OrdenCompra">
               <?php } else if($funcion == "M") { ?>
-              <input type="submit" id="btn-editar-ordencompra" class="btn btn-sm btn-info btn-flat pull-left" value="Editar OrdenCompra">
+              <input type="button" id="btn-editar-ordencompra" class="btn btn-sm btn-info btn-flat pull-left" value="Editar OrdenCompra">
               <?php } ?>
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
           </div>              
@@ -298,6 +390,106 @@ class FormularioOrdenCompra
         <div id="resultadocrud"></div>
       </div>
 <?php
+  }
+  function MostrarDetalle(){
+  ?>
+    <div id="Formulario" class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Detalle del Orden de Compra:</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" id="btn-form-ordencompra-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
+          <div class="box-header with-border">
+            <h3 class="box-title">Cliente</h3>
+          </div>
+          <div class="box-body">
+            <div id="DatosDelCliente">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Usuario que Generó:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreUsuario; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchDNI">
+                <div class="form-group">
+                  <label>DNI:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->DNICliente ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchRUC">
+                <div class="form-group">
+                  <label>RUC:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->RUCCliente; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Razón Social/Nombres:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreCliente; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchAtencion; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->SimboloMoneda; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Pago:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombrePago; ?>" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-header with-border">
+          </div>
+          <div class="box-header with-border">
+            <h3 class="box-title">Productos</h3>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>Ítem</th>
+                  <th>Código</th>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unit.</th>
+                  <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="ListaDeProductosComprar">
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6" readonly="true"><?php echo $this->nvchObservacion; ?></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer clearfix">
+              <input type="hidden" id="intIdCotizacion" name="intIdCotizacion" value="<?php echo $this->intIdCotizacion; ?>" />
+              <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
+              <input type="button" id="" class="btn btn-sm btn-info btn-flat pull-left" value="Cerrar Detalle">
+          </div>              
+        <div id="resultadocrud"></div>
+      </div>
+<?php 
   }
 }
 ?>

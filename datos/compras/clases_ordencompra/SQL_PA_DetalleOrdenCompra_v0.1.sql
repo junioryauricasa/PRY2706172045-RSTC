@@ -8,13 +8,14 @@ DELIMITER $$
 	IN _dtmFechaSolicitud DATETIME,
 	IN _intCantidad INT,
 	IN _intCantidadPendiente INT,
-	IN _dcmPrecio DECIMAL(11,2)
+	IN _dcmPrecio DECIMAL(11,2),
+	IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_detalle_orden_compra 
-		(intIdOrdenCompra,intIdProducto,dtmFechaSolicitud,intCantidad,intCantidadPendiente,dcmPrecio)
+		(intIdOrdenCompra,intIdProducto,dtmFechaSolicitud,intCantidad,intCantidadPendiente,dcmPrecio,dcmTotal)
 		VALUES
-		(_intIdOrdenCompra,_intIdProducto,_dtmFechaSolicitud,_intCantidad,_intCantidadPendiente,_dcmPrecio);
+		(_intIdOrdenCompra,_intIdProducto,_dtmFechaSolicitud,_intCantidad,_intCantidadPendiente,_dcmPrecio,_dcmTotal);
     END 
 $$
 DELIMITER ;
@@ -27,7 +28,8 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaSolicitud DATETIME,
 	IN _intCantidad INT,
-	IN _dcmPrecio DECIMAL(11,2)
+	IN _dcmPrecio DECIMAL(11,2),
+	IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		UPDATE tb_detalle_orden_compra
@@ -36,7 +38,8 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		dtmFechaSolicitud = _dtmFechaSolicitud,
 		intCantidad = _intCantidad,
-		dcmPrecio = _dcmPrecio
+		dcmPrecio = _dcmPrecio,
+		dcmTotal = _dcmTotal
 		WHERE 
 		intIdOperacionOrdenCompra = _intIdOperacionOrdenCompra;
     END 

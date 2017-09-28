@@ -1,17 +1,26 @@
 <?php 
 require_once '../conexion/bd_conexion.php';
+require_once '../numeraciones/class_numeraciones.php';
 require_once 'clases_ordencompra/class_formulario_ordencompra.php';
 class OrdenCompra{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdOrdenCompra;
   private $intIdUsuario;
   private $intIdProveedor;
+  private $nvchAtencion;
+  private $intIdTipoMoneda;
+  private $intIdTipoPago;
   private $dtmFechaCreacion;
+  private $nvchObservacion;
   
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
+  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
 
   /* INICIO - Métodos de Orden Compra */
@@ -21,15 +30,25 @@ class OrdenCompra{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarOrdenCompra(@intIdOrdenCompra,:intIdUsuario,
-      	:intIdProveedor,:dtmFechaCreacion)');
+      	:intIdProveedor,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:dtmFechaCreacion,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdProveedor' => $this->intIdProveedor,
-        ':dtmFechaCreacion' => $this->dtmFechaCreacion));
+        ':nvchAtencion' => $this->nvchAtencion,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoPago' => $this->intIdTipoPago,
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdOrdenCompra as intIdOrdenCompra");
       $salida = $salidas->fetchObject();
       $_SESSION['intIdOrdenCompra'] = $salida->intIdOrdenCompra;
+      $Numeraciones = new Numeraciones();
+      $nvchNumeracion = $Numeraciones -> NumeracionSimpleInterna($_SESSION['intIdOrdenCompra']);
+      $sql_comando = $sql_conectar->prepare('CALL InsertarNumeracionOrdenCompra(:intIdOrdenCompra,:nvchNumeracion)');
+      $sql_comando->execute(array(
+        ':intIdOrdenCompra' => $_SESSION['intIdOrdenCompra'],
+        ':nvchNumeracion' => $nvchNumeracion));
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -53,7 +72,7 @@ class OrdenCompra{
       $FormularioOrdenCompra->NombreUsuario($fila['NombreUsuario']);
       $FormularioOrdenCompra->NombreProveedor($fila['NombreProveedor']);
       $FormularioOrdenCompra->FechaCreacion($fila['dtmFechaCreacion']);
-      $FormularioOrdenCompra->ConsultarFormulario($funcion);
+      $FormularioOrdenCompra->MostrarDetalle();
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -192,7 +211,7 @@ class OrdenCompra{
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["intIdOrdenCompra"].'</td>
+        '<td>'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["NombreProveedor"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>

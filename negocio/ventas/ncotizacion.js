@@ -43,6 +43,12 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	  if(intIdCliente == "" || intIdCliente == null){
 	  	MensajeNormal("Seleccionar a un Cliente",2);
 	  	return false;
+	  } else if(EsVacio("nvchAtencion") == false){
+	  	goToBox("#nvchAtencionGroup");
+	  	return false;
+	  } else if(EsNumeroEntero("intDiasValidez") == false){
+	  	goToBox("#intDiasValidezGroup");
+	  	return false;
 	  } else if(EsVacio("nvchTipo") == false){
 	  	goToBox("#nvchTipoGroup");
 	  	return false;
@@ -170,7 +176,7 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se anuló correctamente la cotización",1);
+	   		MensajeNormal("Se anuló correctamente la Cotización",1);
 	   		ListarCotizacion(x,y,tipolistado);
 	   		PaginarCotizacion(x,y,tipolistado);
 	   	}
@@ -417,6 +423,7 @@ function PaginacionClientes(seleccion) {
 	var y = 5;
 	var x = $(seleccion).attr("idcli") * y;
 	var funcion = "MCL";
+	var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
