@@ -12,20 +12,37 @@ if(empty($_SESSION['intIdOperacionVenta'])){
 switch($_POST['funcion']){
   case "I":
     $Venta = new Venta();
-    $Venta->NumFactura($_POST['nvchNumFactura']);
-    $Venta->NumBoletaVenta($_POST['nvchNumBoletaVenta']);
+    $Venta->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $Venta->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Venta->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Venta->FechaCreacion($dtmFechaCreacion);
-    $Venta->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Venta->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $Venta->IdTipoPago($_POST['intIdTipoPago']);
+    $Venta->IdTipoVenta($_POST['intIdTipoVenta']);
+    $Venta->Observacion($_POST['nvchObservacion']);
     $Venta->InsertarVenta();
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->IdVenta($_SESSION['intIdVenta']);
-    $DetalleVenta->IdProducto($_POST['intIdProducto']);
-    $DetalleVenta->FechaRealizada($dtmFechaCreacion);
-    $DetalleVenta->Cantidad($_POST['intCantidad']);
-    $DetalleVenta->Precio($_POST['dcmPrecio']);
+    if($_POST['intIdTipoVenta'] == 1) {
+        $DetalleVenta->IdVenta($_SESSION['intIdVenta']);
+        $DetalleVenta->IdProducto($_POST['intIdProducto']);
+        $DetalleVenta->FechaRealizada($dtmFechaCreacion);
+        $DetalleVenta->Cantidad($_POST['intCantidad']);
+        $DetalleVenta->CantidadDisponible($_POST['intCantidadDisponible']);
+        $DetalleVenta->Precio($_POST['dcmPrecio']);
+        $DetalleVenta->Descuento($_POST['dcmDescuento']);
+        $DetalleVenta->PrecioUnitario($_POST['dcmPrecioUnitario']);
+        $DetalleVenta->Total($_POST['dcmTotal']);
+        $DetalleVenta->IdTipoVenta($_POST['intIdTipoVenta']);
+    } else if($_POST['intIdTipoVenta'] == 2) {
+        $DetalleVenta->IdVenta($_SESSION['intIdVenta']);
+        $DetalleVenta->FechaRealizada($dtmFechaCreacion);
+        $DetalleVenta->Cantidad($_POST['intCantidad']);
+        $DetalleVenta->PrecioUnitario($_POST['dcmPrecioUnitario']);
+        $DetalleVenta->Total($_POST['dcmTotal']);
+        $DetalleVenta->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleVenta->DescripcionServicio($_POST['nvchDescripcionServicio']);
+    }
     $DetalleVenta->InsertarDetalleVenta();
     break;
   case "IDV":
@@ -101,11 +118,11 @@ switch($_POST['funcion']){
     break;
   case "MCL":
     $Venta = new Venta();
-    $Venta->ListarClienteVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $Venta->ListarClienteVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
     break;
   case "PCL":
     $Venta = new Venta();
-    $Venta->PaginarClientesVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $Venta->PaginarClientesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
     break;
   case "MPT":
     $DetalleVenta = new DetalleVenta();

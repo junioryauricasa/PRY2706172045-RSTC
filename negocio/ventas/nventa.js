@@ -9,6 +9,7 @@ $(document).on('click', '#btn-form-crear-venta', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	goToBox("#Formulario");
 	   }
 	  });
 	 return false;
@@ -19,6 +20,29 @@ $(document).on('click', '#btn-form-crear-venta', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-venta', function(){
+	var intIdTipoVenta = $("#tipo-venta").val();
+	var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
+	if(intIdTipoVenta == 1){
+	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
+	  var intIdCliente = $("#intIdCliente").val();
+	  if(intIdCliente == "" || intIdCliente == null){
+	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  	return false;
+	  } else if(num_filas_detalle_cotizacion == 0){
+	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+	  	return false;
+	  }
+	} else if(intIdTipoVenta == 2){
+	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeServiciosComprar').rows.length;
+	  var intIdCliente = $("#intIdCliente").val();
+	  if(intIdCliente == "" || intIdCliente == null){
+	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  	return false;
+	  } else if(num_filas_detalle_cotizacion == 0){
+	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+	  	return false;
+	  }
+	}
 	  var formData = $("#form-venta").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
@@ -32,9 +56,10 @@ $(document).on('click', '#btn-crear-venta', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="okok") {
-	   		$("#resultadocrud").html("<script>alert('Se Agregó correctamente')</script>");
+	   		MensajeNormal("Se generó correctamente la Venta",1);
+	   		$("#btn-form-venta-remove").click();
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
-	   		AccionCabecerasTabla(intIdTipoComprobante);
+	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
 	   		$('#txt-busqueda').val("");
 	   		ListarVenta(x,y,tipolistado,intIdTipoComprobante);
 	   		PaginarVenta(x,y,tipolistado,intIdTipoComprobante);
@@ -63,7 +88,7 @@ $(document).on('change', '#lista-comprobante', function(){
 	   	intIdTipoComprobante:intIdTipoComprobante},
 	   success:function(datos)
 	   {
-	   	AccionCabecerasTabla(intIdTipoComprobante);
+	   	AccionCabecerasTablaComprobante(intIdTipoComprobante);
 	   	$("#ListaDeVentas").html(datos);
 	   	PaginarVenta(x,y,tipolistado,intIdTipoComprobante);
 	   }
@@ -86,6 +111,7 @@ $(document).on('click', '.btn-mostrar-venta', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	goToBox("#Formulario");
 	   	$("#tipo-comprobante").val($("#intIdTipoComprobante").val());
 	   	MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
 	   	MostrarDetalleVenta(intIdVenta,tipolistado);
@@ -131,9 +157,10 @@ $(document).on('click', '#btn-editar-venta', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		$("#resultadocrud").html("<script>alert('Se Actualizó correctamente')</script>");
+	   		MensajeNormal("Se modificó correctamente la Venta",1);
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
-	   		AccionCabecerasTabla(intIdTipoComprobante);
+	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
+	   		$("#btn-form-venta-remove").click();
 	   		ListarVenta(x,y,tipolistado,intIdTipoComprobante);
 	   		PaginarVenta(x,y,tipolistado,intIdTipoComprobante);
 	   	}
@@ -161,7 +188,7 @@ $(document).on('click', '.btn-eliminar-venta', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		$("#resultadocrud").html("<script>alert('Se Eliminó correctamente')</script>");
+	   		MensajeNormal("Se anuló correctamente la Venta",1);
 	   		ListarVenta(x,y,tipolistado,intIdTipoComprobante);
 	   		PaginarVenta(x,y,tipolistado,intIdTipoComprobante);
 	   	}
@@ -290,20 +317,59 @@ $(document).on('keyup', '#txt-busqueda', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+$(document).on('change', '#lista-persona', function(){
+  	  var busqueda = document.getElementById("BusquedaCliente").value;
+  	  var y = 5;
+  	  var x = 0;
+  	  var funcion = "MCL";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  if(intIdTipoPersona == 1){
+  	  	$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+  	  } else if(intIdTipoPersona == 2){
+  	  	$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+  	  }
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeClientesSeleccion").html(datos);
+	   	PaginarClientesSeleccion(x,y,intIdTipoPersona);
+	   }
+	  });
+	 return false;
+});
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Elemento Cliente*/
 $(document).on('keyup', '#BusquedaCliente', function(){
 	  var busqueda = document.getElementById("BusquedaCliente").value;
   	  var y = 5;
   	  var x = 0;
-  	  var funcion = "MPD";
+  	  var funcion = "MCL";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeClientesSeleccion").html(datos);
-	   	PaginarClientesSeleccion((x/y),y);
+	   	PaginarClientesSeleccion((x/y),y,intIdTipoPersona);
 	   }
 	  });
 	 return false;
@@ -330,6 +396,8 @@ function SeleccionarCliente(seleccion) {
 	   	$("#nvchApellidoPaterno").val(datos.nvchApellidoPaterno);
 	   	$("#nvchApellidoMaterno").val(datos.nvchApellidoMaterno);
 	   	$("#nvchNombres").val(datos.nvchNombres);
+	   	$("#TipoCliente").val(datos.TipoCliente);
+	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 	   	MostrarSeleccionCliente(datos.intIdTipoPersona);
 	   }
 	  });
@@ -388,15 +456,125 @@ function AccionSeleccionClientes(funcion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginacionClientes(seleccion) {
+	var busqueda = document.getElementById("BusquedaCliente").value;
+	var y = 5;
+	var x = $(seleccion).attr("idcli") * y;
+	var funcion = "MCL";
+	var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeClientesSeleccion").html(datos);
+	   	PaginarClientesSeleccion((x/y),y,intIdTipoPersona);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
+	var busqueda = document.getElementById("BusquedaCliente").value;
+	var funcion = "PCL";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#PaginacionDeClientes").html(datos);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Clientes para la Selección */
+function ListarClientesSeleccion(x,y) {
+	var busqueda = document.getElementById("BusquedaCliente").value;
+	var funcion = "MCL";
+	var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeClientesSeleccion").html(datos);
+	   }
+	  });
+}
+/* FIN - Listar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Botones */
-function AccionCabecerasTabla(intIdTipoComprobante) {
-	if(intIdTipoComprobante == 1){
-  	  	$(".listaNumFactura").show();
+function AccionCabecerasTabla(intIdTipoPersona) {
+	if(intIdTipoPersona == "1"){
+		$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+	} else if (intIdTipoPersona == "2") {
+		$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function AccionCabecerasTablaComprobante(intIdTipoComprobante) {
+	if(intIdTipoComprobante == "1"){
+		$(".listaNumFactura").show();
   	  	$(".listaNumBoletaVenta").hide();
-  	  } else if(intIdTipoComprobante == 2){
-  	  	$(".listaNumFactura").hide();
+  	  	$(".listaNumNotaCredito").hide();
+  	  	$(".listaNumGuiaRemision").hide();
+	} else if (intIdTipoComprobante == "2") {
+		$(".listaNumFactura").hide();
   	  	$(".listaNumBoletaVenta").show();
-  	  }
+  	  	$(".listaNumNotaCredito").hide();
+  	  	$(".listaNumGuiaRemision").hide();
+	} else if (intIdTipoComprobante == "3") {
+		$(".listaNumFactura").hide();
+  	  	$(".listaNumBoletaVenta").hide();
+  	  	$(".listaNumNotaCredito").show();
+  	  	$(".listaNumGuiaRemision").hide();
+	} else if (intIdTipoComprobante == "5") {
+		$(".listaNumFactura").hide();
+  	  	$(".listaNumBoletaVenta").hide();
+  	  	$(".listaNumNotaCredito").hide();
+  	  	$(".listaNumGuiaRemision").show();
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function MostrarTipoVenta() {
+	var intIdTipoVenta = $("#tipo-venta").val();
+	if(intIdTipoVenta == "1"){
+		$("#repuestos").show();
+  	  	$("#servicios").hide();
+	} else if (intIdTipoVenta == "2") {
+		$("#repuestos").hide();
+  	  	$("#servicios").show();
+	}
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////

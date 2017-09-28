@@ -17,10 +17,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_venta 
-		(intIdUsuario,intIdTipoComprobante,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
+		(intIdTipoComprobante,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
 			intIdTipoPago,bitEstado,intIdTipoVenta,nvchObservacion)
 		VALUES
-		(_intIdUsuario,_intIdTipoComprobante,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
+		(_intIdTipoComprobante,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
 			_intIdTipoPago,_bitEstado,_intIdTipoVenta,_nvchObservacion);
 		SET _intIdVenta = LAST_INSERT_ID();
     END 
@@ -97,9 +97,9 @@ DELIMITER $$
 	    FROM tb_venta V 
 		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
-		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
-		LEFT JOIN tb_tipo_pago TPG ON CT.intIdTipoPago = TPG.intIdTipoPago
-		LEFT JOIN tb_tipo_venta TV ON CT.intIdTipoVenta = TV.intIdTipoVenta
+		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_pago TPG ON V.intIdTipoPago = TPG.intIdTipoPago
+		LEFT JOIN tb_tipo_venta TV ON V.intIdTipoVenta = TV.intIdTipoVenta
 		WHERE 
 		V.intIdVenta = _intIdVenta;
     END 

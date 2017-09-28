@@ -3,6 +3,7 @@ require_once '../conexion/bd_conexion.php';
 class FormularioVenta
 {
   private $intIdVenta;
+  private $intIdTipoComprobante;
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
@@ -22,6 +23,7 @@ class FormularioVenta
   private $nvchObservacion;
 
   public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
+  public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
@@ -38,7 +40,7 @@ class FormularioVenta
   public function NombrePago($NombrePago){ $this->NombrePago = $NombrePago; }
   public function NombreVenta($NombreVenta){ $this->NombreVenta = $NombreVenta; }
 
-  public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
   {
@@ -227,7 +229,7 @@ class FormularioVenta
                     }?>
                   </select>
                 </div>
-                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+                <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
               </div>
               <div class="col-md-3">
                 <div class="form-group">
@@ -247,7 +249,7 @@ class FormularioVenta
                     }?>
                   </select>
                 </div>
-                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+                <input type="hidden" id="intIdTipoPago" value="<?php echo $this->intIdTipoPago; ?>">
               </div>
             </div>
             <div class="row">
@@ -493,7 +495,7 @@ class FormularioVenta
           <h3 class="box-title">Servicios</h3>
         </div>
         <div class="box-body">
-          <div class="row">
+          <!--<div class="row">
             <div class="col-md-3">
               <div id="nvchTipoGroup" class="form-group">
                 <label>Tipo:</label>
@@ -534,7 +536,7 @@ class FormularioVenta
                 <div id="nvchHorometroObs" class=""></div>
               </div>
             </div>
-          </div>
+          </div>-->
           <hr>
           <div class="row">
             <div class="col-md-6">

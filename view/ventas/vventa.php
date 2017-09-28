@@ -98,6 +98,8 @@ include('../_include/rstheader.php');
               <tr>
                 <th class="listaNumFactura">Número de Factura</th>
                 <th class="listaNumBoletaVenta">Número de Boleta</th>
+                <th class="listaNumNotaCredito">Número de Nota de Crédito</th>
+                <th class="listaNumGuiaRemision">Número de Guía de Remisión</th>
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
@@ -108,7 +110,7 @@ include('../_include/rstheader.php');
                 <script>ListarVenta(0,10,"T",1);</script>
               </tbody>
             </table>
-            <script>AccionCabecerasTabla(1);</script>
+            <script>AccionCabecerasTablaComprobante(1);</script>
           </div>
           <hr>
           <div class="text-center">

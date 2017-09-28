@@ -39,13 +39,13 @@ class Venta{
         :nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
-        ':nvchNumeracion' => $this->nvchNumeracion,
+        ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
-        ':bitEstado' => $this->bitEstado,
+        ':bitEstado' => 1,
         ':intIdTipoVenta' => $this->intIdTipoVenta,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -88,7 +88,7 @@ class Venta{
       $FormularioVenta->NombreVenta($fila['NombreVenta']);
 
       $FormularioVenta->Observacion($fila['nvchObservacion']);
-      $FormularioVenta->ConsultarFormulario($funcion);
+      $FormularioVenta->MostrarDetalle();
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -149,6 +149,8 @@ class Venta{
       $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
       $salida['nvchNombres'] = $fila['nvchNombres'];
       $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
+      $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['TipoCliente'] = $fila['TipoCliente'];
       echo json_encode($salida);
     }
     catch(PDPExceptio $e){
