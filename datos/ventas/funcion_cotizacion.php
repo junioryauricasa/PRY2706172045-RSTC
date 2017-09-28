@@ -48,7 +48,7 @@ switch($_POST['funcion']){
         $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleCotizacion->DescripcionServicio($_POST['nvchDescripcionServicio']);
     }
-    $DetalleCotizacion->InsertarDetalleVenta();
+    $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
   case "IDCT":
     $DetalleCotizacion = new DetalleCotizacion();
