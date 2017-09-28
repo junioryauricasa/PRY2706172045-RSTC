@@ -93,10 +93,11 @@ DELIMITER $$
     	IN _intIdOrdenCompra INT
     )
 	BEGIN
-		SELECT DOC.*,P.nvchDescripcion FROM tb_detalle_orden_compra DOC
+		SELECT DOC.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto FROM tb_detalle_orden_compra DOC
 		LEFT JOIN tb_producto P ON DOC.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE
-		intIdOrdenCompra = _intIdOrdenCompra;
+		DOC.intIdOrdenCompra = _intIdOrdenCompra AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;

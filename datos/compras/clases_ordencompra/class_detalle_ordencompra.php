@@ -79,21 +79,22 @@ class DetalleOrdenCompra
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
+      { /*
         if($_SESSION['intIdOperacionOrdenCompra'] == $fila['intIdOperacionOrdenCompra'] && $tipolistado == "A"){
           echo '<tr bgcolor="#B3E4C0">';
         } else if($cantidad == $i && $tipolistado == "I"){
           echo '<tr bgcolor="#BEE1EB">';
         } else {
           echo '<tr bgcolor="#F7FCCF">';
-        }
+        }*/
       	echo 
-      	'<td>'.$i.'</td>
-        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
+      	'<tr><td>'.$i.'</td>
+        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['CodigoProducto'].'</td>
+        <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['DescripcionProducto'].'"/>'.$fila['DescripcionProducto'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
         <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
+        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td></tr>';
+        /*
         <td> 
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleOrdenCompra(this)">
             <i class="fa fa-edit"></i> Editar
@@ -102,7 +103,7 @@ class DetalleOrdenCompra
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
-        </tr>';
+        </tr>';*/
         $i++;
       }
     }
@@ -187,13 +188,13 @@ class DetalleOrdenCompra
             <i class="fa fa-search"></i> Ver 
           </button>
         </td>
-        <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" value="" class="form-control select2" placeholder="Ingrese Precio"/></td>
-        <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>
+        <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" onkeypress="return EsDecimalTecla(event)" class="form-control select2" placeholder="Ingrese Precio"/></td>
+        <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" onkeypress="return EsNumeroEnteroTecla(event)" class="form-control select2" placeholder="Ingrese Cantidad"></td>
         <td>';
         if($tipofuncion == "F") {
         echo 
          '<button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProducto(this)">
-            <i class="fa fa-edit"></i> Seleccionar
+            <i class="fa fa-edit"></i> Elegir
           </button>';
         } else if ($tipofuncion == "M") {
         echo 

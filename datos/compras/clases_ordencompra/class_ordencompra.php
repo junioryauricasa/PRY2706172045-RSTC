@@ -69,9 +69,19 @@ class OrdenCompra{
       $FormularioOrdenCompra->IdOrdenCompra($fila['intIdOrdenCompra']);
       $FormularioOrdenCompra->IdUsuario($fila['intIdUsuario']);
       $FormularioOrdenCompra->IdProveedor($fila['intIdProveedor']);
+      $FormularioOrdenCompra->Atencion($fila['nvchAtencion']);
+      $FormularioOrdenCompra->IdTipoMoneda($fila['intIdTipoMoneda']);
+      $FormularioOrdenCompra->IdTipoPago($fila['intIdTipoPago']);
+
       $FormularioOrdenCompra->NombreUsuario($fila['NombreUsuario']);
       $FormularioOrdenCompra->NombreProveedor($fila['NombreProveedor']);
+      $FormularioOrdenCompra->DNIProveedor($fila['DNIProveedor']);
+      $FormularioOrdenCompra->RUCProveedor($fila['RUCProveedor']);
+      $FormularioOrdenCompra->SimboloMoneda($fila['SimboloMoneda']);
+      $FormularioOrdenCompra->NombrePago($fila['NombrePago']);
+
       $FormularioOrdenCompra->FechaCreacion($fila['dtmFechaCreacion']);
+      $FormularioOrdenCompra->Observacion($fila['nvchObservacion']);
       $FormularioOrdenCompra->MostrarDetalle();
     }
     catch(PDPExceptio $e){

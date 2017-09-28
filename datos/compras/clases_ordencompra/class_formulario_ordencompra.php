@@ -11,8 +11,8 @@ class FormularioOrdenCompra
 
   private $NombreUsuario;
   private $NombreProveedor;
-  private $DNICliente;
-  private $RUCCliente;
+  private $DNIProveedor;
+  private $RUCProveedor;
   private $SimboloMoneda;
   private $NombrePago;
 
@@ -28,8 +28,8 @@ class FormularioOrdenCompra
 
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
   public function NombreProveedor($NombreProveedor){ $this->NombreProveedor = $NombreProveedor; }
-  public function DNICliente($DNICliente){ $this->DNICliente = $DNICliente; }
-  public function RUCCliente($RUCCliente){ $this->RUCCliente = $RUCCliente; }
+  public function DNIProveedor($DNIProveedor){ $this->DNIProveedor = $DNIProveedor; }
+  public function RUCProveedor($RUCProveedor){ $this->RUCProveedor = $RUCProveedor; }
   public function SimboloMoneda($SimboloMoneda){ $this->SimboloMoneda = $SimboloMoneda; }
   public function NombrePago($NombrePago){ $this->NombrePago = $NombrePago; }
 
@@ -416,19 +416,19 @@ class FormularioOrdenCompra
               <div class="col-md-3 nvchDNI">
                 <div class="form-group">
                   <label>DNI:</label>
-                  <input type="text" class="form-control select2" value="<?php echo $this->DNICliente ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->DNIProveedor ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRUC">
                 <div class="form-group">
                   <label>RUC:</label>
-                  <input type="text" class="form-control select2" value="<?php echo $this->RUCCliente; ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->RUCProveedor; ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Razón Social/Nombres:</label>
-                  <input type="text" class="form-control select2" value="<?php echo $this->NombreCliente; ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->NombreProveedor; ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3">
@@ -477,7 +477,7 @@ class FormularioOrdenCompra
               <div class="col-md-8">
                 <div class="form-group">
                   <label>Observación y/o Datos Adicionales (Opcional):</label>
-                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6" readonly="true"><?php echo $this->nvchObservacion; ?></textarea>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-ordencompra" rows="6" readonly="true"><?php echo $this->nvchObservacion; ?></textarea>
                 </div>
               </div>
             </div>

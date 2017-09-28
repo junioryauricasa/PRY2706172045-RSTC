@@ -247,6 +247,14 @@ function SeleccionarProducto(seleccion) {
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
 	var Total = Number(dcmPrecio) * Number(intCantidad);
 
+	if(dcmPrecio == "" || dcmPrecio == null) {
+		MensajeNormal("Ingresar el Precio del Producto que estás eligiendo",2);
+		return false;
+	} else if(intCantidad == "" || intCantidad == null) {
+		MensajeNormal("Ingresar la Cantidad del Producto que estás eligiendo",2);
+		return false;
+	}
+
 	$('#ListaDeProductosComprar').append('<tr>'+
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+

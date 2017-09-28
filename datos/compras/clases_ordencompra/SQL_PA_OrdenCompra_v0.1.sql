@@ -73,15 +73,21 @@ DELIMITER $$
     	IN _intIdOrdenCompra INT
     )
 	BEGIN
-		SELECT OC.*, 
+		SELECT OC.*,
 			CASE 
 				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
 				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
 			END AS NombreProveedor,
-		U.nvchUsername as NombreUsuario
+		P.nvchDNI AS DNIProveedor,
+		P.nvchRUC AS RUCProveedor,
+		U.nvchUsername AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		TPG.nvchNombre AS NombrePago
 	    FROM tb_orden_compra OC 
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
+		LEFT JOIN tb_tipo_moneda TMN ON OC.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_pago TPG ON OC.intIdTipoPago = TPG.intIdTipoPago
 		WHERE 
 		OC.intIdOrdenCompra = _intIdOrdenCompra;
     END 
