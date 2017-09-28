@@ -51,7 +51,7 @@ DELIMITER $$
 		END AS NombreProveedor, 
 		P.*, OC.*
 		FROM tb_guia_interna_entrada GIE
-		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_orden_compra OC ON GIE.intIdOrdenCompra = OC.intIdOrdenCompra
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
@@ -87,7 +87,7 @@ DELIMITER $$
 		END AS NombreProveedor, 
 		P.*, OC.*
 		FROM tb_guia_interna_entrada GIE
-		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_orden_compra OC ON GIE.intIdOrdenCompra = OC.intIdOrdenCompra
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
  		LIMIT _x,_y;
@@ -110,7 +110,7 @@ DELIMITER $$
 		END AS NombreProveedor, 
 		P.*, OC.*
 		FROM tb_guia_interna_entrada GIE
-		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_orden_compra OC ON GIE.intIdOrdenCompra = OC.intIdOrdenCompra
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 
@@ -139,7 +139,7 @@ DELIMITER $$
 		END AS NombreProveedor, 
 		P.*, OC.*
 		FROM tb_guia_interna_entrada GIE
-		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intUserId
+		LEFT JOIN tb_usuario U ON GIE.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_orden_compra OC ON GIE.intIdOrdenCompra = OC.intIdOrdenCompra
 		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		WHERE 

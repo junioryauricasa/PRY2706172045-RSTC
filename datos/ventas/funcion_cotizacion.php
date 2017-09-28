@@ -28,17 +28,26 @@ switch($_POST['funcion']){
     $Cotizacion->Observacion($_POST['nvchObservacion']);
     $Cotizacion->InsertarCotizacion();
     $DetalleCotizacion = new DetalleCotizacion();
-    $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);
-    $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
-    $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
-    $DetalleCotizacion->Cantidad($_POST['intCantidad']);
-    $DetalleCotizacion->CantidadDisponible($_POST['intCantidadDisponible']);
-    $DetalleCotizacion->Precio($_POST['dcmPrecio']);
-    $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
-    $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
-    $DetalleCotizacion->Total($_POST['dcmTotal']);
-    $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
-    $DetalleCotizacion->DescripcionServicio($_POST['nvchDescripcionServicio']);
+    if($_POST['intIdTipoVenta'] == 1) {
+        $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);
+        $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
+        $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
+        $DetalleCotizacion->Cantidad($_POST['intCantidad']);
+        $DetalleCotizacion->CantidadDisponible($_POST['intCantidadDisponible']);
+        $DetalleCotizacion->Precio($_POST['dcmPrecio']);
+        $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
+        $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
+        $DetalleCotizacion->Total($_POST['dcmTotal']);
+        $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+    } else if($_POST['intIdTipoVenta'] == 2) {
+        $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);
+        $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
+        $DetalleCotizacion->Cantidad($_POST['intCantidad']);
+        $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
+        $DetalleCotizacion->Total($_POST['dcmTotal']);
+        $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleCotizacion->DescripcionServicio($_POST['nvchDescripcionServicio']);
+    }
     $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
   case "IDCT":

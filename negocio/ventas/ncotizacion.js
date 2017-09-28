@@ -20,6 +20,8 @@ $(document).on('click', '#btn-form-crear-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-cotizacion', function(){
+	var intIdTipoVenta = $("#tipo-venta").val();
+	if(intIdTipoVenta == 1){
 	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
 	  var intIdCliente = $("#intIdCliente").val();
 	  if(intIdCliente == "" || intIdCliente == null){
@@ -35,6 +37,29 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
 	  	return false;
 	  }
+	} else if(intIdTipoVenta == 2){
+	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeServiciosComprar').rows.length;
+	  var intIdCliente = $("#intIdCliente").val();
+	  if(intIdCliente == "" || intIdCliente == null){
+	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  	return false;
+	  } else if(EsVacio("nvchTipo") == false){
+	  	goToBox("#nvchTipoGroup");
+	  	return false;
+	  } else if(EsVacio("nvchModelo") == false){
+	  	goToBox("#nvchModeloGroup");
+	  	return false;
+	  } else if(EsVacio("nvchMarca") == false){
+	  	goToBox("#nvchMarcaGroup");
+	  	return false;
+	  } else if(EsVacio("nvchHorometro") == false){
+	  	goToBox("#nvchHorometroGroup");
+	  	return false;
+	  } else if(num_filas_detalle_cotizacion == 0){
+	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+	  	return false;
+	  }
+	}
 	  var formData = $("#form-cotizacion").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;

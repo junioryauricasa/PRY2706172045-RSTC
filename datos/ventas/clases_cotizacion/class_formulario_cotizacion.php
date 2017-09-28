@@ -251,6 +251,14 @@ class FormularioCotizacion
               </div>
             </div>
             <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="">
@@ -338,8 +346,8 @@ class FormularioCotizacion
                 <label>Tipo de Búsqueda:</label>
                 <br>
                 <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2">
-                  <option value="T">Resto de Campos</option>
                   <option value="C">Por Códigos</option>
+                  <option value="T">Resto de Campos</option>
                 </select>
               </div>
             </div>
@@ -423,14 +431,6 @@ class FormularioCotizacion
               </tbody>
             </table>
           </div>
-          <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <label>Observación y/o Datos Adicionales (Opcional):</label>
-                <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
-              </div>
-            </div>
-          </div>
           <div id="CamposDetalleCotizacion">
           <script>CamposDetalleCotizacion('C');</script>
             <div class="row">
@@ -443,7 +443,7 @@ class FormularioCotizacion
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Descripción del Producto:</label>
-                  <input type="text" class="form-control select2" id="nvchDescripcionServicio">
+                  <input type="text" class="form-control select2" id="nvchDescripcion">
                 </div>
               </div>
               <div class="col-md-3">
@@ -481,11 +481,54 @@ class FormularioCotizacion
         <div class="box-body">
           <div class="row">
             <div class="col-md-3">
-              <div class="form-group">
+              <div id="nvchTipoGroup" class="form-group">
+                <label>Tipo:</label>
+                <input type="text" id="nvchTipo" name="nvchTipo" class="form-control select2" 
+                placeholder="Ingrese la Descripción" maxlength="25" 
+                onkeyup="EsVacio('nvchTipo')" required>
+                <span id="nvchTipoIcono" class="" aria-hidden=""></span>
+                <div id="nvchTipoObs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div id="nvchModeloGroup" class="form-group">
+                <label>Modelo:</label>
+                <input type="text" id="nvchModelo" name="nvchModelo" class="form-control select2" 
+                placeholder="Ingrese la Descripción" maxlength="75" 
+                onkeyup="EsVacio('nvchModelo')" required>
+                <span id="nvchModeloIcono" class="" aria-hidden=""></span>
+                <div id="nvchModeloObs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div id="nvchMarcaGroup" class="form-group">
+                <label>Marca:</label>
+                <input type="text" id="nvchMarca" name="nvchMarca" class="form-control select2" 
+                placeholder="Ingrese la Descripción" maxlength="75" 
+                onkeyup="EsVacio('nvchMarca')" required>
+                <span id="nvchMarcaIcono" class="" aria-hidden=""></span>
+                <div id="nvchMarcaObs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div id="nvchHorometroGroup" class="form-group">
+                <label>Horómetro:</label>
+                <input type="text" id="nvchHorometro" name="nvchHorometro" class="form-control select2" 
+                placeholder="Ingrese la Descripción" maxlength="65" 
+                onkeyup="EsVacio('nvchHorometro')" required>
+                <span id="nvchHorometroIcono" class="" aria-hidden=""></span>
+                <div id="nvchHorometroObs" class=""></div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-6">
+              <div id="nvchDescripcionServicioGroup" class="form-group">
                 <label>Descripción del Servicio:</label>
-                <input type="text" id="nvchDescripcionServicio" name="nvchDescripcionServicio" class="form-control select2" 
+                <input type="text" id="nvchDescripcionServicio" class="form-control select2" 
                 placeholder="Ingrese la Descripción" maxlength="850" 
-                onkeyup="EsVacio('nvchDescripcionServicio')" required>
+                onkeyup="EsVacio('nvchDescripcionServicio')">
                 <span id="nvchDescripcionServicioIcono" class="" aria-hidden=""></span>
                 <div id="nvchDescripcionServicioObs" class=""></div>
               </div>
@@ -494,20 +537,20 @@ class FormularioCotizacion
           <div class="row">
             <div class="col-md-3">
               <div id="intCantidadServicioGroup" class="form-group">
-                <label>Cantidad Mínima:</label>
-                <input type="text" id="intCantidadServicio" name="intCantidadServicio" class="form-control select2" 
-                placeholder="Ingrese Cantidad Minima"  
-                onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadServicio')" maxlength="11" required>
+                <label>Cantidad:</label>
+                <input type="text" id="intCantidadServicio" class="form-control select2" 
+                placeholder="Ingrese Cantidad"  
+                onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadServicio')" maxlength="11">
                 <span id="intCantidadServicioIcono" class="" aria-hidden=""></span>
                 <div id="intCantidadServicioObs" class=""></div>
               </div>
             </div>
             <div class="col-md-2">
               <div id="dcmPrecioUnitarioServicioGroup" class="form-group">
-                <label>Precio de Venta 1:</label>
-                <input type="text" id="dcmPrecioUnitarioServicio" name="dcmPrecioUnitarioServicio" class="form-control select2" 
-                placeholder="Precio de Venta 1" 
-                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioUnitarioServicio')" maxlength="15" required>
+                <label>Precio Unitario:</label>
+                <input type="text" id="dcmPrecioUnitarioServicio" class="form-control select2" 
+                placeholder="Ingrese Precio" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioUnitarioServicio')" maxlength="15">
                 <span id="dcmPrecioUnitarioServicioIcono" class="" aria-hidden=""></span>
                 <div id="dcmPrecioUnitarioServicioObs" class=""></div>
               </div>
@@ -519,6 +562,21 @@ class FormularioCotizacion
                 <input type="button" onclick="AgregarServicio()" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Servicio"/>
               </div>
             </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+                <th>Precio Unit.</th>
+                <th>Total</th>
+                <th>Opción</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDeServiciosComprar">
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -606,8 +664,10 @@ class FormularioCotizacion
                   <input type="text" class="form-control select2" value="<?php echo $this->intDiasValidez; ?>" readonly>
                 </div>
               </div>
+              <input type="hidden" id="intIdTipoVenta" value="<?php echo $this->intIdTipoVenta; ?>" />
             </div>
           </div>
+          <?php if($this->intIdTipoVenta == 1) {?>
           <div class="box-header with-border">
           </div>
           <div class="box-header with-border">
@@ -642,6 +702,65 @@ class FormularioCotizacion
               </div>
             </div>
           </div>
+          <?php } else if($this->intIdTipoVenta == 2) {?>
+          <div class="box-header with-border">
+          </div>
+          <div class="box-header with-border">
+            <h3 class="box-title">Servicios</h3>
+          </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchTipo; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Modelo:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchModelo; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Marca:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchMarca; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Horómetro:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchHorometro; ?>" readonly>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>Ítem</th>
+                  <th>Cantidad</th>
+                  <th>Descripcion</th>
+                  <th>Precio Unit.</th>
+                  <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="ListaDeServiciosComprar">
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6" readonly="true"><?php echo $this->nvchObservacion; ?></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
           <div class="box-footer clearfix">
               <input type="hidden" id="intIdCotizacion" name="intIdCotizacion" value="<?php echo $this->intIdCotizacion; ?>" />
               <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />

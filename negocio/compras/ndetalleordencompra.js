@@ -27,10 +27,11 @@ function PaginacionProductos(seleccion) {
 	var x = $(seleccion).attr("idprt") * y;
 	var funcion = "MPT";
 	var tipofuncion = document.getElementById("tipofuncion").value;
+	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_ordencompra.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion,tipofuncion},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion,tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosSeleccion").html(datos);
@@ -64,10 +65,11 @@ function PaginarProveedoresSeleccion(x,y) {
 function PaginarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "PPT";
+	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_ordencompra.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
 	   {
 	   	$("#PaginacionDeProductos").html(datos);
@@ -100,10 +102,11 @@ function ListarProveedoresSeleccion(x,y) {
 function ListarProductosSeleccion(x,y,tipofuncion) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
+	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_ordencompra.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosSeleccion").html(datos);
@@ -251,10 +254,11 @@ $(document).on('keyup', '#BusquedaProducto', function(){
   	  var x = 0;
   	  var funcion = "MPT";
   	  var tipofuncion = document.getElementById("tipofuncion").value;
+  	  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
 	   url:"../../datos/compras/funcion_ordencompra.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion},
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosSeleccion").html(datos);
@@ -264,6 +268,30 @@ $(document).on('keyup', '#BusquedaProducto', function(){
 	 return false;
 });
 /* FIN - Funcion Ajax - Buscar Elemento Proveedor */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Buscar Elemento Cliente*/
+$(document).on('change', '#tipo-busqueda', function(){
+	  var busqueda = document.getElementById("BusquedaProducto").value;
+  	  var y = 5;
+  	  var x = 0;
+  	  var funcion = "MPT";
+  	  var tipofuncion = document.getElementById("tipofuncion").value;
+  	  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+	  $.ajax({
+	   url:"../../datos/compras/funcion_ordencompra.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductosSeleccion").html(datos);
+	   	PaginarProductosSeleccion((x/y),y);
+	   }
+	  });
+	 return false;
+});
+/* FIN - Funcion Ajax - Buscar Elemento Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

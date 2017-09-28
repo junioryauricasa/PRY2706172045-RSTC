@@ -102,15 +102,11 @@ switch($_POST['funcion']){
     break;
   case "MPT":
     $DetalleOrdenCompra = new DetalleOrdenCompra();
-    $DetalleOrdenCompra->ListarProductoOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion']);
+    $DetalleOrdenCompra->ListarProductoOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion'],$_POST['TipoBusqueda']);
     break;
   case "PPT":
     $DetalleOrdenCompra = new DetalleOrdenCompra();
-    $DetalleOrdenCompra->PaginarProductosOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
-    break;
-  case "OCR":
-    $DetalleOrdenCompra = new DetalleOrdenCompra();
-    $DetalleOrdenCompra->PaginarProductosOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $DetalleOrdenCompra->PaginarProductosOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
     break;
   case "F":
     $FormularioOrdenCompra = new FormularioOrdenCompra();

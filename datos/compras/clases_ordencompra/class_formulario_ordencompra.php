@@ -175,6 +175,16 @@ class FormularioOrdenCompra
               <input type="text" id="BusquedaProducto" name="BusquedaProducto" class="form-control select2" placeholder="Ingresar Búsqueda" required>
             </div>
           </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Tipo de Búsqueda:</label>
+              <br>
+              <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2">
+                <option value="C">Por Códigos</option>
+                <option value="T">Resto de Campos</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="table-responsive">
           <table class="table table-hover table-condensed">
@@ -182,6 +192,7 @@ class FormularioOrdenCompra
             <tr>
               <th>Código</th>
               <th>Descripción</th>
+              <th>Imágen</th>
               <th>Precio Negociable</th>
               <th>Cantidad</th>
               <th>Opción</th>

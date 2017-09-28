@@ -105,13 +105,15 @@ DELIMITER $$
 		C.nvchRUC AS RUCCliente,
 		U.nvchUsername AS NombreUsuario,
 		TMN.nvchSimbolo AS SimboloMoneda,
-		TPG.nvchNombre AS NombrePago
+		TPG.nvchNombre AS NombrePago,
+		TV.nvchNombre AS NombreVenta
 	    FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
 		LEFT JOIN tb_tipo_pago TPG ON CT.intIdTipoPago = TPG.intIdTipoPago
-		WHERE 
+		LEFT JOIN tb_tipo_venta TV ON CT.intIdTipoVenta = TV.intIdTipoVenta
+		WHERE
 		CT.intIdCotizacion = _intIdCotizacion;
     END 
 $$

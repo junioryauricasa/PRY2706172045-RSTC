@@ -100,11 +100,14 @@ function MostrarDetalleCotizacion(intIdCotizacion,tipolistado) {
 	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeProductosComprar").html(datos);
+	   	if($("#intIdTipoVenta").val() == 1){
+	   		$("#ListaDeProductosComprar").html(datos);
+	   	} else if($("#intIdTipoVenta").val() == 2){
+	   		$("#ListaDeServiciosComprar").html(datos);
+	   	}
 	   }
 	  });
 }
-
 /* FIN - Mostrar Detalle Orden Compra Seleccionado */
 //////////////////////////////////////////////////////////////
 
@@ -271,6 +274,37 @@ function SeleccionarProducto(seleccion) {
 		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
+}
+/* FIN - Listar Domicilios según Ingresa */
+////////////////////////////////////////////////////////////// 
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Domicilios según Ingresa */
+function AgregarServicio() {
+
+	if(EsVacio("nvchDescripcionServicio") == false){
+		return false;
+	} else if(EsNumeroEntero("intCantidadServicio") == false){
+		return false;
+	} else if(EsDecimal("dcmPrecioUnitarioServicio")== false){
+		return false;
+	}
+
+	var nvchDescripcion = $("#nvchDescripcionServicio").val();
+	var intCantidad = $("#intCantidadServicio").val();
+	var dcmPrecioUnitario = Number($("#dcmPrecioUnitarioServicio").val()).toFixed(2);
+	var Total = (dcmPrecioUnitario * intCantidad).toFixed(2); 
+
+	$('#ListaDeServiciosComprar').append('<tr>'+
+		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchDescripcionServicio[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+dcmPrecioUnitario+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
+		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
+		'</tr>');
+	RestablecerValidacion("nvchDescripcionServicio",1);
+	RestablecerValidacion("intCantidadServicio",1);
+	RestablecerValidacion("dcmPrecioUnitarioServicio",1);
 }
 /* FIN - Listar Domicilios según Ingresa */
 ////////////////////////////////////////////////////////////// 

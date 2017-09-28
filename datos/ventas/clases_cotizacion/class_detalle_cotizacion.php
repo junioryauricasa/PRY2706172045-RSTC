@@ -36,22 +36,37 @@ class DetalleCotizacion
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      foreach ($this->intIdProducto as $key => $value) {
+      foreach ($this->intCantidad as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,
       	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
         :dcmTotal,:intIdTipoVenta,:nvchDescripcionServicio)');
-      $sql_comando->execute(array(
-        ':intIdCotizacion' => $this->intIdCotizacion, 
-        ':intIdProducto' => $value,
-        ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-        ':intCantidad' => $this->intCantidad[$key],
-        ':intCantidadDisponible' => $this->intCantidadDisponible[$key],
-        ':dcmPrecio' => $this->dcmPrecio[$key],
-        ':dcmDescuento' => $this->dcmDescuento[$key],
-        ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-        ':dcmTotal' => $this->dcmTotal[$key],
-        ':intIdTipoVenta' => $this->intIdTipoVenta,
-        ':nvchDescripcionServicio' => $this->nvchDescripcionServicio[$key]));
+        if($this->intIdTipoVenta == 1){
+          $sql_comando->execute(array(
+          ':intIdCotizacion' => $this->intIdCotizacion, 
+          ':intIdProducto' => $this->intIdProducto[$key],
+          ':dtmFechaRealizada' => $this->dtmFechaRealizada,
+          ':intCantidad' => $value,
+          ':intCantidadDisponible' => $this->intCantidadDisponible[$key],
+          ':dcmPrecio' => $this->dcmPrecio[$key],
+          ':dcmDescuento' => $this->dcmDescuento[$key],
+          ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+          ':dcmTotal' => $this->dcmTotal[$key],
+          ':intIdTipoVenta' => $this->intIdTipoVenta,
+          ':nvchDescripcionServicio' => ''));
+        } else if($this->intIdTipoVenta == 2){
+          $sql_comando->execute(array(
+          ':intIdCotizacion' => $this->intIdCotizacion,
+          ':intIdProducto' => 0,
+          ':dtmFechaRealizada' => $this->dtmFechaRealizada,
+          ':intCantidad' => $value,
+          ':intCantidadDisponible' => 0,
+          ':dcmPrecio' => 0.00,
+          ':dcmDescuento' => 0.00,
+          ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+          ':dcmTotal' => $this->dcmTotal[$key],
+          ':intIdTipoVenta' => $this->intIdTipoVenta,
+          ':nvchDescripcionServicio' => $this->nvchDescripcionServicio[$key]));
+        }
       }
       echo "ok";
     }
@@ -96,19 +111,31 @@ class DetalleCotizacion
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-      	echo
-        '<tr>
-        <td>'.$i.'</td>
-      	<td>'.$fila['CodigoProducto'].'</td>
-        <td>'.$fila['DescripcionProducto'].'</td>
-        <td>'.$fila['intCantidad'].'</td>
-        <td>'.$fila['intCantidadDisponible'].'</td>
-        <td>'.$fila['dcmPrecio'].'</td>
-        <td>'.$fila['dcmDescuento'].'</td>
-        <td>'.$fila['dcmPrecioUnitario'].'</td>
-        <td>'.$fila['dcmTotal'].'</td>
-        </tr>';
-        $i++;
+        if($fila['intIdTipoVenta'] == 1){
+        	echo
+          '<tr>
+          <td>'.$i.'</td>
+        	<td>'.$fila['CodigoProducto'].'</td>
+          <td>'.$fila['DescripcionProducto'].'</td>
+          <td>'.$fila['intCantidad'].'</td>
+          <td>'.$fila['intCantidadDisponible'].'</td>
+          <td>'.$fila['dcmPrecio'].'</td>
+          <td>'.$fila['dcmDescuento'].'</td>
+          <td>'.$fila['dcmPrecioUnitario'].'</td>
+          <td>'.$fila['dcmTotal'].'</td>
+          </tr>';
+          $i++;
+        } else if($fila['intIdTipoVenta'] == 2){
+          echo
+          '<tr>
+          <td>'.$i.'</td>
+          <td>'.$fila['intCantidad'].'</td>
+          <td>'.$fila['nvchDescripcionServicio'].'</td>
+          <td>'.$fila['dcmPrecioUnitario'].'</td>
+          <td>'.$fila['dcmTotal'].'</td>
+          </tr>';
+          $i++;
+        }
       }
     }
     catch(PDPExceptio $e){

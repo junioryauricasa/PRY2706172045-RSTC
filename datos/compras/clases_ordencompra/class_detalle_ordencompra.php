@@ -163,20 +163,25 @@ class DetalleOrdenCompra
     }
   }
 
-  public function ListarProductoOrdenCompra($busqueda,$x,$y,$tipofuncion)
+  public function ListarProductoOrdenCompra($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
   {
   	try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ListarProductoOrdenCompra(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':TipoBusqueda' => $TipoBusqueda));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-      	echo 
-      	'<tr>
-        <td><input type="hidden" name="SintIdProducto['.$fila['intIdProducto'].']" value="'.$fila['intIdProducto'].'"/>'.$fila['intIdProducto'].'</td>
+        echo 
+        '<tr>
+        <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Precio"></td>
+        <td>
+          <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
+            <i class="fa fa-search"></i> Ver 
+          </button>
+        </td>
+        <td><input type="text" name="SdcmPrecio['.$fila['intIdProducto'].']" value="" class="form-control select2" placeholder="Ingrese Precio"/></td>
         <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Cantidad"></td>
         <td>';
         if($tipofuncion == "F") {
@@ -200,13 +205,13 @@ class DetalleOrdenCompra
     }
   }
 
-  public function PaginarProductosOrdenCompra($busqueda,$x,$y)
+  public function PaginarProductosOrdenCompra($busqueda,$x,$y,$TipoBusqueda)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL PAGINARPRODUCTOORDENCOMPRA(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       $output = "";
