@@ -4,20 +4,28 @@ require_once 'clases_venta/class_formulario_venta.php';
 class Venta{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdVenta;
-  private $nvchNumFactura;
-  private $nvchNumBoletaVenta;
+  private $intIdTipoComprobante;
+  private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
   private $dtmFechaCreacion;
-  private $intIdTipoComprobante;
+  private $intIdTipoMoneda;
+  private $intIdTipoPago;
+  private $bitEstado;
+  private $intIdTipoVenta;
+  private $nvchObservacion;
   
   public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
-  public function NumFactura($nvchNumFactura){ $this->nvchNumFactura = $nvchNumFactura; }
-  public function NumBoletaVenta($nvchNumBoletaVenta){ $this->nvchNumBoletaVenta = $nvchNumBoletaVenta; }
+  public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
-  public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
+  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
 
   /* INICIO - Métodos de Orden Compra */
@@ -26,15 +34,20 @@ class Venta{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarVenta(@intIdVenta,:nvchNumFactura,
-        :nvchNumBoletaVenta,:intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoComprobante)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarVenta(@intIdVenta,:intIdTipoComprobante,:nvchNumeracion,
+        :intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,:bitEstado,:intIdTipoVenta,
+        :nvchObservacion)');
       $sql_comando->execute(array(
-        ':nvchNumFactura' => $this->nvchNumFactura,
-        ':nvchNumBoletaVenta' => $this->nvchNumBoletaVenta,
+        ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+        ':nvchNumeracion' => $this->nvchNumeracion,
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
-        ':intIdTipoComprobante' => $this->intIdTipoComprobante));
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoPago' => $this->intIdTipoPago,
+        ':bitEstado' => $this->bitEstado,
+        ':intIdTipoVenta' => $this->intIdTipoVenta,
+        ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdVenta as intIdVenta");
       $salida = $salidas->fetchObject();
@@ -57,14 +70,24 @@ class Venta{
 
       $FormularioVenta = new FormularioVenta();
       $FormularioVenta->IdVenta($fila['intIdVenta']);
-      $FormularioVenta->NumFactura($fila['nvchNumFactura']);
-      $FormularioVenta->NumBoletaVenta($fila['nvchNumBoletaVenta']);
+      $FormularioVenta->IdTipoComprobante($fila['intIdTipoComprobante']);
+      $FormularioVenta->Numeracion($fila['nvchNumeracion']);
       $FormularioVenta->IdUsuario($fila['intIdUsuario']);
       $FormularioVenta->IdCliente($fila['intIdCliente']);
+      $FormularioVenta->FechaCreacion($fila['dtmFechaCreacion']);
+      $FormularioVenta->IdTipoMoneda($fila['intIdTipoMoneda']);
+      $FormularioVenta->IdTipoPago($fila['intIdTipoPago']);
+      $FormularioVenta->IdTipoVenta($fila['intIdTipoVenta']);
+
       $FormularioVenta->NombreUsuario($fila['NombreUsuario']);
       $FormularioVenta->NombreCliente($fila['NombreCliente']);
-      $FormularioVenta->FechaCreacion($fila['dtmFechaCreacion']);
-      $FormularioVenta->IdTipoComprobante($fila['intIdTipoComprobante']);
+      $FormularioVenta->DNICliente($fila['DNICliente']);
+      $FormularioVenta->RUCCliente($fila['RUCCliente']);
+      $FormularioVenta->SimboloMoneda($fila['SimboloMoneda']);
+      $FormularioVenta->NombrePago($fila['NombrePago']);
+      $FormularioVenta->NombreVenta($fila['NombreVenta']);
+
+      $FormularioVenta->Observacion($fila['nvchObservacion']);
       $FormularioVenta->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
@@ -72,31 +95,31 @@ class Venta{
     }    
   }
 
-  public function ListarClienteVenta($busqueda,$x,$y)
+  public function ListarClienteVenta($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ListarClienteVenta(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        echo 
-        '<tr>
-        <td>'.$fila['IdentificadorCliente'].'</td>
-        <td>'.$fila['NombreCliente'].'</td>';
-        if($fila['intIdTipoPersona'] == 1){
-          echo '<td>Persona Jurídica</td>';
-        } else if($fila['intIdTipoPersona'] == 2){
-          echo '<td>Persona Natural</td>';
+        echo '<tr>';
+        if($intIdTipoPersona == 2) { 
+          echo '<td>'.$fila["nvchDNI"].'</td>'; 
         }
-        if($fila['intIdTipoCliente'] == 1){
-          echo '<td>Cliente Final</td>';
-        } else if($fila['intIdTipoCliente'] == 2){
-          echo '<td>Cliente Revendedor</td>';
+        echo '<td>'.$fila["nvchRUC"].'</td>';
+        if($intIdTipoPersona == 1) { 
+          echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
+        }
+        if($intIdTipoPersona == 2) {
+        echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
+        <td>'.$fila["nvchApellidoMaterno"].'</td>
+        <td>'.$fila["nvchNombres"].'</td>';
         }
         echo 
-        '<td> 
+        '<td>'.$fila["TipoCliente"].'</td>
+        <td> 
           <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCliente(this)">
             <i class="fa fa-edit"></i> Seleccionar
           </button>
@@ -329,13 +352,13 @@ class Venta{
     }  
   }
 
-  public function PaginarClientesVenta($busqueda,$x,$y)
+  public function PaginarClientesVenta($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL PAGINARClienteVenta(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_II(:busqueda,:intIdTipoPersona)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       $output = "";

@@ -4,19 +4,41 @@ DROP PROCEDURE IF EXISTS INSERTARVENTA;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARVENTA(
 	OUT _intIdVenta INT,
-	IN _nvchNumFactura VARCHAR(10),
-	IN _nvchNumBoletaVenta VARCHAR(10),
+	IN _intIdTipoComprobante INT,
+	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
 	IN _dtmFechaCreacion DATETIME,
-	IN _intIdTipoComprobante INT
+	IN _intIdTipoMoneda INT,
+	IN _intIdTipoPago INT,
+	IN _bitEstado INT,
+	IN _intIdTipoVenta INT,
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_venta 
-		(intIdUsuario,nvchNumFactura,nvchNumBoletaVenta,intIdCliente,dtmFechaCreacion,intIdTipoComprobante)
+		(intIdUsuario,intIdTipoComprobante,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
+			intIdTipoPago,bitEstado,intIdTipoVenta,nvchObservacion)
 		VALUES
-		(_intIdUsuario,_nvchNumFactura,_nvchNumBoletaVenta,_intIdCliente,_dtmFechaCreacion,_intIdTipoComprobante);
+		(_intIdUsuario,_intIdTipoComprobante,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
+			_intIdTipoPago,_bitEstado,_intIdTipoVenta,_nvchObservacion);
 		SET _intIdVenta = LAST_INSERT_ID();
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS INSERTARNUMERACIONVENTA;
+DELIMITER $$
+	CREATE PROCEDURE INSERTARNUMERACIONVENTA(
+	IN _intIdVenta INT,
+	IN _nvchNumeracion VARCHAR(10)
+    )
+	BEGIN
+		UPDATE tb_venta
+		SET
+		nvchNumeracion = _nvchNumeracion
+		WHERE 
+		intIdVenta = _intIdVenta;
     END 
 $$
 DELIMITER ;
@@ -25,22 +47,30 @@ DROP PROCEDURE IF EXISTS ACTUALIZARVENTA;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARVENTA(
 	IN _intIdVenta INT,
-	IN _nvchNumFactura VARCHAR(10),
-	IN _nvchNumBoletaVenta VARCHAR(10),
+	IN _intIdTipoComprobante INT,
+	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
 	IN _dtmFechaCreacion DATETIME,
-	IN _intIdTipoComprobante INT
+	IN _intIdTipoMoneda INT,
+	IN _intIdTipoPago INT,
+	IN _bitEstado INT,
+	IN _intIdTipoVenta INT,
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		UPDATE tb_venta
 		SET
-		nvchNumFactura = _nvchNumFactura,
-		nvchNumBoletaVenta = _nvchNumBoletaVenta,
+		intIdTipoComprobante = _intIdTipoComprobante,
+		nvchNumeracion = _nvchNumeracion,
 		intIdUsuario = _intIdUsuario,
 		intIdCliente = _intIdCliente,
 		dtmFechaCreacion = _dtmFechaCreacion,
-		intIdTipoComprobante = _intIdTipoComprobante
+		intIdTipoMoneda = _intIdTipoMoneda,
+		intIdTipoPago = _intIdTipoPago,
+		bitEstado = _bitEstado,
+		intIdTipoVenta = _intIdTipoVenta,
+		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdVenta = _intIdVenta;
     END 
@@ -58,10 +88,18 @@ DELIMITER $$
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente,
-		U.nvchUsername as NombreUsuario
+		C.nvchDNI AS DNICliente,
+		C.nvchRUC AS RUCCliente,
+		U.nvchUsername AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		TPG.nvchNombre AS NombrePago,
+		TV.nvchNombre AS NombreVenta
 	    FROM tb_venta V 
 		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_pago TPG ON CT.intIdTipoPago = TPG.intIdTipoPago
+		LEFT JOIN tb_tipo_venta TV ON CT.intIdTipoVenta = TV.intIdTipoVenta
 		WHERE 
 		V.intIdVenta = _intIdVenta;
     END 
@@ -126,7 +164,7 @@ DELIMITER $$
 		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
 		WHERE 
-		(V.intIdVenta LIKE CONCAT(_elemento,'%') OR
+		(V.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
@@ -154,7 +192,7 @@ DELIMITER $$
 		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
 		WHERE 
-		(V.intIdVenta LIKE CONCAT(_elemento,'%') OR
+		(V.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR

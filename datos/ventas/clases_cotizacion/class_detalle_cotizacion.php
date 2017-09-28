@@ -56,7 +56,7 @@ class DetalleCotizacion
         } else if($this->intIdTipoVenta == 2){
           $sql_comando->execute(array(
           ':intIdCotizacion' => $this->intIdCotizacion,
-          ':intIdProducto' => 0,
+          ':intIdProducto' => 1,
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
           ':intCantidad' => $value,
           ':intCantidadDisponible' => 0,

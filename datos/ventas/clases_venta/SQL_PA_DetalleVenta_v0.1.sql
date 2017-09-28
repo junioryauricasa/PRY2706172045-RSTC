@@ -7,14 +7,21 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _intCantidadPendiente INT,
-	IN _dcmPrecio DECIMAL(11,2)
+	IN _intCantidadDisponible INT,
+	IN _dcmPrecio DECIMAL(11,2),
+	IN _dcmDescuento DECIMAL(11,2),
+	IN _dcmPrecioUnitario DECIMAL(11,2),
+	IN _dcmTotal DECIMAL(11,2),
+	IN _intIdTipoVenta INT,
+	IN _nvchDescripcionServicio VARCHAR(500)
     )
 	BEGIN
 		INSERT INTO tb_detalle_venta 
-		(intIdVenta,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadPendiente,dcmPrecio)
+		(intIdVenta,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,
+			dcmPrecioUnitario,dcmTotal,intIdTipoVenta,nvchDescripcionServicio)
 		VALUES
-		(_intIdVenta,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadPendiente,_dcmPrecio);
+		(_intIdVenta,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadDisponible,_dcmPrecio,_dcmDescuento,
+			_dcmPrecioUnitario,_dcmTotal,_intIdTipoVenta,_nvchDescripcionServicio);
     END 
 $$
 DELIMITER ;
@@ -27,7 +34,13 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _dcmPrecio DECIMAL(11,2)
+	IN _intCantidadDisponible INT,
+	IN _dcmPrecio DECIMAL(11,2),
+	IN _dcmDescuento DECIMAL(11,2),
+	IN _dcmPrecioUnitario DECIMAL(11,2),
+	IN _dcmTotal DECIMAL(11,2),
+	IN _intIdTipoVenta INT,
+	IN _nvchDescripcionServicio VARCHAR(500)
     )
 	BEGIN
 		UPDATE tb_detalle_venta
@@ -36,7 +49,13 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		dtmFechaRealizada = _dtmFechaRealizada,
 		intCantidad = _intCantidad,
-		dcmPrecio = _dcmPrecio
+		intCantidadDisponible = _intCantidadDisponible,
+		dcmPrecio = _dcmPrecio,
+		dcmDescuento = _dcmDescuento,
+		dcmPrecioUnitario = _dcmPrecioUnitario,
+		dcmTotal = _dcmTotal,
+		intIdTipoVenta = _intIdTipoVenta,
+		nvchDescripcionServicio = _nvchDescripcionServicio
 		WHERE 
 		intIdOperacionVenta = _intIdOperacionVenta;
     END 
@@ -91,7 +110,7 @@ DELIMITER $$
     	IN _intIdVenta INT
     )
 	BEGIN
-		SELECT DV.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_detalle_venta DV
+		SELECT DV.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto FROM tb_detalle_venta DV
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE
