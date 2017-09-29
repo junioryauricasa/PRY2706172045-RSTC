@@ -7,7 +7,6 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _intCantidadDisponible INT,
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
 	IN _dcmPrecioUnitario DECIMAL(11,2),
@@ -17,10 +16,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_detalle_cotizacion 
-		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,
+		(intIdCotizacion,intIdProducto,dtmFechaRealizada,intCantidad,dcmPrecio,dcmDescuento,
 			dcmPrecioUnitario,dcmTotal,intIdTipoVenta,nvchDescripcionServicio)
 		VALUES
-		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadDisponible,_dcmPrecio,_dcmDescuento,
+		(_intIdCotizacion,_intIdProducto,_dtmFechaRealizada,_intCantidad,_dcmPrecio,_dcmDescuento,
 			_dcmPrecioUnitario,_dcmTotal,_intIdTipoVenta,_nvchDescripcionServicio);
     END 
 $$
@@ -34,7 +33,6 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _intCantidadDisponible INT,
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
 	IN _dcmPrecioUnitario DECIMAL(11,2),
@@ -49,7 +47,6 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		dtmFechaRealizada = _dtmFechaRealizada,
 		intCantidad = _intCantidad,
-		intCantidadDisponible = _intCantidadDisponible,
 		dcmPrecio = _dcmPrecio,
 		dcmDescuento = _dcmDescuento,
 		dcmPrecioUnitario = _dcmPrecioUnitario,
@@ -233,8 +230,7 @@ DELIMITER $$
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
-		(P.intIdProducto LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombre LIKE CONCAT(_elemento,'%') OR
+		(P.nvchNombre LIKE CONCAT(_elemento,'%') OR
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR

@@ -33,7 +33,6 @@ switch($_POST['funcion']){
         $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
         $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
         $DetalleCotizacion->Cantidad($_POST['intCantidad']);
-        $DetalleCotizacion->CantidadDisponible($_POST['intCantidadDisponible']);
         $DetalleCotizacion->Precio($_POST['dcmPrecio']);
         $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
         $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);

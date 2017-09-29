@@ -249,7 +249,6 @@ function SeleccionarProducto(seleccion) {
 	var nvchSimbolo = $("input[type=hidden][name='SnvchSimbolo["+intIdProducto+"]']").val();
 	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdProducto+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
-	var CantidadTotal = $("input[type=hidden][name='SCantidadTotal["+intIdProducto+"]']").val();
 	var dcmPrecio = $("input[type=hidden][name='SdcmPrecioVenta1["+intIdProducto+"]']").val();
 	var Descuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
 	var PrecioUnitario = $("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val();
@@ -267,7 +266,6 @@ function SeleccionarProducto(seleccion) {
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
-		'<td>'+'<input type="hidden" name="intCantidadDisponible[]" value="'+CantidadTotal+'"/>'+CantidadTotal+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmDescuento[]" value="'+Descuento+'"/>'+Descuento+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+PrecioUnitario+'"/>'+PrecioUnitario+'</td>'+
