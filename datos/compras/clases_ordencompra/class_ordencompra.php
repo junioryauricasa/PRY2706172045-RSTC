@@ -5,20 +5,30 @@ require_once 'clases_ordencompra/class_formulario_ordencompra.php';
 class OrdenCompra{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdOrdenCompra;
-  private $intIdUsuario;
-  private $intIdProveedor;
+  private $nvchSerie;
+  private $nvchNumeracion;
+  private $nvchRazonSocial;
+  private $nvchRUC;
   private $nvchAtencion;
   private $intIdTipoMoneda;
   private $intIdTipoPago;
+  private $nvchNombreDe;
+  private $intIdUsuario;
+  private $intIdDireccionEmpresa;
   private $dtmFechaCreacion;
   private $nvchObservacion;
   
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
-  public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
-  public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
+  public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
+  public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
+  public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
+  public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
   public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
+  public function NombreDe($nvchNombreDe){ $this->nvchNombreDe = $nvchNombreDe; }
+  public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
+  public function intIdDireccionEmpresa($intIdDireccionEmpresa){ $this->intIdDireccionEmpresa = $intIdDireccionEmpresa; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
@@ -29,18 +39,24 @@ class OrdenCompra{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarOrdenCompra(@intIdOrdenCompra,:intIdUsuario,
-      	:intIdProveedor,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:dtmFechaCreacion,:nvchObservacion)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarOrdenCompra(@intIdOrdenCompra,:nvchSerie,:nvchNumeracion,
+        :nvchRazonSocial,:nvchRUC,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:nvchNombreDe,:intIdUsuario,
+        :intIdDireccionEmpresa,:dtmFechaCreacion,:nvchObservacion)');
       $sql_comando->execute(array(
-        ':intIdUsuario' => $this->intIdUsuario, 
-        ':intIdProveedor' => $this->intIdProveedor,
+        ':nvchSerie' => '0001',
+        ':nvchNumeracion' => '', 
+        ':nvchRazonSocial' => $this->nvchRazonSocial,
+        ':nvchRUC' => $this->nvchRUC,
         ':nvchAtencion' => $this->nvchAtencion,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
+        ':nvchNombreDe' => $this->nvchNombreDe,
+        ':intIdUsuario' => $this->intIdUsuario,
+        ':intIdDireccionEmpresa' => $this->intIdDireccionEmpresa,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
-      $salidas = $sql_conectar->query("select @intIdOrdenCompra as intIdOrdenCompra");
+      $salidas = $sql_conectar->query("select @intIdOrdenCompra AS intIdOrdenCompra");
       $salida = $salidas->fetchObject();
       $_SESSION['intIdOrdenCompra'] = $salida->intIdOrdenCompra;
       $Numeraciones = new Numeraciones();
@@ -67,16 +83,18 @@ class OrdenCompra{
 
       $FormularioOrdenCompra = new FormularioOrdenCompra();
       $FormularioOrdenCompra->IdOrdenCompra($fila['intIdOrdenCompra']);
-      $FormularioOrdenCompra->IdUsuario($fila['intIdUsuario']);
-      $FormularioOrdenCompra->IdProveedor($fila['intIdProveedor']);
+      $FormularioOrdenCompra->Serie($fila['nvchSerie']);
+      $FormularioOrdenCompra->Numeracion($fila['nvchNumeracion']);
+      $FormularioOrdenCompra->RazonSocial($fila['nvchRazonSocial']);
+      $FormularioOrdenCompra->RUC($fila['nvchRUC']);
       $FormularioOrdenCompra->Atencion($fila['nvchAtencion']);
       $FormularioOrdenCompra->IdTipoMoneda($fila['intIdTipoMoneda']);
       $FormularioOrdenCompra->IdTipoPago($fila['intIdTipoPago']);
+      $FormularioOrdenCompra->NombreDe($fila['nvchNombreDe']);
+      $FormularioOrdenCompra->IdUsuario($fila['intIdUsuario']);
+      $FormularioOrdenCompra->IdDireccionEmpresa($fila['intIdDireccionEmpresa']);
 
       $FormularioOrdenCompra->NombreUsuario($fila['NombreUsuario']);
-      $FormularioOrdenCompra->NombreProveedor($fila['NombreProveedor']);
-      $FormularioOrdenCompra->DNIProveedor($fila['DNIProveedor']);
-      $FormularioOrdenCompra->RUCProveedor($fila['RUCProveedor']);
       $FormularioOrdenCompra->SimboloMoneda($fila['SimboloMoneda']);
       $FormularioOrdenCompra->NombrePago($fila['NombrePago']);
 
@@ -89,74 +107,28 @@ class OrdenCompra{
     }    
   }
 
-  public function ListarProveedorOrdenCompra($busqueda,$x,$y)
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ListarProveedorOrdenCompra(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        echo 
-        '<tr>
-        <td>'.$fila['IdentificadorProveedor'].'</td>
-        <td>'.$fila['NombreProveedor'].'</td>';
-        if($fila['intIdTipoPersona'] == 1){
-          echo '<td>Persona Jurídica</td>';
-        } else if($fila['intIdTipoPersona'] == 2){
-          echo '<td>Persona Natural</td>';
-        }
-        echo 
-        '<td> 
-          <button type="button" idsprd="'.$fila['intIdProveedor'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProveedor(this)">
-            <i class="fa fa-edit"></i> Seleccionar
-          </button>
-        </td>
-        </tr>';
-      }
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-  }
-
-  public function SeleccionarProveedorOrdenCompra()
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrarproveedor(:intIdProveedor)');
-      $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
-      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-
-      $salida['intIdProveedor'] = $fila['intIdProveedor'];
-      $salida['nvchRUC'] = $fila['nvchRUC'];
-      $salida['nvchDNI'] = $fila['nvchDNI'];
-      $salida['nvchRazonSocial'] = $fila['nvchRazonSocial'];
-      $salida['nvchApellidoPaterno'] = $fila['nvchApellidoPaterno'];
-      $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
-      $salida['nvchNombres'] = $fila['nvchNombres'];
-      $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
-      echo json_encode($salida);
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }    
-  }
-
   public function ActualizarOrdenCompra()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ActualizarOrdenCompra(:intIdOrdenCompra,:intIdUsuario,
-      	:intIdProveedor,:dtmFechaCreacion)');
+      $sql_comando = $sql_conectar->prepare('CALL ActualizarOrdenCompra(:intIdOrdenCompra,:nvchSerie,:nvchNumeracion,
+        :nvchRazonSocial,:nvchRUC,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:nvchNombreDe,:intIdUsuario,
+        :intIdDireccionEmpresa,:dtmFechaCreacion,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdOrdenCompra' => $this->intIdOrdenCompra,
-        ':intIdUsuario' => $this->intIdUsuario, 
-        ':intIdProveedor' => $this->intIdProveedor,
-        ':dtmFechaCreacion' => $this->dtmFechaCreacion));
+        ':nvchSerie' => $this->nvchSerie, 
+        ':nvchNumeracion' => $this->nvchNumeracion, 
+        ':nvchRazonSocial' => $this->nvchRazonSocial,
+        ':nvchRUC' => $this->nvchRUC,
+        ':nvchAtencion' => $this->nvchAtencion,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoPago' => $this->intIdTipoPago,
+        ':nvchNombreDe' => $this->nvchNombreDe,
+        ':intIdUsuario' => $this->intIdUsuario,
+        ':intIdDireccionEmpresa' => $this->intIdDireccionEmpresa,
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdOrdenCompra'] = $this->intIdOrdenCompra;
       echo "ok";
     }
@@ -221,7 +193,7 @@ class OrdenCompra{
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["nvchNumeracion"].'</td>
+        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["NombreProveedor"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
@@ -326,93 +298,6 @@ class OrdenCompra{
         $output .= 
             '<li class="page-item">
                 <a class="page-link btn-pagina" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-      }
-      echo $output;
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }  
-  }
-
-  public function PaginarProveedoresOrdenCompra($busqueda,$x,$y)
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL PAGINARPROVEEDORORDENCOMPRA(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
-      $cantidad = $sql_comando -> rowCount();
-      $numpaginas = ceil($cantidad / $y);
-      $output = "";
-      for($i = 0; $i < $numpaginas; $i++){
-        if($i==0)
-        {
-          //$output = 'No s eencontraron nada';
-          if($x==0)
-          {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idprd="'.($x-1).'" class="page-link" aria-label="Previous" onclick="PaginacionProveedores(this)">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          }
-        }
-
-          if($x==$i){
-            $output.=  '<li class="page-item active"><a idprd="'.$i.'" class="page-link" onclick="PaginacionProveedores(this)">'.($i+1).'</a></li>';
-          }
-          else
-          {
-            $output.=  '<li class="page-item"><a idprd="'.$i.'" class="page-link" onclick="PaginacionProveedores(this)">'.($i+1).'</a></li>';
-          }
-
-        if($i==($numpaginas-1))
-        {
-          if($x==($numpaginas-1))
-          {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idprd="'.($x+1).'" class="page-link" aria-label="Next" onclick="PaginacionProveedores(this)">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          }
-        }
-      }
-      if($output == ""){
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>

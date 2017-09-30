@@ -5,19 +5,19 @@ class DetalleOrdenCompra
   /* INICIO - Atributos de Detalle Orden Compra*/
   private $intIdOperacionOrdenCompra;
   private $intIdOrdenCompra;
-  private $intIdProducto;
   private $dtmFechaSolicitud;
+  private $nvchCodigo;
+  private $nvchDescripcion;
   private $intCantidad;
-  private $intCantidadPendiente;
   private $dcmPrecio;
   private $dcmTotal;
   
   public function IdOperacionOrdenCompra($intIdOperacionOrdenCompra){ $this->intIdOperacionOrdenCompra = $intIdOperacionOrdenCompra; }
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
-  public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function FechaSolicitud($dtmFechaSolicitud){ $this->dtmFechaSolicitud = $dtmFechaSolicitud; }
+  public function Codigo($nvchCodigo){ $this->$nvchCodigo = $nvchCodigo; }
+  public function Descripcion($nvchDescripcion){ $this->$nvchDescripcion = $nvchDescripcion; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-  public function CantidadPendiente($intCantidadPendiente){ $this->intCantidadPendiente = $intCantidadPendiente; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
   public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
   /* FIN - Atributos de Detalle Orden Compra */
@@ -28,15 +28,15 @@ class DetalleOrdenCompra
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      foreach ($this->intIdProducto as $key => $value) {
+      foreach ($this->nvchCodigo as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleOrdenCompra(:intIdOrdenCompra,
-      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio,:dcmTotal)');
+      	:dtmFechaSolicitud,:nvchCodigo,:nvchDescripcion,:intCantidad,:dcmPrecio,:dcmTotal)');
       $sql_comando->execute(array(
-        ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
-        ':intIdProducto' => $value,
+        ':intIdOrdenCompra' => $this->intIdOrdenCompra,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
+        ':nvchCodigo' => $value,
+        ':nvchDescripcion' => $this->nvchDescripcion[$key],
         ':intCantidad' => $this->intCantidad[$key],
-        ':intCantidadPendiente' => $this->intCantidad[$key],
         ':dcmPrecio' => $this->dcmPrecio[$key],
         ':dcmTotal' => $this->dcmTotal[$key]));
       }
@@ -53,13 +53,13 @@ class DetalleOrdenCompra
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleOrdenCompra(:intIdOrdenCompra,
-      	:intIdProducto,:dtmFechaSolicitud,:intCantidad,:intCantidadPendiente,:dcmPrecio,:dcmTotal)');
+      	:dtmFechaSolicitud,:nvchCodigo,:nvchDescripcion,:intCantidad,:dcmPrecio,:dcmTotal)');
       $sql_comando->execute(array(
-        ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
-        ':intIdProducto' => $this->intIdProducto,
+        ':intIdOrdenCompra' => $this->intIdOrdenCompra,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
+        ':nvchCodigo' => $this->nvchCodigo,
+        ':nvchDescripcion' => $this->nvchDescripcion,
         ':intCantidad' => $this->intCantidad,
-        ':intCantidadPendiente' => $this->intCantidad,
         ':dcmPrecio' => $this->dcmPrecio,
         ':dcmTotal' => $this->dcmTotal));
       echo "ok";
@@ -79,22 +79,21 @@ class DetalleOrdenCompra
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      { /*
+      { 
         if($_SESSION['intIdOperacionOrdenCompra'] == $fila['intIdOperacionOrdenCompra'] && $tipolistado == "A"){
           echo '<tr bgcolor="#B3E4C0">';
         } else if($cantidad == $i && $tipolistado == "I"){
           echo '<tr bgcolor="#BEE1EB">';
         } else {
           echo '<tr bgcolor="#F7FCCF">';
-        }*/
+        }
       	echo 
-      	'<tr><td>'.$i.'</td>
-        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['CodigoProducto'].'</td>
-        <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['DescripcionProducto'].'"/>'.$fila['DescripcionProducto'].'</td>
+      	'<td>'.$i.'</td>
+        <td><input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
+        <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
         <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td></tr>';
-        /*
+        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td></tr>
         <td> 
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleOrdenCompra(this)">
             <i class="fa fa-edit"></i> Editar
@@ -103,7 +102,7 @@ class DetalleOrdenCompra
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
-        </tr>';*/
+        </tr>';
         $i++;
       }
     }
@@ -122,11 +121,12 @@ class DetalleOrdenCompra
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
       $salida['intIdOperacionOrdenCompra'] = $fila['intIdOperacionOrdenCompra'];
       $salida['intIdOrdenCompra'] = $fila['intIdOrdenCompra'];
-      $salida['intIdProducto'] = $fila['intIdProducto'];
-      $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
       $salida['dtmFechaSolicitud'] = $fila['dtmFechaSolicitud'];
+      $salida['nvchCodigo'] = $fila['nvchCodigo'];
+      $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
       $salida['intCantidad'] = $fila['intCantidad'];
       $salida['dcmPrecio'] = $fila['dcmPrecio'];
+      $salida['dcmTotal'] = $fila['dcmTotal'];
       echo json_encode($salida);
     }
     catch(PDPExceptio $e){
@@ -140,14 +140,16 @@ class DetalleOrdenCompra
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarDetalleOrdenCompra(:intIdOperacionOrdenCompra,
-        :intIdOrdenCompra,:intIdProducto,:dtmFechaSolicitud,:intCantidad,:dcmPrecio)');
+        :intIdOrdenCompra,:dtmFechaSolicitud,:nvchCodigo,:nvchDescripcion,:intCantidad,:dcmPrecio,:dcmTotal)');
       $sql_comando->execute(array(
         ':intIdOperacionOrdenCompra' => $this->intIdOperacionOrdenCompra,
-        ':intIdOrdenCompra' => $this->intIdOrdenCompra, 
-        ':intIdProducto' => $this->intIdProducto, 
+        ':intIdOrdenCompra' => $this->intIdOrdenCompra,
         ':dtmFechaSolicitud' => $this->dtmFechaSolicitud,
+        ':nvchCodigo' => $this->nvchCodigo,
+        ':nvchDescripcion' => $this->nvchDescripcion,
         ':intCantidad' => $this->intCantidad,
-        ':dcmPrecio' => $this->dcmPrecio));
+        ':dcmPrecio' => $this->dcmPrecio,
+        ':dcmTotal' => $this->dcmTotal));
       $_SESSION['intIdOperacionOrdenCompra'] = $this->intIdOperacionOrdenCompra;
       echo "ok";
     }

@@ -4,19 +4,26 @@ DROP PROCEDURE IF EXISTS INSERTARORDENCOMPRA;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARORDENCOMPRA(
 	OUT _intIdOrdenCompra INT,
-	IN _intIdUsuario INT,
-	IN _intIdProveedor INT,
+	IN _nvchSerie VARCHAR(4),
+	IN _nvchNumeracion VARCHAR(8),
+	IN _nvchRazonSocial VARCHAR(125),
+	IN _nvchRUC VARCHAR(20),
 	IN _nvchAtencion VARCHAR(250),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
+	IN _nvchNombreDe VARCHAR(90),
+	IN _intIdUsuario INT,
+	IN _intIdDireccionEmpresa INT,
 	IN _dtmFechaCreacion DATETIME,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_orden_compra 
-		(intIdUsuario,intIdProveedor,nvchAtencion,intIdTipoMoneda,intIdTipoPago,dtmFechaCreacion,nvchObservacion)
+		(nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,intIdTipoMoneda,nvchNombreDe,intIdTipoPago,nvchNombreDe
+			,intIdUsuario,intIdDireccionEmpresa,dtmFechaCreacion,nvchObservacion)
 		VALUES
-		(_intIdUsuario,_intIdProveedor,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_dtmFechaCreacion,_nvchObservacion);
+		(_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_intIdTipoMoneda,_nvchNombreDe,_intIdTipoPago,_nvchNombreDe
+			,_intIdUsuario,_intIdDireccionEmpresa,_dtmFechaCreacion,_nvchObservacion);
 		SET _intIdOrdenCompra = LAST_INSERT_ID();
     END 
 $$
@@ -43,22 +50,32 @@ DROP PROCEDURE IF EXISTS ACTUALIZARORDENCOMPRA;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARORDENCOMPRA(
 	IN _intIdOrdenCompra INT,
-	IN _intIdUsuario INT,
-	IN _intIdProveedor INT,
+	IN _nvchSerie VARCHAR(4),
+	IN _nvchNumeracion VARCHAR(8),
+	IN _nvchRazonSocial VARCHAR(125),
+	IN _nvchRUC VARCHAR(20),
 	IN _nvchAtencion VARCHAR(250),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
+	IN _nvchNombreDe VARCHAR(90),
+	IN _intIdUsuario INT,
+	IN _intIdDireccionEmpresa INT,
 	IN _dtmFechaCreacion DATETIME,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		UPDATE tb_orden_compra
 		SET
-		intIdUsuario = _intIdUsuario,
-		intIdProveedor = _intIdProveedor,
+		nvchSerie = _nvchSerie,
+		nvchNumeracion = _nvchNumeracion,
+		nvchRazonSocial = _nvchRazonSocial,
+		nvchRUC = _nvchRUC,
 		nvchAtencion = _nvchAtencion,
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
+		nvchNombreDe = _nvchNombreDe,
+		intIdUsuario = _intIdUsuario,
+		intIdDireccionEmpresa = _intIdDireccionEmpresa,
 		dtmFechaCreacion = _dtmFechaCreacion,
 		nvchObservacion = _nvchObservacion
 		WHERE 
@@ -74,21 +91,14 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT OC.*,
-			CASE 
-				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
-				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
-			END AS NombreProveedor,
-		P.nvchDNI AS DNIProveedor,
-		P.nvchRUC AS RUCProveedor,
 		U.nvchUsername AS NombreUsuario,
 		TMN.nvchSimbolo AS SimboloMoneda,
 		TPG.nvchNombre AS NombrePago
 	    FROM tb_orden_compra OC 
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
 		LEFT JOIN tb_tipo_moneda TMN ON OC.intIdTipoMoneda = TMN.intIdTipoMoneda
 		LEFT JOIN tb_tipo_pago TPG ON OC.intIdTipoPago = TPG.intIdTipoPago
-		WHERE 
+		WHERE
 		OC.intIdOrdenCompra = _intIdOrdenCompra;
     END 
 $$
@@ -114,13 +124,9 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT OC.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
-				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
-			END AS NombreProveedor FROM tb_orden_compra OC 
+		SELECT OC.*,U.nvchUsername AS NombreUsuario
+		FROM tb_orden_compra OC 
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
  		LIMIT _x,_y;
     END 
 $$
@@ -143,19 +149,14 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT OC.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
-				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
-			END AS NombreProveedor FROM tb_orden_compra OC 
+		SELECT OC.*,U.nvchUsername as NombreUsuario
+		FROM tb_orden_compra OC
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
-		WHERE 
+		WHERE
+		OC.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		OC.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
-		P.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombres LIKE CONCAT(_elemento,'%') OR
-		P.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-		P.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		OC.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		OC.nvchRUC LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		OC.dtmFechaCreacion LIKE CONCAT(_elemento,'%')
 		LIMIT _x,_y;
@@ -169,19 +170,14 @@ DELIMITER $$
     	IN _elemento VARCHAR(250)
     )
 	BEGIN
-		SELECT OC.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN P.intIdTipoPersona = 1 THEN P.nvchRazonSocial
-				WHEN P.intIdTipoPersona = 2 THEN CONCAT(P.nvchNombres,' ',P.nvchApellidoPaterno,' ',P.nvchApellidoMaterno)
-			END AS NombreProveedor FROM tb_orden_compra OC 
+		SELECT OC.*,U.nvchUsername as NombreUsuario
+		FROM tb_orden_compra OC
 		LEFT JOIN tb_usuario U ON OC.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_proveedor P ON OC.intIdProveedor = P.intIdProveedor
-		WHERE 
+		WHERE
+		OC.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		OC.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
-		P.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-		P.nvchNombres LIKE CONCAT(_elemento,'%') OR
-		P.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-		P.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		OC.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		OC.nvchRUC LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		OC.dtmFechaCreacion LIKE CONCAT(_elemento,'%');
     END 

@@ -13,10 +13,12 @@ switch($_POST['funcion']){
   case "I":
     $OrdenCompra = new OrdenCompra();
     $OrdenCompra->IdUsuario($_SESSION['intIdUsuarioSesion']);
-    $OrdenCompra->IdProveedor($_POST['intIdProveedor']);
+    $OrdenCompra->RUC($_POST['nvchRUC']);
+    $OrdenCompra->RazonSocial($_POST['nvchRazonSocial']);
     $OrdenCompra->Atencion($_POST['nvchAtencion']);
     $OrdenCompra->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $OrdenCompra->IdTipoPago($_POST['intIdTipoPago']);
+    $OrdenCompra->NombreDe($_POST['nvchNombreDe']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $OrdenCompra->FechaCreacion($dtmFechaCreacion);
     $OrdenCompra->Observacion($_POST['nvchObservacion']);
@@ -25,6 +27,8 @@ switch($_POST['funcion']){
     $DetalleOrdenCompra->IdOrdenCompra($_SESSION['intIdOrdenCompra']);
     $DetalleOrdenCompra->IdProducto($_POST['intIdProducto']);
     $DetalleOrdenCompra->FechaSolicitud($dtmFechaCreacion);
+    $DetalleOrdenCompra->Codigo($_POST['nvchCodigo']);
+    $DetalleOrdenCompra->Descripcion($_POST['nvchDescripcion']);
     $DetalleOrdenCompra->Cantidad($_POST['intCantidad']);
     $DetalleOrdenCompra->Precio($_POST['dcmPrecio']);
     $DetalleOrdenCompra->Total($_POST['dcmTotal']);
@@ -34,17 +38,18 @@ switch($_POST['funcion']){
     $DetalleOrdenCompra = new DetalleOrdenCompra();
     $DetalleOrdenCompra->IdOrdenCompra($_POST['intIdOrdenCompra']);
     $DetalleOrdenCompra->IdProducto($_POST['intIdProducto']);
-    $dtmFechaSolicitud = date("Y-m-d H:i:s");
-    $DetalleOrdenCompra->FechaSolicitud($dtmFechaSolicitud);
+    $DetalleOrdenCompra->FechaSolicitud($dtmFechaCreacion);
+    $DetalleOrdenCompra->Codigo($_POST['nvchCodigo']);
+    $DetalleOrdenCompra->Descripcion($_POST['nvchDescripcion']);
     $DetalleOrdenCompra->Cantidad($_POST['intCantidad']);
     $DetalleOrdenCompra->Precio($_POST['dcmPrecio']);
+    $DetalleOrdenCompra->Total($_POST['dcmTotal']);
     $DetalleOrdenCompra->InsertarDetalleOrdenCompra_II();
     break;
   case "A":
     $OrdenCompra = new OrdenCompra();
     $OrdenCompra->IdOrdenCompra($_POST['intIdOrdenCompra']);
     $OrdenCompra->IdUsuario($_POST['intIdUsuario']);
-    $OrdenCompra->IdProveedor($_POST['intIdProveedor']);
     $OrdenCompra->FechaCreacion($_POST['dtmFechaCreacion']);
     $OrdenCompra->ActualizarOrdenCompra();
     break;

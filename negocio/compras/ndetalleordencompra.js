@@ -239,25 +239,29 @@ $(document).on('change', '#tipo-busqueda', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
-function SeleccionarProducto(seleccion) {
-	var intIdProducto = $(seleccion).attr("idsprt");
-	var nvchCodigo = $("input[type=hidden][name='SnvchCodigo["+intIdProducto+"]']").val();
-	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdProducto+"]']").val();
-	var dcmPrecio = $("input[type=text][name='SdcmPrecio["+intIdProducto+"]']").val();
-	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
-	var Total = Number(dcmPrecio) * Number(intCantidad);
-
-	if(dcmPrecio == "" || dcmPrecio == null) {
-		MensajeNormal("Ingresar el Precio del Producto que estás eligiendo",2);
-		return false;
-	} else if(intCantidad == "" || intCantidad == null) {
-		MensajeNormal("Ingresar la Cantidad del Producto que estás eligiendo",2);
+function AgregarProducto(seleccion) {
+	if(EsVacio("nvchCodigo") == false){
 		return false;
 	}
+	if(EsVacio("nvchDescripcion") == false){
+		return false;
+	}
+	if(EsNumeroEntero("intCantidad") == false){
+		return false;
+	}
+	if(EsDecimal("dcmPrecio") == false){
+		return false;
+	}
+	
+	var nvchCodigo = $("#nvchCodigo").val();
+	var nvchDescripcion = $("#nvchCodigo").val();
+	var dcmPrecio = $("#dcmPrecio").val();
+	var intCantidad = $("#intCantidad").val();
+	var Total = Number(dcmPrecio) * Number(intCantidad);
 
 	$('#ListaDeProductosComprar').append('<tr>'+
-		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
-		'<td>'+nvchDescripcion+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
+		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
