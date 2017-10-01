@@ -50,9 +50,9 @@ class OrdenCompra{
         ':nvchAtencion' => $this->nvchAtencion,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
-        ':nvchNombreDe' => $this->nvchNombreDe,
+        ':nvchNombreDe' => 'RESTECO S.A.',
         ':intIdUsuario' => $this->intIdUsuario,
-        ':intIdDireccionEmpresa' => $this->intIdDireccionEmpresa,
+        ':intIdDireccionEmpresa' => 1,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -194,7 +194,7 @@ class OrdenCompra{
         }
         echo
         '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["NombreProveedor"].'</td>
+        <td>'.$fila["nvchRazonSocial"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
         <td> 

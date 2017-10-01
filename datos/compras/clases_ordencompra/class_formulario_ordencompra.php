@@ -31,7 +31,7 @@ class FormularioOrdenCompra
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function NombreDe($nvchNombreDe){ $this->nvchNombreDe = $nvchNombreDe; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
-  public function intIdDireccionEmpresa($intIdDireccionEmpresa){ $this->intIdDireccionEmpresa = $intIdDireccionEmpresa; }
+  public function IdDireccionEmpresa($intIdDireccionEmpresa){ $this->intIdDireccionEmpresa = $intIdDireccionEmpresa; }
 
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
   public function SimboloMoneda($SimboloMoneda){ $this->SimboloMoneda = $SimboloMoneda; }
@@ -63,13 +63,15 @@ class FormularioOrdenCompra
             <div id="DatosDelProveedor">
             <div class="row">
               <div class="col-md-3">
-                <div class="form-group">
+                <div id="nvchRUCGroup" class="form-group">
                   <label>RUC:</label>
-                  <input type="text" id="nvchRUC" placeholder="Ingrese RUC" class="form-control select2" value="<?php echo $this->nvchRUC; ?>">
+                  <input type="text" id="nvchRUC" name="nvchRUC" placeholder="Ingrese RUC" class="form-control select2" value="<?php echo $this->nvchRUC; ?>" onkeyup="EsVacioOp('nvchRUC')" maxlength="125" >
+                  <span id="nvchRUCIcono" class="" aria-hidden=""></span>
+                  <div id="nvchRUCObs" class=""></div>
                 </div>
               </div>
               <div class="col-md-3">
-                <div class="form-group">
+                <div id="nvchRazonSocialGroup" class="form-group">
                   <label>Razón Social:</label>
                   <input type="text" id="nvchRazonSocial" name="nvchRazonSocial" class="form-control select2" placeholder="Ingrese Atención" 
                   value="<?php echo $this->nvchRazonSocial; ?>" onkeyup="EsVacio('nvchRazonSocial')" maxlength="125" required>
@@ -83,7 +85,7 @@ class FormularioOrdenCompra
                 <div id="nvchAtencionGroup" class="form-group">
                   <label>Atención:</label>
                   <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
-                  value="<?php echo $this->nvchAtencion; ?>" onkeyup="EsVacio('nvchAtencion')" maxlength="250" required>
+                  value="<?php echo $this->nvchAtencion; ?>" onkeyup="EsVacioOp('nvchAtencion')" maxlength="250" required>
                   <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
                   <div id="nvchAtencionObs" class=""></div>
                 </div>

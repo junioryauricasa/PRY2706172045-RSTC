@@ -18,14 +18,13 @@ switch($_POST['funcion']){
     $OrdenCompra->Atencion($_POST['nvchAtencion']);
     $OrdenCompra->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $OrdenCompra->IdTipoPago($_POST['intIdTipoPago']);
-    $OrdenCompra->NombreDe($_POST['nvchNombreDe']);
+    //$OrdenCompra->NombreDe($_POST['nvchNombreDe']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $OrdenCompra->FechaCreacion($dtmFechaCreacion);
     $OrdenCompra->Observacion($_POST['nvchObservacion']);
     $OrdenCompra->InsertarOrdenCompra();
     $DetalleOrdenCompra = new DetalleOrdenCompra();
     $DetalleOrdenCompra->IdOrdenCompra($_SESSION['intIdOrdenCompra']);
-    $DetalleOrdenCompra->IdProducto($_POST['intIdProducto']);
     $DetalleOrdenCompra->FechaSolicitud($dtmFechaCreacion);
     $DetalleOrdenCompra->Codigo($_POST['nvchCodigo']);
     $DetalleOrdenCompra->Descripcion($_POST['nvchDescripcion']);

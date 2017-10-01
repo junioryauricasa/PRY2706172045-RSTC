@@ -239,32 +239,32 @@ $(document).on('change', '#tipo-busqueda', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
-function AgregarProducto(seleccion) {
+function AgregarProducto() {
 	if(EsVacio("nvchCodigo") == false){
 		return false;
 	}
 	if(EsVacio("nvchDescripcion") == false){
 		return false;
 	}
-	if(EsNumeroEntero("intCantidad") == false){
+	if(EsNumeroEntero("intCantidadOrdenCompra") == false){
 		return false;
 	}
-	if(EsDecimal("dcmPrecio") == false){
+	if(EsDecimal("dcmPrecioOrdenCompra") == false){
 		return false;
 	}
 	
-	var nvchCodigo = $("#nvchCodigo").val();
-	var nvchDescripcion = $("#nvchCodigo").val();
-	var dcmPrecio = $("#dcmPrecio").val();
-	var intCantidad = $("#intCantidad").val();
-	var Total = Number(dcmPrecio) * Number(intCantidad);
+	var nvchCodigo = ($("#nvchCodigo").val()).toString();
+	var nvchDescripcion = ($("#nvchDescripcion").val()).toString();
+	var dcmPrecio = Number($("#dcmPrecioOrdenCompra").val()).toFixed(2);
+	var intCantidad = $("#intCantidadOrdenCompra").val();
+	var dcmTotal = $("#dcmTotalOrdenCompra").val();
 
 	$('#ListaDeProductosComprar').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+dcmTotal+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }

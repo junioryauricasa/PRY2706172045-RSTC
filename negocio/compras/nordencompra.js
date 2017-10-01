@@ -21,12 +21,8 @@ $(document).on('click', '#btn-form-crear-ordencompra', function(){
 /* INICIO - Funcion Ajax - Insertar Proveedor */
 $(document).on('click', '#btn-crear-ordencompra', function(){
 	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
-	  var intIdProveedor = $("#intIdProveedor").val();
-	  if(intIdProveedor == "" || intIdProveedor == null){
-	  	MensajeNormal("Seleccionar a un Proveedor",2);
-	  	return false;
-	  } else if(EsVacio("nvchAtencion") == false){
-	  	goToBox("#nvchAtencionGroup");
+	  if(EsVacio("nvchRazonSocial") == false){
+	  	goToBox("#nvchRazonSocial");
 	  	return false;
 	  } else if(num_filas_detalle_cotizacion == 0){
 	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);

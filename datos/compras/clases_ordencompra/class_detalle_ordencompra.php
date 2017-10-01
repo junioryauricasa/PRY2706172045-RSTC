@@ -15,8 +15,8 @@ class DetalleOrdenCompra
   public function IdOperacionOrdenCompra($intIdOperacionOrdenCompra){ $this->intIdOperacionOrdenCompra = $intIdOperacionOrdenCompra; }
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
   public function FechaSolicitud($dtmFechaSolicitud){ $this->dtmFechaSolicitud = $dtmFechaSolicitud; }
-  public function Codigo($nvchCodigo){ $this->$nvchCodigo = $nvchCodigo; }
-  public function Descripcion($nvchDescripcion){ $this->$nvchDescripcion = $nvchDescripcion; }
+  public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
+  public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
   public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }

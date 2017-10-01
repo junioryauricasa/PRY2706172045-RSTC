@@ -19,10 +19,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_orden_compra 
-		(nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,intIdTipoMoneda,nvchNombreDe,intIdTipoPago,nvchNombreDe
+		(nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,intIdTipoMoneda,intIdTipoPago,nvchNombreDe
 			,intIdUsuario,intIdDireccionEmpresa,dtmFechaCreacion,nvchObservacion)
 		VALUES
-		(_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_intIdTipoMoneda,_nvchNombreDe,_intIdTipoPago,_nvchNombreDe
+		(_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_nvchNombreDe
 			,_intIdUsuario,_intIdDireccionEmpresa,_dtmFechaCreacion,_nvchObservacion);
 		SET _intIdOrdenCompra = LAST_INSERT_ID();
     END 

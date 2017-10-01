@@ -16,22 +16,28 @@ class Numeraciones{
   {
     $resultado = "";
     if ($Id >= 1 && $Id <= 9) {
-      $resultado = "001-00000".$Id;
+      $resultado = "0000000".$Id;
       return $resultado;
     } else if ($Id >= 10 && $Id <= 99) {
-      $resultado = "001-0000".$Id;
+      $resultado = "000000".$Id;
       return $resultado;
     } else if ($Id >= 100 && $Id <= 999) {
-      $resultado = "001-000".$Id;
+      $resultado = "00000".$Id;
       return $resultado;
     } else if ($Id >= 1000 && $Id <= 9999) {
-      $resultado = "001-00".$Id;
+      $resultado = "0000".$Id;
       return $resultado;
     } else if ($Id >= 10000 && $Id <= 99999) {
-      $resultado = "001-0".$Id;
+      $resultado = "000".$Id;
       return $resultado;
     } else if ($Id >= 100000 && $Id <= 999999) {
-      $resultado = "001-".$Id;
+      $resultado = "00".$Id;
+      return $resultado;
+    } else if ($Id >= 1000000 && $Id <= 9999999) {
+      $resultado = "0".$Id;
+      return $resultado;
+    } else if ($Id >= 10000000 && $Id <= 99999999) {
+      $resultado = $Id;
       return $resultado;
     }
   }
