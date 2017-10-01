@@ -282,6 +282,37 @@ function EliminarFila(btn) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Campos */
+function CalcularTotalOrdenCompra(NombreId) {
+	if(NombreId == "dcmPrecioOrdenCompra"){
+		if($("#intCantidadOrdenCompra").val() == "" ||
+			$("#intCantidadOrdenCompra").val() == null){
+			return false;
+		}
+		else {
+			dcmPrecioOrdenCompra = $("#dcmPrecioOrdenCompra").val();
+			intCantidadOrdenCompra = $("#intCantidadOrdenCompra").val();
+			dcmTotalOrdenCompra = (dcmPrecioOrdenCompra * intCantidadOrdenCompra).toFixed(2);
+			$("#dcmTotalOrdenCompra").val(dcmTotalOrdenCompra);
+		}
+	}
+	if(NombreId == "intCantidadOrdenCompra") {
+		if($("#dcmPrecioOrdenCompra").val() == "" ||
+			$("#dcmPrecioOrdenCompra").val() == null){
+			return false;
+		}
+		else {
+			dcmPrecioOrdenCompra = $("#dcmPrecioOrdenCompra").val();
+			intCantidadOrdenCompra = $("#intCantidadOrdenCompra").val();
+			dcmTotalOrdenCompra = (dcmPrecioOrdenCompra * intCantidadOrdenCompra).toFixed(2);
+			$("#dcmTotalOrdenCompra").val(dcmTotalOrdenCompra);
+		}
+	}
+}
+/* FIN - Ocultar Campos */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Campos */
 function CamposDetalleOrdenCompra(accion) {
 	if(accion == "I"){
 		$("#CamposDetalleOrdenCompra").show();

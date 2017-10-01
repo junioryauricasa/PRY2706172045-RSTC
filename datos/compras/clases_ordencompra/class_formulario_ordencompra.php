@@ -65,7 +65,7 @@ class FormularioOrdenCompra
               <div class="col-md-3">
                 <div class="form-group">
                   <label>RUC:</label>
-                  <input type="text" id="nvchRUC" class="form-control select2" value="<?php echo $this->nvchRUC; ?>">
+                  <input type="text" id="nvchRUC" placeholder="Ingrese RUC" class="form-control select2" value="<?php echo $this->nvchRUC; ?>">
                 </div>
               </div>
               <div class="col-md-3">
@@ -165,31 +165,31 @@ class FormularioOrdenCompra
                 </div>
               </div>
               <div class="col-md-3">
-                <div id="intCantidadGroup" class="form-group">
+                <div id="intCantidadOrdenCompraGroup" class="form-group">
                   <label>Cantidad:</label>
-                  <input type="text" id="intCantidad" class="form-control select2" 
+                  <input type="text" id="intCantidadOrdenCompra" class="form-control select2" 
                   placeholder="Ingrese Cantidad" value="" 
-                  onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidad')" maxlength="11" required>
-                  <span id="intCantidadIcono" class="" aria-hidden=""></span>
-                  <div id="intCantidadObs" class=""></div>
+                  onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadOrdenCompra')" maxlength="11" required>
+                  <span id="intCantidadOrdenCompraIcono" class="" aria-hidden=""></span>
+                  <div id="intCantidadOrdenCompraObs" class=""></div>
                 </div>
               </div>
               <div class="col-md-2">
-                <div id="dcmPrecioGroup" class="form-group">
+                <div id="dcmPrecioOrdenCompraGroup" class="form-group">
                   <label>Precio Unitario:</label>
-                  <input type="text" id="dcmPrecio" class="form-control select2" 
+                  <input type="text" id="dcmPrecioOrdenCompra" class="form-control select2" 
                   placeholder="Ingrese Precio" value="" 
-                  onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecio')" maxlength="15" required>
-                  <span id="dcmPrecioIcono" class="" aria-hidden=""></span>
-                  <div id="dcmPrecioObs" class=""></div>
+                  onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioOrdenCompra')" maxlength="15" required>
+                  <span id="dcmPrecioOrdenCompraIcono" class="" aria-hidden=""></span>
+                  <div id="dcmPrecioOrdenCompraObs" class=""></div>
                 </div>
               </div>
           </div>
           <div class="row">
             <div class="col-md-2">
-              <div id="dcmTotalGroup" class="form-group">
+              <div id="dcmTotalOrdenCompraGroup" class="form-group">
                 <label>Total:</label>
-                <input type="text" id="dcmTotal" name="dcmTotal" class="form-control select2"
+                <input type="text" id="dcmTotalOrdenCompra" class="form-control select2"
                 value="" maxlength="15" required readonly>
               </div>
             </div>

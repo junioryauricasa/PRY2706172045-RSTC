@@ -108,6 +108,9 @@ function EsNumeroEntero(NombreId){
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
     $("#"+NombreId+"Obs").html("");
+    if(NombreId == "intCantidadOrdenCompra") {
+      CalcularTotalOrdenCompra(NombreId);
+    }
     return true;
   }
 }
@@ -126,6 +129,9 @@ function EsDecimal(NombreId){
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
     $("#"+NombreId+"Obs").html("");
+    if(NombreId == "dcmPrecioOrdenCompra") {
+      CalcularTotalOrdenCompra(NombreId);
+    }
     if(NombreId == "dcmPrecioVenta1") {
       CalcularPrecios(Valor);
     }
