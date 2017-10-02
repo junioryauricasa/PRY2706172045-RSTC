@@ -430,16 +430,35 @@ function MostrarSeleccionCliente(intIdTipoPersona) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Cliente */
-function MostrarSeleccionComprobante(intIdTipoComprobante) {
-	  if(intIdTipoComprobante == 1){
-	  	$(".nvchNumFactura").show();
-      	$(".nvchNumBoletaVenta").hide();
-	  } else if(intIdTipoComprobante == 2){
-	  	$(".nvchNumFactura").hide();
-      	$(".nvchNumBoletaVenta").show();
-	  }
+function MostrarSeleccionComprobante() {
+	  var intIdTipoComprobante = $("#tipo-comprobante").val();
+	  var intIdSucursal = $("#lugar-venta").val();
+	  var funcion = "NCPR";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,intIdSucursal:intIdSucursal},
+	   dataType:"json",
+	   success:function(datos)
+	   { 
+	   	 if(datos.resultado == "ok"){
+		   	$("#nvchSerie").val(datos.nvchSerie);
+		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
+	   	 } else {
+	   	 	alert(datos.resultado);
+	   	 }
+	   }
+	  });
 }
 /* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Timer Comprobante */
+function TimerComprobante() {
+    miVariable = setInterval(MostrarSeleccionComprobante, 100);
+}
+/* FIN - Timer Comprobante */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

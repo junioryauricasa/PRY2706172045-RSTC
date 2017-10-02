@@ -26,6 +26,20 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
   <script type="text/javascript" src="../../frameworks/bootstrap-filestyle/src/bootstrap-filestyle.min.js">$(":file").filestyle({input: false});</script>
+
+  <!--
+  <style>
+  table>thead{
+      background: rgba(194, 194, 194, 0.47);
+    }
+    table>thead>tr>th{
+      border: solid 2px rgba(0, 0, 0, 0.51);
+    }
+    table>tbody>tr>td{
+      border: solid 1px black;
+    }
+  </style>
+  -->
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini">
 <div class="wrapper">

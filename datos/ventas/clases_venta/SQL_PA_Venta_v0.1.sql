@@ -5,6 +5,7 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARVENTA(
 	OUT _intIdVenta INT,
 	IN _intIdTipoComprobante INT,
+	IN _intIdSucursal INT,
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
@@ -17,10 +18,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_venta 
-		(intIdTipoComprobante,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
+		(intIdTipoComprobante,intIdSucursal,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
 			intIdTipoPago,bitEstado,intIdTipoVenta,nvchObservacion)
 		VALUES
-		(_intIdTipoComprobante,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
+		(_intIdTipoComprobante,_intIdSucursal,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
 			_intIdTipoPago,_bitEstado,_intIdTipoVenta,_nvchObservacion);
 		SET _intIdVenta = LAST_INSERT_ID();
     END 
@@ -48,6 +49,7 @@ DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARVENTA(
 	IN _intIdVenta INT,
 	IN _intIdTipoComprobante INT,
+	IN _intIdSucursal INT,
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
@@ -62,6 +64,7 @@ DELIMITER $$
 		UPDATE tb_venta
 		SET
 		intIdTipoComprobante = _intIdTipoComprobante,
+		intIdSucursal = _intIdSucursal,
 		nvchNumeracion = _nvchNumeracion,
 		intIdUsuario = _intIdUsuario,
 		intIdCliente = _intIdCliente,

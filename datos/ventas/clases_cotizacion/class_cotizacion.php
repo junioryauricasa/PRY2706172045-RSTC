@@ -5,6 +5,7 @@ require_once 'clases_cotizacion/class_formulario_cotizacion.php';
 class Cotizacion{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdCotizacion;
+  private $nvchSerie;
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
@@ -22,6 +23,7 @@ class Cotizacion{
   private $nvchObservacion;
   
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
+  public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
@@ -45,10 +47,11 @@ class Cotizacion{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:nvchNumeracion,
+      $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:nvchSerie,:nvchNumeracion,
         :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,
         :nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,:dtmFechaCreacion,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
+        ':nvchSerie' => '',
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
@@ -92,6 +95,7 @@ class Cotizacion{
 
       $FormularioCotizacion = new FormularioCotizacion();
       $FormularioCotizacion->IdCotizacion($fila['intIdCotizacion']);
+      $FormularioCotizacion->Serie($fila['nvchSerie']);
       $FormularioCotizacion->Numeracion($fila['nvchNumeracion']);
       $FormularioCotizacion->IdUsuario($fila['intIdUsuario']);
       $FormularioCotizacion->IdCliente($fila['intIdCliente']);

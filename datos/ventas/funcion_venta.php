@@ -3,6 +3,7 @@ session_start();
 require_once 'clases_venta/class_venta.php';
 require_once 'clases_venta/class_detalle_venta.php';
 require_once 'clases_venta/class_formulario_venta.php';
+require_once '../numeraciones/class_numeraciones.php';
 if(empty($_SESSION['intIdVenta'])){
   $_SESSION['intIdVenta'] = 0;
 }
@@ -13,6 +14,7 @@ switch($_POST['funcion']){
   case "I":
     $Venta = new Venta();
     $Venta->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Venta->IdSucursal($_POST['intIdSucursal']);
     $Venta->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Venta->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
@@ -139,6 +141,10 @@ switch($_POST['funcion']){
   case "ICT":
     $DetalleVenta = new DetalleVenta();
     $DetalleVenta->InsertarCotizacion($_POST['nvchNumeracionCotizacion']);
+    break;
+  case "NCPR":
+    $Numeraciones = new Numeraciones();
+    $Numeraciones->NumeracionAlgoritmica($_POST['intIdTipoComprobante'],$_POST['intIdSucursal']);
     break;
   case "F":
     $FormularioVenta = new FormularioVenta();

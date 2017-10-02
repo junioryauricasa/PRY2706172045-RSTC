@@ -84,8 +84,41 @@ class FormularioVenta
                 <input type="hidden" id="intIdTipoComprobante" value="<?php echo $this->intIdTipoComprobante ?>" />
                 </div>
               </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Lugar de Venta:</label>
+                  <select onchange="MostrarSeleccionComprobante()" id="lugar-venta" name="intIdSucursal"  class="form-control select2">
+                  <?php 
+                    try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                  </select>
+                <input type="hidden" id="intIdSucursal" value="<?php echo $this->intIdSucursal ?>" />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Serie:</label>
+                  <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" readonly/>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Numeración:</label>
+                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly/>
+                </div>
+              </div>
               <?php if($funcion == "F") {?>
-              <script>MostrarSeleccionComprobante(1);</script>
+              <script>TimerComprobante();</script>
               <?php } ?>
             </div>
           </div>

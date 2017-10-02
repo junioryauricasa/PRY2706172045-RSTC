@@ -5,6 +5,7 @@ class Venta{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdVenta;
   private $intIdTipoComprobante;
+  private $nvchSerie;
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
@@ -17,6 +18,7 @@ class Venta{
   
   public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
   public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
@@ -34,11 +36,13 @@ class Venta{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarVenta(@intIdVenta,:intIdTipoComprobante,:nvchNumeracion,
-        :intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,:bitEstado,:intIdTipoVenta,
+      $sql_comando = $sql_conectar->prepare('CALL insertarVenta(@intIdVenta,:intIdTipoComprobante,:nvchSerie,
+        :nvchNumeracion,:intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
+        :bitEstado,:intIdTipoVenta,
         :nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+        ':nvchSerie' => $this->nvchSerie,
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
@@ -71,12 +75,14 @@ class Venta{
       $FormularioVenta = new FormularioVenta();
       $FormularioVenta->IdVenta($fila['intIdVenta']);
       $FormularioVenta->IdTipoComprobante($fila['intIdTipoComprobante']);
+      $FormularioVenta->Serie($fila['nvchSerie']);
       $FormularioVenta->Numeracion($fila['nvchNumeracion']);
       $FormularioVenta->IdUsuario($fila['intIdUsuario']);
       $FormularioVenta->IdCliente($fila['intIdCliente']);
       $FormularioVenta->FechaCreacion($fila['dtmFechaCreacion']);
       $FormularioVenta->IdTipoMoneda($fila['intIdTipoMoneda']);
       $FormularioVenta->IdTipoPago($fila['intIdTipoPago']);
+      $FormularioVenta->Estado($fila['bitEstado']);
       $FormularioVenta->IdTipoVenta($fila['intIdTipoVenta']);
 
       $FormularioVenta->NombreUsuario($fila['NombreUsuario']);

@@ -4,6 +4,7 @@ DROP PROCEDURE IF EXISTS INSERTARCOTIZACION;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARCOTIZACION(
 	OUT _intIdCotizacion INT,
+	IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
@@ -22,10 +23,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_cotizacion 
-		(nvchNumeracion,intIdUsuario,intIdCliente,nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,
+		(nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,
 			intIdTipoVenta,nvchTipo,nvchModelo,nvchMarca,nvchHorometro,dtmFechaCreacion,bitEstado,nvchObservacion)
 		VALUES
-		(_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,
+		(_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,
 			_intIdTipoVenta,_nvchTipo,_nvchModelo,_nvchMarca,_nvchHorometro,_dtmFechaCreacion,_bitEstado,_nvchObservacion);
 		SET _intIdCotizacion = LAST_INSERT_ID();
     END 
