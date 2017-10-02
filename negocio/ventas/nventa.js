@@ -55,7 +55,7 @@ $(document).on('click', '#btn-crear-venta', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okok") {
+	   	if (datos=="okokok") {
 	   		MensajeNormal("Se generó correctamente la Venta",1);
 	   		$("#btn-form-venta-remove").click();
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());

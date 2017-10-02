@@ -5,6 +5,7 @@ class Venta{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdVenta;
   private $intIdTipoComprobante;
+  private $intIdSucursal;
   private $nvchSerie;
   private $nvchNumeracion;
   private $intIdUsuario;
@@ -18,6 +19,7 @@ class Venta{
   
   public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
   public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
@@ -36,14 +38,15 @@ class Venta{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarVenta(@intIdVenta,:intIdTipoComprobante,:nvchSerie,
-        :nvchNumeracion,:intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
+      $sql_comando = $sql_conectar->prepare('CALL insertarVenta(@intIdVenta,:intIdTipoComprobante,:intIdSucursal,
+        :nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
         :bitEstado,:intIdTipoVenta,
         :nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+        ':intIdSucursal' => $this->intIdSucursal,
         ':nvchSerie' => $this->nvchSerie,
-        ':nvchNumeracion' => '',
+        ':nvchNumeracion' => $this->nvchNumeracion,
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
@@ -243,7 +246,7 @@ class Venta{
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["intIdVenta"].'</td>
+        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>

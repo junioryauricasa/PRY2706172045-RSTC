@@ -26,3 +26,21 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ACTUALIZARNUMERACION;
+DELIMITER $$
+	CREATE PROCEDURE ACTUALIZARNUMERACION(
+		IN _intIdTipoComprobante INT,
+		IN _intIdSerie INT,
+		IN _nvchNumeracion VARCHAR(8)
+    )
+	BEGIN
+		UPDATE tb_numeracion
+		SET
+		nvchNumeracion = _nvchNumeracion
+		WHERE 
+		intIdTipoComprobante = _intIdTipoComprobante AND
+		intIdSerie = _intIdSerie;
+    END 
+$$
+DELIMITER ;

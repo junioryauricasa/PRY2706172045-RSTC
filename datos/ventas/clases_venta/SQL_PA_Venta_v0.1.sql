@@ -6,6 +6,7 @@ DELIMITER $$
 	OUT _intIdVenta INT,
 	IN _intIdTipoComprobante INT,
 	IN _intIdSucursal INT,
+	IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
@@ -18,10 +19,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_venta 
-		(intIdTipoComprobante,intIdSucursal,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
+		(intIdTipoComprobante,intIdSucursal,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,dtmFechaCreacion,intIdTipoMoneda,
 			intIdTipoPago,bitEstado,intIdTipoVenta,nvchObservacion)
 		VALUES
-		(_intIdTipoComprobante,_intIdSucursal,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
+		(_intIdTipoComprobante,_intIdSucursal,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_dtmFechaCreacion,_intIdTipoMoneda,
 			_intIdTipoPago,_bitEstado,_intIdTipoVenta,_nvchObservacion);
 		SET _intIdVenta = LAST_INSERT_ID();
     END 

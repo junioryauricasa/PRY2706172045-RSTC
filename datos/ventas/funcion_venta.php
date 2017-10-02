@@ -15,6 +15,8 @@ switch($_POST['funcion']){
     $Venta = new Venta();
     $Venta->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $Venta->IdSucursal($_POST['intIdSucursal']);
+    $Venta->Serie($_POST['nvchSerie']);
+    $Venta->Numeracion($_POST['nvchNumeracion']);
     $Venta->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Venta->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
@@ -46,6 +48,8 @@ switch($_POST['funcion']){
         $DetalleVenta->DescripcionServicio($_POST['nvchDescripcionServicio']);
     }
     $DetalleVenta->InsertarDetalleVenta();
+    $Numeraciones = new Numeraciones();
+    $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
     break;
   case "IDV":
     $DetalleVenta = new DetalleVenta();
