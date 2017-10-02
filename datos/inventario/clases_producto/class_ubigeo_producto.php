@@ -5,13 +5,13 @@ class UbigeoProducto
   /* INICIO - Atributos de Ubigeo Proveedor*/
   private $intIdUbigeoProducto;
   private $intIdProducto;
-  private $nvchSucursal;
+  private $intIdSucursal;
   private $nvchUbicacion;
   private $intCantidadUbigeo;
   
   public function IdUbigeoProducto($intIdUbigeoProducto){ $this->intIdUbigeoProducto = $intIdUbigeoProducto; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
-  public function Sucursal($nvchSucursal){ $this->nvchSucursal = $nvchSucursal; }
+  public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
   public function Ubicacion($nvchUbicacion){ $this->nvchUbicacion = $nvchUbicacion; }
   public function CantidadUbigeo($intCantidadUbigeo){ $this->intCantidadUbigeo = $intCantidadUbigeo; }
   /* FIN - Atributos de Ubigeo Proveedor */
@@ -22,12 +22,12 @@ class UbigeoProducto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      foreach ($this->nvchSucursal as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarUbigeoProducto(:intIdProducto,:nvchSucursal,
+      foreach ($this->intIdSucursal as $key => $value) {
+      $sql_comando = $sql_conectar->prepare('CALL insertarUbigeoProducto(:intIdProducto,:intIdSucursal,
       	:nvchUbicacion,:intCantidadUbigeo)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto, 
-        ':nvchSucursal' => $value,
+        ':intIdSucursal' => $value,
         ':nvchUbicacion' => $this->nvchUbicacion[$key],
         ':intCantidadUbigeo' => $this->intCantidadUbigeo[$key]));
       }
@@ -43,11 +43,11 @@ class UbigeoProducto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarUbigeoProducto(:intIdProducto,:nvchSucursal,
+      $sql_comando = $sql_conectar->prepare('CALL insertarUbigeoProducto(:intIdProducto,:intIdSucursal,
         :nvchUbicacion,:intCantidadUbigeo)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto, 
-        ':nvchSucursal' => $this->nvchSucursal,
+        ':intIdSucursal' => $this->intIdSucursal,
         ':nvchUbicacion' => $this->nvchUbicacion,
         ':intCantidadUbigeo' => $this->intCantidadUbigeo));
       echo "ok";
@@ -75,7 +75,7 @@ class UbigeoProducto
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-      	echo '<td><input type="hidden" name="nvchSucursal[]" value="'.$fila['nvchSucursal'].'"/>'.$fila['nvchSucursal'].'</td>
+      	echo '<td><input type="hidden" name="intIdSucursal[]" value="'.$fila['intIdSucursal'].'"/>'.$fila['NombreSucursal'].'</td>
         <td><input type="hidden" name="nvchUbicacion[]" value="'.$fila['nvchUbicacion'].'"/>'.$fila['nvchUbicacion'].'</td>
         <td><input type="hidden" name="intCantidadUbigeo[]" value="'.$fila['intCantidadUbigeo'].'"/>'.$fila['intCantidadUbigeo'].'</td>
         <td> 
@@ -103,8 +103,9 @@ class UbigeoProducto
       $sql_comando = $sql_conectar->prepare('CALL seleccionarUbigeoProducto(:intIdUbigeoProducto)');
       $sql_comando -> execute(array(':intIdUbigeoProducto' => $this->intIdUbigeoProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
       $salida['intIdUbigeoProducto'] = $fila['intIdUbigeoProducto'];
-      $salida['nvchSucursal'] = $fila['nvchSucursal'];
+      $salida['intIdSucursal'] = $fila['intIdSucursal'];
       $salida['nvchUbicacion'] = $fila['nvchUbicacion'];
       $salida['intCantidadUbigeo'] = $fila['intCantidadUbigeo'];
       echo json_encode($salida);
@@ -119,12 +120,12 @@ class UbigeoProducto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarUbigeoProducto(:intIdUbigeoProducto,:intIdProducto,:nvchSucursal,
+      $sql_comando = $sql_conectar->prepare('CALL actualizarUbigeoProducto(:intIdUbigeoProducto,:intIdProducto,:intIdSucursal,
         :nvchUbicacion,:intCantidadUbigeo)');
       $sql_comando->execute(array(
         ':intIdUbigeoProducto' => $this->intIdUbigeoProducto,
         ':intIdProducto' => $this->intIdProducto, 
-        ':nvchSucursal' => $this->nvchSucursal,
+        ':intIdSucursal' => $this->intIdSucursal,
         ':nvchUbicacion' => $this->nvchUbicacion,
         ':intCantidadUbigeo' => $this->intCantidadUbigeo));
       $_SESSION['intIdUbigeoProducto'] = $this->intIdUbigeoProducto;
@@ -161,7 +162,7 @@ class UbigeoProducto
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         echo '<tr bgcolor="#F9FAD4"> 
-        <td>'.$fila['nvchSucursal'].'</td>
+        <td>'.$fila['NombreSucursal'].'</td>
         <td>'.$fila['nvchUbicacion'].'</td>
         <td>'.$fila['intCantidadUbigeo'].'</td>
         </tr>';

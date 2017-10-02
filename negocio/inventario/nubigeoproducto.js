@@ -25,22 +25,24 @@ function AgregarUbigeo_II() {
 		return false;
 	}
 	var intIdProducto = document.getElementById("intIdProducto").value;
-	var nvchSucursal = document.getElementById("nvchSucursal").value;
+	var intIdSucursal = document.getElementById("intIdSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
 	var tipolistado = "I";
 	var funcion = "IUP";
+	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
 	   method:"POST",
 	   data:{intIdProducto:intIdProducto,
-	   		nvchSucursal:nvchSucursal,
+	   		intIdSucursal:intIdSucursal,
 	   		nvchUbicacion:nvchUbicacion,
 	   		intCantidadUbigeo:intCantidadUbigeo,
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
-	   	if(datos == "ok"){
+	   	if(datos == "okok"){
 	   		MensajeNormal("Se agregó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
 	   		ListarProducto(x,y,$("#tipo-busqueda").val());
@@ -65,7 +67,7 @@ function ActualizarUbigeo() {
 	}
 	var intIdUbigeoProducto = document.getElementById("intIdUbigeoProducto").value;
 	var intIdProducto = document.getElementById("intIdProducto").value;
-	var nvchSucursal = document.getElementById("nvchSucursal").value;
+	var intIdSucursal = document.getElementById("intIdSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
 	var tipolistado = "A";
@@ -78,13 +80,13 @@ function ActualizarUbigeo() {
 	   method:"POST",
 	   data:{intIdUbigeoProducto:intIdUbigeoProducto,
 	   		intIdProducto:intIdProducto,
-	   		nvchSucursal:nvchSucursal,
+	   		intIdSucursal:intIdSucursal,
 	   		nvchUbicacion:nvchUbicacion,
 	   		intCantidadUbigeo:intCantidadUbigeo,
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
-	   	if(datos == "ok"){
+	   	if(datos == "okok"){
 	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
 	   		BotonesUbigeo(accion);
@@ -112,7 +114,7 @@ function SeleccionarUbigeo(seleccion) {
 	   success:function(datos)
 	   {
 	   	$("#intIdUbigeoProducto").val(datos.intIdUbigeoProducto);
-	   	$("#nvchSucursal").val(datos.nvchSucursal);
+	   	$("#intIdSucursal").val(datos.intIdSucursal);
 	   	$("#nvchUbicacion").val(datos.nvchUbicacion);
 	   	$("#intCantidadUbigeo").val(datos.intCantidadUbigeo);
 	   	BotonesUbigeo('A');

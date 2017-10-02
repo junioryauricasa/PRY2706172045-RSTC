@@ -262,9 +262,19 @@ class FormularioProducto
             <div class="col-md-3">
               <div class="form-group">
                 <label>Sucursal:</label>
-                <select id="nvchSucursal" name="nvchSucursal" class="form-control select2">
-                  <option value="Huancayo">Huancayo</option>
-                  <option value="San Jerónimo">San Jerónimo</option>
+                <select id="intIdSucursal" name="intIdSucursal" class="form-control select2" >
+                  <?php try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
                 </select>
               </div>
             </div>

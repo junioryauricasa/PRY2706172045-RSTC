@@ -271,3 +271,35 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ES_STOCKUBIGEO;
+DELIMITER $$
+	CREATE PROCEDURE ES_STOCKUBIGEO(
+		IN _intIdUbigeoProducto INT,
+    	IN _intCantidadUbigeo INT
+    )
+	BEGIN
+		UPDATE tb_ubigeo_producto
+		SET
+		intCantidadUbigeo = _intCantidadUbigeo
+		WHERE 
+		intIdUbigeoProducto = _intIdUbigeoProducto;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ES_STOCKTOTAL;
+DELIMITER $$
+	CREATE PROCEDURE ES_STOCKTOTAL(
+		IN _intIdProducto INT,
+    	IN _intCantidad INT
+    )
+	BEGIN
+		UPDATE tb_producto
+		SET
+		intCantidad = _intCantidad
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END 
+$$
+DELIMITER ;

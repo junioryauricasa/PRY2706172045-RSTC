@@ -4,15 +4,15 @@ DROP PROCEDURE IF EXISTS INSERTARUBIGEOPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARUBIGEOPRODUCTO(
 	IN _intIdProducto INT,
-    IN _nvchSucursal VARCHAR(100),
+    IN _intIdSucursal VARCHAR(100),
     IN _nvchUbicacion VARCHAR(100),
     IN _intCantidadUbigeo INT
     )
 	BEGIN
 		INSERT INTO tb_ubigeo_producto
-		(intIdProducto,nvchSucursal,nvchUbicacion,intCantidadUbigeo)
+		(intIdProducto,intIdSucursal,nvchUbicacion,intCantidadUbigeo)
 		VALUES
-		(_intIdProducto,_nvchSucursal,_nvchUbicacion,_intCantidadUbigeo);
+		(_intIdProducto,_intIdSucursal,_nvchUbicacion,_intCantidadUbigeo);
     END 
 $$
 DELIMITER ;
@@ -22,7 +22,7 @@ DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARUBIGEOPRODUCTO(
 	IN _intIdUbigeoProducto INT,
 	IN _intIdProducto INT,
-    IN _nvchSucursal VARCHAR(100),
+    IN _intIdSucursal VARCHAR(100),
     IN _nvchUbicacion VARCHAR(100),
     IN _intCantidadUbigeo INT
     )
@@ -30,7 +30,7 @@ DELIMITER $$
 		UPDATE tb_ubigeo_producto
 		SET
 		intIdProducto = _intIdProducto,
-		nvchSucursal = _nvchSucursal,
+		intIdSucursal = _intIdSucursal,
 		nvchUbicacion = _nvchUbicacion,
 		intCantidadUbigeo = _intCantidadUbigeo
 		WHERE 
@@ -71,9 +71,10 @@ DELIMITER $$
     	IN _intIdProducto INT
     )
 	BEGIN
-		SELECT * FROM tb_ubigeo_producto
+		SELECT UP.*,S.nvchNombre AS NombreSucursal FROM tb_ubigeo_producto UP
+		LEFT JOIN tb_sucursal S ON UP.intIdSucursal = S.intIdSucursal
 		WHERE 
-		intIdProducto = _intIdProducto;
+		UP.intIdProducto = _intIdProducto;
     END 
 $$
 DELIMITER ;

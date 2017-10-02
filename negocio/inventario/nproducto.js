@@ -61,7 +61,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok") {
+	   	if (datos=="okokokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");
@@ -386,12 +386,13 @@ function AgregarUbigeo() {
 	if(EsNumeroEntero("intCantidadUbigeo") == false){
 		return false;
 	}
-	var nvchSucursal = document.getElementById("nvchSucursal").value;
+	var intIdSucursal = document.getElementById("intIdSucursal").value;
+	var NombreSucursal = $("#intIdSucursal option:selected").html()
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
 	$('#ListaDeUbicaciones').append('<tr>'+
-		'<td>'+'<input type="hidden" name="nvchSucursal[]" value="'
-		+nvchSucursal+'"/>'+nvchSucursal+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdSucursal[]" value="'
+		+intIdSucursal+'"/>'+NombreSucursal+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchUbicacion[]" value="'
 		+nvchUbicacion+'"/>'+nvchUbicacion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidadUbigeo[]" value="'

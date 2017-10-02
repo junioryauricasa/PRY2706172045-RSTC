@@ -194,19 +194,9 @@ class Producto
           <td>'.$fila["nvchSimbolo"].'</td>
           <td>'.$fila["dcmPrecioVenta1"].'</td>
           <td>'.$fila["dcmPrecioVenta2"].'</td>
-          <td>'.$fila["dcmPrecioVenta3"].'</td>';
-          $sql_conexion_cantidad = new Conexion_BD();
-          $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
-          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto']));
-          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-          if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
-            echo '<td>0</td>';
-          } else {
-            echo '<td>'.$fila_cantidad["CantidadTotal"].'</td>';
-          }
-          echo 
-          '<td>
+          <td>'.$fila["dcmPrecioVenta3"].'</td>
+          <td>'.$fila["intCantidad"].'</td>
+          <td>
             <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
               <i class="fa fa-edit"></i> Ver Detalle
             </button>
@@ -324,6 +314,34 @@ class Producto
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }  
+  }
+
+  public function AumentarStockTotal($intIdProducto)
+  {
+    try{
+      $intCantidad = 0;
+      $sql_conexion_cantidad = new Conexion_BD();
+      $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
+      $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
+      $sql_comando_cantidad -> execute(array(':intIdProducto' => $intIdProducto));
+      $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+      if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
+        $intCantidad = 0;
+      } else {
+        $intCantidad = $fila_cantidad["CantidadTotal"];
+      }
+
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');
+      $sql_comando -> execute(array(
+        ':intIdProducto' => $intIdProducto,
+        ':intCantidad' => $intCantidad));
+      echo 'ok';
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
   }
   /* FIN - Métodos de Producto */
 }

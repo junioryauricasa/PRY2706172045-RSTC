@@ -456,7 +456,7 @@ function MostrarSeleccionComprobante() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Timer Comprobante */
 function TimerComprobante() {
-    miVariable = setInterval(MostrarSeleccionComprobante, 100);
+    miVariable = setInterval(MostrarSeleccionComprobante, 500);
 }
 /* FIN - Timer Comprobante */
 //////////////////////////////////////////////////////////////
