@@ -3,6 +3,7 @@ require_once '../conexion/bd_conexion.php';
 class FormularioCotizacion
 {
   private $intIdCotizacion;
+  private $nvchSerie;
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
@@ -28,6 +29,7 @@ class FormularioCotizacion
   private $nvchObservacion;
 
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
+  public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }

@@ -146,6 +146,10 @@ switch($_POST['funcion']){
     $DetalleVenta = new DetalleVenta();
     $DetalleVenta->InsertarCotizacion($_POST['nvchNumeracionCotizacion']);
     break;
+  case "LCT":
+    $DetalleVenta = new DetalleVenta();
+    $DetalleVenta->ListarCotizacionVenta();
+    break;
   case "NCPR":
     $Numeraciones = new Numeraciones();
     $Numeraciones->NumeracionAlgoritmica($_POST['intIdTipoComprobante'],$_POST['intIdSucursal']);

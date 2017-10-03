@@ -176,7 +176,8 @@ DELIMITER $$
 			END AS NombreCliente FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
-		WHERE 
+		WHERE
+		CT.nvchSerie LIKE CONCAT(_elemento,'%') OR 
 		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
@@ -203,6 +204,7 @@ DELIMITER $$
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		WHERE
+		CT.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR

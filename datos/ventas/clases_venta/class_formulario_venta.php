@@ -4,12 +4,15 @@ class FormularioVenta
 {
   private $intIdVenta;
   private $intIdTipoComprobante;
+  private $intIdSucursal;
+  private $nvchSerie;
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
   private $dtmFechaCreacion;
   private $intIdTipoMoneda;
   private $intIdTipoPago;
+  private $bitEstado;
   private $intIdTipoVenta;
 
   private $NombreUsuario;
@@ -24,12 +27,15 @@ class FormularioVenta
 
   public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
   public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
+  public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
+  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
 
   public function NombreUsuario($NombreUsuario){ $this->NombreUsuario = $NombreUsuario; }
@@ -653,7 +659,8 @@ class FormularioVenta
   ?>
   <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Detalle de la Venta:</h3>
+          <h3 class="box-title">Detalle de la Venta: <?php echo $this->nvchSerie.'-'.$this->nvchNumeracion; ?> 
+            Fecha: <?php echo date('d/m/Y', strtotime($this->dtmFechaCreacion)); ?> Hora: <?php echo date('H:i:s', strtotime($this->dtmFechaCreacion)); ?></h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" id="btn-form-venta-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>

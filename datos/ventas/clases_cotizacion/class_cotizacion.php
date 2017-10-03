@@ -51,7 +51,7 @@ class Cotizacion{
         :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,
         :nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,:dtmFechaCreacion,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
-        ':nvchSerie' => '',
+        ':nvchSerie' => '0001',
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
@@ -273,7 +273,7 @@ class Cotizacion{
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["nvchNumeracion"].'</td>
+        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
