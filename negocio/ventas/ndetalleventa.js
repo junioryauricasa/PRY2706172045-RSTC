@@ -21,25 +21,6 @@ $(document).on('change', '#tipo-busqueda', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Paginar Clientes para la Selección */
-function PaginarProductosSeleccion(x,y) {
-	var busqueda = document.getElementById("BusquedaProducto").value;
-	var funcion = "PPT";
-	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda},
-	   success:function(datos)
-	   {
-	   	$("#PaginacionDeProductos").html(datos);
-	   }
-	  });
-}
-/* FIN - Paginar Clientes para la Selección */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Listar Productos para la Selección */
 function ListarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
@@ -61,6 +42,25 @@ function ListarProductosSeleccion(x,y) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginarProductosSeleccion(x,y) {
+	var busqueda = document.getElementById("BusquedaProducto").value;
+	var funcion = "PPT";
+	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda},
+	   success:function(datos)
+	   {
+	   	$("#PaginacionDeProductos").html(datos);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
 function SeleccionarProducto(seleccion) {
 	var intIdProducto = $(seleccion).attr("idsprt");
@@ -72,13 +72,13 @@ function SeleccionarProducto(seleccion) {
 	var dcmPrecio = $("input[type=hidden][name='SdcmPrecioVenta1["+intIdProducto+"]']").val();
 	var Descuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
 	var PrecioUnitario = $("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val();
-	var Total = (PrecioUnitario * intCantidad).toFixed(2);
+	var Total = $("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val();
 
 	if(Descuento == "" || Descuento == null) {
 		MensajeNormal("Ingresar el Descuento del Producto que estás eligiendo",2);
 		return false;
 	} else if(intCantidad == "" || intCantidad == null) {
-		MensajeNormal("Ingresar la cantidad del Producto que estás eligiendo",2);
+		MensajeNormal("Ingresar la Cantidad del Producto que estás eligiendo",2);
 		return false;
 	}
 
@@ -164,8 +164,54 @@ function CamposDetalleVenta(accion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Ocultar Campos */
-function CalcularPrecioLista(dcmDescuento) {
+/* INICIO - Calcular Precio Unitario */
+function CalcularPrecioTotal(accion) {
+	var intIdTipoCliente = $("#intIdTipoCliente").val();
+	var intIdProducto = $(accion).attr("idsprt");
+	var dcmDescuentoVenta2 = $("input[type=hidden][name='SdcmDescuentoVenta2["+intIdProducto+"]']").val();
+	var dcmDescuentoVenta3 = $("input[type=hidden][name='SdcmDescuentoVenta3["+intIdProducto+"]']").val();
+	var dcmDescuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
+	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
+	if((dcmDescuento == "" || dcmDescuento == null) && (intCantidad == "" || intCantidad == null)){
+		return false;
+	} else {
+		if(intIdTipoCliente == 1) {
+			if(Number(dcmDescuento) > dcmDescuentoVenta2) {
+				MensajeNormal("Sobrepasa al descuento 2",2);
+				$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
+				return false;
+			}
+		} else if (intIdTipoCliente == 2) {
+			if(Number(dcmDescuento) > dcmDescuentoVenta3) {
+				MensajeNormal("Sobrepasa al descuento 3",2);
+				$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
+				return false;
+			}
+		} else {
+			MensajeNormal("Seleccionar un Cliente",2);
+			$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
+			return false
+		}
+		var dcmPrecioVenta1 = $("input[type=hidden][name='SdcmPrecioVenta1["+intIdProducto+"]']").val();
+		var dcmPrecioUnitario = (dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100))).toFixed(2);
+		$("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val(dcmPrecioUnitario);
+
+		if (intCantidad == "" || intCantidad == null) {
+			$("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val("0.00");
+			return false;
+		}
+		else {
+			var dcmTotal = dcmPrecioUnitario * intCantidad;
+			$("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val(dcmTotal);
+		}
+	}
+}
+/* FIN - Calcular Precio Unitario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Calcular Total */
+function CalcularTotal(dcmDescuento,intCantidad) {
 	var intIdTipoCliente = $("#intIdTipoCliente").val();
 	var intIdProducto = $(dcmDescuento).attr("idsprt");
 	var dcmDescuentoVenta2 = $("input[type=hidden][name='SdcmDescuentoVenta2["+intIdProducto+"]']").val();
@@ -193,7 +239,7 @@ function CalcularPrecioLista(dcmDescuento) {
 	var dcmPrecioUnitario = dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100));
 	$("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val(dcmPrecioUnitario.toFixed(2));
 }
-/* FIN - Ocultar Campos */
+/* FIN - Calcular Total */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

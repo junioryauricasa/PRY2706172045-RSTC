@@ -107,7 +107,7 @@ include('../_include/rstheader.php');
               </tr>
               </thead>
               <tbody id="ListaDeVentas">
-                <script>ListarVenta(0,10,"T",1);</script>
+                <script>ListarVenta(0,10,"T");</script>
               </tbody>
             </table>
             <script>AccionCabecerasTablaComprobante(1);</script>
@@ -116,7 +116,7 @@ include('../_include/rstheader.php');
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeVenta" class="pagination">
-                <script>PaginarVenta(0,10,"T",1);</script>
+                <script>PaginarVenta(0,10,"T");</script>
               </ul>
             </nav>
           </div>
