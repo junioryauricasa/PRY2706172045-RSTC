@@ -195,7 +195,7 @@ class DetalleVenta
     }
   }
 
-  public function ListarProductoVenta($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
+  public function ListarProductoVenta($busqueda,$x,$y,$TipoBusqueda,$intIdSucursal)
   {
   	try{
       $sql_conexion = new Conexion_BD();
@@ -211,19 +211,18 @@ class DetalleVenta
         <td><input type="hidden" name="SnvchSimbolo['.$fila['intIdProducto'].']" value="'.$fila['nvchSimbolo'].'"/>'.$fila['nvchSimbolo'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta1['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta1'].'"/>
         <input type="hidden" name="SdcmDescuentoVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta2'].'"/><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>
-        <input type="hidden" name="SdcmDescuentoVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta3'].'"/><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta1'].'</td>';
-        //<td><input type="hidden" name="SdcmDescuentoVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta2'].'"/><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>'.$fila['dcmPrecioVenta2'].'</td>
-        //<td><input type="hidden" name="SdcmDescuentoVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta3'].'"/><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta3'].'</td>';
-          $sql_conexion_cantidad = new Conexion_BD();
-          $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
-          $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto']));
-          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-          if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
-            echo '<td>0</td>';
-          } else {
-            echo '<td><input type="hidden" name="SCantidadTotal['.$fila['intIdProducto'].']" value="'.$fila_cantidad["CantidadTotal"].'"/>'.$fila_cantidad["CantidadTotal"].'</td>';
-          }
+        <input type="hidden" name="SdcmDescuentoVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta3'].'"/><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta1'].'</td>
+        <td><input type="hidden" name="SCantidadTotal['.$fila['intIdProducto'].']" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>';
+        $sql_conexion_cantidad = new Conexion_BD();
+        $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
+        $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADUBIGEOPRODUCTO(:intIdProducto,:intIdSucursal)');
+        $sql_comando_cantidad -> execute(array(':intIdProducto' => $fila['intIdProducto'], 'intIdSucursal' => $intIdSucursal));
+        $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+        if($fila_cantidad["CantidadUbigeo"] == "" || $fila_cantidad["CantidadUbigeo"] == NULL){
+          echo '<td>0</td>';
+        } else {
+          echo '<td><input type="hidden" name="SCantidadUbigeo['.$fila['intIdProducto'].']" value="'.$fila_cantidad["CantidadUbigeo"].'"/>'.$fila_cantidad["CantidadUbigeo"].'</td>';
+        }
         echo 
         '<td>
           <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
@@ -238,19 +237,11 @@ class DetalleVenta
         <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" onkeyup="CalcularPrecioLista(this)" name="SdcmDescuento['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Porcentaje"></td>
         <td><input type="text" name="SdcmPrecioLista['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
         <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" onkeypress="return EsNumeroEnteroTecla(event)" class="form-control select2" placeholder="Ingrese Cantidad"></td>
-        <td>';
-        if($tipofuncion == "F") {
-        echo 
-         '<button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProducto(this)">
+        <td><input type="text" name="SdcmTotal['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
+        <td>
+        <button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProducto(this)">
             <i class="fa fa-edit"></i> Elegir
-          </button>';
-        } else if ($tipofuncion == "M") {
-        echo 
-         '<button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="AgregarDetalleVenta_II(this)">
-            <i class="fa fa-edit"></i> Agregar
-          </button>';
-        }
-        echo 
+        </button>'; 
         '</td>
         </tr>';
       }
@@ -295,7 +286,7 @@ class DetalleVenta
         }
 
           if($x==$i){
-            $output.=  '<li class="page-item active"><a idprt="'.$i.'" class="page-link" onclick="PaginacionProductos(this)">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item active"><a idprt="'.$i.'" class="page-link pa-producto" onclick="PaginacionProductos(this)">'.($i+1).'</a></li>';
           }
           else
           {

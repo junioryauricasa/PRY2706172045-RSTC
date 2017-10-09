@@ -449,6 +449,9 @@ function MostrarSeleccionComprobante() {
 	   	 }
 	   }
 	  });
+	var y = 5;
+	var x = $(".pa-producto").attr("idprt") * y;
+	ListarProductosSeleccion(x,y);
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////

@@ -308,35 +308,6 @@ class FormularioVenta
               </div>
             </div>
           </div>
-          <?php } else if($funcion == "M") { ?>
-          <div class="box-body">
-            <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Nombre del Usuario:</label>
-                    <input type="text" name="NombreUsuario" class="form-control select2" placeholder="Ingrese código del Venta" value="<?php echo $this->NombreUsuario; ?>" required>
-                    <input type="hidden" name="intIdUsuario" value="<?php echo $this->intIdUsuario; ?>" required>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Nombre del Cliente:</label>
-                    <input type="text" name="NombreCliente" class="form-control select2" placeholder="Ingrese código de inventario" value="<?php echo $this->NombreCliente; ?>" required>
-                    <input type="hidden" name="intIdCliente" value="<?php echo $this->intIdCliente; ?>" required>
-                  </div>
-                </div>
-            </div>
-            <?php if($funcion == "M") { ?>
-            <div class="row">
-              <div class="col-md-5">
-                <div class="form-group">
-                  <input type="submit" id="btn-editar-venta" class="btn btn-sm btn-warning btn-flat" value="Editar Venta">
-                  <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar">
-                </div>
-              </div>
-            </div>
-            <?php } ?>
-          </div>
           <?php } ?>
       <div class="box-header with-border">
       </div>
@@ -400,15 +371,15 @@ class FormularioVenta
               <th>Código</th>
               <th>Descripción</th>
               <th>Moneda</th>
-              <th>Precio Venta</th>
-              <!--<th>Precio Venta 2</th>
-              <th>Precio Venta 3</th>-->
-              <th>Cantidad Disp.</th>
+              <th>Precio Lista</th>
+              <th>Cantidad Total</th>
+              <th>Cantidad Local</th>
               <th>Ubicación</th>
               <th>Imágen</th>
-              <th>Porcentaje Desc.</th>
-              <th>Precio Lista</th>
+              <th>Desc. (%)</th>
+              <th>Precio Unit.</th>
               <th>Cantidad</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
@@ -453,7 +424,6 @@ class FormularioVenta
         <h3 class="box-title">Productos a Comprar</h3>
       </div>
       <div class="box-body">
-      <?php if ($funcion == "F") { ?>
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
@@ -469,7 +439,6 @@ class FormularioVenta
             </div>
           </div>
         </div>
-      <?php } ?>
         <div class="table-responsive">
           <table class="table table-hover table-condensed">
             <thead>
@@ -534,48 +503,6 @@ class FormularioVenta
           <h3 class="box-title">Servicios</h3>
         </div>
         <div class="box-body">
-          <!--<div class="row">
-            <div class="col-md-3">
-              <div id="nvchTipoGroup" class="form-group">
-                <label>Tipo:</label>
-                <input type="text" id="nvchTipo" name="nvchTipo" class="form-control select2" 
-                placeholder="Ingrese la Descripción" maxlength="25" 
-                onkeyup="EsVacio('nvchTipo')" required>
-                <span id="nvchTipoIcono" class="" aria-hidden=""></span>
-                <div id="nvchTipoObs" class=""></div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div id="nvchModeloGroup" class="form-group">
-                <label>Modelo:</label>
-                <input type="text" id="nvchModelo" name="nvchModelo" class="form-control select2" 
-                placeholder="Ingrese la Descripción" maxlength="75" 
-                onkeyup="EsVacio('nvchModelo')" required>
-                <span id="nvchModeloIcono" class="" aria-hidden=""></span>
-                <div id="nvchModeloObs" class=""></div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div id="nvchMarcaGroup" class="form-group">
-                <label>Marca:</label>
-                <input type="text" id="nvchMarca" name="nvchMarca" class="form-control select2" 
-                placeholder="Ingrese la Descripción" maxlength="75" 
-                onkeyup="EsVacio('nvchMarca')" required>
-                <span id="nvchMarcaIcono" class="" aria-hidden=""></span>
-                <div id="nvchMarcaObs" class=""></div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div id="nvchHorometroGroup" class="form-group">
-                <label>Horómetro:</label>
-                <input type="text" id="nvchHorometro" name="nvchHorometro" class="form-control select2" 
-                placeholder="Ingrese la Descripción" maxlength="65" 
-                onkeyup="EsVacio('nvchHorometro')" required>
-                <span id="nvchHorometroIcono" class="" aria-hidden=""></span>
-                <div id="nvchHorometroObs" class=""></div>
-              </div>
-            </div>
-          </div>-->
           <hr>
           <div class="row">
             <div class="col-md-6">

@@ -257,6 +257,22 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS CANTIDADUBIGEOPRODUCTO;
+DELIMITER $$
+	CREATE PROCEDURE CANTIDADUBIGEOPRODUCTO(
+    	IN _intIdProducto INT,
+    	IN _intIdSucursal INT
+    )
+	BEGIN
+		SELECT SUM(UP.intCantidadUbigeo) AS CantidadUbigeo
+		FROM tb_producto P
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
+		WHERE 
+		P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal;
+    END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS CANTIDADTOTALPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE CANTIDADTOTALPRODUCTO(

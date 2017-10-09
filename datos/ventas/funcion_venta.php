@@ -132,7 +132,7 @@ switch($_POST['funcion']){
     break;
   case "MPT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->ListarProductoVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion'],$_POST['TipoBusqueda']);
+    $DetalleVenta->ListarProductoVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda'],$_POST['intIdSucursal']);
     break;
   case "PPT":
     $DetalleVenta = new DetalleVenta();
