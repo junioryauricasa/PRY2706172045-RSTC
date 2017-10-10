@@ -25,7 +25,7 @@ if (isset($_POST['btnIngresar'])) {
           $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
           if($fila['bitUserEstado']==1){
             $_SESSION['intIdUsuarioSesion'] = $fila['intIdUsuario'];
-            $_SESSION['NombresApellidos'] = $fila['nvchNombres'] + " " + $fila['nvchApellidoPaterno'] + " " + $fila['nvchApellidoMaterno'];
+            $_SESSION['NombresApellidos'] = $fila['nvchNombres']." ".$fila['nvchApellidoPaterno']." ".$fila['nvchApellidoMaterno'];
             $_SESSION['nvchUserName'] = $fila['nvchUserName'];
             $_SESSION['nvchImgPerfil'] = $fila['nvchImgPerfil'];
             $_SESSION['intIdTipoUsuario'] = $fila['intIdTipoUsuario'];

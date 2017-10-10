@@ -100,25 +100,16 @@ class FormularioUsuario
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-5">
-                  <div id="nvchNombresGroup" class="form-group">
-                    <label>Nombres:</label>
-                    <input type="text" id="nvchNombres" name="nvchNombres" class="form-control select2" 
-                    placeholder="Ingrese los Nombres" value="<?php echo $this->nvchNombres; ?>" 
-                    onkeyup="EsVacio('nvchNombres')" maxlength="250" required>
-                    <span id="nvchNombresIcono" class="" aria-hidden=""></span>
-                    <div id="nvchNombresObs" class=""></div>
-                  </div>
+              <div class="col-md-5">
+                <div id="nvchNombresGroup" class="form-group">
+                  <label>Nombres:</label>
+                  <input type="text" id="nvchNombres" name="nvchNombres" class="form-control select2" 
+                  placeholder="Ingrese los Nombres" value="<?php echo $this->nvchNombres; ?>" 
+                  onkeyup="EsVacio('nvchNombres')" maxlength="250" required>
+                  <span id="nvchNombresIcono" class="" aria-hidden=""></span>
+                  <div id="nvchNombresObs" class=""></div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Género:</label>
-                    <select id="nvchGenero" name="nvchGenero" class="form-control select2">
-                      <option value="Masculino">Masculino</option>
-                      <option value="Femenino">Femenino</option>
-                    </select>
-                  </div>
-                </div>
+              </div>
             </div>
             <div class="row">
                 <div class="col-md-3">

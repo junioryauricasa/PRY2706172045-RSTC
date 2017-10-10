@@ -1,4 +1,5 @@
 <?php 
+    require_once '../../datos/conexion/bd_conexion.php';
 		include('../_include/rstheader.php');
 ?>
     <script>
@@ -95,7 +96,8 @@
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#UserActividad" data-toggle="tab" aria-expanded="true">Actividad</a></li>
-                  <li class=""><a href="#UserInfo" data-toggle="tab" aria-expanded="false">Información</a></li>
+                  <li class=""><a href="#UserInfo" data-toggle="tab" aria-expanded="false">Información General</a></li>
+                  <li class=""><a href="#UserComunicacion" data-toggle="tab" aria-expanded="false">Comunicación</a></li>
                   <li class=""><a href="#UserPassword" data-toggle="tab" aria-expanded="false">Contraseña</a></li>
                   <li class=""><a href="#UserImgPerfil" data-toggle="tab" aria-expanded="false">Mi Foto</a></li>
                 </ul>
@@ -135,29 +137,130 @@
 
                   <div class="tab-pane" id="UserInfo">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Información</h3>
+                      <h3 class="box-title">Información General</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Nombres:</label>
+                        <label class="col-sm-2 control-label">DNI:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" placeholder="Ingrese sus Generales" required="">
+                          <input type="text" class="form-control" id="nvchDNI" placeholder="Ingrese su DNI" required>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email:</label>
+                        <label class="col-sm-2 control-label">RUC:</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su Correo Electrónico" required="">
+                          <input type="text" class="form-control" id="nvchRUC" placeholder="Ingrese su RUC" required>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Contraseña:</label>
-                        <div class="col-sm-5">
-                           <input type="text" class="form-control" placeholder="Ingrese Nueva Contraseña " required="">
+                        <label class="col-sm-2 control-label">Apellido Paterno:</label>
+                        <div class="col-sm-10">
+                          <input class="form-control" id="nvchApellidoPaterno" placeholder="Ingrese su Apellido Paterno" required>
                         </div>
-                        <div class="col-sm-5">
-                           <input type="text" class="form-control" placeholder="Ingrese Contraseña Nuevamente" required="">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Apellido Materno:</label>
+                        <div class="col-sm-10">
+                          <input class="form-control" id="nvchApellidoMaterno" placeholder="Ingrese su Apellido Materno" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Nombres:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchNombres" placeholder="Ingrese sus Nombres" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Género:</label>
+                        <div class="col-sm-10">
+                          <select id="nvchGenero" name="nvchGenero" class="form-control select2">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Nombres:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchNombres" placeholder="Ingrese sus Nombres" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">País:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchNombres" placeholder="Ingrese sus Nombres" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Departamento:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchRegion" placeholder="Ingrese la Región" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Provincia:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchProvincia" placeholder="Ingrese la Provincia" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Distrito:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchDistrito" placeholder="Ingrese el Distrito" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Dirección:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchDireccion" placeholder="Ingrese la Dirección" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-primary">Guardar</button>
+                          <button type="reset" class="btn btn-secondary">Limpiar</button>
+                        </div>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="UserComunicacion">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Comunicación</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Tipo de Comunicación:</label>
+                        <div class="col-sm-10">
+                          <select id="intIdTipoComunicacion" name="intIdTipoComunicacion" class="form-control select2">
+                            <?php try{
+                              $sql_conexion = new Conexion_BD();
+                              $sql_conectar = $sql_conexion->Conectar();
+                              $sql_comando = $sql_conectar->prepare('CALL mostrartipocomunicacion()');
+                              $sql_comando->execute();
+                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                              {
+                                echo'<option value="'.$fila['intIdTipoComunicacion'].'">'.$fila['nvchNombre'].'</option>';
+                              }
+                            }catch(PDPExceptions $e){
+                              echo $e->getMessage();
+                            }?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Medio:</label>
+                        <div class="col-sm-10">
+                          <input class="form-control" id="nvchMedio" placeholder="Ingrese el Medio" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Lugar/Pertenencia:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="nvchLugar" placeholder="Ingrese el Lugar/Pertenencia" required>
                         </div>
                       </div>
                       <div class="form-group">
