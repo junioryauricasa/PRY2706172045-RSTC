@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if(isset($_SESSION['user_session'])) {
+if(isset($_SESSION['intIdUsuarioSesion'])) {
 	session_destroy();
-	unset($_SESSION['user_session']);
-	unset($_SESSION['usr_name']);
-	unset($_SESSION['user_typeuser']);
+	unset($_SESSION['intIdUsuarioSesion']);
+	unset($_SESSION['nvchUserName']);
+	unset($_SESSION['intIdTipoUsuario']);
 
 	header("Location: index");
 } else {

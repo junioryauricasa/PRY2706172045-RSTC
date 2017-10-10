@@ -45,30 +45,13 @@
               <!-- Profile Image -->
               <div class="box box-primary">
                 <div class="box-body box-profile">
-                  <img class="profile-user-img img-responsive img-circle" src="<?php echo $_SESSION['usr_photo']; ?>" alt="User profile picture">
+                  <img class="profile-user-img img-responsive img-circle" src="<?php echo $_SESSION['nvchImgPerfil']; ?>" alt="User profile picture">
                   <h3 class="profile-username text-center">
-                    <?php echo $_SESSION['usr_name']; ?>
+                    <?php echo $_SESSION['NombresApellidos']; ?>
                   </h3>
                   <p class="text-muted text-center">
-                    <?php echo $_SESSION['user_typeuser']; ?>
+                    <?php echo $_SESSION['NombrePermiso']; ?>
                   </p>
-                  <p class="text-muted text-center">
-                    <a href="#">micorreo@gmail.com</a>
-                  </p>
-
-                  <!--ul class="list-group list-group-unbordered">
-                    <li class="list-group-item">
-                      <b>Followers</b> <a class="pull-right">1,322</a>
-                    </li>
-                    <li class="list-group-item">
-                      <b>Following</b> <a class="pull-right">543</a>
-                    </li>
-                    <li class="list-group-item">
-                      <b>Friends</b> <a class="pull-right">13,287</a>
-                    </li>
-                  </ul-->
-
-                  <!--a href="#" class="btn btn-warning btn-block"><b>Cambiar Contraseña</b></a-->
                   <a href="../..//logout.php" class="btn btn-danger btn-block"><b>Cerrar Sesion</b></a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -111,13 +94,14 @@
             <div class="col-md-9">
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">Actividad</a></li>
-                  <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Información</a></li>
-                  <li class=""><a href="#fotoperfil" data-toggle="tab" aria-expanded="false">Mi Foto</a></li>
+                  <li class="active"><a href="#UserActividad" data-toggle="tab" aria-expanded="true">Actividad</a></li>
+                  <li class=""><a href="#UserInfo" data-toggle="tab" aria-expanded="false">Información</a></li>
+                  <li class=""><a href="#UserPassword" data-toggle="tab" aria-expanded="false">Contraseña</a></li>
+                  <li class=""><a href="#UserImgPerfil" data-toggle="tab" aria-expanded="false">Mi Foto</a></li>
                 </ul>
 
                 <div class="tab-content">
-                  <div class="tab-pane active" id="activity">
+                  <div class="tab-pane active" id="UserActividad">
                     <div class="box-header with-border">
                       <h3 class="box-title">Historial de Acceso</h3>
                     </div><!-- /.box-header -->
@@ -148,22 +132,27 @@
                       <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a-->
                     </div><!-- /.box-footer -->
                   </div>
-                  <div class="tab-pane" id="settings">
+
+                  <div class="tab-pane" id="UserInfo">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Información</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Nombre</label>
+                        <label for="inputName" class="col-sm-2 control-label">Nombres:</label>
                         <div class="col-sm-10">
                           <input type="text" class="form-control" id="inputName" placeholder="Ingrese sus Generales" required="">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                        <label for="inputEmail" class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-10">
                           <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su Correo Electrónico" required="">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Contraseña</label>
+                        <label for="inputExperience" class="col-sm-2 control-label">Contraseña:</label>
                         <div class="col-sm-5">
                            <input type="text" class="form-control" placeholder="Ingrese Nueva Contraseña " required="">
                         </div>
@@ -173,15 +162,47 @@
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-primary">Registrar</button>
-                          <button type="reset" class="btn btn-secondary">Limpiar Celdas</button>
+                          <button type="submit" class="btn btn-primary">Guardar</button>
+                          <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>
                       </div>
                     </form>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="UserPassword">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Contraseña</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                    <form id="form-user-password" class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Anterior Contraseña:</label>
+                        <div class="col-sm-4">
+                          <input type="password" class="form-control" id="inputName" placeholder="Ingrese Anterior Contraseña" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Contraseña:</label>
+                        <div class="col-sm-4">
+                           <input type="password" class="form-control" placeholder="Ingrese Nueva Contraseña " required="">
+                        </div>
+                        <div class="col-sm-4">
+                           <input type="password" class="form-control" placeholder="Ingrese Contraseña Nuevamente" required="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="button" class="btn btn-primary">Guardar</button>
+                          <button type="reset" class="btn btn-secondary">Limpiar</button>
+                        </div>
+                      </div>
+                    </form>
+                    </div>
                   </div>
 
                   <!-- form upload image for profile -->
-                  <div class="tab-pane" id="fotoperfil">
+                  <div class="tab-pane" id="UserImgPerfil">
                     <div class="box-header with-border">
                       <h3 class="box-title">Cambiar mi Foto</h3>
                     </div><!-- /.box-header -->

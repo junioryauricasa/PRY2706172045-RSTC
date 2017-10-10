@@ -449,3 +449,28 @@ function BotonesComunicacion(accion) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function ComprobarPassword() {
+	var nvchUserPassword = $("#nvchUserPassword").val();
+	var nvchUserPasswordRep = $("#nvchUserPasswordRep").val();
+	if(nvchUserPasswordRep == ""){
+		$("#nvchUserPasswordRepGroup").attr("class","form-group");
+	    $("#nvchUserPasswordRepIcono").attr({"class":"", "aria-hidden":""});
+	    $("#nvchUserPasswordRepObs").html("");
+	    return false;
+	}
+	if(nvchUserPassword === nvchUserPasswordRep) {
+		$("#nvchUserPasswordRepGroup").attr("class","form-group has-success has-feedback");
+	    $("#nvchUserPasswordRepIcono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+	    $("#nvchUserPasswordRepObs").html("");
+	} else {
+		$("#nvchUserPasswordRepGroup").attr("class","form-group has-error has-feedback");
+	    $("#nvchUserPasswordRepIcono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+	    $("#nvchUserPasswordRepObs").attr("class","text-danger");
+	    $("#nvchUserPasswordRepObs").html("La contraseña no concuerda");
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////

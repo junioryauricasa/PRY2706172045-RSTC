@@ -38,6 +38,9 @@ function EsVacio(NombreId)
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
     $("#"+NombreId+"Obs").html("");
+    if(NombreId == "nvchUserPassword") {
+      ComprobarPassword();
+    }
     return true;
   }
 }

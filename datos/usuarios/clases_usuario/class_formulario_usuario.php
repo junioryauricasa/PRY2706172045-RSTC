@@ -163,7 +163,7 @@ class FormularioUsuario
                   <label>Escribir nuevamente la Contraseña:</label>
                   <input type="password" id="nvchUserPasswordRep" name="nvchUserPasswordRep" class="form-control select2" 
                   placeholder="Ingrese la contraseña nuevamente" value="<?php if($funcion == "F") { echo ""; } else if($funcion == "M") { echo "********"; } ?>" 
-                  onkeyup="EsVacio('nvchUserPasswordRep')" maxlength="250">
+                  onkeyup="ComprobarPassword()" maxlength="250">
                   <span id="nvchUserPasswordRepIcono" class="" aria-hidden=""></span>
                   <div id="nvchUserPasswordRepObs" class=""></div>
                 </div>
@@ -266,7 +266,7 @@ class FormularioUsuario
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">
-                  <input type="submit" id="btn-editar-usuario" class="btn btn-sm btn-warning btn-flat" value="Editar Usuario"> 
+                  <input type="button" id="btn-editar-usuario" class="btn btn-sm btn-warning btn-flat" value="Editar Usuario"> 
                   <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                 </div>
               </div>
@@ -356,7 +356,7 @@ class FormularioUsuario
             <?php } ?>
             <input type="hidden" name="intIdUsuario" id="intIdUsuario" value="<?php echo $this->intIdUsuario; ?>" />
             <?php if($funcion == "F"){ ?>
-            <input type="submit" id="btn-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Usuario">
+            <input type="button" id="btn-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Usuario">
             <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
             <?php } ?>
         </div>              
