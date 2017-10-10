@@ -125,24 +125,6 @@ function AgregarServicio() {
 ////////////////////////////////////////////////////////////// 
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Listar Domicilios según Ingresa */
-function InsertarCotizacion() {
-	var nvchNumeracionCotizacion =  document.getElementById("nvchNumeracionCotizacion").value;
-	var funcion = "ICT";
-	$.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
-	   method:"POST",
-	   data:{nvchNumeracionCotizacion:nvchNumeracionCotizacion,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProductosComprar").append(datos); 
-	   }
-	  });
-}
-/* FIN - Listar Domicilios según Ingresa */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Fila Seleccionada */
 function EliminarFila(btn) {
 	var fila = btn.parentNode.parentNode;
@@ -284,4 +266,78 @@ function LimpiarDetalleUbigeo() {
    	$("#DetalleUbigeo").html("");
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Domicilios según Ingresa */
+function InsertarCotizacion(seleccion) {
+	var intIdCotizacion = $(seleccion).attr("idct");
+	var funcion = "ICT";
+	$.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductosComprar").append(datos); 
+	   }
+	});	
+}
+/* FIN - Listar Domicilios según Ingresa */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Producto */
+function PaginacionCotizaciones(seleccion) {
+	var y = 5;
+	var x = $(seleccion).attr("idct") * y;
+	ListarCotizaciones(x,y);
+}
+
+$(document).on('keyup', '#BusquedaCotizacion', function(){
+	var y = 5;
+	var x = 0;
+	ListarCotizaciones(x,y);
+});
+/* FIN - Funciones Ajax - Listar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Productos para la Selección */
+function ListarCotizaciones(x,y) {
+	var busqueda = document.getElementById("BusquedaCotizacion").value;
+	var funcion = "MCT";
+	var tipolistado = "T";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeCotizaciones").html(datos);
+	   	PaginarCotizaciones((x/y),y);
+	   }
+	});
+}
+/* FIN - Listar Productos para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginarCotizaciones(x,y) {
+	var busqueda = document.getElementById("BusquedaProducto").value;
+	var funcion = "PCT";
+	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+	var tipolistado = "T";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
+	   success:function(datos)
+	   {
+	   	$("#PaginacionDeCotizaciones").html(datos);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
 //////////////////////////////////////////////////////////////

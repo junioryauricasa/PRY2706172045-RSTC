@@ -107,33 +107,37 @@ class Venta{
   public function ListarClienteVenta($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        echo '<tr>';
-        if($intIdTipoPersona == 2) { 
-          echo '<td>'.$fila["nvchDNI"].'</td>'; 
+      if($busqueda != "" || $busqueda != null) {
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+        {
+          echo '<tr>';
+          if($intIdTipoPersona == 2) { 
+            echo '<td>'.$fila["nvchDNI"].'</td>'; 
+          }
+          echo '<td>'.$fila["nvchRUC"].'</td>';
+          if($intIdTipoPersona == 1) { 
+            echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
+          }
+          if($intIdTipoPersona == 2) {
+          echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
+          <td>'.$fila["nvchApellidoMaterno"].'</td>
+          <td>'.$fila["nvchNombres"].'</td>';
+          }
+          echo 
+          '<td>'.$fila["TipoCliente"].'</td>
+          <td> 
+            <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCliente(this)">
+              <i class="fa fa-edit"></i> Seleccionar
+            </button>
+          </td>
+          </tr>';
         }
-        echo '<td>'.$fila["nvchRUC"].'</td>';
-        if($intIdTipoPersona == 1) { 
-          echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
-        }
-        if($intIdTipoPersona == 2) {
-        echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
-        <td>'.$fila["nvchApellidoMaterno"].'</td>
-        <td>'.$fila["nvchNombres"].'</td>';
-        }
-        echo 
-        '<td>'.$fila["TipoCliente"].'</td>
-        <td> 
-          <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCliente(this)">
-            <i class="fa fa-edit"></i> Seleccionar
-          </button>
-        </td>
-        </tr>';
+      } else {
+        echo "";
       }
     }
     catch(PDPExceptio $e){
@@ -203,69 +207,6 @@ class Venta{
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }
-  }
-
-  public function ListarCotizacionesVenta($busqueda,$x,$y,$tipolistado)
-  {
-    try{
-      $salida = "";
-      $residuo = 0;
-      $cantidad = 0;
-      $numpaginas = 0;
-      $i = 0;
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      //Busqueda de Cliente por el comando LIMIT
-      if($tipolistado == "N"){
-        $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
-        $cantidad = $sql_comando -> rowCount();
-        $numpaginas = ceil($cantidad / $y);
-        $x = ($numpaginas - 1) * $y;
-        $i = 1;
-      } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
-        $cantidad = $sql_comando -> rowCount();
-        $residuo = $cantidad % $y;
-        if($residuo == 0)
-        {$x = $x - $y;}
-      }
-      //Busqueda de Cliente por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
-      $numpaginas = ceil($cantidad / $y);
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        if($i == ($cantidad - $x) && $tipolistado == "N"){
-          echo '<tr bgcolor="#BEE1EB">';
-        } else if($fila["intIdCotizacion"] == $_SESSION['intIdCotizacion'] && $tipolistado == "E"){
-          echo '<tr bgcolor="#B3E4C0">';
-        }else {
-          echo '<tr>';
-        }
-        echo
-        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["NombreCliente"].'</td>
-        <td>'.$fila["NombreUsuario"].'</td>
-        <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td> 
-          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
-          onclick="InsertarCotizacion()">
-            <i class="fa fa-edit"></i> Elegir
-          </button>
-          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
-            <i class="fa fa-download"></i> Reporte
-          </button>
-        </td>
-        </tr>';
-        $i++;
-      }
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }  
   }
 
   public function ListarVentas($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante)
@@ -426,180 +367,107 @@ class Venta{
     }  
   }
 
-  public function PaginarCotizacionesVenta($busqueda,$x,$y,$tipolistado)
-  {
-    try{
-      if($tipolistado == "N")
-      { $busqueda = ""; }
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
-      $cantidad = $sql_comando -> rowCount();
-      $numpaginas = ceil($cantidad / $y);
-      if($tipolistado == "N" || $tipolistado == "D")
-      { $x = $numpaginas - 1; }
-      else if($tipolistado == "E")
-      { $x = $x / $y; }
-      $output = "";
-      for($i = 0; $i < $numpaginas; $i++){
-        if($i==0)
-        {
-          //$output = 'No s eencontraron nada';
-          if($x==0)
-          {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idp="'.($x-1).'" class="page-link btn-pagina" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          }
-        }
-
-          if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
-          }
-          else
-          {
-            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
-          }
-
-        if($i==($numpaginas-1))
-        {
-          if($x==($numpaginas-1))
-          {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idp="'.($x+1).'" class="page-link btn-pagina" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          }
-        }
-      }
-      if($output == ""){
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-      }
-      echo $output;
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }  
-  }
-
   public function PaginarClientesVenta($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_II(:busqueda,:intIdTipoPersona)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
-      $cantidad = $sql_comando -> rowCount();
-      $numpaginas = ceil($cantidad / $y);
-      $output = "";
-      for($i = 0; $i < $numpaginas; $i++){
-        if($i==0)
-        {
-          //$output = 'No s eencontraron nada';
-          if($x==0)
+        if($busqueda != "" || $busqueda != null) {
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_II(:busqueda,:intIdTipoPersona)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
+        $cantidad = $sql_comando -> rowCount();
+        $numpaginas = ceil($cantidad / $y);
+        $output = "";
+        for($i = 0; $i < $numpaginas; $i++){
+          if($i==0)
           {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idprd="'.($x-1).'" class="page-link" aria-label="Previous" onclick="PaginacionClientes(this)">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          }
-        }
-
-          if($x==$i){
-            $output.=  '<li class="page-item active"><a idprd="'.$i.'" class="page-link" onclick="PaginacionClientes(this)">'.($i+1).'</a></li>';
-          }
-          else
-          {
-            $output.=  '<li class="page-item"><a idprd="'.$i.'" class="page-link" onclick="PaginacionClientes(this)">'.($i+1).'</a></li>';
+            //$output = 'No s eencontraron nada';
+            if($x==0)
+            {
+              $output .= 
+              '<li class="page-item disabled">
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Anterior</span>
+                  </a>
+              </li>';
+            } else {
+              $output .= 
+              '<li class="page-item">
+                  <a idprd="'.($x-1).'" class="page-link" aria-label="Previous" onclick="PaginacionClientes(this)">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Anterior</span>
+                  </a>
+              </li>';
+            }
           }
 
-        if($i==($numpaginas-1))
-        {
-          if($x==($numpaginas-1))
+            if($x==$i){
+              $output.=  '<li class="page-item active"><a idprd="'.$i.'" class="page-link" onclick="PaginacionClientes(this)">'.($i+1).'</a></li>';
+            }
+            else
+            {
+              $output.=  '<li class="page-item"><a idprd="'.$i.'" class="page-link" onclick="PaginacionClientes(this)">'.($i+1).'</a></li>';
+            }
+
+          if($i==($numpaginas-1))
           {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idprd="'.($x+1).'" class="page-link" aria-label="Next" onclick="PaginacionClientes(this)">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
+            if($x==($numpaginas-1))
+            {
+              $output .= 
+              '<li class="page-item disabled">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Siguiente</span>
+                  </a>
+              </li>';
+            } else {
+              $output .= 
+              '<li class="page-item">
+                  <a idprd="'.($x+1).'" class="page-link" aria-label="Next" onclick="PaginacionClientes(this)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Siguiente</span>
+                  </a>
+              </li>';
+            }
           }
         }
+        if($output == ""){
+          $output .= 
+              '<li class="page-item">
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Anterior</span>
+                  </a>
+              </li>';
+          $output .= 
+              '<li class="page-item">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Siguiente</span>
+                  </a>
+              </li>';
+        }
+        echo $output;
       }
-      if($output == ""){
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
+      else {
+        $output = ""; 
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Anterior</span>
+                    </a>
+                </li>';
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Siguiente</span>
+                    </a>
+                </li>';
+          echo $output;
       }
-      echo $output;
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

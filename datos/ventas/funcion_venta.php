@@ -138,17 +138,17 @@ switch($_POST['funcion']){
     $DetalleVenta = new DetalleVenta();
     $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
     break;
-  case "PPV":
-    $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->PaginarProductosVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
-    break;
   case "ICT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->InsertarCotizacion($_POST['nvchNumeracionCotizacion']);
+    $DetalleVenta->InsertarCotizacion($_POST['intIdCotizacion']);
     break;
-  case "LCT":
+  case "MCT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->ListarCotizacionVenta();
+    $DetalleVenta->ListarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    break;
+  case "PCT":
+    $DetalleVenta = new DetalleVenta();
+    $DetalleVenta->PaginarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
     break;
   case "NCPR":
     $Numeraciones = new Numeraciones();

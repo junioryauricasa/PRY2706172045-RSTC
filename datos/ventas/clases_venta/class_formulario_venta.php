@@ -139,7 +139,7 @@ class FormularioVenta
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Ingresar Búsqueda:</label>
-                  <input type="text" id="BusquedaCliente" name="BusquedaCliente" class="form-control select2" placeholder="Ingresar Búsqueda" required>
+                  <input type="text" id="BusquedaCliente" name="BusquedaCliente" class="form-control select2" placeholder="Ingresar Búsqueda">
                 </div>
               </div>
               <div class="col-md-2">
@@ -312,13 +312,13 @@ class FormularioVenta
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
-        <h3 class="box-title">Tipo de Cotizacion</h3>
+        <h3 class="box-title">Tipo de Venta</h3>
       </div>
       <div class="box-body">
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
-              <label>Seleccionar el Tipo de Cotizacion:</label>
+              <label>Seleccionar el Tipo de Venta:</label>
                 <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
                   <?php try{
                     $sql_conexion = new Conexion_BD();
@@ -384,11 +384,7 @@ class FormularioVenta
             </tr>
             </thead>
             <tbody id="ListaDeProductosSeleccion">
-              <?php if($funcion == "F") { ?>
               <script type="text/javascript">ListarProductosSeleccion(0,5,'F');</script>
-              <?php } else if($funcion == "M") { ?>
-              <script type="text/javascript">ListarProductosSeleccion(0,5,'M');</script>
-              <?php } ?>
             </tbody>
           </table>
         </div>
@@ -418,27 +414,53 @@ class FormularioVenta
           </div>
         </div>
       </div>
+
+      <div class="box-header with-border">
+      </div>
+      <div class="box-header with-border">
+        <h3 class="box-title">Cotizaciones</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+                <label class="text-left">Ingresar Búsqueda:</label>
+                <input type="text" id="BusquedaCotizacion" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+              <th>Numeración</th>
+              <th>Cliente</th>
+              <th>Usuario que Generó</th>
+              <th>Fecha de Creación</th>
+              <th>Opción</th>
+            </tr>
+            </thead>
+            <tbody id="ListaDeCotizaciones">
+              <script type="text/javascript">ListarCotizaciones(0,5);</script>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <div class="text-center">
+          <nav aria-label="...">
+            <ul id="PaginacionDeCotizaciones" class="pagination">
+              <script>PaginarCotizaciones(0,5);</script>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
         <h3 class="box-title">Productos a Comprar</h3>
       </div>
       <div class="box-body">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Ingresar Código de Cotización:</label>
-              <input type="text" id="nvchNumeracionCotizacion" name="nvchNumeracionCotizacion" class="form-control select2" placeholder="Ingresar Código">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <input type="button" id="btn-insertar-cotizacion" class="form-control select2 btn btn-success" value="Insertar Cotizacion" onclick="InsertarCotizacion()"/>
-            </div>
-          </div>
-        </div>
         <div class="table-responsive">
           <table class="table table-hover table-condensed">
             <thead>
