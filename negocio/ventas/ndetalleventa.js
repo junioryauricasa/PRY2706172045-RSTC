@@ -183,45 +183,12 @@ function CalcularPrecioTotal(accion) {
 			return false;
 		}
 		else {
-			var dcmTotal = dcmPrecioUnitario * intCantidad;
+			var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
 			$("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val(dcmTotal);
 		}
 	}
 }
 /* FIN - Calcular Precio Unitario */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Calcular Total */
-function CalcularTotal(dcmDescuento,intCantidad) {
-	var intIdTipoCliente = $("#intIdTipoCliente").val();
-	var intIdProducto = $(dcmDescuento).attr("idsprt");
-	var dcmDescuentoVenta2 = $("input[type=hidden][name='SdcmDescuentoVenta2["+intIdProducto+"]']").val();
-	var dcmDescuentoVenta3 = $("input[type=hidden][name='SdcmDescuentoVenta3["+intIdProducto+"]']").val();
-	var dcmDescuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
-
-	if(intIdTipoCliente == 1) {
-		if(Number(dcmDescuento) > dcmDescuentoVenta2) {
-			MensajeNormal("Sobrepasa al descuento 2",2);
-			$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
-			return false;
-		}
-	} else if (intIdTipoCliente == 2) {
-		if(Number(dcmDescuento) > dcmDescuentoVenta3) {
-			MensajeNormal("Sobrepasa al descuento 3",2);
-			$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
-			return false;
-		}
-	} else {
-		MensajeNormal("Seleccionar un Cliente",2);
-		$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
-		return false
-	}
-	var dcmPrecioVenta1 = $("input[type=hidden][name='SdcmPrecioVenta1["+intIdProducto+"]']").val();
-	var dcmPrecioUnitario = dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100));
-	$("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val(dcmPrecioUnitario.toFixed(2));
-}
-/* FIN - Calcular Total */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

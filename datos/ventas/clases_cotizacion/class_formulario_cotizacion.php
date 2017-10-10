@@ -361,13 +361,14 @@ class FormularioCotizacion
                 <th>Código</th>
                 <th>Descripción</th>
                 <th>Moneda</th>
-                <th>Precio Venta</th>
+                <th>Precio Lista</th>
                 <th>Cantidad Disp.</th>
                 <th>Ubicación</th>
                 <th>Imágen</th>
-                <th>Porcentaje Desc.</th>
-                <th>Precio Lista</th>
+                <th>Desc (%)</th>
+                <th>Precio Unitario</th>
                 <th>Cantidad</th>
+                <th>Total</th>
                 <th>Opción</th>
               </tr>
               </thead>
@@ -419,9 +420,9 @@ class FormularioCotizacion
                 <th>Código</th>
                 <th>Descripción</th>
                 <th>Cantidad</th>
-                <th>Precio Venta</th>
+                <th>Precio Lista</th>
                 <th>Descuento</th>
-                <th>Precio Unit.</th>
+                <th>Precio Unitario</th>
                 <th>Total</th>
                 <th>Opción</th>
               </tr>

@@ -130,6 +130,7 @@ class Cotizacion{
   public function ListarClienteCotizacion($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
+      if($busqueda != "" || $busqueda != null){
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
@@ -157,9 +158,11 @@ class Cotizacion{
           </button>
         </td>
         </tr>';
-      }
-    }
-    catch(PDPExceptio $e){
+        }
+        } else {
+          echo "";
+        }
+      } catch(PDPExceptio $e){
       echo $e->getMessage();
     }
   }
@@ -393,6 +396,7 @@ class Cotizacion{
   public function PaginarClientesCotizacion($busqueda,$x,$y,$intIdTipoPersona)
   {
     try{
+      if($busqueda != "" || $busqueda != null){
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL buscarcliente_ii(:busqueda,:intIdTipoPersona)');
@@ -471,6 +475,24 @@ class Cotizacion{
             </li>';
       }
       echo $output;
+      } else {
+        $output = ""; 
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Anterior</span>
+                    </a>
+                </li>';
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Siguiente</span>
+                    </a>
+                </li>';
+          echo $output;
+      }
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

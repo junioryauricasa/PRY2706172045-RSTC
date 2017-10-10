@@ -198,6 +198,7 @@ class DetalleCotizacion
   public function ListarProductoCotizacion($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
   {
   	try{
+      if($busqueda != "" || $busqueda != null) {
       $i=1;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
@@ -234,9 +235,10 @@ class DetalleCotizacion
             <i class="fa fa-search"></i> Ver 
           </button>
         </td>
-        <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" onkeyup="CalcularPrecioLista(this)" name="SdcmDescuento['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Porcentaje"></td>
+        <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" onkeyup="CalcularPrecioTotal(this)" name="SdcmDescuento['.$fila['intIdProducto'].']" class="form-control select2" placeholder="Ingrese Porcentaje"></td>
         <td><input type="text" name="SdcmPrecioLista['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
-        <td><input type="text" name="SintCantidad['.$fila['intIdProducto'].']" onkeypress="return EsNumeroEnteroTecla(event)" class="form-control select2" placeholder="Ingrese Cantidad"></td>
+        <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="CalcularPrecioTotal(this)" name="SintCantidad['.$fila['intIdProducto'].']"  class="form-control select2" placeholder="Ingrese Cantidad"></td>
+        <td><input type="text" name="SdcmTotal['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
         <td>';
         if($tipofuncion == "F") {
         echo 
@@ -252,6 +254,9 @@ class DetalleCotizacion
         echo 
         '</td>
         </tr>';
+        }
+      } else {
+        echo "";
       }
     }
     catch(PDPExceptio $e){
@@ -262,6 +267,7 @@ class DetalleCotizacion
   public function PaginarProductosCotizacion($busqueda,$x,$y,$TipoBusqueda)
   {
     try{
+      if($busqueda != "" || $busqueda != null){
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
@@ -340,6 +346,24 @@ class DetalleCotizacion
             </li>';
       }
       echo $output;
+      } else {
+        $output = ""; 
+        $output .= 
+              '<li class="page-item">
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Anterior</span>
+                  </a>
+              </li>';
+        $output .= 
+              '<li class="page-item">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Siguiente</span>
+                  </a>
+              </li>';
+        echo $output;
+      }
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
