@@ -50,39 +50,7 @@ switch($_POST['funcion']){
     $DetalleVenta->InsertarDetalleVenta();
     $Numeraciones = new Numeraciones();
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
-    break;
-  case "IDV":
-    $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->IdVenta($_POST['intIdVenta']);
-    $DetalleVenta->IdProducto($_POST['intIdProducto']);
-    $dtmFechaRealizada = date("Y-m-d H:i:s");
-    $DetalleVenta->FechaRealizada($dtmFechaRealizada);
-    $DetalleVenta->Cantidad($_POST['intCantidad']);
-    $DetalleVenta->Precio($_POST['dcmPrecio']);
-    $DetalleVenta->InsertarDetalleVenta_II();
-    break;
-  case "A":
-    $Venta = new Venta();
-    $Venta->IdVenta($_POST['intIdVenta']);
-    $Venta->NumFactura($_POST['nvchNumFactura']);
-    $Venta->NumBoletaVenta($_POST['nvchNumBoletaVenta']);
-    $Venta->IdUsuario($_POST['intIdUsuario']);
-    $Venta->IdCliente($_POST['intIdCliente']);
-    $dtmFechaCreacion = date("Y-m-d H:i:s");
-    $Venta->FechaCreacion($dtmFechaCreacion);
-    $Venta->IdTipoComprobante($_POST['intIdTipoComprobante']);
-    $Venta->ActualizarVenta();
-    break;
-  case "ADV":
-    $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->IdOperacionVenta($_POST['intIdOperacionVenta']);
-    $DetalleVenta->IdVenta($_POST['intIdVenta']);
-    $DetalleVenta->IdProducto($_POST['intIdProducto']);
-    $dtmFechaRealizada = date("Y-m-d H:i:s");
-    $DetalleVenta->FechaRealizada($dtmFechaRealizada);
-    $DetalleVenta->Cantidad($_POST['intCantidad']);
-    $DetalleVenta->Precio($_POST['dcmPrecio']);
-    $DetalleVenta->ActualizarDetalleVenta();
+    $DetalleVenta->Salida_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad']);
     break;
   case "M":
     $Venta = new Venta();
@@ -94,20 +62,10 @@ switch($_POST['funcion']){
     $DetalleVenta->IdVenta($_POST['intIdVenta']);
     $DetalleVenta->MostrarDetalleVenta($_POST['tipolistado']);
     break;
-  case "SDV":
-    $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->IdOperacionVenta($_POST['intIdOperacionVenta']);
-    $DetalleVenta->SeleccionarDetalleVenta();
-    break;
   case "E":
     $Venta = new Venta();
     $Venta->IdVenta($_POST['intIdVenta']);
     $Venta->EliminarVenta();
-    break;
-  case "EDV":
-    $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->IdOperacionVenta($_POST['intIdOperacionVenta']);
-    $DetalleVenta->EliminarDetalleVenta();
     break;
   case "L":
     $Venta = new Venta();

@@ -525,6 +525,30 @@ class DetalleVenta
       echo $e->getMessage();
     }    
   }
+
+  public function Salida_StockUbigeo($intIdProducto,$intIdSucursal,$intCantidad)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:intIdCotizacion)');
+      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        echo '<tr> 
+        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
+        <td>'.$fila['nvchDescripcion'].'</td>
+        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
+        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/><input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" value="'.$fila['dcmPrecioUnitario'].'"/>'.$fila['dcmPrecioUnitario'].'</td>
+        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
+        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
+        </tr>';
+      }
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }    
+  }
   /* FIN - Métodos de Detalle Orden Compra */
 }
 ?>
