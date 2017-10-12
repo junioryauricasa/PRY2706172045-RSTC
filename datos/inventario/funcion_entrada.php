@@ -1,106 +1,106 @@
 <?php
 session_start();
-require_once 'clases_entrada/class_guia_interna_entrada.php';
-require_once 'clases_entrada/class_detalle_guia_interna_entrada.php';
+require_once 'clases_entrada/class_entrada.php';
+require_once 'clases_entrada/class_detalle_entrada.php';
 require_once 'clases_entrada/class_formulario_entrada.php';
-if(empty($_SESSION['intIdGuiaInternaEntrada'])){
-  $_SESSION['intIdGuiaInternaEntrada'] = 0;
+if(empty($_SESSION['intIdEntrada'])){
+  $_SESSION['intIdEntrada'] = 0;
 }
-if(empty($_SESSION['intIdOperacionGuiaInternaEntrada'])){
-  $_SESSION['intIdOperacionGuiaInternaEntrada'] = 0;
+if(empty($_SESSION['intIdOperacionEntrada'])){
+  $_SESSION['intIdOperacionEntrada'] = 0;
 }
 switch($_POST['funcion']){
   case "I":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->IdOrdenCompra($_POST['intIdOrdenCompra']);
-    $GuiaInternaEntrada->IdUsuario($_SESSION['user_session']);
+    $Entrada = new Entrada();
+    $Entrada->IdOrdenCompra($_POST['intIdOrdenCompra']);
+    $Entrada->IdUsuario($_SESSION['user_session']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
-    $GuiaInternaEntrada->FechaCreacion($dtmFechaCreacion);
-    $GuiaInternaEntrada->InsertarGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada = new DetalleGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada->IdGuiaInternaEntrada($_SESSION['intIdGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
+    $Entrada->FechaCreacion($dtmFechaCreacion);
+    $Entrada->InsertarEntrada();
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->IdEntrada($_SESSION['intIdEntrada']);
+    $DetalleEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
     $dtmFechaEntrada = $dtmFechaCreacion;
-    $DetalleGuiaInternaEntrada->FechaEntrada($dtmFechaEntrada);
-    $DetalleGuiaInternaEntrada->Cantidad($_POST['intCantidad']);
-    $DetalleGuiaInternaEntrada->InsertarDetalleGuiaInternaEntrada();
+    $DetalleEntrada->FechaEntrada($dtmFechaEntrada);
+    $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->InsertarDetalleEntrada();
     break;
   case "A":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->IdGuiaInternaEntrada($_POST['intIdGuiaInternaEntrada']);
-    $GuiaInternaEntrada->IdOrdenCompra($_POST['IdOrdenCompra']);
-    $GuiaInternaEntrada->IdUsuario($_SESSION['user_session']);
+    $Entrada = new Entrada();
+    $Entrada->IdEntrada($_POST['intIdEntrada']);
+    $Entrada->IdOrdenCompra($_POST['IdOrdenCompra']);
+    $Entrada->IdUsuario($_SESSION['user_session']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
-    $GuiaInternaEntrada->FechaCreacion($dtmFechaCreacion);
-    $GuiaInternaEntrada->ActualizarGuiaInternaEntrada();
+    $Entrada->FechaCreacion($dtmFechaCreacion);
+    $Entrada->ActualizarEntrada();
     break;
   case "M":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->IdGuiaInternaEntrada($_POST['intIdGuiaInternaEntrada']);
-    $GuiaInternaEntrada->MostrarGuiaInternaEntrada($_POST['funcion']);
+    $Entrada = new Entrada();
+    $Entrada->IdEntrada($_POST['intIdEntrada']);
+    $Entrada->MostrarEntrada($_POST['funcion']);
     break;
   case "E":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->IdGuiaInternaEntrada($_POST['intIdGuiaInternaEntrada']);
-    $GuiaInternaEntrada->EliminarGuiaInternaEntrada();
+    $Entrada = new Entrada();
+    $Entrada->IdEntrada($_POST['intIdEntrada']);
+    $Entrada->EliminarEntrada();
     break;
   case "L":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->ListarGuiaInternaEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Entrada = new Entrada();
+    $Entrada->ListarEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->PaginarGuiaInternaEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Entrada = new Entrada();
+    $Entrada->PaginarEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "ID":
-    $DetalleGuiaInternaEntrada = new DetalleGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada->IdGuiaInternaEntrada($_POST['intIdGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->IdEntrada($_POST['intIdEntrada']);
+    $DetalleEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
     $dtmFechaEntrada = date("Y-m-d H:i:s");
-    $DetalleGuiaInternaEntrada->FechaEntrada($dtmFechaEntrada);
-    $DetalleGuiaInternaEntrada->Cantidad($_POST['intCantidad']);
-    $DetalleGuiaInternaEntrada->InsertarDetalleGuiaInternaEntrada();
+    $DetalleEntrada->FechaEntrada($dtmFechaEntrada);
+    $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->InsertarDetalleEntrada();
   case "AD":
-    $DetalleGuiaInternaEntrada = new DetalleGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada->IdOperacionGuiaInternaEntrada($_POST['intIdOperacionGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->IdGuiaInternaEntrada($_POST['intIdGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->IdOperacionEntrada($_POST['intIdOperacionEntrada']);
+    $DetalleEntrada->IdEntrada($_POST['intIdEntrada']);
+    $DetalleEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
     $dtmFechaEntrada = date("Y-m-d H:i:s");
-    $DetalleGuiaInternaEntrada->FechaEntrada($dtmFechaEntrada);
-    $DetalleGuiaInternaEntrada->Cantidad($_POST['intCantidad']);
-    $DetalleGuiaInternaEntrada->ActualizarDetalleGuiaInternaEntrada();
+    $DetalleEntrada->FechaEntrada($dtmFechaEntrada);
+    $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->ActualizarDetalleEntrada();
     break;
   case "MD":
-    $DetalleGuiaInternaEntrada = new DetalleGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada->IdGuiaInternaEntrada($_POST['intIdGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->MostrarDetalleGuiaInternaEntrada($_POST['tipolistado']);
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->IdEntrada($_POST['intIdEntrada']);
+    $DetalleEntrada->MostrarDetalleEntrada($_POST['tipolistado']);
     break;
   case "SD":
-    $DetalleGuiaInternaEntrada = new DetalleGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada->IdOperacionGuiaInternaEntrada($_POST['intIdOperacionGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->SeleccionarDetalleGuiaInternaEntrada();
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->IdOperacionEntrada($_POST['intIdOperacionEntrada']);
+    $DetalleEntrada->SeleccionarDetalleEntrada();
     break;
   case "ED":
-    $DetalleGuiaInternaEntrada = new DetalleGuiaInternaEntrada();
-    $DetalleGuiaInternaEntrada->IdOperacionGuiaInternaEntrada($_POST['intIdOperacionGuiaInternaEntrada']);
-    $DetalleGuiaInternaEntrada->EliminarDetalleGuiaInternaEntrada();
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->IdOperacionEntrada($_POST['intIdOperacionEntrada']);
+    $DetalleEntrada->EliminarDetalleEntrada();
     break;
   case "LOC":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->ListarOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $Entrada = new Entrada();
+    $Entrada->ListarOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
     break;
   case "POC":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->PaginarOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $Entrada = new Entrada();
+    $Entrada->PaginarOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
     break;
   case "SOC":
-    $GuiaInternaEntrada = new GuiaInternaEntrada();
-    $GuiaInternaEntrada->IdOrdenCompra($_POST['intIdOrdenCompra']);
-    $GuiaInternaEntrada->SeleccionarOrdenCompra();
+    $Entrada = new Entrada();
+    $Entrada->IdOrdenCompra($_POST['intIdOrdenCompra']);
+    $Entrada->SeleccionarOrdenCompra();
     break;
   case "F":
-    $FormularioGuiaInternaEntrada = new FormularioGuiaInternaEntrada();
-    $FormularioGuiaInternaEntrada->ConsultarFormulario($_POST['funcion']);
+    $FormularioEntrada = new FormularioEntrada();
+    $FormularioEntrada->ConsultarFormulario($_POST['funcion']);
     break;
 }
 ?>
