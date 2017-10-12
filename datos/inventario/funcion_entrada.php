@@ -46,11 +46,11 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Entrada = new Entrada();
-    $Entrada->ListarEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Entrada->ListarEntradas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante']);
     break;
   case "P":
     $Entrada = new Entrada();
-    $Entrada->PaginarEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $Entrada->PaginarEntradas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante']);
     break;
   case "ID":
     $DetalleEntrada = new DetalleEntrada();
@@ -85,18 +85,13 @@ switch($_POST['funcion']){
     $DetalleEntrada->IdOperacionEntrada($_POST['intIdOperacionEntrada']);
     $DetalleEntrada->EliminarDetalleEntrada();
     break;
-  case "LOC":
-    $Entrada = new Entrada();
-    $Entrada->ListarOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
+  case "MPT":
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->ListarProductoEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda'],$_POST['intIdSucursal']);
     break;
-  case "POC":
-    $Entrada = new Entrada();
-    $Entrada->PaginarOrdenCompra($_POST['busqueda'],$_POST['x'],$_POST['y']);
-    break;
-  case "SOC":
-    $Entrada = new Entrada();
-    $Entrada->IdOrdenCompra($_POST['intIdOrdenCompra']);
-    $Entrada->SeleccionarOrdenCompra();
+  case "PPT":
+    $DetalleEntrada = new DetalleEntrada();
+    $DetalleEntrada->PaginarProductosEntrada($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['TipoBusqueda']);
     break;
   case "F":
     $FormularioEntrada = new FormularioEntrada();

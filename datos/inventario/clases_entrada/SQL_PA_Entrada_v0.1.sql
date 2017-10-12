@@ -115,18 +115,20 @@ DELIMITER $$
 	CREATE PROCEDURE BUSCARENTRADA(
     	IN _elemento VARCHAR(600),
 		IN _x INT,
-		IN _y INT
+		IN _y INT,
+		IN _intIdTipoComprobante INT
     )
 	BEGIN
 		SELECT E.*,U.nvchUsername AS NombreUsuario
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
 		WHERE 
-		E.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(E.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		E.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		E.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		E.nvchRUC LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%')
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		E.intIdTipoComprobante = _intIdTipoComprobante
 		LIMIT _x,_y;
     END 
 $$
@@ -135,18 +137,20 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS BUSCARENTRADA_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARENTRADA_II(
-    	IN _elemento VARCHAR(600)
+    	IN _elemento VARCHAR(600),
+    	IN _intIdTipoComprobante INT
     )
 	BEGIN
 		SELECT E.*,U.nvchUsername AS NombreUsuario
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
 		WHERE 
-		E.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(E.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		E.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		E.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		E.nvchRUC LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%');
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		E.intIdTipoComprobante = _intIdTipoComprobante;
     END 
 $$
 DELIMITER ;
