@@ -73,9 +73,14 @@ DELIMITER $$
     	IN _intIdEntrada INT
     )
 	BEGIN
-		SELECT E.*,U.nvchUsername AS NombreUsuario
+		SELECT E.*,
+		U.nvchUsername AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		TPG.nvchNombre AS NombrePago
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_tipo_moneda TMN ON E.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_pago TPG ON E.intIdTipoPago = TPG.intIdTipoPago
 		WHERE 
 		E.intIdEntrada = _intIdEntrada;
     END 

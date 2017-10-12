@@ -33,8 +33,8 @@ $(document).on('click', '#btn-crear-entrada', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok") {
-	   		MensajeNormal("Se generó correctamente la Entrada",1);
+	   	if (datos=="okokokok") {
+	   		MensajeNormal("Se generó correctamente la Entrada de Productos",1);
 	   		$("#btn-form-entrada-remove").click();
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
 	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
@@ -191,6 +191,29 @@ function AccionCabecerasTablaComprobante(intIdTipoComprobante) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function AccionNumeracion(intIdTipoComprobante) {
+	if(intIdTipoComprobante == "5"){
+		$("#SerieNumeracionCE").show();
+  	  	$("#SerieNumeracionGIE").hide();
+	} else if (intIdTipoComprobante == "6") {
+		$("#SerieNumeracionCE").show();
+  	  	$("#SerieNumeracionGIE").hide();
+	} else if (intIdTipoComprobante == "7") {
+		$("#SerieNumeracionCE").show();
+  	  	$("#SerieNumeracionGIE").hide();
+	} else if (intIdTipoComprobante == "8") {
+		$("#SerieNumeracionCE").show();
+  	  	$("#SerieNumeracionGIE").hide();
+	} else if (intIdTipoComprobante == "9") {
+		$("#SerieNumeracionCE").hide();
+  	  	$("#SerieNumeracionGIE").show();
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Entrada Realizada */
 $(document).on('change', '#lista-comprobante', function(){
 	var y = document.getElementById("num-lista").value;
@@ -322,6 +345,9 @@ $(document).on('change', '#lugar-entrada', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Cliente */
 function MostrarSeleccionComprobante() {
+	var intIdTipoComprobante = $("#tipo-comprobante").val();
+	AccionNumeracion(intIdTipoComprobante);
+	if(intIdTipoComprobante == 9){
 	  var intIdTipoComprobante = $("#tipo-comprobante").val();
 	  var intIdSucursal = $("#lugar-entrada").val();
 	  var funcion = "NCPR";
@@ -340,6 +366,7 @@ function MostrarSeleccionComprobante() {
 	   	 }
 	   }
 	  });
+	}
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////

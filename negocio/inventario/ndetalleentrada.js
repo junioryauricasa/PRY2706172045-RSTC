@@ -26,7 +26,7 @@ function ListarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var intIdSucursal = document.getElementById("lugar-venta").value;
+	var intIdSucursal = document.getElementById("lugar-entrada").value;
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_entrada.php",
 	   method:"POST",
@@ -107,6 +107,23 @@ function EliminarFila(btn) {
   	fila.parentNode.removeChild(fila);
 }
 /* FIN - Eliminar Fila Seleccionada */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Detalle Orden Compra Seleccionado */
+function MostrarDetalleEntrada(intIdEntrada,tipolistado) {
+	var funcion = "MD";
+	  $.ajax({
+	   url:"../../datos/inventario/funcion_entrada.php",
+	   method:"POST",
+	   data:{intIdEntrada:intIdEntrada,funcion:funcion,tipolistado:tipolistado},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductosEntrada").html(datos);
+	   }
+	  });
+}
+/* FIN - Mostrar Detalle Orden Compra Seleccionado */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -222,40 +239,3 @@ $(document).on('keyup', '#BusquedaCotizacion', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Productos para la Selección */
-function ListarCotizaciones(x,y) {
-	var busqueda = document.getElementById("BusquedaCotizacion").value;
-	var funcion = "MCT";
-	var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/inventario/funcion_entrada.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeCotizaciones").html(datos);
-	   	PaginarCotizaciones((x/y),y);
-	   }
-	});
-}
-/* FIN - Listar Productos para la Selección */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Paginar Clientes para la Selección */
-function PaginarCotizaciones(x,y) {
-	var busqueda = document.getElementById("BusquedaProducto").value;
-	var funcion = "PCT";
-	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/inventario/funcion_entrada.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#PaginacionDeCotizaciones").html(datos);
-	   }
-	  });
-}
-/* FIN - Paginar Clientes para la Selección */
-//////////////////////////////////////////////////////////////

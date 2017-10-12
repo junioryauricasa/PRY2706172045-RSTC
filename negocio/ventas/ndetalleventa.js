@@ -134,6 +134,27 @@ function EliminarFila(btn) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Detalle Orden Compra Seleccionado */
+function MostrarDetalleVenta(intIdVenta,tipolistado) {
+	var funcion = "MDV";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_venta.php",
+	   method:"POST",
+	   data:{intIdVenta:intIdVenta,funcion:funcion,tipolistado:tipolistado},
+	   success:function(datos)
+	   {
+	   	if($("#intIdTipoVenta").val() == 1){
+	   		$("#ListaDeProductosComprar").html(datos);
+	   	} else if($("#intIdTipoVenta").val() == 2){
+	   		$("#ListaDeServiciosComprar").html(datos);
+	   	}
+	   }
+	  });
+}
+/* FIN - Mostrar Detalle Orden Compra Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Campos */
 function CamposDetalleVenta(accion) {
 	if(accion == "I"){

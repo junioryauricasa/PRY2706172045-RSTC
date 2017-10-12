@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'clases_producto/class_producto.php';
 require_once 'clases_entrada/class_entrada.php';
 require_once 'clases_entrada/class_detalle_entrada.php';
 require_once 'clases_entrada/class_formulario_entrada.php';
@@ -12,26 +13,49 @@ if(empty($_SESSION['intIdOperacionEntrada'])){
 switch($_POST['funcion']){
   case "I":
     $Entrada = new Entrada();
-    $Entrada->IdOrdenCompra($_POST['intIdOrdenCompra']);
-    $Entrada->IdUsuario($_SESSION['user_session']);
+    $Entrada->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Entrada->IdSucursal($_POST['intIdSucursal']);
+    $Entrada->Serie($_POST['nvchSerie']);
+    $Entrada->Numeracion($_POST['nvchNumeracion']);
+    $Entrada->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Entrada->RUC($_POST['nvchRUC']);
+    $Entrada->RazonSocial($_POST['nvchRazonSocial']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Entrada->FechaCreacion($dtmFechaCreacion);
+    $Entrada->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $Entrada->IdTipoPago($_POST['intIdTipoPago']);
+    $Entrada->Observacion($_POST['nvchObservacion']);
     $Entrada->InsertarEntrada();
     $DetalleEntrada = new DetalleEntrada();
     $DetalleEntrada->IdEntrada($_SESSION['intIdEntrada']);
-    $DetalleEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
-    $dtmFechaEntrada = $dtmFechaCreacion;
-    $DetalleEntrada->FechaEntrada($dtmFechaEntrada);
+    $DetalleEntrada->IdProducto($_POST['intIdProducto']);
+    $DetalleEntrada->FechaEntrada($dtmFechaCreacion);
+    $DetalleEntrada->Codigo($_POST['nvchCodigo']);
+    $DetalleEntrada->Descripcion($_POST['nvchDescripcion']);
+    $DetalleEntrada->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->Total($_POST['dcmTotal']);
     $DetalleEntrada->InsertarDetalleEntrada();
+
+    $Producto = new Producto();
+    $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],1);
+    $Producto->ES_StockTotal($_POST['intIdProducto']);
     break;
   case "A":
     $Entrada = new Entrada();
     $Entrada->IdEntrada($_POST['intIdEntrada']);
-    $Entrada->IdOrdenCompra($_POST['IdOrdenCompra']);
-    $Entrada->IdUsuario($_SESSION['user_session']);
+    $Entrada->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Entrada->IdSucursal($_POST['intIdSucursal']);
+    $Entrada->Serie($_POST['nvchSerie']);
+    $Entrada->Numeracion($_POST['nvchNumeracion']);
+    $Entrada->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Entrada->RUC($_POST['nvchRUC']);
+    $Entrada->RazonSocial($_POST['nvchRazonSocial']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Entrada->FechaCreacion($dtmFechaCreacion);
+    $Entrada->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $Entrada->IdTipoPago($_POST['intIdTipoPago']);
+    $Entrada->Observacion($_POST['nvchObservacion']);
     $Entrada->ActualizarEntrada();
     break;
   case "M":
@@ -54,20 +78,26 @@ switch($_POST['funcion']){
     break;
   case "ID":
     $DetalleEntrada = new DetalleEntrada();
-    $DetalleEntrada->IdEntrada($_POST['intIdEntrada']);
-    $DetalleEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
-    $dtmFechaEntrada = date("Y-m-d H:i:s");
-    $DetalleEntrada->FechaEntrada($dtmFechaEntrada);
+    $DetalleEntrada->IdEntrada($_SESSION['intIdEntrada']);
+    $DetalleEntrada->IdProducto($_POST['intIdProducto']);
+    $DetalleEntrada->FechaEntrada($dtmFechaCreacion);
+    $DetalleEntrada->Codigo($_POST['nvchCodigo']);
+    $DetalleEntrada->Descripcion($_POST['nvchDescripcion']);
+    $DetalleEntrada->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->Total($_POST['dcmTotal']);
     $DetalleEntrada->InsertarDetalleEntrada();
   case "AD":
     $DetalleEntrada = new DetalleEntrada();
     $DetalleEntrada->IdOperacionEntrada($_POST['intIdOperacionEntrada']);
-    $DetalleEntrada->IdEntrada($_POST['intIdEntrada']);
-    $DetalleEntrada->IdOperacionOrdenCompra($_POST['intIdOperacionOrdenCompra']);
-    $dtmFechaEntrada = date("Y-m-d H:i:s");
-    $DetalleEntrada->FechaEntrada($dtmFechaEntrada);
+    $DetalleEntrada->IdEntrada($_SESSION['intIdEntrada']);
+    $DetalleEntrada->IdProducto($_POST['intIdProducto']);
+    $DetalleEntrada->FechaEntrada($dtmFechaCreacion);
+    $DetalleEntrada->Codigo($_POST['nvchCodigo']);
+    $DetalleEntrada->Descripcion($_POST['nvchDescripcion']);
+    $DetalleEntrada->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->Total($_POST['dcmTotal']);
     $DetalleEntrada->ActualizarDetalleEntrada();
     break;
   case "MD":
@@ -96,6 +126,14 @@ switch($_POST['funcion']){
   case "F":
     $FormularioEntrada = new FormularioEntrada();
     $FormularioEntrada->ConsultarFormulario($_POST['funcion']);
+    break;
+  case "ES_P_SU":
+    $Producto = new Producto();
+    $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],$_POST['TipoES']);
+    break;
+  case "ES_P_ST":
+    $Producto = new Producto();
+    $Producto->ES_StockTotal($_POST['intIdProducto'],$_POST['intCantidad'],$_POST['TipoES']);
     break;
 }
 ?>

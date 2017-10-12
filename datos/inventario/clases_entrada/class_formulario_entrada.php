@@ -46,13 +46,13 @@ class FormularioEntrada
       <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
-          <h3 class="box-title">Nuevo Venta</h3>
+          <h3 class="box-title">Nuevo Comprobante de Entrada</h3>
           <?php } else if($funcion == "M") {?>
-          <h3 class="box-title">Editar Venta</h3>
+          <h3 class="box-title">Editar Comprobante de Entrada</h3>
           <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" id="btn-form-venta-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-entrada-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
         <form id="form-entrada" method="POST">
@@ -70,7 +70,7 @@ class FormularioEntrada
                     $sql_conexion = new Conexion_BD();
                     $sql_conectar = $sql_conexion->Conectar();
                     $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
-                    $sql_comando->execute(array(':intTipoDetalle' => 1));
+                    $sql_comando->execute(array(':intTipoDetalle' => 2));
                     while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                     {
                       echo '<option value="'.$fila['intIdTipoComprobante'].'">'.$fila['nvchNombre'].'</option>';
@@ -85,7 +85,7 @@ class FormularioEntrada
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Lugar de Venta:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="lugar-venta" name="intIdSucursal"  class="form-control select2">
+                  <select onchange="MostrarSeleccionComprobante()" id="lugar-entrada" name="intIdSucursal"  class="form-control select2">
                   <?php 
                     try{
                     $sql_conexion = new Conexion_BD();
@@ -103,21 +103,105 @@ class FormularioEntrada
                 <input type="hidden" id="intIdSucursal" value="<?php echo $this->intIdSucursal ?>" />
                 </div>
               </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label>Serie:</label>
-                  <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" readonly/>
+              <script type="text/javascript">AccionNumeracion(5);</script>
+              <div id="SerieNumeracionCE">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Serie:</label>
+                    <input type="text" id="nvchSerie" name="nvchSerie" placeholder="Ingresar Serie" class="form-control select2"/>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Numeración:</label>
+                    <input type="text" id="nvchNumeracion" name="nvchNumeracion" placeholder="Ingresar Numeración" class="form-control select2"/>
+                  </div>
+                </div>
+              </div>
+              <div id="SerieNumeracionGIE">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Serie:</label>
+                    <input type="text" id="nvchSerieGIE" name="nvchSerieGIE" class="form-control select2" readonly/>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Numeración:</label>
+                    <input type="text" id="nvchNumeracionGIE" name="nvchNumeracionGIE" class="form-control select2" readonly/>
+                  </div>
+                </div>
+                <?php if($funcion == "F") {?>
+                <script>TimerComprobante();</script>
+                <?php } ?>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchRUCGroup" class="form-group">
+                  <label>RUC:</label>
+                  <input type="text" id="nvchRUC" name="nvchRUC" placeholder="Ingrese RUC" class="form-control select2" value="<?php echo $this->nvchRUC; ?>" onkeyup="EsVacioOp('nvchRUC')" maxlength="15" >
+                  <span id="nvchRUCIcono" class="" aria-hidden=""></span>
+                  <div id="nvchRUCObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchRazonSocialGroup" class="form-group">
+                  <label>Razón Social:</label>
+                  <input type="text" id="nvchRazonSocial" name="nvchRazonSocial" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="<?php echo $this->nvchRazonSocial; ?>" onkeyup="EsVacio('nvchRazonSocial')" maxlength="125" required>
+                  <span id="nvchRazonSocialIcono" class="" aria-hidden=""></span>
+                  <div id="nvchRazonSocialObs" class=""></div>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Numeración:</label>
-                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly/>
+                  <label>Tipo de Moneda:</label>
+                  <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Forma de Pago:</label>
+                  <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopago()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoPago'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-entrada" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                 </div>
               </div>
-              <?php if($funcion == "F") {?>
-              <script>TimerComprobante();</script>
-              <?php } ?>
             </div>
           </div>
       <div class="box-header with-border">
@@ -194,7 +278,7 @@ class FormularioEntrada
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
-        <h3 class="box-title">Productos a Comprar</h3>
+        <h3 class="box-title">Productos para Ingresar</h3>
       </div>
       <div class="box-body">
         <div class="table-responsive">
@@ -226,7 +310,7 @@ class FormularioEntrada
               <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
               <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
               <?php if($funcion == "F"){ ?>
-              <input type="button" id="btn-crear-venta" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Venta">
+              <input type="button" id="btn-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Entrada de Productos">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
               <?php } ?>
           </div>              
@@ -239,11 +323,11 @@ class FormularioEntrada
   ?>
   <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Detalle de la Venta: <?php echo $this->nvchSerie.'-'.$this->nvchNumeracion; ?> 
+          <h3 class="box-title">Detalle del Comprobante de Entrada: <?php echo $this->nvchSerie.'-'.$this->nvchNumeracion; ?> 
             Fecha: <?php echo date('d/m/Y', strtotime($this->dtmFechaCreacion)); ?> Hora: <?php echo date('H:i:s', strtotime($this->dtmFechaCreacion)); ?></h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" id="btn-form-venta-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-entrada-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
           <div class="box-header with-border">
@@ -297,13 +381,15 @@ class FormularioEntrada
                 <tr>
                   <th>Ítem</th>
                   <th>Código</th>
+                  <th>Código del Proveedor</th>
                   <th>Descripción</th>
-                  <th>Cantidad</th>
                   <th>Precio Unit.</th>
+                  <th>Cantidad</th>
                   <th>Total</th>
+                  <th>Opciones</th>
                 </tr>
                 </thead>
-                <tbody id="ListaDeProductosComprar">
+                <tbody id="ListaDeProductosEntrada">
                 </tbody>
               </table>
             </div>

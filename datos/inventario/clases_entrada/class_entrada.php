@@ -40,7 +40,7 @@ class Entrada
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarEntrada(@intIdEntrada,:intIdTipoComprobante,:intIdSucursal,
-        :nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
+        :nvchSerie,:nvchNumeracion,:intIdUsuario,:nvchRUC,:nvchRazonSocial,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
         :bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
       	':intIdTipoComprobante' => $this->intIdTipoComprobante,
@@ -90,6 +90,7 @@ class Entrada
 
       $FormularioEntrada->NombreUsuario($fila['NombreUsuario']);
       $FormularioEntrada->NombrePago($fila['NombrePago']);
+      $FormularioEntrada->SimboloMoneda($fila['SimboloMoneda']);
 
       $FormularioEntrada->Observacion($fila['nvchObservacion']);
       $FormularioEntrada->MostrarDetalle();
@@ -105,7 +106,7 @@ class Entrada
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarEntrada(:intIdEntrada,:intIdTipoComprobante,:intIdSucursal,
-        :nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
+        :nvchSerie,:nvchNumeracion,:intIdUsuario,:nvchRUC,:nvchRazonSocial,:dtmFechaCreacion,:intIdTipoMoneda,:intIdTipoPago,
         :bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdEntrada' => $this->intIdEntrada,

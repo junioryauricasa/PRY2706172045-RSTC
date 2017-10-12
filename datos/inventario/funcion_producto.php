@@ -156,5 +156,13 @@ switch($_POST['funcion']){
     $FormularioProducto = new FormularioProducto();
     $FormularioProducto->ConsultarFormulario($_POST['funcion']);
     break;
+  case "ES_P_SU":
+    $Producto = new Producto();
+    $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],$_POST['TipoES']);
+    break;
+  case "ES_P_ST":
+    $Producto = new Producto();
+    $Producto->ES_StockTotal($_POST['intIdProducto'],$_POST['intCantidad'],$_POST['TipoES']);
+    break;
 }
 ?>

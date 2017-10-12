@@ -17,5 +17,18 @@ switch($_POST['funcion']){
     $DatosGenerales->IdDepartamento($_POST['intIdDepartamento']);
     $DatosGenerales->SeleccionarProvincia();
     break;
+  case "ES_P_SU":
+    $DatosGenerales = new DatosGenerales();
+    $DatosGenerales->IdSucursal($_POST['intIdSucursal']);
+    $DatosGenerales->IdProducto($_POST['intIdProducto']);
+    $DatosGenerales->CantidadProducto($_POST['intCantidad']);
+    $DatosGenerales->ES_StockUbigeo($_POST['TipoES']);
+    break;
+  case "ES_P_ST":
+    $DatosGenerales = new DatosGenerales();
+    $DatosGenerales->IdProducto($_POST['intIdProducto']);
+    $DatosGenerales->CantidadProducto($_POST['intCantidad']);
+    $DatosGenerales->ES_StockTotal($_POST['TipoES']);
+    break;
 }
 ?>

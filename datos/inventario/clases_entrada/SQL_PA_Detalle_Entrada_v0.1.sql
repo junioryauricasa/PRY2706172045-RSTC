@@ -84,11 +84,12 @@ DELIMITER $$
     	IN _intIdEntrada INT
     )
 	BEGIN
-		SELECT DE.*, P.nvchCodigo AS CodigoProducto
+		SELECT DE.*, CP.nvchCodigo AS CodigoProducto
 		FROM tb_detalle_entrada DE
 		LEFT JOIN tb_producto P ON DE.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
-		intIdEntrada = _intIdEntrada;
+		intIdEntrada = _intIdEntrada AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;

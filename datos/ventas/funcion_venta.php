@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require_once '../inventario/clases_producto/class_producto.php';
 require_once 'clases_venta/class_venta.php';
 require_once 'clases_venta/class_detalle_venta.php';
 require_once 'clases_venta/class_formulario_venta.php';
@@ -38,6 +39,10 @@ switch($_POST['funcion']){
         $DetalleVenta->PrecioUnitario($_POST['dcmPrecioUnitario']);
         $DetalleVenta->Total($_POST['dcmTotal']);
         $DetalleVenta->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleVenta->InsertarDetalleVenta();
+        $Producto = new Producto();
+        $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],0);
+        $Producto->ES_StockTotal($_POST['intIdProducto']);
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleVenta->IdVenta($_SESSION['intIdVenta']);
         $DetalleVenta->FechaRealizada($dtmFechaCreacion);
@@ -46,11 +51,10 @@ switch($_POST['funcion']){
         $DetalleVenta->Total($_POST['dcmTotal']);
         $DetalleVenta->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleVenta->DescripcionServicio($_POST['nvchDescripcionServicio']);
+        $DetalleVenta->InsertarDetalleVenta();
     }
-    $DetalleVenta->InsertarDetalleVenta();
     $Numeraciones = new Numeraciones();
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
-    $DetalleVenta->Salida_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad']);
     break;
   case "M":
     $Venta = new Venta();

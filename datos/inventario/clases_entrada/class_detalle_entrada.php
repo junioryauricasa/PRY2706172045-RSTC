@@ -7,6 +7,7 @@ class DetalleEntrada
 	private $intIdEntrada;
 	private $dtmFechaEntrada;
   private $intIdProducto;
+  private $nvchCodigo;
   private $nvchDescripcion;
   private $dcmPrecioUnitario;
 	private $intCantidad;
@@ -16,6 +17,7 @@ class DetalleEntrada
 	public function IdEntrada($intIdEntrada){ $this->intIdEntrada = $intIdEntrada; }
 	public function FechaEntrada($dtmFechaEntrada){ $this->dtmFechaEntrada = $dtmFechaEntrada; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
+  public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function PrecioUnitario($dcmPrecioUnitario){ $this->dcmPrecioUnitario = $dcmPrecioUnitario; }
 	public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
@@ -41,7 +43,7 @@ class DetalleEntrada
         ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
         ':intCantidad' => $this->intCantidad[$key],
         ':dcmTotal' => $this->dcmTotal[$key]));
-      $this->IngresarCantidadProducto($value,$this->intCantidad[$key]);
+      //$this->IngresarCantidadProducto($value,$this->intCantidad[$key]);
       }
       echo "ok";
     }
@@ -92,7 +94,8 @@ class DetalleEntrada
           echo '<tr bgcolor="#F7FCCF">';
         }
       	echo 
-      	'<td>'.$fila['CodigoProducto'].'</td>
+      	'<td>'.$i.'</td>
+        <td>'.$fila['CodigoProducto'].'</td>
         <td>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="dcmPrecioUnitario[]" value="'.$fila['dcmPrecioUnitario'].'"/>'.$fila['dcmPrecioUnitario'].'</td>
