@@ -15,9 +15,9 @@ class FormularioUsuario
   private $nvchImgPerfil;
   private $bitUserEstado;
   private $nvchPais;
-  private $nvchRegion;
-  private $nvchProvincia;
-  private $nvchDistrito;
+  private $intIdDepartamento;
+  private $intIdProvincia;
+  private $intIdDistrito;
   private $nvchDireccion;
   private $nvchObservacion;
 
@@ -34,9 +34,9 @@ class FormularioUsuario
   public function ImgPerfil($nvchImgPerfil){$this->nvchImgPerfil = $nvchImgPerfil; }
   public function UserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
   public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
-  public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
-  public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
-  public function Distrito($nvchDistrito){ $this->nvchDistrito = $nvchDistrito; }
+  public function Region($intIdDepartamento){ $this->intIdDepartamento = $intIdDepartamento; }
+  public function Provincia($intIdProvincia){ $this->intIdProvincia = $intIdProvincia; }
+  public function Distrito($intIdDistrito){ $this->intIdDistrito = $intIdDistrito; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
@@ -212,33 +212,61 @@ class FormularioUsuario
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div id="nvchRegionGroup" class="form-group">
-                    <label>Región (Opcional):</label>
-                    <input type="text" name="nvchRegion" id="nvchRegion" class="form-control select2" 
-                    placeholder="Ingrese Región" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetraOp('nvchRegion')" maxlength="150">
-                    <span id="nvchRegionIcono" class="" aria-hidden=""></span>
-                    <div id="nvchRegionObs" class=""></div>
+                  <div id="intIdDepartamentoGroup" class="form-group">
+                    <label>Departamento (Opcional):</label>
+                    <select onchange="MostrarProvincia()" id="intIdDepartamento" name="intIdDepartamento" class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrardepartamento()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo '<option value="'.$fila['intIdDepartamento'].'">'.$fila['nvchDepartamento'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div id="nvchProvinciaGroup" class="form-group">
+                  <div id="intIdProvinciaGroup" class="form-group">
                     <label>Provincia (Opcional):</label>
-                    <input type="text" name="nvchProvincia" id="nvchProvincia" class="form-control select2" 
-                    placeholder="Ingrese Provincia" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetraOp('nvchProvincia')" maxlength="150">
-                    <span id="nvchProvinciaIcono" class="" aria-hidden=""></span>
-                    <div id="nvchProvinciaObs" class=""></div>
+                    <select onchange="MostrarDistrito()" id="intIdProvincia" name="intIdProvincia" class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(1)');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo'<option value="'.$fila['intIdProvincia'].'">'.$fila['nvchProvincia'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div id="nvchDistritoGroup" class="form-group">
+                  <div id="intIdDistritoGroup" class="form-group">
                     <label>Distrito (Opcional):</label>
-                    <input type="text" name="nvchDistrito" id="nvchDistrito" class="form-control select2" 
-                    placeholder="Ingrese Distrito" value="" onkeypress="return EsLetraTecla(event)" 
-                    onkeyup="EsLetraOp('nvchDistrito')" maxlength="150">
-                    <span id="nvchDistritoIcono" class="" aria-hidden=""></span>
-                    <div id="nvchDistritoObs" class=""></div>
+                    <div id="intIdDistritoo"></div>
+                    <select id="intIdDistrito" name="intIdDistrito" class="form-control select2" >
+                      <?php try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrardistrito(1)');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo'<option value="'.$fila['intIdDistrito'].'">'.$fila['nvchDistrito'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                      }?>
+                    </select>
                   </div>
                 </div>
             </div>
