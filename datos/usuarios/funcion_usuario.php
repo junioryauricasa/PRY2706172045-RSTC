@@ -24,9 +24,9 @@ switch($_POST['funcion']){
     $Usuario->ImgPerfil($_POST['nvchImgPerfil']);
     $Usuario->UserEstado($_POST['bitUserEstado']);
     $Usuario->Pais($_POST['nvchPais']);
-    $Usuario->Region($_POST['nvchRegion']);
-    $Usuario->Provincia($_POST['nvchProvincia']);
-    $Usuario->Distrito($_POST['nvchDistrito']);
+    $Usuario->IdDepartamento($_POST['intIdDepartamento']);
+    $Usuario->IdProvincia($_POST['intIdProvincia']);
+    $Usuario->IdDistrito($_POST['intIdDistrito']);
     $Usuario->Direccion($_POST['nvchDireccion']);
     $Usuario->Observacion($_POST['nvchObservacion']);
     $Usuario->InsertarUsuario();

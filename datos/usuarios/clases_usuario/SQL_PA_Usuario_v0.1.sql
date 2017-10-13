@@ -16,18 +16,18 @@ DELIMITER $$
 	IN _nvchImgPerfil VARCHAR(500),
 	IN _bitUserEstado INT,
 	IN _nvchPais VARCHAR(150),
-    IN _nvchRegion VARCHAR(150),
-    IN _nvchProvincia VARCHAR(150),
-	IN _nvchDistrito VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
 	IN _nvchDireccion VARCHAR(450),
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_usuario(nvchDNI,nvchRUC,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,nvchGenero,nvchUserName,
-			nvchUserPassword,intIdTipoUsuario,nvchImgPerfil,bitUserEstado,nvchPais,nvchRegion,nvchProvincia,nvchDistrito,nvchDireccion,
+			nvchUserPassword,intIdTipoUsuario,nvchImgPerfil,bitUserEstado,nvchPais,intIdDepartamento,intIdProvincia,intIdDistrito,nvchDireccion,
 			nvchObservacion)
 		VALUES(_nvchDNI,_nvchRUC,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_nvchGenero,_nvchUserName,_nvchUserPassword,
-			_intIdTipoUsuario,_nvchImgPerfil,_bitUserEstado,_nvchPais,_nvchRegion,_nvchProvincia,_nvchDistrito,_nvchDireccion,_nvchObservacion);
+			_intIdTipoUsuario,_nvchImgPerfil,_bitUserEstado,_nvchPais,_intIdDepartamento,_intIdProvincia,_intIdDistrito,_nvchDireccion,_nvchObservacion);
     	SET _intIdUsuario = LAST_INSERT_ID();
     END 
 $$
@@ -48,9 +48,9 @@ DELIMITER $$
 	IN _nvchImgPerfil VARCHAR(500),
 	IN _bitUserEstado INT,
 	IN _nvchPais VARCHAR(150),
-    IN _nvchRegion VARCHAR(150),
-    IN _nvchProvincia VARCHAR(150),
-	IN _nvchDistrito VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
 	IN _nvchDireccion VARCHAR(450),
 	IN _nvchObservacion VARCHAR(2500)
     )
@@ -68,9 +68,9 @@ DELIMITER $$
 			nvchImgPerfil = _nvchImgPerfil,
 			bitUserEstado = _bitUserEstado,
 			nvchPais = _nvchPais,
-			nvchRegion = _nvchRegion,
-			nvchProvincia = _nvchProvincia,
-			nvchDistrito = _nvchDistrito,
+			intIdDepartamento = _intIdDepartamento,
+			intIdProvincia = _intIdProvincia,
+			intIdDistrito = _intIdDistrito,
 			nvchDireccion = _nvchDireccion,
 			nvchObservacion = _nvchObservacion
 		WHERE intIdUsuario = _intIdUsuario;

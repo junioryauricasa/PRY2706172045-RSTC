@@ -17,9 +17,9 @@ class Usuario
   private $nvchImgPerfil;
   private $bitUserEstado;
   private $nvchPais;
-  private $nvchRegion;
-  private $nvchProvincia;
-  private $nvchDistrito;
+  private $intIdDepartamento;
+  private $intIdProvincia;
+  private $intIdDistrito;
   private $nvchDireccion;
   private $nvchObservacion;
   
@@ -36,9 +36,9 @@ class Usuario
   public function ImgPerfil($nvchImgPerfil){$this->nvchImgPerfil = $nvchImgPerfil; }
   public function UserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
   public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
-  public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
-  public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
-  public function Distrito($nvchDistrito){ $this->nvchDistrito = $nvchDistrito; }
+  public function IdDepartamento($intIdDepartamento){ $this->intIdDepartamento = $intIdDepartamento; }
+  public function IdProvincia($intIdProvincia){ $this->intIdProvincia = $intIdProvincia; }
+  public function IdDistrito($intIdDistrito){ $this->intIdDistrito = $intIdDistrito; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Usuario */
@@ -52,8 +52,8 @@ class Usuario
       $sql_comando = $sql_conectar->prepare('
       		CALL insertarusuario(@intIdUsuario,:nvchDNI,:nvchRUC,:nvchApellidoPaterno,:nvchApellidoMaterno,
           :nvchNombres,:nvchGenero,:nvchUserName,:nvchUserPassword,
-          :intIdTipoUsuario,:nvchImgPerfil,:bitUserEstado,:nvchPais,:nvchRegion,:nvchProvincia,
-        :nvchDistrito,:nvchDireccion,:nvchObservacion)');
+          :intIdTipoUsuario,:nvchImgPerfil,:bitUserEstado,:nvchPais,:intIdDepartamento,:intIdProvincia,
+          :intIdDistrito,:nvchDireccion,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDNI' => $this->nvchDNI,
         ':nvchRUC' => $this->nvchRUC,
@@ -67,9 +67,9 @@ class Usuario
         ':nvchImgPerfil' => $this->nvchImgPerfil,
         ':bitUserEstado' => $this->bitUserEstado,
         ':nvchPais' => $this->nvchPais,
-        ':nvchRegion' => $this->nvchRegion,
-        ':nvchProvincia' => $this->nvchProvincia,
-        ':nvchDistrito' => $this->nvchDistrito,
+        ':intIdDepartamento' => $this->intIdDepartamento,
+        ':intIdProvincia' => $this->intIdProvincia,
+        ':intIdDistrito' => $this->intIdDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -105,9 +105,9 @@ class Usuario
       $FormularioUsuario->ImgPerfil($fila['nvchImgPerfil']);
       $FormularioUsuario->UserEstado($fila['bitUserEstado']);
       $FormularioUsuario->Pais($fila['nvchPais']);
-      $FormularioUsuario->Region($fila['nvchRegion']);
-      $FormularioUsuario->Provincia($fila['nvchProvincia']);
-      $FormularioUsuario->Distrito($fila['nvchDistrito']);
+      $FormularioUsuario->IdDepartamento($fila['intIdDepartamento']);
+      $FormularioUsuario->IdProvincia($fila['intIdProvincia']);
+      $FormularioUsuario->IdDistrito($fila['intIdDistrito']);
       $FormularioUsuario->Direccion($fila['nvchDireccion']);
       $FormularioUsuario->Observacion($fila['nvchObservacion']);
       $FormularioUsuario->ConsultarFormulario($funcion);
@@ -124,7 +124,7 @@ class Usuario
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarusuario(:intIdUsuario,:nvchDNI,:nvchRUC,:nvchApellidoPaterno,
         :nvchApellidoMaterno,:nvchNombres,:nvchGenero,:nvchUserName,:intIdTipoUsuario,:nvchImgPerfil,:bitUserEstado,
-        :nvchPais,:nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:nvchObservacion)');
+        :nvchPais,:intIdDepartamento,:intIdProvincia,:intIdDistrito,:nvchDireccion,:nvchObservacion)');
       $sql_comando->execute(array(
       	':intIdUsuario' => $this->intIdUsuario,
         ':nvchDNI' => $this->nvchDNI,
@@ -138,9 +138,9 @@ class Usuario
         ':nvchImgPerfil' => $this->nvchImgPerfil,
         ':bitUserEstado' => $this->bitUserEstado,
         ':nvchPais' => $this->nvchPais,
-        ':nvchRegion' => $this->nvchRegion,
-        ':nvchProvincia' => $this->nvchProvincia,
-        ':nvchDistrito' => $this->nvchDistrito,
+        ':intIdDepartamento' => $this->intIdDepartamento,
+        ':intIdProvincia' => $this->intIdProvincia,
+        ':intIdDistrito' => $this->intIdDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdUsuario'] = $this->intIdUsuario;

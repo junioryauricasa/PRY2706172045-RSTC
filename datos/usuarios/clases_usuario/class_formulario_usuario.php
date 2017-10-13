@@ -34,9 +34,9 @@ class FormularioUsuario
   public function ImgPerfil($nvchImgPerfil){$this->nvchImgPerfil = $nvchImgPerfil; }
   public function UserEstado($bitUserEstado){ $this->bitUserEstado = $bitUserEstado; }
   public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
-  public function Region($intIdDepartamento){ $this->intIdDepartamento = $intIdDepartamento; }
-  public function Provincia($intIdProvincia){ $this->intIdProvincia = $intIdProvincia; }
-  public function Distrito($intIdDistrito){ $this->intIdDistrito = $intIdDistrito; }
+  public function IdDepartamento($intIdDepartamento){ $this->intIdDepartamento = $intIdDepartamento; }
+  public function IdProvincia($intIdProvincia){ $this->intIdProvincia = $intIdProvincia; }
+  public function IdDistrito($intIdDistrito){ $this->intIdDistrito = $intIdDistrito; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
@@ -109,6 +109,13 @@ class FormularioUsuario
                   <span id="nvchNombresIcono" class="" aria-hidden=""></span>
                   <div id="nvchNombresObs" class=""></div>
                 </div>
+              </div>
+              <div class="col-md-2">
+                <label>Género:</label>
+                <select id="nvchGenero" name="nvchGenero" class="form-control select2">
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                </select>
               </div>
             </div>
             <div class="row">
@@ -205,7 +212,7 @@ class FormularioUsuario
                   <div id="nvchPaisGroup" class="form-group">
                     <label>País (Opcional):</label>
                     <input type="text" name="nvchPais" id="nvchPais" class="form-control select2" 
-                    placeholder="Ingrese el País" value="" onkeypress="return EsLetraTecla(event)" 
+                    placeholder="Ingrese el País" value="<?php echo $this->nvchPais; ?>" onkeypress="return EsLetraTecla(event)" 
                     onkeyup="EsLetraOp('nvchPais')" maxlength="150">
                     <span id="nvchPaisIcono" class="" aria-hidden=""></span>
                     <div id="nvchPaisObs" class=""></div>
@@ -228,6 +235,9 @@ class FormularioUsuario
                         echo $e->getMessage();
                       }?>
                     </select>
+                    <script type="text/javascript">
+                      $("#intIdDepartamento").val(<?php echo $this->intIdDepartamento; ?>);
+                    </script>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -237,8 +247,14 @@ class FormularioUsuario
                       <?php try{
                         $sql_conexion = new Conexion_BD();
                         $sql_conectar = $sql_conexion->Conectar();
-                        $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(1)');
-                        $sql_comando->execute();
+                        if($funcion == "F") {
+                          $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(1)');
+                          $sql_comando->execute();
+                        }
+                        else if($funcion == "M") {
+                          $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(:intIdDepartamento)');
+                          $sql_comando->execute(array(':intIdDepartamento' => $this->intIdDepartamento));
+                        }
                         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                         {
                           echo'<option value="'.$fila['intIdProvincia'].'">'.$fila['nvchProvincia'].'</option>';
@@ -247,6 +263,9 @@ class FormularioUsuario
                         echo $e->getMessage();
                       }?>
                     </select>
+                    <script type="text/javascript">
+                      $("#intIdProvincia").val(<?php echo $this->intIdProvincia; ?>);
+                    </script>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -257,8 +276,14 @@ class FormularioUsuario
                       <?php try{
                         $sql_conexion = new Conexion_BD();
                         $sql_conectar = $sql_conexion->Conectar();
-                        $sql_comando = $sql_conectar->prepare('CALL mostrardistrito(1)');
-                        $sql_comando->execute();
+                        if($funcion == "F") {
+                          $sql_comando = $sql_conectar->prepare('CALL MostrarDistrito(1)');
+                          $sql_comando->execute();
+                        }
+                        else if($funcion == "M") {
+                          $sql_comando = $sql_conectar->prepare('CALL MostrarDistrito(:intIdProvincia)');
+                          $sql_comando->execute(array(':intIdProvincia' => $this->intIdProvincia));
+                        }
                         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                         {
                           echo'<option value="'.$fila['intIdDistrito'].'">'.$fila['nvchDistrito'].'</option>';
@@ -267,6 +292,9 @@ class FormularioUsuario
                         echo $e->getMessage();
                       }?>
                     </select>
+                    <script type="text/javascript">
+                      $("#intIdDistrito").val(<?php echo $this->intIdDistrito; ?>);
+                    </script>
                   </div>
                 </div>
             </div>
@@ -275,7 +303,7 @@ class FormularioUsuario
                   <div id="nvchDireccionGroup" class="form-group">
                     <label>Direccion (Opcional):</label>
                     <input type="text" name="nvchDireccion" id="nvchDireccion" class="form-control select2" 
-                    placeholder="Ingrese Dirección" value="" onkeyup="EsVacioOp('nvchDireccion')" maxlength="450">
+                    placeholder="Ingrese Dirección" value="<?php echo $this->nvchDireccion; ?>" onkeyup="EsVacioOp('nvchDireccion')" maxlength="450">
                     <span id="nvchDireccionIcono" class="" aria-hidden=""></span>
                     <div id="nvchDireccionObs" class=""></div>
                   </div>
