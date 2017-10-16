@@ -151,6 +151,22 @@ class Usuario
     }
   }
 
+  public function ActualizarPassword()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL ActualizarPassword(:intIdUsuario,:nvchUserPassword)');
+      $sql_comando->execute(array(
+        ':intIdUsuario' => $this->intIdUsuario,
+        ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),));
+      echo "ok";
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
   public function EliminarUsuario()
   {
     try{

@@ -42,7 +42,8 @@ class FormularioUsuario
 
   function ConsultarFormulario($funcion)
   {
-  ?> 
+  ?>  
+      <form id="UserPasswordForm" method="POST"></form>
       <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
@@ -145,6 +146,7 @@ class FormularioUsuario
                 </div>
               </div>
             </div>
+            <?php if($funcion == "F") {?>
             <div class="row">
               <div class="col-md-3">
                 <div id="nvchUserPasswordGroup" class="form-group">
@@ -167,6 +169,39 @@ class FormularioUsuario
                 </div>
               </div>
             </div>
+            <?php } else if($funcion == "M") {?>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchUserPasswordGroup" class="form-group">
+                  <label>Contraseña del Usuario:</label>
+                  <input type="password" id="nvchUserPassword" name="nvchUserPassword" class="form-control select2" 
+                  placeholder="Ingrese la contraseña" value="<?php if($funcion == "F") { echo ""; } else if($funcion == "M") { echo "********"; } ?>" 
+                  onkeyup="EsVacio('nvchUserPassword')" maxlength="250" form="UserPasswordForm">
+                  <span id="nvchUserPasswordIcono" class="" aria-hidden=""></span>
+                  <div id="nvchUserPasswordObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchUserPasswordRepGroup" class="form-group">
+                  <label>Escribir nuevamente la Contraseña:</label>
+                  <input type="password" id="nvchUserPasswordRep" name="nvchUserPasswordRep" class="form-control select2" 
+                  placeholder="Ingrese la contraseña nuevamente" value="<?php if($funcion == "F") { echo ""; } else if($funcion == "M") { echo "********"; } ?>" 
+                  onkeyup="ComprobarPassword()" maxlength="250" form="UserPasswordForm">
+                  <span id="nvchUserPasswordRepIcono" class="" aria-hidden=""></span>
+                  <div id="nvchUserPasswordRepObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Opción:</label>
+                  <br>
+                  <input type="button" id="btn-editar-userpassword" class="btn btn-sm btn-info btn-flat" value="Cambiar Contraseña" form="UserPasswordForm"> 
+                </div>
+              </div>
+              <input type="hidden" name="intIdUsuario" value="<?php echo $this->intIdUsuario; ?>" form="UserPasswordForm"/>
+              <input type="hidden" name="funcion" value="AP" form="UserPasswordForm"/>
+            </div>
+            <?php } ?>
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">

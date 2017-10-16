@@ -44,7 +44,7 @@ $(document).on('click', '#btn-crear-usuario', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") {
+	   	if(datos == "okok" || datos == "ok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Usuario",1);
 	   		$('#txt-busqueda').val("");
 	   		ListarUsuario(x,y,tipolistado);
@@ -473,4 +473,26 @@ function ComprobarPassword() {
 	}
 }
 /* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Cambiar Contraseña */
+$(document).on('click', '#btn-editar-userpassword', function(){
+  	  var formData = $("#UserPasswordForm").serialize();
+  	  var funcion = "AP";
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:formData,
+	   success:function(datos)
+	   {
+	   	if (datos=="ok") {
+	   		MensajeNormal("Se modificó correctamente la Contraseña del Usuario",1);
+	   	}
+	   	else { $("#resultadocrud").html(datos); }
+	   }
+	  });
+	 return false;
+});
+/* FIN - Cambiar Contraseña */
 //////////////////////////////////////////////////////////////
