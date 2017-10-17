@@ -86,31 +86,49 @@ class Usuario
   public function MostrarUsuario($funcion)
   {
     try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrarusuario(:intIdUsuario)');
-      $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
-      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      if($funcion == "M"){
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL mostrarusuario(:intIdUsuario)');
+        $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
+        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-      $FormularioUsuario = new FormularioUsuario();
-      $FormularioUsuario->IdUsuario($fila['intIdUsuario']);
-      $FormularioUsuario->DNI($fila['nvchDNI']);
-      $FormularioUsuario->RUC($fila['nvchRUC']);
-      $FormularioUsuario->ApellidoPaterno($fila['nvchApellidoPaterno']);
-      $FormularioUsuario->ApellidoMaterno($fila['nvchApellidoMaterno']);
-      $FormularioUsuario->Nombres($fila['nvchNombres']);
-      $FormularioUsuario->Genero($fila['nvchGenero']);
-      $FormularioUsuario->UserName($fila['nvchUserName']);
-      $FormularioUsuario->IdTipoUsuario($fila['intIdTipoUsuario']);
-      $FormularioUsuario->ImgPerfil($fila['nvchImgPerfil']);
-      $FormularioUsuario->UserEstado($fila['bitUserEstado']);
-      $FormularioUsuario->Pais($fila['nvchPais']);
-      $FormularioUsuario->IdDepartamento($fila['intIdDepartamento']);
-      $FormularioUsuario->IdProvincia($fila['intIdProvincia']);
-      $FormularioUsuario->IdDistrito($fila['intIdDistrito']);
-      $FormularioUsuario->Direccion($fila['nvchDireccion']);
-      $FormularioUsuario->Observacion($fila['nvchObservacion']);
-      $FormularioUsuario->ConsultarFormulario($funcion);
+        $FormularioUsuario = new FormularioUsuario();
+        $FormularioUsuario->IdUsuario($fila['intIdUsuario']);
+        $FormularioUsuario->DNI($fila['nvchDNI']);
+        $FormularioUsuario->RUC($fila['nvchRUC']);
+        $FormularioUsuario->ApellidoPaterno($fila['nvchApellidoPaterno']);
+        $FormularioUsuario->ApellidoMaterno($fila['nvchApellidoMaterno']);
+        $FormularioUsuario->Nombres($fila['nvchNombres']);
+        $FormularioUsuario->Genero($fila['nvchGenero']);
+        $FormularioUsuario->UserName($fila['nvchUserName']);
+        $FormularioUsuario->IdTipoUsuario($fila['intIdTipoUsuario']);
+        $FormularioUsuario->ImgPerfil($fila['nvchImgPerfil']);
+        $FormularioUsuario->UserEstado($fila['bitUserEstado']);
+        $FormularioUsuario->Pais($fila['nvchPais']);
+        $FormularioUsuario->IdDepartamento($fila['intIdDepartamento']);
+        $FormularioUsuario->IdProvincia($fila['intIdProvincia']);
+        $FormularioUsuario->IdDistrito($fila['intIdDistrito']);
+        $FormularioUsuario->Direccion($fila['nvchDireccion']);
+        $FormularioUsuario->Observacion($fila['nvchObservacion']);
+        $FormularioUsuario->ConsultarFormulario($funcion);
+      } else if($funcion == "MP"){
+        $this->intIdUsuario = $fila['intIdUsuario'];
+        $this->nvchDNI = $fila['nvchDNI'];
+        $this->nvchRUC = $fila['nvchRUC'];
+        $this->nvchApellidoPaterno = $fila['nvchApellidoPaterno'];
+        $this->nvchApellidoMaterno = $fila['nvchApellidoMaterno'];
+        $this->nvchNombres = $fila['nvchNombres'];
+        $this->nvchGenero = $fila['nvchGenero'];
+        $this->nvchUserName = $fila['nvchUserName'];
+        $this->intIdTipoUsuario = $fila['intIdTipoUsuario'];
+        $this->nvchImgPerfil = $fila['nvchImgPerfil'];
+        $this->nvchPais = $fila['nvchPais'];
+        $this->intIdDepartamento = $fila['intIdDepartamento'];
+        $this->intIdProvincia = $fila['intIdProvincia'];
+        $this->intIdDistrito = $fila['intIdDistrito'];
+        $this->nvchDireccion = $fila['nvchDireccion'];
+      }
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

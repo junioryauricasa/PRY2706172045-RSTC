@@ -1,6 +1,5 @@
-<?php 
-    require_once '../../datos/conexion/bd_conexion.php';
-		include('../_include/rstheader.php');
+<?php     
+    include('../_include/rstheader.php');
 ?>
     <script>
       $(document).ready(function(){
@@ -8,6 +7,7 @@
       });
     </script>
     <script type="text/javascript" src="../../negocio/usuario/nusuario.js"></script>
+    <script type="text/javascript" src="../../negocio/usuario/nperfil.js"></script>
     <script type="text/javascript" src="ajax/vusuario.js"></script>
     <style>
       .pagination a {
@@ -140,35 +140,35 @@
                       <h3 class="box-title">Información General</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" id="UserInfoData">
                       <div class="form-group">
                         <label class="col-sm-2 control-label">DNI:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchDNI" placeholder="Ingrese su DNI" required>
+                          <input type="text" class="form-control" id="nvchDNI" name="nvchDNI" placeholder="Ingrese su DNI" value="<?php echo $Usuario->nvchDNI; ?>" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">RUC:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchRUC" placeholder="Ingrese su RUC" required>
+                          <input type="text" class="form-control" id="nvchRUC" name="nvchRUC" placeholder="Ingrese su RUC" value="<?php echo $Usuario->nvchRUC; ?>">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Apellido Paterno:</label>
                         <div class="col-sm-10">
-                          <input class="form-control" id="nvchApellidoPaterno" placeholder="Ingrese su Apellido Paterno" required>
+                          <input class="form-control" id="nvchApellidoPaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Paterno" value="<?php echo $Usuario->nvchApellidoPaterno; ?>" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Apellido Materno:</label>
                         <div class="col-sm-10">
-                          <input class="form-control" id="nvchApellidoMaterno" placeholder="Ingrese su Apellido Materno" required>
+                          <input class="form-control" id="nvchApellidoMaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Materno" value="<?php echo $Usuario->nvchApellidoMaterno; ?>" required/>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Nombres:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchNombres" placeholder="Ingrese sus Nombres" required>
+                          <input type="text" class="form-control" id="nvchNombres" name="nvchNombres" placeholder="Ingrese sus Nombres" value="<?php echo $Usuario->nvchNombres; ?>" required>
                         </div>
                       </div>
                       <div class="form-group">
@@ -181,15 +181,9 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">Nombres:</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchNombres" placeholder="Ingrese sus Nombres" required>
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <label class="col-sm-2 control-label">País:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchNombres" placeholder="Ingrese sus Nombres" required>
+                          <input type="text" class="form-control" id="nvchPais" name="nvchPais" placeholder="Ingrese sus Nombres" required>
                         </div>
                       </div>
                       <div class="form-group">
@@ -225,7 +219,7 @@
                     </form>
                     </div>
                   </div>
-
+                  <script type="text/javascript">MostrarUsuario(<?php echo $_SESSION['intIdUsuarioSesion']; ?>);</script>
                   <div class="tab-pane" id="UserComunicacion">
                     <div class="box-header with-border">
                       <h3 class="box-title">Comunicación</h3>
@@ -265,11 +259,25 @@
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-primary">Guardar</button>
+                          <button type="submit" class="btn btn-primary">Agregarr</button>
                           <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>
                       </div>
                     </form>
+                    <div class="table-responsive">
+                      <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                          <th>Medio</th>
+                          <th>Lugar</th>
+                          <th>Tipo de Comunicación</th>
+                          <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="ListaDeComunicaciones">
+                        </tbody>
+                      </table>
+                    </div>
                     </div>
                   </div>
 
