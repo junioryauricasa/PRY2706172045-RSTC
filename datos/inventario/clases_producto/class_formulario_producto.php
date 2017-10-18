@@ -337,7 +337,7 @@ class FormularioProducto
               <input type="hidden" id="intIdProducto" name="intIdProducto" value="<?php echo $this->intIdProducto; ?>" />
               <input type="hidden" name="dtmFechaIngreso" value="<?php echo $this->dtmFechaIngreso; ?>" />
               <?php if($funcion == "F"){ ?>
-              <input type="submit" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
+              <input type="button" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
               <?php } ?>
           </div>              

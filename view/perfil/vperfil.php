@@ -1,4 +1,5 @@
-<?php     
+<?php
+    require_once '../../datos/conexion/bd_conexion.php'; 
     include('../_include/rstheader.php');
 ?>
     <script>
@@ -6,9 +7,10 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/usuario/nusuario.js"></script>
-    <script type="text/javascript" src="../../negocio/usuario/nperfil.js"></script>
-    <script type="text/javascript" src="ajax/vusuario.js"></script>
+    <script type="text/javascript" src="../../negocio/usuarios/nperfil.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/ndatosgenerales.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -144,31 +146,31 @@
                       <div class="form-group">
                         <label class="col-sm-2 control-label">DNI:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchDNI" name="nvchDNI" placeholder="Ingrese su DNI" value="<?php echo $Usuario->nvchDNI; ?>" required>
+                          <input type="text" class="form-control" id="nvchDNI" name="nvchDNI" placeholder="Ingrese su DNI" value="" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">RUC:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchRUC" name="nvchRUC" placeholder="Ingrese su RUC" value="<?php echo $Usuario->nvchRUC; ?>">
+                          <input type="text" class="form-control" id="nvchRUC" name="nvchRUC" placeholder="Ingrese su RUC" value="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Apellido Paterno:</label>
                         <div class="col-sm-10">
-                          <input class="form-control" id="nvchApellidoPaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Paterno" value="<?php echo $Usuario->nvchApellidoPaterno; ?>" required>
+                          <input class="form-control" id="nvchApellidoPaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Paterno" value="" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Apellido Materno:</label>
                         <div class="col-sm-10">
-                          <input class="form-control" id="nvchApellidoMaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Materno" value="<?php echo $Usuario->nvchApellidoMaterno; ?>" required/>
+                          <input class="form-control" id="nvchApellidoMaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Materno" value="" required/>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Nombres:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchNombres" name="nvchNombres" placeholder="Ingrese sus Nombres" value="<?php echo $Usuario->nvchNombres; ?>" required>
+                          <input type="text" class="form-control" id="nvchNombres" name="nvchNombres" placeholder="Ingrese sus Nombres" value="" required>
                         </div>
                       </div>
                       <div class="form-group">
@@ -187,21 +189,68 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">Departamento:</label>
+                        <label class="col-sm-2 control-label">Departamento (Opcional):</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchRegion" placeholder="Ingrese la Región" required>
+                          <select onchange="MostrarProvincia()" id="intIdDepartamento" name="intIdDepartamento" class="form-control select2">
+                            <?php try{
+                              $sql_conexion = new Conexion_BD();
+                              $sql_conectar = $sql_conexion->Conectar();
+                              $sql_comando = $sql_conectar->prepare('CALL mostrardepartamento()');
+                              $sql_comando->execute();
+                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                              {
+                                echo '<option value="'.$fila['intIdDepartamento'].'">'.$fila['nvchDepartamento'].'</option>';
+                              }
+                            }catch(PDPExceptions $e){
+                              echo $e->getMessage();
+                            }?>
+                          </select>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">Provincia:</label>
+                        <label class="col-sm-2 control-label">Provincia (Opcional):</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchProvincia" placeholder="Ingrese la Provincia" required>
+                          <select onchange="MostrarDistrito()" id="intIdProvincia" name="intIdProvincia" class="form-control select2">
+                            <?php try{
+                              $sql_conexion = new Conexion_BD();
+                              $sql_conectar = $sql_conexion->Conectar();
+                              $sql_comando = $sql_conectar->prepare('CALL MostrarUsuario(:intIdUsuario)');
+                              $sql_comando->execute(array(':intIdUsuario' => $_SESSION['intIdUsuarioSesion']));
+                              $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+                              $intIdDepartamento = $fila['intIdDepartamento'];
+                              $sql_comando = $sql_conectar->prepare('CALL MostrarProvincia(:intIdDepartamento)');
+                              $sql_comando->execute(array(':intIdDepartamento' => $intIdDepartamento));
+                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                              {
+                                echo '<option value="'.$fila['intIdProvincia'].'">'.$fila['nvchProvincia'].'</option>';
+                              }
+                            }catch(PDPExceptions $e){
+                              echo $e->getMessage();
+                            }?>
+                          </select>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">Distrito:</label>
+                        <label class="col-sm-2 control-label">Distrito (Opcional):</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchDistrito" placeholder="Ingrese el Distrito" required>
+                          <select id="intIdDistrito" name="intIdDistrito" class="form-control select2">
+                            <?php try{
+                              $sql_conexion = new Conexion_BD();
+                              $sql_conectar = $sql_conexion->Conectar();
+                              $sql_comando = $sql_conectar->prepare('CALL MostrarUsuario(:intIdUsuario)');
+                              $sql_comando->execute(array(':intIdUsuario' => $_SESSION['intIdUsuarioSesion']));
+                              $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+                              $intIdProvincia = $fila['intIdProvincia'];
+                              $sql_comando = $sql_conectar->prepare('CALL MostrarDistrito(:intIdProvincia)');
+                              $sql_comando->execute(array(':intIdProvincia' => $intIdProvincia));
+                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                              {
+                                echo '<option value="'.$fila['intIdDistrito'].'">'.$fila['nvchDistrito'].'</option>';
+                              }
+                            }catch(PDPExceptions $e){
+                              echo $e->getMessage();
+                            }?>
+                          </select>
                         </div>
                       </div>
                       <div class="form-group">
@@ -212,14 +261,19 @@
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-primary">Guardar</button>
+                          <input type="hidden" name="funcion" value="AP"/>
+                          <button type="button" id="btn-guardar-usuario" class="btn btn-primary">Guardar</button>
                           <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>
                       </div>
                     </form>
                     </div>
                   </div>
-                  <script type="text/javascript">MostrarUsuario(<?php echo $_SESSION['intIdUsuarioSesion']; ?>);</script>
+                  <script type="text/javascript">
+                    MostrarUsuarioPerfil(<?php echo $_SESSION['intIdUsuarioSesion']; ?>);
+                  </script>
+                  <div id="resultadocrud"></div>
+
                   <div class="tab-pane" id="UserComunicacion">
                     <div class="box-header with-border">
                       <h3 class="box-title">Comunicación</h3>

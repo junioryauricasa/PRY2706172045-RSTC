@@ -113,21 +113,24 @@ class Usuario
         $FormularioUsuario->Observacion($fila['nvchObservacion']);
         $FormularioUsuario->ConsultarFormulario($funcion);
       } else if($funcion == "MP"){
-        $this->intIdUsuario = $fila['intIdUsuario'];
-        $this->nvchDNI = $fila['nvchDNI'];
-        $this->nvchRUC = $fila['nvchRUC'];
-        $this->nvchApellidoPaterno = $fila['nvchApellidoPaterno'];
-        $this->nvchApellidoMaterno = $fila['nvchApellidoMaterno'];
-        $this->nvchNombres = $fila['nvchNombres'];
-        $this->nvchGenero = $fila['nvchGenero'];
-        $this->nvchUserName = $fila['nvchUserName'];
-        $this->intIdTipoUsuario = $fila['intIdTipoUsuario'];
-        $this->nvchImgPerfil = $fila['nvchImgPerfil'];
-        $this->nvchPais = $fila['nvchPais'];
-        $this->intIdDepartamento = $fila['intIdDepartamento'];
-        $this->intIdProvincia = $fila['intIdProvincia'];
-        $this->intIdDistrito = $fila['intIdDistrito'];
-        $this->nvchDireccion = $fila['nvchDireccion'];
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL mostrarusuario(:intIdUsuario)');
+        $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
+        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+        
+        $salida['nvchDNI'] = $fila['nvchDNI'];
+        $salida['nvchRUC'] = $fila['nvchRUC'];
+        $salida['nvchApellidoPaterno'] = $fila['nvchApellidoPaterno'];
+        $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
+        $salida['nvchNombres'] = $fila['nvchNombres'];
+        $salida['nvchGenero'] = $fila['nvchGenero'];
+        $salida['nvchPais'] = $fila['nvchPais'];
+        $salida['intIdDepartamento'] = $fila['intIdDepartamento'];
+        $salida['intIdProvincia'] = $fila['intIdProvincia'];
+        $salida['intIdDistrito'] = $fila['intIdDistrito'];
+        $salida['nvchDireccion'] = $fila['nvchDireccion'];
+        echo json_encode($salida);
       }
     }
     catch(PDPExceptio $e){

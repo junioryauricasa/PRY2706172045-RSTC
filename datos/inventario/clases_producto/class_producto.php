@@ -375,32 +375,7 @@ class Producto
   }
 
   public function ES_StockTotal($intIdProducto)
-  {/*
-    try{
-      $sql_conexion = new Conexion_BD();,$intCantidad,$TipoES
-      $sql_conectar = $sql_conexion->Conectar();
-      foreach ($intIdProducto as $key => $value) {
-        $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
-        $sql_comando -> execute(array(':intIdProducto' => $value));
-        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-        $intCantidadFinal = 0;
-        $intCantidadInicial = $fila['intCantidad'];
-
-        if($TipoES == 1){
-          $intCantidadFinal = $intCantidadInicial + $intCantidad[$key];
-        } else if($TipoES == 0){
-          $intCantidadFinal = $intCantidadInicial - $intCantidad[$key];
-        }
-
-        $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');
-        $sql_comando -> execute(array(':intIdProducto' => $value, ':intCantidad' => $intCantidadFinal));
-      }
-      echo "ok";
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-  }*/
+  {
   try{
       $intCantidad = 0;
       $sql_conexion_cantidad = new Conexion_BD();
@@ -414,7 +389,6 @@ class Producto
       } else {
         $intCantidad = $fila_cantidad["CantidadTotal"];
       }
-
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');

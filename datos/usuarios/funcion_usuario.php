@@ -71,6 +71,11 @@ switch($_POST['funcion']){
     $Usuario->IdUsuario($_POST['intIdUsuario']);
     $Usuario->MostrarUsuario($_POST['funcion']);
     break;
+  case "MP":
+    $Usuario = new Usuario();
+    $Usuario->IdUsuario($_POST['intIdUsuario']);
+    $Usuario->MostrarUsuario($_POST['funcion']);
+    break;
   case "E":
     $Usuario = new Usuario();
     $Usuario->IdUsuario($_POST['intIdUsuario']);
