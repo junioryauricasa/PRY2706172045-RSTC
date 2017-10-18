@@ -164,7 +164,7 @@
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Apellido Materno:</label>
                         <div class="col-sm-10">
-                          <input class="form-control" id="nvchApellidoMaterno" name="nvchApellidoPaterno" placeholder="Ingrese su Apellido Materno" value="" required/>
+                          <input class="form-control" id="nvchApellidoMaterno" name="nvchApellidoMaterno" placeholder="Ingrese su Apellido Materno" value="" required/>
                         </div>
                       </div>
                       <div class="form-group">
@@ -256,12 +256,13 @@
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Dirección:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchDireccion" placeholder="Ingrese la Dirección" required>
+                          <input type="text" class="form-control" id="nvchDireccion" name="nvchDireccion" placeholder="Ingrese la Dirección" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <input type="hidden" name="funcion" value="AP"/>
+                          <input type="hidden" name="intIdUsuario" value="<?php echo $_SESSION['intIdUsuarioSesion']; ?>"/>
+                          <input type="hidden" name="funcion" value="APF"/>
                           <button type="button" id="btn-guardar-usuario" class="btn btn-primary">Guardar</button>
                           <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>
@@ -344,21 +345,21 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Anterior Contraseña:</label>
                         <div class="col-sm-4">
-                          <input type="password" class="form-control" id="inputName" placeholder="Ingrese Anterior Contraseña" required>
+                          <input type="password" class="form-control" id="nvchUserPasswordAnt" name="nvchUserPasswordAnt" placeholder="Ingrese Anterior Contraseña" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Contraseña:</label>
                         <div class="col-sm-4">
-                           <input type="password" class="form-control" placeholder="Ingrese Nueva Contraseña " required="">
+                           <input type="password" class="form-control" id="nvchUserPassword" name="nvchUserPassword" placeholder="Ingrese Nueva Contraseña" required="">
                         </div>
                         <div class="col-sm-4">
-                           <input type="password" class="form-control" placeholder="Ingrese Contraseña Nuevamente" required="">
+                           <input type="password" class="form-control" id="nvchUserPasswordRep" name="nvchUserPasswordRep" placeholder="Ingrese Contraseña Nuevamente" required="">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="button" class="btn btn-primary">Guardar</button>
+                          <button type="button" id="btn-editar-userpassword" class="btn btn-primary">Guardar</button>
                           <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>
                       </div>
@@ -374,14 +375,20 @@
                     <div class="box-body">
                       <div class="table-responsive">
                         <form method="post" id="formulario" enctype="multipart/form-data">
-                          <div class="col-sm-12">
-                            <input type="file" name="file" class="form-control">
-                          </div>
-                          <div class="col-sm-12">
-                            <div id="respuesta" style="margin: 15px;"></div>
-                          </div>
-                          <div class="col-sm-12">
-                            <!--input type="submit" class="btn btn-primary"-->
+                          <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>Imagen:</label>
+                                  <input type="file" name="SeleccionImagen" id="SeleccionImagen" accept=".png, .jpg, .jpeg">
+                                  <?php if($funcion == "F"){ ?>
+                                  <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
+                                  <?php } else if($funcion == "M") { ?>
+                                  <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
+                                  <?php } ?>
+                                  <input type="hidden" id="nvchImgPerfil" name="nvchImgPerfil" value="" />
+                                  <div id="operacionimagen"></div>
+                                </div>
+                              </div>
                           </div>
                         </form>
                       </div>

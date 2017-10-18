@@ -78,6 +78,41 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS ACTUALIZARUSUARIOPERFIL;
+DELIMITER $$
+	CREATE PROCEDURE ACTUALIZARUSUARIOPERFIL(
+	IN _intIdUsuario INT,
+	IN _nvchDNI VARCHAR(8),
+	IN _nvchRUC VARCHAR(11),
+    IN _nvchApellidoPaterno VARCHAR(120),
+    IN _nvchApellidoMaterno VARCHAR(120),
+	IN _nvchNombres VARCHAR(250),
+	IN _nvchGenero VARCHAR(25),
+	IN _nvchPais VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
+	IN _nvchDireccion VARCHAR(450)
+    )
+	BEGIN
+		UPDATE tb_usuario
+		SET
+			nvchDNI = _nvchDNI,
+			nvchRUC = _nvchRUC,
+			nvchApellidoPaterno = _nvchApellidoPaterno,
+			nvchApellidoMaterno = _nvchApellidoMaterno,
+			nvchNombres = _nvchNombres,
+			nvchGenero = _nvchGenero,
+			nvchPais = _nvchPais,
+			intIdDepartamento = _intIdDepartamento,
+			intIdProvincia = _intIdProvincia,
+			intIdDistrito = _intIdDistrito,
+			nvchDireccion = _nvchDireccion
+		WHERE intIdUsuario = _intIdUsuario;
+    	END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS ACTUALIZARPASSWORD;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARPASSWORD(

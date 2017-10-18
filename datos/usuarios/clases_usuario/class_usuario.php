@@ -172,6 +172,33 @@ class Usuario
     }
   }
 
+  public function ActualizarUsuarioPerfil()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL ACTUALIZARUSUARIOPERFIL(:intIdUsuario,:nvchDNI,:nvchRUC,:nvchApellidoPaterno,
+        :nvchApellidoMaterno,:nvchNombres,:nvchGenero,:nvchPais,:intIdDepartamento,:intIdProvincia,:intIdDistrito,:nvchDireccion)');
+      $sql_comando->execute(array(
+        ':intIdUsuario' => $this->intIdUsuario,
+        ':nvchDNI' => $this->nvchDNI,
+        ':nvchRUC' => $this->nvchRUC,
+        ':nvchApellidoPaterno' => $this->nvchApellidoPaterno,
+        ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
+        ':nvchNombres' => $this->nvchNombres,
+        ':nvchGenero' => $this->nvchGenero,
+        ':nvchPais' => $this->nvchPais,
+        ':intIdDepartamento' => $this->intIdDepartamento,
+        ':intIdProvincia' => $this->intIdProvincia,
+        ':intIdDistrito' => $this->intIdDistrito,
+        ':nvchDireccion' => $this->nvchDireccion));
+      echo "ok";
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
   public function ActualizarPassword()
   {
     try{

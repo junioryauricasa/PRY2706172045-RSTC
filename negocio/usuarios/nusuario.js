@@ -255,6 +255,34 @@ $(document).on('keyup', '#txt-busqueda', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Seleccion de imagen del Usuario */
+$(document).on('change', '#SeleccionImagen', function(){
+        var formData = new FormData($("#form-usuario")[0]);
+        var ruta = "../../datos/usuarios/proceso_guardar_imagen.php";
+        var anteriorImagen = document.getElementById("nvchImgPerfil").value;
+        $.ajax({
+            url: ruta,
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(datos)
+            {
+            	if(datos=="blank"){
+            		document.getElementById("resultadoimagen").src = anteriorImagen;
+		        	document.getElementById("nvchImgPerfil").value = anteriorImagen;
+            	}
+            	else {
+			        document.getElementById("resultadoimagen").src = datos;
+			        document.getElementById("nvchImgPerfil").value = datos;
+		    	}	
+			}
+        });
+});
+/* FIN - Funcion Ajax - Seleccion de imagen del Usuario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Listar Comunicaciones según Ingresa */
 function AgregarComunicacion() {
 	if(EsVacio("nvchMedio") == false){

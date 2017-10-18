@@ -60,6 +60,22 @@ switch($_POST['funcion']){
     $Usuario->Observacion($_POST['nvchObservacion']);
     $Usuario->ActualizarUsuario();
     break;
+  case "APF":
+    $Usuario = new Usuario();
+    $Usuario->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Usuario->DNI($_POST['nvchDNI']);
+    $Usuario->RUC($_POST['nvchRUC']);
+    $Usuario->ApellidoPaterno($_POST['nvchApellidoPaterno']);
+    $Usuario->ApellidoMaterno($_POST['nvchApellidoMaterno']);
+    $Usuario->Nombres($_POST['nvchNombres']);
+    $Usuario->Genero($_POST['nvchGenero']);
+    $Usuario->Pais($_POST['nvchPais']);
+    $Usuario->IdDepartamento($_POST['intIdDepartamento']);
+    $Usuario->IdProvincia($_POST['intIdProvincia']);
+    $Usuario->IdDistrito($_POST['intIdDistrito']);
+    $Usuario->Direccion($_POST['nvchDireccion']);
+    $Usuario->ActualizarUsuarioPerfil();
+    break;
   case "AP":
     $Usuario = new Usuario();
     $Usuario->IdUsuario($_POST['intIdUsuario']);
