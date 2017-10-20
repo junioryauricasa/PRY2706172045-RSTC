@@ -200,7 +200,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
           <li>
             <a href="../compras/vordencompra" target="_blank">
               <i class="fa fa-circle-o"></i> 
-                Registro de Ordenes <br>
+                Registro de Órdenes <br>
               <i class="fa"></i> de Compras
             </a>
           </li>

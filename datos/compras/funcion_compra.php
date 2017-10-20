@@ -4,6 +4,7 @@ require_once '../inventario/clases_producto/class_producto.php';
 require_once 'clases_compra/class_compra.php';
 require_once 'clases_compra/class_detalle_compra.php';
 require_once 'clases_compra/class_formulario_compra.php';
+require_once '../reportes/clases_kardex/class_kardex.php';
 if(empty($_SESSION['intIdCompra'])){
   $_SESSION['intIdCompra'] = 0;
 }
@@ -38,6 +39,18 @@ switch($_POST['funcion']){
     $Producto = new Producto();
     $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],1);
     $Producto->ES_StockTotal($_POST['intIdProducto']);
+
+    $Kardex = new Kardex();
+    $Kardex->FechaMovimiento($dtmFechaCreacion);
+    $Kardex->IdComprobante($_SESSION['intIdCompra']);
+    $Kardex->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Kardex->TipoDetalle(2);
+    $Kardex->Serie($_POST['nvchSerie']);
+    $Kardex->Numeracion($_POST['nvchNumeracion']);
+    $Kardex->CantidadEntrada($_SESSION['intCantidadEntrada']);
+    $Kardex->PrecioUnitarioEntrada($_SESSION['dcmPrecioUnitarioEntrada']);
+    $Kardex->TotalEntrada($_SESSION['dcmTotalEntrada']);
+    $Kardex->InsertarKardex();
     break;
   case "A":
     $Compra = new Compra();

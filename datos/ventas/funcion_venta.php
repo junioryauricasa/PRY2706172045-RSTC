@@ -5,6 +5,7 @@ require_once 'clases_venta/class_venta.php';
 require_once 'clases_venta/class_detalle_venta.php';
 require_once 'clases_venta/class_formulario_venta.php';
 require_once '../numeraciones/class_numeraciones.php';
+require_once '../reportes/clases_kardex/class_kardex.php';
 if(empty($_SESSION['intIdVenta'])){
   $_SESSION['intIdVenta'] = 0;
 }
@@ -55,6 +56,18 @@ switch($_POST['funcion']){
     }
     $Numeraciones = new Numeraciones();
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
+
+    $Kardex = new Kardex();
+    $Kardex->FechaMovimiento($dtmFechaCreacion);
+    $Kardex->IdComprobante($_SESSION['intIdVenta']);
+    $Kardex->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Kardex->TipoDetalle(1);
+    $Kardex->Serie($_POST['nvchSerie']);
+    $Kardex->Numeracion($_POST['nvchNumeracion']);
+    $Kardex->CantidadEntrada($_SESSION['intCantidadSalida']);
+    $Kardex->PrecioUnitarioEntrada($_SESSION['dcmPrecioUnitarioSalida']);
+    $Kardex->TotalEntrada($_SESSION['dcmTotalSalida']);
+    $Kardex->InsertarKardex();
     break;
   case "M":
     $Venta = new Venta();
