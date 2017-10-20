@@ -6,7 +6,8 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/compras/nproveedor.js"></script>
+    <script type="text/javascript" src="../../negocio/compras/ncompra.js"></script>
+    <script type="text/javascript" src="../../negocio/compras/ndetallecompra.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>
@@ -26,7 +27,7 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Registro de Proveedores
+        Registro de Compras
         <small>Módulo de Compras</small>
       </h1>
       <ol class="breadcrumb">
@@ -41,7 +42,7 @@ include('../_include/rstheader.php');
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Proveedores</h3>
+          <h3 class="box-title">Guías Internas de Compra de Productos</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -54,11 +55,11 @@ include('../_include/rstheader.php');
               <div class="form-group">
                 <label>Mostrar:</label>
                 <br>
-                <select id="num-lista" name="num-lista"  class="form-control select2">
-                  <option value="10">Ver 10 Resultados</option>
-                  <option value="25">Ver 25 Resultados</option>
-                  <option value="50">Ver 50 Resultados</option>
-                  <option value="100">Ver 100 Resultados</option>
+                <select id="num-lista" name="num-lista"  class="form-control select2" >
+                      <option value="10">Ver 10 Resultados</option>
+                      <option value="25">Ver 25 Resultados</option>
+                      <option value="50">Ver 50 Resultados</option>
+                      <option value="100">Ver 100 Resultados</option>
                 </select>
               </div>
             </div>
@@ -70,19 +71,19 @@ include('../_include/rstheader.php');
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                <label>Tipo Persona:</label>
+                <label>Tipo Comprobante:</label>
                 <br>
-                <select id="lista-persona" name="lista-persona"  class="form-control select2">
+                <select id="lista-comprobante" name="lista-comprobante"  class="form-control select2">
                   <?php 
                     require_once '../../datos/conexion/bd_conexion.php';
                     try{
                     $sql_conexion = new Conexion_BD();
                     $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrartipoPersona()');
-                    $sql_comando->execute();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
+                    $sql_comando->execute(array(':intTipoDetalle' => 2));
                     while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                     {
-                      echo '<option value="'.$fila['intIdTipoPersona'].'">'.$fila['nvchNombre'].'</option>';
+                      echo '<option value="'.$fila['intIdTipoComprobante'].'">'.$fila['nvchNombre'].'</option>';
                     }
                   }catch(PDPExceptions $e){
                     echo $e->getMessage();
@@ -95,32 +96,33 @@ include('../_include/rstheader.php');
             <table class="table table-hover table-condensed">
               <thead>
               <tr>
-                <th class="ListaDNI">DNI</th>
-                <th class="ListaRUC">RUC</th>
-                <th class="ListaRazonSocial">Razón Social</th>
-                <th class="ListaApellidoPaterno">Apellido Paterno</th>
-                <th class="ListaApellidoMaterno">Apellido Materno</th>
-                <th class="ListaNombres">Nombres</th>
+                <th class="listaNumFactura">Número de Factura</th>
+                <th class="listaNumBoletaVenta">Número de Boleta</th>
+                <th class="listaNumNotaCredito">Número de Nota de Crédito</th>
+                <th class="listaNumGuiaRemision">Número de Guía de Remisión</th>
+                <th>Proveedor</th>
+                <th>Usuario que Generó</th>
+                <th>Fecha de Creación</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeProveedores">
-                <script>ListarProveedor(0,10,"T",1);</script>
+              <tbody id="ListaDeCompras">
+                <script>ListarCompra(0,10,"T");</script>
               </tbody>
             </table>
-            <script>AccionCabecerasTabla("1");</script>
+            <script>AccionCabecerasTablaComprobante(5);</script>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeProveedores" class="pagination">
-                <script>PaginarProveedor(0,10,"T",1);</script>
+              <ul id="PaginacionDeCompra" class="pagination">
+                <script>PaginarCompra(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left">Agregar Proveedor</button>
+          <button type="button" id="btn-form-crear-compra" class="btn btn-sm btn-info btn-flat pull-left">Agregar Compra de Productos</button>
         </div>
       </div>
 

@@ -161,7 +161,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       </li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-th-list"></i> <span>Inventario</span>
+          <i class="fa fa-th-list"></i> <span>Módulo Inventario</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
@@ -187,20 +187,21 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       </li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-cart-plus"></i> <span>Compras</span>
+          <i class="fa fa-cart-plus"></i> <span>Módulo Compras</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
           <li class="active">
-            <a href="../compras/vproveedor">
+            <a href="../compras/vcompra">
               <i class="fa fa-circle-o"></i> 
-                Registro de Proveedores
+                Registro de Compras
             </a>
           </li>
           <li>
             <a href="../compras/vordencompra">
               <i class="fa fa-circle-o"></i> 
-                Registro de Compras
+                Registro de Ordenes <br>
+              <i class="fa"></i> de Compras
             </a>
           </li>
         </ul>
@@ -213,14 +214,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             <!--Ventas-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-list-alt"></i> <span>Ventas</span>
+                <i class="fa fa-list-alt"></i> <span>Módulo Ventas</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li class="active">
                   <a href="../ventas/vcliente">
                     <i class="fa fa-circle-o"></i> 
-                      Clientes
+                      Registro de Clientes
                   </a>
                 </li>
                 <li>
@@ -242,14 +243,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             <!--Usuarios-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-users"></i> <span>Usuarios</span>
+                <i class="fa fa-users"></i> <span>Módulo Usuarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li class="active">
                   <a href="../usuarios/vusuario" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Administrar Usuarios
+                      Registro Usuarios
                   </a>
                 </li>
                 <li>
@@ -272,7 +273,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             <!--Reportes-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-file-pdf-o"></i> <span>Reportes</span>
+                <i class="fa fa-file-pdf-o"></i> <span>Módulo Reportes</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
