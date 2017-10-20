@@ -127,7 +127,7 @@ class FormularioUsuario
                     <?php if($funcion == "F"){ ?>
                     <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
                     <?php } else if($funcion == "M") { ?>
-                    <img id="resultadoimagen" src="<?php echo '../../datos/inventario/imgperfil/'.$this->nvchImgPerfil; ?>" style="width: 100px; height: 100px;" />
+                    <img id="resultadoimagen" src="<?php echo '../../usuarios/imgperfil/'.$this->nvchImgPerfil; ?>" style="width: 100px; height: 100px;" />
                     <?php } ?>
                     <input type="hidden" id="nvchImgPerfil" name="nvchImgPerfil" value="<?php echo $this->nvchImgPerfil; ?>" />
                     <div id="operacionimagen"></div>

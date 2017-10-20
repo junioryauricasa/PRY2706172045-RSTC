@@ -19,6 +19,8 @@ function MostrarUsuarioPerfil(intIdUsuario){
 	   	$("#intIdProvincia").val(datos.intIdProvincia);
 	   	$("#intIdDistrito").val(datos.intIdDistrito);
 	   	$("#nvchDireccion").val(datos.nvchDireccion);
+	   	$("#resultadoimagen").attr("src", "../../usuarios/imgperfil/" + datos.nvchImgPerfil);
+	   	$("#nvchImgPerfil").val(datos.nvchImgPerfil);
 	   }
 	  });
 }
@@ -96,7 +98,7 @@ $(document).on('click', '#btn-editar-userpassword', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente la Contraseña del Usuario",1);
+	   		MensajeNormal("Se modificó correctamente la Contraseña",1);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -107,11 +109,11 @@ $(document).on('click', '#btn-editar-userpassword', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Seleccion de imagen del producto */
+/* INICIO - Funcion Ajax - Seleccion de imagen del Usuario */
 $(document).on('change', '#SeleccionImagen', function(){
-        var formData = new FormData($("#form-producto")[0]);
-        var ruta = "../../datos/inventario/proceso_guardar_imagen.php";
-        var anteriorImagen = document.getElementById("nvchDireccionImg").value;
+        var formData = new FormData($("#form-img-perfil")[0]);
+        var ruta = "../../datos/usuarios/proceso_guardar_imagen.php";
+        var anteriorImagen = document.getElementById("nvchImgPerfil").value;
         $.ajax({
             url: ruta,
             type: "POST",
@@ -122,14 +124,38 @@ $(document).on('change', '#SeleccionImagen', function(){
             {
             	if(datos=="blank"){
             		document.getElementById("resultadoimagen").src = anteriorImagen;
-		        	document.getElementById("nvchDireccionImg").value = anteriorImagen;
+		        	document.getElementById("nvchImgPerfil").value = anteriorImagen;
             	}
             	else {
 			        document.getElementById("resultadoimagen").src = datos;
-			        document.getElementById("nvchDireccionImg").value = datos;
+			        document.getElementById("nvchImgPerfil").value = datos;
 		    	}	
 			}
         });
 });
-/* FIN - Funcion Ajax - Seleccion de imagen del producto */
+/* FIN - Funcion Ajax - Seleccion de imagen del Usuario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Cambiar Contraseña */
+$(document).on('click', '#btn-editar-imgperfil', function(){
+  	  var formData = $("#form-img-perfil").serialize();
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:formData,
+	   dataType:"json",
+	   success:function(datos)
+	   {
+	   	if (datos.resultado == "ok") {
+	   		MensajeNormal("Se modificó correctamente la Imagen de Perfil",1);
+	   		$(".imgperfil").attr("src", "../../usuarios/imgperfil/" + datos.nvchImgPerfil);
+	   	} else { 
+	   		$("#resultadoimg").html(datos.resultado); 
+	   	}
+	   }
+	  });
+	 return false;
+});
+/* FIN - Cambiar Contraseña */
 //////////////////////////////////////////////////////////////

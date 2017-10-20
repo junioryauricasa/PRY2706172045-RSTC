@@ -48,7 +48,7 @@
               <!-- Profile Image -->
               <div class="box box-primary">
                 <div class="box-body box-profile">
-                  <img class="profile-user-img img-responsive img-circle" src="<?php echo $_SESSION['nvchImgPerfil']; ?>" alt="User profile picture">
+                  <img class="profile-user-img img-responsive img-circle imgperfil" src="" alt="User profile picture">
                   <h3 class="profile-username text-center">
                     <?php echo $_SESSION['NombresApellidos']; ?>
                   </h3>
@@ -264,7 +264,6 @@
                           <input type="hidden" name="intIdUsuario" value="<?php echo $_SESSION['intIdUsuarioSesion']; ?>"/>
                           <input type="hidden" name="funcion" value="APF"/>
                           <button type="button" id="btn-guardar-usuario" class="btn btn-primary">Guardar</button>
-                          <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>
                       </div>
                     </form>
@@ -367,35 +366,34 @@
                     </div>
                   </div>
 
-                  <!-- form upload image for profile -->
                   <div class="tab-pane" id="UserImgPerfil">
                     <div class="box-header with-border">
                       <h3 class="box-title">Cambiar mi Foto</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                       <div class="table-responsive">
-                        <form method="post" id="formulario" enctype="multipart/form-data">
-                          <div class="row">
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Imagen:</label>
-                                  <input type="file" name="SeleccionImagen" id="SeleccionImagen" accept=".png, .jpg, .jpeg">
-                                  <?php if($funcion == "F"){ ?>
-                                  <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
-                                  <?php } else if($funcion == "M") { ?>
-                                  <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
-                                  <?php } ?>
-                                  <input type="hidden" id="nvchImgPerfil" name="nvchImgPerfil" value="" />
-                                  <div id="operacionimagen"></div>
-                                </div>
-                              </div>
+                        <form method="post" id="form-img-perfil">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label>Imagen:</label>
+                              <input type="file" name="SeleccionImagen" id="SeleccionImagen" accept=".png, .jpg, .jpeg">
+                              <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
+                              <input type="hidden" id="nvchImgPerfil" name="nvchImgPerfil" value="" />
+                              <div id="operacionimagen"></div>
+                              <br>
+                            </div>
                           </div>
+                          <div class="form-group">
+                            <div class="col-sm-9">
+                              <input type="hidden" name="funcion" value="AIP"/>
+                              <button type="button" id="btn-editar-imgperfil" class="btn btn-primary">Guardar</button>
+                            </div>
+                          </div>
+                          <div id="resultadoimg"></div>
                         </form>
                       </div>
                     </div>
                     <div class="box-footer clearfix">
-                      <!--a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-                      <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a-->
                     </div>
                   </div>
                   <!-- END form upload image for profile -->

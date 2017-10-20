@@ -26,7 +26,21 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
   <script type="text/javascript" src="../../frameworks/bootstrap-filestyle/src/bootstrap-filestyle.min.js">$(":file").filestyle({input: false});</script>
-
+  <script type="text/javascript">
+    function MostrarUsuarioPerfilNav(intIdUsuario){
+          var funcion = "MP";
+        $.ajax({
+         url:"../../datos/usuarios/funcion_usuario.php",
+         method:"POST",
+         data:{intIdUsuario:intIdUsuario,funcion:funcion},
+         dataType:"json",
+         success:function(datos)
+         {
+         $(".imgperfil").attr("src", "../../usuarios/imgperfil/" + datos.nvchImgPerfil);
+         }
+        });
+    }
+  </script>
   <!--
   <style>
   table>thead{
@@ -42,6 +56,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
   -->
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini">
+<script type="text/javascript">MostrarUsuarioPerfilNav(<?php echo $_SESSION['intIdUsuarioSesion']; ?>);</script>
 <div class="wrapper">
 
   <header class="main-header">
@@ -64,13 +79,13 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="user-image" alt="User Image">
+              <img src="" class="user-image imgperfil" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['NombresApellidos'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="img-circle" alt="User Image">
+                <img src="" class="img-circle imgperfil" alt="User Image">
                 <p>
                   <?php echo $_SESSION['NombresApellidos'];?> - <?php echo $_SESSION['NombrePermiso']; ?>
                   <!--small>Member since Nov. 2012</small-->
@@ -122,7 +137,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo $_SESSION['nvchImgPerfil']; ?>" class="img-circle" alt="User Image">
+          <img src="" class="img-circle imgperfil" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['NombresApellidos']; ?></p>

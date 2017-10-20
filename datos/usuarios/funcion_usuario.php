@@ -76,6 +76,12 @@ switch($_POST['funcion']){
     $Usuario->Direccion($_POST['nvchDireccion']);
     $Usuario->ActualizarUsuarioPerfil();
     break;
+  case "AIP":
+    $Usuario = new Usuario();
+    $Usuario->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Usuario->ImgPerfil($_POST['nvchImgPerfil']);
+    $Usuario->ActualizarImagenPerfil();
+    break;
   case "AP":
     $Usuario = new Usuario();
     $Usuario->IdUsuario($_POST['intIdUsuario']);

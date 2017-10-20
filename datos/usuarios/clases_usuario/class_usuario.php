@@ -130,6 +130,7 @@ class Usuario
         $salida['intIdProvincia'] = $fila['intIdProvincia'];
         $salida['intIdDistrito'] = $fila['intIdDistrito'];
         $salida['nvchDireccion'] = $fila['nvchDireccion'];
+        $salida['nvchImgPerfil'] = $fila['nvchImgPerfil'];
         echo json_encode($salida);
       }
     }
@@ -199,6 +200,30 @@ class Usuario
     }
   }
 
+  public function ActualizarImagenPerfil()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL ACTUALIZARIMAGENPERFIL(:intIdUsuario,:nvchImgPerfil)');
+      $sql_comando->execute(array(
+        ':intIdUsuario' => $this->intIdUsuario,
+        ':nvchImgPerfil' => $this->nvchImgPerfil));
+
+      $sql_comando = $sql_conectar->prepare('CALL mostrarusuario(:intIdUsuario)');
+      $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+        
+      $salida['resultado'] = "ok";
+      $salida['nvchImgPerfil'] = $fila['nvchImgPerfil'];
+      echo json_encode($salida);
+    }
+    catch(PDPExceptions $e){
+      $salida['resultado'] = $e->getMessage();
+      echo json_encode($salida);
+    }
+  }
+
   public function ActualizarPassword()
   {
     try{
@@ -210,7 +235,7 @@ class Usuario
         ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),));
       echo "ok";
     }
-    catch(PDPExceptio $e){
+    catch(PDPExceptions $e){
       echo $e->getMessage();
     }
   }
