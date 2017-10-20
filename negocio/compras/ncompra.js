@@ -33,7 +33,7 @@ $(document).on('click', '#btn-crear-compra', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokok") {
+	   	if (datos=="okokokokok") {
 	   		MensajeNormal("Se generó correctamente la Compra de Productos",1);
 	   		$("#btn-form-compra-remove").click();
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());

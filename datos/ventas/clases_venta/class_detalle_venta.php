@@ -53,6 +53,9 @@ class DetalleVenta
           ':dcmTotal' => $this->dcmTotal[$key],
           ':intIdTipoVenta' => $this->intIdTipoVenta,
           ':nvchDescripcionServicio' => ''));
+          $_SESSION['intCantidadSalida'] += $value;
+          $_SESSION['dcmPrecioUnitarioSalida'] += $this->dcmPrecioUnitario[$key];
+          $_SESSION['dcmTotalSalida'] += $this->dcmTotal[$key];
         } else if($this->intIdTipoVenta == 2){
           $sql_comando->execute(array(
           ':intIdVenta' => $this->intIdVenta,
@@ -66,6 +69,9 @@ class DetalleVenta
           ':dcmTotal' => $this->dcmTotal[$key],
           ':intIdTipoVenta' => $this->intIdTipoVenta,
           ':nvchDescripcionServicio' => $this->nvchDescripcionServicio[$key]));
+          $_SESSION['intCantidadSalida'] += $value;
+          $_SESSION['dcmPrecioUnitarioSalida'] += $this->dcmPrecioUnitario[$key];
+          $_SESSION['dcmTotalSalida'] += $this->dcmTotal[$key];
         }
       }
       echo "ok";

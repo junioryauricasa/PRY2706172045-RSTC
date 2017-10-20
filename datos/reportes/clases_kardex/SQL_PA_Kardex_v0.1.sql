@@ -17,19 +17,19 @@ DELIMITER $$
 	IN _intCantidadSalida DECIMAL(11,2),
 	IN _dcmPrecioUnitarioSalida DECIMAL(11,2),
 	IN _dcmTotalSalida DECIMAL(11,2),
-	IN _intCantidalExistencia DECIMAL(11,2),
-	IN _dcmPrecioUnitarilExistencia DECIMAL(11,2),
+	IN _intCantidadExistencia DECIMAL(11,2),
+	IN _dcmPrecioUnitarioExistencia DECIMAL(11,2),
 	IN _dcmTotalExistencia DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_kardex 
 		(dtmFechaMovimiento,intIdComprobante,intIdTipoComprobante,intTipoDetalle,nvchSerie,nvchNumeracion,intIdProducto,
-			intCantidadEntrada,dcmPrecioUnitarioEntrada,dcmTotalEntrada,_intCantidadSalida,dcmPrecioUnitarioSalida,dcmTotalSalida,
-			intCantidadExistencia,dcmPrecioUnitarilExistencia,dcmTotalExistencia)
+			intCantidadEntrada,dcmPrecioUnitarioEntrada,dcmTotalEntrada,intCantidadSalida,dcmPrecioUnitarioSalida,dcmTotalSalida,
+			intCantidadExistencia,dcmPrecioUnitarioExistencia,dcmTotalExistencia)
 		VALUES
 		(_dtmFechaMovimiento,_intIdComprobante,_intIdTipoComprobante,_intTipoDetalle,_nvchSerie,_nvchNumeracion,_intIdProducto,
 			_intCantidadEntrada,_dcmPrecioUnitarioEntrada,_dcmTotalEntrada,_intCantidadSalida,_dcmPrecioUnitarioSalida,_dcmTotalSalida,
-			_intCantidadExistencia,_dcmPrecioUnitarilExistencia,_dcmTotalExistencia);
+			_intCantidadExistencia,_dcmPrecioUnitarioExistencia,_dcmTotalExistencia);
 		SET _intIdMovimiento = LAST_INSERT_ID();
     END
 $$
@@ -52,7 +52,7 @@ DELIMITER $$
 	IN _intCantidadSalida DECIMAL(11,2),
 	IN _dcmPrecioUnitarioSalida DECIMAL(11,2),
 	IN _dcmTotalSalida DECIMAL(11,2),
-	IN _intCantidalExistencia DECIMAL(11,2),
+	IN _intCantidadExistencia DECIMAL(11,2),
 	IN _dcmPrecioUnitarilExistencia DECIMAL(11,2),
 	IN _dcmTotalExistencia DECIMAL(11,2)
     )
@@ -78,15 +78,13 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS MOSTRARKARDEX;
+DROP PROCEDURE IF EXISTS MOSTRARULTIMOKARDEX;
 DELIMITER $$
-	CREATE PROCEDURE MOSTRARKARDEX(
-    	IN _intIdMovimiento INT
-    )
+	CREATE PROCEDURE MOSTRARULTIMOKARDEX()
 	BEGIN
 		SELECT * FROM tb_kardex
-		WHERE 
-		intIdMovimiento = _intIdMovimiento;
+		ORDER BY intIdMovimiento DESC
+		LIMIT 1;
     END 
 $$
 DELIMITER ;
@@ -112,7 +110,9 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT * FROM tb_kardex
+		SELECT K.*, TC.nvchNombre AS NombreComprobante FROM tb_kardex K
+		LEFT JOIN tb_tipo_comprobante TC ON K.intIdTipoComprobante = TC.intIdTipoComprobante
+
 		LIMIT _x,_y;
     END
 $$
@@ -124,7 +124,8 @@ DELIMITER $$
     	IN _elemento VARCHAR(500)
     )
 	BEGIN
-		SELECT * FROM tb_kardex;
+		SELECT K.*, TC.nvchNombre AS NombreComprobante FROM tb_kardex K
+		LEFT JOIN tb_tipo_comprobante TC ON K.intIdTipoComprobante = TC.intIdTipoComprobante;
     END 
 $$
 DELIMITER ;

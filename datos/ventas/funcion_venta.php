@@ -12,6 +12,15 @@ if(empty($_SESSION['intIdVenta'])){
 if(empty($_SESSION['intIdOperacionVenta'])){
   $_SESSION['intIdOperacionVenta'] = 0;
 }
+if(empty($_SESSION['intCantidadSalida'])){
+  $_SESSION['intCantidadSalida'] = 0;
+}
+if(empty($_SESSION['dcmPrecioUnitarioSalida'])){
+  $_SESSION['dcmPrecioUnitarioSalida'] = 0;
+}
+if(empty($_SESSION['dcmTotalSalida'])){
+  $_SESSION['dcmTotalSalida'] = 0;
+}
 switch($_POST['funcion']){
   case "I":
     $Venta = new Venta();
@@ -64,10 +73,13 @@ switch($_POST['funcion']){
     $Kardex->TipoDetalle(1);
     $Kardex->Serie($_POST['nvchSerie']);
     $Kardex->Numeracion($_POST['nvchNumeracion']);
-    $Kardex->CantidadEntrada($_SESSION['intCantidadSalida']);
-    $Kardex->PrecioUnitarioEntrada($_SESSION['dcmPrecioUnitarioSalida']);
-    $Kardex->TotalEntrada($_SESSION['dcmTotalSalida']);
+    $Kardex->CantidadSalida($_SESSION['intCantidadSalida']);
+    $Kardex->PrecioUnitarioSalida($_SESSION['dcmPrecioUnitarioSalida']);
+    $Kardex->TotalSalida($_SESSION['dcmTotalSalida']);
     $Kardex->InsertarKardex();
+    $_SESSION['intCantidadSalida'] = 0;
+    $_SESSION['dcmPrecioUnitarioSalida'] = 0;
+    $_SESSION['dcmTotalSalida'] = 0;
     break;
   case "M":
     $Venta = new Venta();

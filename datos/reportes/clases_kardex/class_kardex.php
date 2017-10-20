@@ -47,10 +47,31 @@ class Kardex
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
+
+      $sql_comando = $sql_conectar->prepare('CALL mostrarultimoKardex()');
+      $sql_comando -> execute();
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
+      $intCantidadExistencia = $fila['intCantidadExistencia'];
+      $dcmPrecioUnitarioExistencia = $fila['dcmPrecioUnitarioExistencia'];
+      $dcmTotalExistencia = $fila['dcmTotalExistencia'];
+
+      
+
+      if($this->intTipoDetalle == 1){
+        $intCantidadExistencia = $intCantidadExistencia - $this->intCantidadSalida;
+        $dcmPrecioUnitarioExistencia = $dcmPrecioUnitarioExistencia + $this->dcmPrecioUnitarioSalida;
+        $dcmTotalExistencia = $dcmTotalExistencia + $this->dcmTotalSalida;
+      } else if($this->intTipoDetalle == 2){
+        $intCantidadExistencia = $intCantidadExistencia + $this->intCantidadEntrada;
+        $dcmPrecioUnitarioExistencia = $dcmPrecioUnitarioExistencia - $this->dcmPrecioUnitarioEntrada;
+        $dcmTotalExistencia = $dcmTotalExistencia - $this->dcmTotalEntrada;
+      }
+
       $sql_comando = $sql_conectar->prepare('CALL insertarKardex(@intIdMovimiento,:dtmFechaMovimiento,
         :intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:nvchSerie,:nvchNumeracion,:intIdProducto,
         :intCantidadEntrada,:dcmPrecioUnitarioEntrada,:dcmTotalEntrada,:intCantidadSalida,:dcmPrecioUnitarioSalida,
-        :dcmPrecioTotalSalida,:intCantidadExistencia,:dcmPrecioUnitarioExistencia,:dcmTotalExistencia)');
+        :dcmTotalSalida,:intCantidadExistencia,:dcmPrecioUnitarioExistencia,:dcmTotalExistencia)');
       $sql_comando->execute(array(
         ':dtmFechaMovimiento' => $this->dtmFechaMovimiento,
         ':intIdComprobante' => $this->intIdComprobante,
@@ -64,7 +85,10 @@ class Kardex
         ':dcmTotalEntrada' => $this->dcmTotalEntrada,
         ':intCantidadSalida' => $this->intCantidadSalida,
         ':dcmPrecioUnitarioSalida' => $this->dcmPrecioUnitarioSalida,
-        ':dcmTotalSalida' => $this->dcmTotalSalida));
+        ':dcmTotalSalida' => $this->dcmTotalSalida,
+        ':intCantidadExistencia' => $intCantidadExistencia,
+        ':dcmPrecioUnitarioExistencia' => $dcmPrecioUnitarioExistencia,
+        ':dcmTotalExistencia' => $dcmTotalExistencia));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdMovimiento as intIdMovimiento");
       $salida = $salidas->fetchObject();
@@ -186,43 +210,36 @@ class Kardex
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($fila["nvchCodigo"]!=""){
-          if($i == ($cantidad - $x) && $tipolistado == "N"){
-            echo '<tr bgcolor="#BEE1EB">';
-          } else if($fila["intIdMovimiento"] == $_SESSION['intIdMovimiento'] && $tipolistado == "E"){
-            echo '<tr bgcolor="#B3E4C0">';
-          }else {
-            echo '<tr>';
-          }
-          echo 
-          '<td>'.$fila["nvchCodigo"].'</td>
-          <td>'.$fila["nvchDescripcion"].'</td>
-          <td>'.$fila["nvchSimbolo"].'</td>
-          <td>'.$fila["dcmPrecioVenta1"].'</td>
-          <td>'.$fila["dcmPrecioVenta2"].'</td>
-          <td>'.$fila["dcmPrecioVenta3"].'</td>
-          <td>'.$fila["intCantidad"].'</td>
-          <td>
-            <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-success">
-              <i class="fa fa-edit"></i> Ver Detalle
-            </button>
-          </td>
-          <td>
-            <button onclick="VerImagenKardex(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
-              <i class="fa fa-search"></i> Ver 
-            </button>
-          </td>
-          <td> 
-            <button type="submit" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-kardex">
-              <i class="fa fa-edit"></i> Editar
-            </button>
-            <button type="submit" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-danger btn-eliminar-kardex">
-              <i class="fa fa-edit"></i> Eliminar
-            </button>
-          </td>  
-          </tr>';
-          $i++;
+        echo 
+        '<tr>
+        <td>'.$fila["intIdMovimiento"].'</td>
+        <td>'.$fila["dtmFechaMovimiento"].'</td>
+        <td>'.$fila["NombreComprobante"].'</td>';
+        if($fila["intTipoDetalle"] == 1){
+          echo '<td>Salida</td>';
+        } else if($fila["intTipoDetalle"] == 2){
+          echo '<td>Entrada</td>';
+        } else {
+          echo '<td>Inicial</td>';
         }
+        echo 
+        '<td>'.$fila["nvchSerie"].'</td>
+        <td>'.$fila["nvchNumeracion"].'</td>
+        <td>'.$fila["intCantidadEntrada"].'</td>
+        <td>'.$fila["dcmPrecioUnitarioEntrada"].'</td>
+        <td>'.$fila["dcmTotalEntrada"].'</td>
+        <td>'.$fila["intCantidadSalida"].'</td>
+        <td>'.$fila["dcmPrecioUnitarioSalida"].'</td>
+        <td>'.$fila["dcmTotalSalida"].'</td>
+        <td>'.$fila["intCantidadExistencia"].'</td>
+        <td>'.$fila["dcmPrecioUnitarioExistencia"].'</td>
+        <td>'.$fila["dcmTotalExistencia"].'</td>
+        <td> 
+          <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-kardex">
+            <i class="fa fa-edit"></i> Ver Detalle
+          </button>
+        </td>  
+        </tr>';
       }
     }
     catch(PDPExceptio $e){
@@ -230,7 +247,7 @@ class Kardex
     }  
   }
 
-  public function PaginarKardex($busqueda,$x,$y,$tipolistado,$TipoBusqueda)
+  public function PaginarKardex($busqueda,$x,$y,$tipolistado)
   {
     try{
       if($tipolistado == "N")
