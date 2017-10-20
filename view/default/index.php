@@ -47,7 +47,7 @@
                 </div>
                 <div class="box-footer clearfix">     
 		            <a href="dashboard" class="btn btn-sm btn-danger btn-flat pull-left" style="margin: 0px 5px; border-radius: 3px">
-                    <i class="fa fa-tachometer" aria-hidden="true"></i> Ver Dashboard
+                    <i class="fa fa-tachometer" aria-hidden="true"></i> Ver Información General
                 </a>
 		        </div>
             </div>

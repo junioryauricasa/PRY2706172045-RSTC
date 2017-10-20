@@ -156,7 +156,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       <li>
         <a href="../default/dashboard">
           <i class="fa fa-dashboard"></i> 
-          <span>Dashboard</span>
+          <span>Información General</span>
         </a>
       </li>
       <li class="treeview">
@@ -166,19 +166,19 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         </a>
         <ul class="treeview-menu">
           <li class="active">
-            <a href="../inventario/vproducto">
+            <a href="../inventario/vproducto" target="_blank">
               <i class="fa fa-circle-o"></i> 
                 Registro de Productos
             </a>
           </li>
           <li>
-            <a href="../inventario/ventrada">
+            <a href="../inventario/ventrada" target="_blank">
               <i class="fa fa-circle-o"></i> 
                 Administrar Entrada
             </a>
           </li>
           <li>
-            <a href="../inventario/vsalida">
+            <a href="../inventario/vsalida" target="_blank">
               <i class="fa fa-circle-o"></i> 
                 Administrar Salida
             </a>
@@ -192,13 +192,13 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         </a>
         <ul class="treeview-menu">
           <li class="active">
-            <a href="../compras/vcompra">
+            <a href="../compras/vcompra" target="_blank">
               <i class="fa fa-circle-o"></i> 
                 Registro de Compras
             </a>
           </li>
           <li>
-            <a href="../compras/vordencompra">
+            <a href="../compras/vordencompra" target="_blank">
               <i class="fa fa-circle-o"></i> 
                 Registro de Ordenes <br>
               <i class="fa"></i> de Compras
@@ -219,19 +219,19 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </a>
               <ul class="treeview-menu">
                 <li class="active">
-                  <a href="../ventas/vcliente">
+                  <a href="../ventas/vcliente" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Registro de Clientes
                   </a>
                 </li>
                 <li>
-                  <a href="../ventas/vventa">
+                  <a href="../ventas/vventa" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Registro de Ventas
                   </a>
                 </li>
                 <li>
-                  <a href="../ventas/vcotizacion">
+                  <a href="../ventas/vcotizacion" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Registro de Cotización
                   </a>
@@ -250,17 +250,17 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li class="active">
                   <a href="../usuarios/vusuario" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Registro Usuarios
+                      Registro de Usuarios
                   </a>
                 </li>
                 <li>
-                  <a href="../usuarios/vpermisos">
+                  <a href="../usuarios/vpermisos" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Administrar Permisos
                   </a>
                 </li>
                 <li>
-                  <a href="../usuarios/vhistoryaccess">
+                  <a href="../usuarios/vhistoryaccess" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                      Historial de acceso
                   </a>
@@ -278,6 +278,13 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </a>
               <ul class="treeview-menu">
                 <li>
+                  <a href="../reportes/vkardex" target="_blank">
+                    <i class="fa fa-circle-o"></i> 
+                      Kardex
+                  </a>
+                </li>
+                <!--
+                <li>
                   <a href="../reporte/vlistarusuario" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Listar de Usuarios
@@ -285,7 +292,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 </li>
                 <li>
                   <a href="#" >
-                  <!--a href="../reporte/vlistarcliente" target="_blank"-->
+                  a href="../reporte/vlistarcliente" target="_blank"
                     <i class="fa fa-circle-o"></i> 
                      Lista Clientes
                   </a>
@@ -302,6 +309,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                       Formato Comprobantes
                   </a>
                 </li>
+                -->
               </ul>
             </li>
             <!--END Reportes-->
