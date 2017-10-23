@@ -2,29 +2,35 @@
 require_once '../conexion/bd_conexion.php';
 class FormularioEntrada
 {
-  private $intIdEntrada;
+  private $intIdSalida;
   private $dtmFechaCreacion;
+  private $intIdCliente;
   private $nvchSerie;
   private $nvchNumeracion;
   private $nvchRazonSocial;
   private $nvchRUC;
   private $nvchAtencion;
+  private $nvchDestino;
+  private $nvchDireccion;
   private $intIdUsuario;
-  private $intIdSucursal;
-  private $bitEstado;
   private $nvchObservacion;
+  private $bitEstado;
+  private $intIdSucursal;
 
-  public function IdEntrada($intIdEntrada){ $this->intIdEntrada = $intIdEntrada; }
+  public function IdSalida($intIdSalida){ $this->intIdSalida = $intIdSalida; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
+  public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
   public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function Destino($nvchDestino){ $this->nvchDestino = $nvchDestino; }
+  public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
-  public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
-  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
+  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
 
   function ConsultarFormulario($funcion)
   {
@@ -38,10 +44,10 @@ class FormularioEntrada
           <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" id="btn-form-entrada-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-salida-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <form id="form-entrada" method="POST">
+        <form id="form-salida" method="POST">
           <div class="box-header with-border">
             <h3 class="box-title">Datos del Comprobante</h3>
           </div>
@@ -50,7 +56,7 @@ class FormularioEntrada
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Lugar de Venta:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="lugar-entrada" name="intIdSucursal"  class="form-control select2">
+                  <select onchange="MostrarSeleccionComprobante()" id="lugar-salida" name="intIdSucursal"  class="form-control select2">
                   <?php 
                     try{
                     $sql_conexion = new Conexion_BD();
@@ -108,7 +114,7 @@ class FormularioEntrada
               <div class="col-md-8">
                 <div class="form-group">
                   <label>Observación y/o Datos Adicionales (Opcional):</label>
-                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-entrada" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-salida" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                 </div>
               </div>
             </div>
@@ -213,7 +219,7 @@ class FormularioEntrada
               <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
               <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
               <?php if($funcion == "F"){ ?>
-              <input type="button" id="btn-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Entrada de Productos">
+              <input type="button" id="btn-crear-salida" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Entrada de Productos">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
               <?php } ?>
           </div>              
@@ -230,7 +236,7 @@ class FormularioEntrada
             Fecha: <?php echo date('d/m/Y', strtotime($this->dtmFechaCreacion)); ?> Hora: <?php echo date('H:i:s', strtotime($this->dtmFechaCreacion)); ?></h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" id="btn-form-entrada-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            <button type="button" id="btn-form-salida-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
           <div class="box-header with-border">

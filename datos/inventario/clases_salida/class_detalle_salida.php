@@ -1,37 +1,37 @@
 <?php
 require_once '../conexion/bd_conexion.php';
-class DetalleEntrada
+class DetalleSalida
 {
-	/* INICIO - Atributos de Guia Interna Entrada */
-	private $intIdOperacionEntrada;
-	private $intIdEntrada;
-	private $dtmFechaEntrada;
+	/* INICIO - Atributos de Guia Interna Salida */
+	private $intIdOperacionSalida;
+	private $intIdSalida;
+	private $dtmFechaSalida;
   private $intIdProducto;
   private $nvchCodigo;
   private $nvchDescripcion;
 	private $intCantidad;
 
-	public function IdOperacionEntrada($intIdOperacionEntrada){ $this->intIdOperacionEntrada = $intIdOperacionEntrada; }
-	public function IdEntrada($intIdEntrada){ $this->intIdEntrada = $intIdEntrada; }
-	public function FechaEntrada($dtmFechaEntrada){ $this->dtmFechaEntrada = $dtmFechaEntrada; }
+	public function IdOperacionSalida($intIdOperacionSalida){ $this->intIdOperacionSalida = $intIdOperacionSalida; }
+	public function IdSalida($intIdSalida){ $this->intIdSalida = $intIdSalida; }
+	public function FechaSalida($dtmFechaSalida){ $this->dtmFechaSalida = $dtmFechaSalida; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
 	public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-	/* FIN - Atributos de Guia Interna Entrada */
+	/* FIN - Atributos de Guia Interna Salida */
 
-	/* INICIO - Métodos de Guia Interna Entrada */
-	public function InsertarDetalleEntrada()
+	/* INICIO - Métodos de Guia Interna Salida */
+	public function InsertarDetalleSalida()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL InsertarDetalleEntrada(
-      	:intIdEntrada,:dtmFechaEntrada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:intCantidad)');
+      $sql_comando = $sql_conectar->prepare('CALL InsertarDetalleSalida(
+      	:intIdSalida,:dtmFechaSalida,:intIdProducto,:nvchCodigo,:nvchDescripcion,:intCantidad)');
       $sql_comando->execute(array(
-        ':intIdEntrada' => $this->intIdEntrada, 
-        ':dtmFechaEntrada' => $this->dtmFechaEntrada,
+        ':intIdSalida' => $this->intIdSalida, 
+        ':dtmFechaSalida' => $this->dtmFechaSalida,
         ':intIdProducto' => $value,
         ':nvchCodigo' => $this->nvchCodigo[$key],
         ':nvchDescripcion' => $this->nvchDescripcion[$key],
@@ -45,16 +45,16 @@ class DetalleEntrada
     }
   }
 
-  public function InsertarDetalleEntrada_II()
+  public function InsertarDetalleSalida_II()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL InsertarDetalleEntrada(:intIdEntrada,:dtmFechaEntrada,:intIdProducto,
+      $sql_comando = $sql_conectar->prepare('CALL InsertarDetalleSalida(:intIdSalida,:dtmFechaSalida,:intIdProducto,
         :nvchCodigo,:nvchDescripcion,:intCantidad)');
       $sql_comando->execute(array(
-        ':intIdEntrada' => $this->intIdEntrada, 
-        ':dtmFechaEntrada' => $this->dtmFechaEntrada,
+        ':intIdSalida' => $this->intIdSalida, 
+        ':dtmFechaSalida' => $this->dtmFechaSalida,
         ':intIdProducto' => $this->intIdProducto,
         ':nvchCodigo' => $this->nvchCodigo,
         ':nvchDescripcion' => $this->nvchDescripcion,
@@ -66,18 +66,18 @@ class DetalleEntrada
     }
   }
 
-  public function MostrarDetalleEntrada($tipolistado)
+  public function MostrarDetalleSalida($tipolistado)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleEntrada(:intIdEntrada)');
-      $sql_comando -> execute(array(':intIdEntrada' => $this->intIdEntrada));
+      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleSalida(:intIdSalida)');
+      $sql_comando -> execute(array(':intIdSalida' => $this->intIdSalida));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($_SESSION['intIdOperacionEntrada'] == $fila['intIdOperacionEntrada'] && $tipolistado == "A"){
+        if($_SESSION['intIdOperacionSalida'] == $fila['intIdOperacionSalida'] && $tipolistado == "A"){
           echo '<tr bgcolor="#B3E4C0">';
         } else if($cantidad == $i && $tipolistado == "I"){
           echo '<tr bgcolor="#BEE1EB">';
@@ -90,10 +90,10 @@ class DetalleEntrada
         <td>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
         <td> 
-          <button type="button" iddgie="'.$fila['intIdOperacionEntrada'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
+          <button type="button" iddgie="'.$fila['intIdOperacionSalida'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" iddgie="'.$fila['intIdOperacionEntrada'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+          <button type="button" iddgie="'.$fila['intIdOperacionSalida'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
@@ -106,15 +106,15 @@ class DetalleEntrada
     }    
   }
 
-  public function SeleccionarDetalleEntrada()
+  public function SeleccionarDetalleSalida()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL seleccionarDetalleEntrada(:intIdOperacionEntrada)');
-      $sql_comando -> execute(array(':intIdOperacionEntrada' => $this->intIdOperacionEntrada));
+      $sql_comando = $sql_conectar->prepare('CALL seleccionarDetalleSalida(:intIdOperacionSalida)');
+      $sql_comando -> execute(array(':intIdOperacionSalida' => $this->intIdOperacionSalida));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-      $salida['intIdOperacionEntrada'] = $fila['intIdOperacionEntrada'];
+      $salida['intIdOperacionSalida'] = $fila['intIdOperacionSalida'];
       $salida['intIdProducto'] = $fila['intIdProducto'];
       $salida['CodigoProducto'] = $fila['CodigoProducto'];
       $salida['nvchCodigo'] = $fila['nvchCodigo'];
@@ -129,21 +129,21 @@ class DetalleEntrada
     }    
   }
 
-  public function ActualizarDetalleEntrada()
+  public function ActualizarDetalleSalida()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarDetalleEntrada(:intIdOperacionEntrada,
-        :intIdEntrada,:dtmFechaEntrada,:intIdProducto,:nvchDescripcion,:dcmPrecioUnitario,:intCantidad,:dcmTotal)');
+      $sql_comando = $sql_conectar->prepare('CALL actualizarDetalleSalida(:intIdOperacionSalida,
+        :intIdSalida,:dtmFechaSalida,:intIdProducto,:nvchDescripcion,:dcmPrecioUnitario,:intCantidad,:dcmTotal)');
       $sql_comando->execute(array(
-      	':intIdOperacionEntrada' => $this->intOperacionIdEntrada,
-        ':intIdEntrada' => $this->intIdEntrada,
-        ':dtmFechaEntrada' => $this->dtmFechaEntrada,
+      	':intIdOperacionSalida' => $this->intOperacionIdSalida,
+        ':intIdSalida' => $this->intIdSalida,
+        ':dtmFechaSalida' => $this->dtmFechaSalida,
         ':intIdProducto' => $this->intIdProducto,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':intCantidad' => $this->intCantidad));
-      $_SESSION['intIdOperacionEntrada'] = $this->intIdOperacionEntrada;
+      $_SESSION['intIdOperacionSalida'] = $this->intIdOperacionSalida;
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -151,13 +151,13 @@ class DetalleEntrada
     }
   }
 
-  public function EliminarDetalleEntrada()
+  public function EliminarDetalleSalida()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleEntrada(:intIdOperacionEntrada)');
-      $sql_comando -> execute(array(':intIdOperacionEntrada' => $this->intIdOperacionEntrada));
+      $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleSalida(:intIdOperacionSalida)');
+      $sql_comando -> execute(array(':intIdOperacionSalida' => $this->intIdOperacionSalida));
       echo 'ok';
     }
     catch(PDPExceptions $e){
@@ -186,7 +186,7 @@ class DetalleEntrada
     }
   }
 
-  public function ListarProductoEntrada($busqueda,$x,$y,$TipoBusqueda,$intIdSucursal)
+  public function ListarProductoSalida($busqueda,$x,$y,$TipoBusqueda,$intIdSucursal)
   {
     try{
       if($busqueda != "" || $busqueda != null) {
@@ -230,7 +230,7 @@ class DetalleEntrada
     }
   }
 
-  public function PaginarProductosEntrada($busqueda,$x,$y,$TipoBusqueda)
+  public function PaginarProductosSalida($busqueda,$x,$y,$TipoBusqueda)
   {
     try{
       if($busqueda != "" || $busqueda != null) {
@@ -336,5 +336,5 @@ class DetalleEntrada
     }  
   }
 
-}/* FIN - Métodos de Guia Interna Entrada */
+}/* FIN - Métodos de Guia Interna Salida */
 ?>

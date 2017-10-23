@@ -6,39 +6,37 @@ class Kardex
   /* INICIO - Atributos de Kardex*/
   private $intIdMovimiento;
   private $dtmFechaMovimiento;
+  private $intTipoDetalle;
   private $intIdComprobante;
   private $intIdTipoComprobante;
-  private $intTipoDetalle;
   private $nvchSerie;
   private $nvchNumeracion;
   private $intIdProducto;
   private $intCantidadEntrada;
-  private $dcmPrecioUnitarioEntrada;
-  private $dcmTotalEntrada;
   private $intCantidadSalida;
-  private $dcmPrecioUnitarioSalida;
+  private $intCantidadStock;
+  private $dcmPrecioEntrada;
+  private $dcmTotalEntrada;
+  private $dcmPrecioSalida;
   private $dcmTotalSalida;
-  private $intCantidadExistencia;
-  private $dcmPrecioUnitarioExistencia;
-  private $dcmTotalExistencia;
+  private $dcmSaldoValorizado;
   
   public function IdMovimiento($intIdMovimiento){ $this->intIdMovimiento = $intIdMovimiento; }
   public function FechaMovimiento($dtmFechaMovimiento){ $this->dtmFechaMovimiento = $dtmFechaMovimiento; }
+  public function TipoDetalle($intTipoDetalle){ $this->intTipoDetalle = $intTipoDetalle; }
   public function IdComprobante($intIdComprobante){ $this->intIdComprobante = $intIdComprobante; }
   public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
-  public function TipoDetalle($intTipoDetalle){ $this->intTipoDetalle = $intTipoDetalle; }
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function CantidadEntrada($intCantidadEntrada){ $this->intCantidadEntrada = $intCantidadEntrada; }
-  public function PrecioUnitarioEntrada($dcmPrecioUnitarioEntrada){ $this->dcmPrecioUnitarioEntrada = $dcmPrecioUnitarioEntrada; }
-  public function TotalEntrada($dcmTotalEntrada){ $this->dcmTotalEntrada = $dcmTotalEntrada; }
   public function CantidadSalida($intCantidadSalida){ $this->intCantidadSalida = $intCantidadSalida; }
-  public function PrecioUnitarioSalida($dcmPrecioUnitarioSalida){ $this->dcmPrecioUnitarioSalida = $dcmPrecioUnitarioSalida; }
+  public function CantidadStock($intCantidadStock){ $this->intCantidadStock = $intCantidadStock; }
+  public function PrecioEntrada($dcmPrecioEntrada){ $this->dcmPrecioEntrada = $dcmPrecioEntrada; }
+  public function TotalEntrada($dcmTotalEntrada){ $this->dcmTotalEntrada = $dcmTotalEntrada; }
+  public function PrecioSalida($dcmPrecioSalida){ $this->dcmPrecioSalida = $dcmPrecioSalida; }
   public function TotalSalida($dcmTotalSalida){ $this->dcmTotalSalida = $dcmTotalSalida; }
-  public function CantidadExistencia($intCantidadExistencia){ $this->intCantidadExistencia = $intCantidadExistencia; }
-  public function PrecioUnitarioExistencia($dcmPrecioUnitarioExistencia){ $this->dcmPrecioUnitarioExistencia = $dcmPrecioUnitarioExistencia; }
-  public function TotalExistencia($dcmTotalExistencia){ $this->dcmTotalExistencia = $dcmTotalExistencia; }
+  public function SaldoValorizado($dcmSaldoValorizado){ $this->dcmSaldoValorizado = $dcmSaldoValorizado; }
   /* FIN - Atributos de Kardex */
 
   /* INICIO - Métodos de Kardex */
@@ -48,51 +46,54 @@ class Kardex
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
 
-      $sql_comando = $sql_conectar->prepare('CALL mostrarultimoKardex()');
-      $sql_comando -> execute();
+      foreach ($this->intIdProducto as $key => $value) {
+      $sql_comando = $sql_conectar->prepare('CALL mostrarultimoKardex(:intIdProducto)');
+      $sql_comando -> execute(array(':intIdProducto' => $value));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-      $intCantidadExistencia = $fila['intCantidadExistencia'];
-      $dcmPrecioUnitarioExistencia = $fila['dcmPrecioUnitarioExistencia'];
-      $dcmTotalExistencia = $fila['dcmTotalExistencia'];
-
-      
-
+      $intCantidadStock = $fila['intCantidadStock'];
+      $dcmSaldoValorizado = $fila['dcmSaldoValorizado'];
       if($this->intTipoDetalle == 1){
-        $intCantidadExistencia = $intCantidadExistencia - $this->intCantidadSalida;
-        $dcmPrecioUnitarioExistencia = $dcmPrecioUnitarioExistencia + $this->dcmPrecioUnitarioSalida;
-        $dcmTotalExistencia = $dcmTotalExistencia + $this->dcmTotalSalida;
+        $intCantidadStock = $intCantidadStock - $this->intCantidadSalida[$key];
+        $sql_comando = $sql_conectar->prepare('CALL PROMEDIOPRECIOSALIDA(:intIdProducto)');
+        $sql_comando -> execute(array(':intIdProducto' => $value));
+        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+        $this->dcmPrecioSalida = $fila['PromedioSalida'];
+        $this->dcmTotalSalida = $fila['PromedioSalida'] * $this->intCantidadSalida[$key];
+        $dcmSaldoValorizado = $dcmSaldoValorizado - $this->dcmTotalSalida;
       } else if($this->intTipoDetalle == 2){
-        $intCantidadExistencia = $intCantidadExistencia + $this->intCantidadEntrada;
-        $dcmPrecioUnitarioExistencia = $dcmPrecioUnitarioExistencia - $this->dcmPrecioUnitarioEntrada;
-        $dcmTotalExistencia = $dcmTotalExistencia - $this->dcmTotalEntrada;
+        $this->dcmPrecioEntrada[$key] = round(($this->dcmPrecioEntrada[$key] / 1.18),2);
+        $this->dcmTotalEntrada[$key] = $this->intCantidadEntrada[$key] * $this->dcmPrecioEntrada[$key];
+        //$this->dcmTotalEntrada[$key] = round(($this->dcmTotalEntrada[$key] / 1.18),2);
+        $intCantidadStock = $intCantidadStock + $this->intCantidadEntrada[$key];
+        $dcmSaldoValorizado = $dcmSaldoValorizado + $this->dcmTotalEntrada[$key];
       }
 
       $sql_comando = $sql_conectar->prepare('CALL insertarKardex(@intIdMovimiento,:dtmFechaMovimiento,
-        :intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:nvchSerie,:nvchNumeracion,:intIdProducto,
-        :intCantidadEntrada,:dcmPrecioUnitarioEntrada,:dcmTotalEntrada,:intCantidadSalida,:dcmPrecioUnitarioSalida,
-        :dcmTotalSalida,:intCantidadExistencia,:dcmPrecioUnitarioExistencia,:dcmTotalExistencia)');
+        :intTipoDetalle,:intIdComprobante,:intIdTipoComprobante,:nvchSerie,:nvchNumeracion,:intIdProducto,
+        :intCantidadEntrada,:intCantidadSalida,:intCantidadStock,:dcmPrecioEntrada,:dcmTotalEntrada,:dcmPrecioSalida,
+        :dcmTotalSalida,:dcmSaldoValorizado)');
       $sql_comando->execute(array(
         ':dtmFechaMovimiento' => $this->dtmFechaMovimiento,
+        ':intTipoDetalle' => $this->intTipoDetalle,
         ':intIdComprobante' => $this->intIdComprobante,
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
-        ':intTipoDetalle' => $this->intTipoDetalle,
         ':nvchSerie' => $this->nvchSerie,
         ':nvchNumeracion' => $this->nvchNumeracion,
-        ':intIdProducto' => $this->intIdProducto,
-        ':intCantidadEntrada' => $this->intCantidadEntrada,
-        ':dcmPrecioUnitarioEntrada' => $this->dcmPrecioUnitarioEntrada,
-        ':dcmTotalEntrada' => $this->dcmTotalEntrada,
-        ':intCantidadSalida' => $this->intCantidadSalida,
-        ':dcmPrecioUnitarioSalida' => $this->dcmPrecioUnitarioSalida,
+        ':intIdProducto' => $value,
+        ':intCantidadEntrada' => $this->intCantidadEntrada[$key],
+        ':intCantidadSalida' => $this->intCantidadSalida[$key],
+        ':intCantidadStock' => $intCantidadStock,
+        ':dcmPrecioEntrada' => $this->dcmPrecioEntrada[$key],
+        ':dcmTotalEntrada' => $this->dcmTotalEntrada[$key],
+        ':dcmPrecioSalida' => $this->dcmPrecioSalida,
         ':dcmTotalSalida' => $this->dcmTotalSalida,
-        ':intCantidadExistencia' => $intCantidadExistencia,
-        ':dcmPrecioUnitarioExistencia' => $dcmPrecioUnitarioExistencia,
-        ':dcmTotalExistencia' => $dcmTotalExistencia));
+        ':dcmSaldoValorizado' => $dcmSaldoValorizado));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdMovimiento as intIdMovimiento");
       $salida = $salidas->fetchObject();
       $_SESSION['intIdMovimiento'] = $salida->intIdMovimiento;
+    }
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -208,13 +209,13 @@ class Kardex
       $sql_comando = $sql_conectar->prepare('CALL buscarKardex(:busqueda,:x,:y)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
+      $j = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         echo 
         '<tr>
-        <td>'.$fila["intIdMovimiento"].'</td>
-        <td>'.$fila["dtmFechaMovimiento"].'</td>
-        <td>'.$fila["NombreComprobante"].'</td>';
+        <td>'.$j.'</td>
+        <td>'.$fila["dtmFechaMovimiento"].'</td>';
         if($fila["intTipoDetalle"] == 1){
           echo '<td>Salida</td>';
         } else if($fila["intTipoDetalle"] == 2){
@@ -223,23 +224,24 @@ class Kardex
           echo '<td>Inicial</td>';
         }
         echo 
-        '<td>'.$fila["nvchSerie"].'</td>
+        '<td>'.$fila["NombreComprobante"].'</td>
+        <td>'.$fila["nvchSerie"].'</td>
         <td>'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["intCantidadEntrada"].'</td>
-        <td>'.$fila["dcmPrecioUnitarioEntrada"].'</td>
-        <td>'.$fila["dcmTotalEntrada"].'</td>
         <td>'.$fila["intCantidadSalida"].'</td>
-        <td>'.$fila["dcmPrecioUnitarioSalida"].'</td>
+        <td>'.$fila["intCantidadStock"].'</td>
+        <td>'.$fila["dcmPrecioEntrada"].'</td>
+        <td>'.$fila["dcmTotalEntrada"].'</td>
+        <td>'.$fila["dcmPrecioSalida"].'</td>
         <td>'.$fila["dcmTotalSalida"].'</td>
-        <td>'.$fila["intCantidadExistencia"].'</td>
-        <td>'.$fila["dcmPrecioUnitarioExistencia"].'</td>
-        <td>'.$fila["dcmTotalExistencia"].'</td>
+        <td>'.$fila["dcmSaldoValorizado"].'</td>
         <td> 
           <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-kardex">
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
         </td>  
         </tr>';
+        $j++;
       }
     }
     catch(PDPExceptio $e){
@@ -337,93 +339,6 @@ class Kardex
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }  
-  }
-
-  public function AumentarStockTotal($intIdMovimiento)
-  {
-    try{
-      $intCantidad = 0;
-      $sql_conexion_cantidad = new Conexion_BD();
-      $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-      $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALKardex(:intIdMovimiento)');
-      $sql_comando_cantidad -> execute(array(':intIdMovimiento' => $intIdMovimiento));
-      $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-      if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
-        $intCantidad = 0;
-      } else {
-        $intCantidad = $fila_cantidad["CantidadTotal"];
-      }
-
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdMovimiento,:intCantidad)');
-      $sql_comando -> execute(array(
-        ':intIdMovimiento' => $intIdMovimiento,
-        ':intCantidad' => $intCantidad));
-      echo 'ok';
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-  }
-
-  public function ES_StockUbigeo($intIdMovimiento,$intIdSucursal,$intCantidad,$TipoES)
-  {
-    try{
-      $sql_conexion_cantidad = new Conexion_BD();
-      $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-      foreach ($intIdMovimiento as $key => $value) {
-        $sql_comando = $sql_conectar_cantidad->prepare('CALL seleccionarUbigeoKardex_II(:intIdMovimiento,:intIdSucursal)');
-        $sql_comando -> execute(array(
-          ':intIdMovimiento' => $value,
-          ':intIdSucursal' => $intIdSucursal));
-        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-        $intCantidadFinal = 0;
-        $intIdUbigeoKardex = $fila['intIdUbigeoKardex'];
-        $intCantidadInicial = $fila['intCantidadUbigeo'];
-        if($TipoES == 1){
-          $intCantidadFinal = $intCantidadInicial + $intCantidad[$key];
-        } else if($TipoES == 0){
-          $intCantidadFinal = $intCantidadInicial - $intCantidad[$key];
-        }
-
-        $sql_comando = $sql_conectar_cantidad->prepare('CALL ES_STOCKUBIGEO(:intIdUbigeoKardex,:intCantidadUbigeo)');
-        $sql_comando -> execute(array(':intIdUbigeoKardex' => $intIdUbigeoKardex, ':intCantidadUbigeo' => $intCantidadFinal));
-      }
-      echo "ok";
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-  }
-
-  public function ES_StockTotal($intIdMovimiento)
-  {
-  try{
-      $intCantidad = 0;
-      $sql_conexion_cantidad = new Conexion_BD();
-      $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-      foreach ($intIdMovimiento as $key => $value) {
-      $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALKardex(:intIdMovimiento)');
-      $sql_comando_cantidad -> execute(array(':intIdMovimiento' => $value));
-      $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-      if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
-        $intCantidad = 0;
-      } else {
-        $intCantidad = $fila_cantidad["CantidadTotal"];
-      }
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdMovimiento,:intCantidad)');
-      $sql_comando -> execute(array(
-        ':intIdMovimiento' => $value,
-        ':intCantidad' => $intCantidad));
-      }
-      echo 'ok';
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
   }
   /* FIN - Métodos de Kardex */
 }

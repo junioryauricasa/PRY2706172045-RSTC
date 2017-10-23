@@ -51,18 +51,16 @@ switch($_POST['funcion']){
 
     $Kardex = new Kardex();
     $Kardex->FechaMovimiento($dtmFechaCreacion);
-    $Kardex->IdComprobante($_SESSION['intIdCompra']);
+    $Kardex->IdComprobante($_SESSION['intIdVenta']);
     $Kardex->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $Kardex->TipoDetalle(2);
     $Kardex->Serie($_POST['nvchSerie']);
     $Kardex->Numeracion($_POST['nvchNumeracion']);
-    $Kardex->CantidadEntrada($_SESSION['intCantidadEntrada']);
-    $Kardex->PrecioUnitarioEntrada($_SESSION['dcmPrecioUnitarioEntrada']);
-    $Kardex->TotalEntrada($_SESSION['dcmTotalEntrada']);
+    $Kardex->IdProducto($_POST['intIdProducto']);
+    $Kardex->CantidadEntrada($_POST['intCantidad']);
+    $Kardex->PrecioEntrada($_POST['dcmPrecioUnitario']);
+    $Kardex->TotalEntrada($_POST['dcmTotal']);
     $Kardex->InsertarKardex();
-    $_SESSION['intCantidadEntrada'] = 0;
-    $_SESSION['dcmPrecioUnitarioEntrada'] = 0;
-    $_SESSION['dcmTotalEntrada'] = 0;
     break;
   case "A":
     $Compra = new Compra();

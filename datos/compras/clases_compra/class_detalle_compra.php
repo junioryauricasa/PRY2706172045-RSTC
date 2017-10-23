@@ -37,9 +37,6 @@ class DetalleCompra
         ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
         ':intCantidad' => $this->intCantidad[$key],
         ':dcmTotal' => $this->dcmTotal[$key]));
-      $_SESSION['intCantidadEntrada'] += $this->intCantidad[$key];
-      $_SESSION['dcmPrecioUnitarioEntrada'] += $this->dcmPrecioUnitario[$key];
-      $_SESSION['dcmTotalEntrada'] += $this->dcmTotal[$key];
       //$this->IngresarCantidadProducto($value,$this->intCantidad[$key]);
       }
       echo "ok";

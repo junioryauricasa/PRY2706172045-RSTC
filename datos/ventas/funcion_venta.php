@@ -53,6 +53,16 @@ switch($_POST['funcion']){
         $Producto = new Producto();
         $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],0);
         $Producto->ES_StockTotal($_POST['intIdProducto']);
+        $Kardex = new Kardex();
+        $Kardex->FechaMovimiento($dtmFechaCreacion);
+        $Kardex->IdComprobante($_SESSION['intIdVenta']);
+        $Kardex->IdTipoComprobante($_POST['intIdTipoComprobante']);
+        $Kardex->TipoDetalle(1);
+        $Kardex->Serie($_POST['nvchSerie']);
+        $Kardex->Numeracion($_POST['nvchNumeracion']);
+        $Kardex->IdProducto($_POST['intIdProducto']);
+        $Kardex->CantidadSalida($_POST['intCantidad']);
+        $Kardex->InsertarKardex();
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleVenta->IdVenta($_SESSION['intIdVenta']);
         $DetalleVenta->FechaRealizada($dtmFechaCreacion);
@@ -65,21 +75,6 @@ switch($_POST['funcion']){
     }
     $Numeraciones = new Numeraciones();
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
-
-    $Kardex = new Kardex();
-    $Kardex->FechaMovimiento($dtmFechaCreacion);
-    $Kardex->IdComprobante($_SESSION['intIdVenta']);
-    $Kardex->IdTipoComprobante($_POST['intIdTipoComprobante']);
-    $Kardex->TipoDetalle(1);
-    $Kardex->Serie($_POST['nvchSerie']);
-    $Kardex->Numeracion($_POST['nvchNumeracion']);
-    $Kardex->CantidadSalida($_SESSION['intCantidadSalida']);
-    $Kardex->PrecioUnitarioSalida($_SESSION['dcmPrecioUnitarioSalida']);
-    $Kardex->TotalSalida($_SESSION['dcmTotalSalida']);
-    $Kardex->InsertarKardex();
-    $_SESSION['intCantidadSalida'] = 0;
-    $_SESSION['dcmPrecioUnitarioSalida'] = 0;
-    $_SESSION['dcmTotalSalida'] = 0;
     break;
   case "M":
     $Venta = new Venta();

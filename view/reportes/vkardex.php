@@ -42,7 +42,7 @@ include('../_include/rstheader.php');
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Kardexes</h3>
+          <h3 class="box-title">Kardex</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -76,19 +76,18 @@ include('../_include/rstheader.php');
               <tr>
                 <th>Ítem</th>
                 <th>Fecha</th>
-                <th>Tipo Comprobante</th>
                 <th>Tipo de Mov.</th>
+                <th>Tipo Comprobante</th>
                 <th>Serie</th>
                 <th>Numeración</th>
                 <th>Cantidad Entrada</th>
+                <th>Cantidad Salida</th>
+                <th>Stock</th>
                 <th>Precio Uni. Entrada</th>
                 <th>Total Entrada</th>
-                <th>Cantidad Salida</th>
                 <th>Precio Uni. Salida</th>
                 <th>Total Salida</th>
-                <th>Cantidad Existente</th>
-                <th>Precio Uni. Existente</th>
-                <th>Total Existente</th>
+                <th>Saldo Valorizado</th>
                 <th>Opción</th>
               </tr>
               </thead>

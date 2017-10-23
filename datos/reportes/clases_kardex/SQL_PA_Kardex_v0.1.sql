@@ -5,31 +5,30 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARKARDEX(
 	OUT _intIdMovimiento INT,
     IN _dtmFechaMovimiento DATETIME,
+    IN _intTipoDetalle INT,
     IN _intIdComprobante INT,
     IN _intIdTipoComprobante INT,
-    IN _intTipoDetalle INT,
     IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(8),
 	IN _intIdProducto INT,
-	IN _intCantidadEntrada DECIMAL(11,2),
-	IN _dcmPrecioUnitarioEntrada DECIMAL(11,2),
+	IN _intCantidadEntrada INT,
+	IN _intCantidadSalida INT,
+	IN _intCantidadStock INT,
+	IN _dcmPrecioEntrada DECIMAL(11,2),
 	IN _dcmTotalEntrada DECIMAL(11,2),
-	IN _intCantidadSalida DECIMAL(11,2),
-	IN _dcmPrecioUnitarioSalida DECIMAL(11,2),
+	IN _dcmPrecioSalida DECIMAL(11,2),
 	IN _dcmTotalSalida DECIMAL(11,2),
-	IN _intCantidadExistencia DECIMAL(11,2),
-	IN _dcmPrecioUnitarioExistencia DECIMAL(11,2),
-	IN _dcmTotalExistencia DECIMAL(11,2)
+	IN _dcmSaldoValorizado DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_kardex 
-		(dtmFechaMovimiento,intIdComprobante,intIdTipoComprobante,intTipoDetalle,nvchSerie,nvchNumeracion,intIdProducto,
-			intCantidadEntrada,dcmPrecioUnitarioEntrada,dcmTotalEntrada,intCantidadSalida,dcmPrecioUnitarioSalida,dcmTotalSalida,
-			intCantidadExistencia,dcmPrecioUnitarioExistencia,dcmTotalExistencia)
+		(dtmFechaMovimiento,intTipoDetalle,intIdComprobante,intIdTipoComprobante,nvchSerie,nvchNumeracion,intIdProducto,
+			intCantidadEntrada,intCantidadSalida,intCantidadStock,dcmPrecioEntrada,dcmTotalEntrada,dcmPrecioSalida,
+			dcmTotalSalida,dcmSaldoValorizado)
 		VALUES
-		(_dtmFechaMovimiento,_intIdComprobante,_intIdTipoComprobante,_intTipoDetalle,_nvchSerie,_nvchNumeracion,_intIdProducto,
-			_intCantidadEntrada,_dcmPrecioUnitarioEntrada,_dcmTotalEntrada,_intCantidadSalida,_dcmPrecioUnitarioSalida,_dcmTotalSalida,
-			_intCantidadExistencia,_dcmPrecioUnitarioExistencia,_dcmTotalExistencia);
+		(_dtmFechaMovimiento,_intTipoDetalle,_intIdComprobante,_intIdTipoComprobante,_nvchSerie,_nvchNumeracion,_intIdProducto,
+			_intCantidadEntrada,_intCantidadSalida,_intCantidadStock,_dcmPrecioEntrada,_dcmTotalEntrada,_dcmPrecioSalida,
+			_dcmTotalSalida,_dcmSaldoValorizado);
 		SET _intIdMovimiento = LAST_INSERT_ID();
     END
 $$
@@ -40,21 +39,20 @@ DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARKARDEX(
 	IN _intIdMovimiento INT,
     IN _dtmFechaMovimiento DATETIME,
+    IN _intTipoDetalle INT,
     IN _intIdComprobante INT,
     IN _intIdTipoComprobante INT,
-    IN _intTipoDetalle INT,
     IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(8),
 	IN _intIdProducto INT,
-	IN _intCantidadEntrada DECIMAL(11,2),
-	IN _dcmPrecioUnitarioEntrada DECIMAL(11,2),
+	IN _intCantidadEntrada INT,
+	IN _intCantidadSalida INT,
+	IN _intCantidadStock INT,
+	IN _dcmPrecioEntrada DECIMAL(11,2),
 	IN _dcmTotalEntrada DECIMAL(11,2),
-	IN _intCantidadSalida DECIMAL(11,2),
-	IN _dcmPrecioUnitarioSalida DECIMAL(11,2),
+	IN _dcmPrecioSalida DECIMAL(11,2),
 	IN _dcmTotalSalida DECIMAL(11,2),
-	IN _intCantidadExistencia DECIMAL(11,2),
-	IN _dcmPrecioUnitarilExistencia DECIMAL(11,2),
-	IN _dcmTotalExistencia DECIMAL(11,2)
+	IN _dcmSaldoValorizado DECIMAL(11,2)
     )
 	BEGIN
 		UPDATE tb_kardex
@@ -80,11 +78,26 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS MOSTRARULTIMOKARDEX;
 DELIMITER $$
-	CREATE PROCEDURE MOSTRARULTIMOKARDEX()
+	CREATE PROCEDURE MOSTRARULTIMOKARDEX(
+		IN _intIdProducto INT
+		)
 	BEGIN
 		SELECT * FROM tb_kardex
+		WHERE intIdProducto = _intIdProducto
 		ORDER BY intIdMovimiento DESC
 		LIMIT 1;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS PROMEDIOPRECIOSALIDA;
+DELIMITER $$
+	CREATE PROCEDURE PROMEDIOPRECIOSALIDA(
+		IN _intIdProducto INT
+		)
+	BEGIN
+		SELECT AVG(dcmPrecioEntrada) AS PromedioSalida FROM tb_kardex
+		WHERE intIdProducto = _intIdProducto;
     END 
 $$
 DELIMITER ;
