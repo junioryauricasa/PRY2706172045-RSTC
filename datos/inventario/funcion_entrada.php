@@ -13,30 +13,25 @@ if(empty($_SESSION['intIdOperacionEntrada'])){
 switch($_POST['funcion']){
   case "I":
     $Entrada = new Entrada();
-    $Entrada->IdTipoComprobante($_POST['intIdTipoComprobante']);
-    $Entrada->IdSucursal($_POST['intIdSucursal']);
-    $Entrada->Serie($_POST['nvchSerie']);
-    $Entrada->Numeracion($_POST['nvchNumeracion']);
-    $Entrada->IdUsuario($_SESSION['intIdUsuarioSesion']);
-    $Entrada->RUC($_POST['nvchRUC']);
-    $Entrada->RazonSocial($_POST['nvchRazonSocial']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Entrada->FechaCreacion($dtmFechaCreacion);
-    $Entrada->IdTipoMoneda($_POST['intIdTipoMoneda']);
-    $Entrada->IdTipoPago($_POST['intIdTipoPago']);
+    $Entrada->Serie($_POST['nvchSerie']);
+    $Entrada->Numeracion($_POST['nvchNumeracion']);
+    $Entrada->RazonSocial($_POST['nvchRazonSocial']);
+    $Entrada->RUC($_POST['nvchRUC']);
+    $Entrada->Atencion($_POST['nvchAtencion']);
+    $Entrada->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Entrada->IdSucursal($_POST['intIdSucursal']);
     $Entrada->Observacion($_POST['nvchObservacion']);
     $Entrada->InsertarEntrada();
     $DetalleEntrada = new DetalleEntrada();
     $DetalleEntrada->IdEntrada($_SESSION['intIdEntrada']);
-    $DetalleEntrada->IdProducto($_POST['intIdProducto']);
     $DetalleEntrada->FechaEntrada($dtmFechaCreacion);
+    $DetalleEntrada->IdProducto($_POST['intIdProducto']);
     $DetalleEntrada->Codigo($_POST['nvchCodigo']);
     $DetalleEntrada->Descripcion($_POST['nvchDescripcion']);
-    $DetalleEntrada->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleEntrada->Cantidad($_POST['intCantidad']);
-    $DetalleEntrada->Total($_POST['dcmTotal']);
     $DetalleEntrada->InsertarDetalleEntrada();
-
     $Producto = new Producto();
     $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],1);
     $Producto->ES_StockTotal($_POST['intIdProducto']);
@@ -126,14 +121,6 @@ switch($_POST['funcion']){
   case "F":
     $FormularioEntrada = new FormularioEntrada();
     $FormularioEntrada->ConsultarFormulario($_POST['funcion']);
-    break;
-  case "ES_P_SU":
-    $Producto = new Producto();
-    $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],$_POST['TipoES']);
-    break;
-  case "ES_P_ST":
-    $Producto = new Producto();
-    $Producto->ES_StockTotal($_POST['intIdProducto'],$_POST['intCantidad'],$_POST['TipoES']);
     break;
 }
 ?>
