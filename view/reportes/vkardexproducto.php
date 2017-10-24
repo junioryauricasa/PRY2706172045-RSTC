@@ -7,7 +7,6 @@ include('../_include/rstheader.php');
       });
     </script>
     <script type="text/javascript" src="../../negocio/reportes/nkardexproducto.js"></script>
-    <script type="text/javascript" src="../../negocio/reportes/ndetallekardex.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>

@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'clases_kardex/class_kardex_producto.php';
-require_once 'clases_kardex/class_formulario_kardex_producto.php';
 if(empty($_SESSION['intIdMovimiento'])){
   $_SESSION['intIdMovimiento'] = 0;
 }
@@ -76,10 +75,6 @@ switch($_POST['funcion']){
   case "PP":
     $KardexProducto = new KardexProducto();
     $KardexProducto->PaginarProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['TipoBusqueda']);
-    break;
-  case "F":
-    $FormularioKardexProducto = new FormularioKardexProducto();
-    $FormularioKardexProducto->ConsultarFormulario($_POST['funcion']);
     break;
 }
 ?>

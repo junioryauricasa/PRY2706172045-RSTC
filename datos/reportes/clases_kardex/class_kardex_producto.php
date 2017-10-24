@@ -1,6 +1,5 @@
 <?php
 require_once '../conexion/bd_conexion.php';
-require_once 'class_formulario_Kardex_producto.php';
 class KardexProducto
 {
   /* INICIO - Atributos de KardexProducto*/
