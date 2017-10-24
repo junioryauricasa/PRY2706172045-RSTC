@@ -265,6 +265,30 @@ $(document).on('change', '#lugar-salida', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Seleccion del Cliente */
+function MostrarSeleccionComprobante() {
+	  var intIdSucursal = $("#lugar-salida").val();
+	  var funcion = "NCPR";
+	  $.ajax({
+	   url:"../../datos/inventario/funcion_salida.php",
+	   method:"POST",
+	   data:{funcion:funcion,intIdSucursal:intIdSucursal},
+	   dataType:"json",
+	   success:function(datos)
+	   { 
+	   	 if(datos.resultado == "ok"){
+		   	$("#nvchSerie").val(datos.nvchSerie);
+		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
+	   	 } else {
+	   	 	alert(datos.resultado);
+	   	 }
+	   }
+	  });
+}
+/* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Timer Comprobante */
 function TimerComprobante() {
     miVariable = setInterval(MostrarSeleccionComprobante, 500);

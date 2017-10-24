@@ -4,6 +4,7 @@ require_once 'clases_producto/class_producto.php';
 require_once 'clases_salida/class_salida.php';
 require_once 'clases_salida/class_detalle_salida.php';
 require_once 'clases_salida/class_formulario_salida.php';
+require_once '../numeraciones/class_numeraciones.php';
 if(empty($_SESSION['intIdSalida'])){
   $_SESSION['intIdSalida'] = 0;
 }
@@ -124,6 +125,10 @@ switch($_POST['funcion']){
   case "F":
     $FormularioSalida = new FormularioSalida();
     $FormularioSalida->ConsultarFormulario($_POST['funcion']);
+    break;
+  case "NCPR":
+    $Numeraciones = new Numeraciones();
+    $Numeraciones->NumeracionES(1);
     break;
 }
 ?>

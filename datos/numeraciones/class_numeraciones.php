@@ -100,6 +100,32 @@ class Numeraciones{
     }
   }
 
+  public function NumeracionES($intTipoES)
+  {
+    try{
+    $sql_conexion = new Conexion_BD();
+    $sql_conectar = $sql_conexion->Conectar();
+    $sql_comando = $sql_conectar->prepare('CALL MOSTRARSERIE(:intIdSucursal)');
+    $sql_comando->execute(array(':intIdSucursal' => $intIdSucursal));
+    $fila = $sql_comando->fetch(PDO::FETCH_ASSOC);
+    $salida['nvchSerie'] = $fila['nvchSerie'];
+    $intIdSerie = $fila['intIdSerie'];
+
+    $sql_comando = $sql_conectar->prepare('CALL MOSTRARNUMERACION(:intIdTipoComprobante,:intIdSerie)');
+    $sql_comando->execute(array(':intIdTipoComprobante' => $intIdTipoComprobante,
+        ':intIdSerie' => $intIdSerie));
+    $fila = $sql_comando->fetch(PDO::FETCH_ASSOC);
+    $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
+    
+    $salida['resultado'] = 'ok';
+    echo json_encode($salida);
+    }
+    catch(PDPExceptio $e){
+      $salida['resultado'] = $e->getMessage();
+      echo json_encode($salida);
+    }
+  }
+
   public function ActualizarNumeracion($intIdTipoComprobante,$intIdSucursal,$nvchNumeracion)
   {
     try{

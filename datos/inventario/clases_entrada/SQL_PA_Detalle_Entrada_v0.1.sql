@@ -8,16 +8,13 @@ DELIMITER $$
     IN _intIdProducto INT,
     IN _nvchCodigo VARCHAR(25),
     IN _nvchDescripcion VARCHAR(500),
-    IN _dcmPrecioUnitario DECIMAL(11,2),
-    IN _intCantidad INT,
-    IN _dcmTotal DECIMAL(11,2)
+    IN _intCantidad INT
     )
 	BEGIN
 		INSERT INTO tb_detalle_entrada
-		(intIdEntrada,dtmFechaEntrada,intIdProducto,nvchCodigo,nvchDescripcion,dcmPrecioUnitario,intCantidad,dcmTotal)
+		(intIdEntrada,dtmFechaEntrada,intIdProducto,nvchCodigo,nvchDescripcion,intCantidad)
 		VALUES
-		(_intIdEntrada,_dtmFechaEntrada,_intIdProducto,_nvchCodigo,_nvchDescripcion,_dcmPrecioUnitario,_intCantidad
-			,_dcmTotal);
+		(_intIdEntrada,_dtmFechaEntrada,_intIdProducto,_nvchCodigo,_nvchDescripcion,_intCantidad);
     END 
 $$
 DELIMITER ;
@@ -31,9 +28,7 @@ DELIMITER $$
     IN _intIdProducto INT,
     IN _nvchCodigo VARCHAR(25),
     IN _nvchDescripcion VARCHAR(500),
-    IN _dcmPrecioUnitario DECIMAL(11,2),
-    IN _intCantidad INT,
-    IN _dcmTotal DECIMAL(11,2)
+    IN _intCantidad INT
     )
 	BEGIN
 		UPDATE tb_detalle_entrada
@@ -43,9 +38,7 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		nvchCodigo = _nvchCodigo,
 		nvchDescripcion = _nvchDescripcion,
-		dcmPrecioUnitario = _dcmPrecioUnitario,
-		intCantidad = _intCantidad,
-		dcmTotal = _dcmTotal
+		intCantidad = _intCantidad
 		WHERE 
 		intIdOperacionEntrada = _intIdOperacionEntrada;
     END 

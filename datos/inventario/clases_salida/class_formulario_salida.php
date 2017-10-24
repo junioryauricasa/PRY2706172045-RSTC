@@ -55,7 +55,7 @@ class FormularioEntrada
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Lugar de Venta:</label>
+                  <label>Lugar de Salida:</label>
                   <select onchange="MostrarSeleccionComprobante()" id="lugar-salida" name="intIdSucursal"  class="form-control select2">
                   <?php 
                     try{
