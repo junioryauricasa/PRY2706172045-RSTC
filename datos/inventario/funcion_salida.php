@@ -68,11 +68,11 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Salida = new Salida();
-    $Salida->ListarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante']);
+    $Salida->ListarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "P":
     $Salida = new Salida();
-    $Salida->PaginarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante']);
+    $Salida->PaginarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "ID":
     $DetalleSalida = new DetalleSalida();
