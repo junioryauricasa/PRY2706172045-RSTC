@@ -5,7 +5,7 @@ require_once 'clases_venta/class_venta.php';
 require_once 'clases_venta/class_detalle_venta.php';
 require_once 'clases_venta/class_formulario_venta.php';
 require_once '../numeraciones/class_numeraciones.php';
-require_once '../reportes/clases_kardex/class_kardex.php';
+require_once '../reportes/clases_kardex/class_kardex_producto.php';
 if(empty($_SESSION['intIdVenta'])){
   $_SESSION['intIdVenta'] = 0;
 }
@@ -53,16 +53,16 @@ switch($_POST['funcion']){
         $Producto = new Producto();
         $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],0);
         $Producto->ES_StockTotal($_POST['intIdProducto']);
-        $Kardex = new Kardex();
-        $Kardex->FechaMovimiento($dtmFechaCreacion);
-        $Kardex->IdComprobante($_SESSION['intIdVenta']);
-        $Kardex->IdTipoComprobante($_POST['intIdTipoComprobante']);
-        $Kardex->TipoDetalle(1);
-        $Kardex->Serie($_POST['nvchSerie']);
-        $Kardex->Numeracion($_POST['nvchNumeracion']);
-        $Kardex->IdProducto($_POST['intIdProducto']);
-        $Kardex->CantidadSalida($_POST['intCantidad']);
-        $Kardex->InsertarKardex();
+        $KardexProducto = new KardexProducto();
+        $KardexProducto->FechaMovimiento($dtmFechaCreacion);
+        $KardexProducto->IdComprobante($_SESSION['intIdVenta']);
+        $KardexProducto->IdTipoComprobante($_POST['intIdTipoComprobante']);
+        $KardexProducto->TipoDetalle(1);
+        $KardexProducto->Serie($_POST['nvchSerie']);
+        $KardexProducto->Numeracion($_POST['nvchNumeracion']);
+        $KardexProducto->IdProducto($_POST['intIdProducto']);
+        $KardexProducto->CantidadSalida($_POST['intCantidad']);
+        $KardexProducto->InsertarKardexProducto();
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleVenta->IdVenta($_SESSION['intIdVenta']);
         $DetalleVenta->FechaRealizada($dtmFechaCreacion);

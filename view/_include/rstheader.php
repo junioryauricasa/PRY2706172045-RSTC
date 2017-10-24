@@ -278,9 +278,15 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </a>
               <ul class="treeview-menu">
                 <li>
-                  <a href="../reportes/vkardex" target="_blank">
+                  <a href="../reportes/vkardexproducto" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Kardex
+                      Módulo Kardex Producto
+                  </a>
+                </li>
+                <li>
+                  <a href="../reportes/vkardexgeneral" target="_blank">
+                    <i class="fa fa-circle-o"></i> 
+                      Módulo Kardex General
                   </a>
                 </li>
                 <!--

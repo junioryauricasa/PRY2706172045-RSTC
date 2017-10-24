@@ -6,7 +6,7 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/reportes/nkardex.js"></script>
+    <script type="text/javascript" src="../../negocio/reportes/nkardexproducto.js"></script>
     <script type="text/javascript" src="../../negocio/reportes/ndetallekardex.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
@@ -55,6 +55,83 @@ include('../_include/rstheader.php');
               <div class="form-group">
                 <label>Mostrar:</label>
                 <br>
+                <select id="num-lista-producto" name="num-lista-producto"  class="form-control select2" >
+                  <option value="10">Ver 10 Resultados</option>
+                  <option value="25">Ver 25 Resultados</option>
+                  <option value="50">Ver 50 Resultados</option>
+                  <option value="100">Ver 100 Resultados</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="text-left">Ingresar Búsqueda:</label>
+                <input type="text" name="txt-busqueda-producto" id="txt-busqueda-producto" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Tipo de Búsqueda:</label>
+                <br>
+                <select id="tipo-busqueda-producto" name="tipo-busqueda-producto" class="form-control select2" >
+                  <option value="C">Por Códigos</option>
+                  <option value="T">Resto de Campos</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Tipo de Moneda</th>
+                <th>Precio de Venta 1</th>
+                <th>Precio de Venta 2</th>
+                <th>Precio de Venta 3</th>
+                <th>Cant. Total</th>
+                <th>Ubicación</th>
+                <th>Imágen</th>
+                <th>Opciones</th>
+              </tr>
+              </thead>
+              <tbody id="ListaDeProductos">
+                <script>ListarProducto(0,10,"T");</script>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <div class="text-center">
+            <nav aria-label="...">
+              <ul id="PaginacionDeProductos" class="pagination">
+                <script>PaginarProducto(0,10,"T");</script>
+              </ul>
+            </nav>
+          </div>
+          <div id="TablaDetalleUbigeo">
+          <hr>
+            <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                  <th>Sucursal</th>
+                  <th>Ubicación en el Almacén</th>
+                  <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody id="DetalleUbigeo">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <input type="hidden" id="intIdProducto"/>
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Mostrar:</label>
+                <br>
                 <select id="num-lista" name="num-lista"  class="form-control select2">
                       <option value="10">Ver 10 Resultados</option>
                       <option value="25">Ver 25 Resultados</option>
@@ -92,7 +169,6 @@ include('../_include/rstheader.php');
               </tr>
               </thead>
               <tbody id="ListaDeKardex">
-                <script>ListarKardex(0,10,"T");</script>
               </tbody>
             </table>
           </div>
@@ -100,7 +176,6 @@ include('../_include/rstheader.php');
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeKardex" class="pagination">
-                <script>PaginarKardex(0,10,"T");</script>
               </ul>
             </nav>
           </div>
