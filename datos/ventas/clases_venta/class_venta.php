@@ -254,6 +254,10 @@ class Venta{
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
+        <td>'.$fila["SimboloMoneda"].'</td>
+        <td>'.$fila["ValorVenta"].'</td>
+        <td>'.$fila["IGVVenta"].'</td>
+        <td>'.$fila["TotalVenta"].'</td>
         <td> 
           <button type="submit" id="'.$fila["intIdVenta"].'" class="btn btn-xs btn-warning btn-mostrar-venta">
             <i class="fa fa-edit"></i> Ver Detalle

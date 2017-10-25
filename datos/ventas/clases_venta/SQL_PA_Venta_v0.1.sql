@@ -160,13 +160,20 @@ DELIMITER $$
 		IN _intIdTipoComprobante INT
     )
 	BEGIN
-		SELECT V.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
-				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
-			END AS NombreCliente FROM tb_venta V 
+		SELECT V.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario, 
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DV.dcmTotal)/1.18),2) AS ValorVenta,
+		SUM(DV.dcmTotal) - ROUND((SUM(DV.dcmTotal)/1.18),2) AS IGVVenta,
+		SUM(DV.dcmTotal) AS TotalVenta
+		FROM tb_venta V 
 		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_venta DV ON V.intIdVenta = DV.intIdVenta
+		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(V.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
@@ -176,6 +183,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
 		V.intIdTipoComprobante = _intIdTipoComprobante
+		GROUP BY V.intIdVenta
 		LIMIT _x,_y;
     END 
 $$
@@ -188,13 +196,20 @@ DELIMITER $$
     	IN _intIdTipoComprobante INT
     )
 	BEGIN
-		SELECT V.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
-				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
-			END AS NombreCliente FROM tb_venta V 
+		SELECT V.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario, 
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DV.dcmTotal)/1.18),2) AS ValorVenta,
+		SUM(DV.dcmTotal) - ROUND((SUM(DV.dcmTotal)/1.18),2) AS IGVVenta,
+		SUM(DV.dcmTotal) AS TotalVenta
+		FROM tb_venta V 
 		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_venta DV ON V.intIdVenta = DV.intIdVenta
+		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(V.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
@@ -203,7 +218,8 @@ DELIMITER $$
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
-		V.intIdTipoComprobante = _intIdTipoComprobante;
+		V.intIdTipoComprobante = _intIdTipoComprobante
+		GROUP BY V.intIdVenta;
     END 
 $$
 DELIMITER ;

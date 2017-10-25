@@ -103,6 +103,10 @@ include('../_include/rstheader.php');
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
+                <th>Moneda</th>
+                <th>Valor de Venta</th>
+                <th>IGV</th>
+                <th>Venta Total</th>
                 <th>Opciones</th>
               </tr>
               </thead>

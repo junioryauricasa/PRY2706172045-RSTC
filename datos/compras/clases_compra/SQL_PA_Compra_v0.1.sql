@@ -124,9 +124,15 @@ DELIMITER $$
 		IN _intIdTipoComprobante INT
     )
 	BEGIN
-		SELECT C.*,U.nvchUsername AS NombreUsuario
+		SELECT C.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DC.dcmTotal)/1.18),2) AS ValorCompra,
+		SUM(DC.dcmTotal) - ROUND((SUM(DC.dcmTotal)/1.18),2) AS IGVCompra,
+		SUM(DC.dcmTotal) AS TotalCompra
 		FROM tb_compra C
 		LEFT JOIN tb_usuario U ON C.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_detalle_compra DC ON C.intIdCompra = DC.intIdCompra
+		LEFT JOIN tb_tipo_moneda TMN ON C.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(C.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		C.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
@@ -134,6 +140,7 @@ DELIMITER $$
 		C.nvchRUC LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		C.intIdTipoComprobante = _intIdTipoComprobante
+		GROUP BY C.intIdCompra
 		LIMIT _x,_y;
     END 
 $$
@@ -146,16 +153,23 @@ DELIMITER $$
     	IN _intIdTipoComprobante INT
     )
 	BEGIN
-		SELECT C.*,U.nvchUsername AS NombreUsuario
+		SELECT C.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DC.dcmTotal)/1.18),2) AS ValorCompra,
+		SUM(DC.dcmTotal) - ROUND((SUM(DC.dcmTotal)/1.18),2) AS IGVCompra,
+		SUM(DC.dcmTotal) AS TotalCompra
 		FROM tb_compra C
 		LEFT JOIN tb_usuario U ON C.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_detalle_compra DC ON C.intIdCompra = DC.intIdCompra
+		LEFT JOIN tb_tipo_moneda TMN ON C.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(C.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		C.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchRUC LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
-		C.intIdTipoComprobante = _intIdTipoComprobante;
+		C.intIdTipoComprobante = _intIdTipoComprobante
+		GROUP BY C.intIdCompra;
     END 
 $$
 DELIMITER ;
