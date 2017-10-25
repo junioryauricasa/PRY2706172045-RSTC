@@ -9,22 +9,26 @@ DELIMITER $$
     IN _intCantidad INT,
     IN _intCantidadMinima INT,
     IN _nvchDireccionImg VARCHAR(450),
+    IN _dcmPrecioCompra DECIMAL(11,2),
+    IN _intIdTipoMonedaCompra INT,
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
 	IN _dcmDescuentoVenta2 DECIMAL(11,2),
 	IN _dcmDescuentoVenta3 DECIMAL(11,2),
-	IN _intIdTipoMoneda INT,
+	IN _intIdTipoMonedaVenta INT,
 	IN _dtmFechaIngreso DATETIME,
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		INSERT INTO tb_producto 
-		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioVenta1,dcmPrecioVenta2,
-		dcmPrecioVenta3,dcmDescuentoVenta2,dcmDescuentoVenta3,intIdTipoMoneda,dtmFechaIngreso,nvchObservacion)
+		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioCompra,intIdTipoMonedaCompra,
+		dcmPrecioVenta1,dcmPrecioVenta2,dcmPrecioVenta3,dcmDescuentoVenta2,dcmDescuentoVenta3,intIdTipoMonedaVenta,dtmFechaIngreso,
+		nvchObservacion)
 		VALUES
-		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioVenta1,_dcmPrecioVenta2,
-		_dcmPrecioVenta3,_dcmDescuentoVenta2,_dcmDescuentoVenta3,_intIdTipoMoneda,_dtmFechaIngreso,_nvchObservacion);
+		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioCompra,_intIdTipoMonedaCompra,
+		_dcmPrecioVenta1,_dcmPrecioVenta2,_dcmPrecioVenta3,_dcmDescuentoVenta2,_dcmDescuentoVenta3,_intIdTipoMonedaVenta,_dtmFechaIngreso,
+		_nvchObservacion);
 		SET _intIdProducto = LAST_INSERT_ID();
     END
 $$
@@ -36,15 +40,16 @@ DELIMITER $$
 	IN _intIdProducto INT,
     IN _nvchDescripcion VARCHAR(500),
     IN _nvchUnidadMedida VARCHAR(50),
-    IN _intCantidad INT,
     IN _intCantidadMinima INT,
     IN _nvchDireccionImg VARCHAR(450),
+    IN _dcmPrecioCompra DECIMAL(11,2),
+    IN _intIdTipoMonedaCompra INT,
 	IN _dcmPrecioVenta1 DECIMAL(11,2),
 	IN _dcmPrecioVenta2 DECIMAL(11,2),
 	IN _dcmPrecioVenta3 DECIMAL(11,2),
 	IN _dcmDescuentoVenta2 DECIMAL(11,2),
 	IN _dcmDescuentoVenta3 DECIMAL(11,2),
-	IN _intIdTipoMoneda INT,
+	IN _intIdTipoMonedaVenta INT,
 	IN _dtmFechaIngreso DATETIME,
 	IN _nvchObservacion VARCHAR(800)
     )
@@ -53,15 +58,16 @@ DELIMITER $$
 		SET
 		nvchDescripcion = _nvchDescripcion,
 		nvchUnidadMedida = _nvchUnidadMedida,
-		intCantidad = _intCantidad,
 		intCantidadMinima = _intCantidadMinima,
 		nvchDireccionImg = _nvchDireccionImg,
+		dcmPrecioCompra = _dcmPrecioCompra,
+		intIdTipoMonedaCompra = _intIdTipoMonedaCompra,
 		dcmPrecioVenta1 = _dcmPrecioVenta1,
 		dcmPrecioVenta2 = _dcmPrecioVenta2,
 		dcmPrecioVenta3 = _dcmPrecioVenta3,
 		dcmDescuentoVenta2 = _dcmDescuentoVenta2,
 		dcmDescuentoVenta3 = _dcmDescuentoVenta3,
-		intIdTipoMoneda = _intIdTipoMoneda,
+		intIdTipoMonedaVenta = _intIdTipoMonedaVenta,
 		dtmFechaIngreso = _dtmFechaIngreso,
 		nvchObservacion = _nvchObservacion
 		WHERE 
@@ -137,7 +143,7 @@ DELIMITER $$
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
 		(P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
@@ -150,13 +156,13 @@ DELIMITER $$
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE
 		P.intIdProducto IN (
 		SELECT P.intIdProducto
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
 		LIMIT _x,_y;
@@ -176,7 +182,7 @@ DELIMITER $$
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
 		(P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
@@ -188,13 +194,13 @@ DELIMITER $$
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE
 		P.intIdProducto IN (
 		SELECT P.intIdProducto
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1;
 	END IF;
@@ -244,13 +250,13 @@ DELIMITER $$
 		SELECT CP.nvchCodigo
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE
 		P.intIdProducto IN (
 		SELECT P.intIdProducto
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT('A23','%')) AND CP.intIdTipoCodigoProducto = 1;
     END 

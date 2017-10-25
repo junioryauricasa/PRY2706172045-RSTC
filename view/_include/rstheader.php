@@ -280,13 +280,13 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li>
                   <a href="../reportes/vkardexproducto" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Módulo Kardex Producto
+                      Reporte Kardex Producto
                   </a>
                 </li>
                 <li>
                   <a href="../reportes/vkardexgeneral" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Módulo Kardex General
+                      Reporte Kardex General
                   </a>
                 </li>
                 <!--

@@ -10,12 +10,14 @@ class Producto
   private $intCantidad;
   private $intCantidadMinima;
   private $nvchDireccionImg;
+  private $dcmPrecioCompra;
+  private $intIdTipoMonedaCompra;
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
   private $dcmPrecioVenta3;
   private $dcmDescuentoVenta2;
   private $dcmDescuentoVenta3;
-  private $intIdTipoMoneda;
+  private $intIdTipoMonedaVenta;
   private $dtmFechaIngreso;
   private $nvchObservacion;
   
@@ -25,12 +27,14 @@ class Producto
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
   public function CantidadMinima($intCantidadMinima){ $this->intCantidadMinima = $intCantidadMinima; }
   public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
+  public function PrecioCompra($dcmPrecioCompra){ $this->dcmPrecioCompra = $dcmPrecioCompra; }
+  public function IdTipoMonedaCompra($intIdTipoMonedaCompra){ $this->intIdTipoMonedaCompra = $intIdTipoMonedaCompra; }
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
   public function DescuentoVenta2($dcmDescuentoVenta2){ $this->dcmDescuentoVenta2 = $dcmDescuentoVenta2; }
   public function DescuentoVenta3($dcmDescuentoVenta3){ $this->dcmDescuentoVenta3 = $dcmDescuentoVenta3; }
-  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoMonedaVenta($intIdTipoMonedaVenta){ $this->intIdTipoMonedaVenta = $intIdTipoMonedaVenta; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Producto */
@@ -42,20 +46,23 @@ class Producto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchDescripcion,
-        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
-        :dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
+        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioCompra,:intIdTipoMonedaCompra,
+        :dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMonedaVenta,
+        :dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => 0,
         ':intCantidadMinima' => $this->intCantidadMinima,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':dcmPrecioCompra' => $this->dcmPrecioCompra,
+        ':intIdTipoMonedaCompra' => $this->intIdTipoMonedaCompra,
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
         ':dcmDescuentoVenta2' => $this->dcmDescuentoVenta2,
         ':dcmDescuentoVenta3' => $this->dcmDescuentoVenta3,
-        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoMonedaVenta' => $this->intIdTipoMonedaVenta,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -86,12 +93,14 @@ class Producto
       $FormularioProducto->Cantidad($fila['intCantidad']);
       $FormularioProducto->CantidadMinima($fila['intCantidadMinima']);
       $FormularioProducto->DireccionImg($fila['nvchDireccionImg']);
+      $FormularioProducto->PrecioCompra($fila['dcmPrecioCompra']);
+      $FormularioProducto->IdTipoMonedaCompra($fila['intIdTipoMonedaCompra']);
       $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
       $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
       $FormularioProducto->PrecioVenta3($fila['dcmPrecioVenta3']);
       $FormularioProducto->DescuentoVenta2($fila['dcmDescuentoVenta2']);
       $FormularioProducto->DescuentoVenta3($fila['dcmDescuentoVenta3']);
-      $FormularioProducto->IdTipoMoneda($fila['intIdTipoMoneda']);
+      $FormularioProducto->IdTipoMonedaVenta($fila['intIdTipoMonedaVenta']);
       $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
       $FormularioProducto->Observacion($fila['nvchObservacion']);
       $FormularioProducto->ConsultarFormulario($funcion);
@@ -107,21 +116,23 @@ class Producto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchDescripcion,
-        :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
-        :dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
+        :nvchUnidadMedida,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioCompra,:intIdTipoMonedaCompra,
+        :dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,
+        :intIdTipoMonedaVenta,:dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
-        ':intCantidad' => 0,
         ':intCantidadMinima' => $this->intCantidadMinima,
         ':nvchDireccionImg' => $this->nvchDireccionImg,
+        ':dcmPrecioCompra' => $this->dcmPrecioCompra,
+        ':intIdTipoMonedaCompra' => $this->intIdTipoMonedaCompra,
         ':dcmPrecioVenta1' => $this->dcmPrecioVenta1,
         ':dcmPrecioVenta2' => $this->dcmPrecioVenta2,
         ':dcmPrecioVenta3' => $this->dcmPrecioVenta3,
         ':dcmDescuentoVenta2' => $this->dcmDescuentoVenta2,
         ':dcmDescuentoVenta3' => $this->dcmDescuentoVenta3,
-        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+        ':intIdTipoMonedaVenta' => $this->intIdTipoMonedaVenta,
         ':dtmFechaIngreso' => $this->dtmFechaIngreso,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdProducto'] = $this->intIdProducto;

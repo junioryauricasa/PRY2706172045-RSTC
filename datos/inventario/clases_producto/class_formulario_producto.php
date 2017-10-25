@@ -8,12 +8,14 @@ class FormularioProducto
   private $intCantidad;
   private $intCantidadMinima;
   private $nvchDireccionImg;
+  private $dcmPrecioCompra;
+  private $intIdTipoMonedaCompra;
   private $dcmPrecioVenta1;
   private $dcmPrecioVenta2;
   private $dcmPrecioVenta3;
   private $dcmDescuentoVenta2;
   private $dcmDescuentoVenta3;
-  private $intIdTipoMoneda;
+  private $intIdTipoMonedaVenta;
   private $dtmFechaIngreso;
   private $nvchObservacion;
 
@@ -23,12 +25,14 @@ class FormularioProducto
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
   public function CantidadMinima($intCantidadMinima){ $this->intCantidadMinima = $intCantidadMinima; }
   public function DireccionImg($nvchDireccionImg){ $this->nvchDireccionImg = $nvchDireccionImg; }
+  public function PrecioCompra($dcmPrecioCompra){ $this->dcmPrecioCompra = $dcmPrecioCompra; }
+  public function IdTipoMonedaCompra($intIdTipoMonedaCompra){ $this->intIdTipoMonedaCompra = $intIdTipoMonedaCompra; }
   public function PrecioVenta1($dcmPrecioVenta1){ $this->dcmPrecioVenta1 = $dcmPrecioVenta1; }
   public function PrecioVenta2($dcmPrecioVenta2){ $this->dcmPrecioVenta2 = $dcmPrecioVenta2; }
   public function PrecioVenta3($dcmPrecioVenta3){ $this->dcmPrecioVenta3 = $dcmPrecioVenta3; }
   public function DescuentoVenta2($dcmDescuentoVenta2){ $this->dcmDescuentoVenta2 = $dcmDescuentoVenta2; }
   public function DescuentoVenta3($dcmDescuentoVenta3){ $this->dcmDescuentoVenta3 = $dcmDescuentoVenta3; }
-  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
+  public function IdTipoMonedaVenta($intIdTipoMonedaVenta){ $this->intIdTipoMonedaVenta = $intIdTipoMonedaVenta; }
   public function FechaIngreso($dtmFechaIngreso){ $this->dtmFechaIngreso = $dtmFechaIngreso; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
@@ -104,14 +108,14 @@ class FormularioProducto
       <div class="box-header with-border">
       </div>
       <div class="box-header with-border">
-        <h3 class="box-title">Precios de Venta</h3>
+        <h3 class="box-title">Precios del Producto</h3>
       </div>
       <div class="box-body">
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
                 <label>Tipo de Moneda:</label>
-                <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
+                <select id="intIdTipoMonedaCompra" name="intIdTipoMonedaCompra" class="form-control select2" >
                   <?php try{
                     $sql_conexion = new Conexion_BD();
                     $sql_conectar = $sql_conexion->Conectar();
@@ -125,7 +129,41 @@ class FormularioProducto
                     echo $e->getMessage();
                   }?>
                 </select>
-                <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
+                <script type="text/javascript">$("#intIdTipoMonedaCompra").val(<?php echo $this->intIdTipoMonedaCompra; ?>);</script>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <div id="dcmPrecioCompraGroup" class="form-group">
+                <label>Precio de Compra:</label>
+                <input type="text" id="dcmPrecioCompra" name="dcmPrecioCompra" class="form-control select2" 
+                placeholder="Precio de Compra" value="<?php echo $this->dcmPrecioCompra; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioCompra')" maxlength="15" required>
+                <span id="dcmPrecioCompraIcono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioCompraObs" class=""></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Tipo de Moneda:</label>
+                <select id="tipo-moneda" name="intIdTipoMonedaVenta" class="form-control select2" >
+                  <?php try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
+                <input type="hidden" id="intIdTipoMonedaVenta" value="<?php echo $this->intIdTipoMonedaVenta; ?>">
               </div>
             </div>
           </div>
@@ -141,16 +179,6 @@ class FormularioProducto
               </div>
             </div>
             <div class="col-md-2">
-              <div id="dcmPrecioVenta2Group" class="form-group">
-                <label>Precio de Venta 2:</label>
-                <input type="text" id="dcmPrecioVenta2" name="dcmPrecioVenta2" class="form-control select2" 
-                placeholder="Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" 
-                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta2')" maxlength="15" readonly required>
-                <span id="dcmPrecioVenta2Icono" class="" aria-hidden=""></span>
-                <div id="dcmPrecioVenta2Obs" class=""></div>
-              </div>
-            </div>
-            <div class="col-md-2">
               <div id="dcmDescuentoVenta2Group" class="form-group">
                 <label>Descuento 2 (%):</label>
                 <input type="text" id="dcmDescuentoVenta2" name="dcmDescuentoVenta2" class="form-control select2" 
@@ -161,13 +189,13 @@ class FormularioProducto
               </div>
             </div>
             <div class="col-md-2">
-              <div id="dcmPrecioVenta3Group"  class="form-group">
-                <label>Precio de Venta 3:</label>
-                <input type="text" id="dcmPrecioVenta3" name="dcmPrecioVenta3" class="form-control select2" 
-                placeholder="Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" 
-                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta3')" maxlength="15" readonly required>
-                <span id="dcmPrecioVenta3Icono" class="" aria-hidden=""></span>
-                <div id="dcmPrecioVenta3Obs" class=""></div>
+              <div id="dcmPrecioVenta2Group" class="form-group">
+                <label>Precio de Venta 2:</label>
+                <input type="text" id="dcmPrecioVenta2" name="dcmPrecioVenta2" class="form-control select2" 
+                placeholder="Precio de Venta 2" value="<?php echo $this->dcmPrecioVenta2; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta2')" maxlength="15" readonly required>
+                <span id="dcmPrecioVenta2Icono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioVenta2Obs" class=""></div>
               </div>
             </div>
             <div class="col-md-2">
@@ -178,6 +206,16 @@ class FormularioProducto
                 onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmDescuentoVenta3')" maxlength="6" required>
                 <span id="dcmDescuentoVenta3Icono" class="" aria-hidden=""></span>
                 <div id="dcmDescuentoVenta3Obs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div id="dcmPrecioVenta3Group"  class="form-group">
+                <label>Precio de Venta 3:</label>
+                <input type="text" id="dcmPrecioVenta3" name="dcmPrecioVenta3" class="form-control select2" 
+                placeholder="Precio de Venta 3" value="<?php echo $this->dcmPrecioVenta3; ?>" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioVenta3')" maxlength="15" readonly required>
+                <span id="dcmPrecioVenta3Icono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioVenta3Obs" class=""></div>
               </div>
             </div>
           </div>

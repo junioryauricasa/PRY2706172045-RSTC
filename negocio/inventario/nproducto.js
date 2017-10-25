@@ -28,6 +28,9 @@ $(document).on('click', '#btn-crear-producto', function(){
 	  } else if(EsNumeroEntero("intCantidadMinima") == false){
 	  	goToBox("#intCantidadMinimaGroup");
 	  	return false;
+	  } else if(EsDecimal("dcmPrecioCompra") == false){
+	  	goToBox("#dcmPrecioCompraGroup");
+	  	return false;
 	  } else if(EsDecimal("dcmPrecioVenta1") == false){
 	  	goToBox("#dcmPrecioVenta1Group");
 	  	return false;
@@ -90,7 +93,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
-	   	$("#tipo-moneda").val($("#intIdTipoMoneda").val());
+	   	$("#tipo-moneda").val($("#intIdTipoMonedaVenta").val());
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
 	   	goToBox("#Formulario");
@@ -111,6 +114,9 @@ $(document).on('click', '#btn-editar-producto', function(){
 	  	return false;
 	  } else if(EsNumeroEntero("intCantidadMinima") == false){
 	  	goToBox("#intCantidadMinimaGroup");
+	  	return false;
+	  } else if(EsDecimal("dcmPrecioCompra") == false){
+	  	goToBox("#dcmPrecioCompraGroup");
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioVenta1") == false){
 	  	goToBox("#dcmPrecioVenta1Group");

@@ -4,6 +4,9 @@ require_once 'clases_kardex/class_kardex_producto.php';
 if(empty($_SESSION['intIdMovimiento'])){
   $_SESSION['intIdMovimiento'] = 0;
 }
+if(empty($_SESSION['intIdProducto'])){
+  $_SESSION['intIdProducto'] = 0;
+}
 switch($_POST['funcion']){
   case "I":
     $KardexProducto = new KardexProducto();

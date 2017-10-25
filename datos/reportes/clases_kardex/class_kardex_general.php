@@ -41,6 +41,9 @@ class KardexGeneral
         <td>'.$j.'</td>
         <td>'.$fila["dtmFechaMovimiento"].'</td>
         <td>'.$fila["nvchCodigo"].'</td>
+        <td>'.$fila["nvchDescripcion"].'</td>
+        <td>'.$fila["CantidadEntradaTotal"].'</td>
+        <td>'.$fila["CantidadSalidaTotal"].'</td>
         <td>'.$fila["intCantidadStock"].'</td>
         <td>'.$fila["dcmSaldoValorizado"].'</td> 
         </tr>';

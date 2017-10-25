@@ -8,11 +8,14 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT K.dtmFechaMovimiento,CP.nvchCodigo,K.intCantidadStock,K.dcmSaldoValorizado FROM tb_kardex K
+		SELECT K.dtmFechaMovimiento,CP.nvchCodigo,P.nvchDescripcion,Grupo.CantidadEntradaTotal,Grupo.CantidadSalidaTotal,
+		K.intCantidadStock,K.dcmSaldoValorizado FROM tb_kardex K
 		INNER JOIN (
-		SELECT MAX(dtmFechaMovimiento) AS TopDate,intIdProducto,intCantidadStock,dcmSaldoValorizado FROM tb_kardex
+		SELECT MAX(dtmFechaMovimiento) AS TopDate,intIdProducto,SUM(intCantidadEntrada) AS CantidadEntradaTotal,
+		SUM(intCantidadSalida) AS CantidadSalidaTotal,intCantidadStock,dcmSaldoValorizado FROM tb_kardex
 		GROUP BY intIdProducto DESC) AS Grupo 
 		ON Grupo.TopDate = K.dtmFechaMovimiento AND Grupo.intIdProducto = K.intIdProducto
+		INNER JOIN tb_producto P ON K.intIdProducto = P.intIdProducto
 		INNER JOIN tb_codigo_producto CP ON K.intIdProducto = CP.intIdProducto
 		WHERE CP.intIdTipoCodigoProducto = 1
 		LIMIT _x,_y;
@@ -26,11 +29,14 @@ DELIMITER $$
     	IN _elemento VARCHAR(500)
     )
 	BEGIN
-		SELECT K.dtmFechaMovimiento,CP.nvchCodigo,K.intCantidadStock,K.dcmSaldoValorizado FROM tb_kardex K
+		SELECT K.dtmFechaMovimiento,CP.nvchCodigo,P.nvchDescripcion,Grupo.CantidadEntradaTotal,Grupo.CantidadSalidaTotal,
+		K.intCantidadStock,K.dcmSaldoValorizado FROM tb_kardex K
 		INNER JOIN (
-		SELECT MAX(dtmFechaMovimiento) AS TopDate,intIdProducto,intCantidadStock,dcmSaldoValorizado FROM tb_kardex
+		SELECT MAX(dtmFechaMovimiento) AS TopDate,intIdProducto,SUM(intCantidadEntrada) AS CantidadEntradaTotal,
+		SUM(intCantidadSalida) AS CantidadSalidaTotal,intCantidadStock,dcmSaldoValorizado FROM tb_kardex
 		GROUP BY intIdProducto DESC) AS Grupo 
 		ON Grupo.TopDate = K.dtmFechaMovimiento AND Grupo.intIdProducto = K.intIdProducto
+		INNER JOIN tb_producto P ON K.intIdProducto = P.intIdProducto
 		INNER JOIN tb_codigo_producto CP ON K.intIdProducto = CP.intIdProducto
 		WHERE CP.intIdTipoCodigoProducto = 1;
     END 

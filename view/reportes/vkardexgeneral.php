@@ -75,7 +75,10 @@ include('../_include/rstheader.php');
               <tr>
                 <th>Ítem</th>
                 <th>Fecha</th>
-                <th>Código</th>
+                <th>Código del Producto</th>
+                <th>Descripción</th>
+                <th>Entrada Total</th>
+                <th>Salida Total</th>
                 <th>Stock</th>
                 <th>Saldo Valorizado</th>
               </tr>
