@@ -26,7 +26,7 @@ function ListarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var intIdSucursal = document.getElementById("lugar-entrada").value;
+	var intIdSucursal = document.getElementById("intIdSucursal").value;
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_entrada.php",
 	   method:"POST",
@@ -64,20 +64,13 @@ function PaginarProductosSeleccion(x,y) {
 /* INICIO - Listar Domicilios según Ingresa */
 function SeleccionarProducto(seleccion) {
 	var intIdProducto = $(seleccion).attr("idsprt");
-	var CodigoProducto = $("input[type=hidden][name='SCodigoProducto["+intIdProducto+"]']").val();
-	var nvchCodigo = $("input[type=text][name='SnvchCodigo["+intIdProducto+"]']").val();
-	var nvchDescripcion = $("input[type=text][name='SnvchDescripcion["+intIdProducto+"]']").val();
+	var nvchCodigo = $("input[type=hidden][name='SnvchCodigo["+intIdProducto+"]']").val();
+	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdProducto+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
 	var dcmPrecioUnitario = $("input[type=text][name='SdcmPrecioUnitario["+intIdProducto+"]']").val();
 	var dcmTotal = $("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val();
 
-	if(nvchCodigo == "" || nvchCodigo == null) {
-		MensajeNormal("Ingresar el Código del Producto que estás eligiendo",2);
-		return false;
-	} else if(nvchDescripcion == "" || nvchDescripcion == null) {
-		MensajeNormal("Ingresar la Descripción del Producto que estás eligiendo",2);
-		return false;
-	} else if(intCantidad == "" || intCantidad == null) {
+	if(intCantidad == "" || intCantidad == null) {
 		MensajeNormal("Ingresar la Cantidad del Producto que estás eligiendo",2);
 		return false;
 	} else if(dcmPrecioUnitario == "" || dcmPrecioUnitario == null) {
@@ -88,8 +81,7 @@ function SeleccionarProducto(seleccion) {
 	dcmPrecioUnitario = Number(dcmPrecioUnitario).toFixed(2);
 
 	$('#ListaDeProductosEntrada').append('<tr>'+
-		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+CodigoProducto+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/><input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+dcmPrecioUnitario+'</td>'+

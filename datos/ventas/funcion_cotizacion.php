@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require_once '../numeraciones/class_numeraciones.php';
 require_once 'clases_cotizacion/class_cotizacion.php';
 require_once 'clases_cotizacion/class_detalle_cotizacion.php';
 require_once 'clases_cotizacion/class_formulario_cotizacion.php';

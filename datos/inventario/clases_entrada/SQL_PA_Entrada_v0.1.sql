@@ -9,7 +9,7 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _nvchRazonSocial VARCHAR(150),
 	IN _nvchRUC VARCHAR(15),
-	IN _nvchAtencion VARCHAR(150),
+	IN _intIdUsuarioSolicitado INT,
 	IN _intIdUsuario INT,
 	IN _intIdSucursal INT,
 	IN _bitEstado INT,
@@ -17,10 +17,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_entrada 
-		(dtmFechaCreacion,nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,intIdUsuario,intIdSucursal,
+		(dtmFechaCreacion,nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,intIdUsuarioSolicitado,intIdUsuario,intIdSucursal,
 			bitEstado,nvchObservacion)
 		VALUES
-		(_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_intIdUsuario,_intIdSucursal,
+		(_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_intIdUsuarioSolicitado,_intIdUsuario,_intIdSucursal,
 			_bitEstado,_nvchObservacion);
 		SET _intIdEntrada = LAST_INSERT_ID();
     END 
@@ -36,7 +36,7 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _nvchRazonSocial VARCHAR(150),
 	IN _nvchRUC VARCHAR(15),
-	IN _nvchAtencion VARCHAR(150),
+	IN _intIdUsuarioSolicitado INT,
 	IN _intIdUsuario INT,
 	IN _intIdSucursal INT,
 	IN _bitEstado INT,
@@ -50,8 +50,8 @@ DELIMITER $$
 		nvchNumeracion = _nvchNumeracion,
 		nvchRazonSocial = _nvchRazonSocial,
 		nvchRUC = _nvchRUC,
-		nvchAtencion = _nvchAtencion,
 		intIdUsuario = _intIdUsuario,
+		intIdUsuarioSolicitado = _intIdUsuarioSolicitado,
 		intIdSucursal = _intIdSucursal,
 		bitEstado = _bitEstado,
 		nvchObservacion = _nvchObservacion
@@ -142,6 +142,17 @@ DELIMITER $$
 		E.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		E.nvchRUC LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%');
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS LISTARUSUARIOS;
+DELIMITER $$
+	CREATE PROCEDURE LISTARUSUARIOS()
+	BEGIN
+		SELECT U.*, 
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario 
+		FROM tb_usuario U;
     END 
 $$
 DELIMITER ;

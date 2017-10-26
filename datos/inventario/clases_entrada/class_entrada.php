@@ -11,6 +11,7 @@ class Entrada
   private $nvchRazonSocial;
   private $nvchRUC;
   private $nvchAtencion;
+  private $intIdUsuarioSolicitado;
 	private $intIdUsuario;
 	private $intIdSucursal;
   private $bitEstado;
@@ -22,7 +23,7 @@ class Entrada
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
-  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
 	public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
   public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
@@ -36,7 +37,7 @@ class Entrada
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarEntrada(@intIdEntrada,:dtmFechaCreacion,
-        :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:nvchAtencion,:intIdUsuario,:intIdSucursal,
+        :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:intIdUsuarioSolicitado,:intIdUsuario,:intIdSucursal,
         :bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
@@ -44,8 +45,8 @@ class Entrada
         ':nvchNumeracion' => $this->nvchNumeracion,
         ':nvchRazonSocial' => $this->nvchRazonSocial,
         ':nvchRUC' => $this->nvchRUC,
-        ':nvchAtencion' => $this->nvchAtencion,
-        ':intIdUsuario' => $this->intIdUsuario, 
+        ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
+        ':intIdUsuario' => $this->intIdUsuario,
         ':intIdSucursal' => $this->intIdSucursal,
         ':bitEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
@@ -76,7 +77,7 @@ class Entrada
       $FormularioEntrada->Numeracion($fila['nvchNumeracion']);
       $FormularioEntrada->RazonSocial($fila['nvchRazonSocial']);
       $FormularioEntrada->RUC($fila['nvchRUC']);
-      $FormularioEntrada->Atencion($fila['nvchAtencion']);
+      $FormularioEntrada->IdUsuarioSolicitado($fila['intIdUsuarioSolicitado']);
       $FormularioEntrada->IdUsuario($fila['intIdUsuario']);
       $FormularioEntrada->IdSucursal($fila['intIdSucursal']);
       $FormularioEntrada->Estado($fila['bitEstado']);
@@ -94,7 +95,7 @@ class Entrada
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarEntrada(:intIdEntrada,:dtmFechaCreacion,
-        :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:nvchAtencion,:intIdUsuario,:intIdSucursal,
+        :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:intIdUsuarioSolicitado,:intIdUsuario,:intIdSucursal,
         :bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdEntrada' => $this->intIdEntrada,
@@ -103,7 +104,7 @@ class Entrada
         ':nvchNumeracion' => $this->nvchNumeracion,
         ':nvchRazonSocial' => $this->nvchRazonSocial,
         ':nvchRUC' => $this->nvchRUC,
-        ':nvchAtencion' => $this->nvchAtencion,
+        ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdSucursal' => $this->intIdSucursal,
         ':bitEstado' => 1,

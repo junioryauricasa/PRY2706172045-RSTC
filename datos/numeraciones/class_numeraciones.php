@@ -90,16 +90,15 @@ class Numeraciones{
         ':intIdSerie' => $intIdSerie));
     $fila = $sql_comando->fetch(PDO::FETCH_ASSOC);
     $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
-    
     $salida['resultado'] = 'ok';
     echo json_encode($salida);
     }
     catch(PDPExceptio $e){
-      $salida['resultado'] = $e->getMessage();
-      echo json_encode($salida);
+    $salida['resultado'] = $e->getMessage();
+    echo json_encode($salida);
     }
   }
-
+/*
   public function NumeracionES($intTipoES)
   {
     try{
@@ -125,7 +124,7 @@ class Numeraciones{
       echo json_encode($salida);
     }
   }
-
+*/
   public function ActualizarNumeracion($intIdTipoComprobante,$intIdSucursal,$nvchNumeracion)
   {
     try{

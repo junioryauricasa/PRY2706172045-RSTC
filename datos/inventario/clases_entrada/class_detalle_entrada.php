@@ -9,7 +9,9 @@ class DetalleEntrada
   private $intIdProducto;
   private $nvchCodigo;
   private $nvchDescripcion;
+  private $dcmPrecioUnitario;
 	private $intCantidad;
+  private $dcmTotal;
 
 	public function IdOperacionEntrada($intIdOperacionEntrada){ $this->intIdOperacionEntrada = $intIdOperacionEntrada; }
 	public function IdEntrada($intIdEntrada){ $this->intIdEntrada = $intIdEntrada; }
@@ -17,7 +19,9 @@ class DetalleEntrada
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
+  public function PrecioUnitario($dcmPrecioUnitario){ $this->dcmPrecioUnitario = $dcmPrecioUnitario; }
 	public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
+  public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
 	/* FIN - Atributos de Guia Interna Entrada */
 
 	/* INICIO - Métodos de Guia Interna Entrada */
@@ -28,14 +32,17 @@ class DetalleEntrada
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL InsertarDetalleEntrada(
-      	:intIdEntrada,:dtmFechaEntrada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:intCantidad)');
+      	:intIdEntrada,:dtmFechaEntrada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecioUnitario,:intCantidad,
+        :dcmTotal)');
       $sql_comando->execute(array(
         ':intIdEntrada' => $this->intIdEntrada, 
         ':dtmFechaEntrada' => $this->dtmFechaEntrada,
         ':intIdProducto' => $value,
         ':nvchCodigo' => $this->nvchCodigo[$key],
         ':nvchDescripcion' => $this->nvchDescripcion[$key],
-        ':intCantidad' => $this->intCantidad[$key]));
+        ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+        ':intCantidad' => $this->intCantidad[$key],
+        ':dcmTotal' => $this->dcmTotal[$key]));
       //$this->IngresarCantidadProducto($value,$this->intCantidad[$key]);
       }
       echo "ok";
@@ -51,14 +58,16 @@ class DetalleEntrada
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL InsertarDetalleEntrada(:intIdEntrada,:dtmFechaEntrada,:intIdProducto,
-        :nvchCodigo,:nvchDescripcion,:intCantidad)');
+        :nvchCodigo,:nvchDescripcion,:dcmPrecioUnitario,:intCantidad,:dcmTotal)');
       $sql_comando->execute(array(
         ':intIdEntrada' => $this->intIdEntrada, 
         ':dtmFechaEntrada' => $this->dtmFechaEntrada,
         ':intIdProducto' => $this->intIdProducto,
         ':nvchCodigo' => $this->nvchCodigo,
         ':nvchDescripcion' => $this->nvchDescripcion,
-        ':intCantidad' => $this->intCantidad));
+        ':dcmPrecioUnitario' => $this->dcmPrecioUnitario,
+        ':intCantidad' => $this->intCantidad,
+        ':dcmTotal' => $this->dcmTotal));
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -86,9 +95,11 @@ class DetalleEntrada
         }
       	echo 
       	'<td>'.$i.'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
         <td>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
+        <td>'.$fila['intCantidad'].'</td>
+        <td>'.$fila['dcmPrecioUnitario'].'</td>
+        <td>'.$fila['dcmTotal'].'</td>
         <td> 
           <button type="button" iddgie="'.$fila['intIdOperacionEntrada'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
             <i class="fa fa-edit"></i> Editar
@@ -142,7 +153,9 @@ class DetalleEntrada
         ':dtmFechaEntrada' => $this->dtmFechaEntrada,
         ':intIdProducto' => $this->intIdProducto,
         ':nvchDescripcion' => $this->nvchDescripcion,
-        ':intCantidad' => $this->intCantidad));
+        ':dcmPrecioUnitario' => $this->dcmPrecioUnitario,
+        ':intCantidad' => $this->intCantidad,
+        ':dcmTotal' => $this->dcmTotal));
       $_SESSION['intIdOperacionEntrada'] = $this->intIdOperacionEntrada;
       echo "ok";
     }
@@ -198,7 +211,8 @@ class DetalleEntrada
         {
           echo 
           '<tr>
-          <td><input type="hidden" name="SCodigoProducto['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
+          <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
+          <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
           <td>
             <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
               <i class="fa fa-edit"></i> Ver Detalle
@@ -209,10 +223,12 @@ class DetalleEntrada
               <i class="fa fa-search"></i> Ver 
             </button>
           </td>
-          <td><input type="text" idsprt="'.$fila['intIdProducto'].'" name="SnvchCodigo['.$fila['intIdProducto'].']" value="" class="form-control select2"/></td>
-          <td><input type="text" idsprt="'.$fila['intIdProducto'].'" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="" class="form-control select2"/></td>
-          <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" onkeyup="CalcularPrecioTotal(this)" name="SdcmPrecioUnitario['.$fila['intIdProducto'].']" value="" class="form-control select2"/></td>
-          <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="CalcularPrecioTotal(this)" name="SintCantidad['.$fila['intIdProducto'].']"  class="form-control select2" placeholder="Ingrese Cantidad"></td>
+          <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" 
+            onkeyup="CalcularPrecioTotal(this)" name="SdcmPrecioUnitario['.$fila['intIdProducto'].']" class="form-control select2"
+            placeholder="Ingrese Precio"/></td>
+          <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsNumeroEnteroTecla(event)" 
+            onkeyup="CalcularPrecioTotal(this)" name="SintCantidad['.$fila['intIdProducto'].']"  class="form-control select2" 
+            placeholder="Ingrese Cantidad"></td>
           <td><input type="text" name="SdcmTotal['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
           <td>
           <button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProducto(this)">

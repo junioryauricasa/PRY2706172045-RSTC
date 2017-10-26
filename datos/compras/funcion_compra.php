@@ -11,15 +11,6 @@ if(empty($_SESSION['intIdCompra'])){
 if(empty($_SESSION['intIdOperacionCompra'])){
   $_SESSION['intIdOperacionCompra'] = 0;
 }
-if(empty($_SESSION['intCantidadEntrada'])){
-  $_SESSION['intCantidadEntrada'] = 0;
-}
-if(empty($_SESSION['dcmPrecioUnitarioEntrada'])){
-  $_SESSION['dcmPrecioUnitarioEntrada'] = 0;
-}
-if(empty($_SESSION['dcmTotalEntrada'])){
-  $_SESSION['dcmTotalEntrada'] = 0;
-}
 switch($_POST['funcion']){
   case "I":
     $Compra = new Compra();

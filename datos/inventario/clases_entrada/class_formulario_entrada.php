@@ -8,7 +8,7 @@ class FormularioEntrada
   private $nvchNumeracion;
   private $nvchRazonSocial;
   private $nvchRUC;
-  private $nvchAtencion;
+  private $intIdUsuarioSolicitado;
   private $intIdUsuario;
   private $intIdSucursal;
   private $bitEstado;
@@ -20,7 +20,7 @@ class FormularioEntrada
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
-  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
+  public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
   public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
@@ -50,7 +50,7 @@ class FormularioEntrada
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Lugar de Entrada:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="lugar-entrada" name="intIdSucursal"  class="form-control select2">
+                  <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2">
                   <?php 
                     try{
                     $sql_conexion = new Conexion_BD();
@@ -65,20 +65,40 @@ class FormularioEntrada
                     echo $e->getMessage();
                   }?>
                   </select>
-                <input type="hidden" id="intIdSucursal" value="<?php echo $this->intIdSucursal ?>" />
+                <script>$("#intIdSucursal").val(<?php echo $this->intIdSucursal; ?>);</script>
                 </div>
               </div>
-              <script type="text/javascript">AccionNumeracion(5);</script>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Usuario que Solicitó:</label>
+                  <select id="intIdUsuarioSolicitado" name="intIdUsuarioSolicitado"  class="form-control select2">
+                  <?php 
+                    try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL listarusuarios()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdUsuario'].'">'.$fila['NombreUsuario'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                  </select>
+                <script>$("#intIdUsuarioSolicitado").val(<?php echo $this->intIdUsuarioSolicitado; ?>);</script>
+                </div>
+              </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Serie:</label>
-                  <input type="text" id="nvchSerieGIE" name="nvchSerieGIE" class="form-control select2" readonly/>
+                  <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" readonly/>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Numeración:</label>
-                  <input type="text" id="nvchNumeracionGIE" name="nvchNumeracionGIE" class="form-control select2" readonly/>
+                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly/>
                 </div>
               </div>
               <?php if($funcion == "F") {?>
@@ -145,7 +165,9 @@ class FormularioEntrada
               <th>Descripción</th>
               <th>Ubicación</th>
               <th>Imágen</th>
+              <th>Precio Unitario</th>
               <th>Cantidad</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
@@ -191,9 +213,11 @@ class FormularioEntrada
           <table class="table table-hover table-condensed">
             <thead>
             <tr>
-              <th>Cantidad</th>
               <th>Código</th>
               <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
@@ -271,10 +295,11 @@ class FormularioEntrada
                 <thead>
                 <tr>
                   <th>Ítem</th>
-                  <th>Cantidad</th>
-                  <th>Código</th>
                   <th>Descripción</th>
-                  <th>Opciones</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Total</th>
+                  <th>Cantidad</th>
                 </tr>
                 </thead>
                 <tbody id="ListaDeProductosEntrada">

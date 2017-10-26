@@ -12,15 +12,6 @@ if(empty($_SESSION['intIdVenta'])){
 if(empty($_SESSION['intIdOperacionVenta'])){
   $_SESSION['intIdOperacionVenta'] = 0;
 }
-if(empty($_SESSION['intCantidadSalida'])){
-  $_SESSION['intCantidadSalida'] = 0;
-}
-if(empty($_SESSION['dcmPrecioUnitarioSalida'])){
-  $_SESSION['dcmPrecioUnitarioSalida'] = 0;
-}
-if(empty($_SESSION['dcmTotalSalida'])){
-  $_SESSION['dcmTotalSalida'] = 0;
-}
 switch($_POST['funcion']){
   case "I":
     $Venta = new Venta();
