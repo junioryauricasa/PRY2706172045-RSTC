@@ -76,9 +76,9 @@ class ComunicacionUsuario
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-      	echo '<td><input type="hidden" name="nvchMedio[]" value="'.$fila['nvchMedio'].'"/>'.$fila['nvchMedio'].'</td>
-        <td><input type="hidden" name="nvchLugar[]" value="'.$fila['nvchLugar'].'"/>'.$fila['nvchLugar'].'</td>
-        <td><input type="hidden" name="intIdTipoComunicacion[]" value="'.$fila['intIdTipoComunicacion'].'"/>'.$fila['NombreTC'].'</td>
+      	echo '<td>'.$fila['nvchMedio'].'</td>
+        <td>'.$fila['nvchLugar'].'</td>
+        <td>'.$fila['NombreTC'].'</td>
         <td> 
           <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
             <i class="fa fa-edit"></i> Editar

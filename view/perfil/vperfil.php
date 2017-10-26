@@ -55,7 +55,7 @@
                   <p class="text-muted text-center">
                     <?php echo $_SESSION['NombrePermiso']; ?>
                   </p>
-                  <a href="../..//logout.php" class="btn btn-danger btn-block"><b>Cerrar Sesion</b></a>
+                  <a href="../..//logout.php" class="btn btn-danger btn-block"><b>Cerrar Sesión</b></a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
@@ -279,7 +279,7 @@
                       <h3 class="box-title">Comunicación</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                    <form class="form-horizontal">
+                    <form id="form-user-comunicacion" class="form-horizontal">
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Tipo de Comunicación:</label>
                         <div class="col-sm-10">
@@ -302,19 +302,26 @@
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Medio:</label>
                         <div class="col-sm-10">
-                          <input class="form-control" id="nvchMedio" placeholder="Ingrese el Medio" required>
+                          <input class="form-control" id="nvchMedio" name="nvchMedio" placeholder="Ingrese el Medio" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label">Lugar/Pertenencia:</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nvchLugar" placeholder="Ingrese el Lugar/Pertenencia" required>
+                          <input type="text" class="form-control" id="nvchLugar" name="nvchLugar" placeholder="Ingrese el Lugar/Pertenencia" required>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-primary">Agregar</button>
-                          <button type="reset" class="btn btn-secondary">Limpiar</button>
+                          <input type="hidden" name="intIdUsuario" id="intIdUsuario-comunicacion" value="<?php echo $_SESSION['intIdUsuarioSesion']; ?>"/>
+                          <input type="hidden" name="intIdComunicacionUsuario" id="intIdComunicacionUsuario" value=""/>
+                          <input type="hidden" name="funcion" value="IC"/>
+                          <input type="hidden" name="tipolistado" id="tipolistado-comunicacion" value="I"/>
+                          <input type="button" onclick="ActualizarComunicacion()" id="btn-actualizar-comunicacion" name="btn-actualizar-comunicacion" class="btn btn-sm btn-warning btn-flat" value="Editar Comunicación">
+                          <input type="button" onclick="BotonesComunicacion('I')" id="btn-cancelar-comunicacion" name="btn-cancelar-comunicacion" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                          <button type="button" id="btn-agregar-comunicacion" class="btn btn-primary">Agregar</button>
+                          <button type="reset" id="btn-comunicacion-limpiar" class="btn btn-secondary">Limpiar</button>
+                          <script type="text/javascript">BotonesComunicacion("I");</script>
                         </div>
                       </div>
                     </form>

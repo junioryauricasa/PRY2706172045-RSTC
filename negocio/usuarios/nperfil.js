@@ -21,6 +21,7 @@ function MostrarUsuarioPerfil(intIdUsuario){
 	   	$("#nvchDireccion").val(datos.nvchDireccion);
 	   	$("#resultadoimagen").attr("src", "../../usuarios/imgperfil/" + datos.nvchImgPerfil);
 	   	$("#nvchImgPerfil").val(datos.nvchImgPerfil);
+	   	MostrarComunicacion(intIdUsuario,"T");
 	   }
 	  });
 }
@@ -191,4 +192,164 @@ $(document).on('click', '#btn-editar-userpassword', function(){
 	}
 });
 /* FIN - Cambiar Contraseña */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Cambiar Contraseña */
+$(document).on('click', '#btn-agregar-comunicacion', function(){
+	var nvchMedio = $("#nvchMedio").val();
+	var nvchLugar = $("#nvchLugar").val();
+
+	if(nvchMedio == ""){
+		MensajeNormal("Ingresar el Medio",2);
+		return false;
+	} else if(nvchLugar == "") {
+		MensajeNormal("Ingresar el Lugar",2);
+		return false;
+	}
+	var intIdUsuario = $("#intIdUsuario-comunicacion").val();
+	var tipolistado = $("#tipolistado-comunicacion").val();
+	var formData = $("#form-user-comunicacion").serialize();
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:formData,
+	   success:function(datos)
+	   {
+	   	if(datos == "ok"){
+	   		MensajeNormal("Se agregó correctamente la nueva Comunicación",1);
+	   		MostrarComunicacion(intIdUsuario,tipolistado);
+	   		$("#nvchMedio").val("");
+			$("#nvchLugar").val("");
+	   	} else {
+	   		MensajeNormal(datos,2);
+	   	}
+	   }
+	  });
+	return false;
+});
+/* FIN - Cambiar Contraseña */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Comunicaciones del Usuario Seleccionado */
+function MostrarComunicacion(intIdUsuario,tipolistado) {
+	var funcion = "MC";
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:{intIdUsuario:intIdUsuario,funcion:funcion,tipolistado:tipolistado},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeComunicaciones").html(datos);
+	   }
+	  });
+}
+/* FIN - Mostrar Comunicaciones del Usuario Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Mostrar Comunicacion Seleccionado */
+function SeleccionarComunicacion(seleccion) {
+	var intIdComunicacionUsuario = $(seleccion).attr("idcu");
+	var funcion = "SC";
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:{intIdComunicacionUsuario:intIdComunicacionUsuario,funcion:funcion},
+	   dataType:"json",
+	   success:function(datos)
+	   {
+	   	$("#nvchMedio").val(datos.nvchMedio);
+	   	$("#nvchLugar").val(datos.nvchLugar);
+	   	$("#intIdTipoComunicacion").val(datos.intIdTipoComunicacion);
+	   	$("#intIdComunicacionUsuario").val(datos.intIdComunicacionUsuario);
+	   	BotonesComunicacion('A');
+	   }
+	  });
+}
+/* FIN - Mostrar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Eliminar Comunicacion Seleccionado */
+function EliminarComunicacion(seleccion) {
+	var intIdComunicacionUsuario = $(seleccion).attr("idcu");
+	var funcion = "EC";
+	var tipolistado = "T";
+	var intIdUsuario = $("#intIdUsuario-comunicacion").val();
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:{intIdComunicacionUsuario:intIdComunicacionUsuario,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	 if(datos=="ok"){
+	   	 	MensajeNormal("Se eliminó correctamente la Comunicación",1);
+	   	 	MostrarComunicacion(intIdUsuario,tipolistado);
+	   	 }
+	   }
+	  });
+}
+/* FIN - Eliminar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Actualizar Comunicacion Seleccionado */
+function ActualizarComunicacion() {
+	if(EsVacio("nvchMedio") == false){
+		return false;
+	} else if(EsVacio("nvchLugar") == false) {
+		return false;
+	}
+	var intIdComunicacionUsuario = document.getElementById("intIdComunicacionUsuario").value;
+	var intIdUsuario = document.getElementById("intIdUsuario-comunicacion").value;
+	var nvchMedio = document.getElementById("nvchMedio").value;
+	var nvchLugar = document.getElementById("nvchLugar").value;
+	var intIdTipoComunicacion = document.getElementById("intIdTipoComunicacion").value;
+	var tipolistado = "A";
+	var accion = "I";
+	var funcion = "AC";
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:{intIdComunicacionUsuario:intIdComunicacionUsuario,
+	   		intIdUsuario:intIdUsuario,
+	   		nvchMedio:nvchMedio,
+	   		nvchLugar:nvchLugar,
+	   		intIdTipoComunicacion:intIdTipoComunicacion,
+	   		funcion:funcion},
+	   success:function(datos)
+	   {
+	   	if(datos == "ok"){
+	   		MensajeNormal("Se modificó correctamente la Comunicacion",1);
+	   		MostrarComunicacion(intIdUsuario,tipolistado);
+	   		BotonesComunicacion(accion);
+	   	} else {
+	   		alert(datos);
+	   	}
+	   }
+	  });
+}
+/* FIN - Actualizar Comunicacion Seleccionado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function BotonesComunicacion(accion) {
+	if(accion == "I"){
+		$("#nvchMedio").val("");
+		$("#nvchLugar").val("");
+		$("#btn-agregar-comunicacion").show();
+		$("#btn-comunicacion-limpiar").show();
+		$("#btn-actualizar-comunicacion").hide();
+		$("#btn-cancelar-comunicacion").hide();
+	} else if (accion == "A") {
+		$("#btn-agregar-comunicacion").hide();
+		$("#btn-comunicacion-limpiar").hide();
+		$("#btn-actualizar-comunicacion").show();
+		$("#btn-cancelar-comunicacion").show();
+	}
+}
+/* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////

@@ -39,6 +39,14 @@ switch($_POST['funcion']){
         $ComunicacionUsuario->InsertarComunicacionUsuario();
     }
     break;
+  case "IC":
+    $ComunicacionUsuario = new ComunicacionUsuario();
+    $ComunicacionUsuario->IdUsuario($_POST['intIdUsuario']);
+    $ComunicacionUsuario->Medio($_POST['nvchMedio']);
+    $ComunicacionUsuario->Lugar($_POST['nvchLugar']);
+    $ComunicacionUsuario->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
+    $ComunicacionUsuario->InsertarComunicacionUsuario_II();
+    break;
   case "A":
     $Usuario = new Usuario();
     $Usuario->IdUsuario($_POST['intIdUsuario']);

@@ -400,7 +400,7 @@ function ActualizarComunicacion() {
 	   success:function(datos)
 	   {
 	   	if(datos == "ok"){
-	   		MensajeNormal("Se agregó correctamente la Comunicacion",1);
+	   		MensajeNormal("Se modificó correctamente la Comunicacion",1);
 	   		MostrarComunicacion(intIdUsuario,tipolistado);
 	   		BotonesComunicacion(accion);
 	   	} else {
