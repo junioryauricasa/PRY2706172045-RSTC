@@ -295,3 +295,31 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS INSERTARHISTORIALACCESO;
+DELIMITER $$
+	CREATE PROCEDURE INSERTARHISTORIALACCESO(
+	IN _intIdUsuario INT,
+	IN _dtmFechaAcceso DATETIME,
+	IN _nvchFechaAcceso VARCHAR(100),
+	IN _nvchIpOrigen VARCHAR(15),
+	IN _nvchNavegador VARCHAR(100)
+    )
+	BEGIN
+		INSERT INTO tb_historial_acceso (intIdUsuario,dtmFechaAcceso,nvchFechaAcceso,nvchIpOrigen,nvchNavegador)
+		VALUES(_intIdUsuario,_dtmFechaAcceso,_nvchFechaAcceso,_nvchIpOrigen,_nvchNavegador);
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS MOSTRARHISTORIALACCESO;
+DELIMITER $$
+	CREATE PROCEDURE MOSTRARHISTORIALACCESO(
+		IN _intIdUsuario INT
+	)
+	BEGIN
+		SELECT * FROM tb_historial_acceso WHERE intIdUsuario = _intIdUsuario
+		ORDER BY intIdHistorialAcceso DESC;
+    END 
+$$
+DELIMITER ;

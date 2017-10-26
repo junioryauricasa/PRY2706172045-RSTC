@@ -6,8 +6,8 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/usuario/nusuario.js"></script>
-    <script type="text/javascript" src="ajax/vusuario.js"></script>
+    <script type="text/javascript" src="../../negocio/usuarios/nusuario.js"></script>
+
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */

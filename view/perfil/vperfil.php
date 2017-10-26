@@ -114,19 +114,12 @@
                         <table class="table no-margin">
                           <thead>
                             <tr>
-                              <th>#Cod.</th>
                               <th>Último Acceso</th>
                               <th>IP Registrada</th>
                               <th>Dispositivo</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                              <td>Call of Duty IV</td>
-                              <td><span class="label label-success">Shipped</span></td>
-                              <td><div class="sparkbar" data-color="#00a65a" data-height="20"><canvas width="34" height="20" style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas></div></td>
-                            </tr>
+                          <tbody id="ListaDeAccesos">
                           </tbody>
                         </table>
                       </div><!-- /.table-responsive -->

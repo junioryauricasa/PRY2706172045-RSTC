@@ -24,6 +24,16 @@ function MostrarUsuarioPerfil(intIdUsuario){
 	   	MostrarComunicacion(intIdUsuario,"T");
 	   }
 	  });
+	  var funcion = "MHA";
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:{intIdUsuario:intIdUsuario,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeAccesos").html(datos);
+	   }
+	  });
 }
 /* FIN - Funcion Ajax - Mostrar Usuario */
 //////////////////////////////////////////////////////////////

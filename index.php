@@ -38,10 +38,13 @@ if (isset($_POST['btnIngresar'])) {
                 $_SESSION['NombrePermiso'] = "Almacenero";
             }
 
-            //$sql_comando = $sql_conectar->prepare('CALL INSERTARHISTORIALACCESO(:nvchUserPassword)');
-            //$sql_comando->execute(array(':nvchUserName' => $nvchUserName,
-            //      ':nvchUserPassword' => hash('sha256', $nvchUserPassword)));
-            //$sql = "INSERT INTO tb_historyaccess (intIdHistory, intIdUser, dateDateAccesso, nvchIpAccesso, nvchBrowser) VALUES (NULL, '".$_SESSION['user_session']."', '".$datetimelogin."', '193.10.14.12', '".$ua."');";
+            $sql_comando = $sql_conectar->prepare('CALL INSERTARHISTORIALACCESO(:intIdUsuario,:dtmFechaAcceso,:nvchFechaAcceso,
+              :nvchIpOrigen,:nvchNavegador)');
+            $sql_comando->execute(array(':intIdUsuario' => $_SESSION['intIdUsuarioSesion'],
+                  ':dtmFechaAcceso' => date("Y-m-d H:i:s"),
+                  ':nvchFechaAcceso' => $datetimelogin,
+                  ':nvchIpOrigen' => getHostByName(getHostName()),
+                  ':nvchNavegador' => $ua));
             header("Location: view/default/");
           }
         } else {

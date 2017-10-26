@@ -278,6 +278,31 @@ class Usuario
     }
   }
 
+  public function MostrarHistorialAcceso()
+  {
+    try{
+      $residuo = 0;
+      $cantidad = 0;
+      $numpaginas = 0;
+      $i = 0;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL MostrarHistorialAcceso(:intIdUsuario)');
+      $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      { 
+        echo '<tr>
+          <td>'.$fila["nvchFechaAcceso"].'</td>
+          <td>'.$fila["nvchIpOrigen"].'</td>
+          <td>'.$fila["nvchNavegador"].'</td>
+          </tr>';
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
   public function ListarUsuarios($busqueda,$x,$y,$tipolistado)
   {
     try{

@@ -107,6 +107,11 @@ switch($_POST['funcion']){
     $Usuario->IdUsuario($_POST['intIdUsuario']);
     $Usuario->MostrarUsuario($_POST['funcion']);
     break;
+  case "MHA":
+    $Usuario = new Usuario();
+    $Usuario->IdUsuario($_POST['intIdUsuario']);
+    $Usuario->MostrarHistorialAcceso();
+    break;
   case "MP":
     $Usuario = new Usuario();
     $Usuario->IdUsuario($_POST['intIdUsuario']);
