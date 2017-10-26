@@ -5,17 +5,17 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARDOMICILIOCLIENTE(
 	IN _intIdCliente INT,
     IN _nvchPais VARCHAR(150),
-    IN _nvchRegion VARCHAR(150),
-    IN _nvchProvincia VARCHAR(150),
-	IN _nvchDistrito VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
 	IN _nvchDireccion VARCHAR(450),
 	IN _intIdTipoDomicilio INT
     )
 	BEGIN
 		INSERT INTO tb_domicilio_cliente
-		(intIdCliente,nvchPais,nvchRegion,nvchProvincia,nvchDistrito,nvchDireccion,intIdTipoDomicilio)
+		(intIdCliente,nvchPais,intIdDepartamento,intIdProvincia,intIdDistrito,nvchDireccion,intIdTipoDomicilio)
 		VALUES
-		(_intIdCliente,_nvchPais,_nvchRegion,_nvchProvincia,_nvchDistrito,_nvchDireccion,_intIdTipoDomicilio);
+		(_intIdCliente,_nvchPais,_intIdDepartamento,_intIdProvincia,_intIdDistrito,_nvchDireccion,_intIdTipoDomicilio);
     END 
 $$
 DELIMITER ;
@@ -26,9 +26,9 @@ DELIMITER $$
 	IN _intIdDomicilioCliente INT,
 	IN _intIdCliente INT,
     IN _nvchPais VARCHAR(150),
-    IN _nvchRegion VARCHAR(150),
-    IN _nvchProvincia VARCHAR(150),
-	IN _nvchDistrito VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
 	IN _nvchDireccion VARCHAR(450),
 	IN _intIdTipoDomicilio INT
     )
@@ -37,9 +37,9 @@ DELIMITER $$
 		SET
 		intIdCliente = _intIdCliente,
 		nvchPais = _nvchPais,
-		nvchRegion = _nvchRegion,
-		nvchProvincia = _nvchProvincia,
-		nvchDistrito = _nvchDistrito,
+		intIdDepartamento = _intIdDepartamento,
+		intIdProvincia = _intIdProvincia,
+		intIdDistrito = _intIdDistrito,
 		nvchDireccion = _nvchDireccion,
 		intIdTipoDomicilio = _intIdTipoDomicilio
 		WHERE 
@@ -80,8 +80,12 @@ DELIMITER $$
     	IN _intIdCliente INT
     )
 	BEGIN
-		SELECT DC.*,TP.nvchNombre as NombreTD FROM tb_domicilio_cliente DC
+		SELECT DC.*,TP.nvchNombre AS NombreTD,DP.nvchDepartamento,P.nvchProvincia,DT.nvchDistrito 
+		FROM tb_domicilio_cliente DC
 		LEFT JOIN tb_tipo_domicilio TP ON DC.intIdTipoDomicilio = TP.intIdTipoDomicilio
+		LEFT JOIN tb_departamentos DP ON DC.intIdDepartamento = DP.intIdDepartamento
+		LEFT JOIN tb_provincias P ON DC.intIdProvincia = P.intIdProvincia 
+		LEFT JOIN tb_distritos DT ON DC.intIdDistrito = DT.intIdDistrito 
 		WHERE 
 		DC.intIdCliente = _intIdCliente;
     END 

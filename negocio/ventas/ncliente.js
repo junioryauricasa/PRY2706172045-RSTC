@@ -355,9 +355,12 @@ function MostrarTipoPersona() {
 /* INICIO - Listar Domicilios según Ingresa */
 function AgregarDomicilio() {
 	var nvchPais = document.getElementById("nvchPais").value;
-	var nvchRegion = document.getElementById("nvchRegion").value;
-	var nvchProvincia = document.getElementById("nvchProvincia").value;
-	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
+	var intIdProvincia = document.getElementById("intIdProvincia").value;
+	var intIdDistrito = document.getElementById("intIdDistrito").value;
+	var nvchDepartamento = $("#intIdDepartamento option:selected").html();
+	var nvchProvincia = $("#intIdProvincia option:selected").html();
+	var nvchDistrito = $("#intIdDistrito option:selected").html();
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -367,12 +370,6 @@ function AgregarDomicilio() {
         }
     });
 	if(EsLetra("nvchPais") == false){
-		return false;
-	} else if(EsLetra("nvchRegion") == false) {
-		return false;
-	} else if(EsLetra("nvchProvincia") == false) {
-		return false;
-	} else if(EsLetra("nvchDistrito") == false) {
 		return false;
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
@@ -385,12 +382,12 @@ function AgregarDomicilio() {
 	$('#ListaDeDomicilios').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchPais[]" value="'+
 		nvchPais+'"/>'+nvchPais+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchRegion[]" value="'+
-		nvchRegion+'"/>'+nvchRegion+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchProvincia[]" value="'+
-		nvchProvincia+'"/>'+nvchProvincia+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchDistrito[]" value="'+
-		nvchDistrito+'"/>'+nvchDistrito+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdDepartamento[]" value="'+
+		intIdDepartamento+'"/>'+nvchDepartamento+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdProvincia[]" value="'+
+		intIdProvincia+'"/>'+nvchProvincia+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdDistrito[]" value="'+
+		intIdDistrito+'"/>'+nvchDistrito+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDireccion[]" value="'+
 		nvchDireccion+'"/>'+nvchDireccion+'</td>'+
 		'<td>'+'<input type="hidden" name="intIdTipoDomicilio[]" value="'+
@@ -398,9 +395,8 @@ function AgregarDomicilio() {
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 	RestablecerValidacion('nvchPais',1);
-	RestablecerValidacion('nvchRegion',1);
-	RestablecerValidacion('nvchProvincia',1);
-	RestablecerValidacion('nvchDistrito',1);
+	$("#intIdDepartamento").val(1);
+	MostrarProvincia();
 	RestablecerValidacion('nvchDireccion',1);
 }
 /* FIN - Listar Domicilios según Ingresa */
@@ -518,9 +514,9 @@ function AgregarComunicacion_II() {
 function AgregarDomicilio_II() {
 	var intIdCliente = document.getElementById("intIdCliente").value;
 	var nvchPais = document.getElementById("nvchPais").value;
-	var nvchRegion = document.getElementById("nvchRegion").value;
-	var nvchProvincia = document.getElementById("nvchProvincia").value;
-	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
+	var intIdProvincia = document.getElementById("intIdProvincia").value;
+	var intIdDistrito = document.getElementById("intIdDistrito").value;
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -530,12 +526,6 @@ function AgregarDomicilio_II() {
         }
     });
 	if(EsLetra("nvchPais") == false){
-		return false;
-	} else if(EsLetra("nvchRegion") == false) {
-		return false;
-	} else if(EsLetra("nvchProvincia") == false) {
-		return false;
-	} else if(EsLetra("nvchDistrito") == false) {
 		return false;
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
@@ -552,9 +542,9 @@ function AgregarDomicilio_II() {
 	   method:"POST",
 	   data:{intIdCliente:intIdCliente,
 	   		nvchPais:nvchPais,
-	   		nvchRegion:nvchRegion,
-	   		nvchProvincia:nvchProvincia,
-	   		nvchDistrito:nvchDistrito,
+	   		intIdDepartamento:intIdDepartamento,
+	   		intIdProvincia:intIdProvincia,
+	   		intIdDistrito:intIdDistrito,
 	   		nvchDireccion:nvchDireccion,
 	   		intIdTipoDomicilio:intIdTipoDomicilio,
 	   		funcion:funcion},
@@ -563,10 +553,8 @@ function AgregarDomicilio_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
 	   		MostrarDomicilio(intIdCliente,tipolistado);
-	   		RestablecerValidacion('nvchPais',1);
-			RestablecerValidacion('nvchRegion',1);
-			RestablecerValidacion('nvchProvincia',1);
-			RestablecerValidacion('nvchDistrito',1);
+	   		$("#intIdDepartamento").val(1);
+			MostrarProvincia();
 			RestablecerValidacion('nvchDireccion',1);
 	   	} else {
 	   		alert(datos);
@@ -623,9 +611,9 @@ function ActualizarDomicilio() {
 	var intIdDomicilioCliente = document.getElementById("intIdDomicilioCliente").value;
 	var intIdCliente = document.getElementById("intIdCliente").value;
 	var nvchPais = document.getElementById("nvchPais").value;
-	var nvchRegion = document.getElementById("nvchRegion").value;
-	var nvchProvincia = document.getElementById("nvchProvincia").value;
-	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
+	var intIdProvincia = document.getElementById("intIdProvincia").value;
+	var intIdDistrito = document.getElementById("intIdDistrito").value;
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -635,12 +623,6 @@ function ActualizarDomicilio() {
         }
     });
 	if(EsLetra("nvchPais") == false){
-		return false;
-	} else if(EsLetra("nvchRegion") == false) {
-		return false;
-	} else if(EsLetra("nvchProvincia") == false) {
-		return false;
-	} else if(EsLetra("nvchDistrito") == false) {
 		return false;
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
@@ -659,9 +641,9 @@ function ActualizarDomicilio() {
 	   data:{intIdDomicilioCliente:intIdDomicilioCliente,
 	   		intIdCliente:intIdCliente,
 	   		nvchPais:nvchPais,
-	   		nvchRegion:nvchRegion,
-	   		nvchProvincia:nvchProvincia,
-	   		nvchDistrito:nvchDistrito,
+	   		intIdDepartamento:intIdDepartamento,
+	   		intIdProvincia:intIdProvincia,
+	   		intIdDistrito:intIdDistrito,
 	   		nvchDireccion:nvchDireccion,
 	   		intIdTipoDomicilio:intIdTipoDomicilio,
 	   		funcion:funcion},
@@ -671,6 +653,8 @@ function ActualizarDomicilio() {
 	   		MensajeNormal("Se modificó correctamente el Domicilio",1);
 	   		MostrarDomicilio(intIdCliente,tipolistado);
 	   		BotonesDomicilio(accion);
+	   		$("#intIdDepartamento").val(1);
+			MostrarProvincia();
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -693,9 +677,9 @@ function SeleccionarDomicilio(seleccion) {
 	   success:function(datos)
 	   {
 	   	$("#nvchPais").val(datos.nvchPais);
-	   	$("#nvchRegion").val(datos.nvchRegion);
-	   	$("#nvchProvincia").val(datos.nvchProvincia);
-	   	$("#nvchDistrito").val(datos.nvchDistrito);
+	   	$("#intIdDepartamento").val(datos.intIdDepartamento);
+	   	MostrarProvincia_III(datos.intIdDepartamento,datos.intIdProvincia);
+	   	MostrarDistrito_III(datos.intIdProvincia,datos.intIdDistrito);
 	   	$("#nvchDireccion").val(datos.nvchDireccion);
 	   	$("#tipo-domicilio").val(datos.intIdTipoDomicilio);
 	   	$("#intIdDomicilioCliente").val(datos.intIdDomicilioCliente);

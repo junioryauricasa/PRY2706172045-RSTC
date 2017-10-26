@@ -41,6 +41,19 @@ function MostrarDistrito(){
 	  });
 }
 
+function MostrarProvincia_II(intIdDepartamento){
+	var funcion = "MP";
+	$.ajax({
+	   url:"../../datos/operaciones/funcion_datosgenerales.php",
+	   method:'POST',
+	   data:{funcion:funcion,intIdDepartamento:intIdDepartamento},
+	   success:function(datos)
+	   {
+	   	$("#intIdProvincia").html(datos);
+	   }
+	  });
+}
+
 function MostrarDistrito_II(intIdProvincia){
 	var funcion = "MD";
 	$.ajax({
@@ -50,6 +63,34 @@ function MostrarDistrito_II(intIdProvincia){
 	   success:function(datos)
 	   {
 	   	$("#intIdDistrito").html(datos);
+	   }
+	  });
+}
+
+function MostrarProvincia_III(intIdDepartamento,intIdProvincia){
+	var funcion = "MP";
+	$.ajax({
+	   url:"../../datos/operaciones/funcion_datosgenerales.php",
+	   method:'POST',
+	   data:{funcion:funcion,intIdDepartamento:intIdDepartamento},
+	   success:function(datos)
+	   {
+	   	$("#intIdProvincia").html(datos);
+	   	$("#intIdProvincia").val(intIdProvincia);
+	   }
+	  });
+}
+
+function MostrarDistrito_III(intIdProvincia,intIdDistrito){
+	var funcion = "MD";
+	$.ajax({
+	   url:"../../datos/operaciones/funcion_datosgenerales.php",
+	   method:'POST',
+	   data:{funcion:funcion,intIdProvincia:intIdProvincia},
+	   success:function(datos)
+	   {
+	   	$("#intIdDistrito").html(datos);
+	   	$("#intIdDistrito").val(intIdDistrito);
 	   }
 	  });
 }

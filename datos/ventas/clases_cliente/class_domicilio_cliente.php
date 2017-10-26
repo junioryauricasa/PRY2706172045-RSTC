@@ -37,7 +37,7 @@ class DomicilioCliente
         ':nvchPais' => $value,
         ':intIdDepartamento' => $this->intIdDepartamento[$key],
         ':intIdProvincia' => $this->intIdProvincia[$key],
-        ':intIdDistrito' => $this->intIdDistrito,[$key]
+        ':intIdDistrito' => $this->intIdDistrito[$key],
         ':nvchDireccion' => $this->nvchDireccion[$key],
         ':intIdTipoDomicilio' => $this->intIdTipoDomicilio[$key]));
       }
@@ -88,12 +88,12 @@ class DomicilioCliente
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-        echo '<td><input type="hidden" name="nvchPais[]" value="'.$fila['nvchPais'].'"/>'.$fila['nvchPais'].'</td>
-        <td><input type="hidden" name="intIdDepartamento[]" value="'.$fila['intIdDepartamento'].'"/>'.$fila['nvchDepartamento'].'</td>
-        <td><input type="hidden" name="intIdProvincia[]" value="'.$fila['intIdProvincia'].'"/>'.$fila['nvchProvincia'].'</td>
-        <td><input type="hidden" name="intIdDistrito[]" value="'.$fila['intIdDistrito'].'"/>'.$fila['nvchDistrito'].'</td>
-        <td><input type="hidden" name="nvchDireccion[]" value="'.$fila['nvchDireccion'].'"/>'.$fila['nvchDireccion'].'</td>
-        <td><input type="hidden" name="intIdTipoDomicilio[]" value="'.$fila['intIdTipoDomicilio'].'"/>'.$fila['NombreTD'].'</td>
+        echo '<td>'.$fila['nvchPais'].'</td>
+        <td>'.$fila['nvchDepartamento'].'</td>
+        <td>'.$fila['nvchProvincia'].'</td>
+        <td>'.$fila['nvchDistrito'].'</td>
+        <td>'.$fila['nvchDireccion'].'</td>
+        <td>'.$fila['NombreTD'].'</td>
         <td> 
           <button type="button" iddcl="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
             <i class="fa fa-edit"></i> Editar

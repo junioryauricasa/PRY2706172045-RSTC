@@ -7,6 +7,7 @@ include('../_include/rstheader.php');
       });
     </script>
     <script type="text/javascript" src="../../negocio/ventas/ncliente.js"></script>
+    <script type="text/javascript" src="../../negocio/operaciones/ndatosgenerales.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
     <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
     <style>

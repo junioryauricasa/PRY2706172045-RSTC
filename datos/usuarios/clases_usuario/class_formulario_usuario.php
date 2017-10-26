@@ -306,7 +306,6 @@ class FormularioUsuario
                 <div class="col-md-3">
                   <div id="intIdDistritoGroup" class="form-group">
                     <label>Distrito (Opcional):</label>
-                    <div id="intIdDistritoo"></div>
                     <select id="intIdDistrito" name="intIdDistrito" class="form-control select2" >
                       <?php try{
                         $sql_conexion = new Conexion_BD();
