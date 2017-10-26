@@ -281,3 +281,17 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS VERIFICARPASSWORDPERFIL;
+DELIMITER $$
+	CREATE PROCEDURE VERIFICARPASSWORDPERFIL(
+	IN _intIdUsuario INT,
+	IN _nvchUserPasswordAnt VARCHAR(1000)
+    )
+	BEGIN
+		SELECT * FROM tb_usuario
+		WHERE
+		intIdUsuario = _intIdUsuario AND nvchUserPassword = _nvchUserPasswordAnt;
+    END 
+$$
+DELIMITER ;

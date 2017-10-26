@@ -232,8 +232,31 @@ class Usuario
       $sql_comando = $sql_conectar->prepare('CALL ActualizarPassword(:intIdUsuario,:nvchUserPassword)');
       $sql_comando->execute(array(
         ':intIdUsuario' => $this->intIdUsuario,
-        ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword),));
+        ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword)));
       echo "ok";
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function ActualizarPasswordPerfil($nvchUserPasswordAnt)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL VERIFICARPASSWORDPERFIL(:intIdUsuario,:nvchUserPassword)');
+      $sql_comando->execute(array(':intIdUsuario' => $this->intIdUsuario,':nvchUserPassword' => hash('sha256', $nvchUserPasswordAnt)));
+      $cantidad = $sql_comando -> rowCount();
+      if($cantidad == 1) {
+        $sql_comando = $sql_conectar->prepare('CALL ActualizarPassword(:intIdUsuario,:nvchUserPassword)');
+        $sql_comando->execute(array(
+          ':intIdUsuario' => $this->intIdUsuario,
+          ':nvchUserPassword' => hash('sha256', $this->nvchUserPassword)));
+        echo "ok";
+      } else {
+        echo "No es correcta su contraseña anterior";
+      }
     }
     catch(PDPExceptions $e){
       echo $e->getMessage();

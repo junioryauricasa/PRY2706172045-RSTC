@@ -87,28 +87,6 @@ function ComprobarPassword() {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Cambiar Contraseña */
-$(document).on('click', '#btn-editar-userpassword', function(){
-  	  var formData = $("#UserPasswordForm").serialize();
-  	  var funcion = "AP";
-	  $.ajax({
-	   url:"../../datos/usuarios/funcion_usuario.php",
-	   method:"POST",
-	   data:formData,
-	   success:function(datos)
-	   {
-	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente la Contraseña",1);
-	   	}
-	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
-});
-/* FIN - Cambiar Contraseña */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Seleccion de imagen del Usuario */
 $(document).on('change', '#SeleccionImagen', function(){
         var formData = new FormData($("#form-img-perfil")[0]);
@@ -156,6 +134,61 @@ $(document).on('click', '#btn-editar-imgperfil', function(){
 	   }
 	  });
 	 return false;
+});
+/* FIN - Cambiar Contraseña */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function ComprobarPassword() {
+	var nvchUserPassword = $("#nvchUserPassword").val();
+	var nvchUserPasswordRep = $("#nvchUserPasswordRep").val();
+	if(nvchUserPasswordRep == ""){
+	    $("#nvchUserPasswordRepObs").html("");
+	    return false;
+	}
+	if(nvchUserPassword === nvchUserPasswordRep) {
+	    $("#nvchUserPasswordRepObs").html("");
+	} else {
+	    $("#nvchUserPasswordRepObs").attr("class","text-danger");
+	    $("#nvchUserPasswordRepObs").html("La contraseña no concuerda");
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Cambiar Contraseña */
+$(document).on('click', '#btn-editar-userpassword', function(){
+	var nvchUserPasswordAnt = $("#nvchUserPasswordAnt").val();
+	if(nvchUserPasswordAnt == ""){
+	 MensajeNormal("Ingresar su Contraseña Anterior",2);
+	 return false;
+	}
+	var nvchUserPassword = $("#nvchUserPassword").val();
+	var nvchUserPasswordRep = $("#nvchUserPasswordRep").val();
+	if(nvchUserPassword === nvchUserPasswordRep) {
+  	  var formData = $("#form-user-password").serialize();
+	  $.ajax({
+	   url:"../../datos/usuarios/funcion_usuario.php",
+	   method:"POST",
+	   data:formData,
+	   success:function(datos)
+	   {
+	   	if (datos=="ok") {
+	   		MensajeNormal("Se modificó correctamente la Contraseña del Usuario",1);
+	   		$("#nvchUserPasswordRep").val("");
+	   		$("#nvchUserPassword").val("");
+	   		$("#nvchUserPasswordAnt").val("");
+	   	}
+	   	else { MensajeNormal(datos,3); }
+	   }
+	  });
+	 return false;
+	 } else {
+		MensajeNormal("Las contraseñas no coinciden",2);
+	 	return false;
+	}
 });
 /* FIN - Cambiar Contraseña */
 //////////////////////////////////////////////////////////////

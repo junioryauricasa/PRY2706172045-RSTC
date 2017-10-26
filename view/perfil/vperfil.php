@@ -350,14 +350,17 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Contraseña:</label>
                         <div class="col-sm-4">
-                           <input type="password" class="form-control" id="nvchUserPassword" name="nvchUserPassword" placeholder="Ingrese Nueva Contraseña" required="">
+                           <input type="password" class="form-control" id="nvchUserPassword" name="nvchUserPassword" placeholder="Ingrese Nueva Contraseña" required>
                         </div>
                         <div class="col-sm-4">
-                           <input type="password" class="form-control" id="nvchUserPasswordRep" name="nvchUserPasswordRep" placeholder="Ingrese Contraseña Nuevamente" required="">
+                           <input type="password" class="form-control" id="nvchUserPasswordRep" name="nvchUserPasswordRep" placeholder="Ingrese Contraseña Nuevamente" onkeyup="ComprobarPassword()" required>
+                           <div id="nvchUserPasswordRepObs" class=""></div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
+                          <input type="hidden" name="intIdUsuario" value="<?php echo $_SESSION['intIdUsuarioSesion']; ?>"/>
+                          <input type="hidden" name="funcion" value="APP"/>
                           <button type="button" id="btn-editar-userpassword" class="btn btn-primary">Guardar</button>
                           <button type="reset" class="btn btn-secondary">Limpiar</button>
                         </div>

@@ -506,6 +506,14 @@ function ComprobarPassword() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Cambiar Contraseña */
 $(document).on('click', '#btn-editar-userpassword', function(){
+	var nvchUserPasswordAnt = $("#nvchUserPasswordAnt").val();
+	if(nvchUserPasswordAnt == ""){
+	 MensajeNormal("Ingresar su Contraseña Anterior",2);
+	 return false;
+	}
+	var nvchUserPassword = $("#nvchUserPassword").val();
+	var nvchUserPasswordRep = $("#nvchUserPasswordRep").val();
+	if(nvchUserPassword === nvchUserPasswordRep) {
   	  var formData = $("#UserPasswordForm").serialize();
   	  var funcion = "AP";
 	  $.ajax({
@@ -521,6 +529,10 @@ $(document).on('click', '#btn-editar-userpassword', function(){
 	   }
 	  });
 	 return false;
+	} else {
+		MensajeNormal("Las contraseñas no coinciden",2);
+	 	return false;
+	}
 });
 /* FIN - Cambiar Contraseña */
 //////////////////////////////////////////////////////////////

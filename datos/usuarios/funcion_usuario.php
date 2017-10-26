@@ -88,6 +88,12 @@ switch($_POST['funcion']){
     $Usuario->UserPassword($_POST['nvchUserPassword']);
     $Usuario->ActualizarPassword();
     break;
+  case "APP":
+    $Usuario = new Usuario();
+    $Usuario->IdUsuario($_POST['intIdUsuario']);
+    $Usuario->UserPassword($_POST['nvchUserPassword']);
+    $Usuario->ActualizarPasswordPerfil($_POST['nvchUserPasswordAnt']);
+    break;
   case "M":
     $Usuario = new Usuario();
     $Usuario->IdUsuario($_POST['intIdUsuario']);
