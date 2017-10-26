@@ -32,7 +32,7 @@ $(document).on('click', '#btn-crear-entrada', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokokok") {
+	   	if (datos=="okokokokokok") {
 	   		MensajeNormal("Se generó correctamente la Entrada de Productos",1);
 	   		$("#btn-form-entrada-remove").click();
 	   		$('#txt-busqueda').val("");

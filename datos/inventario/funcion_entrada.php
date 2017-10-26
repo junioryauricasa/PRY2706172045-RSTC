@@ -52,6 +52,9 @@ switch($_POST['funcion']){
     $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario']);
     $KardexProducto->TotalEntrada($_POST['dcmTotal']);
     $KardexProducto->InsertarKardexProducto();
+
+    $Numeraciones = new Numeraciones();
+    $Numeraciones->ActualizarNumeracion(9,$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
     break;
   case "A":
     $Entrada = new Entrada();

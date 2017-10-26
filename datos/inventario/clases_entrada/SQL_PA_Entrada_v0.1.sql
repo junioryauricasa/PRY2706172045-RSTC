@@ -113,7 +113,8 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT E.*,U.nvchUsername AS NombreUsuario
+		SELECT E.*,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
 		WHERE 
@@ -133,7 +134,8 @@ DELIMITER $$
     	IN _elemento VARCHAR(600)
     )
 	BEGIN
-		SELECT E.*,U.nvchUsername AS NombreUsuario
+		SELECT E.*,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
 		WHERE 

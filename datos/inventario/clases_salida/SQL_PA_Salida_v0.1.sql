@@ -13,18 +13,21 @@ DELIMITER $$
 	IN _nvchAtencion VARCHAR(150),
 	IN _nvchDestino VARCHAR(150),
 	IN _nvchDireccion VARCHAR(150),
+	IN _intTipoPersona INT,
+	IN _intIdUsuarioSolicitado INT,
+	IN _intIdClienteSolicitado INT,
 	IN _intIdUsuario INT,
-	IN _nvchObservacion VARCHAR(2500),
+	IN _intIdSucursal INT,
 	IN _bitEstado INT,
-	IN _intIdSucursal INT
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_salida 
-		(dtmFechaCreacion,intIdCliente,nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,nvchDestino,nvchDireccion,intIdUsuario,
-			nvchObservacion,bitEstado,intIdSucursal)
+		(dtmFechaCreacion,intIdCliente,nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,nvchDestino,nvchDireccion,
+		intTipoPersona,intIdUsuarioSolicitado,intIdClienteSolicitado,intIdUsuario,intIdSucursal,bitEstado,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_intIdCliente,_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_nvchDestino,_nvchDireccion,
-			_intIdUsuario,_nvchObservacion,_bitEstado,_intIdSucursal);
+		_intTipoPersona,_intIdUsuarioSolicitado,_intIdClienteSolicitado,_intIdUsuario,_intIdSucursal,_bitEstado,_nvchObservacion);
 		SET _intIdSalida = LAST_INSERT_ID();
     END 
 $$
@@ -43,10 +46,13 @@ DELIMITER $$
 	IN _nvchAtencion VARCHAR(150),
 	IN _nvchDestino VARCHAR(150),
 	IN _nvchDireccion VARCHAR(150),
+	IN _intTipoPersona INT,
+	IN _intIdUsuarioSolicitado INT,
+	IN _intIdClienteSolicitado INT,
 	IN _intIdUsuario INT,
-	IN _nvchObservacion VARCHAR(2500),
+	IN _intIdSucursal INT,
 	IN _bitEstado INT,
-	IN _intIdSucursal INT
+	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		UPDATE tb_salida
@@ -61,9 +67,11 @@ DELIMITER $$
 		nvchDestino = _nvchDestino,
 		nvchDireccion = _nvchDireccion,
 		intIdUsuario = _intIdUsuario,
-		nvchObservacion = _nvchObservacion,
+		intIdUsuarioSolicitado = _intIdUsuarioSolicitado,
+		intIdClienteSolicitado = _intIdClienteSolicitado,
+		intIdSucursal = _intIdSucursal,
 		bitEstado = _bitEstado,
-		intIdSucursal = _intIdSucursal
+		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdSalida = _intIdSalida;
     END 
@@ -122,7 +130,8 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT S.*,U.nvchUsername AS NombreUsuario
+		SELECT S.*,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
 		FROM tb_salida S
 		LEFT JOIN tb_usuario U ON S.intIdUsuario = U.intIdUsuario
 		WHERE 
@@ -142,7 +151,8 @@ DELIMITER $$
     	IN _elemento VARCHAR(600)
     )
 	BEGIN
-		SELECT S.*,U.nvchUsername AS NombreUsuario
+		SELECT S.*,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
 		FROM tb_salida S
 		LEFT JOIN tb_usuario U ON S.intIdUsuario = U.intIdUsuario
 		WHERE 

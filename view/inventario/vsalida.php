@@ -96,7 +96,7 @@ include('../_include/rstheader.php');
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left">Generar Salida de Productos</button>
+          <button type="button" id="btn-form-crear-salida" class="btn btn-sm btn-info btn-flat pull-left">Generar Salida de Productos</button>
         </div>
       </div>
 

@@ -1,34 +1,38 @@
 USE db_resteco;
 
-DROP PROCEDURE IF EXISTS INSERTARDETALLEENTRADA;
+DROP PROCEDURE IF EXISTS INSERTARDETALLESALIDA;
 DELIMITER $$
-	CREATE PROCEDURE INSERTARDETALLEENTRADA(
+	CREATE PROCEDURE INSERTARDETALLESALIDA(
 	IN _intIdSalida INT,
     IN _dtmFechaSalida DATETIME,
     IN _intIdProducto INT,
     IN _nvchCodigo VARCHAR(25),
     IN _nvchDescripcion VARCHAR(500),
-    IN _intCantidad INT
+    IN _dcmPrecioUnitario DECIMAL(11,2),
+    IN _intCantidad INT,
+    IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		INSERT INTO tb_detalle_salida
-		(intIdSalida,dtmFechaSalida,intIdProducto,nvchCodigo,nvchDescripcion,intCantidad)
+		(intIdSalida,dtmFechaSalida,intIdProducto,nvchCodigo,nvchDescripcion,dcmPrecioUnitario,intCantidad,dcmTotal)
 		VALUES
-		(_intIdSalida,_dtmFechaSalida,_intIdProducto,_nvchCodigo,_nvchDescripcion,_intCantidad);
+		(_intIdSalida,_dtmFechaSalida,_intIdProducto,_nvchCodigo,_nvchDescripcion,_dcmPrecioUnitario,_intCantidad,_dcmTotal);
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS ACTUALIZARDETALLEENTRADA;
+DROP PROCEDURE IF EXISTS ACTUALIZARDETALLESALIDA;
 DELIMITER $$
-	CREATE PROCEDURE ACTUALIZARDETALLEENTRADA(
+	CREATE PROCEDURE ACTUALIZARDETALLESALIDA(
 	IN _intIdOperacionSalida INT,
 	IN _intIdSalida INT,
     IN _dtmFechaSalida DATETIME,
     IN _intIdProducto INT,
     IN _nvchCodigo VARCHAR(25),
     IN _nvchDescripcion VARCHAR(500),
-    IN _intCantidad INT
+    IN _dcmPrecioUnitario DECIMAL(11,2),
+    IN _intCantidad INT,
+    IN _dcmTotal DECIMAL(11,2)
     )
 	BEGIN
 		UPDATE tb_detalle_salida
@@ -38,16 +42,18 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		nvchCodigo = _nvchCodigo,
 		nvchDescripcion = _nvchDescripcion,
-		intCantidad = _intCantidad
+		dcmPrecioUnitario = _dcmPrecioUnitario,
+		intCantidad = _intCantidad,
+		dcmTotal = _dcmTotal
 		WHERE 
 		intIdOperacionSalida = _intIdOperacionSalida;
     END 
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS SELECCIONARDETALLEENTRADA;
+DROP PROCEDURE IF EXISTS SELECCIONARDETALLESALIDA;
 DELIMITER $$
-	CREATE PROCEDURE SELECCIONARDETALLEENTRADA(
+	CREATE PROCEDURE SELECCIONARDETALLESALIDA(
     	IN _intIdOperacionSalida INT
     )
 	BEGIN
@@ -58,9 +64,9 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS ELIMINARDETALLEENTRADA;
+DROP PROCEDURE IF EXISTS ELIMINARDETALLESALIDA;
 DELIMITER $$
-	CREATE PROCEDURE ELIMINARDETALLEENTRADA(
+	CREATE PROCEDURE ELIMINARDETALLESALIDA(
     	IN _intIdOperacionSalida INT
     )
 	BEGIN
@@ -71,9 +77,9 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS MOSTRARDETALLEENTRADA;
+DROP PROCEDURE IF EXISTS MOSTRARDETALLESALIDA;
 DELIMITER $$
-	CREATE PROCEDURE MOSTRARDETALLEENTRADA(
+	CREATE PROCEDURE MOSTRARDETALLESALIDA(
     	IN _intIdSalida INT
     )
 	BEGIN

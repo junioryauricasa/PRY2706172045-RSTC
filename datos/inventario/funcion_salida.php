@@ -5,6 +5,7 @@ require_once 'clases_salida/class_salida.php';
 require_once 'clases_salida/class_detalle_salida.php';
 require_once 'clases_salida/class_formulario_salida.php';
 require_once '../numeraciones/class_numeraciones.php';
+require_once '../reportes/clases_kardex/class_kardex_producto.php';
 if(empty($_SESSION['intIdSalida'])){
   $_SESSION['intIdSalida'] = 0;
 }
@@ -16,6 +17,7 @@ switch($_POST['funcion']){
     $Salida = new Salida();
     $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Salida->FechaCreacion($dtmFechaCreacion);
+    $Salida->IdCliente($_POST['intIdCliente']);
     $Salida->Serie($_POST['nvchSerie']);
     $Salida->Numeracion($_POST['nvchNumeracion']);
     $Salida->RazonSocial($_POST['nvchRazonSocial']);
@@ -23,22 +25,44 @@ switch($_POST['funcion']){
     $Salida->Atencion($_POST['nvchAtencion']);
     $Salida->Destino($_POST['nvchDestino']);
     $Salida->Direccion($_POST['nvchDireccion']);
+    $Salida->TipoPersona($_POST['intTipoPersona']);
+    $Salida->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
+    $Salida->IdClienteSolicitado($_POST['intIdClienteSolicitado']);
     $Salida->IdUsuario($_SESSION['intIdUsuarioSesion']);
-    $Salida->Observacion($_POST['nvchObservacion']);
     $Salida->IdSucursal($_POST['intIdSucursal']);
+    $Salida->Observacion($_POST['nvchObservacion']);
     $Salida->InsertarSalida();
+
     $DetalleSalida = new DetalleSalida();
     $DetalleSalida->IdSalida($_SESSION['intIdSalida']);
     $DetalleSalida->FechaSalida($dtmFechaCreacion);
     $DetalleSalida->IdProducto($_POST['intIdProducto']);
     $DetalleSalida->Codigo($_POST['nvchCodigo']);
     $DetalleSalida->Descripcion($_POST['nvchDescripcion']);
+    $DetalleSalida->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleSalida->Cantidad($_POST['intCantidad']);
+    $DetalleSalida->Total($_POST['dcmTotal']);
     $DetalleSalida->InsertarDetalleSalida();
 
     $Producto = new Producto();
     $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],0);
     $Producto->ES_StockTotal($_POST['intIdProducto']);
+
+    $KardexProducto = new KardexProducto();
+    $KardexProducto->FechaMovimiento($dtmFechaCreacion);
+    $KardexProducto->IdComprobante($_SESSION['intIdVenta']);
+    $KardexProducto->IdTipoComprobante(10);
+    $KardexProducto->TipoDetalle(1);
+    $KardexProducto->Serie($_POST['nvchSerie']);
+    $KardexProducto->Numeracion($_POST['nvchNumeracion']);
+    $KardexProducto->IdProducto($_POST['intIdProducto']);
+    $KardexProducto->CantidadSalida($_POST['intCantidad']);
+    $KardexProducto->PrecioSalida($_POST['dcmPrecioUnitario']);
+    $KardexProducto->TotalSalida($_POST['dcmTotal']);
+    $KardexProducto->InsertarKardexProducto();
+
+    $Numeraciones = new Numeraciones();
+    $Numeraciones->ActualizarNumeracion(10,$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
     break;
   case "A":
     $Salida = new Salida();
@@ -128,7 +152,7 @@ switch($_POST['funcion']){
     break;
   case "NCPR":
     $Numeraciones = new Numeraciones();
-    $Numeraciones->NumeracionES(1);
+    $Numeraciones->NumeracionAlgoritmica($_POST['intIdTipoComprobante'],$_POST['intIdSucursal']);
     break;
 }
 ?>

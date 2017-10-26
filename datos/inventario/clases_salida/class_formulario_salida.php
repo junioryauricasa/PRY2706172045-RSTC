@@ -1,6 +1,6 @@
 <?php
 require_once '../conexion/bd_conexion.php';
-class FormularioEntrada
+class FormularioSalida
 {
   private $intIdSalida;
   private $dtmFechaCreacion;
@@ -12,10 +12,13 @@ class FormularioEntrada
   private $nvchAtencion;
   private $nvchDestino;
   private $nvchDireccion;
+  private $intTipoPersona;
+  private $intIdUsuarioSolicitado;
+  private $intIdClienteSolicitado;
   private $intIdUsuario;
-  private $nvchObservacion;
-  private $bitEstado;
   private $intIdSucursal;
+  private $bitEstado;
+  private $nvchObservacion;
 
   public function IdSalida($intIdSalida){ $this->intIdSalida = $intIdSalida; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
@@ -27,10 +30,13 @@ class FormularioEntrada
   public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
   public function Destino($nvchDestino){ $this->nvchDestino = $nvchDestino; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
+  public function TipoPersona($intTipoPersona){ $this->intTipoPersona = $intTipoPersona; }
+  public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
+  public function IdClienteSolicitado($intIdClienteSolicitado){ $this->intIdClienteSolicitado = $intIdClienteSolicitado; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
-  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
-  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
+  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
   {
@@ -38,9 +44,9 @@ class FormularioEntrada
       <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
-          <h3 class="box-title">Nuevo Comprobante de Entrada</h3>
+          <h3 class="box-title">Nuevo Comprobante de Salida</h3>
           <?php } else if($funcion == "M") {?>
-          <h3 class="box-title">Editar Comprobante de Entrada</h3>
+          <h3 class="box-title">Editar Comprobante de Salida</h3>
           <?php } ?>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -56,7 +62,7 @@ class FormularioEntrada
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Lugar de Salida:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="lugar-salida" name="intIdSucursal"  class="form-control select2">
+                  <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2">
                   <?php 
                     try{
                     $sql_conexion = new Conexion_BD();
@@ -71,20 +77,52 @@ class FormularioEntrada
                     echo $e->getMessage();
                   }?>
                   </select>
-                <input type="hidden" id="intIdSucursal" value="<?php echo $this->intIdSucursal ?>" />
+                <script>$("#intIdSucursal").val(<?php echo $this->intIdSucursal; ?>);</script>
                 </div>
               </div>
-              <script type="text/javascript">AccionNumeracion(5);</script>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Persona:</label>
+                  <select id="intTipoPersona" name="intTipoPersona" class="form-control select2">
+                    <option value="1">Usuario</option>
+                    <option value="2">Cliente</option>
+                  </select>
+                <script>$("#intIdUsuarioSolicitado").val(<?php echo $this->intIdUsuarioSolicitado; ?>);</script>
+                </div>
+                <input type="hidden" id="intIdCliente" name="intIdCliente" value="1">
+                <input type="hidden" id="intIdClienteSolicitado" name="intIdClienteSolicitado" value="1">
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Usuario que Solicitó:</label>
+                  <select id="intIdUsuarioSolicitado" name="intIdUsuarioSolicitado"  class="form-control select2">
+                  <?php 
+                    try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL listarusuarios()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdUsuario'].'">'.$fila['NombreUsuario'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                  </select>
+                <script>$("#intIdUsuarioSolicitado").val(<?php echo $this->intIdUsuarioSolicitado; ?>);</script>
+                </div>
+              </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Serie:</label>
-                  <input type="text" id="nvchSerieGIE" name="nvchSerieGIE" class="form-control select2" readonly/>
+                  <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" readonly/>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Numeración:</label>
-                  <input type="text" id="nvchNumeracionGIE" name="nvchNumeracionGIE" class="form-control select2" readonly/>
+                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly/>
                 </div>
               </div>
               <?php if($funcion == "F") {?>
@@ -107,6 +145,35 @@ class FormularioEntrada
                   value="<?php echo $this->nvchRazonSocial; ?>" onkeyup="EsVacio('nvchRazonSocial')" maxlength="125" required>
                   <span id="nvchRazonSocialIcono" class="" aria-hidden=""></span>
                   <div id="nvchRazonSocialObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchAtencionGroup" class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="<?php echo $this->nvchAtencion; ?>" onkeyup="EsVacio('nvchAtencion')" maxlength="250" required>
+                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchAtencionObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchDestinoGroup" class="form-group">
+                  <label>Destino:</label>
+                  <input type="text" id="nvchDestino" name="nvchDestino" class="form-control select2" placeholder="Ingrese Destino" 
+                  value="<?php echo $this->nvchDestino; ?>" onkeyup="EsVacio('nvchDestino')" maxlength="250" required>
+                  <span id="nvchDestinoIcono" class="" aria-hidden=""></span>
+                  <div id="nvchDestinoObs" class=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchDireccionGroup" class="form-group">
+                  <label>Dirección:</label>
+                  <input type="text" id="nvchDireccion" name="nvchDireccion" class="form-control select2" placeholder="Ingrese Dirección" 
+                  value="<?php echo $this->nvchDireccion; ?>" onkeyup="EsVacio('nvchDireccion')" maxlength="500" required>
+                  <span id="nvchDireccionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchDireccionObs" class=""></div>
                 </div>
               </div>
             </div>
@@ -151,7 +218,9 @@ class FormularioEntrada
               <th>Descripción</th>
               <th>Ubicación</th>
               <th>Imágen</th>
+              <th>Precio Unitario</th>
               <th>Cantidad</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
@@ -197,13 +266,15 @@ class FormularioEntrada
           <table class="table table-hover table-condensed">
             <thead>
             <tr>
-              <th>Cantidad</th>
               <th>Código</th>
               <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Total</th>
               <th>Opción</th>
             </tr>
             </thead>
-            <tbody id="ListaDeProductosEntrada">
+            <tbody id="ListaDeProductosSalida">
             </tbody>
           </table>
         </div>
@@ -219,7 +290,7 @@ class FormularioEntrada
               <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
               <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
               <?php if($funcion == "F"){ ?>
-              <input type="button" id="btn-crear-salida" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Entrada de Productos">
+              <input type="button" id="btn-crear-salida" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Salida de Productos">
               <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
               <?php } ?>
           </div>              
@@ -232,7 +303,7 @@ class FormularioEntrada
   ?>
   <div id="Formulario" class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Detalle del Comprobante de Entrada: <?php echo $this->nvchSerie.'-'.$this->nvchNumeracion; ?> 
+          <h3 class="box-title">Detalle del Comprobante de Salida: <?php echo $this->nvchSerie.'-'.$this->nvchNumeracion; ?> 
             Fecha: <?php echo date('d/m/Y', strtotime($this->dtmFechaCreacion)); ?> Hora: <?php echo date('H:i:s', strtotime($this->dtmFechaCreacion)); ?></h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -263,6 +334,24 @@ class FormularioEntrada
                   <input type="text" class="form-control select2" value="<?php echo $this->nvchRazonSocial; ?>" readonly>
                 </div>
               </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchAtencion; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Destino:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchDestino; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Dirección:</label>
+                  <input type="text" class="form-control select2" value="<?php echo $this->nvchDireccion; ?>" readonly>
+                </div>
+              </div>
               <input type="hidden" id="intIdTipoVenta" value="<?php echo $this->intIdTipoVenta; ?>" />
             </div>
           </div>
@@ -278,12 +367,13 @@ class FormularioEntrada
                 <tr>
                   <th>Ítem</th>
                   <th>Cantidad</th>
-                  <th>Código</th>
                   <th>Descripción</th>
-                  <th>Opciones</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Total</th>
                 </tr>
                 </thead>
-                <tbody id="ListaDeProductosEntrada">
+                <tbody id="ListaDeProductosSalida">
                 </tbody>
               </table>
             </div>

@@ -32,7 +32,7 @@ $(document).on('click', '#btn-crear-salida', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokok") {
+	   	if (datos=="okokokokokok") {
 	   		MensajeNormal("Se generó correctamente la Salida de Productos",1);
 	   		$("#btn-form-salida-remove").click();
 	   		$('#txt-busqueda').val("");
@@ -207,16 +207,6 @@ function PaginarSalida(x,y,tipolistado) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
-$(document).on('change', '#tipo-comprobante', function(){
-  	 var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
-  	 MostrarSeleccionComprobante(intIdTipoComprobante);
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Listar Clientes para la Selección */
 function ListarClientesSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
@@ -256,7 +246,7 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Comprobante */
-$(document).on('change', '#lugar-salida', function(){
+$(document).on('change', '#intIdSucursal', function(){
 	var y = 5;
 	var x = $(".pa-producto").attr("idprt") * y;
 	ListarProductosSeleccion(x,y);
@@ -267,12 +257,13 @@ $(document).on('change', '#lugar-salida', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Cliente */
 function MostrarSeleccionComprobante() {
-	  var intIdSucursal = $("#lugar-salida").val();
+	  var intIdTipoComprobante = 10;
+	  var intIdSucursal = $("#intIdSucursal").val();
 	  var funcion = "NCPR";
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_salida.php",
 	   method:"POST",
-	   data:{funcion:funcion,intIdSucursal:intIdSucursal},
+	   data:{funcion:funcion,intIdSucursal:intIdSucursal,intIdTipoComprobante:intIdTipoComprobante},
 	   dataType:"json",
 	   success:function(datos)
 	   { 

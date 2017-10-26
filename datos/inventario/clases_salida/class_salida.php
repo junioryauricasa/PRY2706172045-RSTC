@@ -14,10 +14,13 @@ class Salida
   private $nvchAtencion;
   private $nvchDestino;
   private $nvchDireccion;
+  private $intTipoPersona;
+  private $intIdUsuarioSolicitado;
+  private $intIdClienteSolicitado;
 	private $intIdUsuario;
-  private $nvchObservacion;
-  private $bitEstado;
   private $intIdSucursal;
+  private $bitEstado;
+  private $nvchObservacion;
 
 	public function IdSalida($intIdSalida){ $this->intIdSalida = $intIdSalida; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
@@ -29,10 +32,13 @@ class Salida
   public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
   public function Destino($nvchDestino){ $this->nvchDestino = $nvchDestino; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
+  public function TipoPersona($intTipoPersona){ $this->intTipoPersona = $intTipoPersona; }
+  public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
+  public function IdClienteSolicitado($intIdClienteSolicitado){ $this->intIdClienteSolicitado = $intIdClienteSolicitado; }
 	public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
-  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
-  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
+  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 	/* FIN - Atributos de Guia Interna Salida */
 
   /* INICIO - Métodos de Guia Interna Salida */
@@ -41,9 +47,9 @@ class Salida
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarSalida(@intIdSalida,:dtmFechaCreacion,:intIdCliente
-        :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:nvchAtencion,:nvchDestino,:nvchDireccion,:intIdUsuario,
-        :nvchObservacion,:bitEstado,:intIdSucursal)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarSalida(@intIdSalida,:dtmFechaCreacion,:intIdCliente,
+        :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:nvchAtencion,:nvchDestino,:nvchDireccion,:intTipoPersona,
+        :intIdUsuarioSolicitado,:intIdClienteSolicitado,:intIdUsuario,:intIdSucursal,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':intIdCliente' => $this->intIdCliente,
@@ -54,10 +60,13 @@ class Salida
         ':nvchAtencion' => $this->nvchAtencion,
         ':nvchDestino' => $this->nvchDestino,
         ':nvchDireccion' => $this->nvchDireccion,
-        ':intIdUsuario' => $this->intIdUsuario, 
-        ':nvchObservacion' => $this->nvchObservacion,
+        ':intTipoPersona' => $this->intTipoPersona,
+        ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
+        ':intIdClienteSolicitado' => $this->intIdClienteSolicitado,
+        ':intIdUsuario' => $this->intIdUsuario,
+        ':intIdSucursal' => $this->intIdSucursal,
         ':bitEstado' => 1,
-        ':intIdSucursal' => $this->intIdSucursal));
+        ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdSalida as intIdSalida");
       $salida = $salidas->fetchObject();
@@ -89,6 +98,8 @@ class Salida
       $FormularioSalida->Atencion($fila['nvchAtencion']);
       $FormularioSalida->Destino($fila['nvchDestino']);
       $FormularioSalida->Direccion($fila['nvchDireccion']);
+      $FormularioSalida->IdUsuarioSolicitado($fila['intIdUsuarioSolicitado']);
+      $FormularioSalida->IdClienteSolicitado($fila['intIdClienteSolicitado']);
       $FormularioSalida->IdUsuario($fila['intIdUsuario']);
       $FormularioSalida->IdSucursal($fila['intIdSucursal']);
       $FormularioSalida->Estado($fila['bitEstado']);
@@ -105,9 +116,9 @@ class Salida
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ActualizarSalida(:intIdSalida,:dtmFechaCreacion,:intIdCliente
+      $sql_comando = $sql_conectar->prepare('CALL ActualizarSalida(:intIdSalida,:dtmFechaCreacion,:intIdCliente,
         :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:nvchAtencion,:nvchDestino,:nvchDireccion,:intIdUsuario,
-        :nvchObservacion,:bitEstado,:intIdSucursal)');
+        :intIdUsuarioSolicitado,:intIdClienteSolicitado,:nvchObservacion,:bitEstado,:intIdSucursal)');
       $sql_comando->execute(array(
         ':intIdSalida' => $this->intIdSalida,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
@@ -119,10 +130,12 @@ class Salida
         ':nvchAtencion' => $this->nvchAtencion,
         ':nvchDestino' => $this->nvchDestino,
         ':nvchDireccion' => $this->nvchDireccion,
+        ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
+        ':intIdClienteSolicitado' => $this->intIdClienteSolicitado,
         ':intIdUsuario' => $this->intIdUsuario, 
-        ':nvchObservacion' => $this->nvchObservacion,
+        ':intIdSucursal' => $this->intIdSucursal,
         ':bitEstado' => 1,
-        ':intIdSucursal' => $this->intIdSucursal));
+        ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdSalida'] = $this->intIdSalida;
       echo "ok";
     }
