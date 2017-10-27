@@ -41,19 +41,25 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         });
     }
   </script>
-  <!--
   <style>
-  table>thead{
-      background: rgba(194, 194, 194, 0.47);
-    }
-    table>thead>tr>th{
-      border: solid 2px rgba(0, 0, 0, 0.51);
-    }
-    table>tbody>tr>td{
-      border: solid 1px black;
-    }
+  .table {
+    border: 2px solid #727070;
+  }
+  .table > thead > tr > th,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > td,
+  .table > tfoot > tr > td {
+    border: 2px solid #727070;
+    border-right-width:2px;
+    border-left-width:2px;
+  }
+  .table > thead {
+    background: #EAF1F7;
+  }
+}
   </style>
-  -->
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini">
 <script type="text/javascript">MostrarUsuarioPerfilNav(<?php echo $_SESSION['intIdUsuarioSesion']; ?>);</script>
