@@ -325,3 +325,18 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS LISTARCANTIDADMINIMA;
+DELIMITER $$
+	CREATE PROCEDURE LISTARCANTIDADMINIMA()
+	BEGIN
+		SELECT CP.nvchCodigo,P.nvchDescripcion,UP.intCantidadUbigeo,S.nvchNombre,P.nvchDireccionImg
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON CP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_ubigeo_producto UP ON UP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_sucursal S ON S.intIdSucursal = UP.intIdSucursal
+		WHERE  
+		UP.intCantidadUbigeo <= P.intCantidadMinima AND CP.intIdTipoCodigoProducto = 1;
+    END 
+$$
+DELIMITER ;
