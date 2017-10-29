@@ -45,6 +45,8 @@ switch($_POST['funcion']){
     $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
     $UbigeoProducto->InsertarUbigeoProducto();
     $Producto->AumentarStockTotal($_SESSION['intIdProducto']);
+
+    
     break;
   case "ICP":
     $CodigoProducto = new CodigoProducto();

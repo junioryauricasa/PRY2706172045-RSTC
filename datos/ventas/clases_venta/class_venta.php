@@ -318,13 +318,13 @@ class Venta{
           }
         }
 
-          if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
-          }
-          else
-          {
-            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
-          }
+        if($x==$i){
+          $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
+        }
+        else
+        {
+          $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+        }
 
         if($i==($numpaginas-1))
         {

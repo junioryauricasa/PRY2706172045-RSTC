@@ -39,19 +39,16 @@ switch($_POST['funcion']){
     $Producto = new Producto();
     $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],1);
     $Producto->ES_StockTotal($_POST['intIdProducto']);
-
+    /*
     $KardexProducto = new KardexProducto();
     $KardexProducto->FechaMovimiento($dtmFechaCreacion);
-    $KardexProducto->IdComprobante($_SESSION['intIdVenta']);
-    $KardexProducto->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $KardexProducto->TipoDetalle(2);
-    $KardexProducto->Serie($_POST['nvchSerie']);
-    $KardexProducto->Numeracion($_POST['nvchNumeracion']);
     $KardexProducto->IdProducto($_POST['intIdProducto']);
     $KardexProducto->CantidadEntrada($_POST['intCantidad']);
     $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario']);
     $KardexProducto->TotalEntrada($_POST['dcmTotal']);
-    $KardexProducto->InsertarKardexProducto();
+    $KardexProducto->InsertarKardexProductoInicial();
+    */
     break;
   case "A":
     $Compra = new Compra();

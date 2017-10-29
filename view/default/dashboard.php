@@ -162,6 +162,7 @@
                         <thead>
                         <tr>
                           <th>Numeración</th>
+                          <th>Tipo</th>
                           <th>Cliente</th>
                           <th>Fecha</th>
                           <th>Moneda</th>
@@ -182,6 +183,7 @@
                                 echo
                                 '<tr>
                                 <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+                                <td>'.$fila["NombreComprobante"].'</td>
                                 <td>'.$fila["NombreCliente"].'</td>
                                 <td>'.$fila["dtmFechaCreacion"].'</td>
                                 <td>'.$fila["SimboloMoneda"].'</td>
