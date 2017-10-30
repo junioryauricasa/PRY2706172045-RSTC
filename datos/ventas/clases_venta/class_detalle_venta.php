@@ -8,7 +8,6 @@ class DetalleVenta
   private $intIdProducto;
   private $dtmFechaRealizada;
   private $intCantidad;
-  private $intCantidadDisponible;
   private $dcmPrecio;
   private $dcmDescuento;
   private $dcmPrecioUnitario;
@@ -21,7 +20,6 @@ class DetalleVenta
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function FechaRealizada($dtmFechaRealizada){ $this->dtmFechaRealizada = $dtmFechaRealizada; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
-  public function CantidadDisponible($intCantidadDisponible){ $this->intCantidadDisponible = $intCantidadDisponible; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
   public function Descuento($dcmDescuento){ $this->dcmDescuento = $dcmDescuento; }
   public function PrecioUnitario($dcmPrecioUnitario){ $this->dcmPrecioUnitario = $dcmPrecioUnitario; }
@@ -38,7 +36,7 @@ class DetalleVenta
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdProducto as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
+      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
         :dcmTotal,:intIdTipoVenta,:nvchDescripcionServicio)');
       if($this->intIdTipoVenta == 1){
           $sql_comando->execute(array(
@@ -46,7 +44,6 @@ class DetalleVenta
           ':intIdProducto' => $this->intIdProducto[$key],
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
           ':intCantidad' => $value,
-          ':intCantidadDisponible' => $this->intCantidadDisponible[$key],
           ':dcmPrecio' => $this->dcmPrecio[$key],
           ':dcmDescuento' => $this->dcmDescuento[$key],
           ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
@@ -59,7 +56,6 @@ class DetalleVenta
           ':intIdProducto' => 1,
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
           ':intCantidad' => $value,
-          ':intCantidadDisponible' => 0,
           ':dcmPrecio' => 0.00,
           ':dcmDescuento' => 0.00,
           ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
@@ -81,13 +77,12 @@ class DetalleVenta
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:intCantidadDisponible,:dcmPrecio)');
+      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
       $sql_comando->execute(array(
         ':intIdVenta' => $this->intIdVenta, 
         ':intIdProducto' => $this->intIdProducto,
         ':dtmFechaRealizada' => $this->dtmFechaRealizada,
         ':intCantidad' => $this->intCantidad,
-        ':intCantidadDisponible' => $this->intCantidad,
         ':dcmPrecio' => $this->dcmPrecio));
       echo "ok";
     }
