@@ -4,13 +4,14 @@ DROP PROCEDURE IF EXISTS INSERTARMONEDACOMERCIAL;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARMONEDACOMERCIAL(
 	OUT _intIdMonedaComercial INT,
+	IN _intIdTipoCambio INT,
 	IN _dcmCambio1 DECIMAL(10,6),
 	IN _dcmCambio2 DECIMAL(10,6),
     IN _dtmFechaCambio DATETIME
     )
 	BEGIN
-		INSERT INTO tb_cambio_moneda_comercial (dcmCambio1,dcmCambio2,dtmFechaCambio)
-		VALUES (_dcmCambio1,_dcmCambio2,_dtmFechaCambio);
+		INSERT INTO tb_cambio_moneda_comercial (intIdTipoCambio,dcmCambio1,dcmCambio2,dtmFechaCambio)
+		VALUES (_intIdTipoCambio,_dcmCambio1,_dcmCambio2,_dtmFechaCambio);
     	SET _intIdMonedaComercial = LAST_INSERT_ID();
     END 
 $$
@@ -20,6 +21,7 @@ DROP PROCEDURE IF EXISTS ACTUALIZARMONEDACOMERCIAL;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARMONEDACOMERCIAL(
 	IN _intIdMonedaComercial INT,
+	IN _intIdTipoCambio INT,
 	IN _dcmCambio1 DECIMAL(10,6),
 	IN _dcmCambio2 DECIMAL(10,6),
     IN _dtmFechaCambio DATETIME
@@ -27,6 +29,7 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_cambio_moneda_comercial
 		SET
+			intIdTipoCambio = _intIdTipoCambio,
 			dcmCambio1 = _dcmCambio1,
 			dcmCambio2 = _dcmCambio2,
 			dtmFechaCambio = _dtmFechaCambio
@@ -79,7 +82,7 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT TCMC.* FROM tb_cambio_moneda_comercial TCMC
-		LEFT JOIN tb_tipo_cambio TCM ON TCMC.intIdTipoCambio = TCM.intIdTipoCambio
+		LEFT JOIN tb_tipo_cambio_moneda TCM ON TCMC.intIdTipoCambio = TCM.intIdTipoCambio
 		WHERE 
 		TCMC.intIdTipoCambio = _intIdTipoCambio
 		LIMIT _x,_y;
@@ -94,7 +97,7 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT TCMC.* FROM tb_cambio_moneda_comercial TCMC
-		LEFT JOIN tb_tipo_cambio TCM ON TCMC.intIdTipoCambio = TCM.intIdTipoCambio
+		LEFT JOIN tb_tipo_cambio_moneda TCM ON TCMC.intIdTipoCambio = TCM.intIdTipoCambio
 		WHERE 
 		TCMC.intIdTipoCambio = _intIdTipoCambio;
     	END 

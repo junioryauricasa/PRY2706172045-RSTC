@@ -8,17 +8,21 @@ if(empty($_SESSION['intIdMonedaComercial'])){
 switch($_POST['funcion']){
   case "I":
     $MonedaComercial = new MonedaComercial();
+    $MonedaComercial->IdTipoCambio($_POST['intIdTipoCambio']);
     $MonedaComercial->Cambio1($_POST['dcmCambio1']);
     $MonedaComercial->Cambio2($_POST['dcmCambio2']);
-    $MonedaComercial->FechaCambio($_POST['dtmFechaCambio']);
+    $dtmFechaCambio = str_replace('/', '-', $_POST['dtmFechaCambio']);
+    $MonedaComercial->FechaCambio(date('Y-m-d', strtotime($dtmFechaCambio)));
     $MonedaComercial->InsertarMonedaComercial();
     break;
   case "A":
     $MonedaComercial = new MonedaComercial();
     $MonedaComercial->IdMonedaComercial($_POST['intIdMonedaComercial']);
+    $MonedaComercial->IdTipoCambio($_POST['intIdTipoCambio']);
     $MonedaComercial->Cambio1($_POST['dcmCambio1']);
     $MonedaComercial->Cambio2($_POST['dcmCambio2']);
-    $MonedaComercial->FechaCambio($_POST['dtmFechaCambio']);
+    $dtmFechaCambio = str_replace('/', '-', $_POST['dtmFechaCambio']);
+    $MonedaComercial->FechaCambio(date('Y-m-d', strtotime($dtmFechaCambio)));
     $MonedaComercial->ActualizarMonedaComercial();
     break;
   case "M":

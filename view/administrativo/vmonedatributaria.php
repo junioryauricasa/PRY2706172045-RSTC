@@ -102,22 +102,22 @@
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeMonedas">
-                <script>ListarMoneda(0,10,"T");</script>
+              <tbody id="ListaDeMonedaTributaria">
+                <script>ListarMonedaTributaria(0,10,"T");</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeMonedas" class="pagination">
-                <script>PaginarMonesa(0,10,"T");</script>
+              <ul id="PaginacionDeMonedaTributaria" class="pagination">
+                <script>PaginarMonedaTributaria(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left">Agregar Usuario</button>
+          <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Tributaria</button>
         </div>
       </div>
 

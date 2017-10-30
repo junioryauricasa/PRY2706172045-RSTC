@@ -97,7 +97,7 @@
               </tr>
               </thead>
               <tbody id="ListaDeMonedaComercial">
-                <script>ListarMonedaComercial(0,10,"T",1);</script>
+                <script>ListarMonedaComercial(0,10,"T");</script>
               </tbody>
             </table>
           </div>
@@ -105,7 +105,7 @@
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeMonedaComercial" class="pagination">
-                <script>PaginarMonedaComercial(0,10,"T",1);</script>
+                <script>PaginarMonedaComercial(0,10,"T");</script>
               </ul>
             </nav>
           </div>

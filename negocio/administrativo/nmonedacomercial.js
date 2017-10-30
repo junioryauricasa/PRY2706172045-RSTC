@@ -9,6 +9,7 @@ $(document).on('click', '#btn-form-crear-moneda-comercial', function(){
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
+	   	$("#dtmFechaCambio").val(FechaActual());
 	   	goToBox("#Formulario");
 	   }
 	  });
@@ -129,8 +130,6 @@ $(document).on('change', '#lista-tipo-cambio', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	var TipoCambio = document.getElementById("lista-tipo-cambio").value;
-  	AccionCabecerasTablaComprobante(TipoCambio)
   	ListarMonedaComercial(x,y,tipolistado);
 });
 

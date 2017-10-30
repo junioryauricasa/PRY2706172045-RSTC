@@ -51,10 +51,11 @@ class MonedaTributaria
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $FormularioMonedaTributaria = new FormularioMonedaTributaria();
+      $FormularioMonedaTributaria->IdMonedaTributaria($fila['intIdMonedaTributaria']);
       $FormularioMonedaTributaria->IdTipoCambio($fila['intIdTipoCambio']);
       $FormularioMonedaTributaria->Cambio1($fila['dcmCambio1']);
       $FormularioMonedaTributaria->Cambio2($fila['dcmCambio2']);
-      $FormularioMonedaTributaria->FechaCambio($fila['dtmFechaCambio']);
+      $FormularioMonedaTributaria->FechaCambio(date('d/m/Y', strtotime($fila['dtmFechaCambio'])));
       $FormularioMonedaTributaria->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
@@ -76,7 +77,6 @@ class MonedaTributaria
         ':dcmCambio2' => $this->dcmCambio2,
         ':dtmFechaCambio' => $this->dtmFechaCambio));
       $_SESSION['intIdMonedaTributaria'] = $this->intIdMonedaTributaria;
-      $_SESSION['RutaDefaultImg'] = "";
       echo "ok";
     }
     catch(PDPExceptio $e){
@@ -125,12 +125,11 @@ class MonedaTributaria
         {$x = $x - $y;}
       }
       //Busqueda de MonedaTributaria por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarMonedaTributaria(:TipoCambio)');
-      $sql_comando -> execute(array(':x' => $x,':y' => $y, ':TipoCambio' => $TipoCambio));
+      $sql_comando = $sql_conectar->prepare('CALL buscarMonedaTributaria(:TipoCambio,:x,:y)');
+      $sql_comando -> execute(array(':TipoCambio' => $TipoCambio, ':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($fila["nvchCodigo"]!=""){
           if($i == ($cantidad - $x) && $tipolistado == "N"){
             echo '<tr bgcolor="#BEE1EB">';
           } else if($fila["intIdMonedaTributaria"] == $_SESSION['intIdMonedaTributaria'] && $tipolistado == "E"){
@@ -139,7 +138,7 @@ class MonedaTributaria
             echo '<tr>';
           }
           echo 
-          '<td>'.$fila["dtmFechaCambio"].'</td>
+          '<td>'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
           <td>'.$fila["dcmCambio1"].'</td>
           <td>'.$fila["dcmCambio2"].'</td>
           <td> 
@@ -152,7 +151,6 @@ class MonedaTributaria
           </td>  
           </tr>';
           $i++;
-        }
       }
     }
     catch(PDPExceptio $e){

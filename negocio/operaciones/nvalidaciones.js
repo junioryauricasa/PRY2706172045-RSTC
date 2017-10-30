@@ -25,6 +25,24 @@ function EsLetraTecla(evt)
     return true;
 }
 
+function EsFecha(NombreId){
+  var Valor = $("#"+NombreId).val();
+  if (EsVacio(NombreId) == false){
+    return false;
+  } else if(/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/.test(Valor) == false) {
+    $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Debe tener el formato dd/mm/aaaa");
+    return false;
+  } else {
+    $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
+    return true;
+  }
+}
+
 function EsVacio(NombreId)
 {
   var Valor = $("#"+NombreId).val();
@@ -156,4 +174,20 @@ function RestablecerValidacion(NombreId,Tipo){
   $("#"+NombreId+"Icono").attr({"class":"", "aria-hidden":""});
   $("#"+NombreId+"Obs").attr("class","");
   $("#"+NombreId+"Obs").html("");
+}
+
+function FechaActual(){
+  var hoy = new Date();
+  var dd = hoy.getDate();
+  var mm = hoy.getMonth()+1;
+  var yyyy = hoy.getFullYear();
+  if(dd<10) {
+      dd = '0'+dd
+  } 
+
+  if(mm<10) {
+      mm = '0'+mm
+  } 
+  hoy = dd + '/' + mm + '/' + yyyy;
+  return hoy;
 }

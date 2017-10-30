@@ -51,10 +51,11 @@ class MonedaComercial
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $FormularioMonedaComercial = new FormularioMonedaComercial();
+      $FormularioMonedaComercial->IdMonedaComercial($fila['intIdMonedaComercial']);
       $FormularioMonedaComercial->IdTipoCambio($fila['intIdTipoCambio']);
       $FormularioMonedaComercial->Cambio1($fila['dcmCambio1']);
       $FormularioMonedaComercial->Cambio2($fila['dcmCambio2']);
-      $FormularioMonedaComercial->FechaCambio($fila['dtmFechaCambio']);
+      $FormularioMonedaComercial->FechaCambio(date('d/m/Y', strtotime($fila['dtmFechaCambio'])));
       $FormularioMonedaComercial->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
@@ -76,7 +77,6 @@ class MonedaComercial
         ':dcmCambio2' => $this->dcmCambio2,
         ':dtmFechaCambio' => $this->dtmFechaCambio));
       $_SESSION['intIdMonedaComercial'] = $this->intIdMonedaComercial;
-      $_SESSION['RutaDefaultImg'] = "";
       echo "ok";
     }
     catch(PDPExceptio $e){
@@ -125,8 +125,8 @@ class MonedaComercial
         {$x = $x - $y;}
       }
       //Busqueda de MonedaComercial por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarMonedaComercial(:x,:y,:TipoCambio)');
-      $sql_comando -> execute(array(':x' => $x,':y' => $y, ':TipoCambio' => $TipoCambio));
+      $sql_comando = $sql_conectar->prepare('CALL buscarMonedaComercial(:TipoCambio,:x,:y)');
+      $sql_comando -> execute(array(':TipoCambio' => $TipoCambio, ':x' => $x,':y' => $y));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -138,7 +138,7 @@ class MonedaComercial
             echo '<tr>';
           }
           echo 
-          '<td>'.$fila["dtmFechaCambio"].'</td>
+          '<td>'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
           <td>'.$fila["dcmCambio1"].'</td>
           <td>'.$fila["dcmCambio2"].'</td>
           <td> 
