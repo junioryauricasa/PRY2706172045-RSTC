@@ -306,10 +306,17 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </a>
               <ul class="treeview-menu">
                 <li class="active">
-                  <a href="../administrativo/vmoneda" target="_blank">
+                  <a href="../administrativo/vmonedatributaria" target="_blank">
                     <i class="fa fa-circle-o"></i> 
                       Administrar Cambio de <br>
-                      <i class="fa"></i> Moneda Diario
+                      <i class="fa"></i> Moneda Tributaria
+                  </a>
+                </li>
+                <li class="active">
+                  <a href="../administrativo/vmonedacomercial" target="_blank">
+                    <i class="fa fa-circle-o"></i> 
+                      Administrar Cambio de <br>
+                      <i class="fa"></i> Moneda Comercial
                   </a>
                 </li>
                 <li>
