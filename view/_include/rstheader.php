@@ -246,6 +246,29 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <!--END Ventas-->
 
+            <!--Reportes-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-pdf-o"></i> <span>Módulo Reportes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="../reportes/vkardexproducto" target="_blank">
+                    <i class="fa fa-circle-o"></i> 
+                      Reporte Kardex Producto
+                  </a>
+                </li>
+                <li>
+                  <a href="../reportes/vkardexgeneral" target="_blank">
+                    <i class="fa fa-circle-o"></i> 
+                      Reporte Kardex General
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!--END Reportes-->
+
             <!--Usuarios-->
             <li class="treeview">
               <a href="#">
@@ -275,62 +298,34 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <!--END Usuarios-->
 
-
-            <!--Reportes-->
+            <!--Usuarios-->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-file-pdf-o"></i> <span>Módulo Reportes</span>
+                <i class="fa fa-users"></i> <span>Módulo Administrativo</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li>
-                  <a href="../reportes/vkardexproducto" target="_blank">
+                <li class="active">
+                  <a href="../administrativo/vmoneda" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Reporte Kardex Producto
+                      Administrar Cambio de <br>
+                      <i class="fa"></i> Moneda Diario
                   </a>
                 </li>
                 <li>
-                  <a href="../reportes/vkardexgeneral" target="_blank">
+                  <a href="../administrativo/vnumeracion" target="_blank">
                     <i class="fa fa-circle-o"></i> 
-                      Reporte Kardex General
+                      Administrar Numeración de <br>
+                      <i class="fa"></i> Comprobantes
                   </a>
                 </li>
-                <!--
-                <li>
-                  <a href="../reporte/vlistarusuario" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Listar de Usuarios
-                  </a>
-                </li>
-                <li>
-                  <a href="#" >
-                  a href="../reporte/vlistarcliente" target="_blank"
-                    <i class="fa fa-circle-o"></i> 
-                     Lista Clientes
-                  </a>
-                </li>
-                <li>
-                  <a href="../reporte/vlistaracceso" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Lista de Accesos
-                  </a>
-                </li>
-                <li>
-                  <a href="../reporte/listarcomprobante">
-                    <i class="fa fa-circle-o"></i> 
-                      Formato Comprobantes
-                  </a>
-                </li>
-                -->
               </ul>
             </li>
-            <!--END Reportes-->
+            <!--END Usuarios-->
           <?php 
           "";
         }
-
       ?>
-
           <!--Mi cuenta-->
           <li class="treeview">
             <a href="#">
