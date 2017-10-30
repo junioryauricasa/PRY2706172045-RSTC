@@ -10,6 +10,7 @@ if(empty($_SESSION['intIdProducto'])){
 switch($_POST['funcion']){
   case "I":
     $KardexProducto = new KardexProducto();
+    $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $KardexProducto->FechaMovimiento($dtmFechaIngreso);
     $KardexProducto->IdComprobante($_POST['intIdComprobante']);
@@ -32,6 +33,7 @@ switch($_POST['funcion']){
   case "A":
     $KardexProducto = new KardexProducto();
     $KardexProducto->IdMovimiento($_POST['intIdMovimiento']);
+    $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $dtmFechaIngreso = date("Y-m-d H:i:s");
     $KardexProducto->FechaMovimiento($dtmFechaIngreso);
     $KardexProducto->IdComprobante($_POST['intIdComprobante']);

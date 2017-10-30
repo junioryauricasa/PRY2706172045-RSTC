@@ -4,6 +4,7 @@ class KardexProducto
 {
   /* INICIO - Atributos de KardexProducto*/
   private $intIdMovimiento;
+  private $intIdTipoMoneda;
   private $dtmFechaMovimiento;
   private $intTipoDetalle;
   private $intIdComprobante;
@@ -21,6 +22,7 @@ class KardexProducto
   private $dcmSaldoValorizado;
   
   public function IdMovimiento($intIdMovimiento){ $this->intIdMovimiento = $intIdMovimiento; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function FechaMovimiento($dtmFechaMovimiento){ $this->dtmFechaMovimiento = $dtmFechaMovimiento; }
   public function TipoDetalle($intTipoDetalle){ $this->intTipoDetalle = $intTipoDetalle; }
   public function IdComprobante($intIdComprobante){ $this->intIdComprobante = $intIdComprobante; }
@@ -68,11 +70,12 @@ class KardexProducto
         $dcmSaldoValorizado = $dcmSaldoValorizado + $this->dcmTotalEntrada[$key];
       }
 
-      $sql_comando = $sql_conectar->prepare('CALL insertarKardexProducto(@intIdMovimiento,:dtmFechaMovimiento,
+      $sql_comando = $sql_conectar->prepare('CALL insertarKardexProducto(@intIdMovimiento,:intIdTipoMoneda,:dtmFechaMovimiento,
         :intTipoDetalle,:intIdComprobante,:intIdTipoComprobante,:nvchSerie,:nvchNumeracion,:intIdProducto,
         :intCantidadEntrada,:intCantidadSalida,:intCantidadStock,:dcmPrecioEntrada,:dcmTotalEntrada,:dcmPrecioSalida,
         :dcmTotalSalida,:dcmSaldoValorizado)');
       $sql_comando->execute(array(
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dtmFechaMovimiento' => $this->dtmFechaMovimiento,
         ':intTipoDetalle' => $this->intTipoDetalle,
         ':intIdComprobante' => $this->intIdComprobante,
@@ -110,7 +113,8 @@ class KardexProducto
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $FormularioKardexProducto = new FormularioKardexProducto();
-      $FormularioKardexProducto->IdKardexProducto($fila['intIdMovimiento']);
+      $FormularioKardexProducto->IdMovimiento($fila['intIdMovimiento']);
+      $FormularioKardexProducto->IdTipoMoneda($fila['intIdTipoMoneda']);
       $FormularioKardexProducto->Descripcion($fila['nvchDescripcion']);
       $FormularioKardexProducto->UnidadMedida($fila['nvchUnidadMedida']);
       $FormularioKardexProducto->Cantidad($fila['intCantidad']);
@@ -136,11 +140,12 @@ class KardexProducto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarKardexProducto(:intIdMovimiento,:nvchDescripcion,
+      $sql_comando = $sql_conectar->prepare('CALL actualizarKardexProducto(:intIdMovimiento,:intIdTipoMoneda,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioVenta1,:dcmPrecioVenta2,
         :dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMoneda,:dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdMovimiento' => $this->intIdMovimiento,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => 0,
