@@ -7,7 +7,6 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _intCantidadDisponible INT,
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
 	IN _dcmPrecioUnitario DECIMAL(11,2),
@@ -17,10 +16,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_detalle_venta 
-		(intIdVenta,intIdProducto,dtmFechaRealizada,intCantidad,intCantidadDisponible,dcmPrecio,dcmDescuento,
+		(intIdVenta,intIdProducto,dtmFechaRealizada,intCantidad,dcmPrecio,dcmDescuento,
 			dcmPrecioUnitario,dcmTotal,intIdTipoVenta,nvchDescripcionServicio)
 		VALUES
-		(_intIdVenta,_intIdProducto,_dtmFechaRealizada,_intCantidad,_intCantidadDisponible,_dcmPrecio,_dcmDescuento,
+		(_intIdVenta,_intIdProducto,_dtmFechaRealizada,_intCantidad,_dcmPrecio,_dcmDescuento,
 			_dcmPrecioUnitario,_dcmTotal,_intIdTipoVenta,_nvchDescripcionServicio);
     END 
 $$
@@ -34,7 +33,6 @@ DELIMITER $$
 	IN _intIdProducto INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intCantidad INT,
-	IN _intCantidadDisponible INT,
 	IN _dcmPrecio DECIMAL(11,2),
 	IN _dcmDescuento DECIMAL(11,2),
 	IN _dcmPrecioUnitario DECIMAL(11,2),
@@ -49,7 +47,6 @@ DELIMITER $$
 		intIdProducto = _intIdProducto,
 		dtmFechaRealizada = _dtmFechaRealizada,
 		intCantidad = _intCantidad,
-		intCantidadDisponible = _intCantidadDisponible,
 		dcmPrecio = _dcmPrecio,
 		dcmDescuento = _dcmDescuento,
 		dcmPrecioUnitario = _dcmPrecioUnitario,
@@ -110,9 +107,11 @@ DELIMITER $$
     	IN _intIdVenta INT
     )
 	BEGIN
-		SELECT DV.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto FROM tb_detalle_venta DV
+		SELECT DV.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto,TMN.nvchSimbolo FROM tb_detalle_venta DV
+		LEFT JOIN tb_venta V ON V.intIdVenta = DV.intIdVenta
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE
 		DV.intIdVenta = _intIdVenta AND CP.intIdTipoCodigoProducto = 1;
     END 

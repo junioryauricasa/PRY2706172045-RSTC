@@ -12,6 +12,9 @@ if(empty($_SESSION['intIdVenta'])){
 if(empty($_SESSION['intIdOperacionVenta'])){
   $_SESSION['intIdOperacionVenta'] = 0;
 }
+if(empty($_SESSION['TotalVenta'])){
+  $_SESSION['TotalVenta'] = 0;
+} 
 switch($_POST['funcion']){
   case "I":
     $Venta = new Venta();
@@ -44,6 +47,7 @@ switch($_POST['funcion']){
         $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],0);
         $Producto->ES_StockTotal($_POST['intIdProducto']);
         $KardexProducto = new KardexProducto();
+        $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
         $KardexProducto->FechaMovimiento($dtmFechaCreacion);
         $KardexProducto->IdComprobante($_SESSION['intIdVenta']);
         $KardexProducto->IdTipoComprobante($_POST['intIdTipoComprobante']);
@@ -86,17 +90,27 @@ switch($_POST['funcion']){
     $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
     $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
-    $dtmFechaFinal = date('Y-m-d', strtotime($dtmFechaFinal));
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $Venta->ListarVentas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],
-            $dtmFechaInicial,$dtmFechaFinal);
+            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+    break;
+  case "TV":
+    $Venta = new Venta();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Venta->TotalVentas($_POST['busqueda'],$_POST['intIdTipoComprobante'],
+            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $Venta = new Venta();
     $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
     $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
-    $dtmFechaFinal = date('Y-m-d', strtotime($dtmFechaFinal));
-    $Venta->PaginarVentas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],$dtmFechaInicial,$dtmFechaFinal);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Venta->PaginarVentas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],
+            $dtmFechaInicial,$dtmFechaFinal);
     break;
   case "SCL":
     $Venta = new Venta();

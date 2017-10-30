@@ -34,7 +34,7 @@ class DetalleVenta
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      foreach ($this->intIdProducto as $key => $value) {
+      foreach ($this->intCantidad as $key => $value) {
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
       	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
         :dcmTotal,:intIdTipoVenta,:nvchDescripcionServicio)');
@@ -109,8 +109,8 @@ class DetalleVenta
           <td>'.$fila['CodigoProducto'].'</td>
           <td>'.$fila['DescripcionProducto'].'</td>
           <td>'.$fila['intCantidad'].'</td>
-          <td>'.$fila['dcmPrecioUnitario'].'</td>
-          <td>'.$fila['dcmTotal'].'</td>
+          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
           </tr>';
           $i++;
         } else if($fila['intIdTipoVenta'] == 2){
@@ -120,8 +120,8 @@ class DetalleVenta
           <td>C'.$i.'</td>
           <td>'.$fila['nvchDescripcionServicio'].'</td>
           <td>'.$fila['intCantidad'].'</td>
-          <td>'.$fila['dcmPrecioUnitario'].'</td>
-          <td>'.$fila['dcmTotal'].'</td>
+          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
           </tr>';
           $i++;
         }

@@ -133,6 +133,12 @@ include('../_include/rstheader.php');
                   <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Total de Ventas:</label>
+                  <input type="text" id="TotalVentas" class="form-control select2" placeholder="0.00" readonly>
+              </div>
+            </div>
           </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
@@ -145,7 +151,6 @@ include('../_include/rstheader.php');
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
-                <th>Moneda</th>
                 <th>Valor de Venta</th>
                 <th>IGV</th>
                 <th>Venta Total</th>

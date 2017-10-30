@@ -230,7 +230,39 @@ DELIMITER $$
 $$
 DELIMITER ;
 
-USE db_resteco;
+DROP PROCEDURE IF EXISTS TOTALVENTAS;
+DELIMITER $$
+	CREATE PROCEDURE TOTALVENTAS(
+    	IN _elemento VARCHAR(250),
+    	IN _intIdTipoComprobante INT,
+    	IN _dtmFechaInicio DATETIME,
+    	IN _dtmFechaFinal DATETIME
+    )
+	BEGIN
+		SELECT V.*,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DV.dcmTotal)/1.18),2) AS ValorVenta,
+		SUM(DV.dcmTotal) - ROUND((SUM(DV.dcmTotal)/1.18),2) AS IGVVenta,
+		SUM(DV.dcmTotal) AS TotalVenta
+		FROM tb_venta V 
+		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_venta DV ON V.intIdVenta = DV.intIdVenta
+		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE 
+		(V.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
+		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
+		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
+		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
+		V.intIdTipoComprobante = _intIdTipoComprobante AND
+		(V.dtmFechaCreacion BETWEEN _dtmFechaInicio AND _dtmFechaFinal)
+		GROUP BY V.intIdVenta;
+    END 
+$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS LISTARULTIMASVENTAS;
 DELIMITER $$

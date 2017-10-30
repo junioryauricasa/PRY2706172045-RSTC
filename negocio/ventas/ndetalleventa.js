@@ -88,8 +88,10 @@ function SeleccionarProducto(seleccion) {
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+PrecioUnitario+'"/>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+'<input type="hidden" name="dcmDescuento[]" value="'+Descuento+'"/>'+PrecioUnitario+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+PrecioUnitario+'"/>'+
+		'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+
+		'<input type="hidden" name="dcmDescuento[]" value="'+Descuento+'"/>'+nvchSimbolo+' '+PrecioUnitario+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+nvchSimbolo+' '+Total+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }

@@ -240,6 +240,13 @@ $(document).on('click', '.btn-pagina', function(){
   	var tipolistado = "T";
   	ListarVenta(x,y,tipolistado);
 });
+
+$(document).on('change', '#lista-tipo-moneda', function(){
+  	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
+  	var tipolistado = "T";
+  	ListarVenta(x,y,tipolistado);
+});
 /* FIN - Funcion Ajax - Buscar Venta Realizada */
 //////////////////////////////////////////////////////////////
 
@@ -249,6 +256,7 @@ function ListarVenta(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
@@ -265,14 +273,47 @@ function ListarVenta(x,y,tipolistado) {
       url:'../../datos/ventas/funcion_venta.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
           $("#ListaDeVentas").html(datos);
           PaginarVenta((x/y),y,tipolistado);
+          TotalVentas();
       }
   });
 }
 /* FIN - Funcion Ajax - Listar Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Total Ventas */
+function TotalVentas() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "TV";
+  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  $.ajax({
+      url:'../../datos/ventas/funcion_venta.php',
+      method:"POST",
+      data:{busqueda:busqueda,funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      success:function(datos) {
+          $("#TotalVentas").val(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Total Ventas */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

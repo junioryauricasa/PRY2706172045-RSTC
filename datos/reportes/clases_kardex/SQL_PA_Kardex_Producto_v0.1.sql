@@ -4,6 +4,7 @@ DROP PROCEDURE IF EXISTS INSERTARKARDEXPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARKARDEXPRODUCTO(
 	OUT _intIdMovimiento INT,
+	IN _intIdTipoMoneda INT,
     IN _dtmFechaMovimiento DATETIME,
     IN _intTipoDetalle INT,
     IN _intIdComprobante INT,
@@ -22,11 +23,11 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_kardex 
-		(dtmFechaMovimiento,intTipoDetalle,intIdComprobante,intIdTipoComprobante,nvchSerie,nvchNumeracion,intIdProducto,
+		(dtmFechaMovimiento,intIdTipoMoneda,intTipoDetalle,intIdComprobante,intIdTipoComprobante,nvchSerie,nvchNumeracion,intIdProducto,
 			intCantidadEntrada,intCantidadSalida,intCantidadStock,dcmPrecioEntrada,dcmTotalEntrada,dcmPrecioSalida,
 			dcmTotalSalida,dcmSaldoValorizado)
 		VALUES
-		(_dtmFechaMovimiento,_intTipoDetalle,_intIdComprobante,_intIdTipoComprobante,_nvchSerie,_nvchNumeracion,_intIdProducto,
+		(_dtmFechaMovimiento,_intIdTipoMoneda,_intTipoDetalle,_intIdComprobante,_intIdTipoComprobante,_nvchSerie,_nvchNumeracion,_intIdProducto,
 			_intCantidadEntrada,_intCantidadSalida,_intCantidadStock,_dcmPrecioEntrada,_dcmTotalEntrada,_dcmPrecioSalida,
 			_dcmTotalSalida,_dcmSaldoValorizado);
 		SET _intIdMovimiento = LAST_INSERT_ID();
@@ -38,6 +39,7 @@ DROP PROCEDURE IF EXISTS ACTUALIZARKARDEXPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARKARDEXPRODUCTO(
 	IN _intIdMovimiento INT,
+	IN _intIdTipoMoneda INT,
     IN _dtmFechaMovimiento DATETIME,
     IN _intTipoDetalle INT,
     IN _intIdComprobante INT,
@@ -57,6 +59,7 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_kardex
 		SET
+		intIdTipoMoneda = _intIdTipoMoneda,
 		nvchDescripcion = _nvchDescripcion,
 		nvchUnidadMedida = _nvchUnidadMedida,
 		intCantidad = _intCantidad,

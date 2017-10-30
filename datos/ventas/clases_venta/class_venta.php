@@ -209,7 +209,7 @@ class Venta{
     }
   }
 
-  public function ListarVentas($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal)
+  public function ListarVentas($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
       $salida = "";
@@ -245,6 +245,29 @@ class Venta{
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalVenta'] = round($fila['TotalVenta']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVVenta'] = round($fila['IGVVenta']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorVenta'] = round($fila['ValorVenta']*$fila_moneda['dcmCambio2'],2); 
+            $fila['SimboloMoneda'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalVenta'] = round($fila['TotalVenta']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVVenta'] = round($fila['IGVVenta']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorVenta'] = round($fila['ValorVenta']/$fila_moneda['dcmCambio2'],2);
+            $fila['SimboloMoneda'] = "US$";
+          }
+        }
+
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdVenta"] == $_SESSION['intIdVenta'] && $tipolistado == "E"){
@@ -257,10 +280,9 @@ class Venta{
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].'</td>
-        <td>'.$fila["ValorVenta"].'</td>
-        <td>'.$fila["IGVVenta"].'</td>
-        <td>'.$fila["TotalVenta"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorVenta"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVVenta"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalVenta"].'</td>
         <td> 
           <button type="submit" id="'.$fila["intIdVenta"].'" class="btn btn-xs btn-warning btn-mostrar-venta">
             <i class="fa fa-edit"></i> Ver Detalle
@@ -275,6 +297,51 @@ class Venta{
         </tr>';
         $i++;
       }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function TotalVentas($busqueda,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  {
+    try{
+      $TotalVentas = 0.00;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarVenta_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalVenta'] = round($fila['TotalVenta']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVVenta'] = round($fila['IGVVenta']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorVenta'] = round($fila['ValorVenta']*$fila_moneda['dcmCambio2'],2); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalVenta'] = round($fila['TotalVenta']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVVenta'] = round($fila['IGVVenta']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorVenta'] = round($fila['ValorVenta']/$fila_moneda['dcmCambio2'],2);
+          }
+        }
+        $TotalVentas += $fila['TotalVenta'];
+      }
+      if($intIdTipoMoneda == 1){
+        $SimboloMoneda = "S/.";
+      } else if($intIdTipoMoneda == 2){
+        $SimboloMoneda = "US$";
+      }
+      echo $SimboloMoneda.' '.$TotalVentas;
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
