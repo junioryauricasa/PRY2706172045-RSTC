@@ -99,7 +99,7 @@ class MonedaComercial
     }
   }
 
-  public function ListarMonedaComercial(,$x,$y,$tipolistado,$TipoCambio)
+  public function ListarMonedaComercial($x,$y,$tipolistado,$TipoCambio)
   {
     try{
       $residuo = 0;
@@ -125,12 +125,11 @@ class MonedaComercial
         {$x = $x - $y;}
       }
       //Busqueda de MonedaComercial por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarMonedaComercial(:TipoCambio)');
+      $sql_comando = $sql_conectar->prepare('CALL buscarMonedaComercial(:x,:y,:TipoCambio)');
       $sql_comando -> execute(array(':x' => $x,':y' => $y, ':TipoCambio' => $TipoCambio));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($fila["nvchCodigo"]!=""){
           if($i == ($cantidad - $x) && $tipolistado == "N"){
             echo '<tr bgcolor="#BEE1EB">';
           } else if($fila["intIdMonedaComercial"] == $_SESSION['intIdMonedaComercial'] && $tipolistado == "E"){
@@ -152,7 +151,6 @@ class MonedaComercial
           </td>  
           </tr>';
           $i++;
-        }
       }
     }
     catch(PDPExceptio $e){
@@ -249,3 +247,5 @@ class MonedaComercial
       echo $e->getMessage();
     }  
   }
+}
+?>

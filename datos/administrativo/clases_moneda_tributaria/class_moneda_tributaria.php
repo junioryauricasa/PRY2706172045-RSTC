@@ -99,7 +99,7 @@ class MonedaTributaria
     }
   }
 
-  public function ListarMonedaTributaria(,$x,$y,$tipolistado,$TipoCambio)
+  public function ListarMonedaTributaria($x,$y,$tipolistado,$TipoCambio)
   {
     try{
       $residuo = 0;
@@ -249,3 +249,5 @@ class MonedaTributaria
       echo $e->getMessage();
     }  
   }
+}
+?>

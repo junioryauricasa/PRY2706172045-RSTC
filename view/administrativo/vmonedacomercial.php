@@ -65,12 +65,6 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                  <label class="text-left">Ingresar Búsqueda:</label>
-                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
                 <label>Tipo de Cambio:</label>
                 <br>
                 <select id="lista-tipo-cambio" name="lista-tipo-cambio"  class="form-control select2">
@@ -102,22 +96,22 @@
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeMonedas">
-                <script>ListarMoneda(0,10,"T");</script>
+              <tbody id="ListaDeMonedaComercial">
+                <script>ListarMonedaComercial(0,10,"T",1);</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeMonedas" class="pagination">
-                <script>PaginarMonesa(0,10,"T");</script>
+              <ul id="PaginacionDeMonedaComercial" class="pagination">
+                <script>PaginarMonedaComercial(0,10,"T",1);</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left">Agregar Usuario</button>
+          <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Comercial</button>
         </div>
       </div>
 
