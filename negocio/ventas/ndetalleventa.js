@@ -27,10 +27,12 @@ function ListarProductosSeleccion(x,y) {
 	var funcion = "MPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	var intIdSucursal = document.getElementById("lugar-venta").value;
+	var intIdTipoMoneda = document.getElementById("tipo-moneda").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda,intIdSucursal:intIdSucursal},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda,intIdSucursal:intIdSucursal,
+	   		intIdTipoMoneda:intIdTipoMoneda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosSeleccion").html(datos);

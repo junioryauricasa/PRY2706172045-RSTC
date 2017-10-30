@@ -85,6 +85,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_cambio_moneda TCM ON TCMC.intIdTipoCambio = TCM.intIdTipoCambio
 		WHERE 
 		TCMC.intIdTipoCambio = _intIdTipoCambio
+		ORDER BY dtmFechaCambio DESC
 		LIMIT _x,_y;
     	END 
 $$
@@ -99,7 +100,8 @@ DELIMITER $$
 		SELECT TCMC.* FROM tb_cambio_moneda_comercial TCMC
 		LEFT JOIN tb_tipo_cambio_moneda TCM ON TCMC.intIdTipoCambio = TCM.intIdTipoCambio
 		WHERE 
-		TCMC.intIdTipoCambio = _intIdTipoCambio;
+		TCMC.intIdTipoCambio = _intIdTipoCambio
+		ORDER BY dtmFechaCambio DESC;
     	END 
 $$
 DELIMITER ;

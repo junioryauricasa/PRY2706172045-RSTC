@@ -190,7 +190,7 @@ class DetalleVenta
     }
   }
 
-  public function ListarProductoVenta($busqueda,$x,$y,$TipoBusqueda,$intIdSucursal)
+  public function ListarProductoVenta($busqueda,$x,$y,$TipoBusqueda,$intIdSucursal,$intIdTipoMoneda)
   {
   	try{
       if($busqueda != "" || $busqueda != null) {
@@ -200,6 +200,24 @@ class DetalleVenta
         $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':TipoBusqueda' => $TipoBusqueda));
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
+          $dtmFechaCambio =  date("Y-m-d");
+          $sql_conexion_moneda = new Conexion_BD();
+          $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+          $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+          $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+          $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+          if($intIdTipoMoneda == 1){
+            if($fila['intIdTipoMonedaVenta'] != 1) {
+              $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']*$fila_moneda['dcmCambio2'],2); 
+              $fila['nvchSimbolo'] = "S/.";
+            }
+          } 
+          else if ($intIdTipoMoneda == 2){
+            if($fila['intIdTipoMonedaVenta'] != 2){
+              $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']/$fila_moneda['dcmCambio2'],2);
+              $fila['nvchSimbolo'] = "US$";
+            }
+          }
         	echo 
           '<tr>
           <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>

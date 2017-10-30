@@ -109,14 +109,7 @@ class MonedaComercial
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       //Busqueda de MonedaComercial por el comando LIMIT
-      if($tipolistado == "N"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarMonedaComercial_ii(:TipoCambio)');
-        $sql_comando -> execute(array(':TipoCambio' => $TipoCambio));
-        $cantidad = $sql_comando -> rowCount();
-        $numpaginas = ceil($cantidad / $y);
-        $x = ($numpaginas - 1) * $y;
-        $i = 1;
-      } else if ($tipolistado == "D"){
+      if ($tipolistado == "D"){
         $sql_comando = $sql_conectar->prepare('CALL buscarMonedaComercial_ii(:TipoCambio)');
         $sql_comando -> execute(array(':TipoCambio' => $TipoCambio));
         $cantidad = $sql_comando -> rowCount();
@@ -130,7 +123,7 @@ class MonedaComercial
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-          if($i == ($cantidad - $x) && $tipolistado == "N"){
+          if($fila["intIdMonedaComercial"] == $_SESSION['intIdMonedaComercial'] && $tipolistado == "N"){
             echo '<tr bgcolor="#BEE1EB">';
           } else if($fila["intIdMonedaComercial"] == $_SESSION['intIdMonedaComercial'] && $tipolistado == "E"){
             echo '<tr bgcolor="#B3E4C0">';
@@ -167,9 +160,9 @@ class MonedaComercial
       $sql_comando -> execute(array(':TipoCambio' => $TipoCambio));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
-      if($tipolistado == "N" || $tipolistado == "D")
+      if($tipolistado == "D")
       { $x = $numpaginas - 1; }
-      else if($tipolistado == "E")
+      else if($tipolistado == "E" || $tipolistado == "N")
       { $x = $x / $y; }
       $output = "";
       for($i = 0; $i < $numpaginas; $i++){

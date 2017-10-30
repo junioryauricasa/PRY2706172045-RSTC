@@ -157,7 +157,9 @@ DELIMITER $$
     	IN _elemento VARCHAR(250),
 		IN _x INT,
 		IN _y INT,
-		IN _intIdTipoComprobante INT
+		IN _intIdTipoComprobante INT,
+		IN _dtmFechaInicio DATETIME,
+		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT V.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario, 
@@ -182,7 +184,8 @@ DELIMITER $$
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
-		V.intIdTipoComprobante = _intIdTipoComprobante
+		V.intIdTipoComprobante = _intIdTipoComprobante AND
+		(V.dtmFechaCreacion BETWEEN _dtmFechaInicio AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta
 		LIMIT _x,_y;
     END 
@@ -193,7 +196,9 @@ DROP PROCEDURE IF EXISTS BUSCARVENTA_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARVENTA_II(
     	IN _elemento VARCHAR(250),
-    	IN _intIdTipoComprobante INT
+    	IN _intIdTipoComprobante INT,
+    	IN _dtmFechaInicio DATETIME,
+    	IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT V.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario, 
@@ -218,7 +223,8 @@ DELIMITER $$
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
-		V.intIdTipoComprobante = _intIdTipoComprobante
+		V.intIdTipoComprobante = _intIdTipoComprobante AND
+		(V.dtmFechaCreacion BETWEEN _dtmFechaInicio AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta;
     END 
 $$

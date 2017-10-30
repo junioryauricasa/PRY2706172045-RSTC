@@ -51,6 +51,19 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS MOSTRARMONEDATRIBUTARIAFECHA;
+DELIMITER $$
+	CREATE PROCEDURE MOSTRARMONEDATRIBUTARIAFECHA(
+    	IN _dtmFechaCambio DATETIME
+    )
+	BEGIN
+		SELECT * FROM tb_cambio_moneda_tributaria 
+		WHERE 
+		dtmFechaCambio = _dtmFechaCambio;
+    	END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS ELIMINARMONEDATRIBUTARIA;
 DELIMITER $$
 	CREATE PROCEDURE ELIMINARMONEDATRIBUTARIA(
@@ -85,6 +98,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_cambio_moneda TCM ON TCMT.intIdTipoCambio = TCM.intIdTipoCambio
 		WHERE 
 		TCMT.intIdTipoCambio = _intIdTipoCambio
+		ORDER BY dtmFechaCambio DESC
 		LIMIT _x,_y;
     	END 
 $$
@@ -99,7 +113,8 @@ DELIMITER $$
 		SELECT TCMT.* FROM tb_cambio_moneda_tributaria TCMT
 		LEFT JOIN tb_tipo_cambio_moneda TCM ON TCMT.intIdTipoCambio = TCM.intIdTipoCambio
 		WHERE 
-		TCMT.intIdTipoCambio = _intIdTipoCambio;
+		TCMT.intIdTipoCambio = _intIdTipoCambio
+		ORDER BY dtmFechaCambio DESC;
     	END 
 $$
 DELIMITER ;
