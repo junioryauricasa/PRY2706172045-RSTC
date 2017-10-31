@@ -158,7 +158,7 @@ DELIMITER $$
 		IN _x INT,
 		IN _y INT,
 		IN _intIdTipoComprobante INT,
-		IN _dtmFechaInicio DATETIME,
+		IN _dtmFechaInicial DATETIME,
 		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
@@ -185,7 +185,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
 		V.intIdTipoComprobante = _intIdTipoComprobante AND
-		(V.dtmFechaCreacion BETWEEN _dtmFechaInicio AND _dtmFechaFinal)
+		(V.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta
 		LIMIT _x,_y;
     END 
@@ -197,7 +197,7 @@ DELIMITER $$
 	CREATE PROCEDURE BUSCARVENTA_II(
     	IN _elemento VARCHAR(250),
     	IN _intIdTipoComprobante INT,
-    	IN _dtmFechaInicio DATETIME,
+    	IN _dtmFechaInicial DATETIME,
     	IN _dtmFechaFinal DATETIME
     )
 	BEGIN
@@ -224,7 +224,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
 		V.intIdTipoComprobante = _intIdTipoComprobante AND
-		(V.dtmFechaCreacion BETWEEN _dtmFechaInicio AND _dtmFechaFinal)
+		(V.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta;
     END 
 $$
@@ -235,7 +235,7 @@ DELIMITER $$
 	CREATE PROCEDURE TOTALVENTAS(
     	IN _elemento VARCHAR(250),
     	IN _intIdTipoComprobante INT,
-    	IN _dtmFechaInicio DATETIME,
+    	IN _dtmFechaInicial DATETIME,
     	IN _dtmFechaFinal DATETIME
     )
 	BEGIN
@@ -258,7 +258,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
 		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
 		V.intIdTipoComprobante = _intIdTipoComprobante AND
-		(V.dtmFechaCreacion BETWEEN _dtmFechaInicio AND _dtmFechaFinal)
+		(V.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta;
     END 
 $$

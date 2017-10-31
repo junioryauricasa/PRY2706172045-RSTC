@@ -65,7 +65,6 @@ class KardexProducto
       } else if($this->intTipoDetalle == 2){
         $this->dcmPrecioEntrada[$key] = round(($this->dcmPrecioEntrada[$key] / 1.18),2);
         $this->dcmTotalEntrada[$key] = $this->intCantidadEntrada[$key] * $this->dcmPrecioEntrada[$key];
-        //$this->dcmTotalEntrada[$key] = round(($this->dcmTotalEntrada[$key] / 1.18),2);
         $intCantidadStock = $intCantidadStock + $this->intCantidadEntrada[$key];
         $dcmSaldoValorizado = $dcmSaldoValorizado + $this->dcmTotalEntrada[$key];
       }
@@ -183,7 +182,7 @@ class KardexProducto
     }
   }
 
-  public function ListarKardexProducto($busqueda,$x,$y,$tipolistado)
+  public function ListarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
       $residuo = 0;
@@ -195,27 +194,65 @@ class KardexProducto
       //Busqueda de KardexProducto por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto));
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto, 
+          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto));
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto, 
+          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de KardexProducto por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdProducto' => $this->intIdProducto));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdProducto' => $this->intIdProducto, 
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $numpaginas = ceil($cantidad / $y);
       $j = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        if($fila['dcmPrecioEntrada'] == "" || $fila['dcmPrecioEntrada'] == null) { $fila['dcmPrecioEntrada'] = 0.00; }
+        if($fila['dcmTotalEntrada'] == "" || $fila['dcmTotalEntrada'] == null) { $fila['dcmTotalEntrada'] = 0.00; }
+        if($fila['dcmPrecioSalida'] == "" || $fila['dcmPrecioSalida'] == null) { $fila['dcmPrecioSalida'] = 0.00; }
+        if($fila['dcmTotalSalida'] == "" || $fila['dcmPrecioSalida'] == null) { $fila['dcmPrecioSalida'] = 0.00; }
+        if($fila['intCantidadEntrada'] == "" || $fila['intCantidadEntrada'] == null) { $fila['intCantidadEntrada'] = 0; }
+        if($fila['intCantidadSalida'] == "" || $fila['intCantidadSalida'] == null) { $fila['intCantidadSalida'] = 0; }
+        
+        $nvchSimbolo = "";
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          $nvchSimbolo = "S/.";
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['dcmPrecioEntrada'] = number_format($fila['dcmPrecioEntrada']*$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['dcmTotalEntrada'] = number_format($fila['dcmTotalEntrada']*$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['dcmPrecioSalida'] = number_format($fila['dcmPrecioSalida']*$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['dcmTotalSalida'] = number_format($fila['dcmTotalSalida']*$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['dcmSaldoValorizado'] = number_format($fila['dcmSaldoValorizado']*$fila_moneda['dcmCambio2'],2,'.',''); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          $nvchSimbolo = "US$";
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['dcmPrecioEntrada'] = number_format($fila['dcmPrecioEntrada']/$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['dcmTotalEntrada'] = number_format($fila['dcmTotalEntrada']/$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['dcmPrecioSalida'] = number_format($fila['dcmPrecioSalida']/$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['dcmTotalSalida'] = number_format($fila['dcmTotalSalida']/$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['dcmSaldoValorizado'] = number_format($fila['dcmSaldoValorizado']/$fila_moneda['dcmCambio2'],2,'.','');
+          }
+        }
+
         echo 
         '<tr>
         <td>'.$j.'</td>
@@ -234,11 +271,11 @@ class KardexProducto
         <td>'.$fila["intCantidadEntrada"].'</td>
         <td>'.$fila["intCantidadSalida"].'</td>
         <td>'.$fila["intCantidadStock"].'</td>
-        <td>'.$fila["dcmPrecioEntrada"].'</td>
-        <td>'.$fila["dcmTotalEntrada"].'</td>
-        <td>'.$fila["dcmPrecioSalida"].'</td>
-        <td>'.$fila["dcmTotalSalida"].'</td>
-        <td>'.$fila["dcmSaldoValorizado"].'</td>
+        <td>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</td>
+        <td>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</td>
+        <td>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</td>
+        <td>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</td>
+        <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td>
         <td> 
           <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
             <i class="fa fa-edit"></i> Ver Detalle
@@ -253,15 +290,16 @@ class KardexProducto
     }  
   }
 
-  public function PaginarKardexProducto($busqueda,$x,$y,$tipolistado)
+  public function PaginarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_ii(:busqueda,:intIdProducto)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_ii(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto, 
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

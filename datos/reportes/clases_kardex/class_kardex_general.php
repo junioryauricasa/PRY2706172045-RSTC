@@ -3,7 +3,7 @@ require_once '../conexion/bd_conexion.php';
 class KardexGeneral
 {
   /* INICIO - Métodos de KardexGeneral */
-  public function ListarKardexGeneral($busqueda,$x,$y,$tipolistado)
+  public function ListarKardexGeneral($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
       $residuo = 0;
@@ -15,27 +15,53 @@ class KardexGeneral
       //Busqueda de KardexGeneral por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_II(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_II(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':dtmFechaInicial' => $dtmFechaInicial,
+          ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_II(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_II(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':dtmFechaInicial' => $dtmFechaInicial,
+          ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de KardexGeneral por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':dtmFechaInicial' => $dtmFechaInicial,
+        ':dtmFechaFinal' => $dtmFechaFinal));
       $numpaginas = ceil($cantidad / $y);
       $j = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        if($fila['CantidadEntradaTotal'] == "" || $fila['CantidadEntradaTotal'] == null) { $fila['CantidadEntradaTotal'] = 0; }
+        if($fila['CantidadSalidaTotal'] == "" || $fila['CantidadSalidaTotal'] == null) { $fila['CantidadSalidaTotal'] = 0; }
+        
+        $nvchSimbolo = "";
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          $nvchSimbolo = "S/.";
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila["dcmSaldoValorizado"] = number_format($fila["dcmSaldoValorizado"]*$fila_moneda['dcmCambio2'],2,'.','');
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          $nvchSimbolo = "US$";
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila["dcmSaldoValorizado"] = number_format($fila["dcmSaldoValorizado"]/$fila_moneda['dcmCambio2'],2,'.','');
+          }
+        }
+
         echo 
         '<tr>
         <td>'.$j.'</td>
@@ -45,7 +71,7 @@ class KardexGeneral
         <td>'.$fila["CantidadEntradaTotal"].'</td>
         <td>'.$fila["CantidadSalidaTotal"].'</td>
         <td>'.$fila["intCantidadStock"].'</td>
-        <td>'.$fila["dcmSaldoValorizado"].'</td> 
+        <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td> 
         </tr>';
         $j++;
       }
@@ -55,15 +81,16 @@ class KardexGeneral
     }  
   }
 
-  public function PaginarKardexGeneral($busqueda,$x,$y,$tipolistado)
+  public function PaginarKardexGeneral($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+        ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

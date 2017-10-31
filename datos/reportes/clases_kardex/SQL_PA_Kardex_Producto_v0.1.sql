@@ -124,12 +124,15 @@ DELIMITER $$
     	IN _elemento VARCHAR(500),
 		IN _x INT,
 		IN _y INT,
-		IN _intIdProducto INT
+		IN _intIdProducto INT,
+		IN _dtmFechaInicial DATETIME,
+		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT K.*, TC.nvchNombre AS NombreComprobante FROM tb_kardex K
 		LEFT JOIN tb_tipo_comprobante TC ON K.intIdTipoComprobante = TC.intIdTipoComprobante
-		WHERE intIdProducto = _intIdProducto
+		WHERE intIdProducto = _intIdProducto AND
+		(K.dtmFechaMovimiento BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		LIMIT _x,_y;
     END
 $$
@@ -139,12 +142,15 @@ DROP PROCEDURE IF EXISTS BUSCARKARDEXPRODUCTO_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARKARDEXPRODUCTO_II(
     	IN _elemento VARCHAR(500),
-    	IN _intIdProducto INT
+    	IN _intIdProducto INT,
+    	IN _dtmFechaInicial DATETIME,
+    	IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT K.*, TC.nvchNombre AS NombreComprobante FROM tb_kardex K
 		LEFT JOIN tb_tipo_comprobante TC ON K.intIdTipoComprobante = TC.intIdTipoComprobante
-		WHERE intIdProducto = _intIdProducto;
+		WHERE intIdProducto = _intIdProducto AND
+		(K.dtmFechaMovimiento BETWEEN _dtmFechaInicial AND _dtmFechaFinal);
     END 
 $$
 DELIMITER ;
