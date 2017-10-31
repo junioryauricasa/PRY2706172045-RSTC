@@ -108,6 +108,32 @@ function ListarKardex(x,y,tipolistado) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Kardex */
+function ReporteKardex() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "R";
+  var intIdProducto = document.getElementById("intIdProducto").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+  var url = '../../datos/reportes/clases_kardex/reporte_kardex_producto.php?intIdProducto='+intIdProducto+
+            '&busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+
+            '&intIdTipoMoneda='+intIdTipoMoneda;
+  window.open(url, '_blank');
+}
+/* FIN - Funcion Ajax - Listar Kardex */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Kardex */
 function PaginarKardex(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;

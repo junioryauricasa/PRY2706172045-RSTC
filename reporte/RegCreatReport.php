@@ -8,7 +8,7 @@
 	    1.- Registrar cada generacion de PDF, guardando las variables correspondientes
 	  ------------------------------
 	*/
-	if(!isset($_SESSION['user_session']))
+	if(!isset($_SESSION['intIdUsuarioSesion']))
 	{
 	    header("Location: ../index");
 	}

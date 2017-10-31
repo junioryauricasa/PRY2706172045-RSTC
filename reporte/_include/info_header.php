@@ -18,4 +18,4 @@
 	?>
 </span>
 <br>
-<span>Reporte Generado Por: <?php echo $_SESSION['usr_name'];?></span>
+<span>Reporte Generado Por: <?php echo $_SESSION['nvchUserName'];?></span>

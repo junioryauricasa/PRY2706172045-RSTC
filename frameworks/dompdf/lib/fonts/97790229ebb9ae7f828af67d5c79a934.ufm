@@ -1,0 +1,64 @@
+StartFontMetrics 4.1
+Notice Converted by PHP-font-lib
+Comment http://php-font-lib.googlecode.com/
+EncodingScheme FontSpecific
+Copyright No copyright information found.
+FontName LiberationSans_e
+FontSubfamily Roman
+UniqueID JPedal PDF2HTML LiberationSans_e
+FullName LiberationSans_e
+Version Version 1.0
+PostScriptName LiberationSans_e
+Weight Medium
+ItalicAngle 0
+IsFixedPitch false
+UnderlineThickness 73
+UnderlinePosition -106
+FontHeightOffset 0
+Ascender 693
+Descender 0
+FontBBox -11 -208 864 736
+StartCharMetrics 46
+U 32 ; WX 278 ; N uni0020 ; G 6
+U 40 ; WX 333 ; N uni0028 ; G 25
+U 41 ; WX 333 ; N uni0029 ; G 26
+U 46 ; WX 278 ; N uni002e ; G 17
+U 47 ; WX 278 ; N uni002f ; G 33
+U 48 ; WX 556 ; N uni0030 ; G 19
+U 50 ; WX 556 ; N uni0032 ; G 18
+U 58 ; WX 278 ; N uni003a ; G 27
+U 65 ; WX 667 ; N uni0041 ; G 43
+U 67 ; WX 722 ; N uni0043 ; G 28
+U 68 ; WX 722 ; N uni0044 ; G 34
+U 69 ; WX 667 ; N uni0045 ; G 8
+U 70 ; WX 611 ; N uni0046 ; G 1
+U 71 ; WX 778 ; N uni0047 ; G 38
+U 73 ; WX 278 ; N uni0049 ; G 36
+U 76 ; WX 556 ; N uni004c ; G 44
+U 78 ; WX 722 ; N uni004e ; G 35
+U 79 ; WX 778 ; N uni004f ; G 42
+U 80 ; WX 667 ; N uni0050 ; G 29
+U 82 ; WX 722 ; N uni0052 ; G 31
+U 83 ; WX 667 ; N uni0053 ; G 20
+U 84 ; WX 611 ; N uni0054 ; G 45
+U 85 ; WX 722 ; N uni0055 ; G 32
+U 86 ; WX 667 ; N uni0056 ; G 37
+U 97 ; WX 556 ; N uni0061 ; G 5
+U 99 ; WX 500 ; N uni0063 ; G 3
+U 100 ; WX 556 ; N uni0064 ; G 7
+U 101 ; WX 556 ; N uni0065 ; G 2
+U 103 ; WX 556 ; N uni0067 ; G 30
+U 104 ; WX 556 ; N uni0068 ; G 4
+U 105 ; WX 222 ; N uni0069 ; G 10
+U 109 ; WX 833 ; N uni006d ; G 9
+U 110 ; WX 556 ; N uni006e ; G 15
+U 111 ; WX 556 ; N uni006f ; G 23
+U 114 ; WX 333 ; N uni0072 ; G 24
+U 115 ; WX 500 ; N uni0073 ; G 11
+U 117 ; WX 556 ; N uni0075 ; G 39
+U 237 ; WX 278 ; N uni00ed ; G 40
+U 241 ; WX 556 ; N uni00f1 ; G 21
+U 243 ; WX 556 ; N uni00f3 ; G 12
+U 8230 ; WX 1000 ; N uni2026 ; G 16
+EndCharMetrics
+EndFontMetrics

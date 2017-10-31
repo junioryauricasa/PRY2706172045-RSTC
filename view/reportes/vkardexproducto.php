@@ -214,8 +214,9 @@ include('../_include/rstheader.php');
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-kardex" class="btn btn-sm btn-info btn-flat pull-left">Generar Reporte PDF</button>
+          <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat pull-left">Generar Reporte PDF</button>
         </div>
+        <div id="ReporteKardex"></div>
       </div>
 
       <div>

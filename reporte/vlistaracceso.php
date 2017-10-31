@@ -10,7 +10,7 @@
 	    1.- Redireccionar al INDEX a cualquier usuario que quiera acceder a este enlace directamente sin iniciar session
 	  ------------------------------
 	*/
-	if(!isset($_SESSION['user_session']))
+	if(!isset($_SESSION['intIdUsuarioSesion']))
 	{
 	    header("Location: ../index");
 	}

@@ -1,55 +1,17 @@
-<?php 
-	ob_start();
+<?php
+require_once '../frameworks/dompdf/autoload.inc.php';
+
 	session_start();
-	ini_set("memory_limit", "128M"); //aumentamos la memoria disponible para DOMPDF
-	/*
-	  ------------------------------
-	  Autor: Junior Yauricasa
-	  Fecha: 15-06-2017
-	  Descripcion: 
-	    1.- Redireccionar al INDEX a cualquier usuario que quiera acceder a este enlace directamente sin iniciar session
-	  ------------------------------
-	*/
-	if(!isset($_SESSION['user_session']))
-	{
-	    header("Location: ../index");
-	}
-
 	$nombreReporte = "Listado de Usuarios"; //titulo del reporte
-
-	include 'RegCreatReport.php'; //registro de creacion de reporte;
 	include 'querySQL4report.php'; //incluyendo funciones
-?>
-
-<!DOCTYPE html>
+$pagina = '<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo $nombreReporte; ?></title>	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+	<title><?php echo $nombreReporte; ?></title>
 	<!--icon-->
-  	<link rel="icon" href="../dist/img/icons/025-pie-chart.png" type="image/png" sizes="16x16">
-
-	<style>
-		@font-face {
-		    font-family: 'Elegance';
-		    font-weight: normal;
-		    font-style: normal;
-		    font-variant: normal;
-		    src: url("http://eclecticgeek.com/dompdf/fonts/Elegance.ttf") format("truetype");
-		}
-		p{
-			font-size: 13px !important;
-			text-align: justify;
-		}
-		table{
-			font-size: 11px ;
-		}
-		h1{
-			font-family: Elegance, sans-serif;
-		}
-	</style>
+  	<link rel="icon" href="../frameworks/dist/img/icons/025-pie-chart.png" type="image/png" sizes="16x16">
+  	<link rel="stylesheet" href="../../frameworks/bootstrap/css/bootstrap.min.css">
 
 </head>
 <body class="container">
@@ -58,7 +20,7 @@
 			<tr>
 				<td><img src="logo.JPG" alt="" width="200px"></td>
 				<td class="text-right">
-					<?php include('_include/info_header.php'); ?>
+					<?php include("_include/info_header.php"); ?>
 				</td>
 			</tr>
 		</table>
@@ -77,7 +39,7 @@
     <tr>
       <th>#Cod</th>
       <th>Usuario</th>
-      <th>e-Mail</th>
+      <th>Nombres</th>
       <th>Tipo</th>
       <th>Estado</th>
     </tr>
@@ -89,16 +51,14 @@
   </tbody>
 </table>
 </body>
-</html> 
+</html>';
+use Dompdf\Dompdf;
+	$pagina = utf8_decode($pagina);
+	$dompdf = new Dompdf();
+	$dompdf->loadHtml($pagina);
 
-<?php 
-	require_once('dompdf/dompdf_config.inc.php');
-	$dompdf = new DOMPDF();
-	$dompdf->set_paper("A4", "portraid"); //portaid or landscape
-	$dompdf -> load_html(ob_get_clean());
-	$dompdf -> render();
-	$pdf = $dompdf -> output();
-	$filename = 'nombre.pdf';
-	$dompdf -> stream($filename, array("Attachment" => 0));
+// (Optional) Setup the paper size and orientation
+	$dompdf->setPaper('A4', 'landscape');
+	$dompdf->render();
+	$dompdf->stream("usuarios.pdf");
  ?>
-

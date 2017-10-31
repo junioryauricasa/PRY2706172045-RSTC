@@ -25,11 +25,11 @@
       $result = mysqli_query($con, $sql);  
       while($row = mysqli_fetch_array($result))  
       {       
-        if($row["intTypeUser"] == 0){
-          $row["intTypeUser"] = 'Usuario';
+        if($row["intIdTipoUsuario"] == 0){
+          $row["intIdTipoUsuario"] = 'Usuario';
         }else
-        if($row["intTypeUser"] == 1){
-          $row["intTypeUser"] = 'Administrador';
+        if($row["intIdTipoUsuario"] == 1){
+          $row["intIdTipoUsuario"] = 'Administrador';
         }
 
         if($row["bitUserEstado"] == 0){
@@ -42,10 +42,10 @@
 
       $output .= '
       <tr>  
-          <td>USR'.$row["intUserId"].'</td>  
+          <td>USR'.$row["intIdUsuario"].'</td>  
           <td>'.$row["nvchUserName"].'</td>  
-          <td>'.$row["nchUserMail"].'</td>  
-          <td>'.$row["intTypeUser"].'</td>  
+          <td>'.$row["nvchNombres"].'</td>  
+          <td>'.$row["intIdTipoUsuario"].'</td>  
           <td>'.$row["bitUserEstado"].'</td>  
       </tr>  
       ';  
@@ -63,11 +63,11 @@
       $result = mysqli_query($con, $sql);  
       while($row = mysqli_fetch_array($result))  
       {       
-        if($row["intTypeUser"] == 0){
-          $row["intTypeUser"] = 'Usuario';
+        if($row["intIdTipoUsuario"] == 0){
+          $row["intIdTipoUsuario"] = 'Usuario';
         }else
-        if($row["intTypeUser"] == 1){
-          $row["intTypeUser"] = 'Administrador';
+        if($row["intIdTipoUsuario"] == 1){
+          $row["intIdTipoUsuario"] = 'Administrador';
         }
 
         if($row["bitUserEstado"] == 0){
@@ -91,7 +91,7 @@
               .$row["nchUserMail"].
             '</a>
           </td>
-          <td>'.$row["intTypeUser"].'</td>  
+          <td>'.$row["intIdTipoUsuario"].'</td>  
           <td>
               '.$row["bitUserEstado"].'
           </td>  
@@ -115,7 +115,7 @@
           intIdHistory,
           nvchUserName,
           nchUserMail,
-          intTypeUser,
+          intIdTipoUsuario,
           bitUserEstado,
           nvchBrowser,
           nvchIpAccesso,
@@ -129,11 +129,11 @@
       $result = mysqli_query($con, $sql);  
       while($row = mysqli_fetch_array($result))  
       {       
-        if($row["intTypeUser"] == 0){
-          $row["intTypeUser"] = 'Usuario';
+        if($row["intIdTipoUsuario"] == 0){
+          $row["intIdTipoUsuario"] = 'Usuario';
         }else
-        if($row["intTypeUser"] == 1){
-          $row["intTypeUser"] = 'Administrador';
+        if($row["intIdTipoUsuario"] == 1){
+          $row["intIdTipoUsuario"] = 'Administrador';
         }
 
         if($row["bitUserEstado"] == 0){
@@ -157,7 +157,7 @@
               .$row["nchUserMail"].
             '</a>
           </td>
-          <td>'.$row["intTypeUser"].'</td>  
+          <td>'.$row["intIdTipoUsuario"].'</td>  
           <td>
               '.$row["bitUserEstado"].'
           </td> 
@@ -186,7 +186,7 @@
           intIdHistory,
           nvchUserName,
           nchUserMail,
-          intTypeUser,
+          intIdTipoUsuario,
           bitUserEstado,
           nvchBrowser,
           nvchIpAccesso,
@@ -201,11 +201,11 @@
       $result = mysqli_query($con, $sql);  
       while($row = mysqli_fetch_array($result))  
       {       
-        if($row["intTypeUser"] == 0){
-          $row["intTypeUser"] = 'Usuario';
+        if($row["intIdTipoUsuario"] == 0){
+          $row["intIdTipoUsuario"] = 'Usuario';
         }else
-        if($row["intTypeUser"] == 1){
-          $row["intTypeUser"] = 'Administrador';
+        if($row["intIdTipoUsuario"] == 1){
+          $row["intIdTipoUsuario"] = 'Administrador';
         }
 
         if($row["bitUserEstado"] == 0){
@@ -220,7 +220,7 @@
       <tr>  
           <td>HSTACC'.$row["intIdHistory"].'</td>  
           <td>'.$row["nvchUserName"].' / '.$row["nchUserMail"].'</td>
-          <td>'.$row["intTypeUser"].'</td>  
+          <td>'.$row["intIdTipoUsuario"].'</td>  
           <td>'.$row["bitUserEstado"].'</td> 
           <td>'.$row["dateDateAccesso"].'</td>  
           <td>'.$row["nvchBrowser"].'</td> 
