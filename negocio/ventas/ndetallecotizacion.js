@@ -1,24 +1,45 @@
 //////////////////////////////////////////////////////////////
-/* INICIO - Paginar Clientes para la Selección */
+/* INICIO - Funcion Ajax - Listar Producto */
 function PaginacionProductos(seleccion) {
-	var busqueda = document.getElementById("BusquedaProducto").value;
 	var y = 5;
 	var x = $(seleccion).attr("idprt") * y;
+	ListarProductosSeleccion(x,y);
+}
+
+$(document).on('keyup', '#BusquedaProducto', function(){
+	var y = 5;
+	var x = 0;
+	ListarProductosSeleccion(x,y);
+});
+
+$(document).on('change', '#tipo-busqueda', function(){
+	var y = 5;
+	var x = 0;
+	ListarProductosSeleccion(x,y);
+});
+/* FIN - Funciones Ajax - Listar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Productos para la Selección */
+function ListarProductosSeleccion(x,y) {
+	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
-	var tipofuncion = document.getElementById("tipofuncion").value;
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+	var intIdTipoMoneda = document.getElementById("tipo-moneda").value;
+	var tipofuncion = document.getElementById("tipofuncion").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
+	   data:{busqueda:busqueda,funcion:funcion,tipofuncion:tipofuncion,x:x,y:y,TipoBusqueda:TipoBusqueda,intIdTipoMoneda:intIdTipoMoneda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosSeleccion").html(datos);
 	   	PaginarProductosSeleccion((x/y),y);
 	   }
-	  });
+	});
 }
-/* FIN - Paginar Clientes para la Selección */
+/* FIN - Listar Productos para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -38,26 +59,6 @@ function PaginarProductosSeleccion(x,y) {
 	  });
 }
 /* FIN - Paginar Clientes para la Selección */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Listar Productos para la Selección */
-function ListarProductosSeleccion(x,y,tipofuncion) {
-	var busqueda = document.getElementById("BusquedaProducto").value;
-	var funcion = "MPT";
-	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var intIdTipoMoneda = document.getElementById("tipo-moneda").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda,intIdTipoMoneda:intIdTipoMoneda},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProductosSeleccion").html(datos);
-	   }
-	  });
-}
-/* FIN - Listar Productos para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -195,54 +196,6 @@ function EliminarDetalleCotizacion(seleccion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Cliente*/
-$(document).on('keyup', '#BusquedaProducto', function(){
-	  var busqueda = document.getElementById("BusquedaProducto").value;
-  	  var y = 5;
-  	  var x = 0;
-  	  var funcion = "MPT";
-  	  var tipofuncion = document.getElementById("tipofuncion").value;
-  	  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProductosSeleccion").html(datos);
-	   	PaginarProductosSeleccion((x/y),y);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Buscar Elemento Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Cliente*/
-$(document).on('change', '#tipo-busqueda', function(){
-	  var busqueda = document.getElementById("BusquedaProducto").value;
-  	  var y = 5;
-  	  var x = 0;
-  	  var funcion = "MPT";
-  	  var tipofuncion = document.getElementById("tipofuncion").value;
-  	  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProductosSeleccion").html(datos);
-	   	PaginarProductosSeleccion((x/y),y);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Buscar Elemento Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
 function SeleccionarProducto(seleccion) {
 	var intIdProducto = $(seleccion).attr("idsprt");
@@ -267,7 +220,7 @@ function SeleccionarProducto(seleccion) {
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+nvchSimbolo+' '+dcmPrecio+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmDescuento[]" value="'+dcmDescuento+'"/>'+dcmDescuento+'%'+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+nvchSimbolo+' '+dcmPrecioUnitario+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+nvchSimbolo+' '+dcmTotal+'</td>'+

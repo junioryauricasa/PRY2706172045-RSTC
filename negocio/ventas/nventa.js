@@ -423,7 +423,7 @@ function ListarClientesSeleccion(x,y) {
 	var funcion = "MCL";
 	var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -442,7 +442,7 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "PCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -460,7 +460,7 @@ function SeleccionarCliente(seleccion) {
 	var intIdCliente = $(seleccion).attr("idscli");
 	var funcion = "SCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{intIdCliente:intIdCliente,funcion:funcion},
 	   dataType:"json",

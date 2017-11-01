@@ -248,7 +248,7 @@ class Venta{
         $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
         $sql_conexion_moneda = new Conexion_BD();
         $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
-        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
         $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
         $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
         if($intIdTipoMoneda == 1){
