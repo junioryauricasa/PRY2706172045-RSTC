@@ -113,11 +113,29 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->ListarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Cotizacion->ListarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],
+            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+    break;
+  case "TCT":
+    $Cotizacion = new Cotizacion();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Cotizacion->TotalCotizaciones($_POST['busqueda'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->PaginarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Cotizacion->PaginarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],
+            $dtmFechaInicial,$dtmFechaFinal);
     break;
   case "SCL":
     $Cotizacion = new Cotizacion();
@@ -134,7 +152,8 @@ switch($_POST['funcion']){
     break;
   case "MPT":
     $DetalleCotizacion = new DetalleCotizacion();
-    $DetalleCotizacion->ListarProductoCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion'],$_POST['TipoBusqueda']);
+    $DetalleCotizacion->ListarProductoCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipofuncion'],$_POST['TipoBusqueda'],
+        $_POST['intIdTipoMoneda']);
     break;
   case "PPT":
     $DetalleCotizacion = new DetalleCotizacion();

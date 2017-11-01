@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
+/* INICIO - Funcion Ajax - Visualizar Formulario Crear Cotización */
 $(document).on('click', '#btn-form-crear-cotizacion', function(){
 	  var funcion = "F";
 	  $.ajax({
@@ -14,18 +14,18 @@ $(document).on('click', '#btn-form-crear-cotizacion', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Visualizar Formulario Crear Cliente */
+/* FIN - Funcion Ajax - Visualizar Formulario Crear Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Insertar Cliente */
+/* INICIO - Funcion Ajax - Insertar Cotización */
 $(document).on('click', '#btn-crear-cotizacion', function(){
 	var intIdTipoVenta = $("#tipo-venta").val();
 	if(intIdTipoVenta == 1){
 	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
-	  var intIdCliente = $("#intIdCliente").val();
-	  if(intIdCliente == "" || intIdCliente == null){
-	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  var intIdCotización = $("#intIdCotización").val();
+	  if(intIdCotización == "" || intIdCotización == null){
+	  	MensajeNormal("Seleccionar a un Cotización",2);
 	  	return false;
 	  } else if(EsVacio("nvchAtencion") == false){
 	  	goToBox("#nvchAtencionGroup");
@@ -39,9 +39,9 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	  }
 	} else if(intIdTipoVenta == 2){
 	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeServiciosComprar').rows.length;
-	  var intIdCliente = $("#intIdCliente").val();
-	  if(intIdCliente == "" || intIdCliente == null){
-	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  var intIdCotización = $("#intIdCotización").val();
+	  if(intIdCotización == "" || intIdCotización == null){
+	  	MensajeNormal("Seleccionar a un Cotización",2);
 	  	return false;
 	  } else if(EsVacio("nvchAtencion") == false){
 	  	goToBox("#nvchAtencionGroup");
@@ -89,11 +89,11 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Insertar Cliente */
+/* FIN - Funcion Ajax - Insertar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Cliente */
+/* INICIO - Funcion Ajax - Mostrar Cotización */
 $(document).on('click', '.btn-mostrar-cotizacion', function(){
   	  var intIdCotizacion = $(this).attr("id");
   	  var funcion = "M";
@@ -111,11 +111,11 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Mostrar Cliente */
+/* FIN - Funcion Ajax - Mostrar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Cliente */
+/* INICIO - Funcion Ajax - Mostrar Cotización */
 $(document).on('click', '.btn-download-report', function(){
   	  var intIdCotizacion = $(this).attr("id");
   	  //var funcion = "OCR";
@@ -130,11 +130,11 @@ $(document).on('click', '.btn-download-report', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Mostrar Cliente */
+/* FIN - Funcion Ajax - Mostrar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Actualizar Cliente */
+/* INICIO - Funcion Ajax - Actualizar Cotización */
 $(document).on('click', '#btn-editar-cotizacion', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
@@ -158,11 +158,11 @@ $(document).on('click', '#btn-editar-cotizacion', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Actualizar Cliente */
+/* FIN - Funcion Ajax - Actualizar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Eliminar Cliente */
+/* INICIO - Funcion Ajax - Eliminar Cotización */
 $(document).on('click', '.btn-eliminar-cotizacion', function(){
   	  var intIdCotizacion = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
@@ -185,116 +185,146 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Eliminar Cliente */
+/* FIN - Funcion Ajax - Eliminar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Cliente */
+/* INICIO - Funcion Ajax - Buscar Cotización */
+$(document).on('change', '#num-lista', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "T";
+  ListarCotizacion(x,y,tipolistado);
+});
+
+$(document).on('click', '.btn-pagina', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = $(this).attr("idp") * y;
+  var tipolistado = "T";
+  ListarCotizacion(x,y,tipolistado);
+});
+
+$(document).on('keyup', '#txt-busqueda', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "T";
+  ListarCotizacion(x,y,tipolistado);
+});
+
+$(document).on('click', '#btnBuscar', function(){
+	var y = document.getElementById("num-lista").value;
+  	var x = 0;
+  	var tipolistado = "T";
+  	ListarCotizacion(x,y,tipolistado);
+});
+
+$(document).on('change', '#lista-tipo-moneda', function(){
+  	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
+  	var tipolistado = "T";
+  	ListarCotizacion(x,y,tipolistado);
+});
+/* FIN - Funcion Ajax - Buscar Cotización */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Cotización */
 function ListarCotizacion(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
   $.ajax({
       url:'../../datos/ventas/funcion_cotizacion.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoMoneda:intIdTipoMoneda,
+      	dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
           $("#ListaDeCotizaciones").html(datos);
+          PaginarCotizacion((x/y),y,tipolistado);
+          TotalCotizaciones();
       }
   });
 }
-/* FIN - Funcion Ajax - Listar Cliente */
+/* FIN - Funcion Ajax - Listar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-$(document).on('change', '#num-lista', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeCotizaciones").html(datos);
-	   	PaginarCotizacion(x,y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Paginar Cliente */
-function PaginarCotizacion(x,y,tipolistado) {
+/* INICIO - Funcion Ajax - Total Cotizaciones */
+function TotalCotizaciones() {
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "P";
+  var funcion = "TCT";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
   $.ajax({
       url:'../../datos/ventas/funcion_cotizacion.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal},
+      success:function(datos) {
+          $("#TotalCotizaciones").val(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Total Cotizaciones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Paginar Cotización */
+function PaginarCotizacion(x,y,tipolistado) {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "P";
+
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  $.ajax({
+      url:'../../datos/ventas/funcion_cotizacion.php',
+      method:"POST",
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
           $("#PaginacionDeCotizacion").html(datos);
       }
   });
 }
-/* FIN - Funcion Ajax - Paginar Cliente */
+/* FIN - Funcion Ajax - Paginar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Cliente */
-$(document).on('click', '.btn-pagina', function(){
-      var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(this).attr("idp") * y;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeCotizaciones").html(datos);
-	   	PaginarCotizacion((x/y),y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Página de Lista Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
-$(document).on('keyup', '#txt-busqueda', function(){
-	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeCotizaciones").html(datos);
-	   	PaginarCotizacion(x,y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cotización */
 $(document).on('change', '#lista-persona', function(){
-  	  var busqueda = document.getElementById("BusquedaCliente").value;
+  	  var busqueda = document.getElementById("BusquedaCotización").value;
   	  var y = 5;
   	  var x = 0;
   	  var funcion = "MCL";
@@ -320,19 +350,19 @@ $(document).on('change', '#lista-persona', function(){
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeClientesSeleccion").html(datos);
-	   	PaginarClientesSeleccion(x,y,intIdTipoPersona);
+	   	$("#ListaDeCotizaciónsSeleccion").html(datos);
+	   	PaginarCotizaciónsSeleccion(x,y,intIdTipoPersona);
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Cliente*/
-$(document).on('keyup', '#BusquedaCliente', function(){
-	  var busqueda = document.getElementById("BusquedaCliente").value;
+/* INICIO - Funcion Ajax - Buscar Elemento Cotización*/
+$(document).on('keyup', '#BusquedaCotización', function(){
+	  var busqueda = document.getElementById("BusquedaCotización").value;
 	  var intIdTipoPersona = document.getElementById("lista-persona").value;
   	  var y = 5;
   	  var x = 0;
@@ -343,47 +373,47 @@ $(document).on('keyup', '#BusquedaCliente', function(){
 	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeClientesSeleccion").html(datos);
-	   	PaginarClientesSeleccion(x,y,intIdTipoPersona);
+	   	$("#ListaDeCotizaciónsSeleccion").html(datos);
+	   	PaginarCotizaciónsSeleccion(x,y,intIdTipoPersona);
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Buscar Elemento Cliente */
+/* FIN - Funcion Ajax - Buscar Elemento Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Seleccion del Cliente */
-function SeleccionarCliente(seleccion) {
-	var intIdCliente = $(seleccion).attr("idscli");
+/* INICIO - Seleccion del Cotización */
+function SeleccionarCotización(seleccion) {
+	var intIdCotización = $(seleccion).attr("idscli");
 	var funcion = "SCL";
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdCliente:intIdCliente,funcion:funcion},
+	   data:{intIdCotización:intIdCotización,funcion:funcion},
 	   dataType:"json",
 	   success:function(datos)
 	   {
-	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#intIdCotización").val(datos.intIdCotización);
 	   	$("#nvchRUC").val(datos.nvchRUC);
 	   	$("#nvchDNI").val(datos.nvchDNI);
 	   	$("#nvchRazonSocial").val(datos.nvchRazonSocial);
 	   	$("#nvchApellidoPaterno").val(datos.nvchApellidoPaterno);
 	   	$("#nvchApellidoMaterno").val(datos.nvchApellidoMaterno);
 	   	$("#nvchNombres").val(datos.nvchNombres);
-	   	$("#TipoCliente").val(datos.TipoCliente);
-	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
-	   	MostrarSeleccionCliente(datos.intIdTipoPersona);
+	   	$("#TipoCotización").val(datos.TipoCotización);
+	   	$("#intIdTipoCotización").val(datos.intIdTipoCotización);
+	   	MostrarSeleccionCotización(datos.intIdTipoPersona);
 	   }
 	  });
 }
-/* FIN - Seleccion del Cliente */
+/* FIN - Seleccion del Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Seleccion del Cliente */
-function MostrarSeleccionCliente(intIdTipoPersona) {
-	  AccionSeleccionClientes('M');
+/* INICIO - Seleccion del Cotización */
+function MostrarSeleccionCotización(intIdTipoPersona) {
+	  AccionSeleccionCotizacións('M');
 	  if(intIdTipoPersona == 1){
 	  	$(".nvchDNI").hide();
       	$(".nvchApellidoPaterno").hide();
@@ -400,26 +430,26 @@ function MostrarSeleccionCliente(intIdTipoPersona) {
       	$(".nvchRazonSocial").hide();
 	  }
 }
-/* FIN - Seleccion del Cliente */
+/* FIN - Seleccion del Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-function AccionSeleccionClientes(funcion) {
+function AccionSeleccionCotizacións(funcion) {
 	  if(funcion == 'S'){
-	  	$("#TablaDeClientes").show();
-      	$("#DatosDelCliente").hide();
+	  	$("#TablaDeCotizacións").show();
+      	$("#DatosDelCotización").hide();
 	  } else if(funcion == 'M'){
-	  	$("#TablaDeClientes").hide();
-      	$("#DatosDelCliente").show();
+	  	$("#TablaDeCotizacións").hide();
+      	$("#DatosDelCotización").show();
 	  }
 }
-/* FIN - Seleccion del Cliente */
+/* FIN - Seleccion del Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Paginar Clientes para la Selección */
-function PaginacionClientes(seleccion) {
-	var busqueda = document.getElementById("BusquedaCliente").value;
+/* INICIO - Paginar Cotizacións para la Selección */
+function PaginacionCotizacións(seleccion) {
+	var busqueda = document.getElementById("BusquedaCotización").value;
 	var y = 5;
 	var x = $(seleccion).attr("idcli") * y;
 	var funcion = "MCL";
@@ -430,18 +460,18 @@ function PaginacionClientes(seleccion) {
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeClientesSeleccion").html(datos);
-	   	PaginarClientesSeleccion((x/y),y,intIdTipoPersona);
+	   	$("#ListaDeCotizaciónsSeleccion").html(datos);
+	   	PaginarCotizaciónsSeleccion((x/y),y,intIdTipoPersona);
 	   }
 	  });
 }
-/* FIN - Paginar Clientes para la Selección */
+/* FIN - Paginar Cotizacións para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Paginar Clientes para la Selección */
-function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
-	var busqueda = document.getElementById("BusquedaCliente").value;
+/* INICIO - Paginar Cotizacións para la Selección */
+function PaginarCotizaciónsSeleccion(x,y,intIdTipoPersona) {
+	var busqueda = document.getElementById("BusquedaCotización").value;
 	var funcion = "PCL";
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
@@ -449,17 +479,17 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
-	   	$("#PaginacionDeClientes").html(datos);
+	   	$("#PaginacionDeCotizacións").html(datos);
 	   }
 	  });
 }
-/* FIN - Paginar Clientes para la Selección */
+/* FIN - Paginar Cotizacións para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Listar Clientes para la Selección */
-function ListarClientesSeleccion(x,y,intIdTipoPersona) {
-	var busqueda = document.getElementById("BusquedaCliente").value;
+/* INICIO - Listar Cotizacións para la Selección */
+function ListarCotizaciónsSeleccion(x,y,intIdTipoPersona) {
+	var busqueda = document.getElementById("BusquedaCotización").value;
 	var funcion = "MCL";
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
@@ -467,11 +497,11 @@ function ListarClientesSeleccion(x,y,intIdTipoPersona) {
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeClientesSeleccion").html(datos);
+	   	$("#ListaDeCotizaciónsSeleccion").html(datos);
 	   }
 	  });
 }
-/* FIN - Listar Clientes para la Selección */
+/* FIN - Listar Cotizacións para la Selección */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

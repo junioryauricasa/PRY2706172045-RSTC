@@ -141,10 +141,10 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT CT.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
-				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
-			END AS NombreCliente FROM tb_cotizacion CT 
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
  		LIMIT _x,_y;
@@ -166,25 +166,36 @@ DELIMITER $$
 	CREATE PROCEDURE BUSCARCOTIZACION(
     	IN _elemento VARCHAR(250),
 		IN _x INT,
-		IN _y INT
+		IN _y INT,
+    	IN _dtmFechaInicial DATETIME,
+    	IN _dtmFechaFinal DATETIME
     )
 	BEGIN
-		SELECT CT.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
-				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
-			END AS NombreCliente FROM tb_cotizacion CT 
+		SELECT CT.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) as NombreUsuario, 
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCT.dcmTotal)/1.18),2) AS ValorCotizacion,
+		SUM(DCT.dcmTotal) - ROUND((SUM(DCT.dcmTotal)/1.18),2) AS IGVCotizacion,
+		SUM(DCT.dcmTotal) AS TotalCotizacion
+		FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
+		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE
-		CT.nvchSerie LIKE CONCAT(_elemento,'%') OR 
+		(CT.nvchSerie LIKE CONCAT(_elemento,'%') OR 
 		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
-		CT.dtmFechaCreacion LIKE CONCAT(_elemento,'%')
+		CT.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
+		(CT.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY CT.intIdCotizacion
 		LIMIT _x,_y;
     END 
 $$
@@ -193,25 +204,36 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS BUSCARCOTIZACION_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARCOTIZACION_II(
-    	IN _elemento VARCHAR(250)
+    	IN _elemento VARCHAR(250),
+    	IN _dtmFechaInicial DATETIME,
+    	IN _dtmFechaFinal DATETIME
     )
 	BEGIN
-		SELECT CT.*,U.nvchUsername as NombreUsuario, 
-			CASE 
-				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
-				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
-			END AS NombreCliente FROM tb_cotizacion CT 
+		SELECT CT.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) as NombreUsuario, 
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCT.dcmTotal)/1.18),2) AS ValorCotizacion,
+		SUM(DCT.dcmTotal) - ROUND((SUM(DCT.dcmTotal)/1.18),2) AS IGVCotizacion,
+		SUM(DCT.dcmTotal) AS TotalCotizacion
+		FROM tb_cotizacion CT 
 		LEFT JOIN tb_usuario U ON CT.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
+		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE
-		CT.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(CT.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
-		CT.dtmFechaCreacion LIKE CONCAT(_elemento,'%');
+		CT.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
+		(CT.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY CT.intIdCotizacion;
     END 
 $$
 DELIMITER ;

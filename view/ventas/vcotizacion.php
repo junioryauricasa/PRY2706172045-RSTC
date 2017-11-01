@@ -27,7 +27,7 @@ include('../_include/rstheader.php');
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Cotización
+        Registro de Cotizaciones
         <small>Módulo de Ventas</small>
       </h1>
       <ol class="breadcrumb">
@@ -70,6 +70,54 @@ include('../_include/rstheader.php');
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Tipo Moneda:</label>
+                <br>
+                <select id="lista-tipo-moneda" class="form-control select2">
+                  <?php 
+                    require_once '../../datos/conexion/bd_conexion.php';
+                    try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Fecha Inicial:</label>
+                  <input type="text" id="dtmFechaInicial" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Fecha Final:</label>
+                  <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Opción:</label>
+                  <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Total de Cotizaciones:</label>
+                  <input type="text" id="TotalCotizaciones" class="form-control select2" placeholder="0.00" readonly>
+              </div>
+            </div>
+          </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
@@ -78,6 +126,9 @@ include('../_include/rstheader.php');
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
+                <th>Valor de Venta</th>
+                <th>IGV</th>
+                <th>Venta Total</th>
                 <th>Opciones</th>
               </tr>
               </thead>

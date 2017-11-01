@@ -195,7 +195,7 @@ class DetalleCotizacion
     }
   }
 
-  public function ListarProductoCotizacion($busqueda,$x,$y,$tipofuncion,$TipoBusqueda)
+  public function ListarProductoCotizacion($busqueda,$x,$y,$tipofuncion,$TipoBusqueda,$intIdTipoMoneda)
   {
   	try{
       if($busqueda != "" || $busqueda != null) {
@@ -206,14 +206,32 @@ class DetalleCotizacion
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':TipoBusqueda' => $TipoBusqueda));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date("Y-m-d");
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMonedaVenta'] != 1) {
+            $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']*$fila_moneda['dcmCambio2'],2); 
+            $fila['nvchSimbolo'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMonedaVenta'] != 2){
+            $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']/$fila_moneda['dcmCambio2'],2);
+            $fila['nvchSimbolo'] = "US$";
+          }
+        }
       	echo 
       	'<tr>
         <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="SnvchSimbolo['.$fila['intIdProducto'].']" value="'.$fila['nvchSimbolo'].'"/>'.$fila['nvchSimbolo'].'</td>
         <td><input type="hidden" name="SdcmPrecioVenta1['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta1'].'"/>
-        <input type="hidden" name="SdcmDescuentoVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta2'].'"/><input type="hidden" name="SdcmPrecioVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta2'].'"/>
-        <input type="hidden" name="SdcmDescuentoVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta3'].'"/><input type="hidden" name="SdcmPrecioVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmPrecioVenta3'].'"/>'.$fila['dcmPrecioVenta1'].'</td>';
+        <input type="hidden" name="SdcmDescuentoVenta2['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta2'].'"/>
+        <input type="hidden" name="SdcmDescuentoVenta3['.$fila['intIdProducto'].']" value="'.$fila['dcmDescuentoVenta3'].'"/>'.$fila['dcmPrecioVenta1'].'</td>';
           $sql_conexion_cantidad = new Conexion_BD();
           $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
           $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');

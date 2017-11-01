@@ -235,7 +235,7 @@ class Cotizacion{
     }
   }
 
-  public function ListarCotizaciones($busqueda,$x,$y,$tipolistado)
+  public function ListarCotizaciones($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
       $salida = "";
@@ -248,26 +248,49 @@ class Cotizacion{
       //Busqueda de Cliente por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Cliente por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalCotizacion'] = round($fila['TotalCotizacion']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCotizacion'] = round($fila['IGVCotizacion']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorCotizacion'] = round($fila['ValorCotizacion']*$fila_moneda['dcmCambio2'],2); 
+            $fila['SimboloMoneda'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalCotizacion'] = round($fila['TotalCotizacion']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCotizacion'] = round($fila['IGVCotizacion']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorCotizacion'] = round($fila['ValorCotizacion']/$fila_moneda['dcmCambio2'],2);
+            $fila['SimboloMoneda'] = "US$";
+          }
+        }
+
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdCotizacion"] == $_SESSION['intIdCotizacion'] && $tipolistado == "E"){
@@ -280,6 +303,9 @@ class Cotizacion{
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCotizacion"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCotizacion"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCotizacion"].'</td>
         <td> 
           <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
             <i class="fa fa-edit"></i> Ver Detalle
@@ -300,15 +326,59 @@ class Cotizacion{
     }  
   }
 
-  public function PaginarCotizaciones($busqueda,$x,$y,$tipolistado)
+  public function TotalCotizaciones($busqueda,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  {
+    try{
+      $TotalCotizaciones = 0.00;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalCotizacion'] = round($fila['TotalCotizacion']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCotizacion'] = round($fila['IGVCotizacion']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorCotizacion'] = round($fila['ValorCotizacion']*$fila_moneda['dcmCambio2'],2); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalCotizacion'] = round($fila['TotalCotizacion']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCotizacion'] = round($fila['IGVCotizacion']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorCotizacion'] = round($fila['ValorCotizacion']/$fila_moneda['dcmCambio2'],2);
+          }
+        }
+        $TotalCotizaciones += $fila['TotalCotizacion'];
+      }
+      if($intIdTipoMoneda == 1){
+        $SimboloMoneda = "S/.";
+      } else if($intIdTipoMoneda == 2){
+        $SimboloMoneda = "US$";
+      }
+      echo $SimboloMoneda.' '.$TotalCotizaciones;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function PaginarCotizaciones($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

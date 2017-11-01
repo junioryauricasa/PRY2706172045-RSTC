@@ -46,10 +46,11 @@ function ListarProductosSeleccion(x,y,tipofuncion) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+	var intIdTipoMoneda = document.getElementById("tipo-moneda").value;
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipofuncion:tipofuncion,TipoBusqueda:TipoBusqueda,intIdTipoMoneda:intIdTipoMoneda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosSeleccion").html(datos);
@@ -250,11 +251,11 @@ function SeleccionarProducto(seleccion) {
 	var nvchDescripcion = $("input[type=hidden][name='SnvchDescripcion["+intIdProducto+"]']").val();
 	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
 	var dcmPrecio = $("input[type=hidden][name='SdcmPrecioVenta1["+intIdProducto+"]']").val();
-	var Descuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
-	var PrecioUnitario = $("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val();
-	var Total = $("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val();
+	var dcmDescuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
+	var dcmPrecioUnitario = $("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val();
+	var dcmTotal = $("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val();
 
-	if(Descuento == "" || Descuento == null) {
+	if(dcmDescuento == "" || dcmDescuento == null) {
 		MensajeNormal("Ingresar el Descuento del Producto que estás eligiendo",2);
 		return false;
 	} else if(intCantidad == "" || intCantidad == null) {
@@ -267,9 +268,9 @@ function SeleccionarProducto(seleccion) {
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmDescuento[]" value="'+Descuento+'"/>'+Descuento+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+PrecioUnitario+'"/>'+PrecioUnitario+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+Total+'"/>'+Total+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmDescuento[]" value="'+dcmDescuento+'"/>'+dcmDescuento+'%'+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+nvchSimbolo+' '+dcmPrecioUnitario+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+nvchSimbolo+' '+dcmTotal+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }
