@@ -1,5 +1,4 @@
 <?php
-//session_start();
 require_once '../conexion/bd_conexion.php';
 class DomicilioProveedor
 {
@@ -7,18 +6,18 @@ class DomicilioProveedor
   private $intIdDomicilioProveedor;
   private $intIdProveedor;
   private $nvchPais;
-  private $nvchRegion;
-  private $nvchProvincia;
-  private $nvchDistrito;
+  private $intIdDepartamento;
+  private $intIdProvincia;
+  private $intIdDistrito;
   private $nvchDireccion;
   private $intIdTipoDomicilio;
   
   public function IdDomicilioProveedor($intIdDomicilioProveedor){ $this->intIdDomicilioProveedor = $intIdDomicilioProveedor; }
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
   public function Pais($nvchPais){ $this->nvchPais = $nvchPais; }
-  public function Region($nvchRegion){ $this->nvchRegion = $nvchRegion; }
-  public function Provincia($nvchProvincia){ $this->nvchProvincia = $nvchProvincia; }
-  public function Distrito($nvchDistrito){ $this->nvchDistrito = $nvchDistrito; }
+  public function IdDepartamento($intIdDepartamento){ $this->intIdDepartamento = $intIdDepartamento; }
+  public function IdProvincia($intIdProvincia){ $this->intIdProvincia = $intIdProvincia; }
+  public function IdDistrito($intIdDistrito){ $this->intIdDistrito = $intIdDistrito; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function IdTipoDomicilio($intIdTipoDomicilio){ $this->intIdTipoDomicilio = $intIdTipoDomicilio; }
   /* FIN - Atributos de Domicilio Proveedor */
@@ -30,14 +29,14 @@ class DomicilioProveedor
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->nvchPais as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertardomicilioproveedor(:intIdProveedor,:nvchPais,
-      	:nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:intIdTipoDomicilio)');
+      $sql_comando = $sql_conectar->prepare('CALL insertardomicilioProveedor(:intIdProveedor,:nvchPais,
+        :intIdDepartamento,:intIdProvincia,:intIdDistrito,:nvchDireccion,:intIdTipoDomicilio)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor, 
         ':nvchPais' => $value,
-        ':nvchRegion' => $this->nvchRegion[$key],
-        ':nvchProvincia' => $this->nvchProvincia[$key],
-        ':nvchDistrito' => $this->nvchDistrito[$key],
+        ':intIdDepartamento' => $this->intIdDepartamento[$key],
+        ':intIdProvincia' => $this->intIdProvincia[$key],
+        ':intIdDistrito' => $this->intIdDistrito[$key],
         ':nvchDireccion' => $this->nvchDireccion[$key],
         ':intIdTipoDomicilio' => $this->intIdTipoDomicilio[$key]));
       }
@@ -53,14 +52,14 @@ class DomicilioProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertardomicilioproveedor(:intIdProveedor,:nvchPais,
-        :nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:intIdTipoDomicilio)');
+      $sql_comando = $sql_conectar->prepare('CALL insertardomicilioProveedor(:intIdProveedor,:nvchPais,
+        :intIdDepartamento,:intIdProvincia,:intIdDistrito,:nvchDireccion,:intIdTipoDomicilio)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor, 
         ':nvchPais' => $this->nvchPais,
-        ':nvchRegion' => $this->nvchRegion,
-        ':nvchProvincia' => $this->nvchProvincia,
-        ':nvchDistrito' => $this->nvchDistrito,
+        ':intIdDepartamento' => $this->intIdDepartamento,
+        ':intIdProvincia' => $this->intIdProvincia,
+        ':intIdDistrito' => $this->intIdDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
         ':intIdTipoDomicilio' => $this->intIdTipoDomicilio));
       echo "ok";
@@ -75,7 +74,7 @@ class DomicilioProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrardomiciliosproveedor(:intIdProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL mostrardomiciliosProveedor(:intIdProveedor)');
       $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
@@ -88,17 +87,17 @@ class DomicilioProveedor
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-        echo '<td><input type="hidden" name="nvchPais[]" value="'.$fila['nvchPais'].'"/>'.$fila['nvchPais'].'</td>
-        <td><input type="hidden" name="nvchRegion[]" value="'.$fila['nvchRegion'].'"/>'.$fila['nvchRegion'].'</td>
-        <td><input type="hidden" name="nvchProvincia[]" value="'.$fila['nvchProvincia'].'"/>'.$fila['nvchProvincia'].'</td>
-        <td><input type="hidden" name="nvchDistrito[]" value="'.$fila['nvchDistrito'].'"/>'.$fila['nvchDistrito'].'</td>
-        <td><input type="hidden" name="nvchDireccion[]" value="'.$fila['nvchDireccion'].'"/>'.$fila['nvchDireccion'].'</td>
-        <td><input type="hidden" name="intIdTipoDomicilio[]" value="'.$fila['intIdTipoDomicilio'].'"/>'.$fila['NombreTD'].'</td>
+        echo '<td>'.$fila['nvchPais'].'</td>
+        <td>'.$fila['nvchDepartamento'].'</td>
+        <td>'.$fila['nvchProvincia'].'</td>
+        <td>'.$fila['nvchDistrito'].'</td>
+        <td>'.$fila['nvchDireccion'].'</td>
+        <td>'.$fila['NombreTD'].'</td>
         <td> 
-          <button type="button" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
+          <button type="button" iddcl="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" iddp="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-danger" onclick="EliminarDomicilio(this)">
+          <button type="button" iddcl="'.$fila['intIdDomicilioProveedor'].'" class="btn btn-xs btn-danger" onclick="EliminarDomicilio(this)">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
@@ -116,14 +115,14 @@ class DomicilioProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL seleccionardomicilioproveedor(:intIdDomicilioProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL seleccionardomicilioProveedor(:intIdDomicilioProveedor)');
       $sql_comando -> execute(array(':intIdDomicilioProveedor' => $this->intIdDomicilioProveedor));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
       $salida['intIdDomicilioProveedor'] = $fila['intIdDomicilioProveedor'];
       $salida['nvchPais'] = $fila['nvchPais'];
-      $salida['nvchRegion'] = $fila['nvchRegion'];
-      $salida['nvchProvincia'] = $fila['nvchProvincia'];
-      $salida['nvchDistrito'] = $fila['nvchDistrito'];
+      $salida['intIdDepartamento'] = $fila['intIdDepartamento'];
+      $salida['intIdProvincia'] = $fila['intIdProvincia'];
+      $salida['intIdDistrito'] = $fila['intIdDistrito'];
       $salida['nvchDireccion'] = $fila['nvchDireccion'];
       $salida['intIdTipoDomicilio'] = $fila['intIdTipoDomicilio'];
       echo json_encode($salida);
@@ -138,15 +137,15 @@ class DomicilioProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizardomicilioproveedor(:intIdDomicilioProveedor,
-      	:intIdProveedor,:nvchPais,:nvchRegion,:nvchProvincia,:nvchDistrito,:nvchDireccion,:intIdTipoDomicilio)');
+      $sql_comando = $sql_conectar->prepare('CALL actualizardomicilioProveedor(:intIdDomicilioProveedor,
+        :intIdProveedor,:nvchPais,:intIdDepartamento,:intIdProvincia,:intIdDistrito,:nvchDireccion,:intIdTipoDomicilio)');
       $sql_comando->execute(array(
         ':intIdDomicilioProveedor' => $this->intIdDomicilioProveedor,
         ':intIdProveedor' => $this->intIdProveedor, 
         ':nvchPais' => $this->nvchPais,
-        ':nvchRegion' => $this->nvchRegion,
-        ':nvchProvincia' => $this->nvchProvincia,
-        ':nvchDistrito' => $this->nvchDistrito,
+        ':intIdDepartamento' => $this->intIdDepartamento,
+        ':intIdProvincia' => $this->intIdProvincia,
+        ':intIdDistrito' => $this->intIdDistrito,
         ':nvchDireccion' => $this->nvchDireccion,
         ':intIdTipoDomicilio' => $this->intIdTipoDomicilio));
       $_SESSION['intIdDomicilioProveedor'] = $this->intIdDomicilioProveedor;
@@ -162,7 +161,7 @@ class DomicilioProveedor
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL eliminardomicilioproveedor(:intIdDomicilioProveedor)');
+      $sql_comando = $sql_conectar->prepare('CALL eliminardomicilioProveedor(:intIdDomicilioProveedor)');
       $sql_comando -> execute(array(':intIdDomicilioProveedor' => $this->intIdDomicilioProveedor));
       echo 'ok';
     }

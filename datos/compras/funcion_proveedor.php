@@ -28,18 +28,20 @@ switch($_POST['funcion']){
     $DomicilioProveedor = new DomicilioProveedor();
     $DomicilioProveedor->IdProveedor($_SESSION['intIdProveedor']);
     $DomicilioProveedor->Pais($_POST['nvchPais']);
-    $DomicilioProveedor->Region($_POST['nvchRegion']);
-    $DomicilioProveedor->Provincia($_POST['nvchProvincia']);
-    $DomicilioProveedor->Distrito($_POST['nvchDistrito']);
+    $DomicilioProveedor->IdDepartamento($_POST['intIdDepartamento']);
+    $DomicilioProveedor->IdProvincia($_POST['intIdProvincia']);
+    $DomicilioProveedor->IdDistrito($_POST['intIdDistrito']);
     $DomicilioProveedor->Direccion($_POST['nvchDireccion']);
     $DomicilioProveedor->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
     $DomicilioProveedor->InsertarDomicilioProveedor();
-    $ComunicacionProveedor = new ComunicacionProveedor();
-    $ComunicacionProveedor->IdProveedor($_SESSION['intIdProveedor']);
-    $ComunicacionProveedor->Medio($_POST['nvchMedio']);
-    $ComunicacionProveedor->Lugar($_POST['nvchLugar']);
-    $ComunicacionProveedor->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
-    $ComunicacionProveedor->InsertarComunicacionProveedor();
+    if(!empty($_POST['nvchMedio'])){
+        $ComunicacionProveedor = new ComunicacionProveedor();
+        $ComunicacionProveedor->IdProveedor($_SESSION['intIdProveedor']);
+        $ComunicacionProveedor->Medio($_POST['nvchMedio']);
+        $ComunicacionProveedor->Lugar($_POST['nvchLugar']);
+        $ComunicacionProveedor->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
+        $ComunicacionProveedor->InsertarComunicacionProveedor();
+    }
     break;
   case "ID":
   	$DomicilioProveedor = new DomicilioProveedor();

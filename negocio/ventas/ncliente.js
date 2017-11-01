@@ -57,9 +57,6 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	  if(num_filas_domicilio == 0){
 	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
 	  	return false;
-	  } else if(num_filas_comunicacion == 0){
-	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
-	  	return false;
 	  }
 	  $.ajax({
 	   url: "../../datos/ventas/funcion_cliente.php",
@@ -67,9 +64,10 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok") {
+	   	if (datos=="okok" || datos=="okokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Cliente",1);
 	   		$('#txt-busqueda').val("");
+	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
@@ -119,11 +117,34 @@ $(document).on('click', '#btn-editar-cliente', function(){
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
   	  var num_filas_domicilio = document.getElementById('ListaDeDomicilios').rows.length;
 	  var num_filas_comunicacion = document.getElementById('ListaDeComunicaciones').rows.length;
+	  if(intIdTipoPersona == 1){
+	  	if(EsNumeroEntero("nvchRUC") == false){
+	  		goToBox("#nvchRUC");
+	  		return false;
+	  	} else if(EsVacio("nvchRazonSocial") == false){
+	  		goToBox("#nvchRazonSocial");
+	  		return false;
+	  	}
+	  } else if(intIdTipoPersona == 2){
+	  	if(EsNumeroEntero("nvchRUC") == false){
+	  		goToBox("#nvchRUC");
+	  		return false;
+	  	} else if(EsNumeroEntero("nvchDNI") == false){
+	  		goToBox("#nvchDNI");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoPaterno") == false){
+	  		goToBox("#nvchApellidoPaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoMaterno") == false){
+	  		goToBox("#nvchApellidoMaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchNombres") == false){
+	  		goToBox("#nvchNombres");
+	  		return false;
+	  	}
+	  } 
 	  if(num_filas_domicilio == 0){
 	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
-	  	return false;
-	  } else if(num_filas_comunicacion == 0){
-	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
 	  	return false;
 	  }
 	  $.ajax({
@@ -134,6 +155,7 @@ $(document).on('click', '#btn-editar-cliente', function(){
 	   {
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se modificó correctamente el Cliente",1);
+	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
@@ -176,8 +198,44 @@ $(document).on('click', '.btn-eliminar-cliente', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Cliente */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+$(document).on('change', '#num-lista', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
 
+$(document).on('click', '.btn-pagina', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = $(this).attr("idp") * y;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('keyup', '#txt-busqueda', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('change', '#lista-persona', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  AccionCabecerasTabla(intIdTipoPersona);
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Cliente */
 function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
@@ -188,76 +246,11 @@ function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
       intIdTipoPersona:intIdTipoPersona},
       success:function(datos) {
           $("#ListaDeClientes").html(datos);
+          PaginarCliente((x/y),y,tipolistado,intIdTipoPersona);
       }
   });
 }
-
 /* FIN - Funcion Ajax - Listar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-$(document).on('change', '#num-lista', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-$(document).on('change', '#lista-persona', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-  	  if(intIdTipoPersona == 1){
-  	  	$(".ListaDNI").hide();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").show();
-  	  	$(".ListaApellidoPaterno").hide();
-  	  	$(".ListaApellidoMaterno").hide();
-  	  	$(".ListaNombres").hide();
-  	  } else if(intIdTipoPersona == 2){
-  	  	$(".ListaDNI").show();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").hide();
-  	  	$(".ListaApellidoPaterno").show();
-  	  	$(".ListaApellidoMaterno").show();
-  	  	$(".ListaNombres").show();
-  	  }
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -276,56 +269,6 @@ function PaginarCliente(x,y,tipolistado,intIdTipoPersona) {
   });
 }
 /* FIN - Funcion Ajax - Paginar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Cliente */
-$(document).on('click', '.btn-pagina', function(){
-      var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(this).attr("idp") * y;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente((x/y),y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Página de Lista Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
-$(document).on('keyup', '#txt-busqueda', function(){
-	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona,intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

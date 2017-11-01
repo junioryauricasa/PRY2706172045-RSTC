@@ -57,9 +57,6 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	  if(num_filas_domicilio == 0){
 	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
 	  	return false;
-	  } else if(num_filas_comunicacion == 0){
-	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
-	  	return false;
 	  }
 	  $.ajax({
 	   url: "../../datos/compras/funcion_proveedor.php",
@@ -67,9 +64,10 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok") {
+	   	if (datos=="okok" || datos=="okokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Proveedor",1);
 	   		$('#txt-busqueda').val("");
+	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
@@ -118,11 +116,34 @@ $(document).on('click', '#btn-editar-proveedor', function(){
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
   	  var num_filas_domicilio = document.getElementById('ListaDeDomicilios').rows.length;
 	  var num_filas_comunicacion = document.getElementById('ListaDeComunicaciones').rows.length;
+	  if(intIdTipoPersona == 1){
+	  	if(EsNumeroEntero("nvchRUC") == false){
+	  		goToBox("#nvchRUC");
+	  		return false;
+	  	} else if(EsVacio("nvchRazonSocial") == false){
+	  		goToBox("#nvchRazonSocial");
+	  		return false;
+	  	}
+	  } else if(intIdTipoPersona == 2){
+	  	if(EsNumeroEntero("nvchRUC") == false){
+	  		goToBox("#nvchRUC");
+	  		return false;
+	  	} else if(EsNumeroEntero("nvchDNI") == false){
+	  		goToBox("#nvchDNI");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoPaterno") == false){
+	  		goToBox("#nvchApellidoPaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoMaterno") == false){
+	  		goToBox("#nvchApellidoMaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchNombres") == false){
+	  		goToBox("#nvchNombres");
+	  		return false;
+	  	}
+	  } 
 	  if(num_filas_domicilio == 0){
 	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
-	  	return false;
-	  } else if(num_filas_comunicacion == 0){
-	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
 	  	return false;
 	  }
 	  $.ajax({
@@ -133,6 +154,7 @@ $(document).on('click', '#btn-editar-proveedor', function(){
 	   {
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se modificó correctamente el Proveedor",1);
+	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
@@ -175,8 +197,44 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Proveedor */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+$(document).on('change', '#num-lista', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+});
 
+$(document).on('change', '#lista-persona', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  AccionCabecerasTabla(intIdTipoPersona);
+	  ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('click', '.btn-pagina', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = $(this).attr("idp") * y;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('keyup', '#txt-busqueda', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+});
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Proveedor */
 function ListarProveedor(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
@@ -187,76 +245,11 @@ function ListarProveedor(x,y,tipolistado,intIdTipoPersona) {
       intIdTipoPersona:intIdTipoPersona},
       success:function(datos) {
           $("#ListaDeProveedores").html(datos);
+          PaginarProveedor((x/y),y,tipolistado,intIdTipoPersona);
       }
   });
 }
-
 /* FIN - Funcion Ajax - Listar Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
-$(document).on('change', '#num-lista', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/compras/funcion_proveedor.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
-$(document).on('change', '#lista-persona', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-  	  if(intIdTipoPersona == 1){
-  	  	$(".ListaDNI").hide();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").show();
-  	  	$(".ListaApellidoPaterno").hide();
-  	  	$(".ListaApellidoMaterno").hide();
-  	  	$(".ListaNombres").hide();
-  	  } else if(intIdTipoPersona == 2){
-  	  	$(".ListaDNI").show();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").hide();
-  	  	$(".ListaApellidoPaterno").show();
-  	  	$(".ListaApellidoMaterno").show();
-  	  	$(".ListaNombres").show();
-  	  }
-	  $.ajax({
-	   url:"../../datos/compras/funcion_proveedor.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -275,56 +268,6 @@ function PaginarProveedor(x,y,tipolistado,intIdTipoPersona) {
   });
 }
 /* FIN - Funcion Ajax - Paginar Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Proveedor */
-$(document).on('click', '.btn-pagina', function(){
-      var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(this).attr("idp") * y;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/compras/funcion_proveedor.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor((x/y),y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Página de Lista Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
-$(document).on('keyup', '#txt-busqueda', function(){
-	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/compras/funcion_proveedor.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona,intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -354,9 +297,12 @@ function MostrarTipoPersona() {
 /* INICIO - Listar Domicilios según Ingresa */
 function AgregarDomicilio() {
 	var nvchPais = document.getElementById("nvchPais").value;
-	var nvchRegion = document.getElementById("nvchRegion").value;
-	var nvchProvincia = document.getElementById("nvchProvincia").value;
-	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
+	var intIdProvincia = document.getElementById("intIdProvincia").value;
+	var intIdDistrito = document.getElementById("intIdDistrito").value;
+	var nvchDepartamento = $("#intIdDepartamento option:selected").html();
+	var nvchProvincia = $("#intIdProvincia option:selected").html();
+	var nvchDistrito = $("#intIdDistrito option:selected").html();
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -366,12 +312,6 @@ function AgregarDomicilio() {
         }
     });
 	if(EsLetra("nvchPais") == false){
-		return false;
-	} else if(EsLetra("nvchRegion") == false) {
-		return false;
-	} else if(EsLetra("nvchProvincia") == false) {
-		return false;
-	} else if(EsLetra("nvchDistrito") == false) {
 		return false;
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
@@ -384,12 +324,12 @@ function AgregarDomicilio() {
 	$('#ListaDeDomicilios').append('<tr>'+
 		'<td>'+'<input type="hidden" name="nvchPais[]" value="'+
 		nvchPais+'"/>'+nvchPais+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchRegion[]" value="'+
-		nvchRegion+'"/>'+nvchRegion+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchProvincia[]" value="'+
-		nvchProvincia+'"/>'+nvchProvincia+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchDistrito[]" value="'+
-		nvchDistrito+'"/>'+nvchDistrito+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdDepartamento[]" value="'+
+		intIdDepartamento+'"/>'+nvchDepartamento+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdProvincia[]" value="'+
+		intIdProvincia+'"/>'+nvchProvincia+'</td>'+
+		'<td>'+'<input type="hidden" name="intIdDistrito[]" value="'+
+		intIdDistrito+'"/>'+nvchDistrito+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDireccion[]" value="'+
 		nvchDireccion+'"/>'+nvchDireccion+'</td>'+
 		'<td>'+'<input type="hidden" name="intIdTipoDomicilio[]" value="'+
@@ -397,9 +337,8 @@ function AgregarDomicilio() {
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 	RestablecerValidacion('nvchPais',1);
-	RestablecerValidacion('nvchRegion',1);
-	RestablecerValidacion('nvchProvincia',1);
-	RestablecerValidacion('nvchDistrito',1);
+	$("#intIdDepartamento").val(1);
+	MostrarProvincia();
 	RestablecerValidacion('nvchDireccion',1);
 }
 /* FIN - Listar Domicilios según Ingresa */
@@ -515,11 +454,11 @@ function AgregarComunicacion_II() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Domicilio Nuevo */
 function AgregarDomicilio_II() {
-	var intIdProveedor = document.getElementById("intIdProveedor").value;
+	var intIdCliente = document.getElementById("intIdCliente").value;
 	var nvchPais = document.getElementById("nvchPais").value;
-	var nvchRegion = document.getElementById("nvchRegion").value;
-	var nvchProvincia = document.getElementById("nvchProvincia").value;
-	var nvchDistrito = document.getElementById("nvchDistrito").value;
+	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
+	var intIdProvincia = document.getElementById("intIdProvincia").value;
+	var intIdDistrito = document.getElementById("intIdDistrito").value;
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -529,12 +468,6 @@ function AgregarDomicilio_II() {
         }
     });
 	if(EsLetra("nvchPais") == false){
-		return false;
-	} else if(EsLetra("nvchRegion") == false) {
-		return false;
-	} else if(EsLetra("nvchProvincia") == false) {
-		return false;
-	} else if(EsLetra("nvchDistrito") == false) {
 		return false;
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
@@ -551,9 +484,9 @@ function AgregarDomicilio_II() {
 	   method:"POST",
 	   data:{intIdProveedor:intIdProveedor,
 	   		nvchPais:nvchPais,
-	   		nvchRegion:nvchRegion,
-	   		nvchProvincia:nvchProvincia,
-	   		nvchDistrito:nvchDistrito,
+	   		intIdDepartamento:intIdDepartamento,
+	   		intIdProvincia:intIdProvincia,
+	   		intIdDistrito:intIdDistrito,
 	   		nvchDireccion:nvchDireccion,
 	   		intIdTipoDomicilio:intIdTipoDomicilio,
 	   		funcion:funcion},
@@ -561,11 +494,9 @@ function AgregarDomicilio_II() {
 	   {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
-	   		MostrarDomicilio(intIdProveedor,tipolistado);
-	   		RestablecerValidacion('nvchPais',1);
-			RestablecerValidacion('nvchRegion',1);
-			RestablecerValidacion('nvchProvincia',1);
-			RestablecerValidacion('nvchDistrito',1);
+	   		MostrarDomicilio(intIdCliente,tipolistado);
+	   		$("#intIdDepartamento").val(1);
+			MostrarProvincia();
 			RestablecerValidacion('nvchDireccion',1);
 	   	} else {
 	   		alert(datos);
