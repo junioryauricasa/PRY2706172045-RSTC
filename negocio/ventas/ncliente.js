@@ -176,8 +176,44 @@ $(document).on('click', '.btn-eliminar-cliente', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Cliente */
+/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+$(document).on('change', '#num-lista', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
 
+$(document).on('click', '.btn-pagina', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = $(this).attr("idp") * y;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('keyup', '#txt-busqueda', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('change', '#lista-persona', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  AccionCabecerasTabla(intIdTipoPersona);
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Cliente */
 function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
@@ -188,76 +224,11 @@ function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
       intIdTipoPersona:intIdTipoPersona},
       success:function(datos) {
           $("#ListaDeClientes").html(datos);
+          PaginarCliente((x/y),y,tipolistado,intIdTipoPersona);
       }
   });
 }
-
 /* FIN - Funcion Ajax - Listar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-$(document).on('change', '#num-lista', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
-$(document).on('change', '#lista-persona', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-  	  if(intIdTipoPersona == 1){
-  	  	$(".ListaDNI").hide();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").show();
-  	  	$(".ListaApellidoPaterno").hide();
-  	  	$(".ListaApellidoMaterno").hide();
-  	  	$(".ListaNombres").hide();
-  	  } else if(intIdTipoPersona == 2){
-  	  	$(".ListaDNI").show();
-  	  	$(".ListaRUC").show();
-  	  	$(".ListaRazonSocial").hide();
-  	  	$(".ListaApellidoPaterno").show();
-  	  	$(".ListaApellidoMaterno").show();
-  	  	$(".ListaNombres").show();
-  	  }
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -276,56 +247,6 @@ function PaginarCliente(x,y,tipolistado,intIdTipoPersona) {
   });
 }
 /* FIN - Funcion Ajax - Paginar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Cliente */
-$(document).on('click', '.btn-pagina', function(){
-      var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(this).attr("idp") * y;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona:intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente((x/y),y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Página de Lista Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
-$(document).on('keyup', '#txt-busqueda', function(){
-	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_cliente.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-	   	intIdTipoPersona,intIdTipoPersona},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeClientes").html(datos);
-	   	PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Cliente II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
