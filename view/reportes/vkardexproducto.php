@@ -78,6 +78,8 @@ include('../_include/rstheader.php');
                 </select>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-2">
               <div class="form-group">
                 <label>Tipo Moneda:</label>
@@ -110,6 +112,12 @@ include('../_include/rstheader.php');
               <div class="form-group">
                   <label class="text-left">Fecha Final:</label>
                   <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Opción:</label>
+                  <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
               </div>
             </div>
           </div>

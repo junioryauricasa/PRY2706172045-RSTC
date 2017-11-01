@@ -90,6 +90,8 @@ include('../_include/rstheader.php');
                 </select>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-2">
               <div class="form-group">
                   <label class="text-left">Fecha Inicial:</label>
@@ -100,6 +102,18 @@ include('../_include/rstheader.php');
               <div class="form-group">
                   <label class="text-left">Fecha Final:</label>
                   <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Opción:</label>
+                  <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Total Saldo Valorizado:</label>
+                  <input type="text" id="TotalKardexValorizado" class="form-control select2" placeholder="0.00" readonly>
               </div>
             </div>
           </div>
@@ -132,7 +146,7 @@ include('../_include/rstheader.php');
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-kardex" class="btn btn-sm btn-info btn-flat pull-left">Generar Reporte PDF</button>
+          <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat pull-left">Generar Reporte PDF</button>
         </div>
       </div>
 

@@ -14,6 +14,13 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	ListarKardex(x,y,tipolistado);
 });
 
+$(document).on('click', '#btnBuscar', function(){
+  var y = document.getElementById("num-lista").value;
+    var x = 0;
+    var tipolistado = "T";
+    ListarKardex(x,y,tipolistado);
+});
+
 $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
@@ -56,10 +63,65 @@ function ListarKardex(x,y,tipolistado) {
       success:function(datos) {
 	      $("#ListaDeKardex").html(datos);
 	      PaginarKardex((x/y),y,tipolistado);
+        TotalKardexValorizado();
       }
   });
 }
 /* FIN - Funcion Ajax - Listar Kardex */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Total Kardex Valorizado */
+function TotalKardexValorizado() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "TK";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  $.ajax({
+      url:'../../datos/reportes/funcion_kardex_general.php',
+      method:"POST",
+      data:{busqueda:busqueda,funcion:funcion,dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,
+            intIdTipoMoneda:intIdTipoMoneda},
+      success:function(datos) {
+          $("#TotalKardexValorizado").val(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Total Kardex Valorizado */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Reporte Kardex */
+function ReporteKardex() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+  var url = '../../datos/reportes/clases_kardex/reporte_kardex_general.php?busqueda='+busqueda+'&dtmFechaInicial='+
+            dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda;
+  window.open(url, '_blank');
+}
+/* FIN - Funcion Ajax - Reporte Kardex */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

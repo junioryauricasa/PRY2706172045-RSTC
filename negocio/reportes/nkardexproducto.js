@@ -58,6 +58,13 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	ListarKardex(x,y,tipolistado);
 });
 
+$(document).on('click', '#btnBuscar', function(){
+  var y = document.getElementById("num-lista").value;
+    var x = 0;
+    var tipolistado = "T";
+    ListarKardex(x,y,tipolistado);
+});
+
 $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
@@ -108,10 +115,9 @@ function ListarKardex(x,y,tipolistado) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Kardex */
+/* INICIO - Funcion Ajax - Reporte Kardex */
 function ReporteKardex() {
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "R";
   var intIdProducto = document.getElementById("intIdProducto").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
 
@@ -130,7 +136,7 @@ function ReporteKardex() {
             '&intIdTipoMoneda='+intIdTipoMoneda;
   window.open(url, '_blank');
 }
-/* FIN - Funcion Ajax - Listar Kardex */
+/* FIN - Funcion Ajax - Reporte Kardex */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

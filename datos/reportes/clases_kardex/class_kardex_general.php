@@ -41,7 +41,7 @@ class KardexGeneral
       {
         if($fila['CantidadEntradaTotal'] == "" || $fila['CantidadEntradaTotal'] == null) { $fila['CantidadEntradaTotal'] = 0; }
         if($fila['CantidadSalidaTotal'] == "" || $fila['CantidadSalidaTotal'] == null) { $fila['CantidadSalidaTotal'] = 0; }
-        
+
         $nvchSimbolo = "";
         $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
         $sql_conexion_moneda = new Conexion_BD();
@@ -62,6 +62,10 @@ class KardexGeneral
           }
         }
 
+        if(!is_numeric($fila['dcmSaldoValorizado'])){
+          $fila["dcmSaldoValorizado"] = number_format(0.00,2,'.','');
+        }
+
         echo 
         '<tr>
         <td>'.$j.'</td>
@@ -75,6 +79,48 @@ class KardexGeneral
         </tr>';
         $j++;
       }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function TotalKardexValorizado($busqueda,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  {
+    try{
+      $TotalSaldoValorizado = 0.00;
+      $SimboloMoneda = "";
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+        ':dtmFechaFinal' => $dtmFechaFinal));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['dcmSaldoValorizado'] = round($fila['dcmSaldoValorizado']*$fila_moneda['dcmCambio2'],2);
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['dcmSaldoValorizado'] = round($fila['dcmSaldoValorizado']/$fila_moneda['dcmCambio2'],2);
+          }
+        }
+        $TotalSaldoValorizado += $fila['dcmSaldoValorizado'];
+      }
+      if($intIdTipoMoneda == 1){
+        $SimboloMoneda = "S/.";
+      } else if($intIdTipoMoneda == 2){
+        $SimboloMoneda = "US$";
+      }
+      echo $SimboloMoneda.' '.$TotalSaldoValorizado;
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

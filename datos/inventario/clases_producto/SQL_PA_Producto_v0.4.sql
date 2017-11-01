@@ -82,7 +82,7 @@ DELIMITER $$
     	IN _intIdProducto INT
     )
 	BEGIN
-		SELECT CP.nvchCodigo FROM tb_producto P
+		SELECT P.*,CP.nvchCodigo FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		WHERE 
 		P.intIdProducto = _intIdProducto AND
