@@ -515,7 +515,7 @@ class DetalleVenta
     }  
   }
 
-  public function InsertarCotizacion($intIdCotizacion)
+  public function InsertarCotizacion($intIdCotizacion,$intIdTipoMoneda)
   {
     try{
       $sql_conexion = new Conexion_BD();
@@ -524,12 +524,41 @@ class DetalleVenta
       $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date('Y-m-d');
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+
+        $sql_conexion_producto = new Conexion_BD();
+        $sql_conectar_producto = $sql_conexion_producto->Conectar();
+        $sql_comando_producto = $sql_conectar_producto->prepare('CALL MOSTRARPRODUCTO(:intIdProducto)');
+        $sql_comando_producto -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+        $fila_producto = $sql_comando_producto -> fetch(PDO::FETCH_ASSOC);        
+
+        if($intIdTipoMoneda == 1){
+            if($fila_producto['intIdTipoMonedaVenta'] != 1) {
+              $fila_producto['dcmPrecioVenta1'] = round($fila_producto['dcmPrecioVenta1']*$fila_moneda['dcmCambio2'],2); 
+              $fila_producto['nvchSimbolo'] = "S/.";
+            }
+        } 
+        else if($intIdTipoMoneda == 2){
+            if($fila_producto['intIdTipoMonedaVenta'] != 2){
+              $fila_producto['dcmPrecioVenta1'] = round($fila_producto['dcmPrecioVenta1']/$fila_moneda['dcmCambio2'],2);
+              $fila_producto['nvchSimbolo'] = "US$";
+            }
+        }
+        $dcmPrecioUnitario = number_format(($fila_producto['dcmPrecioVenta1'] - ($fila_producto['dcmPrecioVenta1']*($fila['dcmDescuento']/100))),2,'.','');
+        $dcmTotal = number_format(($dcmPrecioUnitario * $fila['intCantidad']),2,'.',''); 
         echo '<tr> 
         <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidadD'].'"/>'.$fila['intCantidad'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/><input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" value="'.$fila['dcmPrecioUnitario'].'"/>'.$fila['dcmPrecioUnitario'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
+        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
+        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila_producto['dcmPrecioVenta1'].'"/>
+        <input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" 
+        value="'.$dcmPrecioUnitario.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmPrecioUnitario.'</td>
+        <td><input type="hidden" name="dcmTotal[]" value="'.$dcmTotal.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmTotal.'</td>
         <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
         </tr>';
       }

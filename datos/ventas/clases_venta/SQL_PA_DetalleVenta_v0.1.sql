@@ -259,7 +259,7 @@ DELIMITER $$
     	IN _intIdCotizacion INT
     )
 	BEGIN
-		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion FROM tb_cotizacion CT
+		SELECT DCT.*,CP.nvchCodigo,P.nvchDescripcion,CT.dtmFechaCreacion FROM tb_cotizacion CT
 		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
 		LEFT JOIN tb_producto P ON DCT.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto

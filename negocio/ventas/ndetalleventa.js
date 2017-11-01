@@ -265,10 +265,11 @@ function LimpiarDetalleUbigeo() {
 function InsertarCotizacion(seleccion) {
 	var intIdCotizacion = $(seleccion).attr("idct");
 	var funcion = "ICT";
+	var intIdTipoMoneda = $("#tipo-moneda").val();
 	$.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosComprar").append(datos); 
