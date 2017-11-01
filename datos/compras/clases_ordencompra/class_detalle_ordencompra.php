@@ -80,6 +80,7 @@ class DetalleOrdenCompra
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       { 
+
         if($_SESSION['intIdOperacionOrdenCompra'] == $fila['intIdOperacionOrdenCompra'] && $tipolistado == "A"){
           echo '<tr bgcolor="#B3E4C0">';
         } else if($cantidad == $i && $tipolistado == "I"){
@@ -92,8 +93,8 @@ class DetalleOrdenCompra
         <td><input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['dcmPrecio'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td></tr>
+        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecio'].'</td>
+        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
         <td> 
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleOrdenCompra(this)">
             <i class="fa fa-edit"></i> Editar

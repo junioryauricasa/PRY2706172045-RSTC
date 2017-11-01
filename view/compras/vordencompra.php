@@ -70,6 +70,54 @@ include('../_include/rstheader.php');
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Tipo Moneda:</label>
+                <br>
+                <select id="lista-tipo-moneda" class="form-control select2">
+                  <?php 
+                    require_once '../../datos/conexion/bd_conexion.php';
+                    try{
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Fecha Inicial:</label>
+                  <input type="text" id="dtmFechaInicial" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Fecha Final:</label>
+                  <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Opción:</label>
+                  <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Total Orden Compra:</label>
+                  <input type="text" id="TotalOrdenCompra" class="form-control select2" placeholder="0.00" readonly>
+              </div>
+            </div>
+          </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
               <thead>
@@ -78,10 +126,13 @@ include('../_include/rstheader.php');
                 <th>Proveedor</th>
                 <th>Usuario</th>
                 <th>Fecha de Creación</th>
+                <th>Valor de Compra</th>
+                <th>IGV</th>
+                <th>Total Compra</th>
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeProveedores">
+              <tbody id="ListaDeOrdenCompra">
                 <script>ListarOrdenCompra(0,10,"T");</script>
               </tbody>
             </table>

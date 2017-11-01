@@ -115,25 +115,6 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Cotización */
-$(document).on('click', '.btn-download-report', function(){
-  	  var intIdCotizacion = $(this).attr("id");
-  	  //var funcion = "OCR";
-	  $.ajax({
-	   url:"../../view/reporte/reportes_internos/consultaSQL4Report.php",
-	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion},
-	   success:function(datos)
-	   {
-	   	//$("#formulario-crud").html(datos);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Mostrar Cotización */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cotización */
 $(document).on('click', '#btn-editar-cotizacion', function(){
   	  var funcion = "A";

@@ -92,26 +92,6 @@ class FormularioOrdenCompra
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Tipo de Moneda:</label>
-                  <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
-                    <?php try{
-                      $sql_conexion = new Conexion_BD();
-                      $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
-                      $sql_comando->execute();
-                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                      {
-                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
-                      }
-                    }catch(PDPExceptions $e){
-                      echo $e->getMessage();
-                    }?>
-                  </select>
-                </div>
-                <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
                   <label>Forma de Pago:</label>
                   <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" >
                     <?php try{
@@ -167,32 +147,52 @@ class FormularioOrdenCompra
                 </div>
               </div>
               <div class="col-md-3">
-                <div id="intCantidadOrdenCompraGroup" class="form-group">
-                  <label>Cantidad:</label>
-                  <input type="text" id="intCantidadOrdenCompra" class="form-control select2" 
-                  placeholder="Ingrese Cantidad" value="" 
-                  onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadOrdenCompra')" maxlength="11" required>
-                  <span id="intCantidadOrdenCompraIcono" class="" aria-hidden=""></span>
-                  <div id="intCantidadOrdenCompraObs" class=""></div>
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
                 </div>
-              </div>
-              <div class="col-md-2">
-                <div id="dcmPrecioOrdenCompraGroup" class="form-group">
-                  <label>Precio Unitario:</label>
-                  <input type="text" id="dcmPrecioOrdenCompra" class="form-control select2" 
-                  placeholder="Ingrese Precio" value="" 
-                  onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioOrdenCompra')" maxlength="15" required>
-                  <span id="dcmPrecioOrdenCompraIcono" class="" aria-hidden=""></span>
-                  <div id="dcmPrecioOrdenCompraObs" class=""></div>
-                </div>
+                <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
               </div>
           </div>
           <div class="row">
+            <div class="col-md-3">
+              <div id="intCantidadOrdenCompraGroup" class="form-group">
+                <label>Cantidad:</label>
+                <input type="text" id="intCantidadOrdenCompra" class="form-control select2" 
+                placeholder="Ingrese Cantidad" value="" 
+                onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadOrdenCompra')" maxlength="11" required>
+                <span id="intCantidadOrdenCompraIcono" class="" aria-hidden=""></span>
+                <div id="intCantidadOrdenCompraObs" class=""></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div id="dcmPrecioOrdenCompraGroup" class="form-group">
+                <label>Precio Unitario:</label>
+                <input type="text" id="dcmPrecioOrdenCompra" class="form-control select2" 
+                placeholder="Ingrese Precio" value="" 
+                onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioOrdenCompra')" maxlength="15" required>
+                <span id="dcmPrecioOrdenCompraIcono" class="" aria-hidden=""></span>
+                <div id="dcmPrecioOrdenCompraObs" class=""></div>
+              </div>
+            </div>
             <div class="col-md-2">
               <div id="dcmTotalOrdenCompraGroup" class="form-group">
                 <label>Total:</label>
                 <input type="text" id="dcmTotalOrdenCompra" class="form-control select2"
-                value="" maxlength="15" required readonly>
+                value="0.00" maxlength="15" required readonly>
               </div>
             </div>
           </div>
@@ -358,6 +358,7 @@ class FormularioOrdenCompra
                   <th>Cantidad</th>
                   <th>Precio Unit.</th>
                   <th>Total</th>
+                  <th>Opciones</th>
                 </tr>
                 </thead>
                 <tbody id="ListaDeProductosComprar">

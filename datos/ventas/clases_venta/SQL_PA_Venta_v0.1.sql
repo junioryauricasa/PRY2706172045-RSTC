@@ -182,8 +182,7 @@ DELIMITER $$
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
-		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		V.intIdTipoComprobante = _intIdTipoComprobante AND
 		(V.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta
@@ -221,8 +220,7 @@ DELIMITER $$
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%') OR
-		V.dtmFechaCreacion LIKE CONCAT(_elemento,'%')) AND
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		V.intIdTipoComprobante = _intIdTipoComprobante AND
 		(V.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY V.intIdVenta;

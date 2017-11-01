@@ -90,11 +90,29 @@ switch($_POST['funcion']){
     break;
   case "L":
     $OrdenCompra = new OrdenCompra();
-    $OrdenCompra->ListarOrdenesCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $OrdenCompra->ListarOrdenesCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],
+        $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+    break;
+  case "TOC":
+    $OrdenCompra = new OrdenCompra();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $OrdenCompra->TotalOrdenCompra($_POST['busqueda'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $OrdenCompra = new OrdenCompra();
-    $OrdenCompra->PaginarOrdenesCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $OrdenCompra->PaginarOrdenesCompra($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],
+        $dtmFechaInicial,$dtmFechaFinal);
     break;
   case "SPD":
     $OrdenCompra = new OrdenCompra();

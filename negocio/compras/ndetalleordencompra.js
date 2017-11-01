@@ -253,6 +253,14 @@ function AgregarProducto() {
 		return false;
 	}
 	
+	var intIdTipoMoneda = $("#tipo-moneda").val();
+	var nvchSimbolo = "";
+
+	if(intIdTipoMoneda == 1)
+		nvchSimbolo = "S/.";
+	if(intIdTipoMoneda == 2)
+		nvchSimbolo = "US$";
+
 	var nvchCodigo = ($("#nvchCodigo").val()).toString();
 	var nvchDescripcion = ($("#nvchDescripcion").val()).toString();
 	var dcmPrecio = Number($("#dcmPrecioOrdenCompra").val()).toFixed(2);
@@ -263,10 +271,15 @@ function AgregarProducto() {
 		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+dcmPrecio+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+dcmTotal+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecio[]" value="'+dcmPrecio+'"/>'+nvchSimbolo+' '+dcmPrecio+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+nvchSimbolo+' '+dcmTotal+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
+
+	RestablecerValidacion('nvchCodigo',1);
+	RestablecerValidacion('nvchDescripcion',1);
+	RestablecerValidacion('intCantidadOrdenCompra',1);
+	RestablecerValidacion('dcmPrecioOrdenCompra',1);
 }
 /* FIN - Listar Domicilios según Ingresa */
 ////////////////////////////////////////////////////////////// 

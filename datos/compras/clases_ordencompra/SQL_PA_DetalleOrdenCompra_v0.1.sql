@@ -81,7 +81,9 @@ DELIMITER $$
     	IN _intIdOrdenCompra INT
     )
 	BEGIN
-		SELECT * FROM tb_detalle_orden_compra DOC
+		SELECT DOC.*,TMN.nvchSimbolo FROM tb_detalle_orden_compra DOC
+		LEFT JOIN tb_orden_compra OC ON OC.intIdOrdenCompra = DOC.intIdOrdenCompra
+		LEFT JOIN tb_tipo_moneda TMN ON TMN.intIdTipoMoneda = OC.intIdTipoMoneda
 		WHERE
 		DOC.intIdOrdenCompra = _intIdOrdenCompra;
     END 

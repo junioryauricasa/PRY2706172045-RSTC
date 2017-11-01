@@ -77,25 +77,6 @@ $(document).on('click', '.btn-mostrar-ordencompra', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Proveedor */
-$(document).on('click', '.btn-download-report', function(){
-  	  var intIdOrdenCompra = $(this).attr("id");
-  	  //var funcion = "OCR";
-	  $.ajax({
-	   url:"../../view/reporte/reportes_internos/consultaSQL4Report.php",
-	   method:"POST",
-	   data:{intIdOrdenCompra:intIdOrdenCompra},
-	   success:function(datos)
-	   {
-	   	//$("#formulario-crud").html(datos);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Mostrar Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Proveedor */
 $(document).on('click', '#btn-editar-ordencompra', function(){
   	  var funcion = "A";
@@ -151,16 +132,70 @@ $(document).on('click', '.btn-eliminar-ordencompra', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Buscar Orden de Compra r */
+$(document).on('change', '#num-lista', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "T";
+  ListarOrdenCompra(x,y,tipolistado);
+});
+
+$(document).on('click', '.btn-pagina', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = $(this).attr("idp") * y;
+  var funcion = "L";
+ ListarOrdenCompra(x,y,tipolistado);
+});
+
+$(document).on('keyup', '#txt-busqueda', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var funcion = "L";
+  ListarOrdenCompra(x,y,tipolistado);
+});
+
+$(document).on('change', '#lista-tipo-moneda', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = $(".marca").attr("idp") * y;
+  var tipolistado = "T";
+  ListarOrdenCompra(x,y,tipolistado);
+});
+
+$(document).on('click', '#btnBuscar', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "T";
+  ListarOrdenCompra(x,y,tipolistado);
+});
+/* FIN - Funcion Ajax - Buscar Orden de Compra */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Proveedor */
 function ListarOrdenCompra(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
   $.ajax({
       url:'../../datos/compras/funcion_ordencompra.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
-          $("#ListaDeProveedores").html(datos);
+          $("#ListaDeOrdenCompra").html(datos);
+          PaginarOrdenCompra((x/y),y,tipolistado);
+          TotalOrdenCompra();
       }
   });
 }
@@ -168,26 +203,34 @@ function ListarOrdenCompra(x,y,tipolistado) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
-$(document).on('change', '#num-lista', function(){
-  	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "T";
-  	  var funcion = "L";
-	  $.ajax({
-	   url:"../../datos/compras/funcion_ordencompra.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarOrdenCompra(x,y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Proveedor */
+/* INICIO - Funcion Ajax - Listar Proveedor */
+function TotalOrdenCompra() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "TOC";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  $.ajax({
+      url:'../../datos/compras/funcion_ordencompra.php',
+      method:"POST",
+      data:{busqueda:busqueda,funcion:funcion,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      success:function(datos) {
+          $("#TotalOrdenCompra").val(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Listar Proveedor */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -195,63 +238,29 @@ $(document).on('change', '#num-lista', function(){
 function PaginarOrdenCompra(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
   $.ajax({
       url:'../../datos/compras/funcion_ordencompra.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
           $("#PaginacionDeOrdenCompra").html(datos);
       }
   });
 }
 /* FIN - Funcion Ajax - Paginar Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Página de Lista Proveedor */
-$(document).on('click', '.btn-pagina', function(){
-      var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(this).attr("idp") * y;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/compras/funcion_ordencompra.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarOrdenCompra((x/y),y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Página de Lista Proveedor */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
-$(document).on('keyup', '#txt-busqueda', function(){
-	  var busqueda = document.getElementById("txt-busqueda").value;
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var funcion = "L";
-  	  var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/compras/funcion_ordencompra.php",
-	   method:"POST",
-	   data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
-	   success:function(datos)
-	   {
-	   	$("#ListaDeProveedores").html(datos);
-	   	PaginarOrdenCompra(x,y,tipolistado);
-	   }
-	  });
-	 return false;
-});
-
-/* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Proveedor II */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

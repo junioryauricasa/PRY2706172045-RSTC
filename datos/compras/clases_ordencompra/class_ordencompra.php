@@ -152,7 +152,7 @@ class OrdenCompra{
     }
   }
 
-  public function ListarOrdenesCompra($busqueda,$x,$y,$tipolistado)
+  public function ListarOrdenesCompra($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
       $salida = "";
@@ -165,26 +165,52 @@ class OrdenCompra{
       //Busqueda de Proveedor por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+          ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+          ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Proveedor por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarordencompra(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarordencompra(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial, 
+        ':dtmFechaFinal' => $dtmFechaFinal));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalOrdenCompra'] = round($fila['TotalOrdenCompra']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVOrdenCompra'] = round($fila['IGVOrdenCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorOrdenCompra'] = round($fila['ValorOrdenCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['SimboloMoneda'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalOrdenCompra'] = round($fila['TotalOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVOrdenCompra'] = round($fila['IGVOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorOrdenCompra'] = round($fila['ValorOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['SimboloMoneda'] = "US$";
+          }
+        }
+
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdOrdenCompra"] == $_SESSION['intIdOrdenCompra'] && $tipolistado == "E"){
@@ -197,6 +223,9 @@ class OrdenCompra{
         <td>'.$fila["nvchRazonSocial"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorOrdenCompra"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
         <td> 
           <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra">
             <i class="fa fa-edit"></i> Ver Detalle
@@ -217,15 +246,59 @@ class OrdenCompra{
     }  
   }
 
-  public function PaginarOrdenesCompra($busqueda,$x,$y,$tipolistado)
+  public function TotalOrdenCompra($busqueda,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  {
+    try{
+      $TotalOrdenCompra = 0.00;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalOrdenCompra'] = round($fila['TotalOrdenCompra']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVOrdenCompra'] = round($fila['IGVOrdenCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorOrdenCompra'] = round($fila['ValorOrdenCompra']*$fila_moneda['dcmCambio2'],2); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalOrdenCompra'] = round($fila['TotalOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVOrdenCompra'] = round($fila['IGVOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorOrdenCompra'] = round($fila['ValorOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+          }
+        }
+        $TotalOrdenCompra += $fila['TotalOrdenCompra'];
+      }
+      if($intIdTipoMoneda == 1){
+        $SimboloMoneda = "S/.";
+      } else if($intIdTipoMoneda == 2){
+        $SimboloMoneda = "US$";
+      }
+      echo $SimboloMoneda.' '.$TotalOrdenCompra;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function PaginarOrdenesCompra($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarordencompra_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
