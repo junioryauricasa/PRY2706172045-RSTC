@@ -57,9 +57,6 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	  if(num_filas_domicilio == 0){
 	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
 	  	return false;
-	  } else if(num_filas_comunicacion == 0){
-	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
-	  	return false;
 	  }
 	  $.ajax({
 	   url: "../../datos/ventas/funcion_cliente.php",
@@ -67,9 +64,10 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok") {
+	   	if (datos=="okok" || datos=="okokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Cliente",1);
 	   		$('#txt-busqueda').val("");
+	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
@@ -119,11 +117,34 @@ $(document).on('click', '#btn-editar-cliente', function(){
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
   	  var num_filas_domicilio = document.getElementById('ListaDeDomicilios').rows.length;
 	  var num_filas_comunicacion = document.getElementById('ListaDeComunicaciones').rows.length;
+	  if(intIdTipoPersona == 1){
+	  	if(EsNumeroEntero("nvchRUC") == false){
+	  		goToBox("#nvchRUC");
+	  		return false;
+	  	} else if(EsVacio("nvchRazonSocial") == false){
+	  		goToBox("#nvchRazonSocial");
+	  		return false;
+	  	}
+	  } else if(intIdTipoPersona == 2){
+	  	if(EsNumeroEntero("nvchRUC") == false){
+	  		goToBox("#nvchRUC");
+	  		return false;
+	  	} else if(EsNumeroEntero("nvchDNI") == false){
+	  		goToBox("#nvchDNI");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoPaterno") == false){
+	  		goToBox("#nvchApellidoPaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchApellidoMaterno") == false){
+	  		goToBox("#nvchApellidoMaterno");
+	  		return false;
+	  	} else if(EsVacio("nvchNombres") == false){
+	  		goToBox("#nvchNombres");
+	  		return false;
+	  	}
+	  } 
 	  if(num_filas_domicilio == 0){
 	  	MensajeNormal("Ingrese por lo menos un Domicilio Fiscal",2);
-	  	return false;
-	  } else if(num_filas_comunicacion == 0){
-	  	MensajeNormal("Ingresar por lo menos una Comunicación",2);
 	  	return false;
 	  }
 	  $.ajax({
@@ -134,6 +155,7 @@ $(document).on('click', '#btn-editar-cliente', function(){
 	   {
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se modificó correctamente el Cliente",1);
+	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());

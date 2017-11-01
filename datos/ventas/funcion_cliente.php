@@ -35,12 +35,14 @@ switch($_POST['funcion']){
     $DomicilioCliente->Direccion($_POST['nvchDireccion']);
     $DomicilioCliente->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
     $DomicilioCliente->InsertarDomicilioCliente();
-    $ComunicacionCliente = new ComunicacionCliente();
-    $ComunicacionCliente->IdCliente($_SESSION['intIdCliente']);
-    $ComunicacionCliente->Medio($_POST['nvchMedio']);
-    $ComunicacionCliente->Lugar($_POST['nvchLugar']);
-    $ComunicacionCliente->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
-    $ComunicacionCliente->InsertarComunicacionCliente();
+    if(!empty($_POST['nvchMedio'])){
+        $ComunicacionCliente = new ComunicacionCliente();
+        $ComunicacionCliente->IdCliente($_SESSION['intIdCliente']);
+        $ComunicacionCliente->Medio($_POST['nvchMedio']);
+        $ComunicacionCliente->Lugar($_POST['nvchLugar']);
+        $ComunicacionCliente->IdTipoComunicacion($_POST['intIdTipoComunicacion']);
+        $ComunicacionCliente->InsertarComunicacionCliente();
+    }
     break;
   case "ID":
   	$DomicilioCliente = new DomicilioCliente();

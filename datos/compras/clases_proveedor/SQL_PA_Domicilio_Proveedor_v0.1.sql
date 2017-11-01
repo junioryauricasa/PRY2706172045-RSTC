@@ -5,17 +5,17 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARDOMICILIOPROVEEDOR(
 	IN _intIdProveedor INT,
     IN _nvchPais VARCHAR(150),
-    IN _nvchRegion VARCHAR(150),
-    IN _nvchProvincia VARCHAR(150),
-	IN _nvchDistrito VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
 	IN _nvchDireccion VARCHAR(450),
 	IN _intIdTipoDomicilio INT
     )
 	BEGIN
 		INSERT INTO tb_domicilio_proveedor
-		(intIdProveedor,nvchPais,nvchRegion,nvchProvincia,nvchDistrito,nvchDireccion,intIdTipoDomicilio)
+		(intIdProveedor,nvchPais,intIdDepartamento,intIdProvincia,intIdDistrito,nvchDireccion,intIdTipoDomicilio)
 		VALUES
-		(_intIdProveedor,_nvchPais,_nvchRegion,_nvchProvincia,_nvchDistrito,_nvchDireccion,_intIdTipoDomicilio);
+		(_intIdProveedor,_nvchPais,_intIdDepartamento,_intIdProvincia,_intIdDistrito,_nvchDireccion,_intIdTipoDomicilio);
     END 
 $$
 DELIMITER ;
@@ -26,9 +26,9 @@ DELIMITER $$
 	IN _intIdDomicilioProveedor INT,
 	IN _intIdProveedor INT,
     IN _nvchPais VARCHAR(150),
-    IN _nvchRegion VARCHAR(150),
-    IN _nvchProvincia VARCHAR(150),
-	IN _nvchDistrito VARCHAR(150),
+    IN _intIdDepartamento INT,
+    IN _intIdProvincia INT,
+	IN _intIdDistrito INT,
 	IN _nvchDireccion VARCHAR(450),
 	IN _intIdTipoDomicilio INT
     )
@@ -37,9 +37,9 @@ DELIMITER $$
 		SET
 		intIdProveedor = _intIdProveedor,
 		nvchPais = _nvchPais,
-		nvchRegion = _nvchRegion,
-		nvchProvincia = _nvchProvincia,
-		nvchDistrito = _nvchDistrito,
+		intIdDepartamento = _intIdDepartamento,
+		intIdProvincia = _intIdProvincia,
+		intIdDistrito = _intIdDistrito,
 		nvchDireccion = _nvchDireccion,
 		intIdTipoDomicilio = _intIdTipoDomicilio
 		WHERE 
@@ -80,10 +80,14 @@ DELIMITER $$
     	IN _intIdProveedor INT
     )
 	BEGIN
-		SELECT DP.*,TP.nvchNombre as NombreTD FROM tb_domicilio_proveedor DP
-		LEFT JOIN tb_tipo_domicilio TP ON DP.intIdTipoDomicilio = TP.intIdTipoDomicilio
+		SELECT DPR.*,TP.nvchNombre AS NombreTD,DP.nvchDepartamento,P.nvchProvincia,DT.nvchDistrito 
+		FROM tb_domicilio_proveedor DPR
+		LEFT JOIN tb_tipo_domicilio TP ON DPR.intIdTipoDomicilio = TP.intIdTipoDomicilio
+		LEFT JOIN tb_departamentos DP ON DPR.intIdDepartamento = DP.intIdDepartamento
+		LEFT JOIN tb_provincias P ON DPR.intIdProvincia = P.intIdProvincia 
+		LEFT JOIN tb_distritos DT ON DPR.intIdDistrito = DT.intIdDistrito 
 		WHERE 
-		DP.intIdProveedor = _intIdProveedor;
+		DPR.intIdProveedor = _intIdProveedor;
     END 
 $$
 DELIMITER ;
