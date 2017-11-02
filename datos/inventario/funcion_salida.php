@@ -30,6 +30,7 @@ switch($_POST['funcion']){
     $Salida->IdClienteSolicitado($_POST['intIdClienteSolicitado']);
     $Salida->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Salida->IdSucursal($_POST['intIdSucursal']);
+    $Salida->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $Salida->Observacion($_POST['nvchObservacion']);
     $Salida->InsertarSalida();
 
@@ -49,8 +50,9 @@ switch($_POST['funcion']){
     $Producto->ES_StockTotal($_POST['intIdProducto']);
 
     $KardexProducto = new KardexProducto();
+    $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $KardexProducto->FechaMovimiento($dtmFechaCreacion);
-    $KardexProducto->IdComprobante($_SESSION['intIdVenta']);
+    $KardexProducto->IdComprobante($_SESSION['intIdSalida']);
     $KardexProducto->IdTipoComprobante(10);
     $KardexProducto->TipoDetalle(1);
     $KardexProducto->Serie($_POST['nvchSerie']);
@@ -93,11 +95,28 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Salida = new Salida();
-    $Salida->ListarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Salida->ListarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$dtmFechaInicial,$dtmFechaFinal,
+        $_POST['intIdTipoMoneda']);
+    break;
+  case "TS":
+    $Salida = new Salida();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Salida->TotalSalidas($_POST['busqueda'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $Salida = new Salida();
-    $Salida->PaginarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Salida->PaginarSalidas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$dtmFechaInicial,$dtmFechaFinal);
     break;
   case "ID":
     $DetalleSalida = new DetalleSalida();

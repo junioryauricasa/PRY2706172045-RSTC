@@ -102,6 +102,56 @@ class KardexProducto
     }
   }
 
+  public function InsertarKardexProductoInicial()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+
+      $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
+      $dtmFechaMovimiento = $fila['dtmFechaIngreso'];
+      $intIdTipoMoneda = $fila['intIdTipoMonedaCompra'];
+      $intCantidadEntrada = $fila['intCantidad'];
+      $intCantidadStock = $intCantidadEntrada;
+      $dcmPrecioEntrada = round(($fila['dcmPrecioCompra'] / 1.18),2);
+      $dcmTotalEntrada = $intCantidadEntrada * $dcmPrecioEntrada;
+      $dcmSaldoValorizado = $dcmTotalEntrada;
+
+      $sql_comando = $sql_conectar->prepare('CALL insertarKardexProducto(@intIdMovimiento,:intIdTipoMoneda,:dtmFechaMovimiento,
+        :intTipoDetalle,:intIdComprobante,:intIdTipoComprobante,:nvchSerie,:nvchNumeracion,:intIdProducto,
+        :intCantidadEntrada,:intCantidadSalida,:intCantidadStock,:dcmPrecioEntrada,:dcmTotalEntrada,:dcmPrecioSalida,
+        :dcmTotalSalida,:dcmSaldoValorizado)');
+      $sql_comando->execute(array(
+        ':intIdTipoMoneda' => $intIdTipoMoneda,
+        ':dtmFechaMovimiento' => $dtmFechaMovimiento,
+        ':intTipoDetalle' => 2,
+        ':intIdComprobante' => $this->intIdComprobante,
+        ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+        ':nvchSerie' => $this->nvchSerie,
+        ':nvchNumeracion' => $this->nvchNumeracion,
+        ':intIdProducto' => $this->intIdProducto,
+        ':intCantidadEntrada' => $intCantidadEntrada,
+        ':intCantidadSalida' => $this->intCantidadSalida,
+        ':intCantidadStock' => $intCantidadStock,
+        ':dcmPrecioEntrada' => $dcmPrecioEntrada,
+        ':dcmTotalEntrada' => $dcmTotalEntrada,
+        ':dcmPrecioSalida' => $this->dcmPrecioSalida,
+        ':dcmTotalSalida' => $this->dcmTotalSalida,
+        ':dcmSaldoValorizado' => $dcmSaldoValorizado));
+      $sql_comando->closeCursor();
+      $salidas = $sql_conectar->query("select @intIdMovimiento as intIdMovimiento");
+      $salida = $salidas->fetchObject();
+      $_SESSION['intIdMovimiento'] = $salida->intIdMovimiento;
+      echo "ok";
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }
+  }
+
   public function MostrarKardexProducto($funcion)
   {
     try{

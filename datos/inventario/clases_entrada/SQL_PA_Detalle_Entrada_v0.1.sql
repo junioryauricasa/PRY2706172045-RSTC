@@ -83,12 +83,14 @@ DELIMITER $$
     	IN _intIdEntrada INT
     )
 	BEGIN
-		SELECT DE.*, CP.nvchCodigo AS CodigoProducto
+		SELECT DE.*, CP.nvchCodigo AS CodigoProducto,TMN.nvchSimbolo
 		FROM tb_detalle_entrada DE
 		LEFT JOIN tb_producto P ON DE.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_entrada E ON DE.intIdEntrada = E.intIdEntrada
+		LEFT JOIN tb_tipo_moneda TMN ON E.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		intIdEntrada = _intIdEntrada AND CP.intIdTipoCodigoProducto = 1;
+		DE.intIdEntrada = _intIdEntrada AND CP.intIdTipoCodigoProducto = 1;
     END 
 $$
 DELIMITER ;

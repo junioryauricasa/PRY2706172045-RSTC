@@ -24,6 +24,7 @@ switch($_POST['funcion']){
     $Entrada->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Entrada->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Entrada->IdSucursal($_POST['intIdSucursal']);
+    $Entrada->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $Entrada->Observacion($_POST['nvchObservacion']);
     $Entrada->InsertarEntrada();
 
@@ -33,7 +34,9 @@ switch($_POST['funcion']){
     $DetalleEntrada->IdProducto($_POST['intIdProducto']);
     $DetalleEntrada->Codigo($_POST['nvchCodigo']);
     $DetalleEntrada->Descripcion($_POST['nvchDescripcion']);
+    $DetalleEntrada->PrecioUnitario($_POST['dcmPrecioUnitario']);
     $DetalleEntrada->Cantidad($_POST['intCantidad']);
+    $DetalleEntrada->Total($_POST['dcmTotal']);
     $DetalleEntrada->InsertarDetalleEntrada();
 
     $Producto = new Producto();
@@ -41,8 +44,9 @@ switch($_POST['funcion']){
     $Producto->ES_StockTotal($_POST['intIdProducto']);
 
     $KardexProducto = new KardexProducto();
+    $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $KardexProducto->FechaMovimiento($dtmFechaCreacion);
-    $KardexProducto->IdComprobante($_SESSION['intIdVenta']);
+    $KardexProducto->IdComprobante($_SESSION['intIdEntrada']);
     $KardexProducto->IdTipoComprobante(9);
     $KardexProducto->TipoDetalle(2);
     $KardexProducto->Serie($_POST['nvchSerie']);
@@ -85,11 +89,28 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Entrada = new Entrada();
-    $Entrada->ListarEntradas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Entrada->ListarEntradas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$dtmFechaInicial,$dtmFechaFinal,
+        $_POST['intIdTipoMoneda']);
+    break;
+  case "TE":
+    $Entrada = new Entrada();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Entrada->TotalEntradas($_POST['busqueda'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $Entrada = new Entrada();
-    $Entrada->PaginarEntradas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Entrada->PaginarEntradas($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$dtmFechaInicial,$dtmFechaFinal);
     break;
   case "ID":
     $DetalleEntrada = new DetalleEntrada();

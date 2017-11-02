@@ -380,10 +380,9 @@ class FormularioCompra
                   <th>Ítem</th>
                   <th>Código</th>
                   <th>Descripción</th>
-                  <th>Precio Unit.</th>
                   <th>Cantidad</th>
+                  <th>Precio Unit.</th>
                   <th>Total</th>
-                  <th>Opciones</th>
                 </tr>
                 </thead>
                 <tbody id="ListaDeProductosCompra">

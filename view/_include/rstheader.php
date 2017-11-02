@@ -230,6 +230,12 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
           </a>
           <ul class="treeview-menu">
             <li class="active">
+              <a href="../compras/vproveedor">
+                <i class="fa fa-circle-o"></i> 
+                  Registro de Proveedores
+              </a>
+            </li>
+            <li>
               <a href="../compras/vcompra">
                 <i class="fa fa-circle-o"></i> 
                   Registro de Compras

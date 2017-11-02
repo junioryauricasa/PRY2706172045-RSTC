@@ -88,17 +88,9 @@ class DetalleCompra
       	'<td>'.$i.'</td>
         <td>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="dcmPrecioUnitario[]" value="'.$fila['dcmPrecioUnitario'].'"/>'.$fila['dcmPrecioUnitario'].'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
-        <td> 
-          <button type="button" iddgie="'.$fila['intIdOperacionCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" iddgie="'.$fila['intIdOperacionCompra'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+        <td>'.$fila['intCantidad'].'</td>
+        <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+        <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
         </tr>';
         $i++;
       }

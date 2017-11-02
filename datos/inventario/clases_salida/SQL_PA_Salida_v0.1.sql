@@ -18,16 +18,17 @@ DELIMITER $$
 	IN _intIdClienteSolicitado INT,
 	IN _intIdUsuario INT,
 	IN _intIdSucursal INT,
+	IN _intIdTipoMoneda INT,
 	IN _bitEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_salida 
 		(dtmFechaCreacion,intIdCliente,nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,nvchDestino,nvchDireccion,
-		intTipoPersona,intIdUsuarioSolicitado,intIdClienteSolicitado,intIdUsuario,intIdSucursal,bitEstado,nvchObservacion)
+		intTipoPersona,intIdUsuarioSolicitado,intIdClienteSolicitado,intIdUsuario,intIdSucursal,intIdTipoMoneda,bitEstado,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_intIdCliente,_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_nvchDestino,_nvchDireccion,
-		_intTipoPersona,_intIdUsuarioSolicitado,_intIdClienteSolicitado,_intIdUsuario,_intIdSucursal,_bitEstado,_nvchObservacion);
+		_intTipoPersona,_intIdUsuarioSolicitado,_intIdClienteSolicitado,_intIdUsuario,_intIdSucursal,_intIdTipoMoneda,_bitEstado,_nvchObservacion);
 		SET _intIdSalida = LAST_INSERT_ID();
     END 
 $$
@@ -127,19 +128,29 @@ DELIMITER $$
 	CREATE PROCEDURE BUSCARSALIDA(
     	IN _elemento VARCHAR(600),
 		IN _x INT,
-		IN _y INT
+		IN _y INT,
+		IN _dtmFechaInicial DATETIME,
+		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT S.*,
-		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DS.dcmTotal)/1.18),2) AS ValorSalida,
+		SUM(DS.dcmTotal) - ROUND((SUM(DS.dcmTotal)/1.18),2) AS IGVSalida,
+		SUM(DS.dcmTotal) AS TotalSalida
 		FROM tb_salida S
 		LEFT JOIN tb_usuario U ON S.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_detalle_salida DS ON S.intIdSalida = DS.intIdSalida
+		LEFT JOIN tb_tipo_moneda TMN ON S.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		S.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(S.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		S.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		S.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		S.nvchRUC LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%')
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		(S.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY S.intIdSalida
 		LIMIT _x,_y;
     END 
 $$
@@ -148,19 +159,29 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS BUSCARSALIDA_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARSALIDA_II(
-    	IN _elemento VARCHAR(600)
+    	IN _elemento VARCHAR(600),
+		IN _dtmFechaInicial DATETIME,
+		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT S.*,
-		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DS.dcmTotal)/1.18),2) AS ValorSalida,
+		SUM(DS.dcmTotal) - ROUND((SUM(DS.dcmTotal)/1.18),2) AS IGVSalida,
+		SUM(DS.dcmTotal) AS TotalSalida
 		FROM tb_salida S
 		LEFT JOIN tb_usuario U ON S.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_detalle_salida DS ON S.intIdSalida = DS.intIdSalida
+		LEFT JOIN tb_tipo_moneda TMN ON S.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		S.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(S.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		S.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		S.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		S.nvchRUC LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%');
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		(S.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY S.intIdSalida;
     END 
 $$
 DELIMITER ;

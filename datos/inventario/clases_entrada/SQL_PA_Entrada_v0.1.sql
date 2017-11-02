@@ -12,16 +12,17 @@ DELIMITER $$
 	IN _intIdUsuarioSolicitado INT,
 	IN _intIdUsuario INT,
 	IN _intIdSucursal INT,
+	IN _intIdTipoMoneda INT,
 	IN _bitEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_entrada 
 		(dtmFechaCreacion,nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,intIdUsuarioSolicitado,intIdUsuario,intIdSucursal,
-			bitEstado,nvchObservacion)
+			intIdTipoMoneda,bitEstado,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_intIdUsuarioSolicitado,_intIdUsuario,_intIdSucursal,
-			_bitEstado,_nvchObservacion);
+			_intIdTipoMoneda,_bitEstado,_nvchObservacion);
 		SET _intIdEntrada = LAST_INSERT_ID();
     END 
 $$
@@ -110,19 +111,29 @@ DELIMITER $$
 	CREATE PROCEDURE BUSCARENTRADA(
     	IN _elemento VARCHAR(600),
 		IN _x INT,
-		IN _y INT
+		IN _y INT,
+		IN _dtmFechaInicial DATETIME,
+		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT E.*,
-		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DE.dcmTotal)/1.18),2) AS ValorEntrada,
+		SUM(DE.dcmTotal) - ROUND((SUM(DE.dcmTotal)/1.18),2) AS IGVEntrada,
+		SUM(DE.dcmTotal) AS TotalEntrada
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_detalle_entrada DE ON E.intIdEntrada = DE.intIdEntrada
+		LEFT JOIN tb_tipo_moneda TMN ON E.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		E.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(E.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		E.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		E.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		E.nvchRUC LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%')
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		(E.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY E.intIdEntrada
 		LIMIT _x,_y;
     END 
 $$
@@ -131,19 +142,30 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS BUSCARENTRADA_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARENTRADA_II(
-    	IN _elemento VARCHAR(600)
+    	IN _elemento VARCHAR(600),
+		IN _dtmFechaInicial DATETIME,
+		IN _dtmFechaFinal DATETIME
     )
 	BEGIN
 		SELECT E.*,
-		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario
+		TMN.nvchSimbolo AS SimboloMoneda,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DE.dcmTotal)/1.18),2) AS ValorEntrada,
+		SUM(DE.dcmTotal) - ROUND((SUM(DE.dcmTotal)/1.18),2) AS IGVEntrada,
+		SUM(DE.dcmTotal) AS TotalEntrada
 		FROM tb_entrada E
 		LEFT JOIN tb_usuario U ON E.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_detalle_entrada DE ON E.intIdEntrada = DE.intIdEntrada
+		LEFT JOIN tb_tipo_moneda TMN ON E.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
-		E.nvchSerie LIKE CONCAT(_elemento,'%') OR
+		(E.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		E.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
 		E.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		E.nvchRUC LIKE CONCAT(_elemento,'%') OR
-		U.nvchUsername LIKE CONCAT(_elemento,'%');
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		(E.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY E.intIdEntrada;
     END 
 $$
 DELIMITER ;

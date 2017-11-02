@@ -98,16 +98,8 @@ class DetalleEntrada
         <td>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
         <td>'.$fila['intCantidad'].'</td>
-        <td>'.$fila['dcmPrecioUnitario'].'</td>
-        <td>'.$fila['dcmTotal'].'</td>
-        <td> 
-          <button type="button" iddgie="'.$fila['intIdOperacionEntrada'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" iddgie="'.$fila['intIdOperacionEntrada'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+        <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+        <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
         </tr>';
         $i++;
       }

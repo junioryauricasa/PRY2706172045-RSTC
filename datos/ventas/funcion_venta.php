@@ -100,8 +100,7 @@ switch($_POST['funcion']){
     $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
-    $Venta->TotalVentas($_POST['busqueda'],$_POST['intIdTipoComprobante'],
-            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+    $Venta->TotalVentas($_POST['busqueda'],$_POST['intIdTipoComprobante'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $Venta = new Venta();

@@ -48,7 +48,7 @@ switch($_POST['funcion']){
     $KardexProducto->CantidadEntrada($_POST['intCantidad']);
     $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario']);
     $KardexProducto->TotalEntrada($_POST['dcmTotal']);
-    $KardexProducto->InsertarKardexProductoInicial();
+    $KardexProducto->InsertarKardexProducto();
     break;
   case "A":
     $Compra = new Compra();
@@ -79,11 +79,29 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Compra = new Compra();
-    $Compra->ListarCompras($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Compra->ListarCompras($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],
+            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+    break;
+  case "TC":
+    $Compra = new Compra();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Compra->TotalCompras($_POST['busqueda'],$_POST['intIdTipoComprobante'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
     break;
   case "P":
     $Compra = new Compra();
-    $Compra->PaginarCompras($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Compra->PaginarCompras($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],
+            $dtmFechaInicial,$dtmFechaFinal);
     break;
   case "ID":
     $DetalleCompra = new DetalleCompra();

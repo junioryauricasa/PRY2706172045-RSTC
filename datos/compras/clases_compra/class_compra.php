@@ -145,7 +145,7 @@ class Compra
     }
   }
 
-  public function ListarCompras($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante)
+  public function ListarCompras($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
       $salida = "";
@@ -158,26 +158,52 @@ class Compra
       //Busqueda de Cliente por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
+          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
+          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Cliente por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarCompra(:busqueda,:x,:y,:intIdTipoComprobante)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdTipoComprobante' => $intIdTipoComprobante));
+      $sql_comando = $sql_conectar->prepare('CALL buscarCompra(:busqueda,:x,:y,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdTipoComprobante' => $intIdTipoComprobante,
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalCompra'] = round($fila['TotalCompra']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCompra'] = round($fila['IGVCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorCompra'] = round($fila['ValorCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['SimboloMoneda'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalCompra'] = round($fila['TotalCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCompra'] = round($fila['IGVCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorCompra'] = round($fila['ValorCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['SimboloMoneda'] = "US$";
+          }
+        }
+
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdCompra"] == $_SESSION['intIdCompra'] && $tipolistado == "E"){
@@ -191,9 +217,9 @@ class Compra
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
         <td>'.$fila["SimboloMoneda"].'</td>
-        <td>'.$fila["ValorCompra"].'</td>
-        <td>'.$fila["IGVCompra"].'</td>
-        <td>'.$fila["TotalCompra"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCompra"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCompra"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCompra"].'</td>
         <td> 
           <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-warning btn-mostrar-compra">
             <i class="fa fa-edit"></i> Ver Detalle
@@ -214,15 +240,61 @@ class Compra
     }  
   }
 
-  public function PaginarCompras($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante)
+  public function TotalCompras($busqueda,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  {
+    try{
+      $TotalCompras = 0.00;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalCompra'] = round($fila['TotalCompra']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCompra'] = round($fila['IGVCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorCompra'] = round($fila['ValorCompra']*$fila_moneda['dcmCambio2'],2); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalCompra'] = round($fila['TotalCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVCompra'] = round($fila['IGVCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorCompra'] = round($fila['ValorCompra']/$fila_moneda['dcmCambio2'],2);
+          }
+        }
+        $TotalCompras += $fila['TotalCompra'];
+      }
+      if($intIdTipoMoneda == 1){
+        $SimboloMoneda = "S/.";
+      } else if($intIdTipoMoneda == 2){
+        $SimboloMoneda = "US$";
+      }
+      echo $SimboloMoneda.' '.$TotalCompras;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function PaginarCompras($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante));
+      $sql_comando = $sql_conectar->prepare('CALL buscarCompra_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
