@@ -27,6 +27,13 @@ $(document).on('click', '#btn-crear-compra', function(){
   	var x = 0;
   	var tipolistado = "N";
   	var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
+  	if(EsNumeroEntero("nvchSerie") == false){
+  		goToBox("#nvchSerie");
+	  	return false;
+  	} else if(EsNumeroEntero("nvchNumeracion") == false){
+  		goToBox("#nvchNumeracion");
+	  	return false;
+  	}
 	  $.ajax({
 	   url: "../../datos/compras/funcion_compra.php",
 	   method: "POST",
@@ -228,9 +235,23 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	ListarCompra(x,y,tipolistado);
 });
 
+$(document).on('click', '#btnBuscar', function(){
+	var y = document.getElementById("num-lista").value;
+  	var x = 0;
+  	var tipolistado = "T";
+  	ListarCompra(x,y,tipolistado);
+});
+
 $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
+  	var tipolistado = "T";
+  	ListarCompra(x,y,tipolistado);
+});
+
+$(document).on('change', '#lista-tipo-moneda', function(){
+  	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
   	var tipolistado = "T";
   	ListarCompra(x,y,tipolistado);
 });
@@ -243,17 +264,63 @@ function ListarCompra(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
   $.ajax({
       url:'../../datos/compras/funcion_compra.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
           $("#ListaDeCompras").html(datos);
           PaginarCompra((x/y),y,tipolistado);
+          TotalCompras();
       }
   });
 }
 /* FIN - Funcion Ajax - Listar Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Total Ventas */
+function TotalCompras() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "TC";
+  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  $.ajax({
+      url:'../../datos/compras/funcion_compra.php',
+      method:"POST",
+      data:{busqueda:busqueda,funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      success:function(datos) {
+          $("#TotalCompras").val(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Total Ventas */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -262,10 +329,22 @@ function PaginarCompra(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
   $.ajax({
       url:'../../datos/compras/funcion_compra.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
           $("#PaginacionDeCompra").html(datos);
       }

@@ -107,7 +107,8 @@ DELIMITER $$
     	IN _intIdVenta INT
     )
 	BEGIN
-		SELECT DV.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto,TMN.nvchSimbolo FROM tb_detalle_venta DV
+		SELECT DV.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto,TMN.nvchSimbolo 
+		FROM tb_detalle_venta DV
 		LEFT JOIN tb_venta V ON V.intIdVenta = DV.intIdVenta
 		LEFT JOIN tb_producto P ON DV.intIdProducto = P.intIdProducto
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto

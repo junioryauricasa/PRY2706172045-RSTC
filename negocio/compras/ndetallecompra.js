@@ -70,6 +70,14 @@ function SeleccionarProducto(seleccion) {
 	var dcmPrecioUnitario = $("input[type=text][name='SdcmPrecioUnitario["+intIdProducto+"]']").val();
 	var dcmTotal = $("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val();
 
+	var intIdTipoMoneda = document.getElementById("tipo-moneda").value;
+	var nvchSimbolo = "";
+	if(intIdTipoMoneda == 1){
+		nvchSimbolo = "S/.";
+	} else if(intIdTipoMoneda == 2){
+		nvchSimbolo = "US$";
+	}
+
 	if(intCantidad == "" || intCantidad == null) {
 		MensajeNormal("Ingresar la Cantidad del Producto que estás eligiendo",2);
 		return false;
@@ -84,8 +92,8 @@ function SeleccionarProducto(seleccion) {
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+dcmPrecioUnitario+'</td>'+
-		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+dcmTotal+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+nvchSimbolo+' '+dcmPrecioUnitario+'</td>'+
+		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+nvchSimbolo+' '+dcmTotal+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
 }
