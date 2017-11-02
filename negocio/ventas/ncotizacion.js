@@ -273,6 +273,16 @@ function TotalCotizaciones() {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Reporte Cotizacion */
+$(document).on('click', '.btn-reporte-cotizacion', function(){
+	var intIdCotizacion = $(this).attr("id");
+	var url = '../../datos/ventas/clases_cotizacion/reporte_cotizacion.php?intIdCotizacion='+intIdCotizacion;
+	window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Reporte Cotizacion */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Cliente */
 function PaginarCotizacion(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
