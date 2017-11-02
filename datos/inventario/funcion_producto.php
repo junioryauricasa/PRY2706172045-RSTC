@@ -4,6 +4,7 @@ require_once 'clases_producto/class_producto.php';
 require_once 'clases_producto/class_codigo_producto.php';
 require_once 'clases_producto/class_ubigeo_producto.php';
 require_once 'clases_producto/class_formulario_producto.php';
+require_once '../reportes/clases_kardex/class_kardex_producto.php';
 if(empty($_SESSION['intIdProducto'])){
   $_SESSION['intIdProducto'] = 0;
 }
@@ -46,7 +47,9 @@ switch($_POST['funcion']){
     $UbigeoProducto->InsertarUbigeoProducto();
     $Producto->AumentarStockTotal($_SESSION['intIdProducto']);
 
-    
+    $KardexProducto = new KardexProducto();
+    $KardexProducto->IdProducto($_SESSION['intIdProducto']);
+    $KardexProducto->InsertarKardexProductoInicial();
     break;
   case "ICP":
     $CodigoProducto = new CodigoProducto();

@@ -64,7 +64,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokok") {
+	   	if (datos=="okokokokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");

@@ -152,6 +152,7 @@ DELIMITER $$
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
 		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
 		CP.intIdTipoCodigoProducto = 1
+		ORDER BY P.intIdProducto
 		LIMIT _x,_y;
 	END IF;
 	IF(_TipoBusqueda = "C") THEN
@@ -167,6 +168,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		ORDER BY P.intIdProducto
 		LIMIT _x,_y;
 	END IF;
     END
@@ -190,7 +192,8 @@ DELIMITER $$
 		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
 		P.intCantidad LIKE CONCAT(_elemento,'%') OR
 		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
-		CP.intIdTipoCodigoProducto = 1;
+		CP.intIdTipoCodigoProducto = 1
+		ORDER BY P.intIdProducto;
 	END IF;
 	IF(_TipoBusqueda = "C") THEN
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
@@ -204,7 +207,8 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
-		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1;
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		ORDER BY P.intIdProducto;
 	END IF;
     END 
 $$
