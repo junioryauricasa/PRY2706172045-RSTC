@@ -71,7 +71,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       <span class="logo-lg"><b>Resteco</b>SFT</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" style=" display: flex">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -82,9 +82,9 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
       <div class="navbar-custom-menu" style="float: left;">
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
-            <li><a href="../default/">Inicio</a></li>
-            <li><a href="../default/dashboard">Información General</a></li>
-            <li class="dropdown">
+            <li class="" id="ver-en-pc"><a href="../default/">Inicio</a></li>
+            <li class="" id="ver-en-pc"><a href="../default/dashboard">Información General</a></li>
+            <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Módulo Inventario 
                 <b class="caret"></b>
@@ -105,7 +105,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../compras/vordencompra">Registro de Órdenes de Compra</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="ver-en-tablet">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Módulo Ventas 
                 <b class="caret"></b>
@@ -116,7 +116,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../ventas/vcotizacion">Registro de Cotización</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="ver-en-tablet">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Módulo Reportes
                 <b class="caret"></b>
@@ -126,7 +126,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../reportes/vkardexgeneral">Reporte Kardex General</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Módulo Usuarios 
                 <b class="caret"></b>
@@ -137,7 +137,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../usuarios/vhistoryaccess">Historial de Accesos</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Módulo Administrativo 
                 <b class="caret"></b>
@@ -148,7 +148,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../administrativo/vnumeracion">Administrar Numeración de Comprobantes</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Mi Cuenta 
                 <b class="caret"></b>
@@ -398,7 +398,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
   <style>
 
-    @media screen and (min-width: 700px){
+    /*  Ocultar el menu horizontal de desktop  
+    @media screen and (max-width: 1301px){
+        .navbar-custom-menu{
+            display: none
+        }
+    }*/
+
+    @media screen and (min-width: 768px){
         .content-wrapper, .right-side, .main-footer {
             margin-left: 0px;
         }
@@ -408,22 +415,45 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         .sidebar-toggle{
             display: none;
         }
-
-        /*
-            Logo en vista de cel
-        */
-    }
-    @media screen and (max-width: 1301px){
-        .navbar-custom-menu{
-            display: none
-        }
     }
 
-    /*  
-        Cambio del tamaño de la fuente
-    */
+
+    /*    Redimension de tamaño de la fuente a 12px   */
     .skin-blue .main-header .navbar .nav>li>a , .skin-blue .main-header .navbar .nav > li > ul > li > a{
         font-size: 12px
     }
+
+    .skin-blue .main-header .navbar .dropdown-menu li a {
+        color: #494949;
+    }
+
+
+
+    /* Show Options of menu */
+    @media screen and (max-width: 435px){
+        #ver-en-pc{
+            display: none
+        }
+        #ver-en-tablet{
+            display: none
+        }
+    }
+    @media screen and (min-width: 436px) and (max-width: 768px){
+        #ver-en-pc{
+            display: none
+        }
+        #ver-en-tablet{
+            display: block
+        }
+    }
+    @media screen and (min-width: 769px){
+        #ver-en-pc{
+            display: block
+        }
+        #ver-en-tablet{
+            display: block
+        }
+    }
+
 
   </style>
