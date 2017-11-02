@@ -11,6 +11,7 @@ class FormularioEntrada
   private $intIdUsuarioSolicitado;
   private $intIdUsuario;
   private $intIdSucursal;
+  private $intIdTipoMoneda;
   private $bitEstado;
   private $nvchObservacion;
 
@@ -23,6 +24,7 @@ class FormularioEntrada
   public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
@@ -122,6 +124,26 @@ class FormularioEntrada
                   <span id="nvchRazonSocialIcono" class="" aria-hidden=""></span>
                   <div id="nvchRazonSocialObs" class=""></div>
                 </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+                <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
               </div>
             </div>
             <div class="row">

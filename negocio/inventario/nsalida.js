@@ -162,9 +162,23 @@ $(document).on('keyup', '#txt-busqueda', function(){
   	ListarSalida(x,y,tipolistado);
 });
 
+$(document).on('click', '#btnBuscar', function(){
+	var y = document.getElementById("num-lista").value;
+  	var x = 0;
+  	var tipolistado = "T";
+  	ListarSalida(x,y,tipolistado);
+});
+
 $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
+  	var tipolistado = "T";
+  	ListarSalida(x,y,tipolistado);
+});
+
+$(document).on('change', '#lista-tipo-moneda', function(){
+  	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
   	var tipolistado = "T";
   	ListarSalida(x,y,tipolistado);
 });
@@ -176,13 +190,28 @@ $(document).on('click', '.btn-pagina', function(){
 function ListarSalida(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
   $.ajax({
       url:'../../datos/inventario/funcion_salida.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
           $("#ListaDeSalidas").html(datos);
           PaginarSalida((x/y),y,tipolistado);
+          TotalSalidas();
       }
   });
 }
@@ -190,14 +219,58 @@ function ListarSalida(x,y,tipolistado) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Total Salidas */
+function TotalSalidas() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "TS";
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  $.ajax({
+      url:'../../datos/inventario/funcion_salida.php',
+      method:"POST",
+      data:{busqueda:busqueda,funcion:funcion,dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,
+      	intIdTipoMoneda:intIdTipoMoneda},
+      success:function(datos) {
+          $("#TotalSalidas").val(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Total Salidas */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Cliente */
 function PaginarSalida(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
+
+  if(EsFecha("dtmFechaInicial") == false){
+  	var dtmFechaInicial = "";
+  } else {
+  	var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+  	var dtmFechaFinal = FechaActual();
+  } else {
+  	var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
   $.ajax({
       url:'../../datos/inventario/funcion_salida.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
           $("#PaginacionDeSalida").html(datos);
       }

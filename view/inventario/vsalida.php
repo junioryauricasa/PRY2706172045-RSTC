@@ -69,6 +69,8 @@ include('../_include/rstheader.php');
                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-2">
               <div class="form-group">
                 <label>Tipo Moneda:</label>
@@ -103,6 +105,18 @@ include('../_include/rstheader.php');
                   <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Opción:</label>
+                  <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                  <label class="text-left">Total Salida:</label>
+                  <input type="text" id="TotalSalidas" class="form-control select2" placeholder="0.00" readonly>
+              </div>
+            </div>
           </div>
           <div class="table-responsive">
             <table class="table table-hover table-condensed">
@@ -112,6 +126,9 @@ include('../_include/rstheader.php');
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
                 <th>Fecha de Creación</th>
+                <th>Valor de Salida</th>
+                <th>IGV</th>
+                <th>Total Salida</th>
                 <th>Opciones</th>
               </tr>
               </thead>

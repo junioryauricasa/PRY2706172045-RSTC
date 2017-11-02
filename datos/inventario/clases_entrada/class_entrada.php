@@ -14,6 +14,7 @@ class Entrada
   private $intIdUsuarioSolicitado;
 	private $intIdUsuario;
 	private $intIdSucursal;
+  private $intIdTipoMoneda;
   private $bitEstado;
   private $nvchObservacion;
 
@@ -26,6 +27,7 @@ class Entrada
   public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
 	public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 	/* FIN - Atributos de Guia Interna Entrada */
@@ -38,7 +40,7 @@ class Entrada
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarEntrada(@intIdEntrada,:dtmFechaCreacion,
         :nvchSerie,:nvchNumeracion,:nvchRazonSocial,:nvchRUC,:intIdUsuarioSolicitado,:intIdUsuario,:intIdSucursal,
-        :bitEstado,:nvchObservacion)');
+        :intIdTipoMoneda,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchSerie' => $this->nvchSerie,
@@ -48,12 +50,13 @@ class Entrada
         ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
         ':intIdUsuario' => $this->intIdUsuario,
         ':intIdSucursal' => $this->intIdSucursal,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':bitEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
-      $salidas = $sql_conectar->query("select @intIdEntrada as intIdEntrada");
-      $salida = $salidas->fetchObject();
-      $_SESSION['intIdEntrada'] = $salida->intIdEntrada;
+      $Entradas = $sql_conectar->query("select @intIdEntrada as intIdEntrada");
+      $Entrada = $Entradas->fetchObject();
+      $_SESSION['intIdEntrada'] = $Entrada->intIdEntrada;
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -132,10 +135,10 @@ class Entrada
     }
   }
 
-  public function ListarEntradas($busqueda,$x,$y,$tipolistado)
+  public function ListarEntradas($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
   {
     try{
-      $salida = "";
+      $Entrada = "";
       $residuo = 0;
       $cantidad = 0;
       $numpaginas = 0;
@@ -145,26 +148,52 @@ class Entrada
       //Busqueda de Cliente por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+          ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+          ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Cliente por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarEntrada(:busqueda,:x,:y)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $sql_comando = $sql_conectar->prepare('CALL buscarEntrada(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial, 
+          ':dtmFechaFinal' => $dtmFechaFinal));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalEntrada'] = round($fila['TotalEntrada']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVEntrada'] = round($fila['IGVEntrada']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorEntrada'] = round($fila['ValorEntrada']*$fila_moneda['dcmCambio2'],2); 
+            $fila['SimboloMoneda'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalEntrada'] = round($fila['TotalEntrada']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVEntrada'] = round($fila['IGVEntrada']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorEntrada'] = round($fila['ValorEntrada']/$fila_moneda['dcmCambio2'],2);
+            $fila['SimboloMoneda'] = "US$";
+          }
+        }
+        
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdEntrada"] == $_SESSION['intIdEntrada'] && $tipolistado == "E"){
@@ -177,14 +206,17 @@ class Entrada
         <td>'.$fila["nvchRazonSocial"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorEntrada"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVEntrada"].'</td>
+        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalEntrada"].'</td>
         <td> 
-          <button type="submit" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-warning btn-mostrar-entrada">
+          <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-warning btn-mostrar-entrada">
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
-          <button type="submit" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-danger btn-anular-entrada">
+          <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-danger btn-anular-entrada">
             <i class="fa fa-trash"></i> Anular
           </button>
-          <button type="submit" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-default btn-download-report">
+          <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-default btn-download-report">
             <i class="fa fa-download"></i> Reporte
           </button>
         </td>
@@ -197,15 +229,61 @@ class Entrada
     }  
   }
 
-  public function PaginarEntradas($busqueda,$x,$y,$tipolistado)
+  public function TotalEntradas($busqueda,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  {
+    try{
+      $TotalEntradas = 0.00;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial,
+        ':dtmFechaFinal' => $dtmFechaFinal));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalEntrada'] = round($fila['TotalEntrada']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVEntrada'] = round($fila['IGVEntrada']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorEntrada'] = round($fila['ValorEntrada']*$fila_moneda['dcmCambio2'],2); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalEntrada'] = round($fila['TotalEntrada']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVEntrada'] = round($fila['IGVEntrada']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorEntrada'] = round($fila['ValorEntrada']/$fila_moneda['dcmCambio2'],2);
+          }
+        }
+        $TotalEntradas += $fila['TotalEntrada'];
+      }
+      if($intIdTipoMoneda == 1){
+        $SimboloMoneda = "S/.";
+      } else if($intIdTipoMoneda == 2){
+        $SimboloMoneda = "US$";
+      }
+      echo $SimboloMoneda.' '.$TotalEntradas;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function PaginarEntradas($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $sql_comando = $sql_conectar->prepare('CALL buscarEntrada_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
+          ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
