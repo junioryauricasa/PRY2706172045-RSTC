@@ -80,283 +80,350 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         <span class="icon-bar"></span>
       </a>
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="" class="user-image imgperfil" alt="User Image">
-              <span class="hidden-xs"><?php echo $_SESSION['NombresApellidos'];?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="" class="img-circle imgperfil" alt="User Image">
-                <p>
-                  <?php echo $_SESSION['NombresApellidos'];?> - <?php echo $_SESSION['NombrePermiso']; ?>
-                  <!--small>Member since Nov. 2012</small-->
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <!--li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div-->
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="../perfil/vperfil" class="btn btn-default btn-flat">
-                      <i class="ion-ios-person"></i>
-                      Mi Perfil
-                  </a>
-                </div>
-                <div class="pull-right">
-                  <a href="../../logout.php" class="btn btn-danger btn-flat" style="border-radius: 3px">
-                      <i class="ion-log-out"></i>
-                      Salir
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
+      <div class="navbar-custom-menu" style="float: left;">
+          <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
+            <li><a href="../default/">Inicio</a></li>
+            <li><a href="../default/dashboard">Información General</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Módulo Inventario 
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../inventario/vproducto">Registro de Producto</a></li>
+                <li><a href="../inventario/ventrada">Administrar Entrada</a></li>
+                <li><a href="../inventario/vsalida">Administrar Salida</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Módulo Compras
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../compras/vcompra">Registro de Compras</a></li>
+                <li><a href="../compras/vordencompra">Registro de Órdenes de Compra</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Módulo Ventas 
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../ventas/vcliente">Registro de Clientes</a></li>
+                <li><a href="../ventas/vventa">Registro de Ventas</a></li>
+                <li><a href="../ventas/vcotizacion">Registro de Cotización</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Módulo Reportes
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../reportes/vkardexproducto">Reporte Kardex Producto</a></li>
+                <li><a href="../reportes/vkardexgeneral">Reporte Kardex General</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Módulo Usuarios 
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
+                <li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>
+                <li><a href="../usuarios/vhistoryaccess">Historial de Accesos</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Módulo Administrativo 
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../administrativo/vmonedatributaria">Administrar Cambio de Moneda Tributaria</a></li>
+                <li><a href="../administrativo/vmonedacomercial">Administrar Cambio de Moneda Comercial</a></li>
+                <li><a href="../administrativo/vnumeracion">Administrar Numeración de Comprobantes</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Mi Cuenta 
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="../perfil/vperfil">Mi Perfil</a></li>
+                <li><a href="../../logout.php">Cerrar Sesión</a></li>
+              </ul>
+            </li>
+          </ul>
       </div>
+
     </nav>
   </header>
+
+
 
   <!-- =============================================== -->
 
   <!-- Left side column. contains the sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="" class="img-circle imgperfil" alt="User Image">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="" class="img-circle imgperfil" alt="User Image">
+          </div>
+          <div class="pull-left info">
+            <p><?php echo $_SESSION['NombresApellidos']; ?></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
+          </div>
         </div>
-        <div class="pull-left info">
-          <p><?php echo $_SESSION['NombresApellidos']; ?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
-        </div>
-      </div>
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">MENÚ RESTECO SFT</li>
-      <li>
-        <a href="../default/">
-          <i class="fa fa-home"></i> 
-          <span>Inicio</span>
-        </a>
-      </li>
-      <li>
-        <a href="../default/dashboard">
-          <i class="fa fa-dashboard"></i> 
-          <span>Información General</span>
-        </a>
-      </li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-th-list"></i> <span>Módulo Inventario</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li class="active">
-            <a href="../inventario/vproducto" target="_blank">
-              <i class="fa fa-circle-o"></i> 
-                Registro de Productos
-            </a>
-          </li>
-          <li>
-            <a href="../inventario/ventrada" target="_blank">
-              <i class="fa fa-circle-o"></i> 
-                Administrar Entrada
-            </a>
-          </li>
-          <li>
-            <a href="../inventario/vsalida" target="_blank">
-              <i class="fa fa-circle-o"></i> 
-                Administrar Salida
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-cart-plus"></i> <span>Módulo Compras</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li class="active">
-            <a href="../compras/vcompra" target="_blank">
-              <i class="fa fa-circle-o"></i> 
-                Registro de Compras
-            </a>
-          </li>
-          <li>
-            <a href="../compras/vordencompra" target="_blank">
-              <i class="fa fa-circle-o"></i> 
-                Registro de Órdenes <br>
-              <i class="fa"></i> de Compras
-            </a>
-          </li>
-        </ul>
-      </li>
-      <?php 
-        if($_SESSION['NombrePermiso'] == 'Administrador'){
-          echo ""
-      ?>
-
-            <!--Ventas-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-list-alt"></i> <span>Módulo Ventas</span>
-                <i class="fa fa-angle-left pull-right"></i>
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="header">MENÚ RESTECO SFT</li>
+        <li>
+          <a href="../default/">
+            <i class="fa fa-home"></i> 
+            <span>Inicio</span>
+          </a>
+        </li>
+        <li>
+          <a href="../default/dashboard">
+            <i class="fa fa-dashboard"></i> 
+            <span>Información General</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-th-list"></i> <span>Módulo Inventario</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active">
+              <a href="../inventario/vproducto">
+                <i class="fa fa-circle-o"></i> 
+                  Registro de Productos
               </a>
-              <ul class="treeview-menu">
-                <li class="active">
-                  <a href="../ventas/vcliente" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Registro de Clientes
-                  </a>
-                </li>
-                <li>
-                  <a href="../ventas/vventa" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Registro de Ventas
-                  </a>
-                </li>
-                <li>
-                  <a href="../ventas/vcotizacion" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Registro de Cotización
-                  </a>
-                </li>
-              </ul>
             </li>
-            <!--END Ventas-->
-
-            <!--Reportes-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-file-pdf-o"></i> <span>Módulo Reportes</span>
-                <i class="fa fa-angle-left pull-right"></i>
+            <li>
+              <a href="../inventario/ventrada">
+                <i class="fa fa-circle-o"></i> 
+                  Administrar Entrada
               </a>
-              <ul class="treeview-menu">
-                <li>
-                  <a href="../reportes/vkardexproducto" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Reporte Kardex Producto
-                  </a>
-                </li>
-                <li>
-                  <a href="../reportes/vkardexgeneral" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Reporte Kardex General
-                  </a>
-                </li>
-              </ul>
             </li>
-            <!--END Reportes-->
-
-            <!--Usuarios-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-users"></i> <span>Módulo Usuarios</span>
-                <i class="fa fa-angle-left pull-right"></i>
+            <li>
+              <a href="../inventario/vsalida">
+                <i class="fa fa-circle-o"></i> 
+                  Administrar Salida
               </a>
-              <ul class="treeview-menu">
-                <li class="active">
-                  <a href="../usuarios/vusuario" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Registro de Usuarios
-                  </a>
-                </li>
-                <li>
-                  <a href="../usuarios/vpermisos" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Administrar Permisos
-                  </a>
-                </li>
-                <li>
-                  <a href="../usuarios/vhistoryaccess" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                     Historial de acceso
-                  </a>
-                </li>
-              </ul>
             </li>
-            <!--END Usuarios-->
-
-            <!--Usuarios-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-users"></i> <span>Módulo Administrativo</span>
-                <i class="fa fa-angle-left pull-right"></i>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cart-plus"></i> <span>Módulo Compras</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active">
+              <a href="../compras/vcompra">
+                <i class="fa fa-circle-o"></i> 
+                  Registro de Compras
               </a>
-              <ul class="treeview-menu">
-                <li class="active">
-                  <a href="../administrativo/vmonedatributaria" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Administrar Cambio de <br>
-                      <i class="fa"></i> Moneda Tributaria
-                  </a>
-                </li>
-                <li class="active">
-                  <a href="../administrativo/vmonedacomercial" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Administrar Cambio de <br>
-                      <i class="fa"></i> Moneda Comercial
-                  </a>
-                </li>
-                <li>
-                  <a href="../administrativo/vnumeracion" target="_blank">
-                    <i class="fa fa-circle-o"></i> 
-                      Administrar Numeración de <br>
-                      <i class="fa"></i> Comprobantes
-                  </a>
-                </li>
-              </ul>
             </li>
-            <!--END Usuarios-->
-          <?php 
-          "";
-        }
-      ?>
-          <!--Mi cuenta-->
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-user"></i> 
-                <span>Mi Cuenta</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-              <li>
-                <a href="../perfil/vperfil">
-                  <i class="fa fa-circle-o"></i> 
-                    Mi Perfil
+            <li>
+              <a href="../compras/vordencompra">
+                <i class="fa fa-circle-o"></i> 
+                  Registro de Órdenes <br>
+                <i class="fa"></i> de Compras
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
+        <?php 
+          if($_SESSION['NombrePermiso'] == 'Administrador'){
+            echo ""
+        ?>
+
+              <!--Ventas-->
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-list-alt"></i> <span>Módulo Ventas</span>
+                  <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu">
+                  <li class="active">
+                    <a href="../ventas/vcliente">
+                      <i class="fa fa-circle-o"></i> 
+                        Registro de Clientes
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../ventas/vventa">
+                      <i class="fa fa-circle-o"></i> 
+                        Registro de Ventas
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../ventas/vcotizacion">
+                      <i class="fa fa-circle-o"></i> 
+                        Registro de Cotización
+                    </a>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
-          <li>
-            <a href="../../logout.php">
-              <i class="fa fa-circle-o text-red"></i> 
-              <span>Cerrar sesion</span>
-            </a>
-          </li>
-          <!-- END user logout -->
-      </ul>
-    </section>
-    <!-- /.sidebar -->
+              <!--END Ventas-->
+
+              <!--Reportes-->
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-file-pdf-o"></i> <span>Módulo Reportes</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="../reportes/vkardexproducto">
+                      <i class="fa fa-circle-o"></i> 
+                        Reporte Kardex Producto
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../reportes/vkardexgeneral">
+                      <i class="fa fa-circle-o"></i> 
+                        Reporte Kardex General
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--END Reportes-->
+
+              <!--Usuarios-->
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-users"></i> <span>Módulo Usuarios</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li class="active">
+                    <a href="../usuarios/vusuario">
+                      <i class="fa fa-circle-o"></i> 
+                        Registro de Usuarios
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../usuarios/vpermisos">
+                      <i class="fa fa-circle-o"></i> 
+                        Administrar Permisos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../usuarios/vhistoryaccess">
+                      <i class="fa fa-circle-o"></i> 
+                       Historial de acceso
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--END Usuarios-->
+
+              <!--Usuarios-->
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-users"></i> <span>Módulo Administrativo</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li class="active">
+                    <a href="../administrativo/vmonedatributaria">
+                      <i class="fa fa-circle-o"></i> 
+                        Administrar Cambio de <br>
+                        <i class="fa"></i> Moneda Tributaria
+                    </a>
+                  </li>
+                  <li class="active">
+                    <a href="../administrativo/vmonedacomercial">
+                      <i class="fa fa-circle-o"></i> 
+                        Administrar Cambio de <br>
+                        <i class="fa"></i> Moneda Comercial
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../administrativo/vnumeracion">
+                      <i class="fa fa-circle-o"></i> 
+                        Administrar Numeración de <br>
+                        <i class="fa"></i> Comprobantes
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--END Usuarios-->
+            <?php 
+            "";
+          }
+        ?>
+            <!--Mi cuenta-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user"></i> 
+                  <span>Mi Cuenta</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="../perfil/vperfil">
+                    <i class="fa fa-circle-o"></i> 
+                      Mi Perfil
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="../../logout.php">
+                <i class="fa fa-circle-o text-red"></i> 
+                <span>Cerrar sesion</span>
+              </a>
+            </li>
+            <!-- END user logout -->
+        </ul>
+      </section>
+      <!-- /.sidebar -->
   </aside>
+
+
+  <style>
+
+    @media screen and (min-width: 700px){
+        .content-wrapper, .right-side, .main-footer {
+            margin-left: 0px;
+        }
+        .main-sidebar{
+            width: 0px;
+        }
+        .sidebar-toggle{
+            display: none;
+        }
+
+        /*
+            Logo en vista de cel
+        */
+    }
+    @media screen and (max-width: 1301px){
+        .navbar-custom-menu{
+            display: none
+        }
+    }
+
+    /*  
+        Cambio del tamaño de la fuente
+    */
+    .skin-blue .main-header .navbar .nav>li>a , .skin-blue .main-header .navbar .nav > li > ul > li > a{
+        font-size: 12px
+    }
+
+  </style>
