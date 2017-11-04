@@ -104,7 +104,7 @@ DELIMITER $$
 			END AS NombreCliente,
 		C.nvchDNI AS DNICliente,
 		C.nvchRUC AS RUCCliente,
-		U.nvchUsername AS NombreUsuario,
+		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		TMN.nvchSimbolo AS SimboloMoneda,
 		TPG.nvchNombre AS NombrePago,
 		TV.nvchNombre AS NombreVenta

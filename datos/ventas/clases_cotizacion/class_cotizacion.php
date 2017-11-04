@@ -307,13 +307,13 @@ class Cotizacion{
         <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCotizacion"].'</td>
         <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCotizacion"].'</td>
         <td> 
-          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
+          <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
-          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion">
+          <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion">
             <i class="fa fa-trash"></i> Anular
           </button>
-          <button type="submit" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-download-report">
+          <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-reporte-cotizacion">
             <i class="fa fa-download"></i> Reporte
           </button>
         </td>
