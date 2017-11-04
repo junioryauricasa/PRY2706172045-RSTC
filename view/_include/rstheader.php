@@ -86,7 +86,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             <li class="" id="ver-en-pc"><a href="../default/dashboard">Información General</a></li>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Módulo Inventario 
+                Inventario 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
@@ -97,7 +97,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Módulo Compras
+                Compras
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
@@ -107,7 +107,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <li class="dropdown" id="ver-en-tablet">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Módulo Ventas 
+                Ventas 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
@@ -118,7 +118,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <li class="dropdown" id="ver-en-tablet">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Módulo Reportes
+                Reportes
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
@@ -128,7 +128,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Módulo Usuarios 
+                Usuarios 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
@@ -139,7 +139,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Módulo Administrativo 
+                Administrativo 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
