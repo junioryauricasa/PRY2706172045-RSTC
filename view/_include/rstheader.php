@@ -66,7 +66,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 <div class="wrapper">
 
   <header class="main-header">
-    <a href="index" class="logo">
+    <a href="#" class="logo">
       <span class="logo-mini"><b>R</b>SF</span>
       <span class="logo-lg"><b>Resteco</b>SFT</span>
     </a>
