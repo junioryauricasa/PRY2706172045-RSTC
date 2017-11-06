@@ -1,5 +1,5 @@
 <?php 
-		
+		include('../_include/rstheader.php');
     include('../../datos/default/class_default.php');
 ?>
     <script>
