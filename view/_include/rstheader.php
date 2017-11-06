@@ -101,6 +101,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
+                <li><a href="../compras/vproveedor">Registro de Proveedores</a></li>
                 <li><a href="../compras/vcompra">Registro de Compras</a></li>
                 <li><a href="../compras/vordencompra">Registro de Órdenes de Compra</a></li>
               </ul>
