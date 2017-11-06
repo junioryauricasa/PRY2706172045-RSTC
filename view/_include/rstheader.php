@@ -83,7 +83,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       <div class="navbar-custom-menu" style="float: left;">
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
             <li class="" id="ver-en-pc"><a href="../default/">Inicio</a></li>
-            <li class="" id="ver-en-pc"><a href="../default/dashboard">Información General</a></li>
+            <li class="" id=""><a href="../default/dashboard">Información General</a></li>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Inventario 
@@ -117,7 +117,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../ventas/vcotizacion">Registro de Cotización</a></li>
               </ul>
             </li>
-            <li class="dropdown" id="ver-en-tablet">
+            <li class="dropdown" id="ver-en-tablet" role="menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Reportes
                 <b class="caret"></b>
@@ -482,6 +482,15 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
           margin-left: 0px
         }
     }
+
+
+    /* Alinear dropdown-list in responsive view */
+    @media (max-width: 991px){
+        .navbar-custom-menu>.navbar-nav>li {
+            position: relative;
+        }
+    }
+
 
 
   </style>
