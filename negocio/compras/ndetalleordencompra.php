@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Proveedores para la Selección */
 function PaginacionProductos(seleccion) {
@@ -349,3 +350,4 @@ function VerImagenProducto(seleccion) {
 }
 /* FIN - Ver Imagen */
 //////////////////////////////////////////////////////////////
+</script>

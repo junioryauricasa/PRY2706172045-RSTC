@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Proveedor */
 $(document).on('click', '#btn-form-crear-proveedor', function(){
@@ -767,3 +768,4 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+</script>

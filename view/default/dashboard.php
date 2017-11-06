@@ -1,5 +1,5 @@
 <?php 
-		include('../_include/rstheader.php');
+		
     include('../../datos/default/class_default.php');
 ?>
     <script>
@@ -7,7 +7,8 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/usuarios/nusuario.js"></script>
+    <?php require_once '../../negocio/usuarios/nusuario.php'; ?>
+    <!--<script type="text/javascript" src="../../negocio/usuarios/nusuario.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */

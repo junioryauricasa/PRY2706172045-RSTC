@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 function PaginacionProductos(seleccion) {
@@ -28,7 +29,7 @@ function ListarProductosSeleccion(x,y) {
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	var intIdSucursal = document.getElementById("intIdSucursal").value;
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_entrada.php",
+	   url:"../../datos/inventario/funcion_salida.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda,intIdSucursal:intIdSucursal},
 	   success:function(datos)
@@ -48,7 +49,7 @@ function PaginarProductosSeleccion(x,y) {
 	var funcion = "PPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_entrada.php",
+	   url:"../../datos/inventario/funcion_salida.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -88,7 +89,7 @@ function SeleccionarProducto(seleccion) {
 
 	dcmPrecioUnitario = Number(dcmPrecioUnitario).toFixed(2);
 
-	$('#ListaDeProductosEntrada').append('<tr>'+
+	$('#ListaDeProductosSalida').append('<tr>'+
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/><input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
@@ -111,15 +112,15 @@ function EliminarFila(btn) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-function MostrarDetalleEntrada(intIdEntrada,tipolistado) {
+function MostrarDetalleSalida(intIdSalida,tipolistado) {
 	var funcion = "MD";
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_entrada.php",
+	   url:"../../datos/inventario/funcion_salida.php",
 	   method:"POST",
-	   data:{intIdEntrada:intIdEntrada,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdSalida:intIdSalida,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeProductosEntrada").html(datos);
+	   	$("#ListaDeProductosSalida").html(datos);
 	   }
 	  });
 }
@@ -202,3 +203,4 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
+</script>

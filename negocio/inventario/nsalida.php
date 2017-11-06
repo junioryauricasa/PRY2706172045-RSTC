@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
 $(document).on('click', '#btn-form-crear-salida', function(){
@@ -359,3 +360,4 @@ function TimerComprobante() {
 }
 /* FIN - Timer Comprobante */
 //////////////////////////////////////////////////////////////
+</script>

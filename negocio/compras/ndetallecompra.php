@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 function PaginacionProductos(seleccion) {
@@ -26,9 +27,9 @@ function ListarProductosSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaProducto").value;
 	var funcion = "MPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var intIdSucursal = document.getElementById("intIdSucursal").value;
+	var intIdSucursal = document.getElementById("lugar-compra").value;
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_salida.php",
+	   url:"../../datos/compras/funcion_compra.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda,intIdSucursal:intIdSucursal},
 	   success:function(datos)
@@ -48,7 +49,7 @@ function PaginarProductosSeleccion(x,y) {
 	var funcion = "PPT";
 	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_salida.php",
+	   url:"../../datos/compras/funcion_compra.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,TipoBusqueda:TipoBusqueda},
 	   success:function(datos)
@@ -88,9 +89,9 @@ function SeleccionarProducto(seleccion) {
 
 	dcmPrecioUnitario = Number(dcmPrecioUnitario).toFixed(2);
 
-	$('#ListaDeProductosSalida').append('<tr>'+
-		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/><input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
-		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
+	$('#ListaDeProductosCompra').append('<tr>'+
+		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
+		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+nvchSimbolo+' '+dcmPrecioUnitario+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmTotal[]" value="'+dcmTotal+'"/>'+nvchSimbolo+' '+dcmTotal+'</td>'+
@@ -111,15 +112,15 @@ function EliminarFila(btn) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-function MostrarDetalleSalida(intIdSalida,tipolistado) {
+function MostrarDetalleCompra(intIdCompra,tipolistado) {
 	var funcion = "MD";
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_salida.php",
+	   url:"../../datos/compras/funcion_compra.php",
 	   method:"POST",
-	   data:{intIdSalida:intIdSalida,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdCompra:intIdCompra,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeProductosSalida").html(datos);
+	   	$("#ListaDeProductosCompra").html(datos);
 	   }
 	  });
 }
@@ -202,3 +203,38 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Domicilios según Ingresa */
+function InsertarCotizacion(seleccion) {
+	var intIdCotizacion = $(seleccion).attr("idct");
+	var funcion = "ICT";
+	$.ajax({
+	   url:"../../datos/compras/funcion_compra.php",
+	   method:"POST",
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeProductosCompra").append(datos); 
+	   }
+	});	
+}
+/* FIN - Listar Domicilios según Ingresa */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Producto */
+function PaginacionCotizaciones(seleccion) {
+	var y = 5;
+	var x = $(seleccion).attr("idct") * y;
+	ListarCotizaciones(x,y);
+}
+
+$(document).on('keyup', '#BusquedaCotizacion', function(){
+	var y = 5;
+	var x = 0;
+	ListarCotizaciones(x,y);
+});
+/* FIN - Funciones Ajax - Listar Producto */
+//////////////////////////////////////////////////////////////
+</script>

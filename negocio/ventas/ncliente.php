@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
 $(document).on('click', '#btn-form-crear-cliente', function(){
@@ -767,3 +768,4 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+</script>

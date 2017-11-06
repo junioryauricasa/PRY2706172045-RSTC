@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Kardex Realizada */
 $(document).on('change', '#num-lista', function(){
@@ -153,3 +154,4 @@ function PaginarKardex(x,y,tipolistado) {
 }
 /* FIN - Funcion Ajax - Paginar Kardex */
 //////////////////////////////////////////////////////////////
+</script>

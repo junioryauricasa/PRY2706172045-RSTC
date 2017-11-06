@@ -1,9 +1,10 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
-$(document).on('click', '#btn-form-crear-compra', function(){
+$(document).on('click', '#btn-form-crear-venta', function(){
 	  var funcion = "F";
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:'POST',
 	   data:{funcion:funcion},
 	   success:function(datos)
@@ -19,35 +20,50 @@ $(document).on('click', '#btn-form-crear-compra', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
-$(document).on('click', '#btn-crear-compra', function(){
-	var intIdTipoCompra = $("#tipo-compra").val();
-	var formData = $("#form-compra").serialize();
-	var funcion = "I";
-	var y = document.getElementById("num-lista").value;
-  	var x = 0;
-  	var tipolistado = "N";
-  	var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
-  	if(EsNumeroEntero("nvchSerie") == false){
-  		goToBox("#nvchSerie");
+$(document).on('click', '#btn-crear-venta', function(){
+	var intIdTipoVenta = $("#tipo-venta").val();
+	var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
+	if(intIdTipoVenta == 1){
+	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
+	  var intIdCliente = $("#intIdCliente").val();
+	  if(intIdCliente == "" || intIdCliente == null){
+	  	MensajeNormal("Seleccionar a un Cliente",2);
 	  	return false;
-  	} else if(EsNumeroEntero("nvchNumeracion") == false){
-  		goToBox("#nvchNumeracion");
+	  } else if(num_filas_detalle_cotizacion == 0){
+	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
 	  	return false;
-  	}
+	  }
+	} else if(intIdTipoVenta == 2){
+	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeServiciosComprar').rows.length;
+	  var intIdCliente = $("#intIdCliente").val();
+	  if(intIdCliente == "" || intIdCliente == null){
+	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  	return false;
+	  } else if(num_filas_detalle_cotizacion == 0){
+	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+	  	return false;
+	  }
+	}
+	  var formData = $("#form-venta").serialize();
+	  var funcion = "I";
+	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "N";
+  	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
 	  $.ajax({
-	   url: "../../datos/compras/funcion_compra.php",
+	   url: "../../datos/ventas/funcion_venta.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokokok") {
-	   		MensajeNormal("Se generó correctamente la Compra de Productos",1);
-	   		$("#btn-form-compra-remove").click();
+	   	if (datos=="okokokokokok") {
+	   		MensajeNormal("Se generó correctamente la Venta",1);
+	   		$("#btn-form-venta-remove").click();
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
 	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
 	   		$('#txt-busqueda').val("");
-	   		ListarCompra(x,y,tipolistado);
-	   		PaginarCompra(x,y,tipolistado);
+	   		ListarVenta(x,y,tipolistado);
+	   		PaginarVenta(x,y,tipolistado);
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -60,21 +76,21 @@ $(document).on('click', '#btn-crear-compra', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
-$(document).on('click', '.btn-mostrar-compra', function(){
-  	  var intIdCompra = $(this).attr("id");
+$(document).on('click', '.btn-mostrar-venta', function(){
+  	  var intIdVenta = $(this).attr("id");
   	  var funcion = "M";
   	  var tipolistado = "T";
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{intIdCompra:intIdCompra,funcion:funcion},
+	   data:{intIdVenta:intIdVenta,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
 	   	goToBox("#Formulario");
 	   	$("#tipo-comprobante").val($("#intIdTipoComprobante").val());
 	   	MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
-	   	MostrarDetalleCompra(intIdCompra,tipolistado);
+	   	MostrarDetalleVenta(intIdVenta,tipolistado);
 	   }
 	  });
 	 return false;
@@ -85,12 +101,12 @@ $(document).on('click', '.btn-mostrar-compra', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
 $(document).on('click', '.btn-download-report', function(){
-  	  var intIdCompra = $(this).attr("id");
+  	  var intIdVenta = $(this).attr("id");
   	  //var funcion = "OCR";
 	  $.ajax({
 	   url:"../../view/reporte/reportes_internos/consultaSQL4Report.php",
 	   method:"POST",
-	   data:{intIdCompra:intIdCompra},
+	   data:{intIdVenta:intIdVenta},
 	   success:function(datos)
 	   {
 	   	//$("#formulario-crud").html(datos);
@@ -103,26 +119,26 @@ $(document).on('click', '.btn-download-report', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
-$(document).on('click', '#btn-editar-compra', function(){
+$(document).on('click', '#btn-editar-venta', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
-  	  var formData = $("#form-compra").serialize();
+  	  var formData = $("#form-venta").serialize();
   	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente la Compra de Productos",1);
+	   		MensajeNormal("Se modificó correctamente la Venta",1);
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
 	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
-	   		$("#btn-form-compra-remove").click();
-	   		ListarCompra(x,y,tipolistado);
-	   		PaginarCompra(x,y,tipolistado);
+	   		$("#btn-form-venta-remove").click();
+	   		ListarVenta(x,y,tipolistado);
+	   		PaginarVenta(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -134,22 +150,22 @@ $(document).on('click', '#btn-editar-compra', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
-$(document).on('click', '.btn-eliminar-compra', function(){
-  	  var intIdCompra = $(this).attr("id");
+$(document).on('click', '.btn-eliminar-venta', function(){
+  	  var intIdVenta = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{intIdCompra:intIdCompra,funcion:funcion},
+	   data:{intIdVenta:intIdVenta,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se anuló correctamente la Compra",1);
-	   		ListarCompra(x,y,tipolistado);
-	   		PaginarCompra((x/y),y,tipolistado);
+	   		MensajeNormal("Se anuló correctamente la Venta",1);
+	   		ListarVenta(x,y,tipolistado);
+	   		PaginarVenta((x/y),y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -162,22 +178,22 @@ $(document).on('click', '.btn-eliminar-compra', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Botones */
 function AccionCabecerasTablaComprobante(intIdTipoComprobante) {
-	if(intIdTipoComprobante == "5"){
+	if(intIdTipoComprobante == "1"){
 		$(".listaNumFactura").show();
   	  	$(".listaNumBoletaVenta").hide();
   	  	$(".listaNumNotaCredito").hide();
   	  	$(".listaNumGuiaRemision").hide();
-	} else if (intIdTipoComprobante == "6") {
+	} else if (intIdTipoComprobante == "2") {
 		$(".listaNumFactura").hide();
   	  	$(".listaNumBoletaVenta").show();
   	  	$(".listaNumNotaCredito").hide();
   	  	$(".listaNumGuiaRemision").hide();
-	} else if (intIdTipoComprobante == "7") {
+	} else if (intIdTipoComprobante == "3") {
 		$(".listaNumFactura").hide();
   	  	$(".listaNumBoletaVenta").hide();
   	  	$(".listaNumNotaCredito").hide();
   	  	$(".listaNumGuiaRemision").show();
-	} else if (intIdTipoComprobante == "8") {
+	} else if (intIdTipoComprobante == "4") {
 		$(".listaNumFactura").hide();
   	  	$(".listaNumBoletaVenta").hide();
   	  	$(".listaNumNotaCredito").show();
@@ -188,79 +204,56 @@ function AccionCabecerasTablaComprobante(intIdTipoComprobante) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Ocultar Botones */
-function AccionNumeracion(intIdTipoComprobante) {
-	if(intIdTipoComprobante == "5"){
-		$("#SerieNumeracionCE").show();
-  	  	$("#SerieNumeracionGIE").hide();
-	} else if (intIdTipoComprobante == "6") {
-		$("#SerieNumeracionCE").show();
-  	  	$("#SerieNumeracionGIE").hide();
-	} else if (intIdTipoComprobante == "7") {
-		$("#SerieNumeracionCE").show();
-  	  	$("#SerieNumeracionGIE").hide();
-	} else if (intIdTipoComprobante == "8") {
-		$("#SerieNumeracionCE").show();
-  	  	$("#SerieNumeracionGIE").hide();
-	} else if (intIdTipoComprobante == "9") {
-		$("#SerieNumeracionCE").hide();
-  	  	$("#SerieNumeracionGIE").show();
-	}
-}
-/* FIN - Ocultar Botones */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Compra Realizada */
+/* INICIO - Funcion Ajax - Buscar Venta Realizada */
 $(document).on('change', '#lista-comprobante', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
   	var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
-  	AccionCabecerasTablaComprobante(intIdTipoComprobante)
-  	ListarCompra(x,y,tipolistado);
+  	AccionCabecerasTablaComprobante(intIdTipoComprobante);
+  	ListarVenta(x,y,tipolistado);
 });
 
 $(document).on('change', '#num-lista', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarCompra(x,y,tipolistado);
+  	ListarVenta(x,y,tipolistado);
 });
 
 $(document).on('keyup', '#txt-busqueda', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarCompra(x,y,tipolistado);
+  	ListarVenta(x,y,tipolistado);
 });
 
 $(document).on('click', '#btnBuscar', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarCompra(x,y,tipolistado);
+  	ListarVenta(x,y,tipolistado);
 });
 
 $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
   	var tipolistado = "T";
-  	ListarCompra(x,y,tipolistado);
+  	ListarVenta(x,y,tipolistado);
 });
 
 $(document).on('change', '#lista-tipo-moneda', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(".marca").attr("idp") * y;
   	var tipolistado = "T";
-  	ListarCompra(x,y,tipolistado);
+  	ListarVenta(x,y,tipolistado);
 });
-/* FIN - Funcion Ajax - Buscar Compra Realizada */
+/* FIN - Funcion Ajax - Buscar Venta Realizada */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Cliente */
-function ListarCompra(x,y,tipolistado) {
+function ListarVenta(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
@@ -276,15 +269,16 @@ function ListarCompra(x,y,tipolistado) {
   } else {
   	var dtmFechaFinal = $("#dtmFechaFinal").val();
   }
+
   $.ajax({
-      url:'../../datos/compras/funcion_compra.php',
+      url:'../../datos/ventas/funcion_venta.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
       		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
-          $("#ListaDeCompras").html(datos);
-          PaginarCompra((x/y),y,tipolistado);
-          TotalCompras();
+          $("#ListaDeVentas").html(datos);
+          PaginarVenta((x/y),y,tipolistado);
+          TotalVentas();
       }
   });
 }
@@ -293,9 +287,9 @@ function ListarCompra(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Total Ventas */
-function TotalCompras() {
+function TotalVentas() {
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "TC";
+  var funcion = "TV";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   
@@ -311,12 +305,12 @@ function TotalCompras() {
   }
 
   $.ajax({
-      url:'../../datos/compras/funcion_compra.php',
+      url:'../../datos/ventas/funcion_venta.php',
       method:"POST",
       data:{busqueda:busqueda,funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,
       		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
-          $("#TotalCompras").val(datos);
+          $("#TotalVentas").val(datos);
       }
   });
 }
@@ -325,11 +319,11 @@ function TotalCompras() {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Cliente */
-function PaginarCompra(x,y,tipolistado) {
+function PaginarVenta(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
-  
+
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
   } else {
@@ -340,13 +334,14 @@ function PaginarCompra(x,y,tipolistado) {
   } else {
   	var dtmFechaFinal = $("#dtmFechaFinal").val();
   }
+
   $.ajax({
-      url:'../../datos/compras/funcion_compra.php',
+      url:'../../datos/ventas/funcion_venta.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
       		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
-          $("#PaginacionDeCompra").html(datos);
+          $("#PaginacionDeVenta").html(datos);
       }
   });
 }
@@ -364,13 +359,72 @@ $(document).on('change', '#tipo-comprobante', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+function AccionSeleccionClientes(funcion) {
+	  if(funcion == 'S'){
+	  	$("#TablaDeClientes").show();
+      	$("#DatosDelCliente").hide();
+	  } else if(funcion == 'M'){
+	  	$("#TablaDeClientes").hide();
+      	$("#DatosDelCliente").show();
+	  }
+}
+/* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function AccionCabecerasTabla(intIdTipoPersona) {
+	if(intIdTipoPersona == "1"){
+		$(".ListaDNI").hide();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").show();
+  	  	$(".ListaApellidoPaterno").hide();
+  	  	$(".ListaApellidoMaterno").hide();
+  	  	$(".ListaNombres").hide();
+	} else if (intIdTipoPersona == "2") {
+		$(".ListaDNI").show();
+  	  	$(".ListaRUC").show();
+  	  	$(".ListaRazonSocial").hide();
+  	  	$(".ListaApellidoPaterno").show();
+  	  	$(".ListaApellidoMaterno").show();
+  	  	$(".ListaNombres").show();
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Buscar Cliente */
+$(document).on('change', '#lista-persona', function(){
+	var intIdTipoPersona = document.getElementById("lista-persona").value;
+	AccionCabecerasTabla(intIdTipoPersona);
+	var y = 5;
+	var x = 0;
+	ListarClientesSeleccion(x,y);
+});
+
+$(document).on('keyup', '#BusquedaCliente', function(){
+	var y = 5;
+	var x = 0;
+	ListarClientesSeleccion(x,y);
+});
+
+function PaginacionClientes(seleccion) {
+	var y = 5;
+	var x = $(seleccion).attr("idcli") * y;
+	ListarClientesSeleccion(x,y);
+}
+/* FIN - Funcion Ajax - Buscar Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Listar Clientes para la Selección */
 function ListarClientesSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "MCL";
 	var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -389,7 +443,7 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "PCL";
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -402,8 +456,59 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Seleccion del Cliente */
+function SeleccionarCliente(seleccion) {
+	var intIdCliente = $(seleccion).attr("idscli");
+	var funcion = "SCL";
+	  $.ajax({
+	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   method:"POST",
+	   data:{intIdCliente:intIdCliente,funcion:funcion},
+	   dataType:"json",
+	   success:function(datos)
+	   {
+	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#nvchRUC").val(datos.nvchRUC);
+	   	$("#nvchDNI").val(datos.nvchDNI);
+	   	$("#nvchRazonSocial").val(datos.nvchRazonSocial);
+	   	$("#nvchApellidoPaterno").val(datos.nvchApellidoPaterno);
+	   	$("#nvchApellidoMaterno").val(datos.nvchApellidoMaterno);
+	   	$("#nvchNombres").val(datos.nvchNombres);
+	   	$("#TipoCliente").val(datos.TipoCliente);
+	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
+	   	MostrarSeleccionCliente(datos.intIdTipoPersona);
+	   }
+	  });
+}
+/* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Seleccion del Cliente */
+function MostrarSeleccionCliente(intIdTipoPersona) {
+	  AccionSeleccionClientes('M');
+	  if(intIdTipoPersona == 1){
+	  	$(".nvchDNI").hide();
+      	$(".nvchApellidoPaterno").hide();
+      	$(".nvchApellidoMaterno").hide();
+      	$(".nvchNombres").hide();
+      	$(".nvchRUC").show();
+      	$(".nvchRazonSocial").show();
+	  } else if(intIdTipoPersona == 2){
+	  	$(".nvchDNI").show();
+      	$(".nvchApellidoPaterno").show();
+      	$(".nvchApellidoMaterno").show();
+      	$(".nvchNombres").show();
+      	$(".nvchRUC").show();
+      	$(".nvchRazonSocial").hide();
+	  }
+}
+/* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Comprobante */
-$(document).on('change', '#lugar-compra', function(){
+$(document).on('change', '#lugar-venta', function(){
 	var y = 5;
 	var x = $(".pa-producto").attr("idprt") * y;
 	ListarProductosSeleccion(x,y);
@@ -414,14 +519,11 @@ $(document).on('change', '#lugar-compra', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Cliente */
 function MostrarSeleccionComprobante() {
-	var intIdTipoComprobante = $("#tipo-comprobante").val();
-	AccionNumeracion(intIdTipoComprobante);
-	if(intIdTipoComprobante == 9){
 	  var intIdTipoComprobante = $("#tipo-comprobante").val();
-	  var intIdSucursal = $("#lugar-compra").val();
+	  var intIdSucursal = $("#lugar-venta").val();
 	  var funcion = "NCPR";
 	  $.ajax({
-	   url:"../../datos/compras/funcion_compra.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,intIdSucursal:intIdSucursal},
 	   dataType:"json",
@@ -435,7 +537,6 @@ function MostrarSeleccionComprobante() {
 	   	 }
 	   }
 	  });
-	}
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
@@ -447,3 +548,19 @@ function TimerComprobante() {
 }
 /* FIN - Timer Comprobante */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function MostrarTipoVenta() {
+	var intIdTipoVenta = $("#tipo-venta").val();
+	if(intIdTipoVenta == "1"){
+		$("#repuestos").show();
+  	  	$("#servicios").hide();
+	} else if (intIdTipoVenta == "2") {
+		$("#repuestos").hide();
+  	  	$("#servicios").show();
+	}
+}
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+</script>

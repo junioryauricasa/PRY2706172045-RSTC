@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Usuario */
 function MostrarUsuarioPerfil(intIdUsuario){
@@ -363,3 +364,4 @@ function BotonesComunicacion(accion) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+</script>

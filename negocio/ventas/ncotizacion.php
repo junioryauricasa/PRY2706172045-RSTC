@@ -1,9 +1,10 @@
+<script>
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
-$(document).on('click', '#btn-form-crear-venta', function(){
+/* INICIO - Funcion Ajax - Visualizar Formulario Crear Cotización */
+$(document).on('click', '#btn-form-crear-cotizacion', function(){
 	  var funcion = "F";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:'POST',
 	   data:{funcion:funcion},
 	   success:function(datos)
@@ -14,19 +15,24 @@ $(document).on('click', '#btn-form-crear-venta', function(){
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Visualizar Formulario Crear Cliente */
+/* FIN - Funcion Ajax - Visualizar Formulario Crear Cotización*/
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Insertar Cliente */
-$(document).on('click', '#btn-crear-venta', function(){
+/* INICIO - Funcion Ajax - Insertar Cotización */
+$(document).on('click', '#btn-crear-cotizacion', function(){
 	var intIdTipoVenta = $("#tipo-venta").val();
-	var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
 	if(intIdTipoVenta == 1){
 	  var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosComprar').rows.length;
 	  var intIdCliente = $("#intIdCliente").val();
 	  if(intIdCliente == "" || intIdCliente == null){
 	  	MensajeNormal("Seleccionar a un Cliente",2);
+	  	return false;
+	  } else if(EsVacio("nvchAtencion") == false){
+	  	goToBox("#nvchAtencionGroup");
+	  	return false;
+	  } else if(EsNumeroEntero("intDiasValidez") == false){
+	  	goToBox("#intDiasValidezGroup");
 	  	return false;
 	  } else if(num_filas_detalle_cotizacion == 0){
 	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
@@ -38,226 +44,178 @@ $(document).on('click', '#btn-crear-venta', function(){
 	  if(intIdCliente == "" || intIdCliente == null){
 	  	MensajeNormal("Seleccionar a un Cliente",2);
 	  	return false;
+	  } else if(EsVacio("nvchAtencion") == false){
+	  	goToBox("#nvchAtencionGroup");
+	  	return false;
+	  } else if(EsNumeroEntero("intDiasValidez") == false){
+	  	goToBox("#intDiasValidezGroup");
+	  	return false;
+	  } else if(EsVacio("nvchTipo") == false){
+	  	goToBox("#nvchTipoGroup");
+	  	return false;
+	  } else if(EsVacio("nvchModelo") == false){
+	  	goToBox("#nvchModeloGroup");
+	  	return false;
+	  } else if(EsVacio("nvchMarca") == false){
+	  	goToBox("#nvchMarcaGroup");
+	  	return false;
+	  } else if(EsVacio("nvchHorometro") == false){
+	  	goToBox("#nvchHorometroGroup");
+	  	return false;
 	  } else if(num_filas_detalle_cotizacion == 0){
 	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
 	  	return false;
 	  }
 	}
-	  var formData = $("#form-venta").serialize();
+	  var formData = $("#form-cotizacion").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "N";
-  	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
 	  $.ajax({
-	   url: "../../datos/ventas/funcion_venta.php",
+	   url: "../../datos/ventas/funcion_cotizacion.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokokokok") {
-	   		MensajeNormal("Se generó correctamente la Venta",1);
-	   		$("#btn-form-venta-remove").click();
-	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
-	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
+	   	if (datos=="okok") {
+	   		MensajeNormal("Se generó correctamente la Cliente",1);
+	   		$("#btn-form-cotizacion-remove").click();
 	   		$('#txt-busqueda').val("");
-	   		ListarVenta(x,y,tipolistado);
-	   		PaginarVenta(x,y,tipolistado);
+	   		ListarCotizacion(x,y,tipolistado);
+	   		PaginarCotizacion(x,y,tipolistado);
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Insertar Cliente */
+/* FIN - Funcion Ajax - Insertar Cotización */
 //////////////////////////////////////////////////////////////
 
-
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Cliente */
-$(document).on('click', '.btn-mostrar-venta', function(){
-  	  var intIdVenta = $(this).attr("id");
+/* INICIO - Funcion Ajax - Mostrar Cotización */
+$(document).on('click', '.btn-mostrar-cotizacion', function(){
+  	  var intIdCotizacion = $(this).attr("id");
   	  var funcion = "M";
   	  var tipolistado = "T";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,funcion:funcion},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
 	   	goToBox("#Formulario");
-	   	$("#tipo-comprobante").val($("#intIdTipoComprobante").val());
-	   	MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
-	   	MostrarDetalleVenta(intIdVenta,tipolistado);
+	   	MostrarDetalleCotizacion(intIdCotizacion,tipolistado);
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Mostrar Cliente */
+/* FIN - Funcion Ajax - Mostrar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Cliente */
-$(document).on('click', '.btn-download-report', function(){
-  	  var intIdVenta = $(this).attr("id");
-  	  //var funcion = "OCR";
-	  $.ajax({
-	   url:"../../view/reporte/reportes_internos/consultaSQL4Report.php",
-	   method:"POST",
-	   data:{intIdVenta:intIdVenta},
-	   success:function(datos)
-	   {
-	   	//$("#formulario-crud").html(datos);
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Mostrar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Actualizar Cliente */
-$(document).on('click', '#btn-editar-venta', function(){
+/* INICIO - Funcion Ajax - Actualizar Cotización */
+$(document).on('click', '#btn-editar-cotizacion', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
-  	  var formData = $("#form-venta").serialize();
-  	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
+  	  var formData = $("#form-cotizacion").serialize();
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente la Venta",1);
-	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
-	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
-	   		$("#btn-form-venta-remove").click();
-	   		ListarVenta(x,y,tipolistado);
-	   		PaginarVenta(x,y,tipolistado);
+	   		MensajeNormal("Se modificó correctamente la Cliente",1);
+	   		$("#btn-form-cotizacion-remove").click();
+	   		ListarCotizacion(x,y,tipolistado);
+	   		PaginarCotizacion(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Actualizar Cliente */
+/* FIN - Funcion Ajax - Actualizar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Eliminar Cliente */
-$(document).on('click', '.btn-eliminar-venta', function(){
-  	  var intIdVenta = $(this).attr("id");
+/* INICIO - Funcion Ajax - Eliminar Cotización */
+$(document).on('click', '.btn-eliminar-cotizacion', function(){
+  	  var intIdCotizacion = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
+	   url:"../../datos/ventas/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,funcion:funcion},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se anuló correctamente la Venta",1);
-	   		ListarVenta(x,y,tipolistado);
-	   		PaginarVenta((x/y),y,tipolistado);
+	   		MensajeNormal("Se anuló correctamente la Cliente",1);
+	   		ListarCotizacion(x,y,tipolistado);
+	   		PaginarCotizacion(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
 	 return false;
 });
-/* FIN - Funcion Ajax - Eliminar Cliente */
+/* FIN - Funcion Ajax - Eliminar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Ocultar Botones */
-function AccionCabecerasTablaComprobante(intIdTipoComprobante) {
-	if(intIdTipoComprobante == "1"){
-		$(".listaNumFactura").show();
-  	  	$(".listaNumBoletaVenta").hide();
-  	  	$(".listaNumNotaCredito").hide();
-  	  	$(".listaNumGuiaRemision").hide();
-	} else if (intIdTipoComprobante == "2") {
-		$(".listaNumFactura").hide();
-  	  	$(".listaNumBoletaVenta").show();
-  	  	$(".listaNumNotaCredito").hide();
-  	  	$(".listaNumGuiaRemision").hide();
-	} else if (intIdTipoComprobante == "3") {
-		$(".listaNumFactura").hide();
-  	  	$(".listaNumBoletaVenta").hide();
-  	  	$(".listaNumNotaCredito").hide();
-  	  	$(".listaNumGuiaRemision").show();
-	} else if (intIdTipoComprobante == "4") {
-		$(".listaNumFactura").hide();
-  	  	$(".listaNumBoletaVenta").hide();
-  	  	$(".listaNumNotaCredito").show();
-  	  	$(".listaNumGuiaRemision").hide();
-	}
-}
-/* FIN - Ocultar Botones */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar Venta Realizada */
-$(document).on('change', '#lista-comprobante', function(){
-	var y = document.getElementById("num-lista").value;
-  	var x = 0;
-  	var tipolistado = "T";
-  	var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
-  	AccionCabecerasTablaComprobante(intIdTipoComprobante);
-  	ListarVenta(x,y,tipolistado);
+/* INICIO - Funcion Ajax - Buscar Cotización */
+$(document).on('change', '#num-lista', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "T";
+  ListarCotizacion(x,y,tipolistado);
 });
 
-$(document).on('change', '#num-lista', function(){
-  	var y = document.getElementById("num-lista").value;
-  	var x = 0;
-  	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+$(document).on('click', '.btn-pagina', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = $(this).attr("idp") * y;
+  var tipolistado = "T";
+  ListarCotizacion(x,y,tipolistado);
 });
 
 $(document).on('keyup', '#txt-busqueda', function(){
-	var y = document.getElementById("num-lista").value;
-  	var x = 0;
-  	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "T";
+  ListarCotizacion(x,y,tipolistado);
 });
 
 $(document).on('click', '#btnBuscar', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
-});
-
-$(document).on('click', '.btn-pagina', function(){
-  	var y = document.getElementById("num-lista").value;
-  	var x = $(this).attr("idp") * y;
-  	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarCotizacion(x,y,tipolistado);
 });
 
 $(document).on('change', '#lista-tipo-moneda', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(".marca").attr("idp") * y;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarCotizacion(x,y,tipolistado);
 });
-/* FIN - Funcion Ajax - Buscar Venta Realizada */
+/* FIN - Funcion Ajax - Buscar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Cliente */
-function ListarVenta(x,y,tipolistado) {
+/* INICIO - Funcion Ajax - Listar Cotización */
+function ListarCotizacion(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
-  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
-  
+
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
   } else {
@@ -270,26 +228,25 @@ function ListarVenta(x,y,tipolistado) {
   }
 
   $.ajax({
-      url:'../../datos/ventas/funcion_venta.php',
+      url:'../../datos/ventas/funcion_cotizacion.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoMoneda:intIdTipoMoneda,
+      	dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
-          $("#ListaDeVentas").html(datos);
-          PaginarVenta((x/y),y,tipolistado);
-          TotalVentas();
+          $("#ListaDeCotizaciones").html(datos);
+          PaginarCotizacion((x/y),y,tipolistado);
+          TotalCotizaciones();
       }
   });
 }
-/* FIN - Funcion Ajax - Listar Cliente */
+/* FIN - Funcion Ajax - Listar Cotización */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Total Ventas */
-function TotalVentas() {
+/* INICIO - Funcion Ajax - Total Cotizaciones */
+function TotalCotizaciones() {
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "TV";
-  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var funcion = "TCT";
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   
   if(EsFecha("dtmFechaInicial") == false){
@@ -304,24 +261,33 @@ function TotalVentas() {
   }
 
   $.ajax({
-      url:'../../datos/ventas/funcion_venta.php',
+      url:'../../datos/ventas/funcion_cotizacion.php',
       method:"POST",
-      data:{busqueda:busqueda,funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      data:{busqueda:busqueda,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
-          $("#TotalVentas").val(datos);
+          $("#TotalCotizaciones").val(datos);
       }
   });
 }
-/* FIN - Funcion Ajax - Total Ventas */
+/* FIN - Funcion Ajax - Total Cotizaciones */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Reporte Cotizacion */
+$(document).on('click', '.btn-reporte-cotizacion', function(){
+	var intIdCotizacion = $(this).attr("id");
+	var url = '../../datos/ventas/clases_cotizacion/reporte_cotizacion.php?intIdCotizacion='+intIdCotizacion;
+	window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Reporte Cotizacion */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Cliente */
-function PaginarVenta(x,y,tipolistado) {
+function PaginarCotizacion(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
-  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
 
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
@@ -335,26 +301,16 @@ function PaginarVenta(x,y,tipolistado) {
   }
 
   $.ajax({
-      url:'../../datos/ventas/funcion_venta.php',
+      url:'../../datos/ventas/funcion_cotizacion.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+      	dtmFechaFinal:dtmFechaFinal},
       success:function(datos) {
-          $("#PaginacionDeVenta").html(datos);
+          $("#PaginacionDeCotizacion").html(datos);
       }
   });
 }
 /* FIN - Funcion Ajax - Paginar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
-$(document).on('change', '#tipo-comprobante', function(){
-  	 var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
-  	 MostrarSeleccionComprobante(intIdTipoComprobante);
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -423,7 +379,7 @@ function ListarClientesSeleccion(x,y) {
 	var funcion = "MCL";
 	var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -442,7 +398,7 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "PCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -460,7 +416,7 @@ function SeleccionarCliente(seleccion) {
 	var intIdCliente = $(seleccion).attr("idscli");
 	var funcion = "SCL";
 	  $.ajax({
-	   url:"../../datos/ventas/funcion_cotizacion.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{intIdCliente:intIdCliente,funcion:funcion},
 	   dataType:"json",
@@ -506,49 +462,6 @@ function MostrarSeleccionCliente(intIdTipoPersona) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Comprobante */
-$(document).on('change', '#lugar-venta', function(){
-	var y = 5;
-	var x = $(".pa-producto").attr("idprt") * y;
-	ListarProductosSeleccion(x,y);
-});
-/* FIN - Funcion Ajax - Comprobante */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Seleccion del Cliente */
-function MostrarSeleccionComprobante() {
-	  var intIdTipoComprobante = $("#tipo-comprobante").val();
-	  var intIdSucursal = $("#lugar-venta").val();
-	  var funcion = "NCPR";
-	  $.ajax({
-	   url:"../../datos/ventas/funcion_venta.php",
-	   method:"POST",
-	   data:{funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,intIdSucursal:intIdSucursal},
-	   dataType:"json",
-	   success:function(datos)
-	   { 
-	   	 if(datos.resultado == "ok"){
-		   	$("#nvchSerie").val(datos.nvchSerie);
-		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
-	   	 } else {
-	   	 	alert(datos.resultado);
-	   	 }
-	   }
-	  });
-}
-/* FIN - Seleccion del Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Timer Comprobante */
-function TimerComprobante() {
-    miVariable = setInterval(MostrarSeleccionComprobante, 500);
-}
-/* FIN - Timer Comprobante */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Botones */
 function MostrarTipoVenta() {
 	var intIdTipoVenta = $("#tipo-venta").val();
@@ -562,3 +475,4 @@ function MostrarTipoVenta() {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+</script>

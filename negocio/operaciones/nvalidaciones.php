@@ -1,3 +1,4 @@
+<script>
 function EsDecimalTecla(evt)
 {
   var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -191,3 +192,4 @@ function FechaActual(){
   hoy = dd + '/' + mm + '/' + yyyy;
   return hoy;
 }
+</script>

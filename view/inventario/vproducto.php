@@ -6,11 +6,16 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>
-    <script type="text/javascript" src="../../negocio/inventario/ncodigoproducto.js"></script>
-    <script type="text/javascript" src="../../negocio/inventario/nubigeoproducto.js"></script>
-    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
-    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
+    <?php require_once '../../negocio/inventario/nproducto.php'; ?>
+    <?php require_once '../../negocio/inventario/ncodigoproducto.php'; ?>
+    <?php require_once '../../negocio/inventario/nubigeoproducto.php'; ?>
+    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
+    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+    <!--<script type="text/javascript" src="../../negocio/inventario/nproducto.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/inventario/ncodigoproducto.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/inventario/nubigeoproducto.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */

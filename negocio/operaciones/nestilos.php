@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Dirigirse al div */
 function goToBox(box){
@@ -55,3 +56,4 @@ function MensajeConfirmacion(texto,tipomensaje){
 }
 /* FIN - Dirigirse al div */
 //////////////////////////////////////////////////////////////
+</script>

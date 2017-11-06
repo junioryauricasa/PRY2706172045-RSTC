@@ -6,10 +6,14 @@ include('../_include/rstheader.php');
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/compras/nordencompra.js"></script>
-    <script type="text/javascript" src="../../negocio/compras/ndetalleordencompra.js"></script>
-    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
-    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
+    <?php require_once '../../negocio/compras/nordencompra.php'; ?>
+    <?php require_once '../../negocio/compras/ndetalleordencompra.php'; ?>
+    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
+    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+    <!--<script type="text/javascript" src="../../negocio/compras/nordencompra.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/compras/ndetalleordencompra.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */

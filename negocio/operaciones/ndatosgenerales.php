@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Ubigeo Departamento - Provincia - Distrito */
 function MostrarProvincia(){
@@ -96,3 +97,4 @@ function MostrarDistrito_III(intIdProvincia,intIdDistrito){
 }
 /* FIN - Mostrar Ubigeo Departamento - Provincia - Distrito */
 //////////////////////////////////////////////////////////////
+</script>

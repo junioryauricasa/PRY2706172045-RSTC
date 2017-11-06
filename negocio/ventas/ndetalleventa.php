@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 function PaginacionProductos(seleccion) {
@@ -334,3 +335,4 @@ function PaginarCotizaciones(x,y) {
 }
 /* FIN - Paginar Clientes para la Selección */
 //////////////////////////////////////////////////////////////
+</script>

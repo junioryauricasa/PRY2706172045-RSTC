@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Producto */
 $(document).on('click', '#btn-form-crear-producto', function(){
@@ -466,3 +467,4 @@ function VerImagenProducto(seleccion) {
 }
 /* FIN - Ver Imagen */
 //////////////////////////////////////////////////////////////
+</script>

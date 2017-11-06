@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Usuario */
 $(document).on('click', '#btn-form-crear-usuario', function(){
@@ -536,3 +537,4 @@ $(document).on('click', '#btn-editar-userpassword', function(){
 });
 /* FIN - Cambiar Contraseña */
 //////////////////////////////////////////////////////////////
+</script>

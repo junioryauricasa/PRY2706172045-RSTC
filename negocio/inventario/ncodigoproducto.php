@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Codigos del Producto Seleccionado */
 function MostrarCodigo(intIdProducto,tipolistado) {
@@ -176,3 +177,4 @@ function BotonesCodigo(accion) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+</script>

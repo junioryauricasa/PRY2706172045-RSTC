@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Ubicaciones del Producto Seleccionado */
 function MostrarUbigeo(intIdProducto,tipolistado) {
@@ -198,3 +199,4 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
+</script>

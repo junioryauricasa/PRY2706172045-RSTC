@@ -1,3 +1,4 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
 function PaginacionProductos(seleccion) {
@@ -371,3 +372,4 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
+</script>

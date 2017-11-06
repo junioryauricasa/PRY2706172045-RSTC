@@ -1,9 +1,10 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
-$(document).on('click', '#btn-form-crear-moneda-tributaria', function(){
+$(document).on('click', '#btn-form-crear-moneda-comercial', function(){
 	  var funcion = "F";
 	  $.ajax({
-	   url:"../../datos/administrativo/funcion_moneda_tributaria.php",
+	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
 	   method:'POST',
 	   data:{funcion:funcion},
 	   success:function(datos)
@@ -20,23 +21,23 @@ $(document).on('click', '#btn-form-crear-moneda-tributaria', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
-$(document).on('click', '#btn-crear-moneda-tributaria', function(){
-	  var formData = $("#form-moneda-tributaria").serialize();
+$(document).on('click', '#btn-crear-moneda-comercial', function(){
+	  var formData = $("#form-moneda-comercial").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
 	  var x = 0;
 	  var tipolistado = "N";
 	  $.ajax({
-	   url: "../../datos/administrativo/funcion_moneda_tributaria.php",
+	   url: "../../datos/administrativo/funcion_moneda_comercial.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se generó correctamente la Moneda Tributaria",1);
-	   		$("#btn-form-moneda-tributaria-remove").click();
-	   		ListarMonedaTributaria(x,y,tipolistado);
-	   		PaginarMonedaTributaria(x,y,tipolistado);
+	   		MensajeNormal("Se generó correctamente la Moneda Comercial",1);
+	   		$("#btn-form-moneda-comercial-remove").click();
+	   		ListarMonedaComercial(x,y,tipolistado);
+	   		PaginarMonedaComercial(x,y,tipolistado);
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -49,14 +50,14 @@ $(document).on('click', '#btn-crear-moneda-tributaria', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
-$(document).on('click', '.btn-mostrar-moneda-tributaria', function(){
-  	  var intIdMonedaTributaria = $(this).attr("id");
+$(document).on('click', '.btn-mostrar-moneda-comercial', function(){
+  	  var intIdMonedaComercial = $(this).attr("id");
   	  var funcion = "M";
   	  var tipolistado = "T";
 	  $.ajax({
-	   url:"../../datos/administrativo/funcion_moneda_tributaria.php",
+	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
 	   method:"POST",
-	   data:{intIdMonedaTributaria:intIdMonedaTributaria,funcion:funcion},
+	   data:{intIdMonedaComercial:intIdMonedaComercial,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	$("#formulario-crud").html(datos);
@@ -70,24 +71,24 @@ $(document).on('click', '.btn-mostrar-moneda-tributaria', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
-$(document).on('click', '#btn-editar-moneda-tributaria', function(){
+$(document).on('click', '#btn-editar-moneda-comercial', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
-  	  var formData = $("#form-moneda-tributaria").serialize();
+  	  var formData = $("#form-moneda-comercial").serialize();
   	  var TipoCambio = document.getElementById("intIdTipoCambio").value;
 	  $.ajax({
-	   url:"../../datos/administrativo/funcion_moneda_tributaria.php",
+	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente la Moneda Tributaria",1);
-	   		$("#btn-form-moneda-tributaria-remove").click();
-	   		ListarMonedaTributaria(x,y,tipolistado);
-	   		PaginarMonedaTributaria(x,y,tipolistado);
+	   		MensajeNormal("Se modificó correctamente la Moneda Comercial",1);
+	   		$("#btn-form-moneda-comercial-remove").click();
+	   		ListarMonedaComercial(x,y,tipolistado);
+	   		PaginarMonedaComercial(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -99,22 +100,22 @@ $(document).on('click', '#btn-editar-moneda-tributaria', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
-$(document).on('click', '.btn-eliminar-moneda-tributaria', function(){
-  	  var intIdMonedaTributaria = $(this).attr("id");
+$(document).on('click', '.btn-eliminar-moneda-comercial', function(){
+  	  var intIdMonedaComercial = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
 	  $.ajax({
-	   url:"../../datos/administrativo/funcion_moneda_tributaria.php",
+	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
 	   method:"POST",
-	   data:{intIdMonedaTributaria:intIdMonedaTributaria,funcion:funcion},
+	   data:{intIdMonedaComercial:intIdMonedaComercial,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se Eliminó correctamente la Moneda Tributaria",1);
-	   		ListarMonedaTributaria(x,y,tipolistado);
-	   		PaginarMonedaTributaria((x/y),y,tipolistado);
+	   		MensajeNormal("Se Eliminó correctamente la Moneda Comercial",1);
+	   		ListarMonedaComercial(x,y,tipolistado);
+	   		PaginarMonedaComercial((x/y),y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -125,19 +126,19 @@ $(document).on('click', '.btn-eliminar-moneda-tributaria', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Buscar MonedaTributaria Realizada */
+/* INICIO - Funcion Ajax - Buscar MonedaComercial Realizada */
 $(document).on('change', '#lista-tipo-cambio', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarMonedaTributaria(x,y,tipolistado);
+  	ListarMonedaComercial(x,y,tipolistado);
 });
 
 $(document).on('change', '#num-lista', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarMonedaTributaria(x,y,tipolistado);
+  	ListarMonedaComercial(x,y,tipolistado);
 });
 
 
@@ -145,23 +146,23 @@ $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
   	var tipolistado = "T";
-  	ListarMonedaTributaria(x,y,tipolistado);
+  	ListarMonedaComercial(x,y,tipolistado);
 });
-/* FIN - Funcion Ajax - Buscar MonedaTributaria Realizada */
+/* FIN - Funcion Ajax - Buscar MonedaComercial Realizada */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Cliente */
-function ListarMonedaTributaria(x,y,tipolistado) {
+function ListarMonedaComercial(x,y,tipolistado) {
   var funcion = "L";
   var TipoCambio = document.getElementById("lista-tipo-cambio").value;
   $.ajax({
-      url:'../../datos/administrativo/funcion_moneda_tributaria.php',
+      url:'../../datos/administrativo/funcion_moneda_comercial.php',
       method:"POST",
       data:{x:x,y:y,funcion:funcion,tipolistado:tipolistado,TipoCambio:TipoCambio},
       success:function(datos) {
-          $("#ListaDeMonedaTributaria").html(datos);
-          PaginarMonedaTributaria((x/y),y,tipolistado);
+          $("#ListaDeMonedaComercial").html(datos);
+          PaginarMonedaComercial((x/y),y,tipolistado);
       }
   });
 }
@@ -170,17 +171,18 @@ function ListarMonedaTributaria(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Paginar Cliente */
-function PaginarMonedaTributaria(x,y,tipolistado) {
+function PaginarMonedaComercial(x,y,tipolistado) {
   var funcion = "P";
   var TipoCambio = document.getElementById("lista-tipo-cambio").value;
   $.ajax({
-      url:'../../datos/administrativo/funcion_moneda_tributaria.php',
+      url:'../../datos/administrativo/funcion_moneda_comercial.php',
       method:"POST",
       data:{x:x,y:y,funcion:funcion,tipolistado:tipolistado,TipoCambio:TipoCambio},
       success:function(datos) {
-          $("#PaginacionDeMonedaTributaria").html(datos);
+          $("#PaginacionDeMonedaComercial").html(datos);
       }
   });
 }
 /* FIN - Funcion Ajax - Paginar Cliente */
 //////////////////////////////////////////////////////////////
+</script>

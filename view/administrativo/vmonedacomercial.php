@@ -6,9 +6,12 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/administrativo/nmonedacomercial.js"></script>
-    <script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>
-    <script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>
+    <?php require_once '../../negocio/administrativo/nmonedacomercial.php'; ?>
+    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
+    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+    <!--<script type="text/javascript" src="../../negocio/administrativo/nmonedacomercial.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
+    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px;
