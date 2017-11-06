@@ -489,8 +489,10 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         .navbar-custom-menu>.navbar-nav>li {
             position: relative;
         }
+        .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+            right: 0%;
+        }
     }
-
 
 
   </style>
