@@ -66,7 +66,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 <div class="wrapper">
 
   <header class="main-header">
-    <a href="#" class="logo">
+    <a href="#" class="logo" id="RestecoSFT">
       <span class="logo-mini"><b>R</b>SF</span>
       <span class="logo-lg"><b>Resteco</b>SFT</span>
     </a>
@@ -444,6 +444,11 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         #ver-en-tablet{
             display: none
         }
+
+        /* Ver logo in navbar*/
+        #RestecoSFT{
+          display: block
+        }
     }
     @media screen and (min-width: 436px) and (max-width: 768px){
         #ver-en-pc{
@@ -452,6 +457,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         #ver-en-tablet{
             display: block
         }
+
+        /* Ver logo in navbar*/
+        #RestecoSFT{
+          display: none
+        }
+        .main-header>.navbar{
+          margin-left: 0px
+        }
     }
     @media screen and (min-width: 769px){
         #ver-en-pc{
@@ -459,6 +472,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         }
         #ver-en-tablet{
             display: block
+        }
+
+        /* Ver logo in navbar*/
+        #RestecoSFT{
+          display: none
+        }
+        .main-header>.navbar{
+          margin-left: 0px
         }
     }
 
