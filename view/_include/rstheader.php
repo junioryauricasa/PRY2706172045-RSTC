@@ -504,11 +504,11 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
   display: block;
 }
 .rwd-table td:first-child {
-  padding-top: .5em;
+  /*padding-top: .5em;*/
   margin-top: 15px
 }
 .rwd-table td:last-child {
-  padding-bottom: .5em;
+  /*padding-bottom: .5em;*/
   margin-bottom: 15px
 }
 .rwd-table td:before {
@@ -597,7 +597,12 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 .ExcelTable2007 TD {
     border: 0px;
     background-color: white;
-    padding: 0px 4px 0px 2px;
+    
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    
     border: 1px solid #D0D7E5;
     border-width: 0px 1px 1px 0px;
 
