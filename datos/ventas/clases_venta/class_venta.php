@@ -130,7 +130,7 @@ class Venta{
           echo 
           '<td>'.$fila["TipoCliente"].'</td>
           <td> 
-            <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCliente(this)">
+            <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-success" onclick="SeleccionarCliente(this)">
               <i class="fa fa-edit"></i> Seleccionar
             </button>
           </td>

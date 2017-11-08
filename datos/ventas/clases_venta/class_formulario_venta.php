@@ -123,9 +123,6 @@ class FormularioVenta
                   <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly/>
                 </div>
               </div>
-              <?php if($funcion == "F") {?>
-              <script>TimerComprobante();</script>
-              <?php } ?>
             </div>
           </div>
           <div class="box-header with-border">
