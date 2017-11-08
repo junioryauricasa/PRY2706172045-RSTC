@@ -413,5 +413,52 @@ class Producto
       echo $e->getMessage();
     }
   }
+
+  public function BuscarProducto($buscar)
+  {
+    try{
+      if($buscar != ""){
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:buscar,:TipoBusqueda)');
+        $sql_comando -> execute(array(':buscar' => $buscar,':TipoBusqueda' => 'C'));
+        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+        {
+        ?>
+          <div class="show" align="left">
+            <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
+            <span class="nvchCodigo">
+              <?php echo $fila['nvchCodigo']; ?>
+            </span>&nbsp;<br/>
+              <?php echo $fila['nvchDescripcion']; ?><br/>
+          </div>
+        <?php
+        }
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    } 
+  }
+
+  public function SeleccionarProducto()
+  {
+    try{
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
+        $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
+        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+        $salida['intIdProducto'] = $fila['intIdProducto'];
+        $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
+        $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];
+        $salida['dcmDescuentoVenta2'] = $fila['dcmDescuentoVenta2'];
+        $salida['dcmDescuentoVenta3'] = $fila['dcmDescuentoVenta3'];
+        echo json_encode($salida);
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    } 
+  }
   /* FIN - Métodos de Producto */
 }

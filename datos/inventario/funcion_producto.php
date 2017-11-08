@@ -58,6 +58,11 @@ switch($_POST['funcion']){
     $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
     $CodigoProducto->InsertarCodigoProducto_II();
     break;
+  case "SP":
+    $Producto = new Producto();
+    $Producto->IdProducto($_POST['intIdProducto']);
+    $Producto->SeleccionarProducto();
+    break;
   case "IUP":
     $UbigeoProducto = new UbigeoProducto();
     $UbigeoProducto->IdProducto($_POST['intIdProducto']);
@@ -164,6 +169,10 @@ switch($_POST['funcion']){
   case "F":
     $FormularioProducto = new FormularioProducto();
     $FormularioProducto->ConsultarFormulario($_POST['funcion']);
+    break;
+  case "BP":
+    $Producto = new Producto();
+    $Producto->BuscarProducto($_POST['search']);
     break;
   case "ES_P_SU":
     $Producto = new Producto();
