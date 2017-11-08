@@ -219,7 +219,6 @@ function CalcularPrecioTotal(accion) {
 }
 /* FIN - Calcular Precio Unitario */
 //////////////////////////////////////////////////////////////
-
 function CalcularTotal(){
 	var VentaTotal = 0.00;
 	var IGVVenta = 0.00;
@@ -238,7 +237,6 @@ function CalcularTotal(){
     $("#IGVVenta").val(IGVVenta);
 	$("#VentaTotal").val(VentaTotal);
 }
-
 //////////////////////////////////////////////////////////////
 /* INICIO - Ver Imagen */
 function VerImagenProducto(seleccion) {

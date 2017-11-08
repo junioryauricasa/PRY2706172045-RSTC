@@ -1,7 +1,13 @@
 <?php 
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
-?>
+?>  
+    <?php require_once '../../negocio/ventas/ncomprobante.php'; ?>
+    <?php require_once '../../negocio/ventas/ndetallecomprobante.php'; ?>
+    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
+    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+    <?php require_once '../../view/modals/vbuscarcliente.php'; ?>
+
     <script>
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip(); 
@@ -103,15 +109,11 @@ require_once '../../datos/conexion/bd_conexion.php';
       '</tr>');
       num++;
     }
+
+    function formCliente(){
+      $("#formCliente").modal("show");
+    }
     </script>
-    <?php require_once '../../negocio/ventas/ncomprobante.php'; ?>
-    <?php require_once '../../negocio/ventas/ndetallecomprobante.php'; ?>
-    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
-    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <!--<script type="text/javascript" src="../../negocio/ventas/nventa.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/ventas/ndetalleventa.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
     .pagination a {
         margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -261,32 +263,105 @@ require_once '../../datos/conexion/bd_conexion.php';
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Seleccionar el Tipo de Venta:</label>
-                    <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
-                      <?php try{
-                        $sql_conexion = new Conexion_BD();
-                        $sql_conectar = $sql_conexion->Conectar();
-                        $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
-                        $sql_comando->execute();
-                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                        {
-                          echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
-                        }
-                      }catch(PDPExceptions $e){
-                        echo $e->getMessage();
-                      }?>
-                    </select>
+                  <label>Forma de Pago:</label>
+                  <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" form="form-venta">
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopago()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoPago'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Agregar Fila:</label>
-                  <input type="button" onclick="AgregarFila()" value="Agregar+" class="form-control select2 btn btn-md btn-primary btn-flat" />
+                  <label>Seleccionar el Tipo de Venta:</label>
+                  <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Seleccionar Cliente:</label>
+                  <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
+                </div>
+              </div>
+              <div class="col-md-3 nvchDNI">
+                <div class="form-group">
+                  <label>DNI:</label>
+                  <input type="text" id="nvchDNI" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchRUC">
+                <div class="form-group">
+                  <label>RUC:</label>
+                  <input type="text" id="nvchRUC" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchRazonSocial">
+                <div class="form-group">
+                  <label>Razón Social:</label>
+                  <input type="text" id="nvchRazonSocial" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchApellidoPaterno">
+                <div class="form-group">
+                  <label>Apellido Paterno:</label>
+                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchApellidoMaterno">
+                <div class="form-group">
+                  <label>Apellido Materno:</label>
+                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3 nvchNombres">
+                <div class="form-group">
+                  <label>Nombres:</label>
+                  <input type="text" id="nvchNombres" class="form-control select2" readonly>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Tipo de Cliente:</label>
+                  <input type="text" id="TipoCliente" class="form-control select2" readonly>
+                  <input type="hidden" id="intIdTipoCliente">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Agregar Fila:</label>
+                  <input type="button" onclick="AgregarFila()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="max-height: 200px; overflow-y: visible;">
+                <!-- Comentar-->
                 <div class="table-responsive">
                   <table class="table table-hover table-condensed">
                     <thead>
@@ -315,9 +390,9 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
                           <input type="hidden" id="dcmDescuentoVenta31" form="form-venta" readonly />
                         </td>
-                        <td><input type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
+                        <td><input style="max-width: 55px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
                           onkeyup="CalcularPrecioTotal(this)"/></td>
-                        <td><input type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>
+                        <td><input style="max-width: 55px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>
                         <td><input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1"
                           onkeyup="CalcularPrecioTotal(this)"/></td>
                         <td><input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-venta" readonly/></td>
@@ -327,7 +402,15 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </table>
                 </div>
               </div>
-              <div class="col-md-2">
+            </div>
+            <div class="row">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-venta" rows="6"></textarea>
+                </div>
+              </div>
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Valor de Venta:</label>
                   <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/><br>
@@ -335,35 +418,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/><br>
                   <label>Venta Total:</label>
                   <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label>Forma de Pago:</label>
-                  <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" form="form-venta">
-                    <?php try{
-                      $sql_conexion = new Conexion_BD();
-                      $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipopago()');
-                      $sql_comando->execute();
-                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                      {
-                        echo '<option value="'.$fila['intIdTipoPago'].'">'.$fila['nvchNombre'].'</option>';
-                      }
-                    }catch(PDPExceptions $e){
-                      echo $e->getMessage();
-                    }?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-7">
-                <div class="form-group">
-                  <label>Observación y/o Datos Adicionales (Opcional):</label>
-                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-venta" rows="6"></textarea>
                 </div>
               </div>
             </div>
@@ -378,10 +432,10 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <label>Mostrar:</label>
                   <br>
                   <select id="num-lista" name="num-lista"  class="form-control select2">
-                        <option value="10">Ver 10 Resultados</option>
-                        <option value="25">Ver 25 Resultados</option>
-                        <option value="50">Ver 50 Resultados</option>
-                        <option value="100">Ver 100 Resultados</option>
+                    <option value="10">Ver 10 Resultados</option>
+                    <option value="25">Ver 25 Resultados</option>
+                    <option value="50">Ver 50 Resultados</option>
+                    <option value="100">Ver 100 Resultados</option>
                   </select>
                 </div>
               </div>
