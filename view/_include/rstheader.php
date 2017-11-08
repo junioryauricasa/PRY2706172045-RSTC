@@ -564,6 +564,15 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     font-weight: 100;*/
     border-spacing: 0px;
     border-collapse: collapse;
+
+    border-right:  1px solid #D0D7E5;
+}
+
+.ExcelTable2007 tr {
+    border:  1px solid #D0D7E5;
+    border-right-width:2px;
+    border-left-width:2px;
+    border-bottom-width: 2px
 }
 
 .ExcelTable2007 TH {
@@ -594,6 +603,8 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
     text-align: left;
     padding-left: 5px
+
+    border-right:  1px solid #D0D7E5;
 }
 
 .ExcelTable2007 TD B {
@@ -607,6 +618,8 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     text-align: center;
     border: 1px solid #9EB6CE;
     border-width: 0px 1px 1px 0px;
+    border-right:  1px solid #D0D7E5;
+
 }
 
 .ExcelTable2007 TH.heading {
