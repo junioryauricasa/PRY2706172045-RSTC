@@ -159,13 +159,14 @@
                   <!-- /.box-header -->
                   <div class="box-body">
                     <div class="table-responsive">
-                      <table class="table no-margin">
+                      <table class="ExcelTable2007" style="width:100%">
                         <thead>
                         <tr>
-                          <th>Numeración</th>
-                          <th>Tipo</th>
-                          <th>Cliente</th>
-                          <th>Fecha</th>
+                          <th class="heading" style="width: 25px">&nbsp;</th>
+                          <th style="width: 140px">Numeración</th>
+                          <th style="width: 130px">Tipo</th>
+                          <th style="min-width: 250px">Cliente</th>
+                          <th style="width: 140px">Fecha</th>
                           <th>Moneda</th>
                           <th>Valor Venta</th>
                           <th>IGV</th>
@@ -183,14 +184,15 @@
                               {
                                 echo
                                 '<tr>
-                                <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-                                <td>'.$fila["NombreComprobante"].'</td>
-                                <td>'.$fila["NombreCliente"].'</td>
-                                <td>'.$fila["dtmFechaCreacion"].'</td>
-                                <td>'.$fila["SimboloMoneda"].'</td>
-                                <td>'.$fila["ValorVenta"].'</td>
-                                <td>'.$fila["IGVVenta"].'</td>
-                                <td>'.$fila["TotalVenta"].'</td>
+                                    <td></td>
+                                    <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+                                    <td>'.$fila["NombreComprobante"].'</td>
+                                    <td>'.$fila["NombreCliente"].'</td>
+                                    <td>'.$fila["dtmFechaCreacion"].'</td>
+                                    <td>'.$fila["SimboloMoneda"].'</td>
+                                    <td>'.$fila["ValorVenta"].'</td>
+                                    <td>'.$fila["IGVVenta"].'</td>
+                                    <td>'.$fila["TotalVenta"].'</td>
                                 </tr>';
                               }
                             } catch(PDPExceptio $e) {
