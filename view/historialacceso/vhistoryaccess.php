@@ -1,5 +1,5 @@
 <?php 
-include('../_include/rstheader.php');
+  include('../_include/rstheader.php');
 ?>
     <script>
       $(document).ready(function(){

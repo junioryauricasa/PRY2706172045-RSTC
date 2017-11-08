@@ -263,6 +263,7 @@ class Usuario
     }
   }
 
+  /* Funcion eliminar usuario */
   public function EliminarUsuario()
   {
     try{
@@ -278,6 +279,7 @@ class Usuario
     }
   }
 
+  /* Funcion mostrar historial de Acceso for Table */
   public function MostrarHistorialAcceso()
   {
     try{
@@ -291,10 +293,12 @@ class Usuario
       $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       { 
-        echo '<tr>
-          <td>'.$fila["nvchFechaAcceso"].'</td>
-          <td>'.$fila["nvchIpOrigen"].'</td>
-          <td>'.$fila["nvchNavegador"].'</td>
+        echo '
+          <tr>
+              <td class="heading" data-th="ID"></td>
+              <td align="left" data-th="Fecha de Acceso">'.$fila["nvchFechaAcceso"].'</td>
+              <td align="left" data-th="IP Registrada">'.$fila["nvchIpOrigen"].'</td>
+              <td align="right" data-th="Navegador">'.$fila["nvchNavegador"].'</td>
           </tr>';
       }
     }
@@ -371,6 +375,8 @@ class Usuario
     }  
   }
 
+
+  /* Paginacion de cusuarios */
   public function PaginarUsuarios($busqueda,$x,$y,$tipolistado)
   {
     try{

@@ -115,17 +115,20 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                       <div class="table-responsive">
-                        <table class="table no-margin">
+
+                        <table class="rwd-table ExcelTable2007" width="100%">
                           <thead>
                             <tr>
+                              <th class="heading">&nbsp;</th>
                               <th>Último Acceso</th>
                               <th>IP Registrada</th>
                               <th>Dispositivo</th>
                             </tr>
                           </thead>
-                          <tbody id="ListaDeAccesos">
+                          <tbody id="ListaDeAccesos" style="border: 1px solid #D0D7E5;">
                           </tbody>
                         </table>
+
                       </div><!-- /.table-responsive -->
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
@@ -323,9 +326,11 @@
                       </div>
                     </form>
                     <div class="table-responsive">
-                      <table class="table table-hover table-condensed">
+                      <!--table class="table table-hover table-condensed"-->
+                      <table class="ExcelTable2007 rwd-table" style="width: 100%">
                         <thead>
                         <tr>
+                          <th class="heading">&nbsp;</th>
                           <th>Medio</th>
                           <th>Lugar</th>
                           <th>Tipo de Comunicación</th>

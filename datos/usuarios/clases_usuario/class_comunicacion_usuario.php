@@ -58,6 +58,8 @@ class ComunicacionUsuario
     }
   }
 
+
+  /* Funcion mostrar comunicacion con usuario */
   public function MostrarComunicacionUsuario($tipolistado)
   {
     try{
@@ -70,16 +72,21 @@ class ComunicacionUsuario
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         if($_SESSION['intIdComunicacionUsuario'] == $fila['intIdComunicacionUsuario'] && $tipolistado == "A"){
-          echo '<tr bgcolor="#B3E4C0">';
+          //echo '<tr bgcolor="#B3E4C0">';
+          echo '<tr>';
         } else if($cantidad == $i && $tipolistado == "I"){
-          echo '<tr bgcolor="#BEE1EB">';
+          //echo '<tr bgcolor="#BEE1EB">';
+          echo '<tr>';
         } else {
-          echo '<tr bgcolor="#F7FCCF">';
+          //echo '<tr bgcolor="#F7FCCF">';
+          echo '<tr>';
         }
-      	echo '<td>'.$fila['nvchMedio'].'</td>
-        <td>'.$fila['nvchLugar'].'</td>
-        <td>'.$fila['NombreTC'].'</td>
-        <td> 
+      	echo '
+        <td class="heading" data-th="ID"></td>
+        <td align="left" data-th="Medio">'.$fila['nvchMedio'].'</td>
+        <td align="right" data-th="Lugar"> '.$fila['nvchLugar'].'</td>
+        <td align="right" data-th="Tipo de Comunicación"> '.$fila['NombreTC'].'</td>
+        <td align="right" data-th="Opciones"> 
           <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
