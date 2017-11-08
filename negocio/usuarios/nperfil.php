@@ -25,7 +25,7 @@ function MostrarUsuarioPerfil(intIdUsuario){
 	   	MostrarComunicacion(intIdUsuario,"T");
 	   }
 	  });
-	  var funcion = "MHA";
+	  var funcion = "MHA"; //name of function MostrarHistorialAcceso
 	  $.ajax({
 	   url:"../../datos/usuarios/funcion_usuario.php",
 	   method:"POST",

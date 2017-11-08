@@ -135,7 +135,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               <ul class="dropdown-menu">
                 <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
                 <li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>
-                <li><a href="../usuarios/vhistoryaccess">Historial de Accesos</a></li>
+                <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
               </ul>
             </li>
             <li class="dropdown" id="ver-en-pc">
@@ -330,7 +330,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                     </a>
                   </li>
                   <li>
-                    <a href="../usuarios/vhistoryaccess">
+                    <a href="../historialacceso/vhistoryaccess">
                       <i class="fa fa-circle-o"></i> 
                        Historial de acceso
                     </a>
@@ -494,5 +494,125 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         }
     }
 
+    /* Responsive table */
 
-  </style>
+
+.rwd-table th {
+  display: none;
+}
+.rwd-table td {
+  display: block;
+}
+.rwd-table td:first-child {
+  padding-top: .5em;
+  margin-top: 15px
+}
+.rwd-table td:last-child {
+  padding-bottom: .5em;
+  margin-bottom: 15px
+}
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+}
+
+@media (min-width: 480px) {
+  .rwd-table td:before {
+    display: none;
+  }
+}
+
+
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    display: table-cell;
+  }
+}
+
+.rwd-table {
+  overflow: hidden;
+}
+
+@media screen and (max-width: 767px){
+  table.table{
+      border: solid 1px white
+  }
+}
+@media screen and (max-width: 767px){
+.table-responsive {
+      border: solid 0px white
+  }
+}
+
+@media screen and (max-width: 767px){
+  .table-responsive>.table>tbody>tr>td, 
+  .table-responsive>.table>tbody>tr>th, 
+  .table-responsive>.table>tfoot>tr>td, 
+  .table-responsive>.table>tfoot>tr>th, 
+  .table-responsive>.table>thead>tr>td, 
+  .table-responsive>.table>thead>tr>th {
+      white-space: normal;
+  }
+}
+
+/* Table style 2007 */
+.ExcelTable2007 {
+    border: 1px solid #B0CBEF;
+    border-width: 1px 0px 0px 1px;
+    font-size: 11pt;
+    /*font-family: Calibri;
+    font-weight: 100;*/
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.ExcelTable2007 TH {
+    background-image: url('../../datos/usuarios/imgperfil/excel-2007-header-bg.gif');
+    background-repeat: repeat-x; 
+    font-weight: normal;
+    font-size: 14px;
+    border: 1px solid #9EB6CE;
+    border-width: 0px 1px 1px 0px;
+    height: 17px;
+    text-align: center;
+    background: rgba(212,228,239,1);
+    background: -moz-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(212,228,239,1)), color-stop(11%, rgba(212,228,239,1)), color-stop(31%, rgba(212,228,239,1)), color-stop(100%, rgba(183,195,204,1)));
+    background: -webkit-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: -o-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: -ms-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: linear-gradient(to bottom, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#b7c3cc', GradientType=0 );
+}
+
+.ExcelTable2007 TD {
+    border: 0px;
+    background-color: white;
+    padding: 0px 4px 0px 2px;
+    border: 1px solid #D0D7E5;
+    border-width: 0px 1px 1px 0px;
+
+    text-align: left;
+    padding-left: 5px
+}
+
+.ExcelTable2007 TD B {
+    border: 0px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.ExcelTable2007 TD.heading {
+    background-color: #E4ECF7;
+    text-align: center;
+    border: 1px solid #9EB6CE;
+    border-width: 0px 1px 1px 0px;
+}
+
+.ExcelTable2007 TH.heading {
+    background-image: url('../../datos/usuarios/imgperfil/excel-2007-header-left.gif');
+    background-repeat: none;
+}
+
+
+</style>

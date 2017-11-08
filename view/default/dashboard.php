@@ -87,7 +87,7 @@
 
           <div class="row">
             
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Productos con Stock Mínimo</h3>
@@ -145,7 +145,7 @@
                 <!-- /.box-footer -->
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="box box-info">
                   <div class="box-header with-border">
                     <h3 class="box-title">10 Últimas Ventas Hechas</h3>
@@ -159,13 +159,14 @@
                   <!-- /.box-header -->
                   <div class="box-body">
                     <div class="table-responsive">
-                      <table class="table no-margin">
+                      <table class="rwd-table ExcelTable2007" style="width:100%">
                         <thead>
                         <tr>
-                          <th>Numeración</th>
-                          <th>Tipo</th>
-                          <th>Cliente</th>
-                          <th>Fecha</th>
+                          <th class="heading" style="width: 25px">&nbsp;</th>
+                          <th style="width: 140px" >Numeración</th>
+                          <th style="width: 130px">Tipo</th>
+                          <th style="min-width: 250px">Cliente</th>
+                          <th style="width: 140px">Fecha</th>
                           <th>Moneda</th>
                           <th>Valor Venta</th>
                           <th>IGV</th>
@@ -183,14 +184,15 @@
                               {
                                 echo
                                 '<tr>
-                                <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-                                <td>'.$fila["NombreComprobante"].'</td>
-                                <td>'.$fila["NombreCliente"].'</td>
-                                <td>'.$fila["dtmFechaCreacion"].'</td>
-                                <td>'.$fila["SimboloMoneda"].'</td>
-                                <td>'.$fila["ValorVenta"].'</td>
-                                <td>'.$fila["IGVVenta"].'</td>
-                                <td>'.$fila["TotalVenta"].'</td>
+                                    <td data-th="ID" class="heading"></td>
+                                    <td data-th="Numeración">'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+                                    <td data-th="Tipo">'.$fila["NombreComprobante"].'</td>
+                                    <td data-th="Cliente">'.$fila["NombreCliente"].'</td>
+                                    <td data-th="Fecha">'.$fila["dtmFechaCreacion"].'</td>
+                                    <td data-th="Moneda">'.$fila["SimboloMoneda"].'</td>
+                                    <td data-th="Valor Venta">'.$fila["ValorVenta"].'</td>
+                                    <td data-th="IGV">'.$fila["IGVVenta"].'</td>
+                                    <td data-th="Venta">'.$fila["TotalVenta"].'</td>
                                 </tr>';
                               }
                             } catch(PDPExceptio $e) {
