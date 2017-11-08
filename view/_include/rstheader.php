@@ -576,9 +576,11 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 }
 
 .ExcelTable2007 TH {
+  
+    font-weight: bolder;
+
     background-image: url('../../datos/usuarios/imgperfil/excel-2007-header-bg.gif');
     background-repeat: repeat-x; 
-    font-weight: normal;
     font-size: 14px;
     border: 1px solid #9EB6CE;
     border-width: 0px 1px 1px 0px;
@@ -598,8 +600,8 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     border: 0px;
     background-color: white;
     
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     padding-right: 5px;
     padding-left: 5px;
     
