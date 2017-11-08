@@ -7,8 +7,105 @@ require_once '../../datos/conexion/bd_conexion.php';
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <?php require_once '../../negocio/ventas/nventa.php'; ?>
-    <?php require_once '../../negocio/ventas/ndetalleventa.php'; ?>
+    <script type="text/javascript">
+    var num = 2;
+    var numfila = 0;
+    $(document).on('keyup', '.buscar', function(){
+      $(this).closest('tr').find("input[name='fila[]']").each(function() {
+         numfila = this.value;
+      });
+
+      var search = $(this).val();
+      search = search.replace(/\s/g,'');
+      var funcion = "BP"
+      if(search != '')
+      {
+          $.ajax({
+          type: "POST",
+          url: "../../datos/inventario/funcion_producto.php",
+          data: {search:search,funcion:funcion},
+          cache: false,
+          success: function(html)
+          {
+            $("#result"+numfila).html(html).show();
+          }
+          });
+      }
+      else {
+        $("#result"+numfila).html("").hide();
+      }
+      return false; 
+    });
+
+    $(document).on('click', '.result', function(e){
+      var clicked = $(e.target);
+      var nvchCodigo = clicked.find('.nvchCodigo').html();
+      var intIdProducto = clicked.find('.intIdProducto').val();
+      nvchCodigo = nvchCodigo.replace(/\s/g,'');
+      intIdProducto = intIdProducto.replace(/\s/g,'');
+      $('#nvchCodigo'+numfila).val(nvchCodigo);
+      $(".result").html("").hide();
+      InsertarProductoElegido(intIdProducto,numfila);
+      numfila = 0;
+    });
+
+    $(document).on('click', '.buscar', function(){
+      $(".result").html("").hide();
+    });
+
+    $(document).on('click', function(e){
+      var clicked = $(e.target);
+      if (!clicked.hasClass("buscar")){
+        $(".result").html("").hide();
+      }
+    });
+
+    function InsertarProductoElegido(intIdProducto,id){
+      var funcion = "SP";
+      $.ajax({
+       url:"../../datos/inventario/funcion_producto.php",
+       method:"POST",
+       data:{intIdProducto:intIdProducto,funcion:funcion},
+       dataType:"json",
+       success:function(datos)
+       {
+        $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
+        $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
+        $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);
+        $("#dcmDescuentoVenta3"+id).val(datos.dcmDescuentoVenta3);
+       }
+      });
+    }
+
+    function AgregarFila(){
+      $('#ListaDeProductosVender').append(
+      '<tr>'+
+        '<td><input type="hidden" name="fila[]" value="'+num+'" form="form-venta" />'+
+            '<input type="hidden" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
+            '<input type="text" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
+            '<div class="result" id="result'+num+'">'+
+        '</td>'+
+        '<td><input type="text" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
+        '<td>'+
+          '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-venta" readonly />'+
+          '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-venta" readonly />'+
+          '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-venta" readonly />'+
+        '</td>'+
+        '<td><input type="text" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
+          'onkeyup="CalcularPrecioTotal(this)"/></td>'+
+        '<td><input type="text" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
+        '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-venta" idsprt="'+num+'"'+
+          'onkeyup="CalcularPrecioTotal(this)"/></td>'+
+        '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
+        '<td>'+
+          '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button>'+
+        '</td>'+
+      '</tr>');
+      num++;
+    }
+    </script>
+    <?php require_once '../../negocio/ventas/ncomprobante.php'; ?>
+    <?php require_once '../../negocio/ventas/ndetallecomprobante.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
     <!--<script type="text/javascript" src="../../negocio/ventas/nventa.js"></script>-->
@@ -16,18 +113,44 @@ require_once '../../datos/conexion/bd_conexion.php';
     <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
-      .pagination a {
-          margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
-      }
-      hr { 
-          display: block;
-          margin-top: 0.5em;
-          margin-bottom: 0.5em;
-          margin-left: auto;
-          margin-right: auto;
-          border-style: inset;
-          border-width: 1px;
-      }
+    .pagination a {
+        margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
+    }
+    hr { 
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 1px;
+    }
+    .result
+    {
+        position: absolute;
+        z-index: 1;
+        width:500px;
+        padding:10px;
+        display:none;
+        margin-top:-1px;
+        border-top:0px;
+        overflow:hidden;
+        border:1px #CCC solid;
+        background-color: white;
+    }
+    .show
+    {
+        padding:10px;
+        border-bottom:1px solid #000000;
+        font-size:15px; 
+        height:50px;
+    }
+    .show:hover
+    {
+        background:#4c66a4;
+        color:#FFF;
+        cursor:pointer;
+    }
     </style>
   <div class="content-wrapper">
     <section class="content-header">
@@ -133,6 +256,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly form="form-venta"/>
                 </div>
               </div>
+              <script type="text/javascript">MostrarSeleccionComprobante();</script>
             </div>
             <div class="row">
               <div class="col-md-2">
@@ -154,22 +278,65 @@ require_once '../../datos/conexion/bd_conexion.php';
                     </select>
                 </div>
               </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Agregar Fila:</label>
+                  <input type="button" onclick="AgregarFila()" value="Agregar+" class="form-control select2 btn btn-md btn-primary btn-flat" />
+                </div>
+              </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Descripción</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unit.</th>
-                  <th>Total</th>
-                  <th>Opción</th>
-                </tr>
-                </thead>
-                <tbody id="ListaDeProductosComprar">
-                </tbody>
-              </table>
+            <div class="row">
+              <div class="col-md-10">
+                <div class="table-responsive">
+                  <table class="table table-hover table-condensed">
+                    <thead>
+                    <tr>
+                      <th>Código</th>
+                      <th>Descripción</th>
+                      <th>Precio Lista</th>
+                      <th>Desc. (%)</th>
+                      <th>Precio Unit.</th>
+                      <th>Cantidad</th>
+                      <th>Total</th>
+                      <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ListaDeProductosVender">
+                      <tr>
+                        <td>
+                          <input type="hidden" name="fila[]" value="1" form="form-venta" />
+                          <input type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" />
+                          <input type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" />
+                          <div class="result" id="result1">
+                        </td>
+                        <td><input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/></td>
+                        <td>
+                          <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly />
+                          <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
+                          <input type="hidden" id="dcmDescuentoVenta31" form="form-venta" readonly />
+                        </td>
+                        <td><input type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
+                          onkeyup="CalcularPrecioTotal(this)"/></td>
+                        <td><input type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>
+                        <td><input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1"
+                          onkeyup="CalcularPrecioTotal(this)"/></td>
+                        <td><input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-venta" readonly/></td>
+                        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Valor de Venta:</label>
+                  <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/><br>
+                  <label>IGV (18%):</label>
+                  <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/><br>
+                  <label>Venta Total:</label>
+                  <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-2">
@@ -193,7 +360,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-7">
                 <div class="form-group">
                   <label>Observación y/o Datos Adicionales (Opcional):</label>
                   <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-venta" rows="6"></textarea>
