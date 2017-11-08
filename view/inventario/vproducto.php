@@ -87,10 +87,11 @@ include('../_include/rstheader.php');
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="rwd-table ExcelTable2007" width="100%">
               <thead>
               <tr>
-                <th>Código</th>
+                <th class="heading" width="25px">&nbsp;</th>
+                <th style="width: 50px">Código</th>
                 <th>Descripción</th>
                 <th>Tipo de Moneda</th>
                 <th>Precio de Venta 1</th>
@@ -119,13 +120,14 @@ include('../_include/rstheader.php');
           <hr>
             <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
             <div class="table-responsive">
-              <table class="table table-hover table-condensed">
+              <table class="rwd-table ExcelTable2007" width="100%">
                 <thead>
-                <tr>
-                  <th>Sucursal</th>
-                  <th>Ubicación en el Almacén</th>
-                  <th>Cantidad</th>
-                </tr>
+                  <tr>
+                    <th class="heading" style="width: 25px">&nbsp;</th>
+                    <th>Sucursal</th>
+                    <th>Ubicación en el Almacén</th>
+                    <th>Cantidad</th>
+                  </tr>
                 </thead>
                 <tbody id="DetalleUbigeo">
                 </tbody>

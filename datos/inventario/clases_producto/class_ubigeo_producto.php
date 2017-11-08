@@ -161,10 +161,13 @@ class UbigeoProducto
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        echo '<tr bgcolor="#F9FAD4"> 
-        <td>'.$fila['NombreSucursal'].'</td>
-        <td>'.$fila['nvchUbicacion'].'</td>
-        <td>'.$fila['intCantidadUbigeo'].'</td>
+        echo '
+        <!--tr bgcolor="#F9FAD4"--> 
+        <tr> 
+            <td class="heading" data-th="ID"></td>
+            <td align="left" data-th="Sucursal">'.$fila['NombreSucursal'].'</td>
+            <td align="right" data-th="Ubicación en Almacén">'.$fila['nvchUbicacion'].'</td>
+            <td align="right" data-th="Cantidad">'.$fila['intCantidadUbigeo'].'</td>
         </tr>';
         $i++;
       }
