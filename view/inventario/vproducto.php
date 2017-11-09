@@ -167,4 +167,15 @@ include('../_include/rstheader.php');
     padding: 3px;
   }
 </style>
+
+  <!-- EN`D Scripts DataTable -->
+  <style>
+    input{
+      padding: 2px 3px;
+    }
+    select{
+      padding: 3px;
+    }
+  </style>
+
 <?php include('../_include/rstfooter.php'); ?>

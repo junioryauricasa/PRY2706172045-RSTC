@@ -569,7 +569,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 }
 
 .ExcelTable2007 tr {
-    border:  1px solid #D0D7E5;
+    border:  2px solid #D0D7E5;
     border-right-width:2px;
     border-left-width:2px;
     border-bottom-width: 2px
