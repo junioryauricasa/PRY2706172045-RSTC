@@ -7,6 +7,7 @@ class FormularioEntrada
   private $nvchSerie;
   private $nvchNumeracion;
   private $nvchRazonSocial;
+  
   private $nvchRUC;
   private $intIdUsuarioSolicitado;
   private $intIdUsuario;
@@ -20,6 +21,7 @@ class FormularioEntrada
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
+
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
   public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
@@ -76,16 +78,16 @@ class FormularioEntrada
                   <select id="intIdUsuarioSolicitado" name="intIdUsuarioSolicitado"  class="form-control select2">
                   <?php 
                     try{
-                    $sql_conexion = new Conexion_BD();
-                    $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL listarusuarios()');
-                    $sql_comando->execute();
-                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                    {
-                      echo '<option value="'.$fila['intIdUsuario'].'">'.$fila['NombreUsuario'].'</option>';
-                    }
-                  }catch(PDPExceptions $e){
-                    echo $e->getMessage();
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL listarusuarios()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo '<option value="'.$fila['intIdUsuario'].'">'.$fila['NombreUsuario'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
                   }?>
                   </select>
                 <script>$("#intIdUsuarioSolicitado").val(<?php echo $this->intIdUsuarioSolicitado; ?>);</script>
@@ -129,18 +131,20 @@ class FormularioEntrada
                 <div class="form-group">
                   <label>Tipo de Moneda:</label>
                   <select id="tipo-moneda" name="intIdTipoMoneda" class="form-control select2" >
-                    <?php try{
-                      $sql_conexion = new Conexion_BD();
-                      $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
-                      $sql_comando->execute();
-                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                      {
-                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
-                      }
-                    }catch(PDPExceptions $e){
-                      echo $e->getMessage();
-                    }?>
+                    <?php 
+                        try{
+                          $sql_conexion = new Conexion_BD();
+                          $sql_conectar = $sql_conexion->Conectar();
+                          $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                          $sql_comando->execute();
+                          while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                          {
+                            echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                          }
+                        }catch(PDPExceptions $e){
+                          echo $e->getMessage();
+                        }
+                    ?>
                   </select>
                 </div>
                 <input type="hidden" id="intIdTipoMoneda" value="<?php echo $this->intIdTipoMoneda; ?>">
@@ -236,6 +240,7 @@ class FormularioEntrada
           <table class="table table-hover table-condensed">
             <thead>
             <tr>
+              <th class="heading" width="25px">&nbsp;</th>
               <th>Código</th>
               <th>Descripción</th>
               <th>Cantidad</th>
@@ -250,19 +255,28 @@ class FormularioEntrada
         </div>
       </div>
           <div class="box-footer clearfix">
-              <?php if($funcion == "F"){ ?>
-              <input type="hidden" name="funcion" value="I" />
-              <input type="hidden" id="tipofuncion" name="tipofuncion" value="F" />
-              <?php } else if($funcion == "M") { ?>
-              <input type="hidden" name="funcion" value="A" />
-              <input type="hidden" id="tipofuncion" name="tipofuncion" value="M" />
+              <?php 
+              if($funcion == "F"){ 
+              ?>
+                <input type="hidden" name="funcion" value="I" />
+                <input type="hidden" id="tipofuncion" name="tipofuncion" value="F" />
+              <?php 
+              }else 
+                if($funcion == "M") { 
+              ?>
+                <input type="hidden" name="funcion" value="A" />
+                <input type="hidden" id="tipofuncion" name="tipofuncion" value="M" />
               <?php } ?>
-              <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
-              <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
-              <?php if($funcion == "F"){ ?>
-              <input type="button" id="btn-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Entrada de Productos">
-              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
-              <?php } ?>
+                <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
+                <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
+              <?php 
+                if($funcion == "F"){ 
+              ?>
+                <input type="button" id="btn-crear-entrada" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Entrada de Productos">
+                <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
+                <?php 
+                  } 
+              ?>
           </div>              
         </form>
         <div id="resultadocrud"></div>
@@ -290,7 +304,7 @@ class FormularioEntrada
                 <div class="form-group">
                   <label>Usuario que Generó:</label>
                   <!-- Nombre usuario que género -->
-                  <input type="text" class="form-control select2" value="<?php echo $this->NombreUsuario; ?>" readonly>
+                  <input type="text" class="form-control select2" value="<?php echo $this->intIdUsuario; ?>" readonly>
                 </div>
               </div>
               <div class="col-md-3 nvchRUC">
