@@ -225,7 +225,7 @@ class Producto
               <i class="fa fa-edit"></i> Editar
             </button>
             <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
-              <i class="fa fa-edit"></i> Eliminar
+              <i class="fa fa-trash"></i> Eliminar
             </button>
           </td>  
           </tr>';

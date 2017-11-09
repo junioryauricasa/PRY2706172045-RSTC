@@ -165,20 +165,20 @@ include('../_include/rstheader.php');
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-<!-- Scripts DataTable -->
-<script>
-  // Modal
-  $('#modalcust').modal({
-    keyboard: false
-  });
-</script>
-<!-- ENd Scripts DataTable -->
-<style>
-  input{
-    padding: 2px 3px;
-  }
-  select{
-    padding: 3px;
-  }
-</style>
+  <!-- Scripts DataTable -->
+  <script>
+    // Modal
+    $('#modalcust').modal({
+      keyboard: false
+    });
+  </script>
+  <!-- EN`D Scripts DataTable -->
+  <style>
+    input{
+      padding: 2px 3px;
+    }
+    select{
+      padding: 3px;
+    }
+  </style>
 <?php include('../_include/rstfooter.php'); ?>

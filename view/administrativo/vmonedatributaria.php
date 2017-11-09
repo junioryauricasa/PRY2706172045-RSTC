@@ -12,20 +12,20 @@
     <!--<script type="text/javascript" src="../../negocio/administrativo/nmonedatributaria.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
-    <style>
-      .pagination a {
-          margin: 0 4px;
-      }
-      hr { 
-          display: block;
-          margin-top: 0.5em;
-          margin-bottom: 0.5em;
-          margin-left: auto;
-          margin-right: auto;
-          border-style: inset;
-          border-width: 1px;
-      }
-    </style>
+  <style>
+        .pagination a {
+            margin: 0 4px;
+        }
+        hr { 
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 1px;
+        }
+  </style>
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
@@ -120,7 +120,7 @@
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Tributaria</button>
+            <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Tributaria</button>
         </div>
       </div>
 
@@ -132,17 +132,19 @@
       <div id="resultadocrud"></div>
     </section>
   </div>
+
 <script>
-  $('#modalcust').modal({
-    keyboard: false
-  });
+    $('#modalcust').modal({
+      keyboard: false
+    });
 </script>
 <style>
-  input{
-    padding: 2px 3px;
-  }
-  select{
-    padding: 3px;
-  }
+    input{
+      padding: 2px 3px;
+    }
+    select{
+      padding: 3px;
+    }
 </style>
+
 <?php include('../_include/rstfooter.php'); ?>
