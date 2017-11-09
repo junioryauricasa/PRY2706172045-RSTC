@@ -123,9 +123,10 @@ include('../_include/rstheader.php');
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="ExcelTable2007 rwd-table" width="100%">
               <thead>
               <tr>
+                <th class="heading" style="width:25px">&nbsp;</th>
                 <th>Numeración</th>
                 <th>Cliente</th>
                 <th>Usuario que Generó</th>
@@ -141,7 +142,6 @@ include('../_include/rstheader.php');
               </tbody>
             </table>
           </div>
-          <hr>
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeEntrada" class="pagination">

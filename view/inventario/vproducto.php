@@ -108,7 +108,7 @@ include('../_include/rstheader.php');
               </tbody>
             </table>
           </div>
-          <hr>
+          <br>
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeProductos" class="pagination">

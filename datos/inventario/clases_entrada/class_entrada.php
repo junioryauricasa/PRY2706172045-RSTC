@@ -202,24 +202,26 @@ class Entrada
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["nvchRazonSocial"].'</td>
-        <td>'.$fila["NombreUsuario"].'</td>
-        <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorEntrada"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVEntrada"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalEntrada"].'</td>
-        <td> 
-          <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-warning btn-mostrar-entrada">
-            <i class="fa fa-edit"></i> Ver Detalle
-          </button>
-          <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-danger btn-anular-entrada">
-            <i class="fa fa-trash"></i> Anular
-          </button>
-          <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-default btn-download-report">
-            <i class="fa fa-download"></i> Reporte
-          </button>
-        </td>
+        '
+            <td class="heading" data-th="ID"></td>
+            <td align="left" data-th="Numeración">'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td align="right" data-th="Cliente">'.$fila["nvchRazonSocial"].'</td>
+            <td align="right"data-th="Usuario que Generó">'.$fila["NombreUsuario"].'</td>
+            <td align="right" data-th="Fecha de Creación">'.$fila["dtmFechaCreacion"].'</td>
+            <td align="right" data-th="Valor de Entrada">'.$fila["SimboloMoneda"].' '.$fila["ValorEntrada"].'</td>
+            <td align="right"data-th="IGV">'.$fila["SimboloMoneda"].' '.$fila["IGVEntrada"].'</td>
+            <td align="right" data-th="Total Entrada">'.$fila["SimboloMoneda"].' '.$fila["TotalEntrada"].'</td>
+            <td align="right" data-th="Opciones"> 
+              <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-warning btn-mostrar-entrada">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+              <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-danger btn-anular-entrada">
+                <i class="fa fa-trash"></i> Anular
+              </button>
+              <button type="button" id="'.$fila["intIdEntrada"].'" class="btn btn-xs btn-default btn-download-report">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>
         </tr>';
         $i++;
       }
