@@ -425,17 +425,28 @@ class Producto
         $sql_conectar = $sql_conexion->Conectar();
         $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:buscar,:TipoBusqueda)');
         $sql_comando -> execute(array(':buscar' => $buscar,':TipoBusqueda' => 'C'));
-        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-        {
-        ?>
-          <div class="show" align="left">
-            <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
-            <span class="nvchCodigo">
-              <?php echo $fila['nvchCodigo']; ?>
-            </span>&nbsp;<br/>
-              <?php echo $fila['nvchDescripcion']; ?><br/>
-          </div>
-        <?php
+        $cantidad = $sql_comando -> rowCount();
+        if($cantidad > 0){
+          while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+          {
+          ?>
+            <div class="show" align="left">
+              <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
+              <span class="nvchCodigo">
+                <?php echo $fila['nvchCodigo']; ?>
+              </span>&nbsp;<br/>
+                <?php echo $fila['nvchDescripcion']; ?><br/>
+            </div>
+          <?php
+          }
+        } else {
+          ?>
+            <div class="show" align="left">
+              <span class="btnNuevoProducto">
+                <b class="danger">No existe el producto</b>: Hacer <b>click aquí</b> para ingresar uno nuevo
+              </span>
+            </div>
+          <?php
         }
       }
     }
