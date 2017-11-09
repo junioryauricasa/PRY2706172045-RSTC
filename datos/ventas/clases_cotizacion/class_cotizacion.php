@@ -186,6 +186,7 @@ class Cotizacion{
       $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
       $salida['TipoCliente'] = $fila['TipoCliente'];
       $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['nvchDomicilio'] = $fila['nvchDomicilio'];
       echo json_encode($salida);
     }
     catch(PDPExceptio $e){

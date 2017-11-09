@@ -299,7 +299,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </select>
                 </div>
               </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Seleccionar Cliente:</label>
+                  <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
+                </div>
+              </div>
             </div>
+            <!--
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
@@ -307,16 +314,19 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
                 </div>
               </div>
+            </div>
+            -->
+            <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
                   <label>DNI/RUC:</label>
-                  <input type="text" id="nvchDNI" class="form-control select2" readonly>
+                  <input type="text" id="nvchNumDocumento" class="form-control select2" readonly>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Razón Social/Nombres:</label>
-                  <input type="text" id="nvchRazonSocial" class="form-control select2" readonly>
+                  <input type="text" id="nvchDenominacion" class="form-control select2" readonly>
                 </div>
               </div>
               <div class="col-md-2">
@@ -353,6 +363,13 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
               -->
+            
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Domicilio:</label>
+                  <input type="text" id="nvchDomicilio" class="form-control select2" readonly>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-2">

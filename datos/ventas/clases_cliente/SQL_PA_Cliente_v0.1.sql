@@ -64,9 +64,16 @@ DELIMITER $$
     	IN _intIdCliente INT
     )
 	BEGIN
-		SELECT CL.*,TCL.intIdTipoCliente, TCL.nvchNombre AS TipoCliente FROM tb_cliente CL
+		SELECT CL.*,TCL.intIdTipoCliente, TCL.nvchNombre AS TipoCliente,
+		CONCAT(DCL.nvchDireccion,' ',DT.nvchDistrito,' - ',PR.nvchProvincia,' - ',DP.nvchDepartamento) AS nvchDomicilio
+		FROM tb_cliente CL
 		LEFT JOIN tb_tipo_cliente TCL ON CL.intIdTipoCliente = TCL.intIdTipoCliente
+		LEFT JOIN tb_domicilio_cliente DCL ON CL.intIdCliente = DCL.intIdCliente
+		LEFT JOIN tb_distritos DT ON DCL.intIdDistrito = DT.intIdDistrito
+		LEFT JOIN tb_provincias PR ON DCL.intIdProvincia = PR.intIdProvincia
+		LEFT JOIN tb_departamentos DP ON DCL.intIdDepartamento = DP.intIdDepartamento
 		WHERE 
+		DCL.intIdTipoDomicilio = 1 AND
 		CL.intIdCliente = _intIdCliente;
     END 
 $$
