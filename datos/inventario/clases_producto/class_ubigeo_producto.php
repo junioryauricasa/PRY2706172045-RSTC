@@ -75,17 +75,24 @@ class UbigeoProducto
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-      	echo '<td><input type="hidden" name="intIdSucursal[]" value="'.$fila['intIdSucursal'].'"/>'.$fila['NombreSucursal'].'</td>
-        <td><input type="hidden" name="nvchUbicacion[]" value="'.$fila['nvchUbicacion'].'"/>'.$fila['nvchUbicacion'].'</td>
-        <td><input type="hidden" name="intCantidadUbigeo[]" value="'.$fila['intCantidadUbigeo'].'"/>'.$fila['intCantidadUbigeo'].'</td>
-        <td> 
-          <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarUbigeo(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarUbigeo(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+      	echo '
+            <td>
+              <input type="hidden" name="intIdSucursal[]" value="'.$fila['intIdSucursal'].'"/>'.$fila['NombreSucursal'].'
+            </td>
+            <td>
+              <input type="hidden" name="nvchUbicacion[]" value="'.$fila['nvchUbicacion'].'"/>'.$fila['nvchUbicacion'].'
+            </td>
+            <td>
+              <input type="hidden" name="intCantidadUbigeo[]" value="'.$fila['intCantidadUbigeo'].'"/>'.$fila['intCantidadUbigeo'].'
+            </td>
+            <td> 
+              <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarUbigeo(this)">
+                <i class="fa fa-edit"></i> Editar
+              </button>
+              <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarUbigeo(this)">
+                <i class="fa fa-edit"></i> Eliminar
+              </button>
+            </td>
         </tr>';
         $i++;
       }
@@ -162,8 +169,7 @@ class UbigeoProducto
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         echo '
-        <!--tr bgcolor="#F9FAD4"--> 
-        <tr> 
+        <tr bgcolor="#F9FAD4"> 
             <td class="heading" data-th="ID"></td>
             <td align="left" data-th="Sucursal">'.$fila['NombreSucursal'].'</td>
             <td align="right" data-th="Ubicación en Almacén">'.$fila['nvchUbicacion'].'</td>

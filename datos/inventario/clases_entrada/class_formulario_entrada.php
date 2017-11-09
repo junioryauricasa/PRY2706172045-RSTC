@@ -180,9 +180,10 @@ class FormularioEntrada
           </div>
         </div>
         <div class="table-responsive">
-          <table class="table table-hover table-condensed">
+          <table class="ExcelTable2007 rwd-table" width="100%">
             <thead>
             <tr>
+              <th class="heading" width="25px">&nbsp;</th>
               <th>Código</th>
               <th>Descripción</th>
               <th>Ubicación</th>
@@ -198,7 +199,7 @@ class FormularioEntrada
             </tbody>
           </table>
         </div>
-        <hr>
+        <br>
         <div class="text-center">
           <nav aria-label="...">
             <ul id="PaginacionDeProductos" class="pagination">
@@ -288,6 +289,7 @@ class FormularioEntrada
               <div class="col-md-3">
                 <div class="form-group">
                   <label>Usuario que Generó:</label>
+                  <!-- Nombre usuario que género -->
                   <input type="text" class="form-control select2" value="<?php echo $this->NombreUsuario; ?>" readonly>
                 </div>
               </div>
@@ -313,9 +315,10 @@ class FormularioEntrada
           </div>
           <div class="box-body">
             <div class="table-responsive">
-              <table class="table table-hover table-condensed">
+              <table class="ExcelTable2007 rwd-table" width="100%">
                 <thead>
                 <tr>
+                  <th class="heading" width="25px">&nbsp;</th>
                   <th>Ítem</th>
                   <th>Descripción</th>
                   <th>Cantidad</th>
@@ -328,6 +331,7 @@ class FormularioEntrada
                 </tbody>
               </table>
             </div>
+            <br>
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group">
