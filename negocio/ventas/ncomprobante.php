@@ -467,6 +467,7 @@ function SeleccionarCliente(seleccion) {
 	   dataType:"json",
 	   success:function(datos)
 	   {
+	   	/*
 	   	$("#intIdCliente").val(datos.intIdCliente);
 	   	$("#nvchRUC").val(datos.nvchRUC);
 	   	$("#nvchDNI").val(datos.nvchDNI);
@@ -476,7 +477,20 @@ function SeleccionarCliente(seleccion) {
 	   	$("#nvchNombres").val(datos.nvchNombres);
 	   	$("#TipoCliente").val(datos.TipoCliente);
 	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
-	   	MostrarSeleccionCliente(datos.intIdTipoPersona);
+	   	*/
+	   	if(datos.intIdTipoPersona == 1){
+	   	 $("#nvchNumDocumento").val(datos.nvchRUC);
+	   	 $("#nvchDenominacion").val(datos.nvchRazonSocial);
+	   	} else if(datos.intIdTipoPersona == 2){
+	   	 $("#nvchNumDocumento").val(datos.nvchDNI);
+	   	 $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+	   	}
+	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#TipoCliente").val(datos.TipoCliente);
+	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
+	   	$("#nvchDomicilio").val(datos.nvchDomicilio);
+	   	$("#formCliente").modal("hide");
+	   	//MostrarSeleccionCliente(datos.intIdTipoPersona);
 	   }
 	  });
 }
