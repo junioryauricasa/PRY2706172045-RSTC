@@ -76,6 +76,7 @@ class UbigeoProducto
           echo '<tr bgcolor="#F7FCCF">';
         }
       	echo '
+            <td class="heading" data-th="ID"></td>
             <td>
               <input type="hidden" name="intIdSucursal[]" value="'.$fila['intIdSucursal'].'"/>'.$fila['NombreSucursal'].'
             </td>

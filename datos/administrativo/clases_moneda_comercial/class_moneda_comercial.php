@@ -128,20 +128,23 @@ class MonedaComercial
           } else if($fila["intIdMonedaComercial"] == $_SESSION['intIdMonedaComercial'] && $tipolistado == "E"){
             echo '<tr bgcolor="#B3E4C0">';
           }else {
-            echo '<tr>';
-          }
-          echo 
-          '<td>'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
-          <td>'.$fila["dcmCambio1"].'</td>
-          <td>'.$fila["dcmCambio2"].'</td>
-          <td> 
-            <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-comercial">
-              <i class="fa fa-edit"></i> Editar
-            </button>
-            <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-comercial">
-              <i class="fa fa-edit"></i> Eliminar
-            </button>
-          </td>  
+            echo '
+          <tr>
+            ';
+            }
+            echo 
+            ' <td class="heading" data-th="ID"></td>
+              <td align="left" data-th="Fecha">'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
+              <td align="right" data-th="Cambio">'.$fila["dcmCambio1"].'</td>
+              <td>'.$fila["dcmCambio2"].'</td>
+              <td> 
+                <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-comercial">
+                  <i class="fa fa-edit"></i> Editar
+                </button>
+                <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-comercial">
+                  <i class="fa fa-edit"></i> Eliminar
+                </button>
+              </td>  
           </tr>';
           $i++;
       }

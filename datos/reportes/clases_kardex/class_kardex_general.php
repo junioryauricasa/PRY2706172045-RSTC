@@ -68,14 +68,15 @@ class KardexGeneral
 
         echo 
         '<tr>
-        <td>'.$j.'</td>
-        <td>'.$fila["dtmFechaMovimiento"].'</td>
-        <td>'.$fila["nvchCodigo"].'</td>
-        <td>'.$fila["nvchDescripcion"].'</td>
-        <td>'.$fila["CantidadEntradaTotal"].'</td>
-        <td>'.$fila["CantidadSalidaTotal"].'</td>
-        <td>'.$fila["intCantidadStock"].'</td>
-        <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td> 
+            <td class="heading" data-th="ID">2</td>
+            <td>'.$j.'</td>
+            <td>'.$fila["dtmFechaMovimiento"].'</td>
+            <td>'.$fila["nvchCodigo"].'</td>
+            <td>'.$fila["nvchDescripcion"].'</td>
+            <td>'.$fila["CantidadEntradaTotal"].'</td>
+            <td>'.$fila["CantidadSalidaTotal"].'</td>
+            <td>'.$fila["intCantidadStock"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td> 
         </tr>';
         $j++;
       }

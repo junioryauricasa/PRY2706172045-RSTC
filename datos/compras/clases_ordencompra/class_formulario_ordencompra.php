@@ -211,9 +211,10 @@ class FormularioOrdenCompra
       </div>
       <div class="box-body">
         <div class="table-responsive">
-          <table class="table table-hover table-condensed">
+          <table class="ExcelTable2007 rwd-table" width="100%">
             <thead>
             <tr>
+              <th class="heading" width="25px">&nbsp;</th>
               <th>Código</th>
               <th>Descripción</th>
               <th>Cantidad</th>
@@ -349,9 +350,10 @@ class FormularioOrdenCompra
           </div>
           <div class="box-body">
             <div class="table-responsive">
-              <table class="table table-hover table-condensed">
+              <table class="ExcelTable2007 rwd-table" width="100%">
                 <thead>
                 <tr>
+                  <th class="heading" width="25px">&nbsp;</th>
                   <th>Ítem</th>
                   <th>Código</th>
                   <th>Descripción</th>

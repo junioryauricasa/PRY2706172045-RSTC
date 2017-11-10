@@ -82,18 +82,18 @@ class ComunicacionUsuario
           echo '<tr>';
         }
       	echo '
-        <td class="heading" data-th="ID"></td>
-        <td align="left" data-th="Medio">'.$fila['nvchMedio'].'</td>
-        <td align="right" data-th="Lugar"> '.$fila['nvchLugar'].'</td>
-        <td align="right" data-th="Tipo de Comunicación"> '.$fila['NombreTC'].'</td>
-        <td align="right" data-th="Opciones"> 
-          <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+            <td class="heading" data-th="ID"></td>
+            <td align="left" data-th="Medio">'.$fila['nvchMedio'].'</td>
+            <td align="right" data-th="Lugar"> '.$fila['nvchLugar'].'</td>
+            <td align="right" data-th="Tipo de Comunicación"> '.$fila['NombreTC'].'</td>
+            <td align="right" data-th="Opciones"> 
+              <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
+                <i class="fa fa-edit"></i> Editar
+              </button>
+              <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+                <i class="fa fa-edit"></i> Eliminar
+              </button>
+            </td>
         </tr>';
         $i++;
       }

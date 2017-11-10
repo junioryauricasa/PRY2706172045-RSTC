@@ -289,9 +289,10 @@ class FormularioCliente
               </div>
             </div>
             <div class="table-responsive">
-              <table class="table table-hover table-condensed">
+              <table class="ExcelTable2007 rwd-table" width="100%">
                 <thead>
                 <tr>
+                  <th class="heading" width="25px">&nbsp;</th>
                   <th>País</th>
                   <th>Departamento</th>
                   <th>Provincia</th>
@@ -367,9 +368,10 @@ class FormularioCliente
                 </div>
               </div>
               <div class="table-responsive">
-                <table class="table table-hover table-condensed">
+                <table class="ExcelTable2007 rwd-table" width="100%">
                   <thead>
                   <tr>
+                    <th class="heading" width="25px">&nbsp;</th>
                     <th>Medio</th>
                     <th>Lugar</th>
                     <th>Tipo de Comunicación</th>

@@ -323,7 +323,7 @@ function AgregarDomicilio() {
 	    	return false;
     	}
     }
-	$('#ListaDeDomicilios').append('<tr>'+
+	$('#ListaDeDomicilios').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="nvchPais[]" value="'+
 		nvchPais+'"/>'+nvchPais+'</td>'+
 		'<td>'+'<input type="hidden" name="intIdDepartamento[]" value="'+
@@ -357,7 +357,7 @@ function AgregarComunicacion() {
 	var nvchMedio = document.getElementById("nvchMedio").value;
 	var nvchLugar = document.getElementById("nvchLugar").value;
 	var intIdTipoComunicacion = document.getElementById("tipo-comunicacion").value;
-	$('#ListaDeComunicaciones').append('<tr>'+
+	$('#ListaDeComunicaciones').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="nvchMedio[]" value="'
 		+nvchMedio+'"/>'+nvchMedio+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchLugar[]" value="'

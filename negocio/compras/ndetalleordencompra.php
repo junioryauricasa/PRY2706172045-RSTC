@@ -268,7 +268,7 @@ function AgregarProducto() {
 	var intCantidad = $("#intCantidadOrdenCompra").val();
 	var dcmTotal = $("#dcmTotalOrdenCompra").val();
 
-	$('#ListaDeProductosComprar').append('<tr>'+
+	$('#ListaDeProductosComprar').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDescripcion[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+

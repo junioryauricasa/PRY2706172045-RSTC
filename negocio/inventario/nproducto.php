@@ -373,7 +373,7 @@ function AgregarCodigo() {
 	    	return false;
     	}
     }
-	$('#ListaDeCodigos').append('<tr>'+
+	$('#ListaDeCodigos').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="nvchCodigo[]" value="'
 		+nvchCodigo+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+'<input type="hidden" name="intIdTipoCodigoProducto[]" value="'
@@ -397,7 +397,7 @@ function AgregarUbigeo() {
 	var NombreSucursal = $("#intIdSucursal option:selected").html()
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
-	$('#ListaDeUbicaciones').append('<tr>'+
+	$('#ListaDeUbicaciones').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="intIdSucursal[]" value="'
 		+intIdSucursal+'"/>'+NombreSucursal+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchUbicacion[]" value="'

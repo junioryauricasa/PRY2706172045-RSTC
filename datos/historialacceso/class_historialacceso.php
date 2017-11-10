@@ -61,11 +61,12 @@ class HistorialAcceso
         }
 
         echo '
-	        <td>'.$fila["intIdHistory"].'</td>
-	        <td>'.$fila["intIdUser"].'</td>
-	        <td>'.$fila["dateDateAccesso"].'</td> 
-          <td>'.$fila["nvchIpAccesso"].'</td> 
-	        <td>'.$fila["nvchBrowser"].'</td>
+  	          <td class="heading" data-th="ID"></td>
+              <td>'.$fila["intIdHistory"].'</td>
+    	        <td>'.$fila["intIdUser"].'</td>
+    	        <td>'.$fila["dateDateAccesso"].'</td> 
+              <td>'.$fila["nvchIpAccesso"].'</td> 
+    	        <td>'.$fila["nvchBrowser"].'</td>
 	        </tr>';
         $i++;
       }

@@ -353,19 +353,20 @@ class Usuario
 			     $fila["bitUserEstado"] = '<span class="label label-success">Habilitado</span>';
         }
         echo '
-          <td>'.$fila["nvchDNI"].'</td>
-          <td>'.$fila["NombresApellidos"].'</td>
-	        <td>'.$fila["nvchUserName"].'</td>
-	        <td>'.$fila["NombreTipoUsuario"].'</td>
-	        <td>'.$fila["bitUserEstado"].'</td>
-	        <td> 
-	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-warning btn-mostrar-usuario">
-	            <i class="fa fa-edit"></i> Editar
-	          </button>
-	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-danger btn-eliminar-usuario">
-	            <i class="fa fa-edit"></i> Eliminar
-	          </button>
-	        </td>  
+              <td class="heading" data-th="ID"></td>
+              <td>'.$fila["nvchDNI"].'</td>
+              <td>'.$fila["NombresApellidos"].'</td>
+    	        <td>'.$fila["nvchUserName"].'</td>
+    	        <td>'.$fila["NombreTipoUsuario"].'</td>
+    	        <td>'.$fila["bitUserEstado"].'</td>
+    	        <td> 
+    	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-warning btn-mostrar-usuario">
+    	            <i class="fa fa-edit"></i> Editar
+    	          </button>
+    	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-danger btn-eliminar-usuario">
+    	            <i class="fa fa-edit"></i> Eliminar
+    	          </button>
+    	        </td>  
 	        </tr>';
         $i++;
       }

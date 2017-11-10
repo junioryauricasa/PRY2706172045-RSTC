@@ -85,7 +85,7 @@ function SeleccionarProducto(seleccion) {
 		return false;
 	}
 
-	$('#ListaDeProductosComprar').append('<tr>'+
+	$('#ListaDeProductosComprar').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
@@ -115,7 +115,7 @@ function AgregarServicio() {
 	var dcmPrecioUnitario = Number($("#dcmPrecioUnitarioServicio").val()).toFixed(2);
 	var Total = (dcmPrecioUnitario * intCantidad).toFixed(2); 
 
-	$('#ListaDeServiciosComprar').append('<tr>'+
+	$('#ListaDeServiciosComprar').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+
 		'<td>'+'<input type="hidden" name="nvchDescripcionServicio[]" value="'+nvchDescripcion+'"/>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="dcmPrecioUnitario[]" value="'+dcmPrecioUnitario+'"/>'+dcmPrecioUnitario+'</td>'+
