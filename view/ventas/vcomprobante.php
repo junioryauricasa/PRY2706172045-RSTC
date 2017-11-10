@@ -91,7 +91,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 
     function AgregarFila(){
       $('#ListaDeProductosVender').append(
-      '<tr>'+
+      '<tr><td class="heading" data-th="ID"></td>'+
         '<td><input type="hidden" name="fila[]" value="'+num+'" form="form-venta" />'+
             '<input type="hidden" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
             '<input type="text" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
@@ -405,13 +405,15 @@ require_once '../../datos/conexion/bd_conexion.php';
                     </thead>
                     <tbody id="ListaDeProductosVender">
                       <tr>
+                        <td class="heading" data-th="ID"></td>
                         <td>
                           <input type="hidden" name="fila[]" value="1" form="form-venta" />
                           <input type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" />
                           <input type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" />
                           <div class="result" id="result1">
                         </td>
-                        <td><input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/></td>
+                        <td width="">
+                          <input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/></td>
                         <td>
                           <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly />
                           <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
