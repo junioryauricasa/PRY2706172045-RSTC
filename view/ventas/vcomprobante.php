@@ -386,9 +386,9 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12" style="max-height: 200px; overflow-y: visible;">
+              <div class="col-md-12">
                 <!-- Comentar-->
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 200px; overflow-y: visible;">
                   <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
