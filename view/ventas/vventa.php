@@ -195,20 +195,21 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Tipo de Moneda:</label>
-                  <select id="intIdTipoMoneda" name="intIdTipoMoneda" class="form-control select2" form="form-venta">
-                    <?php try{
-                      $sql_conexion = new Conexion_BD();
-                      $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
-                      $sql_comando->execute();
-                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                      {
-                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
-                      }
-                    }catch(PDPExceptions $e){
-                      echo $e->getMessage();
-                    }?>
+                  <label>Lugar de Venta:</label>
+                  <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-venta">
+                  <?php 
+                    try{   
+                    $sql_conexion = new Conexion_BD();
+                    $sql_conectar = $sql_conexion->Conectar();
+                    $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
+                    $sql_comando->execute();
+                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                    {
+                      echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
+                    }
+                  }catch(PDPExceptions $e){
+                    echo $e->getMessage();
+                  }?>
                   </select>
                 </div>
               </div>
@@ -244,6 +245,44 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly form="form-venta"/>
                 </div>
               </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Seleccionar el Tipo de Venta:</label>
+                  <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <select id="intIdTipoMoneda" name="intIdTipoMoneda" class="form-control select2" form="form-venta">
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
+                </div>
+              </div>
               <script type="text/javascript">MostrarSeleccionComprobante();</script>
             </div>
             <div class="row">
@@ -259,25 +298,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                       {
                         echo '<option value="'.$fila['intIdTipoPago'].'">'.$fila['nvchNombre'].'</option>';
-                      }
-                    }catch(PDPExceptions $e){
-                      echo $e->getMessage();
-                    }?>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label>Seleccionar el Tipo de Venta:</label>
-                  <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
-                    <?php try{
-                      $sql_conexion = new Conexion_BD();
-                      $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
-                      $sql_comando->execute();
-                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                      {
-                        echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
                       }
                     }catch(PDPExceptions $e){
                       echo $e->getMessage();
