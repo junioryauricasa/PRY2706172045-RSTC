@@ -28,7 +28,6 @@ $(document).on('click', '#btn-crear-cliente', function(){
   	  var tipolistado = "N";
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
 	  var num_filas_domicilio = document.getElementById('ListaDeDomicilios').rows.length;
-	  var num_filas_comunicacion = document.getElementById('ListaDeComunicaciones').rows.length;
 	  if(intIdTipoPersona == 1){
 	  	if(EsNumeroEntero("nvchRUC") == false){
 	  		goToBox("#nvchRUC");
