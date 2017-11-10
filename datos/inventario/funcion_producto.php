@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'clases_producto/class_producto.php';
+require_once 'clases_producto/class_maquinaria.php';
 require_once 'clases_producto/class_codigo_producto.php';
 require_once 'clases_producto/class_ubigeo_producto.php';
 require_once 'clases_producto/class_formulario_producto.php';
@@ -13,6 +14,9 @@ if(empty($_SESSION['intIdCodigoProducto'])){
 }
 if(empty($_SESSION['intIdUbigeoProducto'])){
   $_SESSION['intIdUbigeoProducto'] = 0;
+}
+if(empty($_SESSION['intIdMaquinaria'])){
+  $_SESSION['intIdMaquinaria'] = 0;
 }
 switch($_POST['funcion']){
   case "I":
@@ -50,6 +54,15 @@ switch($_POST['funcion']){
     $KardexProducto = new KardexProducto();
     $KardexProducto->IdProducto($_SESSION['intIdProducto']);
     $KardexProducto->InsertarKardexProductoInicial();
+    break;
+  case "IMQ":
+    $Maquinaria = new Maquinaria();
+    $Maquinaria->InsertarMaquinaria($_POST['nvchDia'],$_POST['nvchMes'],$_POST['nvchAnio'],$_POST['nvchNombres'],
+                                    $_POST['nvchAtencion'],$_POST['nvchDireccion'],$_POST['dcmPrecioVenta']);
+    break;
+  case "LMQ":
+    $Maquinaria = new Maquinaria();
+    $Maquinaria->ListarMaquinarias($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "ICP":
     $CodigoProducto = new CodigoProducto();
