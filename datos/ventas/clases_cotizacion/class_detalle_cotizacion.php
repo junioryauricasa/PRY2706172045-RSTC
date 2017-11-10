@@ -108,26 +108,32 @@ class DetalleCotizacion
       {
         if($fila['intIdTipoVenta'] == 1){
         	echo
-          '<tr>
-          <td>'.$i.'</td>
-        	<td>'.$fila['CodigoProducto'].'</td>
-          <td>'.$fila['DescripcionProducto'].'</td>
-          <td>'.$fila['intCantidad'].'</td>
-          <td>'.$fila['dcmPrecio'].'</td>
-          <td>'.$fila['dcmDescuento'].'</td>
-          <td>'.$fila['dcmPrecioUnitario'].'</td>
-          <td>'.$fila['dcmTotal'].'</td>
-          </tr>';
+          '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+            <td>'.$i.'</td>
+          	<td>'.$fila['CodigoProducto'].'</td>
+            <td>'.$fila['DescripcionProducto'].'</td>
+            <td>'.$fila['intCantidad'].'</td>
+            <td>'.$fila['dcmPrecio'].'</td>
+            <td>'.$fila['dcmDescuento'].'</td>
+            <td>'.$fila['dcmPrecioUnitario'].'</td>
+            <td>'.$fila['dcmTotal'].'</td>
+          </tr>
+          ';
           $i++;
         } else if($fila['intIdTipoVenta'] == 2){
           echo
-          '<tr>
-          <td>'.$i.'</td>
-          <td>'.$fila['intCantidad'].'</td>
-          <td>'.$fila['nvchDescripcionServicio'].'</td>
-          <td>'.$fila['dcmPrecioUnitario'].'</td>
-          <td>'.$fila['dcmTotal'].'</td>
-          </tr>';
+          '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+            <td>'.$i.'</td>
+            <td>'.$fila['intCantidad'].'</td>
+            <td>'.$fila['nvchDescripcionServicio'].'</td>
+            <td>'.$fila['dcmPrecioUnitario'].'</td>
+            <td>'.$fila['dcmTotal'].'</td>
+          </tr>
+          ';
           $i++;
         }
       }
@@ -225,7 +231,9 @@ class DetalleCotizacion
           }
         }
       	echo 
-      	'<tr>
+      	'
+        <tr>
+        <td class="heading" data-th="ID"></td>
         <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="SnvchSimbolo['.$fila['intIdProducto'].']" value="'.$fila['nvchSimbolo'].'"/>'.$fila['nvchSimbolo'].'</td>

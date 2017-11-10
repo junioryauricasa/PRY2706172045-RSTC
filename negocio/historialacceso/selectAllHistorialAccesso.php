@@ -26,6 +26,7 @@ function users_data2()
     {       
     $output .= '
     <tr>
+        <td class="heading" data-th="ID"></td>
         <td>'.$row["intIdHistory"].'</td>
         <td>'.$row["intIdUser"].'</td>
         <td>'.$row["dateDateAccesso"].'</td> 

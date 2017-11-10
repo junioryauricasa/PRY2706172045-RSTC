@@ -202,32 +202,32 @@ class Producto
           }
           echo 
           '
-          <td class="heading" style="" data-th="ID"></td>
-          <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
-          <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
-          <td align="right"data-th="Tipo de Moneda">'.$fila["nvchSimbolo"].'</td>
-          <td align="right"data-th="Precio de Venta 1">'.$fila["dcmPrecioVenta1"].'</td>
-          <td align="right"data-th="Precio de venta 2">'.$fila["dcmPrecioVenta2"].'</td>
-          <td align="right"data-th="Preio de Venta 3">'.$fila["dcmPrecioVenta3"].'</td>
-          <td align="right"data-th="Cant. Total">'.$fila["intCantidad"].'</td>
-          <td align="right"data-th="Ubicación">
-            <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
-              <i class="fa fa-edit"></i> Ver Detalle
-            </button>
-          </td>
-          <td align="right" data-th="Imágen">
-            <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
-              <i class="fa fa-search"></i> Ver 
-            </button>
-          </td>
-          <td align="right" data-th="Opciones"> 
-            <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
-              <i class="fa fa-edit"></i> Editar
-            </button>
-            <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
-              <i class="fa fa-trash"></i> Eliminar
-            </button>
-          </td>  
+              <td class="heading" style="" data-th="ID"></td>
+              <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
+              <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
+              <td align="right"data-th="Tipo de Moneda">'.$fila["nvchSimbolo"].'</td>
+              <td align="right"data-th="Precio de Venta 1">'.$fila["dcmPrecioVenta1"].'</td>
+              <td align="right"data-th="Precio de venta 2">'.$fila["dcmPrecioVenta2"].'</td>
+              <td align="right"data-th="Preio de Venta 3">'.$fila["dcmPrecioVenta3"].'</td>
+              <td align="right"data-th="Cant. Total">'.$fila["intCantidad"].'</td>
+              <td align="right"data-th="Ubicación">
+                <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+                  <i class="fa fa-edit"></i> Ver Detalle
+                </button>
+              </td>
+              <td align="right" data-th="Imágen">
+                <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
+                  <i class="fa fa-search"></i> Ver 
+                </button>
+              </td>
+              <td align="right" data-th="Opciones"> 
+                <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
+                  <i class="fa fa-edit"></i> Editar
+                </button>
+                <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
+                  <i class="fa fa-trash"></i> Eliminar
+                </button>
+              </td>  
           </tr>';
           $i++;
         }

@@ -114,7 +114,10 @@ class Venta{
         $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
-          echo '<tr>';
+          echo '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+          ';
           if($intIdTipoPersona == 2) { 
             echo '<td>'.$fila["nvchDNI"].'</td>'; 
           }
@@ -276,7 +279,9 @@ class Venta{
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+        '
+        <td class="heading" data-th="ID"></td>
+        <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
         <td>'.$fila["NombreCliente"].'</td>
         <td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>

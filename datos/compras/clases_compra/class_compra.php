@@ -212,25 +212,27 @@ class Compra
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["nvchRazonSocial"].'</td>
-        <td>'.$fila["NombreUsuario"].'</td>
-        <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCompra"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCompra"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCompra"].'</td>
-        <td> 
-          <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-warning btn-mostrar-compra">
-            <i class="fa fa-edit"></i> Ver Detalle
-          </button>
-          <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-danger btn-anular-compra">
-            <i class="fa fa-trash"></i> Anular
-          </button>
-          <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-default btn-download-report">
-            <i class="fa fa-download"></i> Reporte
-          </button>
-        </td>
+        '
+            <td class="heading" data-th="ID"></td>
+            <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["nvchRazonSocial"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCompra"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCompra"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCompra"].'</td>
+            <td> 
+              <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-warning btn-mostrar-compra">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+              <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-danger btn-anular-compra">
+                <i class="fa fa-trash"></i> Anular
+              </button>
+              <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-default btn-download-report">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>
         </tr>';
         $i++;
       }

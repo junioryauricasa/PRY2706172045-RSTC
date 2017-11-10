@@ -389,9 +389,10 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-12" style="max-height: 200px; overflow-y: visible;">
                 <!-- Comentar-->
                 <div class="table-responsive">
-                  <table class="table table-hover table-condensed">
+                  <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
+                      <th class="heading" width="25px">&nbsp;</th>
                       <th>Código</th>
                       <th>Descripción</th>
                       <th>Precio Lista</th>
@@ -541,9 +542,10 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="table-responsive">
-              <table class="table table-hover table-condensed">
+              <table class="ExcelTable2007 rwd-table" width="100%">
                 <thead>
                 <tr>
+                  <th class="heading" width="25px">&nbsp;</th>
                   <th class="listaNumFactura">Número de Factura</th>
                   <th class="listaNumBoletaVenta">Número de Boleta</th>
                   <th class="listaNumNotaCredito">Número de Nota de Crédito</th>

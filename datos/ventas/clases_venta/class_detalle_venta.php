@@ -105,23 +105,26 @@ class DetalleVenta
         if($fila['intIdTipoVenta'] == 1){
           echo
           '<tr>
-          <td>'.$i.'</td>
-          <td>'.$fila['CodigoProducto'].'</td>
-          <td>'.$fila['DescripcionProducto'].'</td>
-          <td>'.$fila['intCantidad'].'</td>
-          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
-          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
-          </tr>';
-          $i++;
-        } else if($fila['intIdTipoVenta'] == 2){
-          echo
-          '<tr>
-          <td>'.$i.'</td>
-          <td>C'.$i.'</td>
-          <td>'.$fila['nvchDescripcionServicio'].'</td>
-          <td>'.$fila['intCantidad'].'</td>
-          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
-          <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
+              <td class="heading" data-th="ID"></td>
+              <td>'.$i.'</td>
+              <td>'.$fila['CodigoProducto'].'</td>
+              <td>'.$fila['DescripcionProducto'].'</td>
+              <td>'.$fila['intCantidad'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
+              </tr>';
+              $i++;
+            } else if($fila['intIdTipoVenta'] == 2){
+              echo
+              '
+              <tr>
+              <td class="heading" data-th="ID"></td>
+              <td>'.$i.'</td>
+              <td>C'.$i.'</td>
+              <td>'.$fila['nvchDescripcionServicio'].'</td>
+              <td>'.$fila['intCantidad'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
           </tr>';
           $i++;
         }
@@ -219,7 +222,9 @@ class DetalleVenta
             }
           }
         	echo 
-          '<tr>
+          '
+          <tr>
+          <td class="heading" data-th="ID"></td>
           <td><input type="hidden" name="SnvchCodigo['.$fila['intIdProducto'].']" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
           <td><input type="hidden" name="SnvchDescripcion['.$fila['intIdProducto'].']" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
           <td><input type="hidden" name="SnvchSimbolo['.$fila['intIdProducto'].']" value="'.$fila['nvchSimbolo'].'"/>'.$fila['nvchSimbolo'].'</td>
@@ -384,20 +389,22 @@ class DetalleVenta
         $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
-          echo '<tr>
-          <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-          <td>'.$fila["NombreCliente"].'</td>
-          <td>'.$fila["NombreUsuario"].'</td>
-          <td>'.$fila["dtmFechaCreacion"].'</td>
-          <td> 
-            <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
-            onclick="InsertarCotizacion(this)">
-              <i class="fa fa-edit"></i> Elegir
-            </button>
-            <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
-              <i class="fa fa-download"></i> Reporte
-            </button>
-          </td>
+          echo '
+          <tr>
+              <td class="heading" data-th="ID">12</td>
+              <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+              <td>'.$fila["NombreCliente"].'</td>
+              <td>'.$fila["NombreUsuario"].'</td>
+              <td>'.$fila["dtmFechaCreacion"].'</td>
+              <td> 
+                <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
+                onclick="InsertarCotizacion(this)">
+                  <i class="fa fa-edit"></i> Elegir
+                </button>
+                <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
+                  <i class="fa fa-download"></i> Reporte
+                </button>
+              </td>
           </tr>';
         }
       } else {
@@ -551,15 +558,17 @@ class DetalleVenta
         }
         $dcmPrecioUnitario = number_format(($fila_producto['dcmPrecioVenta1'] - ($fila_producto['dcmPrecioVenta1']*($fila['dcmDescuento']/100))),2,'.','');
         $dcmTotal = number_format(($dcmPrecioUnitario * $fila['intCantidad']),2,'.',''); 
-        echo '<tr> 
-        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila_producto['dcmPrecioVenta1'].'"/>
-        <input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" 
-        value="'.$dcmPrecioUnitario.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmPrecioUnitario.'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$dcmTotal.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmTotal.'</td>
-        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
+        echo '
+        <tr>
+            <td class="heading" data-th="ID">12</td> 
+            <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
+            <td>'.$fila['nvchDescripcion'].'</td>
+            <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
+            <td><input type="hidden" name="dcmPrecio[]" value="'.$fila_producto['dcmPrecioVenta1'].'"/>
+            <input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" 
+            value="'.$dcmPrecioUnitario.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmPrecioUnitario.'</td>
+            <td><input type="hidden" name="dcmTotal[]" value="'.$dcmTotal.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmTotal.'</td>
+            <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
         </tr>';
       }
     }
@@ -577,13 +586,15 @@ class DetalleVenta
       $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        echo '<tr> 
-        <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td>'.$fila['nvchDescripcion'].'</td>
-        <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/><input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" value="'.$fila['dcmPrecioUnitario'].'"/>'.$fila['dcmPrecioUnitario'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
-        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
+        echo '
+        <tr> 
+            <td class="heading" data-th="ID"></td>
+            <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
+            <td>'.$fila['nvchDescripcion'].'</td>
+            <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
+            <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/><input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" value="'.$fila['dcmPrecioUnitario'].'"/>'.$fila['dcmPrecioUnitario'].'</td>
+            <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['dcmTotal'].'</td>
+            <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
         </tr>';
       }
     }

@@ -229,24 +229,25 @@ class Salida
           echo '<tr>';
         }
         echo
-        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["nvchRazonSocial"].'</td>
-        <td>'.$fila["NombreUsuario"].'</td>
-        <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorSalida"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVSalida"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalSalida"].'</td>
-        <td> 
-          <button type="submit" id="'.$fila["intIdSalida"].'" class="btn btn-xs btn-warning btn-mostrar-salida">
-            <i class="fa fa-edit"></i> Ver Detalle
-          </button>
-          <button type="submit" id="'.$fila["intIdSalida"].'" class="btn btn-xs btn-danger btn-anular-salida">
-            <i class="fa fa-trash"></i> Anular
-          </button>
-          <button type="submit" id="'.$fila["intIdSalida"].'" class="btn btn-xs btn-default btn-download-report">
-            <i class="fa fa-download"></i> Reporte
-          </button>
-        </td>
+        '   <td class="heading" data-th="ID"></td>
+            <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["nvchRazonSocial"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorSalida"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVSalida"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalSalida"].'</td>
+            <td> 
+              <button type="submit" id="'.$fila["intIdSalida"].'" class="btn btn-xs btn-warning btn-mostrar-salida">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+              <button type="submit" id="'.$fila["intIdSalida"].'" class="btn btn-xs btn-danger btn-anular-salida">
+                <i class="fa fa-trash"></i> Anular
+              </button>
+              <button type="submit" id="'.$fila["intIdSalida"].'" class="btn btn-xs btn-default btn-download-report">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>
         </tr>';
         $i++;
       }

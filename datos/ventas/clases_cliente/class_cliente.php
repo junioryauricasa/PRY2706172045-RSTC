@@ -159,11 +159,20 @@ class Cliente
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
-          echo '<tr bgcolor="#BEE1EB">';
+          echo '
+          <tr bgcolor="#BEE1EB">
+            <td class="heading" data-th="ID"></td>
+          ';
         } else if($fila["intIdCliente"] == $_SESSION['intIdCliente'] && $tipolistado == "E"){
-          echo '<tr bgcolor="#B3E4C0">';
+          echo '
+          <tr bgcolor="#B3E4C0">
+            <td class="heading" data-th="ID"></td>
+          ';
         }else {
-          echo '<tr>';
+          echo '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+          ';
         }
         if($intIdTipoPersona == 2) { echo '<td>'.$fila["nvchDNI"].'</td>'; }
         echo '<td>'.$fila["nvchRUC"].'</td>';
@@ -173,14 +182,15 @@ class Cliente
         <td>'.$fila["nvchApellidoMaterno"].'</td>
         <td>'.$fila["nvchNombres"].'</td>';
         }
-        echo '<td> 
-          <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-danger btn-eliminar-cliente">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+        echo '
+            <td> 
+              <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente">
+                <i class="fa fa-edit"></i> Editar
+              </button>
+              <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-danger btn-eliminar-cliente">
+                <i class="fa fa-edit"></i> Eliminar
+              </button>
+            </td>
         </tr>';
         $i++;
       }

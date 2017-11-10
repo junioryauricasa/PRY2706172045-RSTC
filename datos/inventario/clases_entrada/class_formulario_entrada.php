@@ -7,7 +7,6 @@ class FormularioEntrada
   private $nvchSerie;
   private $nvchNumeracion;
   private $nvchRazonSocial;
-  
   private $nvchRUC;
   private $intIdUsuarioSolicitado;
   private $intIdUsuario;
@@ -21,7 +20,6 @@ class FormularioEntrada
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function RazonSocial($nvchRazonSocial){ $this->nvchRazonSocial = $nvchRazonSocial; }
-
   public function RUC($nvchRUC){ $this->nvchRUC = $nvchRUC; }
   public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
@@ -56,18 +54,19 @@ class FormularioEntrada
                   <label>Lugar de Entrada:</label>
                   <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2">
                   <?php 
-                    try{
-                    $sql_conexion = new Conexion_BD();
-                    $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
-                    $sql_comando->execute();
-                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                    {
-                      echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
-                    }
-                  }catch(PDPExceptions $e){
-                    echo $e->getMessage();
-                  }?>
+                   try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                            echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                      }
+                  ?>
                   </select>
                 <script>$("#intIdSucursal").val(<?php echo $this->intIdSucursal; ?>);</script>
                 </div>
@@ -90,7 +89,9 @@ class FormularioEntrada
                         echo $e->getMessage();
                   }?>
                   </select>
-                <script>$("#intIdUsuarioSolicitado").val(<?php echo $this->intIdUsuarioSolicitado; ?>);</script>
+                  <script>
+                      $("#intIdUsuarioSolicitado").val(<?php echo $this->intIdUsuarioSolicitado; ?>);
+                  </script>
                 </div>
               </div>
               <div class="col-md-2">
@@ -215,9 +216,10 @@ class FormularioEntrada
           <hr>
           <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
           <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="ExcelTable2007 rwd-table" width="100%">
               <thead>
               <tr>
+                <th class="heading" width="25px">&nbsp;</th>
                 <th>Sucursal</th>
                 <th>Ubicación en el Almacén</th>
                 <th>Cantidad</th>
@@ -237,7 +239,7 @@ class FormularioEntrada
       </div>
       <div class="box-body">
         <div class="table-responsive">
-          <table class="table table-hover table-condensed">
+          <table class="ExcelTable2007 rwd-table" width="100%">
             <thead>
             <tr>
               <th class="heading" width="25px">&nbsp;</th>

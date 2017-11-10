@@ -131,17 +131,19 @@ class MonedaTributaria
             echo '<tr>';
           }
           echo 
-          '<td>'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
-          <td>'.$fila["dcmCambio1"].'</td>
-          <td>'.$fila["dcmCambio2"].'</td>
-          <td> 
-            <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-tributaria">
-              <i class="fa fa-edit"></i> Editar
-            </button>
-            <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-tributaria">
-              <i class="fa fa-edit"></i> Eliminar
-            </button>
-          </td>  
+          '
+              <td class="heading" data-th="ID"></td>
+              <td>'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
+              <td>'.$fila["dcmCambio1"].'</td>
+              <td>'.$fila["dcmCambio2"].'</td>
+              <td> 
+                <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-tributaria">
+                  <i class="fa fa-edit"></i> Editar
+                </button>
+                <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-tributaria">
+                  <i class="fa fa-edit"></i> Eliminar
+                </button>
+              </td>  
           </tr>';
           $i++;
       }

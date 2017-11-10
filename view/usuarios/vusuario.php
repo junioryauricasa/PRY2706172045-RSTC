@@ -76,9 +76,10 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table  class="ExcelTable2007 rwd-table" width="100%">
               <thead>
               <tr>
+                <th class="heading" width="25px">&nbsp;</th>
                 <th>DNI</th>
                 <th>Nombres y Apellidos</th>
                 <th>Usuario</th>

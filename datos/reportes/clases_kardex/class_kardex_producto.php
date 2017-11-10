@@ -305,32 +305,33 @@ class KardexProducto
 
         echo 
         '<tr>
-        <td>'.$j.'</td>
-        <td>'.$fila["dtmFechaMovimiento"].'</td>';
-        if($fila["intTipoDetalle"] == 1){
-          echo '<td>Salida</td>';
-        } else if($fila["intTipoDetalle"] == 2){
-          echo '<td>Entrada</td>';
-        } else {
-          echo '<td>Inicial</td>';
-        }
-        echo 
-        '<td>'.$fila["NombreComprobante"].'</td>
-        <td>'.$fila["nvchSerie"].'</td>
-        <td>'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["intCantidadEntrada"].'</td>
-        <td>'.$fila["intCantidadSalida"].'</td>
-        <td>'.$fila["intCantidadStock"].'</td>
-        <td>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</td>
-        <td>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</td>
-        <td>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</td>
-        <td>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</td>
-        <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td>
-        <td> 
-          <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
-            <i class="fa fa-edit"></i> Ver Detalle
-          </button>
-        </td>  
+            <td class="heading" data-th="ID"></td>
+            <td>'.$j.'</td>
+            <td>'.$fila["dtmFechaMovimiento"].'</td>';
+            if($fila["intTipoDetalle"] == 1){
+              echo '<td>Salida</td>';
+            } else if($fila["intTipoDetalle"] == 2){
+              echo '<td>Entrada</td>';
+            } else {
+              echo '<td>Inicial</td>';
+            }
+            echo 
+            '<td>'.$fila["NombreComprobante"].'</td>
+            <td>'.$fila["nvchSerie"].'</td>
+            <td>'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["intCantidadEntrada"].'</td>
+            <td>'.$fila["intCantidadSalida"].'</td>
+            <td>'.$fila["intCantidadStock"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td>
+            <td> 
+              <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+            </td>  
         </tr>';
         $j++;
       }

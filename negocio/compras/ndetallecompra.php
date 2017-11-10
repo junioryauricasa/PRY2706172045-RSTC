@@ -89,7 +89,7 @@ function SeleccionarProducto(seleccion) {
 
 	dcmPrecioUnitario = Number(dcmPrecioUnitario).toFixed(2);
 
-	$('#ListaDeProductosCompra').append('<tr>'+
+	$('#ListaDeProductosCompra').append('<tr><td class="heading" data-th="ID"></td>'+
 		'<td>'+'<input type="hidden" name="intIdProducto[]" value="'+intIdProducto+'"/>'+nvchCodigo+'</td>'+
 		'<td>'+nvchDescripcion+'</td>'+
 		'<td>'+'<input type="hidden" name="intCantidad[]" value="'+intCantidad+'"/>'+intCantidad+'</td>'+

@@ -76,17 +76,19 @@ class ComunicacionCliente
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-      	echo '<td><input type="hidden" name="nvchMedio[]" value="'.$fila['nvchMedio'].'"/>'.$fila['nvchMedio'].'</td>
-        <td><input type="hidden" name="nvchLugar[]" value="'.$fila['nvchLugar'].'"/>'.$fila['nvchLugar'].'</td>
-        <td><input type="hidden" name="intIdTipoComunicacion[]" value="'.$fila['intIdTipoComunicacion'].'"/>'.$fila['NombreTC'].'</td>
-        <td> 
-          <button type="button" idccl="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" idccl="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+      	echo '
+            <td class="heading" data-th="ID"></td>
+            <td><input type="hidden" name="nvchMedio[]" value="'.$fila['nvchMedio'].'"/>'.$fila['nvchMedio'].'</td>
+            <td><input type="hidden" name="nvchLugar[]" value="'.$fila['nvchLugar'].'"/>'.$fila['nvchLugar'].'</td>
+            <td><input type="hidden" name="intIdTipoComunicacion[]" value="'.$fila['intIdTipoComunicacion'].'"/>'.$fila['NombreTC'].'</td>
+            <td> 
+              <button type="button" idccl="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
+                <i class="fa fa-edit"></i> Editar
+              </button>
+              <button type="button" idccl="'.$fila['intIdComunicacionCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+                <i class="fa fa-edit"></i> Eliminar
+              </button>
+            </td>
         </tr>';
         $i++;
       }

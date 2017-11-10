@@ -42,10 +42,13 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
   <span style="font-weight: bold;">Fecha Final:</span>
   <?php echo $dtmFechaFinal; ?><br>
   <br>
-  <table style="text-align: center; width: 100%;" border="1"
-   cellpadding="1" cellspacing="0">
+  
+  <!--table style="text-align: center; width: 100%;" border="1"
+   cellpadding="1" cellspacing="0"-->
+  <table id="TheTable" border="1" class="ExcelTable2007 rwd-table" width="100%">
     <thead>
       <tr>
+        <th class="heading" width="25px">&nbsp;</th>
         <th style="font-family: Calibri;"><small>Ítem</small></th>
         <th style="font-family: Calibri;"><small>Fecha</small></th>
         <th style="font-family: Calibri;"><small>Código del Producto</small></th>
@@ -89,14 +92,16 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
         
         echo 
         '<tr>
-        <td style="font-family: Calibri;"><small>'.$j.'</small></td>
-        <td style="font-family: Calibri;"><small>'.$fila["dtmFechaMovimiento"].'</small></td>
-        <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
-        <td style="font-family: Calibri;"><small>'.$fila["nvchDescripcion"].'</small></td>
-        <td style="font-family: Calibri;"><small>'.$fila["CantidadEntradaTotal"].'</small></td>
-        <td style="font-family: Calibri;"><small>'.$fila["CantidadSalidaTotal"].'</small></td>
-        <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
-        <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</small></td> 
+            <td class="heading" data-th="ID"></td>
+            <td style="font-family: Calibri;"><small>'.$j.'</small></td>
+            <td style="font-family: Calibri;"><small>'.$fila["dtmFechaMovimiento"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$fila["nvchDescripcion"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$fila["CantidadEntradaTotal"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$fila["CantidadSalidaTotal"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</small>
+            </td> 
         </tr>';
         $j++;
       }

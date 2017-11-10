@@ -137,7 +137,10 @@ class Cotizacion{
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        echo '<tr>';
+        echo '
+        <tr>
+          <td class="heading" data-th="ID"></td>
+        ';
         if($intIdTipoPersona == 2) { 
           echo '<td>'.$fila["nvchDNI"].'</td>'; 
         }
@@ -146,12 +149,14 @@ class Cotizacion{
           echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
         }
         if($intIdTipoPersona == 2) {
-        echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
-        <td>'.$fila["nvchApellidoMaterno"].'</td>
-        <td>'.$fila["nvchNombres"].'</td>';
+        echo '
+          <td>'.$fila["nvchApellidoPaterno"].'</td>
+          <td>'.$fila["nvchApellidoMaterno"].'</td>
+          <td>'.$fila["nvchNombres"].'</td>';
         }
         echo 
-        '<td>'.$fila["TipoCliente"].'</td>
+        '
+        <td>'.$fila["TipoCliente"].'</td>
         <td> 
           <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-success" onclick="SeleccionarCliente(this)">
             <i class="fa fa-edit"></i> Seleccionar
@@ -299,25 +304,26 @@ class Cotizacion{
         }else {
           echo '<tr>';
         }
-        echo
-        '<td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["NombreCliente"].'</td>
-        <td>'.$fila["NombreUsuario"].'</td>
-        <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCotizacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCotizacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCotizacion"].'</td>
-        <td> 
-          <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
-            <i class="fa fa-edit"></i> Ver Detalle
-          </button>
-          <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion">
-            <i class="fa fa-trash"></i> Anular
-          </button>
-          <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-reporte-cotizacion">
-            <i class="fa fa-download"></i> Reporte
-          </button>
-        </td>
+        echo'
+            <td class="heading" data-th="ID"></td>
+            <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["NombreCliente"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCotizacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCotizacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCotizacion"].'</td>
+            <td> 
+              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion">
+                <i class="fa fa-trash"></i> Anular
+              </button>
+              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-reporte-cotizacion">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>
         </tr>';
         $i++;
       }
