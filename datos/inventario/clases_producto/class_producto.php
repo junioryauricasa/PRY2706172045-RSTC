@@ -443,7 +443,7 @@ class Producto
           ?>
             <div class="show" align="left">
               <span class="btnNuevoProducto">
-                <b class="text-danger">No existe el producto</b>: Hacer <b>click aquí</b> para ingresar uno nuevo
+                <a href="" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <a href="#" style="background-color: none; color: black; font-weight: bolder">click aquí</a> para ingresar uno nuevo
               </span>
             </div>
           <?php

@@ -91,11 +91,13 @@ require_once '../../datos/conexion/bd_conexion.php';
 
     function AgregarFila(){
       $('#ListaDeProductosVender').append(
-      '<tr><td class="heading" data-th="ID"></td>'+
-        '<td><input type="hidden" name="fila[]" value="'+num+'" form="form-venta" />'+
-            '<input type="hidden" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
-            '<input type="text" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
-            '<div class="result" id="result'+num+'">'+
+      '<tr>'+
+        '<td class="heading" data-th="ID"></td>'+
+        '<td>'+
+            '<input type="hidden" name="fila[]" value="'+num+'" form="form-venta"  style="width:130px"/>'+
+            '<input type="hidden" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta"  style="width:130px"/>'+
+            '<input type="text" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta"  style="width:130px"/>'+
+            '<div class="result" id="result'+num+'" style="width:130px">'+
         '</td>'+
         '<td><input type="text" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
         '<td>'+
@@ -136,8 +138,8 @@ require_once '../../datos/conexion/bd_conexion.php';
     .result
     {
         position: absolute;
-        z-index: 1;
-        width:500px;
+        z-index: 100;
+        width:500px !important;
         padding:10px;
         display:none;
         margin-top:-1px;
@@ -388,12 +390,12 @@ require_once '../../datos/conexion/bd_conexion.php';
             <div class="row">
               <div class="col-md-12">
                 <!-- Comentar-->
-                <div class="table-responsive" style="max-height: 320px; overflow-y: visible;">
+                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
                   <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
                       <th class="heading" width="25px">&nbsp;</th>
-                      <th>Código</th>
+                      <th style="width:130px">Código</th>
                       <th>Descripción</th>
                       <th>Precio Lista</th>
                       <th>Desc. (%)</th>
@@ -406,11 +408,11 @@ require_once '../../datos/conexion/bd_conexion.php';
                     <tbody id="ListaDeProductosVender">
                       <tr>
                         <td class="heading" data-th="ID"></td>
-                        <td>
-                          <input type="hidden" name="fila[]" value="1" form="form-venta" />
-                          <input type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" />
-                          <input type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" />
-                          <div class="result" id="result1">
+                        <td style="width:130px">
+                          <input type="hidden" name="fila[]" value="1" form="form-venta"  style="width:130px"/>
+                          <input type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" style="width:130px"/>
+                          <input type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" style="width:130px"/>
+                          <div class="result" id="result1" style="width:130px">
                         </td>
                         <td width="">
                           <input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/></td>
@@ -432,6 +434,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
+            <br>
+            <br>
             <div class="row">
               <div class="col-md-9">
                 <div class="form-group">
