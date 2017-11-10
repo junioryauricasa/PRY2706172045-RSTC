@@ -6,7 +6,9 @@ require_once '../../datos/conexion/bd_conexion.php';
     <?php require_once '../../negocio/ventas/ndetallecomprobante.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <?php require_once '../../view/modals/vbuscarcliente.php'; ?>
+    <?php require_once '../../view/modals/vformCliente.php'; ?>
+    <?php require_once '../../view/modals/vformProducto.php'; ?>
+    <?php require_once '../../negocio/inventario/nproducto.php'; ?>
 
     <script>
       $(document).ready(function(){
@@ -45,13 +47,17 @@ require_once '../../datos/conexion/bd_conexion.php';
 
     $(document).on('click', '.result', function(e){
       var clicked = $(e.target);
-      var nvchCodigo = clicked.find('.nvchCodigo').html();
-      var intIdProducto = clicked.find('.intIdProducto').val();
-      nvchCodigo = nvchCodigo.replace(/\s/g,'');
-      intIdProducto = intIdProducto.replace(/\s/g,'');
-      $('#nvchCodigo'+numfila).val(nvchCodigo);
-      $(".result").html("").hide();
-      InsertarProductoElegido(intIdProducto,numfila);
+      if(!clicked.find('.nvchCodigo').html()) {
+        $("#formProducto").modal("show");
+      } else {
+        var nvchCodigo = clicked.find('.nvchCodigo').html();
+        var intIdProducto = clicked.find('.intIdProducto').val();
+        nvchCodigo = nvchCodigo.replace(/\s/g,'');
+        intIdProducto = intIdProducto.replace(/\s/g,'');
+        $('#nvchCodigo'+numfila).val(nvchCodigo);
+        $(".result").html("").hide();
+        InsertarProductoElegido(intIdProducto,numfila);
+      }
       numfila = 0;
     });
 

@@ -82,6 +82,7 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="formRegistroCliente">
+                        
                     </div>
                 </div>
             </div>
