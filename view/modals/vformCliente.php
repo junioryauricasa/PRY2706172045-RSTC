@@ -17,12 +17,6 @@
                         <div class="row">
                           <div class="col-md-3">
                             <div class="form-group">
-                              <label>Ingresar Búsqueda:</label>
-                              <input type="text" id="BusquedaCliente" name="BusquedaCliente" class="form-control select2" placeholder="Ingresar Búsqueda">
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
                               <label>Tipo Persona:</label>
                               <br>
                               <select id="lista-persona" name="lista-persona"  class="form-control select2">
@@ -41,6 +35,12 @@
                                   echo $e->getMessage();
                                 }?>
                               </select>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Ingresar Búsqueda:</label>
+                              <input type="text" id="BusquedaCliente" name="BusquedaCliente" class="form-control select2" placeholder="Ingresar Búsqueda">
                             </div>
                           </div>
                           <div class="col-md-4">
