@@ -433,7 +433,7 @@ class Producto
             <!--div class="show" align="left" -->
               <li class="show truncate" align="left" >
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
-                <span class="nvchCodigo" style="font-weight:bolder; color: black">
+                <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
                 </span>&nbsp;
                 <?php echo ' | '.$fila['nvchDescripcion']; ?>

@@ -180,6 +180,16 @@ require_once '../../datos/conexion/bd_conexion.php';
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    /* Text Bolder */
+    #textbolder{
+      font-weight:bolder; 
+      color: black
+    }
+    .show:hover > #textbolder{
+      color: white;
+    }
+
     </style>
   <div class="content-wrapper">
     <section class="content-header">
