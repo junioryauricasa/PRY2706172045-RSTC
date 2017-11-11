@@ -417,14 +417,14 @@ class DetalleVenta
     }  
   }
 
-  public function PaginarCotizacionesVenta($busqueda,$x,$y)
+  public function PaginarCotizacionesVenta($busqueda,$x,$y,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
         if($busqueda != "" || $busqueda != null) {
         $sql_conexion = new Conexion_BD();
         $sql_conectar = $sql_conexion->Conectar();
-        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial,':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $output = "";
