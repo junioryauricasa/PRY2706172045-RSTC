@@ -379,32 +379,33 @@ class DetalleVenta
     }  
   }
 
-  public function ListarCotizacionesVenta($busqueda,$x,$y)
+  public function ListarCotizacionesVenta($busqueda,$x,$y,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($busqueda != "" || $busqueda != null) {
         $sql_conexion = new Conexion_BD();
         $sql_conectar = $sql_conexion->Conectar();
-        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial,
+                      ':dtmFechaFinal' => $dtmFechaFinal));
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
           echo '
           <tr>
-              <td class="heading" data-th="ID">12</td>
-              <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-              <td>'.$fila["NombreCliente"].'</td>
-              <td>'.$fila["NombreUsuario"].'</td>
-              <td>'.$fila["dtmFechaCreacion"].'</td>
-              <td> 
-                <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
-                onclick="InsertarCotizacion(this)">
-                  <i class="fa fa-edit"></i> Elegir
-                </button>
-                <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
-                  <i class="fa fa-download"></i> Reporte
-                </button>
-              </td>
+            <td class="heading" data-th="ID">12</td>
+            <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["NombreCliente"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td> 
+              <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
+              onclick="InsertarCotizacion(this)">
+                <i class="fa fa-edit"></i> Elegir
+              </button>
+              <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>
           </tr>';
         }
       } else {

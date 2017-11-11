@@ -8,6 +8,7 @@ require_once '../../datos/conexion/bd_conexion.php';
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
     <?php require_once '../../view/modals/vformCliente.php'; ?>
     <?php require_once '../../view/modals/vformProducto.php'; ?>
+    <?php require_once '../../view/modals/vformCotizacion.php'; ?>
     <?php require_once '../../negocio/inventario/nproducto.php'; ?>
 
     <script>
@@ -119,6 +120,12 @@ require_once '../../datos/conexion/bd_conexion.php';
     function formCliente(){
       $("#formCliente").modal("show");
     }
+
+    function formCotizacion(){
+      $("#formCotizacion").modal("show");
+    }
+
+
     </script>
     <style>
     .pagination a {
@@ -264,6 +271,9 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </select>
                 </div>
               </div>
+              <script type="text/javascript">MostrarSeleccionComprobante();</script>
+            </div>
+            <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Moneda:</label>
@@ -283,9 +293,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </select>
                 </div>
               </div>
-              <script type="text/javascript">MostrarSeleccionComprobante();</script>
-            </div>
-            <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Forma de Pago:</label>
@@ -324,18 +331,18 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <label>Razón Social/Nombres:</label>
                   <input type="text" id="nvchDenominacion" class="form-control select2" readonly>
                 </div>
+              </div>   
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Domicilio:</label>
+                  <input type="text" id="nvchDomicilio" class="form-control select2" readonly>
+                </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Cliente:</label>
                   <input type="text" id="TipoCliente" class="form-control select2" readonly>
                   <input type="hidden" id="intIdTipoCliente">
-                </div>
-              </div>   
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>Domicilio:</label>
-                  <input type="text" id="nvchDomicilio" class="form-control select2" readonly>
                 </div>
               </div>
             </div>
@@ -344,6 +351,12 @@ require_once '../../datos/conexion/bd_conexion.php';
                 <div class="form-group">
                   <label>Agregar Fila:</label>
                   <input type="button" onclick="AgregarFila()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Seleccionar Cotización:</label>
+                  <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
             </div>

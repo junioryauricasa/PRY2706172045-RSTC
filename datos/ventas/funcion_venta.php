@@ -139,11 +139,11 @@ switch($_POST['funcion']){
     break;
   case "MCT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->ListarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $DetalleVenta->ListarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['dtmFechaInicial'],$_POST['dtmFechaFinal']);
     break;
   case "PCT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->PaginarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y']);
+    $DetalleVenta->PaginarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['dtmFechaInicial'],$_POST['dtmFechaFinal']);
     break;
   case "NCPR":
     $Numeraciones = new Numeraciones();

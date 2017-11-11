@@ -267,13 +267,14 @@ function InsertarCotizacion(seleccion) {
 	var intIdCotizacion = $(seleccion).attr("idct");
 	var funcion = "ICT";
 	var intIdTipoMoneda = $("#tipo-moneda").val();
+
 	$.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeProductosComprar").append(datos); 
+	   	$("#ListaDeProductosVender").append(datos); 
 	   }
 	});	
 }
@@ -302,10 +303,23 @@ function ListarCotizaciones(x,y) {
 	var busqueda = document.getElementById("BusquedaCotizacion").value;
 	var funcion = "MCT";
 	var tipolistado = "T";
+
+	if(EsFecha("dtmFechaInicialCT") == false){
+	  	var dtmFechaInicial = "";
+	  } else {
+	  	var dtmFechaInicial = $("#dtmFechaInicialCT").val();
+	  }
+	  if(EsFecha("dtmFechaFinalCT") == false){
+	  	var dtmFechaFinal = FechaActual();
+	  } else {
+	  	var dtmFechaFinal = $("#dtmFechaFinalCT").val();
+	  }
+
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+	   		dtmFechaFinal:dtmFechaFinal},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeCotizaciones").html(datos);
