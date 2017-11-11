@@ -34,11 +34,11 @@ include('../_include/rstheader.php');
         Administrar Salida de Productos
         <small>Módulo de Inventario</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <!--ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Layout</a></li>
         <li class="active">Fixed</li>
-      </ol>
+      </ol-->
     </section>
 
     <!-- Main content -->

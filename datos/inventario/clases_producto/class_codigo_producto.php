@@ -70,16 +70,22 @@ class CodigoProducto
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-      	echo '<td><input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
-        <td><input type="hidden" name="intIdTipoCodigoProducto[]" value="'.$fila['intIdTipoCodigoProducto'].'"/>'.$fila['NombreTipoCodigo'].'</td>
-        <td> 
-          <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCodigo(this)">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarCodigo(this)">
-            <i class="fa fa-edit"></i> Eliminar
-          </button>
-        </td>
+      	echo '
+            <td class="heading" data-th="ID"></td>
+            <td>
+                <input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'
+            </td>
+            <td>
+                <input type="hidden" name="intIdTipoCodigoProducto[]" value="'.$fila['intIdTipoCodigoProducto'].'"/>'.$fila['NombreTipoCodigo'].'
+            </td>
+            <td> 
+              <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarCodigo(this)" data-toggle="tooltip" title="Editar">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button type="button" idcp="'.$fila['intIdCodigoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarCodigo(this)" data-toggle="tooltip" title="Eliminar">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
         </tr>';
         $i++;
       }

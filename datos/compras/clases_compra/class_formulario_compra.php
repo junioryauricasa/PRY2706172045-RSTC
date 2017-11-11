@@ -260,7 +260,7 @@ class FormularioCompra
           <hr>
           <div class="text-left"><h4>Detalle de la ubicación del Producto: <p id="CodigoProducto"></p></h4></div>
           <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table class="ExcelTable2007 rwd-table" width="100%">
               <thead>
               <tr>
                 <th class="heading" width="25px">&nbsp;</th>
