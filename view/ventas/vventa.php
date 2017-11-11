@@ -94,25 +94,26 @@ require_once '../../datos/conexion/bd_conexion.php';
     function AgregarFila(){
       $('#ListaDeProductosVender').append(
       '<tr>'+
-        '<td><input type="hidden" name="fila[]" value="'+num+'" form="form-venta" />'+
-            '<input type="hidden" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
-            '<input type="text" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
+        '<td class="heading" data-th="ID"></td>'+
+        '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-venta" />'+
+            '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
+            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
             '<div class="result" id="result'+num+'">'+
         '</td>'+
-        '<td><input type="text" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
+        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
         '<td>'+
           '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-venta" readonly />'+
           '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-venta" readonly />'+
           '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-venta" readonly />'+
         '</td>'+
-        '<td><input type="text" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
+        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
           'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-        '<td><input type="text" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
+        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
         '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-venta" idsprt="'+num+'"'+
           'onkeyup="CalcularPrecioTotal(this)"/></td>'+
         '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
         '<td>'+
-          '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button>'+
+          '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
         '</td>'+
       '</tr>');
       num++;
@@ -362,50 +363,66 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12" style="max-height: 200px; overflow-y: visible;">
+              <div class="col-md-12">
                 <!-- Comentar-->
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
                   <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
                       <th class="heading" width="25px">&nbsp;</th>
-                      <th>Código</th>
+                      <th style="width: 110px" >Código</th>
                       <th>Descripción</th>
-                      <th>Precio Lista</th>
-                      <th>Desc. (%)</th>
-                      <th>Precio Unit.</th>
-                      <th>Cantidad</th>
-                      <th>Total</th>
-                      <th>Opciones</th>
+                      <th style="width: 110px" >Precio Lista</th>
+                      <th style="width: 110px" >Desc. (%)</th>
+                      <th style="width: 110px" >Precio Unit.</th>
+                      <th style="width: 110px" >Cantidad</th>
+                      <th style="width: 110px" >Total</th>
+                      <th style="width: 25px !important" ></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeProductosVender">
                       <tr>
+                        <td class="heading" data-th="ID"></td>
                         <td>
-                          <input type="hidden" name="fila[]" value="1" form="form-venta" />
-                          <input type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" />
-                          <input type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" />
-                          <div class="result" id="result1">
+                            <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-venta" />
+                            <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" />
+                            <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" />
+                            <div class="result" id="result1">
                         </td>
-                        <td><input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/></td>
                         <td>
-                          <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly />
-                          <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
-                          <input type="hidden" id="dcmDescuentoVenta31" form="form-venta" readonly />
+                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/>
                         </td>
-                        <td><input style="max-width: 55px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
-                          onkeyup="CalcularPrecioTotal(this)"/></td>
-                        <td><input style="max-width: 55px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>
-                        <td><input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1"
-                          onkeyup="CalcularPrecioTotal(this)"/></td>
-                        <td><input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-venta" readonly/></td>
-                        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
+                        <td>
+                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly />
+                            <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
+                            <input type="hidden" id="dcmDescuentoVenta31" form="form-venta" readonly />
+                        </td>
+                        <td>
+                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
+                          onkeyup="CalcularPrecioTotal(this)"/>
+                        </td>
+                        <td>
+                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1"
+                          onkeyup="CalcularPrecioTotal(this)"/>
+                        </td>
+                        <td>
+                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-venta" readonly/>
+                        </td>
+                        <td style="width: 25px !important" >
+                            <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
+                                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> 
+                            </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
+            <br><br>
             <div class="row">
               <div class="col-md-9">
                 <div class="form-group">
