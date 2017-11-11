@@ -174,21 +174,25 @@ class Cliente
             <td class="heading" data-th="ID"></td>
           ';
         }
-        if($intIdTipoPersona == 2) { echo '<td>'.$fila["nvchDNI"].'</td>'; }
-        echo '<td>'.$fila["nvchRUC"].'</td>';
-        if($intIdTipoPersona == 1) { echo '<td>'.$fila["nvchRazonSocial"].'</td>'; }
+        if($intIdTipoPersona == 2) { 
+            echo '<td>'.$fila["nvchDNI"].'</td>'; 
+        }
+            echo '<td>'.$fila["nvchRUC"].'</td>';
+
+        if($intIdTipoPersona == 1) { 
+            echo '<td>'.$fila["nvchRazonSocial"].'</td>'; }
         if($intIdTipoPersona == 2) {
-        echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
-        <td>'.$fila["nvchApellidoMaterno"].'</td>
-        <td>'.$fila["nvchNombres"].'</td>';
+            echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
+            <td>'.$fila["nvchApellidoMaterno"].'</td>
+            <td>'.$fila["nvchNombres"].'</td>';
         }
         echo '
             <td> 
               <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente">
-                <i class="fa fa-edit"></i> Editar
+                <i class="fa fa-edit" data-toggle="tooltip" title="Editar"></i>
               </button>
               <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-danger btn-eliminar-cliente">
-                <i class="fa fa-edit"></i> Eliminar
+                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>
               </button>
             </td>
         </tr>';

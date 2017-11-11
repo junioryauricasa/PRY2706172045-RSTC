@@ -475,28 +475,30 @@ class KardexProducto
             echo '<tr>';
           }
           echo 
-          '<td>'.$fila["nvchCodigo"].'</td>
-          <td>'.$fila["nvchDescripcion"].'</td>
-          <td>'.$fila["nvchSimbolo"].'</td>
-          <td>'.$fila["dcmPrecioVenta1"].'</td>
-          <td>'.$fila["dcmPrecioVenta2"].'</td>
-          <td>'.$fila["dcmPrecioVenta3"].'</td>
-          <td>'.$fila["intCantidad"].'</td>
-          <td>
-            <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
-              <i class="fa fa-edit"></i> Ver Detalle
-            </button>
-          </td>
-          <td>
-            <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
-              <i class="fa fa-search"></i> Ver 
-            </button>
-          </td>
-          <td> 
-            <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning" onclick="VerKardexProducto(this)">
-              <i class="fa fa-edit"></i> Ver Kardex
-            </button>
-          </td>  
+          '
+              <td class="heading" data-th="ID"></td>
+              <td>'.$fila["nvchCodigo"].'</td>
+              <td>'.$fila["nvchDescripcion"].'</td>
+              <td>'.$fila["nvchSimbolo"].'</td>
+              <td>'.$fila["dcmPrecioVenta1"].'</td>
+              <td>'.$fila["dcmPrecioVenta2"].'</td>
+              <td>'.$fila["dcmPrecioVenta3"].'</td>
+              <td>'.$fila["intCantidad"].'</td>
+              <td>
+                <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+                  <i class="fa fa-edit"></i> Ver Detalle
+                </button>
+              </td>
+              <td>
+                <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
+                  <i class="fa fa-search"></i> Ver 
+                </button>
+              </td>
+              <td> 
+                <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning" onclick="VerKardexProducto(this)">
+                  <i class="fa fa-edit"></i> Ver Kardex
+                </button>
+              </td>  
           </tr>';
           $i++;
         }

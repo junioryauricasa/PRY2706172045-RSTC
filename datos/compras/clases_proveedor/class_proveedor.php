@@ -153,20 +153,17 @@ class Proveedor
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
-          echo '
-              <tr bgcolor="#BEE1EB">
-              <td class="heading" data-th="ID"></td>
-              ';
+          echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdProveedor"] == $_SESSION['intIdProveedor'] && $tipolistado == "E"){
-          echo '
-              <tr bgcolor="#B3E4C0">
-                <td class="heading" data-th="ID"></td>';
+          echo '<tr bgcolor="#B3E4C0">';
         }else {
-          echo '
-              <tr>
-                <td class="heading" data-th="ID"></td>
-          ';
+          echo '<tr>';
         }
+        
+        echo '
+          <td class="heading" data-th="ID"></td>
+        ';
+
         if($intIdTipoPersona == 2) { echo '<td>'.$fila["nvchDNI"].'</td>'; }
         echo '<td>'.$fila["nvchRUC"].'</td>';
         if($intIdTipoPersona == 1) { echo '<td>'.$fila["nvchRazonSocial"].'</td>'; }
