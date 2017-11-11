@@ -174,73 +174,47 @@ function CamposDetalleVenta(accion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcular Precio Unitario */
 function CalcularPrecioTotal(accion) {
-	var intIdTipoCliente = 1;
-	//var intIdTipoCliente = $("#intIdTipoCliente").val();
+	var intIdTipoCliente = $("#intIdTipoCliente").val();
 	var intIdProducto = $(accion).attr("idsprt");
-	var dcmDescuentoVenta2 = $("#dcmDescuentoVenta2"+intIdProducto).val();
-	var dcmDescuentoVenta3 = $("#dcmDescuentoVenta3"+intIdProducto).val();
-	var dcmDescuento = $("#dcmDescuento"+intIdProducto).val();
-	var intCantidad = $("#intCantidad"+intIdProducto).val();
+	var dcmDescuentoVenta2 = $("input[type=hidden][name='SdcmDescuentoVenta2["+intIdProducto+"]']").val();
+	var dcmDescuentoVenta3 = $("input[type=hidden][name='SdcmDescuentoVenta3["+intIdProducto+"]']").val();
+	var dcmDescuento = $("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val();
+	var intCantidad = $("input[type=text][name='SintCantidad["+intIdProducto+"]']").val();
 	if((dcmDescuento == "" || dcmDescuento == null) && (intCantidad == "" || intCantidad == null)){
 		return false;
 	} else {
 		if(intIdTipoCliente == 1) {
 			if(Number(dcmDescuento) > dcmDescuentoVenta2) {
 				MensajeNormal("Sobrepasa al descuento 2",2);
-				$("#dcmDescuento"+intIdProducto).val("");
+				$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
 				return false;
 			}
 		} else if (intIdTipoCliente == 2) {
 			if(Number(dcmDescuento) > dcmDescuentoVenta3) {
 				MensajeNormal("Sobrepasa al descuento 3",2);
-				$("#dcmDescuento"+intIdProducto).val("");
+				$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
 				return false;
 			}
 		} else {
 			MensajeNormal("Seleccionar un Cliente",2);
-			$("#dcmDescuento"+intIdProducto).val("");
+			$("input[type=text][name='SdcmDescuento["+intIdProducto+"]']").val("");
 			return false
 		}
-		var dcmPrecioVenta1 = $("#dcmPrecio"+intIdProducto).val();
+		var dcmPrecioVenta1 = $("input[type=hidden][name='SdcmPrecioVenta1["+intIdProducto+"]']").val();
 		var dcmPrecioUnitario = (dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100))).toFixed(2);
-		$("#dcmPrecioUnitario"+intIdProducto).val(dcmPrecioUnitario);
+		$("input[type=text][name='SdcmPrecioLista["+intIdProducto+"]']").val(dcmPrecioUnitario);
 
 		if (intCantidad == "" || intCantidad == null) {
-			$("#dcmTotal"+intIdProducto).val("0.00");
-			CalcularTotal();
+			$("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val("0.00");
 			return false;
 		}
 		else {
 			var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
-			$("#dcmTotal"+intIdProducto).val(dcmTotal);
-			CalcularTotal();
+			$("input[type=text][name='SdcmTotal["+intIdProducto+"]']").val(dcmTotal);
 		}
 	}
 }
 /* FIN - Calcular Precio Unitario */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Calcula el Total del Comprobante */
-function CalcularTotal(){
-	var VentaTotal = 0.00;
-	var IGVVenta = 0.00;
-	var ValorVenta = 0.00;
-	Number(IGVVenta);
-	Number(VentaTotal);
-	Number(ValorVenta);
-	$('table tbody#ListaDeProductosVender tr').each(function() {
-        $(this).find("td input[name='dcmTotal[]']").each(function() {
-            VentaTotal = VentaTotal + Number(this.value);
-        }); 
-    });
-    ValorVenta = (VentaTotal / 1.18).toFixed(2);
-    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-    $("#ValorVenta").val(ValorVenta);
-    $("#IGVVenta").val(IGVVenta);
-	$("#VentaTotal").val(VentaTotal);
-}
-/* FIN - Calcula el Total del Comprobante */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -293,13 +267,14 @@ function InsertarCotizacion(seleccion) {
 	var intIdCotizacion = $(seleccion).attr("idct");
 	var funcion = "ICT";
 	var intIdTipoMoneda = $("#tipo-moneda").val();
+
 	$.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
 	   success:function(datos)
 	   {
-	   	$("#ListaDeProductosComprar").append(datos); 
+	   	$("#ListaDeProductosVender").append(datos); 
 	   }
 	});	
 }
@@ -327,11 +302,23 @@ $(document).on('keyup', '#BusquedaCotizacion', function(){
 function ListarCotizaciones(x,y) {
 	var busqueda = document.getElementById("BusquedaCotizacion").value;
 	var funcion = "MCT";
-	var tipolistado = "T";
+
+	if(EsFecha("dtmFechaInicialCT") == false){
+	  	var dtmFechaInicial = "";
+	  } else {
+	  	var dtmFechaInicial = $("#dtmFechaInicialCT").val();
+	  }
+	  if(EsFecha("dtmFechaFinalCT") == false){
+	  	var dtmFechaFinal = FechaActual();
+	  } else {
+	  	var dtmFechaFinal = $("#dtmFechaFinalCT").val();
+	  }
+
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,dtmFechaInicial:dtmFechaInicial,
+	   		dtmFechaFinal:dtmFechaFinal},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeCotizaciones").html(datos);
@@ -345,14 +332,25 @@ function ListarCotizaciones(x,y) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Clientes para la Selección */
 function PaginarCotizaciones(x,y) {
-	var busqueda = document.getElementById("BusquedaProducto").value;
+	var busqueda = document.getElementById("BusquedaCotizacion").value;
 	var funcion = "PCT";
-	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var tipolistado = "T";
+
+	if(EsFecha("dtmFechaInicialCT") == false){
+	  	var dtmFechaInicial = "";
+	  } else {
+	  	var dtmFechaInicial = $("#dtmFechaInicialCT").val();
+	  }
+	  if(EsFecha("dtmFechaFinalCT") == false){
+	  	var dtmFechaFinal = FechaActual();
+	  } else {
+	  	var dtmFechaFinal = $("#dtmFechaFinalCT").val();
+	  }
+
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,dtmFechaInicial:dtmFechaInicial,
+	   		dtmFechaFinal:dtmFechaFinal},
 	   success:function(datos)
 	   {
 	   	$("#PaginacionDeCotizaciones").html(datos);
