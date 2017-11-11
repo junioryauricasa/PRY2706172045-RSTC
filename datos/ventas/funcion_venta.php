@@ -139,11 +139,19 @@ switch($_POST['funcion']){
     break;
   case "MCT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->ListarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['dtmFechaInicial'],$_POST['dtmFechaFinal']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $DetalleVenta->ListarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$dtmFechaInicial,$dtmFechaFinal);
     break;
   case "PCT":
     $DetalleVenta = new DetalleVenta();
-    $DetalleVenta->PaginarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['dtmFechaInicial'],$_POST['dtmFechaFinal']);
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $DetalleVenta->PaginarCotizacionesVenta($_POST['busqueda'],$_POST['x'],$_POST['y'],$dtmFechaInicial,$dtmFechaFinal);
     break;
   case "NCPR":
     $Numeraciones = new Numeraciones();

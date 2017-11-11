@@ -302,7 +302,6 @@ $(document).on('keyup', '#BusquedaCotizacion', function(){
 function ListarCotizaciones(x,y) {
 	var busqueda = document.getElementById("BusquedaCotizacion").value;
 	var funcion = "MCT";
-	var tipolistado = "T";
 
 	if(EsFecha("dtmFechaInicialCT") == false){
 	  	var dtmFechaInicial = "";
@@ -318,7 +317,7 @@ function ListarCotizaciones(x,y) {
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,dtmFechaInicial:dtmFechaInicial,
 	   		dtmFechaFinal:dtmFechaFinal},
 	   success:function(datos)
 	   {
@@ -333,14 +332,25 @@ function ListarCotizaciones(x,y) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Paginar Clientes para la Selección */
 function PaginarCotizaciones(x,y) {
-	var busqueda = document.getElementById("BusquedaProducto").value;
+	var busqueda = document.getElementById("BusquedaCotizacion").value;
 	var funcion = "PCT";
-	var TipoBusqueda = document.getElementById("tipo-busqueda").value;
-	var tipolistado = "T";
+
+	if(EsFecha("dtmFechaInicialCT") == false){
+	  	var dtmFechaInicial = "";
+	  } else {
+	  	var dtmFechaInicial = $("#dtmFechaInicialCT").val();
+	  }
+	  if(EsFecha("dtmFechaFinalCT") == false){
+	  	var dtmFechaFinal = FechaActual();
+	  } else {
+	  	var dtmFechaFinal = $("#dtmFechaFinalCT").val();
+	  }
+
 	  $.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,tipolistado:tipolistado},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,dtmFechaInicial:dtmFechaInicial,
+	   		dtmFechaFinal:dtmFechaFinal},
 	   success:function(datos)
 	   {
 	   	$("#PaginacionDeCotizaciones").html(datos);
