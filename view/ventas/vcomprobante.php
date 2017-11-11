@@ -112,7 +112,7 @@ require_once '../../datos/conexion/bd_conexion.php';
           'onkeyup="CalcularPrecioTotal(this)"/></td>'+
         '<td><input type="text" style="width:100px !important" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
         '<td>'+
-          '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button>'+
+          '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> </button>'+
         '</td>'+
       '</tr>');
       num++;
@@ -402,7 +402,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width:100px !important">Precio Unit.</th>
                       <th style="width:150px !important">Cantidad</th>
                       <th style="width:100px !important">Total</th>
-                      <th>Opciones</th>
+                      <th style="width:50px !important"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeProductosVender">
@@ -437,7 +437,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                         <td>
                             <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
                                 <i class="fa fa-edit"></i> 
-                                Eliminar
                             </button>
                         </td>
                       </tr>
