@@ -448,12 +448,7 @@ class Producto
               }
             }
           ?>
-<<<<<<< HEAD
-              <li class="show truncate" align="left" >
-=======
-            <!--div class="show" align="left" -->
               <li class="show truncate" align="left" id="">
->>>>>>> 67bebcf5cc617ff4eb5aba2e9897e1a0b9394766
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
@@ -478,7 +473,7 @@ class Producto
     } 
   }
 
-  public function SeleccionarProducto()
+  public function SeleccionarProducto($intIdTipoMoneda)
   {
     try{
         $sql_conexion = new Conexion_BD();
@@ -486,6 +481,26 @@ class Producto
         $sql_comando = $sql_conectar->prepare('CALL mostrarproducto(:intIdProducto)');
         $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
         $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
+        $dtmFechaCambio =  date("Y-m-d");
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMonedaVenta'] != 1) {
+            $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']*$fila_moneda['dcmCambio2'],2); 
+            $fila['nvchSimbolo'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMonedaVenta'] != 2){
+            $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']/$fila_moneda['dcmCambio2'],2);
+            $fila['nvchSimbolo'] = "US$";
+          }
+        }
+
         $salida['intIdProducto'] = $fila['intIdProducto'];
         $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
         $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];

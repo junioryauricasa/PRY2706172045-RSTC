@@ -76,10 +76,11 @@ require_once '../../datos/conexion/bd_conexion.php';
 
     function InsertarProductoElegido(intIdProducto,id){
       var funcion = "SP";
+      var intIdTipoMoneda = $("#intIdTipoMoneda").val();
       $.ajax({
        url:"../../datos/inventario/funcion_producto.php",
        method:"POST",
-       data:{intIdProducto:intIdProducto,funcion:funcion},
+       data:{intIdProducto:intIdProducto,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
        dataType:"json",
        success:function(datos)
        {
@@ -258,7 +259,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Seleccionar el Tipo de Venta:</label>
-                  <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
+                  <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
@@ -280,7 +281,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Moneda:</label>
-                  <select id="intIdTipoMoneda" name="intIdTipoMoneda" class="form-control select2" form="form-venta">
+                  <select id="intIdTipoMoneda" name="intIdTipoMoneda" class="form-control select2" onchange="CalcularTotal()" form="form-venta">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
