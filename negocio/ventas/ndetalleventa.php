@@ -107,6 +107,14 @@ function CalcularPrecioTotal(accion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
+	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+	var nvchSimbolo = ""
+	if(intIdTipoMoneda == 1){
+		nvchSimbolo = "S/.";
+	} else if (intIdTipoMoneda == 2){
+		nvchSimbolo = "US$";
+	}
+
 	var VentaTotal = 0.00;
 	var IGVVenta = 0.00;
 	var ValorVenta = 0.00;
@@ -120,9 +128,10 @@ function CalcularTotal(){
     });
     ValorVenta = (VentaTotal / 1.18).toFixed(2);
     IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-    $("#ValorVenta").val(ValorVenta);
-    $("#IGVVenta").val(IGVVenta);
-	$("#VentaTotal").val(VentaTotal);
+    VentaTotal = VentaTotal.toFixed(2);
+    $("#ValorVenta").val(nvchSimbolo + ' ' + ValorVenta);
+    $("#IGVVenta").val(nvchSimbolo + ' ' + IGVVenta);
+	$("#VentaTotal").val(nvchSimbolo + ' ' + VentaTotal);
 }
 /* FIN - Calcula el Total del Comprobante */
 //////////////////////////////////////////////////////////////
@@ -188,6 +197,7 @@ function InsertarCotizacion(seleccion) {
 	   	$("#ListaDeProductosVender").append(datos); 
 	   	ReestablecerNumeracionFilas();
 	   	CalcularTotal();
+	   	$("#formCotizacion").modal("hide");
 	   }
 	});
 }

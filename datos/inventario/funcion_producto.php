@@ -74,7 +74,7 @@ switch($_POST['funcion']){
   case "SP":
     $Producto = new Producto();
     $Producto->IdProducto($_POST['intIdProducto']);
-    $Producto->SeleccionarProducto();
+    $Producto->SeleccionarProducto($_POST['intIdTipoMoneda']);
     break;
   case "IUP":
     $UbigeoProducto = new UbigeoProducto();
