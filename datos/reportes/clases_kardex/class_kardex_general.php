@@ -68,7 +68,7 @@ class KardexGeneral
 
         echo 
         '<tr>
-            <td class="heading" data-th="ID">2</td>
+            <td class="heading" data-th="ID"></td>
             <td>'.$j.'</td>
             <td>'.$fila["dtmFechaMovimiento"].'</td>
             <td>'.$fila["nvchCodigo"].'</td>

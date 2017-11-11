@@ -115,9 +115,11 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
         }
 
         echo 
-        '<tr>
-        <td style="font-family: Calibri;"><small>'.$j.'</small></td>
-        <td><small>'.$fila["dtmFechaMovimiento"].'</small></td>';
+        '
+        <tr>
+          <!--td class="heading" data-th="ID"></td-->
+          <td style="font-family: Calibri;"><small>'.$j.'</small></td>
+          <td><small>'.$fila["dtmFechaMovimiento"].'</small></td>';
         if($fila["intTipoDetalle"] == 1){
           echo '<td style="font-family: Calibri;"><small>Salida</small></td>';
         } else if($fila["intTipoDetalle"] == 2){
@@ -126,7 +128,7 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
           echo '<td style="font-family: Calibri;"><small>Inicial</small></td>';
         }
         echo 
-        '   <td class="heading" data-th="ID">12</td>
+        '   <td class="heading" data-th="ID"></td>
             <td style="font-family: Calibri;"><small>'.$fila["NombreComprobante"].'</small></td>
             <td style="font-family: Calibri;"><small>'.$fila["nvchSerie"].'</small></td>
             <td style="font-family: Calibri;"><small>'.$fila["nvchNumeracion"].'</small></td>

@@ -82,12 +82,17 @@ class DomicilioCliente
       {
         if($_SESSION['intIdDomicilioCliente'] == $fila['intIdDomicilioCliente'] && $tipolistado == "A"){
           echo '<tr bgcolor="#B3E4C0">';
-        } else if($cantidad == $i && $tipolistado == "I"){
+        } else 
+        if($cantidad == $i && $tipolistado == "I"){
           echo '<tr bgcolor="#BEE1EB">';
-        } else {
+        } else 
+        {
           echo '<tr bgcolor="#F7FCCF">';
         }
-        echo '<td>'.$fila['nvchPais'].'</td>
+
+        echo '
+        <td class="heading" data-th="ID"></td>
+        <td>'.$fila['nvchPais'].'</td>
         <td>'.$fila['nvchDepartamento'].'</td>
         <td>'.$fila['nvchProvincia'].'</td>
         <td>'.$fila['nvchDistrito'].'</td>
@@ -95,10 +100,10 @@ class DomicilioCliente
         <td>'.$fila['NombreTD'].'</td>
         <td> 
           <button type="button" iddcl="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDomicilio(this)">
-            <i class="fa fa-edit"></i> Editar
+            <i class="fa fa-edit" data-toggle="tooltip" title="Editar"></i>
           </button>
           <button type="button" iddcl="'.$fila['intIdDomicilioCliente'].'" class="btn btn-xs btn-danger" onclick="EliminarDomicilio(this)">
-            <i class="fa fa-edit"></i> Eliminar
+            <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>
           </button>
         </td>
         </tr>';

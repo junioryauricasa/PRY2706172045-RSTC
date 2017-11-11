@@ -210,9 +210,10 @@
                   </div>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-hover table-condensed">
+                  <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
+                      <th class="heading" width="25px">&nbsp;</th>
                       <th>Código</th>
                       <th>Tipo</th>
                       <th>Opción</th>
@@ -273,9 +274,10 @@
                   </div>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-hover table-condensed">
+                  <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
+                      <th class="heading" width="25px">&nbsp;</th>
                       <th>Sucursal</th>
                       <th>Ubicación en el Almacén</th>
                       <th>Cantidad</th>

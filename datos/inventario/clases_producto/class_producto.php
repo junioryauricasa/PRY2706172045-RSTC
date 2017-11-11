@@ -448,7 +448,12 @@ class Producto
               }
             }
           ?>
+<<<<<<< HEAD
               <li class="show truncate" align="left" >
+=======
+            <!--div class="show" align="left" -->
+              <li class="show truncate" align="left" id="">
+>>>>>>> 67bebcf5cc617ff4eb5aba2e9897e1a0b9394766
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
@@ -461,7 +466,7 @@ class Producto
           ?>
             <div class="show" align="left">
               <span class="btnNuevoProducto">
-                <a href="#" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <a href="#" style="background-color: none; color: black; font-weight: bolder">click aquí</a> para ingresar uno nuevo
+                <a href="#" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <span class="nvchCodigo" id="textbolder" style=""> Click Aquí</span> para ingresar uno nuevo
               </span>
             </div>
           <?php

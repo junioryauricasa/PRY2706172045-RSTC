@@ -441,7 +441,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <input type="hidden" name="fila[]" value="1" form="form-venta"  style="width:130px"/>
                           <input type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" style="width:130px"/>
                           <input type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" style="width:130px"/>
+                          
+                          <!-- Mostrando las sugerencias de autocompletado -->
+                          
                           <div class="result" id="result1" style="width:130px">
+                          </div>
+
+                          <!--script> $("#result1").tabs(); </script-->
+
                         </td>
                         <td width="">
                           <input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" style="width:100% !important" readonly/></td>
