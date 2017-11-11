@@ -476,7 +476,6 @@ class KardexProducto
           }
           echo 
           '
-              <td class="heading" data-th="ID"></td>
               <td>'.$fila["nvchCodigo"].'</td>
               <td>'.$fila["nvchDescripcion"].'</td>
               <td>'.$fila["nvchSimbolo"].'</td>

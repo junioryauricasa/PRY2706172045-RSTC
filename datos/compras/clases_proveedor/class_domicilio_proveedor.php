@@ -87,7 +87,9 @@ class DomicilioProveedor
         } else {
           echo '<tr bgcolor="#F7FCCF">';
         }
-        echo '<td>'.$fila['nvchPais'].'</td>
+        echo '
+        <td class="heading" data-th="ID"></td>
+        <td>'.$fila['nvchPais'].'</td>
         <td>'.$fila['nvchDepartamento'].'</td>
         <td>'.$fila['nvchProvincia'].'</td>
         <td>'.$fila['nvchDistrito'].'</td>
