@@ -139,8 +139,8 @@ require_once '../../datos/conexion/bd_conexion.php';
     {
         position: absolute;
         z-index: 100;
-        width:500px !important;
-        padding:10px;
+        width: 500px !important;
+        /*padding:10px;*/
         display:none;
         margin-top:-1px;
         border-top:0px;
@@ -150,16 +150,35 @@ require_once '../../datos/conexion/bd_conexion.php';
     }
     .show
     {
-        padding:10px;
+        padding:5px;
         border-bottom:1px solid #000000;
         font-size:15px; 
-        height:50px;
+        /*height:50px;*/
     }
     .show:hover
     {
         background:#4c66a4;
         color:#FFF;
         cursor:pointer;
+    }
+    
+    /*
+        @Nombre: Truncate Text
+        @Autor: JY
+        @Descripción: 
+            Antes >>
+
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ipsa sed, quas molestias quidem ducimus consectetur neque doloribus vitae quasi blanditiis qui iure, tempore explicabo exercitationem nisi hic officiis eos.
+
+            Despues >>
+
+            Lorem ipsum solor...
+    */
+    .truncate {
+      width: 500px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     </style>
   <div class="content-wrapper">
