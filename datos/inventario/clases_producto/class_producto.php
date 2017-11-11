@@ -430,13 +430,14 @@ class Producto
           while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
           {
           ?>
-            <div class="show" align="left">
-              <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
-              <span class="nvchCodigo">
-                <?php echo $fila['nvchCodigo']; ?>
-              </span>&nbsp;<br/>
-                <?php echo $fila['nvchDescripcion']; ?><br/>
-            </div>
+            <!--div class="show" align="left" -->
+              <li class="show truncate" align="left" >
+                <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
+                <span class="nvchCodigo" id="textbolder" style="">
+                <?php echo ''.$fila['nvchCodigo'].""; ?>
+                </span>&nbsp;
+                <?php echo ' | '.$fila['nvchDescripcion']; ?>
+              </li>
           <?php
           }
         } else {

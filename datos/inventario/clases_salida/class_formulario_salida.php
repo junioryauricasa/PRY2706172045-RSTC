@@ -305,19 +305,30 @@ class FormularioSalida
         </div>
       </div>
           <div class="box-footer clearfix">
-              <?php if($funcion == "F"){ ?>
-              <input type="hidden" name="funcion" value="I" />
-              <input type="hidden" id="tipofuncion" name="tipofuncion" value="F" />
-              <?php } else if($funcion == "M") { ?>
-              <input type="hidden" name="funcion" value="A" />
-              <input type="hidden" id="tipofuncion" name="tipofuncion" value="M" />
-              <?php } ?>
-              <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
-              <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
-              <?php if($funcion == "F"){ ?>
-              <input type="button" id="btn-crear-salida" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Salida de Productos">
-              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
-              <?php } ?>
+              <?php 
+                if($funcion == "F"){ 
+              ?>
+                  <input type="hidden" name="funcion" value="I" />
+                  <input type="hidden" id="tipofuncion" name="tipofuncion" value="F" />
+                  <?php 
+              } else 
+                if($funcion == "M") { 
+              ?>
+                  <input type="hidden" name="funcion" value="A" />
+                  <input type="hidden" id="tipofuncion" name="tipofuncion" value="M" />
+              <?php 
+                  } 
+              ?>
+                  <input type="hidden" id="intIdVenta" name="intIdVenta" value="<?php echo $this->intIdVenta; ?>" />
+                  <input type="hidden" name="dtmFechaCreacion" value="<?php echo $this->dtmFechaCreacion; ?>" />
+              <?php 
+                  if($funcion == "F"){ 
+              ?>
+                  <input type="button" id="btn-crear-salida" class="btn btn-sm btn-info btn-flat pull-left" value="Generar Salida de Productos">
+                  <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px" required="">
+              <?php 
+                  } 
+              ?>
           </div>              
         </form>
         <div id="resultadocrud"></div>
