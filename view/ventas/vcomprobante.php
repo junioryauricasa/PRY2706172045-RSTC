@@ -99,18 +99,18 @@ require_once '../../datos/conexion/bd_conexion.php';
             '<input type="text" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta"  style="width:130px"/>'+
             '<div class="result" id="result'+num+'" style="width:130px">'+
         '</td>'+
-        '<td><input type="text" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
+        '<td><input type="text" style="width:100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
         '<td>'+
-          '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-venta" readonly />'+
+          '<input type="text" style="width:100px !important" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-venta" readonly />'+
           '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-venta" readonly />'+
           '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-venta" readonly />'+
         '</td>'+
-        '<td><input type="text" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
+        '<td><input type="text" style="width:150px !important" id="dcmDescuento'+num+'"  name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
           'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-        '<td><input type="text" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
-        '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-venta" idsprt="'+num+'"'+
+        '<td><input type="text" style="width:100px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
+        '<td><input type="text" style="width:150px !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-venta" idsprt="'+num+'"'+
           'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-        '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
+        '<td><input type="text" style="width:100px !important" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
         '<td>'+
           '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button>'+
         '</td>'+
@@ -397,11 +397,11 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th class="heading" width="25px">&nbsp;</th>
                       <th style="width:130px">Código</th>
                       <th>Descripción</th>
-                      <th>Precio Lista</th>
-                      <th>Desc. (%)</th>
-                      <th>Precio Unit.</th>
-                      <th>Cantidad</th>
-                      <th>Total</th>
+                      <th style="width:100px !important">Precio Lista</th>
+                      <th style="width:150px !important">Desc. (%)</th>
+                      <th style="width:100px !important">Precio Unit.</th>
+                      <th style="width:150px !important">Cantidad</th>
+                      <th style="width:100px !important">Total</th>
                       <th>Opciones</th>
                     </tr>
                     </thead>
@@ -415,19 +415,31 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <div class="result" id="result1" style="width:130px">
                         </td>
                         <td width="">
-                          <input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/></td>
+                          <input type="text" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" style="width:100% !important" readonly/></td>
                         <td>
-                          <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly />
+                          <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly style="width:100px !important"/>
                           <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
                           <input type="hidden" id="dcmDescuentoVenta31" form="form-venta" readonly />
                         </td>
-                        <td><input style="max-width: 55px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
-                          onkeyup="CalcularPrecioTotal(this)"/></td>
-                        <td><input style="max-width: 55px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>
-                        <td><input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1"
-                          onkeyup="CalcularPrecioTotal(this)"/></td>
-                        <td><input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-venta" readonly/></td>
-                        <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
+                        <td>
+                            <input style="width:150px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
+                          onkeyup="CalcularPrecioTotal(this)"/>
+                        </td>
+                        <td>
+                            <input style="width:100px !important" type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1" onkeyup="CalcularPrecioTotal(this)" style="width:150px !important"/>
+                        </td>
+                        <td>
+                            <input type="text" id="dcmTotal1" name="dcmTotal[]" style="width:100px !important" form="form-venta" readonly/>
+                        </td>
+                        <td>
+                            <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
+                                <i class="fa fa-edit"></i> 
+                                Eliminar
+                            </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
