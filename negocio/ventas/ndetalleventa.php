@@ -9,6 +9,21 @@ function EliminarFila(btn) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Eliminar Filas Vacias */
+function EliminarFilasVacias() {
+	$('table tbody#ListaDeProductosVender tr').each(function() {
+        $(this).find("td input[name='nvchDescripcion[]']").each(function() {
+            if(this.value == "" || this.value == null){
+            	var fila = this.parentNode.parentNode;
+  				fila.parentNode.removeChild(fila);
+            }
+        });
+    });
+}
+/* FIN - Eliminar Filas Vacias */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
 function MostrarDetalleVenta(intIdVenta,tipolistado) {
 	var funcion = "MDV";
@@ -44,8 +59,7 @@ function CamposDetalleVenta(accion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcular Precio Unitario */
 function CalcularPrecioTotal(accion) {
-	var intIdTipoCliente = 1;
-	//var intIdTipoCliente = $("#intIdTipoCliente").val();
+	var intIdTipoCliente = $("#intIdTipoCliente").val();
 	var intIdProducto = $(accion).attr("idsprt");
 	var dcmDescuentoVenta2 = $("#dcmDescuentoVenta2"+intIdProducto).val();
 	var dcmDescuentoVenta3 = $("#dcmDescuentoVenta3"+intIdProducto).val();
@@ -164,20 +178,13 @@ function InsertarCotizacion(seleccion) {
 	var funcion = "ICT";
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 
-	$('table tbody#ListaDeProductosVender tr').each(function() {
-        $(this).find("td input[name='nvchDescripcion[]']").each(function() {
-            if(this.value == "" || this.value == null){
-            	var fila = this.parentNode.parentNode;
-  				fila.parentNode.removeChild(fila);
-            }
-        });
-    });
 	$.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,num:num},
 	   success:function(datos)
 	   {
+	   	EliminarFilasVacias();
 	   	$("#ListaDeProductosVender").append(datos); 
 	   	ReestablecerNumeracionFilas();
 	   	CalcularTotal();

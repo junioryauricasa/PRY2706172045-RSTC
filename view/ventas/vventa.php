@@ -29,10 +29,11 @@ require_once '../../datos/conexion/bd_conexion.php';
       var funcion = "BP"
       if(search != '')
       {
+          var intIdTipoMoneda = $("#intIdTipoMoneda").val();
           $.ajax({
           type: "POST",
           url: "../../datos/inventario/funcion_producto.php",
-          data: {search:search,funcion:funcion},
+          data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
           cache: false,
           success: function(html)
           {
@@ -297,7 +298,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Forma de Pago:</label>
-                  <select id="tipo-pago" name="intIdTipoPago" class="form-control select2" form="form-venta">
+                  <select id="intIdTipoPago" name="intIdTipoPago" class="form-control select2" form="form-venta">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();

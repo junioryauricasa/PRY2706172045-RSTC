@@ -417,7 +417,7 @@ class Producto
     }
   }
 
-  public function BuscarProducto($buscar)
+  public function BuscarProducto($buscar,$intIdTipoMoneda)
   {
     try{
       if($buscar != ""){
@@ -429,14 +429,31 @@ class Producto
         if($cantidad > 0){
           while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
           {
+            $dtmFechaCambio =  date("Y-m-d");
+            $sql_conexion_moneda = new Conexion_BD();
+            $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+            $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+            $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+            $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+            if($intIdTipoMoneda == 1){
+              if($fila['intIdTipoMonedaVenta'] != 1) {
+                $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']*$fila_moneda['dcmCambio2'],2); 
+                $fila['nvchSimbolo'] = "S/.";
+              }
+            } 
+            else if ($intIdTipoMoneda == 2){
+              if($fila['intIdTipoMonedaVenta'] != 2){
+                $fila['dcmPrecioVenta1'] = round($fila['dcmPrecioVenta1']/$fila_moneda['dcmCambio2'],2);
+                $fila['nvchSimbolo'] = "US$";
+              }
+            }
           ?>
-            <!--div class="show" align="left" -->
               <li class="show truncate" align="left" >
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
                 </span>&nbsp;
-                <?php echo ' | '.$fila['nvchDescripcion']; ?>
+                <?php echo ' | '.$fila['nvchDescripcion'].' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1']; ?>
               </li>
           <?php
           }
