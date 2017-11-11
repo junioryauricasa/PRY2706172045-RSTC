@@ -266,10 +266,8 @@ function LimpiarDetalleUbigeo() {
 function InsertarCotizacion(seleccion) {
 	var intIdCotizacion = $(seleccion).attr("idct");
 	var funcion = "ICT";
-	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+	var intIdTipoMoneda = $("#tipo-moneda").val();
 
-	var num_filas_domicilio = document.getElementById('ListaDeDomicilios').rows.length;
-	/*
 	$.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
@@ -279,7 +277,6 @@ function InsertarCotizacion(seleccion) {
 	   	$("#ListaDeProductosVender").append(datos); 
 	   }
 	});	
-	*/
 }
 /* FIN - Listar Domicilios según Ingresa */
 //////////////////////////////////////////////////////////////
