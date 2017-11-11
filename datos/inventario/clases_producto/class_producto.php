@@ -209,7 +209,7 @@ class Producto
               <td align="right"data-th="Precio de Venta 1">'.$fila["dcmPrecioVenta1"].'</td>
               <td align="right"data-th="Precio de venta 2">'.$fila["dcmPrecioVenta2"].'</td>
               <td align="right"data-th="Preio de Venta 3">'.$fila["dcmPrecioVenta3"].'</td>
-              <td align="right"data-th="Cant. Total">'.$fila["intCantidad"].'</td>
+              <td align="right"data-th="Cant. Total" style="width:250px !important">'.$fila["intCantidad"].'</td>
               <td align="right"data-th="Ubicación">
                 <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
                   <i class="fa fa-edit"></i> Ver Detalle
@@ -443,7 +443,7 @@ class Producto
           ?>
             <div class="show" align="left">
               <span class="btnNuevoProducto">
-                <b class="text-danger">No existe el producto</b>: Hacer <b>click aquí</b> para ingresar uno nuevo
+                <a href="" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <a href="#" style="background-color: none; color: black; font-weight: bolder">click aquí</a> para ingresar uno nuevo
               </span>
             </div>
           <?php
