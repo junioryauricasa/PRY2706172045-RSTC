@@ -219,6 +219,9 @@ function CalcularPrecioTotal(accion) {
 }
 /* FIN - Calcular Precio Unitario */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
 	var VentaTotal = 0.00;
 	var IGVVenta = 0.00;
@@ -237,6 +240,9 @@ function CalcularTotal(){
     $("#IGVVenta").val(IGVVenta);
 	$("#VentaTotal").val(VentaTotal);
 }
+/* FIN - Calcula el Total del Comprobante */
+//////////////////////////////////////////////////////////////
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Ver Imagen */
 function VerImagenProducto(seleccion) {
