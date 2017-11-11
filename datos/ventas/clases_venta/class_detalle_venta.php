@@ -523,7 +523,7 @@ class DetalleVenta
     }  
   }
 
-  public function InsertarCotizacion($intIdCotizacion,$intIdTipoMoneda)
+  public function InsertarCotizacion($intIdCotizacion,$intIdTipoMoneda,$num)
   {
     try{
       $sql_conexion = new Conexion_BD();
@@ -560,17 +560,29 @@ class DetalleVenta
         $dcmPrecioUnitario = number_format(($fila_producto['dcmPrecioVenta1'] - ($fila_producto['dcmPrecioVenta1']*($fila['dcmDescuento']/100))),2,'.','');
         $dcmTotal = number_format(($dcmPrecioUnitario * $fila['intCantidad']),2,'.','');
         echo '
-        <tr>
-          <td class="heading" data-th="ID"></td>
-          <td><input type="hidden" name="intIdProducto[]" value="'.$fila['intIdProducto'].'"/>'.$fila['nvchCodigo'].'</td>
-          <td>'.$fila['nvchDescripcion'].'</td>
-          <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-          <td><input type="hidden" name="dcmPrecio[]" value="'.$fila_producto['dcmPrecioVenta1'].'"/>
-          <input type="hidden" name="dcmDescuento[]" value="'.$fila['dcmDescuento'].'"/><input type="hidden" name="dcmPrecioUnitario[]" 
-          value="'.$dcmPrecioUnitario.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmPrecioUnitario.'</td>
-          <td><input type="hidden" name="dcmTotal[]" value="'.$dcmTotal.'"/>'.$fila_producto['nvchSimbolo'].' '.$dcmTotal.'</td>
-          <td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>
-        </tr>';
+        <tr>'.
+        '<td><input type="hidden" name="fila[]" value="'.$num.'" form="form-venta" />'.
+            '<input type="hidden" id="intIdProducto'.$num.'" name="intIdProducto[]" form="form-venta" value="'.$fila_producto['intIdProducto'].'" />'.
+            '<input type="text" class="buscar" id="nvchCodigo'.$num.'" name="nvchCodigo[]" form="form-venta" value="'.$fila_producto['nvchCodigo'].'" />'.
+            '<div class="result" id="result'.$num.'">'.
+        '</td>'.
+        '<td><input type="text" id="nvchDescripcion'.$num.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
+        '<td>'.
+          '<input type="text" id="dcmPrecio'.$num.'" name="dcmPrecio[]" form="form-venta" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta2'.$num.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta3'.$num.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
+        '</td>'.
+        '<td><input type="text" id="dcmDescuento'.$num.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$num.'"'.
+          'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" /></td>'.
+        '<td><input type="text" id="dcmPrecioUnitario'.$num.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
+        '<td><input type="text" id="intCantidad'.$num.'" name="intCantidad[]" form="form-venta" idsprt="'.$num.'"'.
+          'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'"/></td>'.
+        '<td><input type="text" id="dcmTotal'.$num.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
+        '<td>'.
+          '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button>'.
+        '</td>'.
+      '</tr>';
+      $num++;
         /*
         echo '
         <tr>

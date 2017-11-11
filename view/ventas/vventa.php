@@ -82,6 +82,7 @@ require_once '../../datos/conexion/bd_conexion.php';
        dataType:"json",
        success:function(datos)
        {
+        $("#intIdProducto"+id).val(datos.intIdProducto);
         $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
         $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
         $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);

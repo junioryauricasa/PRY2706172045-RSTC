@@ -294,29 +294,40 @@ function InsertarCotizacion(seleccion) {
 	var funcion = "ICT";
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 
-	var num_filas_ventas = document.getElementById('ListaDeProductosVender').rows.length;
-
 	$('table tbody#ListaDeProductosVender tr').each(function() {
         $(this).find("td input[name='nvchDescripcion[]']").each(function() {
             if(this.value == "" || this.value == null){
             	var fila = this.parentNode.parentNode;
   				fila.parentNode.removeChild(fila);
             }
-        }); 
+        });
     });
-	/*
 	$.ajax({
 	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,num:num},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeProductosVender").append(datos); 
+	   	ReestablecerNumeracionFilas();
 	   }
-	});	
-	*/
+	});
 }
 /* FIN - Listar Domicilios según Ingresa */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Reestablecer Numeración de Filas */
+function ReestablecerNumeracionFilas(){
+	var num_filas_ventas = document.getElementById('ListaDeProductosVender').rows.length;
+	$('table tbody#ListaDeProductosVender tr').each(function() {
+        $(this).find("td input[name='fila[]']").each(function() {
+            	num = this.value;
+        });
+    });
+    num++;
+}
+/* FIN - Reestablecer Numeración de Filas */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
