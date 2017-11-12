@@ -106,6 +106,61 @@ function CalcularPrecioTotal(accion) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
+function CambiarMoneda(){
+	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+	var dcmDescuento = 0.00;
+	var intCantidad = 0;
+	var dcmPrecio = 0.00;
+	var dcmPrecioUnitario = 0.00;
+	var dcmTotal = 0.00;
+	Number(dcmPrecio);
+	Number(dcmPrecioUnitario);
+	Number(dcmTotal);
+	Number(dcmDescuento);
+	Number(intCantidad);
+	var funcion = "MF";
+	  $.ajax({
+	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
+	   method:"POST",
+	   data:{funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$('table tbody#ListaDeProductosVender tr').each(function() {
+        	$(this).find("td input[name='fila[]']").each(function() {
+        		if($("#dcmPrecio"+this.value).val() != ""){
+	        		dcmPrecio = $("#dcmPrecio"+this.value).val();
+	        		dcmDescuento = $("#dcmDescuento"+this.value).val();
+	        		intCantidad = $("#intCantidad"+this.value).val();
+	        		Number(datos);
+
+		        	if(intIdTipoMoneda == 1){
+		        		dcmPrecio = (dcmPrecio * datos).toFixed(2);
+		        	} else if(intIdTipoMoneda == 2){
+		        		dcmPrecio = (dcmPrecio / datos).toFixed(2);
+		        	}
+
+		        	$("#dcmPrecio"+this.value).val(dcmPrecio);
+
+			        if($("#dcmDescuento"+this.value).val() != ""){
+			           	dcmPrecioUnitario = (dcmPrecio - (dcmPrecio*(dcmDescuento/100))).toFixed(2);
+			        	$("#dcmPrecioUnitario"+this.value).val(dcmPrecioUnitario);
+			        }
+			        if($("#intCantidad"+this.value).val() != ""){
+			        	dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+			        	$("#dcmTotal"+this.value).val(dcmTotal);
+			        }
+		    	}
+	        }); 
+	    });
+	   	CalcularTotal();
+	   }
+	  });
+}
+/* FIN - Calcular Precio Unitario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var nvchSimbolo = ""

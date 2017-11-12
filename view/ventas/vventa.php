@@ -281,7 +281,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Moneda:</label>
-                  <select id="intIdTipoMoneda" name="intIdTipoMoneda" class="form-control select2" onchange="CalcularTotal()" form="form-venta">
+                  <select id="intIdTipoMoneda" name="intIdTipoMoneda" class="form-control select2" onchange="CambiarMoneda()" form="form-venta">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
