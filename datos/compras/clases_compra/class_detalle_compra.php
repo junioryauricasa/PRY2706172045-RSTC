@@ -85,7 +85,9 @@ class DetalleCompra
           echo '<tr bgcolor="#F7FCCF">';
         }
       	echo 
-      	'<td>'.$i.'</td>
+      	'
+        <td class="heading" data-th="ID"></td>
+        <td>'.$i.'</td>
         <td>'.$fila['nvchCodigo'].'</td>
         <td>'.$fila['nvchDescripcion'].'</td>
         <td>'.$fila['intCantidad'].'</td>

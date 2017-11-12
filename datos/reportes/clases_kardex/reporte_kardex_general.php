@@ -48,7 +48,6 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
   <table id="TheTable" border="1" class="ExcelTable2007 rwd-table" width="100%">
     <thead>
       <tr>
-        <th class="heading" width="25px">&nbsp;</th>
         <th style="font-family: Calibri;"><small>Ítem</small></th>
         <th style="font-family: Calibri;"><small>Fecha</small></th>
         <th style="font-family: Calibri;"><small>Código del Producto</small></th>
@@ -92,7 +91,6 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
         
         echo 
         '<tr>
-            <td class="heading" data-th="ID"></td>
             <td style="font-family: Calibri;"><small>'.$j.'</small></td>
             <td style="font-family: Calibri;"><small>'.$fila["dtmFechaMovimiento"].'</small></td>
             <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
