@@ -144,7 +144,15 @@ function VerImagenProducto(seleccion) {
     $("#CuadroImagenTitulo").css("color", "#FFFFFF");
     $("#CuadroImagenFooter").css("background-color", "#cfd8dc");
     $("#CuadroImagenTitulo").html("Imágen del Producto");
-	$("#DireccionImgProducto").html("<img class='img-responsive center-block' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+	//$("#DireccionImgProducto").html("<img class='img-responsive center-block' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+
+	/* Mostrara una imagen nula si el producto no posee imagen */
+	if(!nvchDireccionImg){
+		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inventario/imgproducto/productosinfoto.png'/>");
+	}else{
+		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+	}
+	
 	$("#CuadroImagen").modal("show");
 }
 /* FIN - Ver Imagen */
