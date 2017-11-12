@@ -467,7 +467,7 @@ function VerImagenProducto(seleccion) {
 
 	/* Mostrara una imagen nula si el producto no posee imagen */
 	if(!nvchDireccionImg){
-		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='http://www.industriasjabonoso.com/img/producto-default.jpg'/>");
+		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inventario/imgproducto/productosinfoto.png'/>");
 	}else{
 		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
 	}
