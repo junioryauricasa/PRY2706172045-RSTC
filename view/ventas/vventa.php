@@ -424,22 +424,51 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
-            <br><br>
             <div class="row">
               <div class="col-md-9">
-                <div class="form-group">
-                  <label>Observación y/o Datos Adicionales (Opcional):</label>
-                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-venta" rows="6"></textarea>
-                </div>
               </div>
               <div class="col-md-3">
-                <div class="form-group">
+                <div class="row col-lg-12">
+                  <table border="1" class="ExcelTable2007 rwd-table" width="100%">
+                    <tbody>
+                      <tr>
+                          <th>Valor de Venta:</th>
+                          <td style="width: 120px !important">
+                              <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>IGV (18%):</th>
+                          <td style="width: 120px !important">
+                              <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>Venta Total:</th>
+                          <td style="width: 120px !important">
+                              <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!--div class="form-group">
                   <label>Valor de Venta:</label>
                   <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/><br>
                   <label>IGV (18%):</label>
                   <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/><br>
                   <label>Venta Total:</label>
                   <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-venta"/>
+                </div-->
+              </div>
+            </div>
+            <br><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Observación y/o Datos Adicionales (Opcional):</label>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-venta" rows="6"></textarea>
                 </div>
               </div>
             </div>
