@@ -30,6 +30,10 @@ switch($_POST['funcion']){
     $MonedaComercial->IdMonedaComercial($_POST['intIdMonedaComercial']);
     $MonedaComercial->MostrarMonedaComercial($_POST['funcion']);
     break;
+  case "MF":
+    $MonedaComercial = new MonedaComercial();
+    $MonedaComercial->MostrarMonedaComercialFecha();
+    break;
   case "E":
     $MonedaComercial = new MonedaComercial();
     $MonedaComercial->IdMonedaComercial($_POST['intIdMonedaComercial']);
