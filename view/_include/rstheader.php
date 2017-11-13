@@ -127,7 +127,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../reportes/vkardexgeneral">Reporte Kardex General</a></li>
               </ul>
             </li>
-            <li class="dropdown" id="ver-en-pc">
+            <!--li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Usuarios 
                 <b class="caret"></b>
@@ -137,7 +137,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>
                 <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
               </ul>
-            </li>
+            </li-->
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Administrativo 
@@ -147,8 +147,17 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../administrativo/vmonedatributaria">Administrar Cambio de Moneda Tributaria</a></li>
                 <li><a href="../administrativo/vmonedacomercial">Administrar Cambio de Moneda Comercial</a></li>
                 <li><a href="../administrativo/vnumeracion">Administrar Numeración de Comprobantes</a></li>
+                <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulo Usuarios</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
+                        <li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>
+                        <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
+                    </ul>
+                </li>
               </ul>
             </li>
+            <li class="" id=""><a href="../inventario/vmaquinaria">Equipos</a></li>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Mi Cuenta 
@@ -434,6 +443,55 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         color: #494949;
     }
 
+
+    /* Submenu */
+    .dropdown-submenu {
+    position: relative;
+    }
+
+    .dropdown-submenu>.dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+
+    .dropdown-submenu:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-submenu>a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover>a:after {
+        border-left-color: #fff;
+    }
+
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+
+    .dropdown-submenu.pull-left>.dropdown-menu {
+        left: -100%;
+        margin-left: 10px;
+        -webkit-border-radius: 6px 0 6px 6px;
+        -moz-border-radius: 6px 0 6px 6px;
+        border-radius: 6px 0 6px 6px;
+    }
 
 
     /* Show Options of menu */
