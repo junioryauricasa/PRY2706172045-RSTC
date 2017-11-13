@@ -18,6 +18,7 @@ require_once '../../datos/conexion/bd_conexion.php';
     </script>
     <script type="text/javascript">
     var num = 2;
+    var nums = 2;
     var numfila = 0;
     $(document).on('keyup', '.buscar', function(){
       $(this).closest('tr').find("input[name='fila[]']").each(function() {
@@ -94,31 +95,58 @@ require_once '../../datos/conexion/bd_conexion.php';
     }
 
     function AgregarFila(){
-      $('#ListaDeProductosVender').append(
-      '<tr>'+
-        '<td class="heading" data-th="ID"></td>'+
-        '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-venta" />'+
-            '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
-            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
-            '<div class="result" id="result'+num+'">'+
-        '</td>'+
-        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
-        '<td>'+
-          '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-venta" readonly />'+
-          '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-venta" readonly />'+
-          '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-venta" readonly />'+
-        '</td>'+
-        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
-          'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
-        '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-venta" idsprt="'+num+'"'+
-          'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-        '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
-        '<td>'+
-          '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
-        '</td>'+
-      '</tr>');
-      num++;
+    var intIdTipoVenta = $("#intIdTipoVenta").val();
+    if(intIdTipoVenta == 1){
+        $('#ListaDeProductosVender').append(
+        '<tr>'+
+          '<td class="heading" data-th="ID"></td>'+
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-venta" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-venta" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-venta" />'+
+              '<div class="result" id="result'+num+'">'+
+          '</td>'+
+          '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-venta" readonly/></td>'+
+          '<td>'+
+            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-venta" readonly />'+
+            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-venta" readonly />'+
+            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-venta" readonly />'+
+          '</td>'+
+          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-venta" idsprt="'+num+'"'+
+            'onkeyup="CalcularPrecioTotal(this)"/></td>'+
+          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-venta" readonly/></td>'+
+          '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-venta" idsprt="'+num+'"'+
+            'onkeyup="CalcularPrecioTotal(this)"/></td>'+
+          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-venta" readonly/></td>'+
+          '<td>'+
+            '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
+          '</td>'+
+        '</tr>');
+        num++;
+      } else if(intIdTipoVenta == 2){
+        $('#ListaDeServiciosVender').append(
+        '<tr>'+
+          '<td class="heading" data-th="ID"></td>'+
+          '<td>'+
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-venta" />'+
+            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-venta" />'+
+          '</td>'+
+          '<td>'+
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-venta" readonly/>'+
+         '</td>'+
+          '<td style="width: 25px !important" >'+
+            '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
+                '<i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>' +
+            '</button>'+
+          '</td>'+
+        '</tr>');
+        nums++;
+      }
     }
 
     function formCliente(){
@@ -129,6 +157,24 @@ require_once '../../datos/conexion/bd_conexion.php';
       $("#formCotizacion").modal("show");
     }
 
+    function ElegirTabla(intIdTipoVenta){
+      if(intIdTipoVenta == 1){
+        $("#tablaRepuestos").show();
+        $("#tablaServicios").hide();
+        $("#tablaMaquinarias").hide();
+        CalcularTotal();
+      } else if(intIdTipoVenta == 2) {
+        $("#tablaRepuestos").hide();
+        $("#tablaServicios").show();
+        $("#tablaMaquinarias").hide();
+        CalcularTotal();
+      } else if(intIdTipoVenta == 3) {
+        $("#tablaRepuestos").hide();
+        $("#tablaServicios").hide();
+        $("#tablaMaquinarias").show();
+        CalcularTotal();
+      }
+    }
 
     </script>
     <style>
@@ -259,7 +305,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Seleccionar el Tipo de Venta:</label>
-                  <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
+                  <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="ElegirTabla(this.value)" class="form-control select2">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
@@ -364,6 +410,9 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
+
+            <!-- INICIO Tabla - Repuestos -->
+            <div id="tablaRepuestos">
             <div class="row">
               <div class="col-md-12">
                 <!-- Comentar-->
@@ -424,6 +473,123 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
+            </div>
+            <!-- FIN Tabla - Repuestos -->
+
+            <!-- INICIO Tabla - Servicios -->
+            <div id="tablaServicios">
+            <div class="row">
+              <div class="col-md-12">
+                <!-- Comentar-->
+                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
+                  <table class="ExcelTable2007 rwd-table" width="100%">
+                    <thead>
+                    <tr>
+                      <th class="heading" width="25px">&nbsp;</th>
+                      <th style="width: 110px" >Cantidad</th>
+                      <th>Descripción</th>
+                      <th style="width: 110px" >Precio Unit.</th>
+                      <th style="width: 110px" >Total</th>
+                      <th style="width: 25px !important" ></th>
+                    </tr>
+                    </thead>
+                    <tbody id="ListaDeServiciosVender">
+                      <tr>
+                        <td class="heading" data-th="ID"></td>
+                        <td>
+                          <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-venta" />
+                          <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-venta" 
+                          onkeyup="CalcularPrecioTotalS(this)"/>
+                        </td>
+                        <td>
+                          <input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-venta" />
+                        </td>
+                        <td>
+                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>
+                        </td>
+                        <td>
+                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-venta" readonly/>
+                        </td>
+                        <td style="width: 25px !important" >
+                          <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
+                              <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> 
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+            <!-- FIN Tabla - Servicios -->
+
+            <!-- INICIO Tabla - Maquinarias -->
+            <div id="tablaMaquinarias">
+            <div class="row">
+              <div class="col-md-12">
+                <!-- Comentar-->
+                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
+                  <table class="ExcelTable2007 rwd-table" width="100%">
+                    <thead>
+                    <tr>
+                      <th class="heading" width="25px">&nbsp;</th>
+                      <th style="width: 110px" >Código</th>
+                      <th>Descripción</th>
+                      <th style="width: 110px" >Precio Lista</th>
+                      <th style="width: 110px" >Desc. (%)</th>
+                      <th style="width: 110px" >Precio Unit.</th>
+                      <th style="width: 110px" >Cantidad</th>
+                      <th style="width: 110px" >Total</th>
+                      <th style="width: 25px !important" ></th>
+                    </tr>
+                    </thead>
+                    <tbody id="ListaDeProductosVender">
+                      <tr>
+                        <td class="heading" data-th="ID"></td>
+                        <td>
+                            <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-venta" />
+                            <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-venta" />
+                            <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-venta" />
+                            <div class="result" id="result1">
+                        </td>
+                        <td>
+                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-venta" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-venta" readonly />
+                            <input type="hidden" id="dcmDescuentoVenta21" form="form-venta" readonly />
+                            <input type="hidden" id="dcmDescuentoVenta31" form="form-venta" readonly />
+                        </td>
+                        <td>
+                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-venta" idsprt="1" 
+                          onkeyup="CalcularPrecioTotal(this)"/>
+                        </td>
+                        <td>
+                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-venta" readonly/>
+                        </td>
+                        <td>
+                            <input type="text" id="intCantidad1" name="intCantidad[]" form="form-venta" idsprt="1"
+                          onkeyup="CalcularPrecioTotal(this)"/>
+                        </td>
+                        <td>
+                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-venta" readonly/>
+                        </td>
+                        <td style="width: 25px !important" >
+                            <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
+                                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> 
+                            </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+            <!-- FIN Tabla - Maquinarias -->
+            <script type="text/javascript">ElegirTabla(1);</script>
+
             <div class="row">
               <div class="col-md-9">
               </div>
