@@ -5,6 +5,7 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARCOMPROBANTE(
 	OUT _intIdComprobante INT,
 	IN _intIdTipoComprobante INT,
+	IN _intTipoDetalle INT,
 	IN _intIdSucursal INT,
 	IN _dtmFechaCreacion DATETIME,
 	IN _nvchSerie VARCHAR(4),
@@ -23,10 +24,10 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_comprobante
-		(intIdTipoComprobante,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,intIdProveedor,
+		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,intIdProveedor,
 			nvchClienteProveedor,nvchDNIRUC,nvchDireccion,intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,bitEstado,nvchObservacion)
 		VALUES
-		(_intIdTipoComprobante,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_intIdProveedor,
+		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_intIdProveedor,
 			_nvchClienteProveedor,_nvchDNIRUC,_nvchDireccion,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_bitEstado,_nvchObservacion);
 		SET _intIdComprobante = LAST_INSERT_ID();
     END 
@@ -54,6 +55,7 @@ DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARCOMPROBANTE(
 	IN _intIdComprobante INT,
 	IN _intIdTipoComprobante INT,
+	IN _intTipoDetalle INT,
 	IN _intIdSucursal INT,
 	IN _dtmFechaCreacion DATETIME,
 	IN _nvchSerie VARCHAR(4),
@@ -75,6 +77,7 @@ DELIMITER $$
 		SET
 		intIdComprobante = _intIdComprobante,
 		intIdTipoComprobante = _intIdTipoComprobante,
+		intTipoDetalle = _intTipoDetalle,
 		intIdSucursal = _intIdSucursal,
 		dtmFechaCreacion = _dtmFechaCreacion,
 		nvchSerie = _nvchSerie,

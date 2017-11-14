@@ -145,6 +145,7 @@ class Cliente
       $salida['nvchNombres'] = $fila['nvchNombres'];
       $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
       $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['nvchDomicilio'] = $fila['nvchDomicilio'];
       $salida['TipoCliente'] = $fila['TipoCliente'];
       echo json_encode($salida);
     }
@@ -274,9 +275,28 @@ class Cliente
     }  
   }
 
-  public function PaginarClientees($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
+  public function PaginarClientes($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
   {
     try{
+      if($tipolistado == "V" && $busqueda == ""){
+        $output = ""; 
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Anterior</span>
+                    </a>
+                </li>';
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Siguiente</span>
+                    </a>
+                </li>';
+        echo $output;
+        return false;
+      }
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();

@@ -48,14 +48,14 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "N";
-  	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
+  	  var intIdTipoComprobante = document.getElementById("intIdTipoComprobante").value;
 	  $.ajax({
 	   url: "../../datos/comprobante/funcion_comprobante.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokokokok") {
+	   	if (datos=="okokokokokok" || datos=="okokok") {
 	   		MensajeNormal("Se generó correctamente la Venta",1);
 	   		/*
 	   		$("#btn-form-comprobante-remove").click();
@@ -453,17 +453,6 @@ function SeleccionarCliente(seleccion) {
 	   dataType:"json",
 	   success:function(datos)
 	   {
-	   	/*
-	   	$("#intIdCliente").val(datos.intIdCliente);
-	   	$("#nvchRUC").val(datos.nvchRUC);
-	   	$("#nvchDNI").val(datos.nvchDNI);
-	   	$("#nvchRazonSocial").val(datos.nvchRazonSocial);
-	   	$("#nvchApellidoPaterno").val(datos.nvchApellidoPaterno);
-	   	$("#nvchApellidoMaterno").val(datos.nvchApellidoMaterno);
-	   	$("#nvchNombres").val(datos.nvchNombres);
-	   	$("#TipoCliente").val(datos.TipoCliente);
-	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
-	   	*/
 	   	if(datos.intIdTipoPersona == 1){
 	   	 $("#nvchNumDocumento").val(datos.nvchRUC);
 	   	 $("#nvchDenominacion").val(datos.nvchRazonSocial);
@@ -475,8 +464,8 @@ function SeleccionarCliente(seleccion) {
 	   	$("#TipoCliente").val(datos.TipoCliente);
 	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 	   	$("#nvchDomicilio").val(datos.nvchDomicilio);
+	   	$("#intIdCliente").val(datos.intIdCliente);
 	   	$("#formCliente").modal("hide");
-	   	//MostrarSeleccionCliente(datos.intIdTipoPersona);
 	   }
 	  });
 }

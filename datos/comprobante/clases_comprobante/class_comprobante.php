@@ -4,6 +4,7 @@ class Comprobante{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdComprobante;
   private $intIdTipoComprobante;
+  private $intTipoDetalle;
   private $intIdSucursal;
   private $dtmFechaCreacion;
   private $nvchSerie;
@@ -22,6 +23,7 @@ class Comprobante{
   
   public function IdComprobante($intIdComprobante){ $this->intIdComprobante = $intIdComprobante; }
   public function IdTipoComprobante($intIdTipoComprobante){ $this->intIdTipoComprobante = $intIdTipoComprobante; }
+  public function TipoDetalle($intTipoDetalle){ $this->intTipoDetalle = $intTipoDetalle; }
   public function IdSucursal($intIdSucursal){ $this->intIdSucursal = $intIdSucursal; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
@@ -45,11 +47,12 @@ class Comprobante{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarComprobante(@intIdComprobante,:intIdTipoComprobante,:intIdSucursal,
+      $sql_comando = $sql_conectar->prepare('CALL insertarComprobante(@intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,
         :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+        ':intTipoDetalle' => $this->intTipoDetalle,
         ':intIdSucursal' => $this->intIdSucursal,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchSerie' => $this->nvchSerie,
@@ -127,6 +130,7 @@ class Comprobante{
       $sql_comando->execute(array(
         ':intIdComprobante' => $this->intIdComprobante,
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+        ':intTipoDetalle' => $this->intTipoDetalle,
         ':intIdSucursal' => $this->intIdSucursal,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchSerie' => $this->nvchSerie,

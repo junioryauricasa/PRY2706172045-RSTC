@@ -1,11 +1,12 @@
 <?php 
 require_once '../conexion/bd_conexion.php';
-class DetalleVenta
+class DetalleComprobante
 {	
   /* INICIO - Atributos de Detalle Orden Compra*/
   private $intIdDetalleComprobante;
   private $intIdComprobante;
   private $intIdTipoVenta;
+  private $intTipoDetalle;
   private $dtmFechaRealizada;
   private $intIdProducto;
   private $nvchCodigo;
@@ -19,6 +20,7 @@ class DetalleVenta
   public function IdDetalleComprobante($intIdDetalleComprobante){ $this->intIdDetalleComprobante = $intIdDetalleComprobante; }
   public function IdComprobante($intIdComprobante){ $this->intIdComprobante = $intIdComprobante; }
   public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
+  public function TipoDetalle($intTipoDetalle){ $this->intTipoDetalle = $intTipoDetalle; }
   public function FechaRealizada($dtmFechaRealizada){ $this->dtmFechaRealizada = $dtmFechaRealizada; }
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
   public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
@@ -31,19 +33,20 @@ class DetalleVenta
   /* FIN - Atributos de Detalle Orden Compra */
 
   /* INICIO - Métodos de Detalle Orden Compra */
-  public function InsertarDetalleVenta()
+  public function InsertarDetalleComprobante()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intCantidad as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdComprobante,
-        :intIdTipoVenta,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
-        :intCantidad,:dcmTotal)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleComprobante(:intIdComprobante,
+        :intIdTipoVenta,:intTipoDetalle,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,
+        :dcmPrecioUnitario,:intCantidad,:dcmTotal)');
       if($this->intIdTipoVenta == 1){
           $sql_comando->execute(array(
           ':intIdComprobante' => $this->intIdComprobante,
-          ':intIdTipoVenta' => $this->intIdTipoVenta, 
+          ':intIdTipoVenta' => $this->intIdTipoVenta,
+          ':intTipoDetalle' => $this->intTipoDetalle,
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
           ':intIdProducto' => $this->intIdProducto[$key],
           ':nvchCodigo' => $this->nvchCodigo[$key],
@@ -57,9 +60,10 @@ class DetalleVenta
           $sql_comando->execute(array(
           ':intIdComprobante' => $this->intIdComprobante,
           ':intIdTipoVenta' => $this->intIdTipoVenta, 
+          ':intTipoDetalle' => $this->intTipoDetalle,
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
           ':intIdProducto' => 0,
-          ':nvchCodigo' => $this->nvchCodigo[$key],
+          ':nvchCodigo' => '',
           ':nvchDescripcion' => $this->nvchDescripcion[$key],
           ':dcmPrecio' => 0.00,
           ':dcmDescuento' => 0.00,
@@ -75,7 +79,7 @@ class DetalleVenta
     }
   }
 
-  public function MostrarDetalleVenta($tipolistado)
+  public function MostrarDetalleComprobante($tipolistado)
   {
     try{
       $sql_conexion = new Conexion_BD();
@@ -119,7 +123,7 @@ class DetalleVenta
     }    
   }
 
-  public function EliminarDetalleVenta()
+  public function EliminarDetalleComprobante()
   {
     try{
       $sql_conexion = new Conexion_BD();

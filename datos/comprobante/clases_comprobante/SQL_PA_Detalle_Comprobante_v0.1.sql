@@ -5,6 +5,7 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARDETALLECOMPROBANTE(
 	IN _intIdComprobante INT,
 	IN _intIdTipoVenta INT,
+	IN _intTipoDetalle INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intIdProducto INT,
 	IN _nvchCodigo VARCHAR(100),
@@ -17,11 +18,11 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_detalle_comprobante 
-		(intIdComprobante,intIdTipoVenta,dtmFechaRealizada,intIdProducto,nvchCodigo,nvchDescripcion,dcmPrecio,dcmDescuento,
-			dcmPrecioUnitario,dcmTotal)
+		(intIdComprobante,intIdTipoVenta,intTipoDetalle,dtmFechaRealizada,intIdProducto,nvchCodigo,nvchDescripcion,dcmPrecio,dcmDescuento,
+			dcmPrecioUnitario,intCantidad,dcmTotal)
 		VALUES
-		(_intIdComprobante,_intIdTipoVenta,_dtmFechaRealizada,_intIdProducto,_nvchCodigo,_nvchDescripcion,_dcmPrecio,_dcmDescuento,
-			_dcmPrecioUnitario,_dcmTotal);
+		(_intIdComprobante,_intIdTipoVenta,_intTipoDetalle,_dtmFechaRealizada,_intIdProducto,_nvchCodigo,_nvchDescripcion,_dcmPrecio,_dcmDescuento,
+			_dcmPrecioUnitario,_intCantidad,_dcmTotal);
     END 
 $$
 DELIMITER ;
@@ -32,6 +33,7 @@ DELIMITER $$
 	IN _intIdDetalleComprobante INT,
 	IN _intIdComprobante INT,
 	IN _intIdTipoVenta INT,
+	IN _intTipoDetalle INT,
 	IN _dtmFechaRealizada DATETIME,
 	IN _intIdProducto INT,
 	IN _nvchCodigo VARCHAR(100),
@@ -47,6 +49,7 @@ DELIMITER $$
 		SET
 		intIdComprobante = _intIdComprobante,
 		intIdTipoVenta = _intIdTipoVenta,
+		intTipoDetalle = _intTipoDetalle,
 		dtmFechaRealizada = _dtmFechaRealizada,
 		intIdProducto = _intIdProducto,
 		nvchCodigo = _nvchCodigo,
