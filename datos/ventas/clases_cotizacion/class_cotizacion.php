@@ -242,14 +242,14 @@ class Cotizacion{
             <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCotizacion"].'</td>
             <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCotizacion"].'</td>
             <td> 
-              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion">
-                <i class="fa fa-edit"></i> Ver Detalle
+              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion" data-toggle="tooltip" data-placement="top" title="Ver Detalle de Cotización">
+                <i class="fa fa-edit"></i>
               </button>
-              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion">
-                <i class="fa fa-trash"></i> Anular
+              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion" data-toggle="tooltip" data-placement="top" title="Anular Cotización">
+                <i class="fa fa-trash"></i>
               </button>
-              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-reporte-cotizacion">
-                <i class="fa fa-download"></i> Reporte
+              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-reporte-cotizacion"  data-toggle="tooltip" data-placement="top" title="Descargar Reporte">
+                <i class="fa fa-download"></i>
               </button>
             </td>
         </tr>';
