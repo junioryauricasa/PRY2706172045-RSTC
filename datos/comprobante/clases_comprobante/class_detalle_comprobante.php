@@ -3,29 +3,31 @@ require_once '../conexion/bd_conexion.php';
 class DetalleVenta
 {	
   /* INICIO - Atributos de Detalle Orden Compra*/
-  private $intIdOperacionVenta;
-  private $intIdVenta;
-  private $intIdProducto;
+  private $intIdDetalleComprobante;
+  private $intIdComprobante;
+  private $intIdTipoVenta;
   private $dtmFechaRealizada;
-  private $intCantidad;
+  private $intIdProducto;
+  private $nvchCodigo;
+  private $nvchDescripcion;
   private $dcmPrecio;
   private $dcmDescuento;
   private $dcmPrecioUnitario;
+  private $intCantidad;
   private $dcmTotal;
-  private $intIdTipoVenta;
-  private $nvchDescripcionServicio;
   
-  public function IdOperacionVenta($intIdOperacionVenta){ $this->intIdOperacionVenta = $intIdOperacionVenta; }
-  public function IdVenta($intIdVenta){ $this->intIdVenta = $intIdVenta; }
-  public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
+  public function IdDetalleComprobante($intIdDetalleComprobante){ $this->intIdDetalleComprobante = $intIdDetalleComprobante; }
+  public function IdComprobante($intIdComprobante){ $this->intIdComprobante = $intIdComprobante; }
+  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
   public function FechaRealizada($dtmFechaRealizada){ $this->dtmFechaRealizada = $dtmFechaRealizada; }
-  public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
+  public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
+  public function Codigo($nvchCodigo){ $this->nvchCodigo = $nvchCodigo; }
+  public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function Precio($dcmPrecio){ $this->dcmPrecio = $dcmPrecio; }
   public function Descuento($dcmDescuento){ $this->dcmDescuento = $dcmDescuento; }
   public function PrecioUnitario($dcmPrecioUnitario){ $this->dcmPrecioUnitario = $dcmPrecioUnitario; }
+  public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
   public function Total($dcmTotal){ $this->dcmTotal = $dcmTotal; }
-  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
-  public function DescripcionServicio($nvchDescripcionServicio){ $this->nvchDescripcionServicio = $nvchDescripcionServicio; }
   /* FIN - Atributos de Detalle Orden Compra */
 
   /* INICIO - Métodos de Detalle Orden Compra */
@@ -35,55 +37,37 @@ class DetalleVenta
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intCantidad as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
-        :dcmTotal,:intIdTipoVenta,:nvchDescripcionServicio)');
+      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdComprobante,
+        :intIdTipoVenta,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
+        :intCantidad,:dcmTotal)');
       if($this->intIdTipoVenta == 1){
           $sql_comando->execute(array(
-          ':intIdVenta' => $this->intIdVenta, 
-          ':intIdProducto' => $this->intIdProducto[$key],
+          ':intIdComprobante' => $this->intIdComprobante,
+          ':intIdTipoVenta' => $this->intIdTipoVenta, 
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-          ':intCantidad' => $value,
+          ':intIdProducto' => $this->intIdProducto[$key],
+          ':nvchCodigo' => $this->nvchCodigo[$key],
+          ':nvchDescripcion' => $this->nvchDescripcion[$key],
           ':dcmPrecio' => $this->dcmPrecio[$key],
           ':dcmDescuento' => $this->dcmDescuento[$key],
           ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-          ':dcmTotal' => $this->dcmTotal[$key],
-          ':intIdTipoVenta' => $this->intIdTipoVenta,
-          ':nvchDescripcionServicio' => ''));
+          ':intCantidad' => $value,
+          ':dcmTotal' => $this->dcmTotal[$key]));
         } else if($this->intIdTipoVenta == 2){
           $sql_comando->execute(array(
-          ':intIdVenta' => $this->intIdVenta,
-          ':intIdProducto' => 1,
+          ':intIdComprobante' => $this->intIdComprobante,
+          ':intIdTipoVenta' => $this->intIdTipoVenta, 
           ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-          ':intCantidad' => $value,
+          ':intIdProducto' => 0,
+          ':nvchCodigo' => $this->nvchCodigo[$key],
+          ':nvchDescripcion' => $this->nvchDescripcion[$key],
           ':dcmPrecio' => 0.00,
           ':dcmDescuento' => 0.00,
           ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-          ':dcmTotal' => $this->dcmTotal[$key],
-          ':intIdTipoVenta' => $this->intIdTipoVenta,
-          ':nvchDescripcionServicio' => $this->nvchDescripcionServicio[$key]));
+          ':intCantidad' => $value,
+          ':dcmTotal' => $this->dcmTotal[$key]));
         }
       }
-      echo "ok";
-    }
-    catch(PDPExceptions $e){
-      echo $e->getMessage();
-    }
-  }
-
-  public function InsertarDetalleVenta_II()
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleVenta(:intIdVenta,
-      	:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
-      $sql_comando->execute(array(
-        ':intIdVenta' => $this->intIdVenta, 
-        ':intIdProducto' => $this->intIdProducto,
-        ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-        ':intCantidad' => $this->intCantidad,
-        ':dcmPrecio' => $this->dcmPrecio));
       echo "ok";
     }
     catch(PDPExceptions $e){
@@ -96,7 +80,7 @@ class DetalleVenta
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleVenta(:intIdVenta)');
+      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
       $sql_comando -> execute(array(':intIdVenta' => $this->intIdVenta));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
@@ -107,8 +91,8 @@ class DetalleVenta
           '<tr>
               <td class="heading" data-th="ID"></td>
               <td>'.$i.'</td>
-              <td>'.$fila['CodigoProducto'].'</td>
-              <td>'.$fila['DescripcionProducto'].'</td>
+              <td>'.$fila['nvchCodigo'].'</td>
+              <td>'.$fila['nvchDescripcion'].'</td>
               <td>'.$fila['intCantidad'].'</td>
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
@@ -120,8 +104,8 @@ class DetalleVenta
               <tr>
               <td class="heading" data-th="ID"></td>
               <td>'.$i.'</td>
-              <td>C'.$i.'</td>
-              <td>'.$fila['nvchDescripcionServicio'].'</td>
+              <td>S'.$i.'</td>
+              <td>'.$fila['nvchDescripcion'].'</td>
               <td>'.$fila['intCantidad'].'</td>
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
@@ -135,57 +119,13 @@ class DetalleVenta
     }    
   }
 
-  public function SeleccionarDetalleVenta()
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL seleccionarDetalleVenta(:intIdOperacionVenta)');
-      $sql_comando -> execute(array(':intIdOperacionVenta' => $this->intIdOperacionVenta));
-      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-      $salida['intIdOperacionVenta'] = $fila['intIdOperacionVenta'];
-      $salida['intIdVenta'] = $fila['intIdVenta'];
-      $salida['intIdProducto'] = $fila['intIdProducto'];
-      $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
-      $salida['dtmFechaRealizada'] = $fila['dtmFechaRealizada'];
-      $salida['intCantidad'] = $fila['intCantidad'];
-      $salida['dcmPrecio'] = $fila['dcmPrecio'];
-      echo json_encode($salida);
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }    
-  }
-
-  public function ActualizarDetalleVenta()
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarDetalleVenta(:intIdOperacionVenta,
-        :intIdVenta,:intIdProducto,:dtmFechaRealizada,:intCantidad,:dcmPrecio)');
-      $sql_comando->execute(array(
-        ':intIdOperacionVenta' => $this->intIdOperacionVenta,
-        ':intIdVenta' => $this->intIdVenta, 
-        ':intIdProducto' => $this->intIdProducto, 
-        ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-        ':intCantidad' => $this->intCantidad,
-        ':dcmPrecio' => $this->dcmPrecio));
-      $_SESSION['intIdOperacionVenta'] = $this->intIdOperacionVenta;
-      echo "ok";
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-  }
-
   public function EliminarDetalleVenta()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleVenta(:intIdOperacionVenta)');
-      $sql_comando -> execute(array(':intIdOperacionVenta' => $this->intIdOperacionVenta));
+      $sql_comando = $sql_conectar->prepare('CALL eliminarDetalleComprobante(:intIdDetalleComprobante)');
+      $sql_comando -> execute(array(':intIdDetalleComprobante' => $this->intIdDetalleComprobante));
       echo 'ok';
     }
     catch(PDPExceptio $e){

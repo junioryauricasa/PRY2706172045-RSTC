@@ -125,7 +125,7 @@ class Comprobante{
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,
         :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
-        ':intIdComprobante' => $this->intIdComprobante;
+        ':intIdComprobante' => $this->intIdComprobante,
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
         ':intIdSucursal' => $this->intIdSucursal,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
