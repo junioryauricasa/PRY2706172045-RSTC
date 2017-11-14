@@ -38,7 +38,7 @@ class DetalleCotizacion
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intCantidad as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,:intIdTipoVenta
+      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,:intIdTipoVenta,
       	:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
         :intCantidad,:dcmTotal)');
         if($this->intIdTipoVenta == 1){
