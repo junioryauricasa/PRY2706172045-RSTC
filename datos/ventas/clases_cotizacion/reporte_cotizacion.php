@@ -34,7 +34,7 @@
 <head>
   <meta http-equiv="content-type"
  content="text/html; charset=utf-8">
-  <title>Reporte_Cotizacion_REPUESTOS</title>
+  <title>REPORTE COTIZACION REPUESTOS</title>
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
 
   <style>
@@ -375,7 +375,7 @@
     $dompdf->stream($filename.".pdf"); //descargar automaticamente
     //$dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
-  $filename = 'Reporte_Cotizacion';
+  $filename = 'REPORTE_COTIZACION_REPUESTOS';
   $dompdf = new DOMPDF();
   $html = ob_get_clean();
   pdf_create($html,$filename,'A4','portrait');
