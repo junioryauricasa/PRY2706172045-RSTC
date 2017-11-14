@@ -755,7 +755,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                     <label class="text-left">Total de Ventas:</label>
-                    <input type="text" id="TotalVentas" class="form-control select2" placeholder="0.00" readonly>
+                    <input type="text" id="TotalComprobante" class="form-control select2" placeholder="0.00" readonly>
                 </div>
               </div>
             </div>
@@ -792,6 +792,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               </nav>
             </div>
             <div class="row">
+              <script type="text/javascript">TotalComprobante();</script>
               <div class="col-md-2">
                 <div class="form-group">
                   <button type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante">

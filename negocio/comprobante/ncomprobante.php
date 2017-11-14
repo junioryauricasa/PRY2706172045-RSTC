@@ -240,42 +240,42 @@ $(document).on('change', '#lista-comprobante', function(){
   	var tipolistado = "T";
   	var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   	AccionCabecerasTablaComprobante(intIdTipoComprobante);
-  	ListarVenta(x,y,tipolistado);
+  	ListarComprobante(x,y,tipolistado);
 });
 
 $(document).on('change', '#num-lista', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarComprobante(x,y,tipolistado);
 });
 
 $(document).on('keyup', '#txt-busqueda', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarComprobante(x,y,tipolistado);
 });
 
 $(document).on('click', '#btnBuscar', function(){
 	var y = document.getElementById("num-lista").value;
   	var x = 0;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarComprobante(x,y,tipolistado);
 });
 
 $(document).on('click', '.btn-pagina', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarComprobante(x,y,tipolistado);
 });
 
 $(document).on('change', '#lista-tipo-moneda', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(".marca").attr("idp") * y;
   	var tipolistado = "T";
-  	ListarVenta(x,y,tipolistado);
+  	ListarComprobante(x,y,tipolistado);
 });
 /* FIN - Funcion Ajax - Buscar Venta Realizada */
 //////////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ function TotalComprobante() {
       data:{busqueda:busqueda,funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,
       		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
-          $("#TotalOperacion").val(datos);
+          $("#TotalComprobante").val(datos);
       }
   });
 }
@@ -379,8 +379,8 @@ function PaginarComprobante(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
-$(document).on('change', '#tipo-comprobante', function(){
-  	 var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
+$(document).on('change', '#intIdTipoComprobante', function(){
+  	 var intIdTipoComprobante = document.getElementById("intIdTipoComprobante").value;
   	 MostrarSeleccionComprobante(intIdTipoComprobante);
 	 return false;
 });
