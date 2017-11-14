@@ -1,7 +1,6 @@
 <?php 
 require_once '../conexion/bd_conexion.php';
 require_once '../numeraciones/class_numeraciones.php';
-require_once 'clases_cotizacion/class_formulario_cotizacion.php';
 class Cotizacion{
   /* INICIO - Atributos de Orden Compra*/
   private $intIdCotizacion;
@@ -436,7 +435,7 @@ class Cotizacion{
     }  
   }
 
-  public function InsertarCotizacion($intIdCotizacion,$intIdTipoMoneda,$num)
+  public function InsertarCotizacionComprobante($intIdCotizacion,$intIdTipoMoneda,$num)
   {
     try{
       $sql_conexion = new Conexion_BD();

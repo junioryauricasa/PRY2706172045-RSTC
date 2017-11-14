@@ -2,8 +2,8 @@
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
 ?>  
-    <?php require_once '../../negocio/ventas/nventa.php'; ?>
-    <?php require_once '../../negocio/ventas/ndetalleventa.php'; ?>
+    <?php require_once '../../negocio/comprobante/ncomprobante.php'; ?>
+    <?php require_once '../../negocio/comprobante/ndetallecomprobante.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
     <?php require_once '../../view/modals/vformCliente.php'; ?>
@@ -177,8 +177,6 @@ require_once '../../datos/conexion/bd_conexion.php';
       }
     }
     </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.3.2/ckeditor.js" ></script>
-    <script type="text/javascript">Enriquecer();</script>
     <style>
     textarea.textoarea:first-line { font-weight: bold; }
     .pagination a {
@@ -753,8 +751,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <th>Opciones</th>
                 </tr>
                 </thead>
-                <tbody id="ListaDeVentas">
-                  <script>ListarVenta(0,10,"T");</script>
+                <tbody id="ListaDeComprobantes">
+                  <script>ListarComprobante(0,10,"T");</script>
                 </tbody>
               </table>
               <script>AccionCabecerasTablaComprobante(1);</script>
@@ -762,8 +760,8 @@ require_once '../../datos/conexion/bd_conexion.php';
             <hr>
             <div class="text-center">
               <nav aria-label="...">
-                <ul id="PaginacionDeVenta" class="pagination">
-                  <script>PaginarVenta(0,10,"T");</script>
+                <ul id="PaginacionDeComprobante" class="pagination">
+                  <script>PaginarComprobante(0,10,"T");</script>
                 </ul>
               </nav>
             </div>

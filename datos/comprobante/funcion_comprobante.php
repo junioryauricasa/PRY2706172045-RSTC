@@ -131,7 +131,7 @@ switch($_POST['funcion']){
     break;
   case "ICT":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->InsertarCotizacion($_POST['intIdCotizacion'],$_POST['intIdTipoMoneda'],$_POST['num']);
+    $Cotizacion->InsertarCotizacionComprobante($_POST['intIdCotizacion'],$_POST['intIdTipoMoneda'],$_POST['num']);
     break;
   case "MCT":
     $Cotizacion = new Cotizacion();
