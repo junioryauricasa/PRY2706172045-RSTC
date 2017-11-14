@@ -128,17 +128,18 @@ require_once '../../datos/conexion/bd_conexion.php';
           '<td class="heading" data-th="ID"></td>'+
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-venta" />'+
-            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>'+
-          '</td>'+
-          '<td>'+
-            '<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-venta" />'+
+            '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-venta" rows="4"></textarea>'+
+            //'<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-venta" />'+
           '</td>'+
           '<td>'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
             '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-venta" readonly/>'+
-         '</td>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>'+
+          '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
                 '<i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>' +
@@ -175,9 +176,11 @@ require_once '../../datos/conexion/bd_conexion.php';
         CalcularTotal();
       }
     }
-
     </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.3.2/ckeditor.js" ></script>
+    <script type="text/javascript">Enriquecer();</script>
     <style>
+    textarea.textoarea:first-line { font-weight: bold; }
     .pagination a {
         margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
     }
@@ -486,9 +489,9 @@ require_once '../../datos/conexion/bd_conexion.php';
                     <thead>
                     <tr>
                       <th class="heading" width="25px">&nbsp;</th>
-                      <th style="width: 110px" >Cantidad</th>
                       <th>Descripción</th>
                       <th style="width: 110px" >Precio Unit.</th>
+                      <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
                       <th style="width: 25px !important" ></th>
                     </tr>
@@ -498,14 +501,15 @@ require_once '../../datos/conexion/bd_conexion.php';
                         <td class="heading" data-th="ID"></td>
                         <td>
                           <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-venta" />
-                          <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-venta" 
-                          onkeyup="CalcularPrecioTotalS(this)"/>
-                        </td>
-                        <td>
-                          <input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-venta" />
+                          <textarea id="nvchDescripcionS1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-venta" rows="4"></textarea>
+                          <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-venta" />-->
                         </td>
                         <td>
                           <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-venta" onkeyup="CalcularPrecioTotalS(this)"/>
+                        </td>
+                        <td> 
+                          <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-venta" 
+                          onkeyup="CalcularPrecioTotalS(this)"/>           
                         </td>
                         <td>
                           <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-venta" readonly/>
