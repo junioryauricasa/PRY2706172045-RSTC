@@ -105,14 +105,37 @@ function CalcularPrecioTotal(accion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Calcular Precio Unitario */
+function CalcularPrecioTotalS(accion) {
+	var numfila = $(accion).attr("idsprt");
+	var intCantidad = $("#intCantidadS"+numfila).val();
+	var dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+numfila).val();
+	if (intCantidad == "" || intCantidad == null) {
+		$("#dcmTotalS"+numfila).val("0.00");
+		CalcularTotal();
+	} else if(dcmPrecioUnitario == "" || dcmPrecioUnitario == "") {
+		$("#dcmTotalS"+numfila).val("0.00");
+		CalcularTotal();
+	} else {
+		var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+		$("#dcmTotalS"+numfila).val(dcmTotal);
+		CalcularTotal();
+	}
+}
+/* FIN - Calcular Precio Unitario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CambiarMoneda(){
+	var intIdTipoVenta = $("#intIdTipoVenta").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var dcmDescuento = 0.00;
 	var intCantidad = 0;
 	var dcmPrecio = 0.00;
 	var dcmPrecioUnitario = 0.00;
 	var dcmTotal = 0.00;
+
 	Number(dcmPrecio);
 	Number(dcmPrecioUnitario);
 	Number(dcmTotal);
@@ -125,6 +148,7 @@ function CambiarMoneda(){
 	   data:{funcion:funcion},
 	   success:function(datos)
 	   {
+	   	if(intIdTipoVenta == 1){
 	   	$('table tbody#ListaDeProductosVender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
         		if($("#dcmPrecio"+this.value).val() != ""){
@@ -133,7 +157,7 @@ function CambiarMoneda(){
 	        		intCantidad = $("#intCantidad"+this.value).val();
 	        		Number(datos);
 
-		        	if(intIdTipoMoneda == 1){
+		        	if(intIdTipoMoneda == 1) {
 		        		dcmPrecio = (dcmPrecio * datos).toFixed(2);
 		        	} else if(intIdTipoMoneda == 2){
 		        		dcmPrecio = (dcmPrecio / datos).toFixed(2);
@@ -149,9 +173,31 @@ function CambiarMoneda(){
 			        	dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
 			        	$("#dcmTotal"+this.value).val(dcmTotal);
 			        }
-		    	}
+			    }
 	        }); 
 	    });
+	   	} else if(intIdTipoVenta == 2){
+	   	$('table tbody#ListaDeServiciosVender tr').each(function() {
+        	$(this).find("td input[name='fila[]']").each(function() {
+		   		dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+this.value).val();
+	    		intCantidad = $("#intCantidadS"+this.value).val();
+	    		Number(datos);
+	    		if($("#dcmPrecioUnitarioS"+this.value).val() != ""){
+		        	if(intIdTipoMoneda == 1){
+		        		dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
+		        	} else if(intIdTipoMoneda == 2){
+		        		dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
+		        	}
+		        	$("#dcmPrecioUnitarioS"+this.value).val(dcmPrecioUnitario);
+		        }
+
+	        	if($("#intCantidadS"+this.value).val() != ""){
+	        		dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+	        		$("#dcmTotalS"+this.value).val(dcmTotal);
+	        	}
+        	}); 
+	    });
+	   	}
 	   	CalcularTotal();
 	   }
 	  });
@@ -162,8 +208,10 @@ function CambiarMoneda(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
+	var intIdTipoVenta = $("#intIdTipoVenta").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
-	var nvchSimbolo = ""
+	var nvchSimbolo = "";
+
 	if(intIdTipoMoneda == 1){
 		nvchSimbolo = "S/.";
 	} else if (intIdTipoMoneda == 2){
@@ -176,15 +224,28 @@ function CalcularTotal(){
 	Number(IGVVenta);
 	Number(VentaTotal);
 	Number(ValorVenta);
-	$('table tbody#ListaDeProductosVender tr').each(function() {
-        $(this).find("td input[name='dcmTotal[]']").each(function() {
-            VentaTotal = VentaTotal + Number(this.value);
-        }); 
-    });
-    ValorVenta = (VentaTotal / 1.18).toFixed(2);
-    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-    VentaTotal = VentaTotal.toFixed(2);
-    $("#ValorVenta").val(nvchSimbolo + ' ' + ValorVenta);
+
+	if(intIdTipoVenta == 1){
+		$('table tbody#ListaDeProductosVender tr').each(function() {
+	        $(this).find("td input[name='dcmTotal[]']").each(function() {
+	            VentaTotal = VentaTotal + Number(this.value);
+	        }); 
+	    });
+	    ValorVenta = (VentaTotal / 1.18).toFixed(2);
+	    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
+	    VentaTotal = VentaTotal.toFixed(2);
+	} else if(intIdTipoVenta == 2) {
+		$('table tbody#ListaDeServiciosVender tr').each(function() {
+	        $(this).find("td input[name='dcmTotalS[]']").each(function() {
+	            VentaTotal = VentaTotal + Number(this.value);
+	        }); 
+	    });
+	    ValorVenta = (VentaTotal / 1.18).toFixed(2);
+	    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
+	    VentaTotal = VentaTotal.toFixed(2);
+	}
+
+	$("#ValorVenta").val(nvchSimbolo + ' ' + ValorVenta);
     $("#IGVVenta").val(nvchSimbolo + ' ' + IGVVenta);
 	$("#VentaTotal").val(nvchSimbolo + ' ' + VentaTotal);
 }
