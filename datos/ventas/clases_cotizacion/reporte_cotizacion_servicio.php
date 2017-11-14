@@ -34,7 +34,7 @@
 <head>
   <meta http-equiv="content-type"
  content="text/html; charset=utf-8">
-  <title>Reporte_Cotizacion_REPUESTOS</title>
+  <title style="text-transform: uppercase;">Reporte Cotizacion Servicios</title>
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
 
   <style>
@@ -94,12 +94,12 @@
     </tr>
   </tbody>
 </table>
-<center><span style="font-weight: bold; font-family: Arial;">COTIZACIÓN DE REPUESTOS Nº RSA-000/2017</span></center>
+<center><span style="font-weight: bold; font-family: Arial;">COTIZACIÓN DE SERVICIOS Nº RSA-000/2017</span></center>
 <br>
-<table id="tablageneral" style="text-align: left; width: 700px;" cellpadding="1" cellspacing="1">
-  <tbody>
+<table id="tablageneral" style="text-align: left; width: 100% !important;" cellpadding="1" cellspacing="1">
+  <tbody style="width: 100%">
     <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small>Señor (es)</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 71px; padding-left: 5px"><small><small>Señor (es)</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
       <td style="width: 220px;"><small><?php echo $NombreCliente; ?></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Fecha</small></small></td>
@@ -107,7 +107,7 @@
       <td style="width: 230px;"><small><?php echo $dtmFechaCreacion; ?></small></td>
     </tr>
     <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small>DNI o RUC</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>DNI o RUC</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
       <td style="width: 220px;"><small><?php echo $DNICliente; ?></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Moneda</small></small></td>
@@ -115,7 +115,7 @@
       <td style="width: 230px;"><small><?php echo $SimboloMoneda; ?></small></td>
     </tr>
     <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small>Dirección</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>Dirección</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
       <td style="width: 220px;"></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Forma de Pago</small></small></td>
@@ -123,38 +123,77 @@
       <td style="width: 230px;"><small><?php echo $NombrePago; ?></small></td>
     </tr>
     <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small>Atención</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>Atención</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
       <td style="width: 220px;"><small><?php echo $nvchAtencion; ?></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Vendedor</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Tiempo de Entrega</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-      <td style="width: 230px;"><small><?php echo $NombreUsuario; ?></small></td>
+      <td style="width: 230px;"><small><?php echo ' Días'; ?></small></td>
     </tr>
     <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small>Teléfono</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>Teléfono</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
       <td style="width: 220px;"></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Validéz de Oferta</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
       <td style="width: 230px;"><small><?php echo $intDiasValidez.' Días'; ?></small></td>
     </tr>
+    <tr>
+      <td style="font-weight: bold; font-family: Arial; width: 90px;padding-left: 5px"><small><small>Tipo de Servicio</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 220px;"></td>
+      <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Lugar</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 230px;"><small></small></td>
+    </tr>
   </tbody>
 </table>
+
+<center style="text-align: left"><span style="font-weight: bold; font-family: Arial;">DATOS DE LA MAQUINA</span></center>
+<table id="tablageneral" style="text-align: left; width: 700px;" cellpadding="1" cellspacing="1">
+  <tbody>
+    <tr>
+      <td style="font-weight: bold; font-family: Arial; width: 71px; padding-left: 5px"><small><small>Tipo</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 220px;"><small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Modelo</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 230px;"><small></small></td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>Marca</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 220px;"><small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Horometro</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 230px;"><small></small></td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>Observación</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
+      <td style="width: 220px;"></td>
+      <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small></small></small></td>
+      <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small></small></small></td>
+      <td style="width: 230px;"><small></small></td>
+    </tr>
+  </tbody>
+</table>
+
+<small>
+	<span style="text-align: left; font-weight: bold; font-family: Arial;">Estimado Cliente:</span>
 <br>
-<small><span style="text-align: left; font-weight: bold; font-family: Arial;">Estimado Cliente:</span><br>
-<span style="font-family: Arial;">Atendiendo a su solicitud de cotización nos es grato alcanzarle nuestra mejor oferta en los repuestos solicitados, que a continuación detallamos:</span></small>
-<br><br>
-<table id="tabladetalle" style="text-align: left; width: 683px; height: 130px;" cellpadding="3" cellspacing="1">
+<span style="font-family: Arial;">
+	Atendiendo a su solicitud de cotización nos es grato alcanzarle nuestra mejor oferta en los repuestos solicitados, que a continuación detallamos:</span>
+</small>
+<br>
+<table id="tabladetalle" style="text-align: left; width: 100% !important; height: 100px;" cellpadding="3" cellspacing="1">
   <tbody>
     <tr id="primerdetalle">
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 22px;"><small><small>ÍTEM</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 77px;"><small><small>CÓDIGO</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 179px;"><small><small>DESCRIPCIÓN</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 17px;"><small><small>CANT.</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 76px;"><small><small>P.VTA.</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50px;"><small><small>Dcto%</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 81px;"><small><small>P.UNIT</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 86px;"><small><small>TOTAL</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 10% !important;"><small><small>ÍTEM</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 15% !important;"><small><small>CÓDIGO</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50% !important;"><small><small>DESCRIPCIÓN</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 10% !important;"><small><small>P.UNIT</small></small></td>
+      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 15% !important;"><small><small>TOTAL</small></small></td>
     </tr>
     <?php
       $ValorCotizacion = 0.00;
@@ -171,14 +210,11 @@
         $TotalCotizacion += $fila['dcmTotal'];
     ?>
     <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
-      <td style="width: 22px; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 77px; font-size:x-small;"><?php echo $fila['CodigoProducto']; ?></td>
-      <td style="width: 179px; font-size:x-small;"><?php echo $fila['DescripcionProducto']; ?></td>
-      <td style="width: 17px; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
-      <td style="width: 76px; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmPrecio']; ?></td>
-      <td style="width: 50px; font-size:x-small;"><?php echo round($fila['dcmDescuento'],0).'%'; ?></td>
-      <td style="width: 81px; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmPrecioUnitario']; ?></td>
-      <td style="width: 86px; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></td>
+      <td style="width: 10% !important; font-size:x-small;"><?php echo $i; ?></td>
+      <td style="width: 15% !important; font-size:x-small;"><?php echo $fila['CodigoProducto']; ?></td>
+      <td style="width: 50% !important; font-size:x-small;"><?php echo $fila['DescripcionProducto']; ?></td>
+      <td style="width: 10% !important; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmPrecioUnitario']; ?></td>
+      <td style="width: 15% !important; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></td>
     </tr>
     <?php
         $i++;
@@ -190,81 +226,40 @@
           echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
         }
     ?>
-      <td style="width: 22px; font-size:x-small;">|</td>
-      <td style="width: 77px; font-size:x-small;">|</td>
-      <td style="width: 179px; font-size:x-small;">|</td>
-      <td style="width: 17px; font-size:x-small;">|</td>
-      <td style="width: 76px; font-size:x-small;">|</td>
-      <td style="width: 50px; font-size:x-small;">|</td>
-      <td style="width: 81px; font-size:x-small;">|</td>
-      <td style="width: 86px; font-size:x-small;">|</td>
+      <td style="width: 10% !important; font-size:x-small;">|</td>
+      <td style="width: 15% !important; font-size:x-small;">|</td>
+      <td style="width: 50% !important; font-size:x-small;">|</td>
+      <td style="width: 10% !important; font-size:x-small;">|</td>
+      <td style="width: 15% !important; font-size:x-small;">|</td>
     </tr>
     <?php
       }
       $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
       $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
     ?>
-    <tr id="tercerdetalle">
-      <td id="celdainfo" style="vertical-align: top; width: 179px;" colspan="5" rowspan="3">
-        <small>
-          <small>
-            <span style="font-family: Arial;">
-                * La fecha de entrega será de acuerdo a los ítems disponibles en stock, en caso de importación la entrega será en 30 días calendario.
-            </span>
-          </small>
-        </small>
-      </td>
-
-      <td class="celdatotales" colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
+    <tr>
+      <td style="width: 10% !important; font-size:x-small;"></td>
+      <td style="width: 15% !important; font-size:x-small;"></td>
+      <td style="width: 50% !important; font-size:x-small;"></td>
+      <td style="width: 15% !important; text-align: center; border: solid 2px black">
           <small>
             <small>
               TOTAL
             </small>
           </small>
       </td>
-      <td class="celdatotales" style="width: 86px; text-align: center;">
-          <small><small>
-            <?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>       
-          </small></small>
-      </td>
-
-      <!--td class="celdatotales" colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
+      <td class="celdatotales" style="text-align: center; width: 15% !important;">
           <small>
-            <small>
-              SUBTOTAL
-            </small>
+          		<small>
+            		<?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>       
+          		</small>
           </small>
       </td>
-      <td class="celdatotales" style="width: 86px; text-align: center;">
-          <small><small>
-            <?php echo $SimboloMoneda.' '.$ValorCotizacion; ?>    
-          </small></small>
-      </td-->
     </tr>
-    <!--tr id="cuartodetalle">
-      <td colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
-        <small><small>IGV 18%</small></small>
-      </td-->
-      <!--td style="width: 86px; text-align: center;">
-        <small><small>
-          <?php echo $SimboloMoneda.' '.$IGVCotizacion; ?>    
-        </small></small>
-      </td>
-    </tr-->
-    <!--tr id="quintodetalle">
-      <td colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
-        <small><small>TOTAL</small></small>
-      </td>
-      <td style="width: 86px; text-align: center;">
-        <small><small>
-          <?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>    
-        </small></small>
-      </td>
-    </tr-->
   </tbody>
 </table>
-
-<table id="tablacontactos" style="text-align: left; width: 449px; ">
+<br>
+<table id="tablacontactos" style="text-align: left; width: 100%; ">
   <tbody>
     <tr style="font-family: Arial; font-weight: bold;">
       <td style="text-align: center; width: 147px;" colspan="7">
@@ -372,8 +367,8 @@
     $dompdf->set_paper($paper,$orientation);
     $dompdf->load_html($html);
     $dompdf->render();
-    $dompdf->stream($filename.".pdf"); //descargar automaticamente
-    //$dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
+    //$dompdf->stream($filename.".pdf"); //descargar automaticamente
+    $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
   $filename = 'Reporte_Cotizacion';
   $dompdf = new DOMPDF();
