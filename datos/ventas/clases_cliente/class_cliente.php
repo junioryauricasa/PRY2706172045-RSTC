@@ -196,7 +196,7 @@ class Cliente
     }
   }
 
-  public function ListarClientees($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
+  public function ListarClientes($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
   {
     try{
       $salida = "";
