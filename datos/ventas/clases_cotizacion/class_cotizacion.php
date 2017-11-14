@@ -127,78 +127,6 @@ class Cotizacion{
     }    
   }
 
-  public function ListarClienteCotizacion($busqueda,$x,$y,$intIdTipoPersona)
-  {
-    try{
-      if($busqueda != "" || $busqueda != null){
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        echo '
-        <tr>
-          <td class="heading" data-th="ID"></td>
-        ';
-        if($intIdTipoPersona == 2) { 
-          echo '<td>'.$fila["nvchDNI"].'</td>'; 
-        }
-        echo '<td>'.$fila["nvchRUC"].'</td>';
-        if($intIdTipoPersona == 1) { 
-          echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
-        }
-        if($intIdTipoPersona == 2) {
-        echo '
-          <td>'.$fila["nvchApellidoPaterno"].'</td>
-          <td>'.$fila["nvchApellidoMaterno"].'</td>
-          <td>'.$fila["nvchNombres"].'</td>';
-        }
-        echo 
-        '
-        <td>'.$fila["TipoCliente"].'</td>
-        <td> 
-          <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-success" onclick="SeleccionarCliente(this)">
-            <i class="fa fa-edit"></i> Seleccionar
-          </button>
-        </td>
-        </tr>';
-        }
-        } else {
-          echo "";
-        }
-      } catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
-  }
-
-  public function SeleccionarClienteCotizacion()
-  {
-    try{
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL mostrarCliente(:intIdCliente)');
-      $sql_comando -> execute(array(':intIdCliente' => $this->intIdCliente));
-      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-
-      $salida['intIdCliente'] = $fila['intIdCliente'];
-      $salida['nvchRUC'] = $fila['nvchRUC'];
-      $salida['nvchDNI'] = $fila['nvchDNI'];
-      $salida['nvchRazonSocial'] = $fila['nvchRazonSocial'];
-      $salida['nvchApellidoPaterno'] = $fila['nvchApellidoPaterno'];
-      $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
-      $salida['nvchNombres'] = $fila['nvchNombres'];
-      $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
-      $salida['TipoCliente'] = $fila['TipoCliente'];
-      $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
-      $salida['nvchDomicilio'] = $fila['nvchDomicilio'];
-      echo json_encode($salida);
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }    
-  }
-
   public function ActualizarCotizacion()
   {
     try{
@@ -470,110 +398,110 @@ class Cotizacion{
     }  
   }
 
-  public function PaginarClientesCotizacion($busqueda,$x,$y,$intIdTipoPersona)
+  public function ListarCotizacionesVenta($busqueda,$x,$y,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
-      if($busqueda != "" || $busqueda != null){
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarcliente_ii(:busqueda,:intIdTipoPersona)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
-      $cantidad = $sql_comando -> rowCount();
-      $numpaginas = ceil($cantidad / $y);
-      $output = "";
-      for($i = 0; $i < $numpaginas; $i++){
-        if($i==0)
+      if($busqueda != "" || $busqueda != null) {
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial,
+                      ':dtmFechaFinal' => $dtmFechaFinal));
+        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
-          //$output = 'No s eencontraron nada';
-          if($x==0)
-          {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idprd="'.($x-1).'" class="page-link" aria-label="Previous" onclick="PaginacionClientes(this)">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-          }
+          echo '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+            <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["NombreCliente"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td> 
+              <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
+              onclick="InsertarCotizacion(this)">
+                <i class="fa fa-edit"></i> Elegir
+              </button>
+              <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>
+          </tr>';
         }
-
-          if($x==$i){
-            $output.=  '<li class="page-item active"><a idprd="'.$i.'" class="page-link" onclick="PaginacionClientes(this)">'.($i+1).'</a></li>';
-          }
-          else
-          {
-            $output.=  '<li class="page-item"><a idprd="'.$i.'" class="page-link" onclick="PaginacionClientes(this)">'.($i+1).'</a></li>';
-          }
-
-        if($i==($numpaginas-1))
-        {
-          if($x==($numpaginas-1))
-          {
-            $output .= 
-            '<li class="page-item disabled">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          } else {
-            $output .= 
-            '<li class="page-item">
-                <a idprd="'.($x+1).'" class="page-link" aria-label="Next" onclick="PaginacionClientes(this)">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-          }
-        }
-      }
-      if($output == ""){
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-            </li>';
-        $output .= 
-            '<li class="page-item">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-            </li>';
-      }
-      echo $output;
       } else {
-        $output = ""; 
-          $output .= 
-                '<li class="page-item">
-                    <a class="page-link" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Anterior</span>
-                    </a>
-                </li>';
-          $output .= 
-                '<li class="page-item">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Siguiente</span>
-                    </a>
-                </li>';
-          echo $output;
+        echo "";
       }
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
     }  
+  }
+
+  public function InsertarCotizacion($intIdCotizacion,$intIdTipoMoneda,$num)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:intIdCotizacion)');
+      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        $dtmFechaCambio =  date('Y-m-d');
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+
+        $sql_conexion_producto = new Conexion_BD();
+        $sql_conectar_producto = $sql_conexion_producto->Conectar();
+        $sql_comando_producto = $sql_conectar_producto->prepare('CALL MOSTRARPRODUCTO(:intIdProducto)');
+        $sql_comando_producto -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+        $fila_producto = $sql_comando_producto -> fetch(PDO::FETCH_ASSOC);        
+
+        if($intIdTipoMoneda == 1){
+            if($fila_producto['intIdTipoMonedaVenta'] != 1) {
+              $fila_producto['dcmPrecioVenta1'] = round($fila_producto['dcmPrecioVenta1']*$fila_moneda['dcmCambio2'],2); 
+              $fila_producto['nvchSimbolo'] = "S/.";
+            }
+        } 
+        else if($intIdTipoMoneda == 2){
+            if($fila_producto['intIdTipoMonedaVenta'] != 2){
+              $fila_producto['dcmPrecioVenta1'] = round($fila_producto['dcmPrecioVenta1']/$fila_moneda['dcmCambio2'],2);
+              $fila_producto['nvchSimbolo'] = "US$";
+            }
+        }
+        $dcmPrecioUnitario = number_format(($fila_producto['dcmPrecioVenta1'] - ($fila_producto['dcmPrecioVenta1']*($fila['dcmDescuento']/100))),2,'.','');
+        $dcmTotal = number_format(($dcmPrecioUnitario * $fila['intCantidad']),2,'.','');
+        echo '
+        <tr>
+        <td class="heading" data-th="ID"></td> '.
+        '<td><input type="hidden" name="fila[]" value="'.$num.'" form="form-venta" />'.
+            '<input type="hidden" id="intIdProducto'.$num.'" name="intIdProducto[]" form="form-venta" value="'.$fila_producto['intIdProducto'].'" />'.
+            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$num.'" name="nvchCodigo[]" form="form-venta" value="'.$fila_producto['nvchCodigo'].'" />'.
+            '<div class="result" id="result'.$num.'">'.
+        '</td>'.
+        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$num.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
+        '<td>'.
+          '<input type="text" id="dcmPrecio'.$num.'" name="dcmPrecio[]" form="form-venta" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta2'.$num.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta3'.$num.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
+        '</td>'.
+        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$num.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$num.'"'.
+          'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" /></td>'.
+        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$num.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
+        '<td><input type="text" id="intCantidad'.$num.'" name="intCantidad[]" form="form-venta" idsprt="'.$num.'"'.
+          'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'"/></td>'.
+        '<td><input type="text" id="dcmTotal'.$num.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
+        '<td>'.
+          '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
+        '</td>'.
+      '</tr>';
+      $num++;
+      }
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }    
   }
   /* FIN - Métodos de Orden Compra */
 }

@@ -83,6 +83,76 @@ class Cliente
     }    
   }
 
+  public function ListarClienteComprobante($busqueda,$x,$y,$intIdTipoPersona)
+  {
+    try{
+      if($busqueda != "" || $busqueda != null) {
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+        {
+          echo '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+          ';
+          if($intIdTipoPersona == 2) { 
+            echo '<td>'.$fila["nvchDNI"].'</td>'; 
+          }
+          echo '<td>'.$fila["nvchRUC"].'</td>';
+          if($intIdTipoPersona == 1) { 
+            echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
+          }
+          if($intIdTipoPersona == 2) {
+          echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
+          <td>'.$fila["nvchApellidoMaterno"].'</td>
+          <td>'.$fila["nvchNombres"].'</td>';
+          }
+          echo 
+          '<td>'.$fila["TipoCliente"].'</td>
+          <td> 
+            <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-success" onclick="SeleccionarCliente(this)">
+              <i class="fa fa-edit"></i> Seleccionar
+            </button>
+          </td>
+          </tr>';
+        }
+      } else {
+        echo "";
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function SeleccionarClienteComprobante()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL mostrarCliente(:intIdCliente)');
+      $sql_comando -> execute(array(':intIdCliente' => $this->intIdCliente));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
+      $salida['intIdCliente'] = $fila['intIdCliente'];
+      $salida['nvchRUC'] = $fila['nvchRUC'];
+      $salida['nvchDNI'] = $fila['nvchDNI'];
+      $salida['nvchRazonSocial'] = $fila['nvchRazonSocial'];
+      $salida['nvchApellidoPaterno'] = $fila['nvchApellidoPaterno'];
+      $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
+      $salida['nvchNombres'] = $fila['nvchNombres'];
+      $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
+      $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['TipoCliente'] = $fila['TipoCliente'];
+      echo json_encode($salida);
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }    
+  }
+  
   public function ActualizarCliente()
   {
     try{
