@@ -210,7 +210,7 @@ require_once '../../datos/conexion/bd_conexion.php';
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Registro de Ventas
+        Registro de Cotizaciones
         <small>Módulo de Ventas</small>
       </h1>
       <ol class="breadcrumb">
@@ -225,8 +225,8 @@ require_once '../../datos/conexion/bd_conexion.php';
       <!-- TABLE: LATEST USERS -->
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#formRealizarCotizacion" id="btnFormRealizarCotizacion" data-toggle="tab" aria-expanded="true">Realizar Venta</a></li>
-          <li class=""><a href="#formListarCotizacion" id="btnFormListarCotizacion" data-toggle="tab" aria-expanded="false">Lista de Ventas</a></li>
+          <li class="active"><a href="#formRealizarCotizacion" id="btnFormRealizarCotizacion" data-toggle="tab" aria-expanded="true">Realizar Cotización</a></li>
+          <li class=""><a href="#formListarCotizacion" id="btnFormListarCotizacion" data-toggle="tab" aria-expanded="false">Lista de Cotizaciones</a></li>
         </ul>
         <div class="tab-content">
           <!-- INICIO - Formulario Realizar Venta -->
@@ -318,17 +318,24 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="form-group">
-                  <label>Días de Validéz:</label>
-                  <input type="text" id="intDiasValidez" name="intDiasValidez" class="form-control select2" form="form-cotizacion">
+                <div id="intDiasValidezGroup" class="form-group">
+                  <label>Validez de Oferta:</label>
+                  <input type="text" id="intDiasValidez" name="intDiasValidez" class="form-control select2" placeholder="Ingrese número de días" 
+                  value="" onkeypress="return EsNumeroEnteroTecla(event)" 
+                  onkeyup="EsNumeroEntero('intDiasValidez')" maxlength="3" form="form-cotizacion" required>
+                  <span id="intDiasValidezIcono" class="" aria-hidden=""></span>
+                  <div id="intDiasValidezObs" class=""></div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-3">
-                <div class="form-group">
+                <div id="nvchAtencionGroup" class="form-group">
                   <label>Atención:</label>
-                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" form="form-cotizacion">
+                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="" onkeyup="EsVacio('nvchAtencion')" maxlength="250" form="form-cotizacion" required>
+                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchAtencionObs" class=""></div>
                 </div>
               </div>
               <div class="col-md-2">
@@ -362,6 +369,48 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <label>Tipo de Cliente:</label>
                   <input type="text" id="TipoCliente" class="form-control select2" readonly>
                   <input type="hidden" id="intIdTipoCliente">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div id="nvchTipoGroup" class="form-group">
+                  <label>Tipo:</label>
+                  <input type="text" id="nvchTipo" name="nvchTipo" class="form-control select2" 
+                  placeholder="Ingrese la Descripción" maxlength="25" 
+                  onkeyup="EsVacio('nvchTipo')"  form="form-cotizacion" required>
+                  <span id="nvchTipoIcono" class="" aria-hidden=""></span>
+                  <div id="nvchTipoObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchModeloGroup" class="form-group">
+                  <label>Modelo:</label>
+                  <input type="text" id="nvchModelo" name="nvchModelo" class="form-control select2" 
+                  placeholder="Ingrese la Descripción" maxlength="75" 
+                  onkeyup="EsVacio('nvchModelo')"  form="form-cotizacion" required>
+                  <span id="nvchModeloIcono" class="" aria-hidden=""></span>
+                  <div id="nvchModeloObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchMarcaGroup" class="form-group">
+                  <label>Marca:</label>
+                  <input type="text" id="nvchMarca" name="nvchMarca" class="form-control select2" 
+                  placeholder="Ingrese la Descripción" maxlength="75" 
+                  onkeyup="EsVacio('nvchMarca')"  form="form-cotizacion" required>
+                  <span id="nvchMarcaIcono" class="" aria-hidden=""></span>
+                  <div id="nvchMarcaObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div id="nvchHorometroGroup" class="form-group">
+                  <label>Horómetro:</label>
+                  <input type="text" id="nvchHorometro" name="nvchHorometro" class="form-control select2" 
+                  placeholder="Ingrese la Descripción" maxlength="65" 
+                  onkeyup="EsVacio('nvchHorometro')"  form="form-cotizacion" required>
+                  <span id="nvchHorometroIcono" class="" aria-hidden=""></span>
+                  <div id="nvchHorometroObs" class=""></div>
                 </div>
               </div>
             </div>

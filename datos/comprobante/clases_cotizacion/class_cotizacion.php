@@ -9,6 +9,9 @@ class Cotizacion{
   private $nvchNumeracion;
   private $intIdUsuario;
   private $intIdCliente;
+  private $nvchClienteProveedor;
+  private $nvchDNIRUC;
+  private $nvchDireccion;
   private $nvchAtencion;
   private $intIdTipoMoneda;
   private $intIdTipoPago;
@@ -27,6 +30,9 @@ class Cotizacion{
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
+  public function ClienteProveedor($nvchClienteProveedor){ $this->nvchClienteProveedor = $nvchClienteProveedor; }
+  public function DNIRUC($nvchDNIRUC){ $this->nvchDNIRUC = $nvchDNIRUC; }
+  public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
@@ -47,14 +53,18 @@ class Cotizacion{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:dtmFechaCreacion,:nvchSerie,:nvchNumeracion,
-        :intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,
-        :nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,:bitEstado,:nvchObservacion)');
+        :intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:intIdTipoMoneda,
+        :intIdTipoPago,:intDiasValidez,:intIdTipoVenta,:nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,
+        :bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchSerie' => '0001',
         ':nvchNumeracion' => '',
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
+        ':nvchClienteProveedor' => $this->nvchClienteProveedor,
+        ':nvchDNIRUC' => $this->nvchDNIRUC,
+        ':nvchDireccion' => $this->nvchDireccion,
         ':nvchAtencion' => $this->nvchAtencion,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
@@ -132,8 +142,8 @@ class Cotizacion{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarCotizacion(:intIdCotizacion,:dtmFechaCreacion,:nvchSerie,
-        :nvchNumeracion,:intIdUsuario,:intIdCliente,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,
-        :intIdTipoVenta,:nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,:bitEstado,:nvchObservacion)');
+        :nvchNumeracion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,:nvchTipo,:nvchModelo,
+        :nvchMarca,:nvchHorometro,:bitEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
@@ -254,7 +264,7 @@ class Cotizacion{
               <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-danger btn-anular-cotizacion" data-toggle="tooltip" data-placement="top" title="Anular Cotización">
                 <i class="fa fa-trash"></i>
               </button>
-              <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default btn-reporte-cotizacion"  data-toggle="tooltip" data-placement="top" title="Descargar Reporte">
+              <button type="button" id="'.$fila["intIdCotizacion"].'" idtv="'.$fila["intIdTipoVenta"].'" class="btn btn-xs btn-default btn-reporte-cotizacion"  data-toggle="tooltip" data-placement="top" title="Descargar Reporte">
                 <i class="fa fa-download"></i>
               </button>
             </td>

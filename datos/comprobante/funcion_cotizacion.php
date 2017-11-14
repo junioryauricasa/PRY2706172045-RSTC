@@ -18,6 +18,9 @@ switch($_POST['funcion']){
     $Cotizacion->FechaCreacion($dtmFechaCreacion);
     $Cotizacion->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Cotizacion->IdCliente($_POST['intIdCliente']);
+    $Cotizacion->DNIRUC($_POST['nvchDNIRUC']);
+    $Cotizacion->ClienteProveedor($_POST['nvchClienteProveedor']);
+    $Cotizacion->Direccion($_POST['nvchDireccion']);
     $Cotizacion->Atencion($_POST['nvchAtencion']);
     $Cotizacion->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $Cotizacion->IdTipoPago($_POST['intIdTipoPago']);

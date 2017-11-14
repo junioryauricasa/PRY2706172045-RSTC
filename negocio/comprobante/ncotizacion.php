@@ -12,10 +12,8 @@ function LimpiarCampos(){
 	$("#intIdTipoPago").val(1);
 	$("#ListaDeProductosVender").html("");
 	$("#ListaDeServiciosVender").html("");
-	$("#ListaDeMaquinariasVender").html("");
 	AgregarFila(1);
 	AgregarFila(2);
-	AgregarFila(3);
 	$("#VentaTotal").val("S/. 0.00");
 	$("#nvchObservacion").val("");
 	MostrarSeleccionCotizacion();
@@ -81,15 +79,14 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "N";
-  	  var intIdTipoCotizacion = document.getElementById("intIdTipoCotizacion").value;
 	  $.ajax({
 	   url: "../../datos/comprobante/funcion_cotizacion.php",
 	   method: "POST",
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokok" || datos=="okokok") {
-	   		MensajeNormal("Se generó correctamente la Venta",1);
+	   	if (datos=="okok") {
+	   		MensajeNormal("Se generó correctamente la Cotización",1);
 	   		$('#txt-busqueda').val("");
 	   		LimpiarCampos();
 	   		$("#btnFormListarCotizacion").click();
@@ -191,6 +188,20 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 /* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////
 
+/* INICIO - Funcion Ajax - Reporte Cotizacion */
+$(document).on('click', '.btn-reporte-cotizacion', function(){
+	var intIdCotizacion = $(this).attr("id");
+	var intIdTipoVenta = $(this).attr("idtv");
+	if(intIdTipoVenta == 1)
+		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_repuesto.php?intIdCotizacion='+intIdCotizacion;
+	else if(intIdTipoVenta == 2)
+		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_servicio.php?intIdCotizacion='+intIdCotizacion;
+
+	window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Reporte Cotizacion */
+//////////////////////////////////////////////////////////////
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Venta Realizada */
 $(document).on('change', '#num-lista', function(){
@@ -254,7 +265,7 @@ function ListarCotizacion(x,y,tipolistado) {
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
       		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
       success:function(datos) {
-          $("#ListaDeCotizacions").html(datos);
+          $("#ListaDeCotizaciones").html(datos);
           PaginarCotizacion((x/y),y,tipolistado);
           TotalCotizacion();
       }

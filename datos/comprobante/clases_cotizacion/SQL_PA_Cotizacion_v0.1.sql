@@ -9,6 +9,9 @@ DELIMITER $$
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
+	IN _nvchClienteProveedor VARCHAR(350),
+	IN _nvchDNIRUC VARCHAR(11),
+	IN _nvchDireccion VARCHAR(450),
 	IN _nvchAtencion VARCHAR(250),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
@@ -23,11 +26,13 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_cotizacion 
-		(dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,
-			intIdTipoVenta,nvchTipo,nvchModelo,nvchMarca,nvchHorometro,bitEstado,nvchObservacion)
+		(dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,nvchClienteProveedor,nvchDNIRUC,nvchDireccion,
+			nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,intIdTipoVenta,nvchTipo,nvchModelo,nvchMarca,nvchHorometro,
+			bitEstado,nvchObservacion)
 		VALUES
-		(_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,
-			_intIdTipoVenta,_nvchTipo,_nvchModelo,_nvchMarca,_nvchHorometro,_bitEstado,_nvchObservacion);
+		(_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchClienteProveedor,_nvchDNIRUC,_nvchDireccion,
+			_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,_intIdTipoVenta,_nvchTipo,_nvchModelo,_nvchMarca,
+			_nvchHorometro,_bitEstado,_nvchObservacion);
 		SET _intIdCotizacion = LAST_INSERT_ID();
     END 
 $$
