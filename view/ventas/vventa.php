@@ -609,19 +609,19 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <table border="1" class="ExcelTable2007 rwd-table" width="100%">
                     <tbody>
                       <tr>
-                          <th>Valor de Venta:</th>
+                          <th>Valor de Venta</th>
                           <td style="width: 120px !important">
                               <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       <tr>
-                          <th>IGV (18%):</th>
+                          <th>IGV (18%)</th>
                           <td style="width: 120px !important">
                               <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       <tr>
-                          <th>Venta Total:</th>
+                          <th>Venta Total</th>
                           <td style="width: 120px !important">
                               <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>

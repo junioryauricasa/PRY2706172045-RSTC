@@ -1,5 +1,7 @@
 <?php 
 session_start();
+require_once '../inventario/clases_producto/class_producto.php';
+require_once '../ventas/clases_cliente/class_cliente.php';
 require_once '../numeraciones/class_numeraciones.php';
 require_once 'clases_cotizacion/class_cotizacion.php';
 require_once 'clases_cotizacion/class_detalle_cotizacion.php';
@@ -29,7 +31,7 @@ switch($_POST['funcion']){
     $Cotizacion->InsertarCotizacion();
     $DetalleCotizacion = new DetalleCotizacion();
     if($_POST['intIdTipoVenta'] == 1) {
-        $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion'])
+        $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);
         $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
         $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
@@ -41,13 +43,13 @@ switch($_POST['funcion']){
         $DetalleCotizacion->Cantidad($_POST['intCantidad']);
         $DetalleCotizacion->Total($_POST['dcmTotal']);
     } else if($_POST['intIdTipoVenta'] == 2) {
-        $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion'])
+        $DetalleCotizacion->IdCotizacion($_SESSION['intIdCotizacion']);
         $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
-        $DetalleCotizacion->Descripcion($_POST['nvchDescripcion']);
-        $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
-        $DetalleCotizacion->Cantidad($_POST['intCantidad']);
-        $DetalleCotizacion->Total($_POST['dcmTotal']);
+        $DetalleCotizacion->Descripcion($_POST['nvchDescripcionS']);
+        $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitarioS']);
+        $DetalleCotizacion->Cantidad($_POST['intCantidadS']);
+        $DetalleCotizacion->Total($_POST['dcmTotalS']);
     }
     $DetalleCotizacion->InsertarDetalleCotizacion();
     break;
@@ -139,17 +141,17 @@ switch($_POST['funcion']){
             $dtmFechaInicial,$dtmFechaFinal);
     break;
   case "SCL":
-    $Cotizacion = new Cotizacion();
-    $Cotizacion->IdCliente($_POST['intIdCliente']);
-    $Cotizacion->SeleccionarClienteCotizacion();
+    $Cliente = new Cliente();
+    $Cliente->IdCliente($_POST['intIdCliente']);
+    $Cliente->SeleccionarClienteComprobante();
     break;
   case "MCL":
-    $Cotizacion = new Cotizacion();
-    $Cotizacion->ListarClienteCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
+    $Cliente = new Cliente();
+    $Cliente->ListarClienteComprobante($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
     break;
   case "PCL":
-    $Cotizacion = new Cotizacion();
-    $Cotizacion->PaginarClientesCotizacion($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
+    $Cliente = new Cliente();
+    $Cliente->PaginarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],'V',$_POST['intIdTipoPersona']);
     break;
   case "MPT":
     $DetalleCotizacion = new DetalleCotizacion();
