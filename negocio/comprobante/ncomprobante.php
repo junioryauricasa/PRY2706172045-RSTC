@@ -19,6 +19,15 @@ function LimpiarCampos(){
 	AgregarFila(1);
 	AgregarFila(2);
 	AgregarFila(3);
+	if($("#intTipoDetalle").val() == 1){
+		$("#ValorVenta").val("S/. 0.00");
+		$("#IGVVenta").val("S/. 0.00");
+		$("#VentaTotal").val("S/. 0.00");
+	} else if($("#intTipoDetalle").val() == 2){
+		$("#ValorCompra").val("S/. 0.00");
+		$("#IGVCompra").val("S/. 0.00");
+		$("#CompraTotal").val("S/. 0.00");
+	}
 	$("#nvchObservacion").val("");
 	MostrarSeleccionComprobante();
 }
@@ -92,14 +101,11 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   {
 	   	if (datos=="okokokokokok" || datos=="okokok") {
 	   		MensajeNormal("Se generó correctamente la Venta",1);
-	   		LimpiarCampos();
-	   		$("#btnFormListarComprobante").click();
-	   		/*
-	   		$("#btn-form-comprobante-remove").click();
-	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
+	   		$("#lista-comprobante").val(intIdTipoComprobante);
 	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
 	   		$('#txt-busqueda').val("");
-	   		*/
+	   		LimpiarCampos();
+	   		$("#btnFormListarComprobante").click();
 	   		ListarComprobante(x,y,tipolistado);
 	   		PaginarComprobante(x,y,tipolistado);
 		}
