@@ -417,7 +417,7 @@ require_once '../../datos/conexion/bd_conexion.php';
             <div class="row">
               <div class="col-md-12">
                 <!-- Comentar-->
-                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
+                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;" id="scrool-slim">
                   <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
