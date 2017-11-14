@@ -19,6 +19,7 @@ require_once '../../datos/conexion/bd_conexion.php';
     <script type="text/javascript">
     var num = 2;
     var nums = 2;
+    var numm = 2;
     var numfila = 0;
     $(document).on('keyup', '.buscar', function(){
       $(this).closest('tr').find("input[name='fila[]']").each(function() {
@@ -94,8 +95,7 @@ require_once '../../datos/conexion/bd_conexion.php';
       });
     }
 
-    function AgregarFila(){
-    var intIdTipoVenta = $("#intIdTipoVenta").val();
+    function AgregarFila(intIdTipoVenta){
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
         '<tr>'+
@@ -135,10 +135,10 @@ require_once '../../datos/conexion/bd_conexion.php';
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-comprobante" readonly/>'+
+            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-comprobante" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
@@ -147,6 +147,31 @@ require_once '../../datos/conexion/bd_conexion.php';
           '</td>'+
         '</tr>');
         nums++;
+      } else if(intIdTipoVenta == 3){
+        $('#ListaDeMaquinariasVender').append(
+        '<tr>'+
+          '<td class="heading" data-th="ID"></td>'+
+          '<td>'+
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
+            '<textarea id="nvchDescripcionM'+numm+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>'+
+            //'<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-comprobante" />'+
+          '</td>'+
+          '<td>'+
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" readonly/>'+
+          '</td>'+
+          '<td style="width: 25px !important" >'+
+            '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
+                '<i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>' +
+            '</button>'+
+          '</td>'+
+        '</tr>');
+        numm++;
       }
     }
 
@@ -236,13 +261,13 @@ require_once '../../datos/conexion/bd_conexion.php';
       <!-- TABLE: LATEST USERS -->
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#formRealizarVenta" data-toggle="tab" aria-expanded="true">Realizar Venta</a></li>
-          <li class=""><a href="#formListarVenta" data-toggle="tab" aria-expanded="false">Lista de Ventas</a></li>
+          <li class="active"><a href="#formRealizarComprobante" id="btnFormRealizarComprobante" data-toggle="tab" aria-expanded="true">Realizar Venta</a></li>
+          <li class=""><a href="#formListarComprobante" id="btnFormListarComprobante" data-toggle="tab" aria-expanded="false">Lista de Ventas</a></li>
         </ul>
         <div class="tab-content">
           <!-- INICIO - Formulario Realizar Venta -->
           <form id="form-comprobante" method="POST"></form>
-          <div class="tab-pane active" id="formRealizarVenta">
+          <div class="tab-pane active" id="formRealizarComprobante">
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
@@ -401,7 +426,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Agregar Fila:</label>
-                  <input type="button" onclick="AgregarFila()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
+                  <input type="button" onclick="AgregarFila($('#intIdTipoVenta').val())" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
               <div class="col-md-2">
@@ -536,10 +561,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                     <thead>
                     <tr>
                       <th class="heading" width="25px">&nbsp;</th>
-                      <th style="width: 110px" >Código</th>
                       <th>Descripción</th>
-                      <th style="width: 110px" >Precio Lista</th>
-                      <th style="width: 110px" >Desc. (%)</th>
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
@@ -648,7 +670,7 @@ require_once '../../datos/conexion/bd_conexion.php';
           <!-- FIN - Formulario Realizar Venta -->
 
           <!-- INICIO - Formulario Listar Venta -->
-          <div class="tab-pane" id="formListarVenta">
+          <div class="tab-pane" id="formListarComprobante">
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
@@ -768,6 +790,15 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <script>PaginarComprobante(0,10,"T");</script>
                 </ul>
               </nav>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <button type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante">
+                    Nueva Venta
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <!-- FIN - Formulario Listar Venta -->

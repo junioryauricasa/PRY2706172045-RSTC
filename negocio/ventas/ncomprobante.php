@@ -1,5 +1,30 @@
 <script>
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
+function LimpiarCampos(){
+	$("#nvchNumDocumento").val("");
+	$("#nvchDenominacion").val("");
+	$("#nvchDomicilio").val("");
+	$("#TipoCliente").val("");
+	$("#intIdCliente").val("");
+	$("#intIdProveedor").val("");
+	$("#intIdSucursal").val(1);
+	$("#intIdTipoComprobante").val(1);
+	$("#intIdTipoVenta").val(1);
+	$("#intIdTipoMoneda").val(1);
+	$("#intIdTipoPago").val(1);
+	$("#ListaDeProductosVender").html("");
+	$("#ListaDeServiciosVender").html("");
+	$("#ListaDeMaquinariasVender").html("");
+	AgregarFila(1);
+	AgregarFila(2);
+	AgregarFila(3);
+	MostrarSeleccionComprobante();
+}
+/* FIN - Funcion Ajax - Limpiear campos del Comprobante */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
 $(document).on('click', '#btn-form-crear-comprobante', function(){
 	  var funcion = "F";
@@ -55,8 +80,10 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokokokok") {
+	   	if (datos=="okokokokokok" || datos=="okokok") {
 	   		MensajeNormal("Se generó correctamente la Venta",1);
+	   		LimpiarCampos();
+	   		$("#btnFormListarComprobante").click();
 	   		/*
 	   		$("#btn-form-comprobante-remove").click();
 	   		$("#lista-comprobante").val($("#tipo-comprobante").val());

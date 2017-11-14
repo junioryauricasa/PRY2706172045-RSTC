@@ -126,6 +126,27 @@ function CalcularPrecioTotalS(accion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Calcular Precio Unitario */
+function CalcularPrecioTotalM(accion) {
+	var numfila = $(accion).attr("idsprt");
+	var intCantidad = $("#intCantidadM"+numfila).val();
+	var dcmPrecioUnitario = $("#dcmPrecioUnitarioM"+numfila).val();
+	if (intCantidad == "" || intCantidad == null) {
+		$("#dcmTotalM"+numfila).val("0.00");
+		CalcularTotal();
+	} else if(dcmPrecioUnitario == "" || dcmPrecioUnitario == "") {
+		$("#dcmTotalM"+numfila).val("0.00");
+		CalcularTotal();
+	} else {
+		var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+		$("#dcmTotalM"+numfila).val(dcmTotal);
+		CalcularTotal();
+	}
+}
+/* FIN - Calcular Precio Unitario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CambiarMoneda(){
 	var intIdTipoVenta = $("#intIdTipoVenta").val();
