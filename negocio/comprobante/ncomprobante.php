@@ -128,6 +128,7 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
 	   data:{intIdComprobante:intIdComprobante,funcion:funcion},
+	   dataType:"json",
 	   success:function(datos)
 	   {
 	   	/*
@@ -135,6 +136,31 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   	goToBox("#Formulario");
 	   	$("#tipo-comprobante").val($("#intIdTipoComprobante").val());
 	   	*/
+	   	$("#nvchNumDocumento").val(datos.nvchDNIRUC);
+		$("#nvchDenominacion").val(datos.nvchClienteProveedor);
+		$("#nvchDomicilio").val(datos.nvchDireccion);
+		$("#TipoCliente").val(datos.TipoCliente);
+		$("#intIdCliente").val(datos.intIdCliente);
+		$("#intIdProveedor").val(datos.intIdCliente);
+		$("#intIdSucursal").val(datos.intIdSucursal);
+		$("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
+		$("#intIdTipoVenta").val(datos.intIdTipoVenta);
+		$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
+		$("#intIdTipoPago").val(datos.intIdTipoPago);
+		if(datos.intIdTipoVenta == 1){
+
+		} else if(datos.intIdTipoVenta == 2){
+
+		}
+		$("#ListaDeProductosVender").html("");
+		$("#ListaDeServiciosVender").html("");
+		$("#ListaDeMaquinariasVender").html("");
+		AgregarFila(1);
+		AgregarFila(2);
+		AgregarFila(3);
+		$("#nvchObservacion").val("");
+
+	   	$("#btnFormRealizarComprobante").click();
 	   	MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
 	   	MostrarDetalleComprobante(intIdComprobante,tipolistado);
 	   }
