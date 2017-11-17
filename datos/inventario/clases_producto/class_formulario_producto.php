@@ -39,17 +39,18 @@ class FormularioProducto
   function ConsultarFormulario($funcion)
   {
   ?>
-      <div id="Formulario" class="box box-default">
+      <!--div id="Formulario" class="box box-default"-->
+      <div>
         <div class="box-header with-border">
           <?php if($funcion == "F"){ ?>
-          <h3 class="box-title">Nuevo Producto</h3>
+          <h3 class="box-title">Registro de Nuevo Producto</h3>
           <?php } else if($funcion == "M") {?>
           <h3 class="box-title">Editar Producto</h3>
           <?php } ?>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button id="btn-form-producto-remove" type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
+          <!--div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button-->
+            <!--button id="btn-form-producto-remove" type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div-->
         </div>
         <form id="form-producto" method="POST">
           <div class="box-body">
@@ -73,9 +74,10 @@ class FormularioProducto
                 <div class="col-md-3">
                   <div id="intCantidadMinimaGroup" class="form-group">
                     <label>Cantidad Mínima:</label>
+                    <!-- accept atribute is required for this form -->
                     <input type="text" id="intCantidadMinima" name="intCantidadMinima" class="form-control select2" 
                     placeholder="Ingrese Cantidad Minima" value="<?php echo $this->intCantidadMinima; ?>" 
-                    onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadMinima')" maxlength="11" required>
+                    onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('intCantidadMinima')" maxlength="11" accept="image/*" required>
                     <span id="intCantidadMinimaIcono" class="" aria-hidden=""></span>
                     <div id="intCantidadMinimaObs" class=""></div>
                   </div>
@@ -87,15 +89,17 @@ class FormularioProducto
                     <label>Imagen:</label>
                     <input type="file" name="SeleccionImagen" id="SeleccionImagen" accept=".png, .jpg, .jpeg">
                     <?php if($funcion == "F"){ ?>
-                    <img id="resultadoimagen" src="" style="width: 100px; height: 100px;" />
+                    <img id="resultadoimagen" src="" style="/*width: 100px; height: 100px;*/" />
                     <?php } else if($funcion == "M") { ?>
                     <img id="resultadoimagen" src="<?php echo '../../datos/inventario/imgproducto/'.$this->nvchDireccionImg; ?>" style="width: 100px; height: 100px;" />
                     <?php } ?>
+
                     <input type="hidden" id="nvchDireccionImg" name="nvchDireccionImg" value="<?php echo $this->nvchDireccionImg; ?>" />
                     <div id="operacionimagen"></div>
                   </div>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col-md-8">
                   <div class="form-group">
@@ -226,11 +230,16 @@ class FormularioProducto
       </div>
       <div class="box-header with-border">
       </div>
+
       <div class="box-header with-border">
         <h3 class="box-title">Códigos Adicionales</h3>
       </div>
         <div class="box-body">
+
           <div class="row">
+              <div class="col-lg-6">
+
+<div class="row">
             <div class="col-md-3">
               <div id="nvchCodigoGroup" class="form-group">
                 <label>Código:</label>
@@ -267,29 +276,35 @@ class FormularioProducto
               <div class="form-group">
               <script type="text/javascript">BotonesCodigo('I');</script>
               <?php if($funcion == "F") { ?>
-              <input type="button" id="btn-agregar-codigo" class="form-control select2 btn btn-success" value="Agregar Código" onclick="AgregarCodigo()"/>
+              <input type="button" id="btn-agregar-codigo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 120px" />
               <?php } else if($funcion == "M") { ?>
-              <input type="button" id="btn-agregar-codigo" class="form-control select2 btn btn-success" value="Agregar Código" onclick="AgregarCodigo_II()"/>
+              <input type="button" id="btn-agregar-codigo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 120px"/>
               <?php } ?>
               <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código">
               <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
               </div>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="ExcelTable2007 rwd-table" width="100%">
-              <thead>
-              <tr>
-                <th class="heading" width="25px">&nbsp;</th>
-                <th>Código</th>
-                <th>Tipo</th>
-                <th>Opción</th>
-              </tr>
-              </thead>
-              <tbody id="ListaDeCodigos">
-              </tbody>
-            </table>
+
+              </div>
+              <div class="col-lg-6">
+                <div class="table-responsive">
+                  <table class="ExcelTable2007 rwd-table" width="100%">
+                    <thead>
+                    <tr>
+                      <th class="heading" width="25px">&nbsp;</th>
+                      <th>Código</th>
+                      <th>Tipo</th>
+                      <th>Opción</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ListaDeCodigos">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
           </div>
+
         </div>
       <div class="box-header with-border">
       </div>
@@ -342,15 +357,16 @@ class FormularioProducto
               <div class="form-group">
               <script type="text/javascript">BotonesUbigeo('I');</script>
               <?php if($funcion == "F") { ?>
-              <input type="button" id="btn-agregar-ubigeo" class="form-control select2 btn btn-success" value="Agregar Ubigeo" onclick="AgregarUbigeo()"/>
+              <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo()" style="width: 120px" />
               <?php } else if($funcion == "M") { ?>
-              <input type="button" id="btn-agregar-ubigeo" class="form-control select2 btn btn-success" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()"/>
+              <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()" style="width: 120px" />
               <?php } ?>
               <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat" value="Editar Ubicación">
               <input type="button" onclick="BotonesUbigeo('I')" id="btn-cancelar-ubigeo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
               </div>
             </div>
           </div>
+          <br>
           <div class="table-responsive">
             <table class="ExcelTable2007 rwd-table" width="100%">
               <thead>

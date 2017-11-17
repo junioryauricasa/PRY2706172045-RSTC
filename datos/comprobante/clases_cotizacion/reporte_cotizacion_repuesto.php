@@ -148,7 +148,7 @@
 <small><span style="text-align: left; font-weight: bold; font-family: Arial;">Estimado Cliente:</span><br>
 <span style="font-family: Arial;">Atendiendo a su solicitud de cotización nos es grato alcanzarle nuestra mejor oferta en los repuestos solicitados, que a continuación detallamos:</span></small>
 <br><br>
-<table id="tabladetalle" style="text-align: left; width: 683px; height: 130px;" cellpadding="3" cellspacing="1">
+<table id="tabladetalle" style="text-align: left; width: 100%; height: 130px;" cellpadding="3" cellspacing="1">
   <tbody>
     <tr id="primerdetalle">
       <td style="font-weight: bold; font-family: Arial; text-align: center; width: 22px;"><small><small>ÍTEM</small></small></td>
@@ -177,7 +177,7 @@
     <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
       <td style="width: 22px; font-size:x-small;"><?php echo $i; ?></td>
       <td style="width: 77px; font-size:x-small;"><?php echo $fila['CodigoProducto']; ?></td>
-      <td style="width: 179px; font-size:x-small;"><?php echo $fila['DescripcionProducto']; ?></td>
+      <td style="width: 179px; font-size:x-small; text-align: left"><?php echo $fila['DescripcionProducto']; ?></td>
       <td style="width: 17px; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
       <td style="width: 76px; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmPrecio']; ?></td>
       <td style="width: 50px; font-size:x-small;"><?php echo round($fila['dcmDescuento'],0).'%'; ?></td>
@@ -231,52 +231,25 @@
             <?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>       
           </small></small>
       </td>
-
-      <!--td class="celdatotales" colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
-          <small>
-            <small>
-              SUBTOTAL
-            </small>
-          </small>
-      </td>
-      <td class="celdatotales" style="width: 86px; text-align: center;">
-          <small><small>
-            <?php echo $SimboloMoneda.' '.$ValorCotizacion; ?>    
-          </small></small>
-      </td-->
     </tr>
-    <!--tr id="cuartodetalle">
-      <td colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
-        <small><small>IGV 18%</small></small>
-      </td-->
-      <!--td style="width: 86px; text-align: center;">
-        <small><small>
-          <?php echo $SimboloMoneda.' '.$IGVCotizacion; ?>    
-        </small></small>
-      </td>
-    </tr-->
-    <!--tr id="quintodetalle">
-      <td colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
-        <small><small>TOTAL</small></small>
-      </td>
-      <td style="width: 86px; text-align: center;">
-        <small><small>
-          <?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>    
-        </small></small>
-      </td>
-    </tr-->
   </tbody>
 </table>
 
-<table id="tablacontactos" style="text-align: left; width: 449px; ">
+<table id="tablacontactos" style="text-align: left; width: 100%; ">
   <tbody>
     <tr style="font-family: Arial; font-weight: bold;">
       <td style="text-align: center; width: 147px;" colspan="7">
-        <small><small>REPRESENTACIONES SERVICIOS TÉCNICOS COMERCIALES S.A.</small></small></td>
-      </tr>
+        <small>
+          <small>
+            REPRESENTACIONES SERVICIOS TÉCNICOS COMERCIALES S.A.
+          </small>
+        </small>
+      </td>
+    </tr>
     <tr>
       <td style="font-family: Arial; font-weight: bold; width: 111px;" colspan="3">
-        <small><small>NROS CTA. CTE. -BCP</small></small></td>
+        <small><small>NROS CTA. CTE. -BCP</small></small>
+      </td>
       <td style="font-family: Arial; width: 8px;"></td>
       <td style="font-family: Arial; font-weight: bold; width: 147px;" colspan="3">
         <small><small>NROS DE TELÉFONO</small></small>

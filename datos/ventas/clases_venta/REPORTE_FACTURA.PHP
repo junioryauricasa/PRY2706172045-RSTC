@@ -120,9 +120,9 @@
 </style>
 <body>
 
-
-
-  <div class="row" style="margin-top: 57px">
+ <!--img src="../../imagenes/background-factura.PNG" alt=""-->
+ 
+ <div class="row" style="margin-top: 57px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
     <div class="" style="width: 47% !important; height: 135px; float: left; border: solid 2px transparent; color: transparent;">
