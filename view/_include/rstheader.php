@@ -71,6 +71,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
   #scrool-slim::-webkit-scrollbar
   {
     width: 6px;
+    height: 6px;
     background-color: #F5F5F5;
   }
 

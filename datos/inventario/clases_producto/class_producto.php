@@ -221,7 +221,7 @@ class Producto
                 </button>
               </td>
               <td align="right" data-th="Opciones"> 
-                <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto">
+                <button type="submit" id="'.$fila["intIdProducto"].'" onclick="ver_formulario()" class="btn btn-xs btn-warning btn-mostrar-producto">
                   <i class="fa fa-edit"></i> Editar
                 </button>
                 <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
