@@ -102,7 +102,7 @@ include('../_include/rstheader.php');
 			              <thead>
 			              <tr>
 			                <th class="heading" width="25px">&nbsp;</th>
-			                <th style="width: 50px">Código</th>
+			                <th style="min-width: 50px; max-width: 50px">Código</th>
 			                <th>Descripción</th>
 			                <th>Tipo de Moneda</th>
 			                <th>Precio de Venta 1</th>
