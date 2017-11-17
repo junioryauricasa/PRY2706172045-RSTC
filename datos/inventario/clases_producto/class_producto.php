@@ -86,6 +86,11 @@ class Producto
       $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
+      $salida['nvchDescripcion'] = $fila["nvchDescripcion"];
+      $salida['intCantidadMinima'] = $fila['intCantidadMinima'];
+      $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];
+      echo json_encode($salida);
+      /*
       $FormularioProducto = new FormularioProducto();
       $FormularioProducto->IdProducto($fila['intIdProducto']);
       $FormularioProducto->Descripcion($fila['nvchDescripcion']);
@@ -104,6 +109,7 @@ class Producto
       $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
       $FormularioProducto->Observacion($fila['nvchObservacion']);
       $FormularioProducto->ConsultarFormulario($funcion);
+      */
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

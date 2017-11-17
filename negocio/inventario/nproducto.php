@@ -84,6 +84,29 @@ $(document).on('click', '#btn-crear-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Producto */
 $(document).on('click', '.btn-mostrar-producto', function(){
+	var intIdProducto = $(this).attr("id");
+    var funcion = "M";
+    var tipolistado = "T";
+	  $.ajax({
+	   url:"../../datos/inventario/funcion_producto.php",
+	   method:"POST",
+	   data:{intIdProducto:intIdProducto,funcion:funcion},
+	   dataType:'json',
+	   success:function(datos)
+	   {
+	   	//$("#formulario-crud").html(datos);
+	   	$("#nvchDescripcion").val(datos.nvchDescripcion);
+	   	$("#intCantidadMinima").val(datos.intCantidadMinima);
+	   	$("#dcmPrecioVenta1").val(datos.dcmPrecioVenta1);
+	   	$("#dcmDescuentoVenta2").val(datos.dcmDescuentoVenta2);
+		//$("#tipo-moneda").val($("#intIdTipoMonedaVenta").val());
+	   	MostrarCodigo(intIdProducto,tipolistado);
+	   	MostrarUbigeo(intIdProducto,tipolistado);
+	   	//goToBox("#Formulario");
+	   }
+	  });
+	 return false;
+  	  /* 
   	  var intIdProducto = $(this).attr("id");
   	  var funcion = "M";
   	  var tipolistado = "T";
@@ -101,6 +124,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   }
 	  });
 	 return false;
+	 */
 });
 /* FIN - Funcion Ajax - Mostrar Producto */
 //////////////////////////////////////////////////////////////
