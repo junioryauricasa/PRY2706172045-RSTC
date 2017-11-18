@@ -217,7 +217,7 @@ class Producto
               <td align="right"data-th="Preio de Venta 3">'.$fila["dcmPrecioVenta3"].'</td>
               <td align="right"data-th="Cant. Total" style="width:250px !important">'.$fila["intCantidad"].'</td>
               <td align="right"data-th="Ubicación">
-                <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+                <button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">
                   <i class="fa fa-edit"></i> Ver Detalle
                 </button>
               </td>
@@ -227,11 +227,11 @@ class Producto
                 </button>
               </td>
               <td align="right" data-th="Opciones"> 
-                <button type="submit" id="'.$fila["intIdProducto"].'" onclick="ver_formulario()" class="btn btn-xs btn-warning btn-mostrar-producto">
-                  <i class="fa fa-edit"></i> Editar
+                <button type="submit" id="'.$fila["intIdProducto"].'" onclick="ver_formulario()" class="btn btn-xs btn-warning btn-mostrar-producto" data-toggle="tooltip" title="Editar">
+                  <i class="fa fa-edit"></i>
                 </button>
-                <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto">
-                  <i class="fa fa-trash"></i> Eliminar
+                <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto" data-toggle="tooltip" title="Eliminar">
+                  <i class="fa fa-trash"></i>
                 </button>
               </td>  
           </tr>';

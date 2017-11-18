@@ -54,7 +54,7 @@ class FormularioProducto
                       } else 
                       if($funcion == "M") {
                         ?>
-                      <h4 class="box-title">Editar Producto</h4>
+                      <h4 class="box-title text-center">Editar Producto</h4>
                     <?php 
                       } 
                     ?>
@@ -113,7 +113,7 @@ class FormularioProducto
                     <hr>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Tipo de Moneda:</label>
+                        <label>Tipo de Moneda de Compra:</label>
                         <select id="intIdTipoMonedaCompra" name="intIdTipoMonedaCompra" class="form-control select2" >
                           <?php try{
                             $sql_conexion = new Conexion_BD();
@@ -139,6 +139,26 @@ class FormularioProducto
                         onkeypress="return EsDecimalTecla(event)" onkeyup="EsDecimal('dcmPrecioCompra')" maxlength="15" required>
                         <span id="dcmPrecioCompraIcono" class="" aria-hidden=""></span>
                         <div id="dcmPrecioCompraObs" class=""></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Tipo de Moneda de Venta:</label>
+                        <select id="intIdTipoMonedaCompra" name="intIdTipoMonedaCompra" class="form-control select2" >
+                          <?php try{
+                            $sql_conexion = new Conexion_BD();
+                            $sql_conectar = $sql_conexion->Conectar();
+                            $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                            $sql_comando->execute();
+                            while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                            {
+                              echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                            }
+                          }catch(PDPExceptions $e){
+                            echo $e->getMessage();
+                          }?>
+                        </select>
+                        <script type="text/javascript">$("#intIdTipoMonedaCompra").val(<?php echo $this->intIdTipoMonedaCompra; ?>);</script>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -192,14 +212,18 @@ class FormularioProducto
                       </div>
                     </div>
                     <br>
-                    <?php if($funcion == "M") { ?>
-                    <input type="submit" id="btn-editar-producto" class="btn btn-sm btn-warning btn-flat pull-left" value="Editar Producto">
-                    <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
-                    <?php } ?>
+                    <?php 
+                        if($funcion == "M") { 
+                    ?>
+                        <input type="submit" id="btn-editar-producto" class="btn btn-sm btn-warning btn-flat pull-left" value="Editar Producto">
+                        <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
+                    <?php 
+                        } 
+                    ?>
                 </div>
 
                 <!-- Datos de codigos adicionales -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <h4 class="box-title text-center">Códigos Adicionales</h4>
                     <hr>
                     
@@ -309,13 +333,9 @@ class FormularioProducto
                             });
                           });
                     </script>
-
-
                 </div>
             </div>
           </div>
-      <div class="box-header with-border">
-      </div>
 
       <div class="box-header with-border">
       </div>
@@ -367,11 +387,18 @@ class FormularioProducto
             <div class="col-md-5">
               <div class="form-group">
               <script type="text/javascript">BotonesUbigeo('I');</script>
-              <?php if($funcion == "F") { ?>
+              <?php 
+                  if($funcion == "F") { 
+              ?>
               <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo()" style="width: 120px" />
-              <?php } else if($funcion == "M") { ?>
+              <?php 
+                  } else 
+                  if($funcion == "M") { 
+              ?>
               <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()" style="width: 120px" />
-              <?php } ?>
+              <?php 
+                  } 
+              ?>
               <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat" value="Editar Ubicación">
               <input type="button" onclick="BotonesUbigeo('I')" id="btn-cancelar-ubigeo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
               </div>

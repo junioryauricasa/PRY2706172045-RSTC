@@ -41,44 +41,48 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         });
     }
   </script>
-  <style>
-  .table {
-    border: 2px solid #727070;
-  }
-  .table > thead > tr > th,
-  .table > tbody > tr > th,
-  .table > tfoot > tr > th,
-  .table > thead > tr > td,
-  .table > tbody > tr > td,
-  .table > tfoot > tr > td {
-    border: 2px solid #727070;
-    border-right-width:2px;
-    border-left-width:2px;
-  }
-  .table > thead {
-    background: #EAF1F7;
-  }
-}
-  /*
-    *  STYLE for scrool
-  */
-  #scrool-slim::-webkit-scrollbar-track
-  {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-  }
 
-  #scrool-slim::-webkit-scrollbar
-  {
-    width: 6px;
-    height: 6px;
-    background-color: #F5F5F5;
+<style>
+    div .table-responsive{
+      border: solid 1px #a9c4e9 !important;
+    }
+    .table {
+      border: 2px solid #727070;
+    }
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+      border: 2px solid #727070;
+      border-right-width:2px;
+      border-left-width:2px;
+    }
+    .table > thead {
+      background: #EAF1F7;
+    }
   }
+    /*
+      *  STYLE for scrool
+    */
+    #scrool-slim::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #F5F5F5;
+    }
 
-  #scrool-slim::-webkit-scrollbar-thumb
-  {
-    background-color: #000000;
-  }
+    #scrool-slim::-webkit-scrollbar
+    {
+      width: 6px;
+      height: 6px;
+      background-color: #F5F5F5;
+    }
+
+    #scrool-slim::-webkit-scrollbar-thumb
+    {
+      background-color: #000000;
+    }
 </style>
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini" id="scrool-slim">
