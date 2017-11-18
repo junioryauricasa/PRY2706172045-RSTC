@@ -132,7 +132,6 @@ require_once '../../datos/conexion/bd_conexion.php';
 			          <div class="row">
 			            <div class="col-md-5">  
 			              <button type="button" class="btn btn-sm btn-info btn-flat" onclick="ver_formulario()">Agregar Producto</button>
-			              <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-sm btn-success btn-flat">Limpiar Detalle de Ubicación</button>
 			            </div>
 			          </div>
 			        </div>
@@ -182,7 +181,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </div><!-- /.box-body -->
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                  <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-xs btn-success btn-flat">Limpiar Detalle de Ubicación</button>
+                  <button type="button" class="btn btn-xs btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                 </div>
               </div>
             </div>
