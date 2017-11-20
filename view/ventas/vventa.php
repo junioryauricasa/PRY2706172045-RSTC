@@ -463,30 +463,30 @@ require_once '../../datos/conexion/bd_conexion.php';
                         <td>
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
-                            <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" />
+                            <input style="width: 110px !important" type="text" class="buscar input-without-border" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" />
                             <div class="result" id="result1">
                         </td>
                         <td>
-                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" readonly/>
+                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td>
-                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" readonly />
+                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="input-without-border" readonly />
                             <input type="hidden" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
                             <input type="hidden" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
                         </td>
                         <td>
-                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" idsprt="1" 
+                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="input-without-border" idsprt="1" 
                           onkeyup="CalcularPrecioTotal(this)"/>
                         </td>
                         <td>
-                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" readonly/>
+                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td>
                             <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"
-                          onkeyup="CalcularPrecioTotal(this)"/>
+                          onkeyup="CalcularPrecioTotal(this)" class="input-without-border"/>
                         </td>
                         <td>
-                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-comprobante" readonly/>
+                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                             <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -528,14 +528,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
                         </td>
                         <td>
-                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>
+                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" class="input-without-border"/>
                         </td>
                         <td> 
                           <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-comprobante" 
-                          onkeyup="CalcularPrecioTotalS(this)"/>           
+                          onkeyup="CalcularPrecioTotalS(this)" class="input-without-border"/>           
                         </td>
                         <td>
-                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-comprobante" readonly/>
+                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                           <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -577,14 +577,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
                         </td>
                         <td>
-                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>
+                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" class="input-without-border"/>
                         </td>
                         <td> 
                           <input type="text" id="intCantidadM1" name="intCantidadM[]" idsprt="1" form="form-comprobante" 
-                          onkeyup="CalcularPrecioTotalM(this)"/>           
+                          onkeyup="CalcularPrecioTotalM(this)" class="input-without-border"/>           
                         </td>
                         <td>
-                          <input type="text" id="dcmTotalM1" name="dcmTotalM[]" form="form-comprobante" readonly/>
+                          <input type="text" id="dcmTotalM1" name="dcmTotalM[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                           <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
