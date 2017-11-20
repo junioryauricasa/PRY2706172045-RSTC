@@ -85,11 +85,38 @@ class DetalleComprobante
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
-      $sql_comando -> execute(array(':intIdVenta' => $this->intIdVenta));
+      $sql_comando -> execute(array(':intIdComprobante' => $this->intIdComprobante));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        if($fila['intCantidad'] < 10)
+          $fila['intCantidad'] = "0".$fila['intCantidad'];
+        if($fila['intIdTipoVenta'] == 1){
+          echo
+          '<tr>
+              <td class="heading" data-th="ID">'.$i.'</td>
+              <td>'.$fila['nvchCodigo'].'</td>
+              <td>'.$fila['nvchDescripcion'].'</td>
+              <td>'.$fila['dcmPrecio'].'</td>
+              <td>'.$fila['dcmDescuento'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+              <td>'.$fila['intCantidad'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
+              </tr>';
+              $i++;
+            } else if($fila['intIdTipoVenta'] == 2){
+              echo
+              '
+              <tr>
+              <td class="heading" data-th="ID">'.$i.'</td>
+              <td>S'.$i.'</td>
+              <td>'.$fila['nvchDescripcion'].'</td>
+              <td>'.$fila['intCantidad'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
+              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
+          </tr>';
+        /*
         if($fila['intIdTipoVenta'] == 1){
           echo
           '<tr>
@@ -114,6 +141,7 @@ class DetalleComprobante
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
           </tr>';
+          */
           $i++;
         }
       }

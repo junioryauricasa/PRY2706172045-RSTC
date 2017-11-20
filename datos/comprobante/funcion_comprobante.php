@@ -89,7 +89,7 @@ switch($_POST['funcion']){
     $Comprobante->IdComprobante($_POST['intIdComprobante']);
     $Comprobante->MostrarComprobante($_POST['funcion']);
     break;
-  case "MDV":
+  case "MDCR":
     $DetalleComprobante = new DetalleComprobante();
     $DetalleComprobante->IdComprobante($_POST['intIdComprobante']);
     $DetalleComprobante->MostrarDetalleComprobante($_POST['tipolistado']);

@@ -88,6 +88,36 @@ class Comprobante{
       $sql_comando -> execute(array(':intIdComprobante' => $this->intIdComprobante));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
+      $salida['intIdComprobante'] = $fila['intIdComprobante'];
+
+      $salida['dtmFechaCreacion'] = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
+      $salida['intIdSucursal'] = $fila['intIdSucursal'];
+      $salida['intIdTipoComprobante'] = $fila['intIdTipoComprobante'];
+      $salida['nvchSerie'] = $fila['nvchSerie'];
+      $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
+      $salida['intIdTipoVenta'] = $fila['intIdTipoVenta'];
+      $salida['intIdTipoMoneda'] = $fila['intIdTipoMoneda'];
+      $salida['intIdTipoPago'] = $fila['intIdTipoPago'];
+
+      $salida['nvchDNIRUC'] = $fila['nvchDNIRUC'];
+      $salida['nvchClienteProveedor'] = $fila['nvchClienteProveedor'];
+      $salida['nvchDireccion'] = $fila['nvchDireccion'];
+      $salida['TipoCliente'] = $fila['TipoCliente'];
+      $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+
+      $salida['intIdCliente'] = $fila['intIdCliente'];
+      $salida['intIdProveedor'] = $fila['intIdProveedor'];
+  
+      $salida['nvchObservacion'] = $fila['nvchObservacion'];
+      /*
+      $salida['intIdSucursal'] = $fila['intIdSucursal'];
+      $salida['dtmFechaCreacion'] = $fila['dtmFechaCreacion'];
+      $salida['nvchSerie'] = $fila['nvchSerie'];
+      $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
+      $salida['intIdUsuario'] = $fila['intIdUsuario'];*/
+      echo json_encode($salida);
+      //echo $salida;
+      /*
       $FormularioComprobante = new FormularioComprobante();
       $FormularioComprobante->IdComprobante($fila['intIdComprobante']);
       $FormularioComprobante->IdTipoComprobante($fila['intIdTipoComprobante']);
@@ -113,6 +143,7 @@ class Comprobante{
 
       $FormularioComprobante->Observacion($fila['nvchObservacion']);
       $FormularioComprobante->MostrarDetalle();
+      */
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -246,13 +277,13 @@ class Comprobante{
         <td>'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
         <td>'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>
         <td> 
-          <button type="submit" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-warning btn-mostrar-Comprobante">
+          <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
             <i class="fa fa-edit"></i> Ver Detalle
           </button>
-          <button type="submit" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-danger btn-anular-Comprobante">
+          <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-danger btn-anular-comprobante">
             <i class="fa fa-trash"></i> Anular
           </button>
-          <button type="submit" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-default btn-download-report">
+          <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-default btn-download-report">
             <i class="fa fa-download"></i> Reporte
           </button>
         </td>

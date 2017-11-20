@@ -25,19 +25,21 @@ function EliminarFilasVacias() {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-function MostrarDetalleVenta(intIdVenta,tipolistado) {
-	var funcion = "MDV";
+function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
+	var funcion = "MDCR";
+	var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdComprobante:intIdComprobante,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
-	   	if($("#intIdTipoVenta").val() == 1){
-	   		$("#ListaDeProductosComprar").html(datos);
-	   	} else if($("#intIdTipoVenta").val() == 2){
-	   		$("#ListaDeServiciosComprar").html(datos);
-	   	}
+	   	if(intIdTipoVenta == 1)
+	   		$("#ListaDeProductosVender").html(datos);
+	   	else if(intIdTipoVenta == 2)
+	   		$("#ListaDeServiciosVender").html(datos);
+	   	else if(intIdTipoVenta == 3)
+	   		$("#ListaDeMaquinariasVender").html(datos);
 	   }
 	  });
 }

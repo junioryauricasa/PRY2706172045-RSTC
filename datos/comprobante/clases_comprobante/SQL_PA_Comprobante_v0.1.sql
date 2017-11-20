@@ -109,10 +109,13 @@ DELIMITER $$
 		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		TMN.nvchNombre AS NombreMoneda,
 		TPG.nvchNombre AS NombrePago,
-		TV.nvchNombre AS NombreVenta
+		TV.nvchNombre AS NombreVenta,
+		TCL.nvchNombre AS TipoCliente,
+		TCL.intIdTipoCliente
 	    FROM tb_comprobante CR
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_tipo_cliente TCL ON C.intIdTipoCliente = TCL.intIdTipoCliente
 		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
 		LEFT JOIN tb_tipo_pago TPG ON CR.intIdTipoPago = TPG.intIdTipoPago
 		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TV.intIdTipoVenta

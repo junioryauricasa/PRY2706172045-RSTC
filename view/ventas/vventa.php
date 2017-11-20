@@ -388,7 +388,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </select>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cliente:</label>
                   <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
@@ -423,13 +423,13 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Agregar Fila:</label>
                   <input type="button" onclick="AgregarFila($('#intIdTipoVenta').val())" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cotización:</label>
                   <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
@@ -454,7 +454,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" ></th>
+                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeProductosVender">
@@ -516,7 +516,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" ></th>
+                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeServiciosVender">
@@ -565,7 +565,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" ></th>
+                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeMaquinariasVender">
@@ -656,9 +656,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="hidden" name="funcion" value="I" form="form-comprobante">
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
-                  <button type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary" form="form-comprobante">
-                    Realizar Venta
-                  </button>
+                  <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Venta" form="form-comprobante">
                 </div>
               </div>
               <div class="col-md-10">
@@ -795,9 +793,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <script type="text/javascript">TotalComprobante();</script>
               <div class="col-md-2">
                 <div class="form-group">
-                  <button type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante">
-                    Nueva Venta
-                  </button>
+                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Venta"/>
                 </div>
               </div>
             </div>
