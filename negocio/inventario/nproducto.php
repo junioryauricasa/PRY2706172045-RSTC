@@ -96,10 +96,26 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   {
 	   	//$("#formulario-crud").html(datos);
 	   	$("#nvchDescripcion").val(datos.nvchDescripcion);
-	   	$("#intCantidadMinima").val(datos.intCantidadMinima);
-	   	$("#dcmPrecioVenta1").val(datos.dcmPrecioVenta1);
-	   	$("#dcmDescuentoVenta2").val(datos.dcmDescuentoVenta2);
-		//$("#tipo-moneda").val($("#intIdTipoMonedaVenta").val());
+	   	//alert(datos);
+	   	$("#nvchObservacion").val(datos.nvchObservacion);
+		$("#nvchUnidadMedida").val(datos.nvchUnidadMedida);
+		$("#intCantidad").val(datos.intCantidad);
+		$("#intCantidadMinima").val(datos.intCantidadMinima);
+		$("#nvchDireccionImg").val(datos.nvchDireccionImg);
+		$("#resultadoimagen").attr("src","../../datos/inventario/imgproducto/"+datos.nvchDireccionImg);
+		$("#dcmPrecioCompra").val(datos.dcmPrecioCompra);
+		$("#intIdTipoMonedaCompra").val(datos.intIdTipoMonedaCompra);
+		$("#dcmPrecioVenta1").val(datos.dcmPrecioVenta1);
+		$("#dcmPrecioVenta2").val(datos.dcmPrecioVenta2);
+		$("#dcmPrecioVenta3").val(datos.dcmPrecioVenta3);
+		$("#dcmDescuentoVenta2").val(datos.dcmDescuentoVenta2);
+		$("#dcmDescuentoVenta3").val(datos.dcmDescuentoVenta3);
+		$("#intIdTipoMonedaVenta").val(datos.intIdTipoMonedaVenta);
+		$("#intIdProducto").val(datos.intIdProducto);
+		$("#dtmFechaIngreso").val(datos.dtmFechaIngreso);
+		$("#btn-agregar-codigo-mostrar").show();
+		$("#btn-agregar-codigo-nuevo").hide();
+		//imprime las tablas
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
 	   	//goToBox("#Formulario");

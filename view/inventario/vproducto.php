@@ -105,7 +105,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 			                <th class="heading" width="25px">&nbsp;</th>
 			                <th style="min-width: 50px; max-width: 50px">Código</th>
 			                <th>Descripción</th>
-			                <th>Tipo de Moneda</th>
+			                <th>Tipo de Moneda Venta</th>
 			                <th>Precio de Venta 1</th>
 			                <th>Precio de Venta 2</th>
 			                <th>Precio de Venta 3</th>
@@ -181,7 +181,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </div><!-- /.box-body -->
                 </div>
                 <div class="modal-footer">
-                  <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-xs btn-success btn-flat">Limpiar Detalle de Ubicación</button>
+                  <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-xs btn-success btn-flat">Limpiar Detalles</button>
                   <button type="button" class="btn btn-xs btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                 </div>
               </div>
@@ -237,7 +237,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <label>Imagen:</label>
                               <input type="file" name="SeleccionImagen" id="SeleccionImagen" accept=".png, .jpg, .jpeg">
                               <img id="resultadoimagen" src="" style="/*width: 100px;*/ height: 100px;" />
-                              <img id="resultadoimagen" src="" class="img-responsive" style="width: 100%; height: 100px;"/>
+                              <!--img id="resultadoimagen" src="" class="img-responsive" style="width: 100%; height: 100px;"/-->
                               <input type="hidden" id="nvchDireccionImg" name="nvchDireccionImg" value="" />
                               <div id="operacionimagen"></div>
                             </div>
@@ -245,7 +245,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Observación y/o Datos Adicionales (Opcional):</label>
-                              <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-producto" rows="6"></textarea>
+                              <textarea id="nvchObservacion" class="form-control select2" maxlength="800" value=" " name="nvchObservacion" form="form-producto" placeholder="Ingrese Observación" rows="6">
+                              </textarea>
                             </div>
                           </div>
                       </div>
@@ -360,109 +361,84 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left hidden" value="Limpiar" style="margin: 0px 5px">
                       </div>
 
-                      <!-- Datos de codigos adicionales -->
+                      
                       <div class="col-lg-6 col-md-6">
+
+                          <!-- Datos de codigos adicionales -->
                           <h4 class="box-title text-center">Códigos Adicionales</h4>
                           <hr>
                           
-                          <!-- button for modal codprods -->
-                          <br>
-                          <button class="btn btn-sm btn-info btn-flat pull-center" id="btn-modal-codigoproductos">Códigos Adicionales</button>
-                          <br>
-                          <br>
-                          <!-- Tabla de codigos por producto -->
-                          <div class="table-responsive"  style="max-height: 150px; overflow-y: visible; margin-bottom: 30px" id="scrool-slim">
-                            <table class="ExcelTable2007 rwd-table" width="100%">
-                              <thead>
-                              <tr>
-                                <th class="heading" width="25px">&nbsp;</th>
-                                <th style="max-width:100px; min-width: 100px">Código</th>
-                                <th>Tipo</th>
-                                <th>Opción</th>
-                              </tr>
-                              </thead>
-                              <tbody id="ListaDeCodigos">
-                              </tbody>
-                            </table>
-                          </div>
+                          <div class="col-xs-12">
+                              <div class="row">
+                                <div class="col-md-5">
+                                  <div id="nvchCodigoGroup" class="form-group">
+                                    <label>Código:</label>
+                                    <input type="text" id="nvchCodigo" class="form-control select2" 
+                                    placeholder="Ingrese Código" onkeyup="EsVacio('nvchCodigo')"
+                                    maxlength="85"/>
+                                    <span id="nvchCodigoIcono" class="" aria-hidden=""></span>
+                                    <div id="nvchCodigoObs" class=""></div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>Tipo de Código:</label>
+                                    <select id="tipo-codigo-producto" class="form-control select2" >
+                                      <?php try{
+                                        $sql_conexion = new Conexion_BD();
+                                        $sql_conectar = $sql_conexion->Conectar();
+                                        $sql_comando = $sql_conectar->prepare('CALL mostrartipocodigoproducto()');
+                                        $sql_comando->execute();
+                                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                        {
+                                          echo '<option value="'.$fila['intIdTipoCodigoProducto'].'">'.$fila['nvchNombre'].'</option>';
+                                        }
+                                      }catch(PDPExceptions $e){
+                                        echo $e->getMessage();
+                                      }?>
+                                    </select>
+                                  </div>
+                                </div>
+                                <input type="hidden" id="intIdCodigoProducto" />
+                              </div>
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                              <input type="button" id="btn-agregar-codigo-nuevo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 120px" />
+                                              
+                                              <input type="button" id="btn-agregar-codigo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 120px"/>
 
-                          <!-- Modal codigo productos-->
-                          <div class="modal modal-default fade" id="modal-codigoproductos" data-backdrop="static">
-                            <div class="modal-dialog" style="width: 350px;">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                  <h4 class="modal-title"><i class="fa fa-book"></i> Registro de Códigos </h4>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="box-body">
-                                    <div class="box-body">
-                                      <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                              <div class="col-md-12">
-                                                <div id="nvchCodigoGroup" class="form-group">
-                                                  <label>Código:</label>
-                                                  <input type="text" id="nvchCodigo" class="form-control select2" 
-                                                  placeholder="Ingrese Código" onkeyup="EsVacio('nvchCodigo')"
-                                                  maxlength="85"/>
-                                                  <span id="nvchCodigoIcono" class="" aria-hidden=""></span>
-                                                  <div id="nvchCodigoObs" class=""></div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-12">
-                                                <div class="form-group">
-                                                  <label>Tipo de Código:</label>
-                                                  <select id="tipo-codigo-producto" class="form-control select2" >
-                                                    <?php try{
-                                                      $sql_conexion = new Conexion_BD();
-                                                      $sql_conectar = $sql_conexion->Conectar();
-                                                      $sql_comando = $sql_conectar->prepare('CALL mostrartipocodigoproducto()');
-                                                      $sql_comando->execute();
-                                                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                                                      {
-                                                        echo '<option value="'.$fila['intIdTipoCodigoProducto'].'">'.$fila['nvchNombre'].'</option>';
-                                                      }
-                                                    }catch(PDPExceptions $e){
-                                                      echo $e->getMessage();
-                                                    }?>
-                                                  </select>
-                                                </div>
-                                              </div>
-                                              <input type="hidden" id="intIdCodigoProducto" />
-                                            </div>
-                                            <div class="row">
-                                              <div class="col-md-12">
-                                                <div class="form-group">
-                                                <script type="text/javascript">BotonesCodigo('I');</script>
-                                                    <input type="button" id="btn-agregar-codigo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 120px" />
-                                                    <!--input type="button" id="btn-agregar-codigo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 120px"/>
-                                                    <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código">
-                                                    <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación"-->
-                                                </div>
-                                              </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div><!-- /.box-body -->
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                                              <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código">
+                                              <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                                              <script type="text/javascript">BotonesCodigo('I');</script>
+                                   </div>
                                 </div>
                               </div>
-                            </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <!-- Tabla de codigos por producto -->
+                                  <div class="table-responsive"  style="max-height: 150px; overflow-y: visible; margin-bottom: 30px; overflow-x: hidden" id="scrool-slim">
+                                    <table class="ExcelTable2007 rwd-table" width="100%">
+                                      <thead>
+                                      <tr>
+                                        <th class="heading" width="25px">&nbsp;</th>
+                                        <th style="">Código</th>
+                                        <th>Tipo</th>
+                                        <th style="width: 130px !important">Opción</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody id="ListaDeCodigos">
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <!-- END Datos de codigos adicionales -->
+                                </div>
+                              </div>
                           </div>
-                          <!-- END Modal codigo productos-->
 
-                          <!-- script for modal codproductos -->
-                          <script type="text/javascript">
-                                $(document).ready(function() {
-                                  $('#btn-modal-codigoproductos').click(function(){
-                                      $('#modal-codigoproductos').modal('show');
-                                  });
-                                });
-                          </script>
+                          
+
                           
                           <!-- Formulario de Ubicacion del producto -->
                           <h4 class="box-title text-center">Ubicación del Producto</h4>
@@ -470,7 +446,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 
                           <div class="box-body">
                             <div class="row">
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div class="form-group">
                                   <label>Sucursal:</label>
                                   <select id="intIdSucursal" name="intIdSucursal" class="form-control select2" >
@@ -489,7 +465,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                   </select>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div id="nvchUbicacionGroup" class="form-group">
                                   <label>Ubicación en el Almacén:</label>
                                   <input type="text" id="nvchUbicacion" class="form-control select2" 
@@ -498,7 +474,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                   <div id="nvchUbicacionObs" class=""></div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div id="intCantidadUbigeoGroup" class="form-group">
                                   <label>Cantidad:</label>
                                   <input type="text" id="intCantidadUbigeo" class="form-control select2" 
@@ -513,6 +489,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <div class="col-md-5">
                                 <div class="form-group">
                                 <script type="text/javascript">BotonesUbigeo('I');</script>
+
                                 <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo()" style="width: 120px" />
                                 <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left hidden" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()" style="width: 120px" />
                                 <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat hidden" value="Editar Ubicación">

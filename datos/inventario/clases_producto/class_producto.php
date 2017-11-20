@@ -86,10 +86,23 @@ class Producto
       $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
+      $salida['intIdProducto'] = $fila["intIdProducto"];
       $salida['nvchDescripcion'] = $fila["nvchDescripcion"];
+      $salida['nvchUnidadMedida'] = $fila['nvchUnidadMedida'];
+      $salida['intCantidad'] = $fila['intCantidad'];
       $salida['intCantidadMinima'] = $fila['intCantidadMinima'];
+      $salida['nvchDireccionImg'] = $fila['nvchDireccionImg'];
+      $salida['dcmPrecioCompra'] = $fila['dcmPrecioCompra'];      
+      $salida['intIdTipoMonedaCompra'] = $fila['intIdTipoMonedaCompra'];
       $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];
-      echo json_encode($salida);
+      $salida['dcmPrecioVenta2'] = $fila['dcmPrecioVenta2'];
+      $salida['dcmPrecioVenta3'] = $fila['dcmPrecioVenta3'];
+      $salida['dcmDescuentoVenta2'] = $fila['dcmDescuentoVenta2'];
+      $salida['dcmDescuentoVenta3'] = $fila['dcmDescuentoVenta3'];
+      $salida['intIdTipoMonedaVenta'] = $fila['intIdTipoMonedaVenta'];
+      $salida['dtmFechaIngreso'] = $fila['dtmFechaIngreso'];
+      $salida['nvchObservacion'] = $fila['nvchObservacion'];
+      echo json_encode($salida); //importnate el encode
       /*
       $FormularioProducto = new FormularioProducto();
       $FormularioProducto->IdProducto($fila['intIdProducto']);
@@ -211,7 +224,7 @@ class Producto
               <td class="heading" style="" data-th="ID"></td>
               <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
               <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
-              <td align="right"data-th="Tipo de Moneda">'.$fila["nvchSimbolo"].'</td>
+              <td align="right"data-th="Tipo de Moneda Venta">'.$fila["nvchSimbolo"].'</td>
               <td align="right"data-th="Precio de Venta 1">'.$fila["dcmPrecioVenta1"].'</td>
               <td align="right"data-th="Precio de venta 2">'.$fila["dcmPrecioVenta2"].'</td>
               <td align="right"data-th="Preio de Venta 3">'.$fila["dcmPrecioVenta3"].'</td>

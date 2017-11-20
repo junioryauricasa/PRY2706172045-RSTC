@@ -444,8 +444,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Lista</th>
                       <th style="width: 110px" >Desc. (%)</th>
                       <th style="width: 110px" >Precio Unit.</th>
-                      <th style="width: 110px" >Cantidad</th>
-                      <th style="width: 110px" >Total</th>
+                      <th style="width: 110px !important" >Cantidad</th>
+                      <th style="width: 110px !important" >Total</th>
                       <th style="width: 25px !important" ></th>
                     </tr>
                     </thead>
@@ -539,17 +539,16 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </table>
                 </div>
               </div>
+              <script type="text/javascript">ElegirTabla(1);</script>
             </div>
             </div>
             <!-- FIN Tabla - Servicios -->
-            <script type="text/javascript">ElegirTabla(1);</script>
+            
 
             <div class="row">
-              <div class="col-md-9">
-              </div>
-              <div class="col-md-3">
-                <div class="row col-lg-12">
-                  <table border="1" class="ExcelTable2007 rwd-table" width="100%">
+                <div class="col-md-12"> 
+                  <div class="" style="overflow-x: hidden;">
+                    <table class="" style="width:398px !important; float:right; ">
                     <tbody>
                       <!--
                       <tr>
@@ -564,23 +563,33 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-cotizacion"/>
                           </td>
                       </tr>-->
-                      <tr>
+                      <!--tr style="width: 110px !important">
                           <th>Venta Total</th>
-                          <td style="width: 120px !important">
+                          <td style="width: 110px !important">
                               <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-cotizacion"/>
                           </td>
+                      </tr-->
+                      <thead>
+                        
+                      </thead>
+                      <tr style="">
+                        <td style="width: 110px !important;" class="text-center heading-back"><span> Venta Total </span></td>
+                        <td style="width: 110px !important;">
+                            <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-cotizacion" style=""/>
+                        </td>
+                        <td style="width: 23px !important;"></td>
                       </tr>
                     </tbody>
-                  </table>
+                    </table>
+                  </div>
                 </div>
-              </div>
             </div>
             <br><br>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Observación y/o Datos Adicionales (Opcional):</label>
-                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6"></textarea>
+                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cotizacion" rows="6" style="overflow: hidden;"></textarea>
                 </div>
               </div>
             </div>
@@ -726,6 +735,18 @@ require_once '../../datos/conexion/bd_conexion.php';
   }
   select{
     padding: 3px;
+  }
+
+  .heading-back{
+    background: rgba(212,228,239,1);
+    background: -moz-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(212,228,239,1)), color-stop(11%, rgba(212,228,239,1)), color-stop(31%, rgba(212,228,239,1)), color-stop(100%, rgba(183,195,204,1)));
+    background: -webkit-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: -o-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: -ms-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    background: linear-gradient(to bottom, rgba(212,228,239,1) 0%, rgba(212,228,239,1) 11%, rgba(212,228,239,1) 31%, rgba(183,195,204,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#b7c3cc', GradientType=0 );
+    font-weight: bolder;
   }
 </style>
 <?php include('../_include/rstfooter.php'); ?>

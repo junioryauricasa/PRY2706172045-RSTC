@@ -83,6 +83,11 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     {
       background-color: #000000;
     }
+
+    /* CLASS PARA QUITAR EL BORDE A LOS INPUT */
+    .input-without-border{
+      border: none;
+    }
 </style>
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini" id="scrool-slim">

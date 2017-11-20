@@ -87,11 +87,11 @@ class UbigeoProducto
               <input type="hidden" name="intCantidadUbigeo[]" value="'.$fila['intCantidadUbigeo'].'"/>'.$fila['intCantidadUbigeo'].'
             </td>
             <td> 
-              <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarUbigeo(this)">
-                <i class="fa fa-edit"></i> Editar
+              <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarUbigeo(this)" data-toggle="tooltip" title="" data-original-title="Editar">
+                <i class="fa fa-edit"></i> 
               </button>
-              <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarUbigeo(this)">
-                <i class="fa fa-edit"></i> Eliminar
+              <button type="button" idup="'.$fila['intIdUbigeoProducto'].'" class="btn btn-xs btn-danger" onclick="EliminarUbigeo(this)" data-toggle="tooltip" title="" data-original-title="Eliminar">
+                <i class="fa fa-trash"></i> 
               </button>
             </td>
         </tr>';
