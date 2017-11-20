@@ -6,6 +6,7 @@ function LimpiarCampos(){
 	$("#nvchDenominacion").val("");
 	$("#nvchDomicilio").val("");
 	$("#TipoCliente").val("");
+	$("#intIdTipoCliente").val("");
 	$("#intIdCliente").val("");
 	$("#intIdProveedor").val("");
 	$("#intIdSucursal").val(1);
@@ -16,6 +17,7 @@ function LimpiarCampos(){
 	$("#ListaDeProductosVender").html("");
 	$("#ListaDeServiciosVender").html("");
 	$("#ListaDeMaquinariasVender").html("");
+	HabilitacionOpciones(1);
 	AgregarFila(1);
 	AgregarFila(2);
 	AgregarFila(3);
@@ -30,6 +32,28 @@ function LimpiarCampos(){
 	}
 	$("#nvchObservacion").val("");
 	MostrarSeleccionComprobante();
+}
+/* FIN - Funcion Ajax - Limpiear campos del Comprobante */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
+function HabilitacionOpciones(accion){
+	if(accion == 1){
+		$('#intIdSucursal').attr("disabled", false);
+		$('#intIdTipoComprobante').attr("disabled", false);
+		$('#intIdTipoVenta').attr("disabled", false);
+		$('#intIdTipoPago').attr("disabled", false);
+		$('.opcion-boton-nuevo').show();
+		$('.opcion-columna-nuevo').show();
+	} else {
+		$('#intIdSucursal').attr("disabled", true);
+		$('#intIdTipoComprobante').attr("disabled", true);
+		$('#intIdTipoVenta').attr("disabled", true);
+		$('#intIdTipoPago').attr("disabled", true);
+		$('.opcion-boton-nuevo').hide();
+		$('.opcion-columna-nuevo').hide();
+	}
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
 //////////////////////////////////////////////////////////////
@@ -117,7 +141,6 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 /* FIN - Funcion Ajax - Insertar Cliente */
 //////////////////////////////////////////////////////////////
 
-
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
 $(document).on('click', '.btn-mostrar-comprobante', function(){
@@ -131,38 +154,51 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   dataType:"json",
 	   success:function(datos)
 	   {
+	   	//alert(datos);
 	   	/*
 	   	$("#formulario-crud").html(datos);
 	   	goToBox("#Formulario");
 	   	$("#tipo-comprobante").val($("#intIdTipoComprobante").val());
 	   	*/
+	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
+	   	$("#intIdSucursal").val(datos.intIdSucursal);
+	   	$("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
+	   	$("#nvchSerie").val(datos.nvchSerie);
+	   	$("#nvchNumeracion").val(datos.nvchNumeracion);
+	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
+	   	$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
+	   	$("#intIdTipoPago").val(datos.intIdTipoPago);
+
 	   	$("#nvchNumDocumento").val(datos.nvchDNIRUC);
 		$("#nvchDenominacion").val(datos.nvchClienteProveedor);
 		$("#nvchDomicilio").val(datos.nvchDireccion);
 		$("#TipoCliente").val(datos.TipoCliente);
+		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
+
 		$("#intIdCliente").val(datos.intIdCliente);
-		$("#intIdProveedor").val(datos.intIdCliente);
-		$("#intIdSucursal").val(datos.intIdSucursal);
-		$("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
-		$("#intIdTipoVenta").val(datos.intIdTipoVenta);
-		$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
-		$("#intIdTipoPago").val(datos.intIdTipoPago);
-		if(datos.intIdTipoVenta == 1){
+		$("#intIdProveedor").val(datos.intIdProveedor);
+		
+		$("textarea#nvchObservacion").val(datos.nvchObservacion);
+		HabilitacionOpciones(2);
+		ElegirTabla(datos.intIdTipoVenta);
+		MostrarDetalleComprobante(datos.intIdComprobante,datos.intIdTipoVenta);
+		/*if(datos.intIdTipoVenta == 1)
 
-		} else if(datos.intIdTipoVenta == 2){
+		else if(datos.intIdTipoVenta == 2)
 
-		}
-		$("#ListaDeProductosVender").html("");
+		else if(datos.intIdTipoVenta == 3)
+		*/		
+		/*$("#ListaDeProductosVender").html("");
 		$("#ListaDeServiciosVender").html("");
 		$("#ListaDeMaquinariasVender").html("");
 		AgregarFila(1);
 		AgregarFila(2);
-		AgregarFila(3);
-		$("#nvchObservacion").val("");
+		AgregarFila(3);*/
+		//$("#nvchObservacion").val("");
 
 	   	$("#btnFormRealizarComprobante").click();
-	   	MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
-	   	MostrarDetalleComprobante(intIdComprobante,tipolistado);
+	   	//MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
+	   	//MostrarDetalleComprobante(intIdComprobante,tipolistado);
 	   }
 	  });
 	 return false;

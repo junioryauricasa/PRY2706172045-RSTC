@@ -388,7 +388,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </select>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cliente:</label>
                   <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
@@ -423,13 +423,13 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Agregar Fila:</label>
                   <input type="button" onclick="AgregarFila($('#intIdTipoVenta').val())" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cotización:</label>
                   <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
@@ -454,7 +454,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" ></th>
+                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeProductosVender">
@@ -463,30 +463,30 @@ require_once '../../datos/conexion/bd_conexion.php';
                         <td>
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
-                            <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" />
+                            <input style="width: 110px !important" type="text" class="buscar input-without-border" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" />
                             <div class="result" id="result1">
                         </td>
                         <td>
-                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" readonly/>
+                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td>
-                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" readonly />
+                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="input-without-border" readonly />
                             <input type="hidden" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
                             <input type="hidden" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
                         </td>
                         <td>
-                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" idsprt="1" 
+                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="input-without-border" idsprt="1" 
                           onkeyup="CalcularPrecioTotal(this)"/>
                         </td>
                         <td>
-                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" readonly/>
+                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td>
                             <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"
-                          onkeyup="CalcularPrecioTotal(this)"/>
+                          onkeyup="CalcularPrecioTotal(this)" class="input-without-border"/>
                         </td>
                         <td>
-                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-comprobante" readonly/>
+                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                             <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -516,7 +516,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" ></th>
+                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeServiciosVender">
@@ -528,14 +528,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
                         </td>
                         <td>
-                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>
+                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" class="input-without-border"/>
                         </td>
                         <td> 
                           <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-comprobante" 
-                          onkeyup="CalcularPrecioTotalS(this)"/>           
+                          onkeyup="CalcularPrecioTotalS(this)" class="input-without-border"/>           
                         </td>
                         <td>
-                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-comprobante" readonly/>
+                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                           <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -565,7 +565,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
                       <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" ></th>
+                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
                     </tr>
                     </thead>
                     <tbody id="ListaDeMaquinariasVender">
@@ -577,14 +577,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
                         </td>
                         <td>
-                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>
+                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" class="input-without-border"/>
                         </td>
                         <td> 
                           <input type="text" id="intCantidadM1" name="intCantidadM[]" idsprt="1" form="form-comprobante" 
-                          onkeyup="CalcularPrecioTotalM(this)"/>           
+                          onkeyup="CalcularPrecioTotalM(this)" class="input-without-border"/>           
                         </td>
                         <td>
-                          <input type="text" id="dcmTotalM1" name="dcmTotalM[]" form="form-comprobante" readonly/>
+                          <input type="text" id="dcmTotalM1" name="dcmTotalM[]" form="form-comprobante" class="input-without-border" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                           <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -656,9 +656,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="hidden" name="funcion" value="I" form="form-comprobante">
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
-                  <button type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary" form="form-comprobante">
-                    Realizar Venta
-                  </button>
+                  <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Venta" form="form-comprobante">
                 </div>
               </div>
               <div class="col-md-10">
@@ -795,9 +793,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <script type="text/javascript">TotalComprobante();</script>
               <div class="col-md-2">
                 <div class="form-group">
-                  <button type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante">
-                    Nueva Venta
-                  </button>
+                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Venta"/>
                 </div>
               </div>
             </div>
