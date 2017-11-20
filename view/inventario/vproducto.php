@@ -34,7 +34,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 
   <div class="content-wrapper">
     <!-- Main content -->
-    <section class="content" style="margin-top: -20px">
+    <section class="content">
 	      <div class="nav-tabs-custom">
 	     
 		    <ul class="nav nav-tabs">
