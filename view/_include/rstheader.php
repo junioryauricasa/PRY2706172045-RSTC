@@ -88,6 +88,11 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     .input-without-border{
       border: none;
     }
+
+    /* Variables para el ancho */
+    :root{
+      --anchoCampoTableFooter: 110px;
+    }
 </style>
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini" id="scrool-slim">

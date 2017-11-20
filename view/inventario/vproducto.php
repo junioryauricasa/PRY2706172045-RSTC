@@ -404,13 +404,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <div class="row">
                                 <div class="col-md-3">
                                   <div class="form-group">
-                                              <input type="button" id="btn-agregar-codigo-nuevo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 120px" />
-                                              
-                                              <input type="button" id="btn-agregar-codigo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 120px"/>
+                                      <input type="button" id="btn-agregar-codigo-nuevo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 120px; margin-right: 5px" />
+                                      
+                                      <input type="button" id="btn-agregar-codigo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 120px; margin-right: 5px" />
 
-                                              <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código">
-                                              <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
-                                              <script type="text/javascript">BotonesCodigo('I');</script>
+                                      <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código" style="width: 120px; margin-right: 5px" />
+                                      <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación" style="width: 120px; margin-right: 5px" />
+
+                                      <script type="text/javascript">BotonesCodigo('I');</script>
                                    </div>
                                 </div>
                               </div>
@@ -537,21 +538,6 @@ require_once '../../datos/conexion/bd_conexion.php';
 			  				display: none;
 			  			}
 			  		</style>
-			  		<script>
-			  			function mostrar(){
-			  				$("button#btn-form-crear-producto").toggleClass("esconder");
-			  			}
-
-			  			function ver_formulario(){
-			  				$("li#li_show_table_products").removeClass("active");
-			  				$("a#show_table_products").attr("aria-expanded","false");
-			  				$("#tab_1").removeClass("active");
-
-			  				$("li#li_ver_editar_formulario").addClass("active");
-			  				$("a#ver_editar_formulario").attr("aria-expanded","true");
-			  				$("#tab_2").addClass("active");	
-			  			}
-			  		</script>
 					
 					<!-- Formulario CRUD nuevo producto -->
 					<div id="formulario-crud"></div>

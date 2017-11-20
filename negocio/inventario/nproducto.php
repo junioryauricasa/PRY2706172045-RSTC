@@ -516,7 +516,35 @@ function VerImagenProducto(seleccion) {
 }
 /* FIN - Ver Imagen */
 //////////////////////////////////////////////////////////////
+
+
+/*	
+	Función Mostrar Formulario de registro de producto 
+	Descripción:  ir a la siguente página y muestra la interfaz
+*/
+//////////////////////////////////////////////////////////////
+function mostrar(){
+	$("button#btn-form-crear-producto").toggleClass("esconder");
+}
+//////////////////////////////////////////////////////////////
+/*	FIN - Función Mostrar Formulario de registro de producto   */
+
+
+/*	Función Mostrar Formulario de registro de producto   */
+//////////////////////////////////////////////////////////////
+function ver_formulario(){
+	$("li#li_show_table_products").removeClass("active");
+	$("a#show_table_products").attr("aria-expanded","false");
+	$("#tab_1").removeClass("active");
+
+	$("li#li_ver_editar_formulario").addClass("active");
+	$("a#ver_editar_formulario").attr("aria-expanded","true");
+	$("#tab_2").addClass("active");	
+
+	$("#btn-agregar-codigo-mostrar").hide();
+	$("#btn-agregar-codigo-nuevo").show();
+}
+//////////////////////////////////////////////////////////////
+/*	FIN - Función Mostrar Formulario de registro de producto   */
+
 </script>
-
-
-<img src="" alt="" style='height: 400px; width: auto;'>

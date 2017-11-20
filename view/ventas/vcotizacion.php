@@ -444,8 +444,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <th style="width: 110px" >Precio Lista</th>
                       <th style="width: 110px" >Desc. (%)</th>
                       <th style="width: 110px" >Precio Unit.</th>
-                      <th style="width: 110px !important" >Cantidad</th>
-                      <th style="width: 110px !important" >Total</th>
+                      <th style="width: var(--anchoCampoTableFooter) !important" >Cantidad</th>
+                      <th style="width: var(--anchoCampoTableFooter) !important" >Total</th>
                       <th style="width: 25px !important" ></th>
                     </tr>
                     </thead>
@@ -573,8 +573,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                         
                       </thead>
                       <tr style="">
-                        <td style="width: 110px !important;" class="text-center heading-back"><span> Venta Total </span></td>
-                        <td style="width: 110px !important;">
+                        <td style="width: var(--anchoCampoTableFooter) !important; " class="text-center heading-back"><span> Venta Total </span></td>
+                        <td style="width: var(--anchoCampoTableFooter) !important">
                             <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-cotizacion" style=""/>
                         </td>
                         <td style="width: 23px !important;"></td>
