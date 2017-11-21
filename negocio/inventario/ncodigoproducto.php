@@ -47,6 +47,7 @@ function AgregarCodigo_II() {
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,''); //quitando espacio
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el Código del Producto",1);
 	   		MostrarCodigo(intIdProducto,tipolistado);
@@ -98,6 +99,7 @@ function ActualizarCodigo() {
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,''); //quitando espacio
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se modificó correctamente el Código del Producto",1);
 	   		MostrarCodigo(intIdProducto,tipolistado);
@@ -148,6 +150,7 @@ function EliminarCodigo(seleccion) {
 	   data:{intIdCodigoProducto:intIdCodigoProducto,funcion:funcion},
 	   success:function(datos)
 	   {
+	   	 datos = datos.replace(/\s/g,''); //quitando espacio
 	   	 if(datos=="ok"){
 	   	 	MensajeNormal("Se eliminó correctamente el Código del Producto",1);
 	   	 	MostrarCodigo(intIdProducto,tipolistado);
