@@ -2,6 +2,7 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
 function LimpiarCampos(){
+	$("#nvchFecha").val(FechaActual());
 	$("#nvchNumDocumento").val("");
 	$("#nvchDenominacion").val("");
 	$("#nvchDomicilio").val("");
