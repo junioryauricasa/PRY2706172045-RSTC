@@ -495,7 +495,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 
                                 <input type="button" id="btn-agregar-ubigeo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()" style="width: 130px; margin-right: 5px"/>
 
-                                <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat" value="Editar Ubicación" style="width: 130px; margin-right: 5px"/> 
+                                <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat" value="Actualizar Ubicación" style="width: 130px; margin-right: 5px"/> 
 
                                 <input type="button" onclick="BotonesUbigeo('I')" id="btn-cancelar-ubigeo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación" style="width: 130px; margin-right: 5px"/>
 
