@@ -150,7 +150,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title"><i class="fa fa-book" style="padding-right: 5px"></i>
+                  <h4 class="modal-title"><i class="fa fa-book" style=""></i>
                       Detalle de la ubicación del Producto: <b><span id="CodigoProducto"></span></b>
                   </h4>
                 </div>
@@ -402,14 +402,15 @@ require_once '../../datos/conexion/bd_conexion.php';
                                 <input type="hidden" id="intIdCodigoProducto" />
                               </div>
                               <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                   <div class="form-group">
-                                      <input type="button" id="btn-agregar-codigo-nuevo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 120px; margin-right: 5px" />
+                                      <input type="button" id="btn-agregar-codigo-nuevo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo()" style="width: 130px; margin-right: 5px" />
                                       
-                                      <input type="button" id="btn-agregar-codigo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 120px; margin-right: 5px" />
+                                      <input type="button" id="btn-agregar-codigo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Código" onclick="AgregarCodigo_II()" style="width: 130px; margin-right: 5px" />
 
-                                      <input type="button" onclick="ActualizarCodigo()" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código" style="width: 120px; margin-right: 5px" />
-                                      <input type="button" onclick="BotonesCodigo('I')" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación" style="width: 120px; margin-right: 5px" />
+                                      <input type="button" id="btn-actualizar-codigo" class="btn btn-sm btn-warning btn-flat" value="Editar Código" onclick="ActualizarCodigo()" style="width: 130px; margin-right: 5px" />
+
+                                      <input type="button" id="btn-cancelar-codigo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación" onclick="BotonesCodigo('I')" style="width: 130px; margin-right: 5px" />
 
                                       <script type="text/javascript">BotonesCodigo('I');</script>
                                    </div>
@@ -487,19 +488,24 @@ require_once '../../datos/conexion/bd_conexion.php';
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-md-5">
+                              <div class="col-md-12">
                                 <div class="form-group">
+                                
+                                <input type="button" id="btn-agregar-ubigeo-nuevo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo()" style="width: 130px; margin-right: 5px"/>
+
+                                <input type="button" id="btn-agregar-ubigeo-mostrar" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()" style="width: 130px; margin-right: 5px"/>
+
+                                <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat" value="Editar Ubicación" style="width: 130px; margin-right: 5px"/> 
+
+                                <input type="button" onclick="BotonesUbigeo('I')" id="btn-cancelar-ubigeo" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación" style="width: 130px; margin-right: 5px"/>
+
                                 <script type="text/javascript">BotonesUbigeo('I');</script>
 
-                                <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left" value="Agregar Ubigeo" onclick="AgregarUbigeo()" style="width: 120px" />
-                                <input type="button" id="btn-agregar-ubigeo" class="btn btn-sm btn-success btn-flat pull-left hidden" value="Agregar Ubigeo" onclick="AgregarUbigeo_II()" style="width: 120px" />
-                                <input type="button" onclick="ActualizarUbigeo()" id="btn-actualizar-ubigeo" class="btn btn-sm btn-warning btn-flat hidden" value="Editar Ubicación">
-                                <input type="button" onclick="BotonesUbigeo('I')" id="btn-cancelar-ubigeo" class="btn btn-sm btn-danger btn-flat hidden" value="Cancelar Modificación">
                                 </div>
                               </div>
                             </div>
                             <br>
-                            <div class="table-responsive"  style="max-height: 150px; overflow-y: visible; margin-bottom: 30px" id="scrool-slim">
+                            <div class="table-responsive" style="max-height: 150px; overflow-y: visible; margin-bottom: 30px" id="scrool-slim">
                               <table class="ExcelTable2007 rwd-table" width="100%">
                                 <thead>
                                 <tr>

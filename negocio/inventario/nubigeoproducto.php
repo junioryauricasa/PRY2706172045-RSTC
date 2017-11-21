@@ -141,8 +141,11 @@ function EliminarUbigeo(seleccion) {
 	   	 if(datos=="ok"){
 	   	 	MensajeNormal("Se eliminó correctamente el Ubigeo del Producto",1);
 	   	 	MostrarUbigeo(intIdProducto,tipolistado);
+
 	   	 	ListarProducto(x,y,$("#tipo-busqueda").val());
 	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
+	   	 } else {
+	   	 	alert(datos);
 	   	 }
 	   }
 	  });
@@ -156,13 +159,17 @@ function BotonesUbigeo(accion) {
 	if(accion == "I"){
 		RestablecerValidacion("nvchUbicacion",1);
 		RestablecerValidacion("intCantidadUbigeo",1);
-		$("#btn-agregar-ubigeo").show();
+		// botones a vizualizar
+		$("#btn-agregar-ubigeo-nuevo").hide();
+		$("#btn-agregar-ubigeo-mostrar").show();
 		$("#btn-actualizar-ubigeo").hide();
 		$("#btn-cancelar-ubigeo").hide();
 	} else if (accion == "A") {
 		RestablecerValidacion("nvchUbicacion",2);
 		RestablecerValidacion("intCantidadUbigeo",2);
-		$("#btn-agregar-ubigeo").hide();
+		// botones a vizualizar
+		$("#btn-agregar-ubigeo-nuevo").show();
+		$("#btn-agregar-ubigeo-mostrar").hide();
 		$("#btn-actualizar-ubigeo").show();
 		$("#btn-cancelar-ubigeo").show();
 	}

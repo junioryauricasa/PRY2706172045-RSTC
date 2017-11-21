@@ -138,6 +138,8 @@ class UbigeoProducto
         ':intCantidadUbigeo' => $this->intCantidadUbigeo));
       $_SESSION['intIdUbigeoProducto'] = $this->intIdUbigeoProducto;
       echo "ok";
+      //echo 'Se actualizo correctamente el UBIGEO..!!';
+      
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

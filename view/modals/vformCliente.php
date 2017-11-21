@@ -1,4 +1,4 @@
-<div id="formCliente" class="modal fade">
+<div id="formCliente" class="modal fade" style="">
  <div class="modal-dialog modal-lg">
    <div class="modal-content">
     <div style="background-color: #78909c;"  class="modal-header">

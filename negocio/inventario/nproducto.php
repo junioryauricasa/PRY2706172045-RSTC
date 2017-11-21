@@ -543,6 +543,9 @@ function ver_formulario(){
 
 	$("#btn-agregar-codigo-mostrar").hide();
 	$("#btn-agregar-codigo-nuevo").show();
+
+	$("#ListaDeUbicaciones").reload();
+
 }
 //////////////////////////////////////////////////////////////
 /*	FIN - Función Mostrar Formulario de registro de producto   */
