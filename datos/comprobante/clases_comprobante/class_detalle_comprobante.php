@@ -95,15 +95,23 @@ class DetalleComprobante
         if($fila['intIdTipoVenta'] == 1){
           echo
           '<tr>
-              <td class="heading" data-th="ID">'.$i.'</td>
-              <td>'.$fila['nvchCodigo'].'</td>
-              <td>'.$fila['nvchDescripcion'].'</td>
-              <td>'.$fila['dcmPrecio'].'</td>
-              <td>'.$fila['dcmDescuento'].'</td>
-              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
-              <td>'.$fila['intCantidad'].'</td>
-              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
-              </tr>';
+            <td class="heading" data-th="ID">'.$i.'</td> '.
+            '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-venta" />'.
+                '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-venta" value="'.$fila['intIdProducto'].'" />'.
+                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" form="form-venta" value="'.$fila['nvchCodigo'].'" readonly/>'.
+                '<div class="result" id="result'.$i.'">'.
+            '</td>'.
+            '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila['nvchDescripcion'].'" readonly/></td>'.
+            '<td>'.
+              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-venta" value="'.$fila['dcmPrecio'].'" readonly />'.
+            '</td>'.
+            '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$i.'"'.
+              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" readonly/></td>'.
+            '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
+            '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-venta" idsprt="'.$i.'"'.
+              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" readonly/></td>'.
+            '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
+          '</tr>';
               $i++;
             } else if($fila['intIdTipoVenta'] == 2){
               echo

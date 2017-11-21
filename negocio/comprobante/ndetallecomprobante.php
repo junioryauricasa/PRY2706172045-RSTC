@@ -40,6 +40,7 @@ function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
 	   		$("#ListaDeServiciosVender").html(datos);
 	   	else if(intIdTipoVenta == 3)
 	   		$("#ListaDeMaquinariasVender").html(datos);
+	   	CalcularTotal();
 	   }
 	  });
 }
@@ -164,11 +165,13 @@ function CambiarMoneda(){
 	Number(dcmTotal);
 	Number(dcmDescuento);
 	Number(intCantidad);
+
 	var funcion = "MF";
+	var nvchFecha = $("#nvchFecha").val();
 	  $.ajax({
 	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
 	   method:"POST",
-	   data:{funcion:funcion},
+	   data:{funcion:funcion,nvchFecha:nvchFecha},
 	   success:function(datos)
 	   {
 	   	if(intIdTipoVenta == 1){

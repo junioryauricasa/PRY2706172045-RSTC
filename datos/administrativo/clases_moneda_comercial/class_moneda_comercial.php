@@ -63,8 +63,9 @@ class MonedaComercial
     }    
   }
 
-  public function MostrarMonedaComercialFecha(){
-    $dtmFechaCambio =  date("Y-m-d");
+  public function MostrarMonedaComercialFecha($nvchFecha){
+    $dtmFechaCambio =  str_replace('/', '-', $nvchFecha);
+    $dtmFechaCambio = date('Y-m-d', strtotime($dtmFechaCambio));
     $sql_conexion_moneda = new Conexion_BD();
     $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
     $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
