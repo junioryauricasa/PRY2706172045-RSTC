@@ -32,7 +32,7 @@ switch($_POST['funcion']){
     break;
   case "MF":
     $MonedaComercial = new MonedaComercial();
-    $MonedaComercial->MostrarMonedaComercialFecha();
+    $MonedaComercial->MostrarMonedaComercialFecha($_POST['nvchFecha']);
     break;
   case "E":
     $MonedaComercial = new MonedaComercial();
