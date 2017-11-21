@@ -17,6 +17,8 @@ require_once '../../datos/conexion/bd_conexion.php';
       });
     </script>
     <script type="text/javascript">
+    var numprts = 0;
+    var numprt = 0;
     var num = 2;
     var nums = 2;
     var numm = 2;
@@ -40,6 +42,8 @@ require_once '../../datos/conexion/bd_conexion.php';
           success: function(html)
           {
             $("#result"+numfila).html(html).show();
+            numprt = $("#result"+numfila+" li").length;
+            numprts = 0;
           }
           });
       }
@@ -75,6 +79,54 @@ require_once '../../datos/conexion/bd_conexion.php';
         $(".result").html("").hide();
       }
     });
+
+    function TeclaSeleccionCodigo(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      /*
+      switch(charCode){
+        case 13:
+          if($(".result").is(":visible")){
+            var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
+            nvchCodigo = nvchCodigo.replace(/\s/g,'');
+            $('#nvchCodigo'+numfila).val(nvchCodigo);
+            $(".result").html("").hide();
+          }
+          break;
+        case 38:
+          if($(".result").is(":visible")){
+            if(numprts + 1 <= numprt && numprts > 0)
+              numprts--;
+            var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
+            nvchCodigo = nvchCodigo.replace(/\s/g,'');
+          }
+          break;
+        case 40:
+          if($(".result").is(":visible")){
+            if(numprts < numprt-1)
+              numprts++;
+            var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
+            nvchCodigo = nvchCodigo.replace(/\s/g,'');
+          }
+          break;
+        default:
+      }*/
+
+      if (charCode == 40){
+        if($(".result").is(":visible")){
+          if(numprts < numprt-1)
+            numprts++;
+          var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
+          nvchCodigo = nvchCodigo.replace(/\s/g,'');
+        }
+      } else if (charCode == 38){
+        if($(".result").is(":visible")){
+          if(numprts + 1 <= numprt && numprts > 0)
+            numprts--;
+          var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
+          nvchCodigo = nvchCodigo.replace(/\s/g,'');
+        }
+      }
+    }
 
     function InsertarProductoElegido(intIdProducto,id){
       var funcion = "SP";
@@ -463,7 +515,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                         <td>
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
-                            <input style="width: 110px !important" type="text" class="buscar " id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" />
+                            <input style="width: 110px !important" type="text" class="buscar " id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
                             <div class="result" id="result1">
                         </td>
                         <td>
@@ -641,6 +693,11 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <br><br>
+            <div class="row">
+              <div class="col-md-4">
+                <div id="resultadocodigo"></div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">

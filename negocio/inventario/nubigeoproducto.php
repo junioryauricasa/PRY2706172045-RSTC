@@ -138,6 +138,7 @@ function EliminarUbigeo(seleccion) {
 	   data:{intIdUbigeoProducto:intIdUbigeoProducto,funcion:funcion},
 	   success:function(datos)
 	   {
+	   	 datos = datos.replace(/\s/g,'');
 	   	 if(datos=="ok"){
 	   	 	MensajeNormal("Se eliminó correctamente el Ubigeo del Producto",1);
 	   	 	MostrarUbigeo(intIdProducto,tipolistado);
