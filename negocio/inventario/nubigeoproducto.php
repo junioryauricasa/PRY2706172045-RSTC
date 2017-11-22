@@ -43,6 +43,7 @@ function AgregarUbigeo_II() {
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,''); 
 	   	if(datos == "okok"){
 	   		MensajeNormal("Se agregó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
@@ -87,6 +88,7 @@ function ActualizarUbigeo() {
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,''); 
 	   	if(datos == "okok"){
 	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
@@ -138,11 +140,10 @@ function EliminarUbigeo(seleccion) {
 	   data:{intIdUbigeoProducto:intIdUbigeoProducto,funcion:funcion},
 	   success:function(datos)
 	   {
-	   	 datos = datos.replace(/\s/g,'');
+	   	 datos = datos.replace(/\s/g,''); //quita los espacios del FLAG OK
 	   	 if(datos=="ok"){
 	   	 	MensajeNormal("Se eliminó correctamente el Ubigeo del Producto",1);
 	   	 	MostrarUbigeo(intIdProducto,tipolistado);
-
 	   	 	ListarProducto(x,y,$("#tipo-busqueda").val());
 	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
 	   	 } else {
@@ -161,18 +162,20 @@ function BotonesUbigeo(accion) {
 		RestablecerValidacion("nvchUbicacion",1);
 		RestablecerValidacion("intCantidadUbigeo",1);
 		// botones a vizualizar
-		$("#btn-agregar-ubigeo-nuevo").hide();
-		$("#btn-agregar-ubigeo-mostrar").show();
+		$("#btn-agregar-ubigeo-nuevo").hide(); //boton temporal
+		$("#btn-agregar-ubigeo-mostrar").show(); //boton registro
 		$("#btn-actualizar-ubigeo").hide();
 		$("#btn-cancelar-ubigeo").hide();
+
 	} else if (accion == "A") {
 		RestablecerValidacion("nvchUbicacion",2);
 		RestablecerValidacion("intCantidadUbigeo",2);
 		// botones a vizualizar
-		$("#btn-agregar-ubigeo-nuevo").show();
-		$("#btn-agregar-ubigeo-mostrar").hide();
+		$("#btn-agregar-ubigeo-nuevo").hide(); //boton temporal
+		$("#btn-agregar-ubigeo-mostrar").show(); //boton registro
 		$("#btn-actualizar-ubigeo").show();
 		$("#btn-cancelar-ubigeo").show();
+
 	}
 }
 /* FIN - Ocultar Botones */
