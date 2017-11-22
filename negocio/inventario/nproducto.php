@@ -65,7 +65,9 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="okokokokok") {
+	   	datos = datos.replace(/\s/g,''); //quitando espacio
+	   	//if (datos == "okokokokok") {
+	   	if (datos == "ok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");
@@ -113,8 +115,9 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 		$("#intIdTipoMonedaVenta").val(datos.intIdTipoMonedaVenta);
 		$("#intIdProducto").val(datos.intIdProducto);
 		$("#dtmFechaIngreso").val(datos.dtmFechaIngreso);
-		$("#btn-agregar-codigo-mostrar").show();
-		$("#btn-agregar-codigo-nuevo").hide();
+		
+		$("#btn-agregar-codigo").show();
+		$("#btn-agregar-codigo").hide();
 		//imprime las tablas
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
@@ -192,6 +195,7 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   data:formData,
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,''); //quitando espacio
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se modificó correctamente el Producto",1);
 	   		$("#btn-form-producto-remove").click();
@@ -220,6 +224,7 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 	   data:{intIdProducto:intIdProducto,funcion:funcion},
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,''); //quitando espacio
 	   	if (datos=="ok") { 
 	   		MensajeNormal("Se eliminó correctamente el Producto",1);
 	   		ListarProducto(x,y,tipolistado);

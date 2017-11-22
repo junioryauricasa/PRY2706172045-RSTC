@@ -529,7 +529,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <input type="hidden" id="intIdProducto" name="intIdProducto" value="" />
                               <input type="hidden" name="dtmFechaIngreso" value="" />
                               <input type="button" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
-                              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
+                              <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar Campos" style="margin: 0px 5px">
                           </div> 
                           <!-- END Formulario de Ubicacion del producto -->
                       </div>

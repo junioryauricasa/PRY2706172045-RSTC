@@ -66,51 +66,55 @@ function AgregarCodigo_II() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Codigo Seleccionado */
 function ActualizarCodigo() {
-	var intIdCodigoProducto = document.getElementById("intIdCodigoProducto").value;
-	var intIdProducto = document.getElementById("intIdProducto").value;
-	var nvchCodigo = document.getElementById("nvchCodigo").value;
-	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
-	var validacion = true;
-	$('#ListaDeCodigos tr').each(function(){
-        if($(this).find('td').eq(1).text() == 'Principal'){
-            validacion = false;
-        }
-    });
-	if(EsVacio("nvchCodigo") == false){
-		return false;
-	} else if(validacion == false){
-    	if (intIdTipoCodigoProducto == 1) {
-	    	MensajeNormal("No puede haber más de un Código Principal",2);
-	    	return false;
-    	}
-    }
-    var y = document.getElementById("num-lista").value;
-  	var x = $(".marca").attr("idp") * y;
-	var tipolistado = "A";
-	var accion = "I";
-	var funcion = "ACP";
-	  $.ajax({
-	   url:"../../datos/inventario/funcion_producto.php",
-	   method:"POST",
-	   data:{intIdCodigoProducto:intIdCodigoProducto,
-	   		intIdProducto:intIdProducto,
-	   		nvchCodigo:nvchCodigo,
-	   		intIdTipoCodigoProducto:intIdTipoCodigoProducto,
-	   		funcion:funcion},
-	   success:function(datos)
-	   {
-	   	datos = datos.replace(/\s/g,''); //quitando espacio
-	   	if(datos == "ok"){
-	   		MensajeNormal("Se modificó correctamente el Código del Producto",1);
-	   		MostrarCodigo(intIdProducto,tipolistado);
-	   		BotonesCodigo(accion);
-	   		ListarProducto(x,y,$("#tipo-busqueda").val());
-	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
-	   	} else {
-	   		alert(datos);
-	   	}
-	   }
-	  });
+		var intIdCodigoProducto = document.getElementById("intIdCodigoProducto").value;
+		var intIdProducto = document.getElementById("intIdProducto").value;
+		var nvchCodigo = document.getElementById("nvchCodigo").value;
+		var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
+		var validacion = true;
+		$('#ListaDeCodigos tr').each(function(){
+	        if($(this).find('td').eq(1).text() == 'Principal'){
+	            validacion = false;
+	        }
+	    });
+		if(EsVacio("nvchCodigo") == false){
+			return false;
+		} else if(validacion == false){
+	    	if (intIdTipoCodigoProducto == 1) {
+		    	MensajeNormal("No puede haber más de un Código Principal",2);
+		    	return false;
+	    	}
+	    }
+	    var y = document.getElementById("num-lista").value;
+	  	var x = $(".marca").attr("idp") * y;
+		var tipolistado = "A";
+		var accion = "I";
+		var funcion = "ACP";
+		  $.ajax({
+		   url:"../../datos/inventario/funcion_producto.php",
+		   method:"POST",
+		   data:{intIdCodigoProducto:intIdCodigoProducto,
+		   		intIdProducto:intIdProducto,
+		   		nvchCodigo:nvchCodigo,
+		   		intIdTipoCodigoProducto:intIdTipoCodigoProducto,
+		   		funcion:funcion},
+		   success:function(datos)
+		   {
+		   	datos = datos.replace(/\s/g,''); //quitando espacio
+		   	if(datos == "ok"){
+		   		//if(confirm('¿Estas seguro de Actualizar este Código??')){
+			   		MensajeNormal("Se modificó correctamente el Código del Producto",1);
+			   		MostrarCodigo(intIdProducto,tipolistado);
+			   		BotonesCodigo(accion);
+			   		ListarProducto(x,y,$("#tipo-busqueda").val());
+			   		PaginarProducto(x,y,$("#tipo-busqueda").val());
+			   	//}else{
+			   	//	return false;
+			   	//}
+		   	} else {
+		   		alert(datos);
+		   	}
+		   }
+		  });
 }
 /* FIN - Actualizar Codigo Seleccionado */
 //////////////////////////////////////////////////////////////
@@ -140,25 +144,29 @@ function SeleccionarCodigo(seleccion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Codigo Seleccionado */
 function EliminarCodigo(seleccion) {
-	var intIdCodigoProducto = $(seleccion).attr("idcp");
-	var intIdProducto = document.getElementById("intIdProducto").value;
-	var funcion = "ECP";
-	var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/inventario/funcion_producto.php",
-	   method:"POST",
-	   data:{intIdCodigoProducto:intIdCodigoProducto,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	 datos = datos.replace(/\s/g,''); //quitando espacio
-	   	 if(datos=="ok"){
-	   	 	MensajeNormal("Se eliminó correctamente el Código del Producto",1);
-	   	 	MostrarCodigo(intIdProducto,tipolistado);
-	   	 	ListarProducto(x,y,$("#tipo-busqueda").val());
-	   		PaginarProducto(x,y,$("#tipo-busqueda").val());
-	   	 }
-	   }
-	  });
+	 if(confirm('¿Estas seguro de eliminar este producto??')){
+		  	var intIdCodigoProducto = $(seleccion).attr("idcp");
+			var intIdProducto = document.getElementById("intIdProducto").value;
+			var funcion = "ECP";
+			var tipolistado = "T";
+			  $.ajax({
+			   url:"../../datos/inventario/funcion_producto.php",
+			   method:"POST",
+			   data:{intIdCodigoProducto:intIdCodigoProducto,funcion:funcion},
+			   success:function(datos)
+			   {
+			   	 datos = datos.replace(/\s/g,''); //quitando espacio
+			   	 if(datos=="ok"){
+			   	 	MensajeNormal("Se eliminó correctamente el Código del Producto",1);
+			   	 	MostrarCodigo(intIdProducto,tipolistado);
+			   	 	ListarProducto(x,y,$("#tipo-busqueda").val());
+			   		PaginarProducto(x,y,$("#tipo-busqueda").val());
+			   	 }
+			   }
+			  });
+	}else{
+			return false;
+	}
 }
 /* FIN - Eliminar Codigo Seleccionado */
 //////////////////////////////////////////////////////////////
