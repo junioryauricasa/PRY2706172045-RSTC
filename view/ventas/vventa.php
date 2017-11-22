@@ -162,7 +162,7 @@ require_once '../../datos/conexion/bd_conexion.php';
           '<td class="heading" data-th="ID"></td>'+
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
               '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="result'+num+'">'+
           '</td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
@@ -530,7 +530,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
                             <input style="width: 110px !important" type="text" class="buscar " id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
-                            <div class="result" onkeydown="return TeclaSeleccionCodigo(event)" id="result1">
+                            <div class="result" id="result1">
                         </td>
                         <td>
                             <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
