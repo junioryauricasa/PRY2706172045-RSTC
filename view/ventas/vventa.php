@@ -17,13 +17,17 @@ require_once '../../datos/conexion/bd_conexion.php';
       });
     </script>
     <script type="text/javascript">
-    var numprts = 0;
-    var numprt = 0;
+    var numprtst = 0; Number(numprtst);
+    var numprt = 0; Number(numprt);
     var num = 2;
     var nums = 2;
     var numm = 2;
     var numfila = 0;
-    $(document).on('keyup', '.buscar', function(){
+    $(document).on('keyup', '.buscar', function(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if(charCode == 40 || charCode == 38)
+        return false;
+
       $(this).closest('tr').find("input[name='fila[]']").each(function() {
          numfila = this.value;
       });
@@ -43,7 +47,9 @@ require_once '../../datos/conexion/bd_conexion.php';
           {
             $("#result"+numfila).html(html).show();
             numprt = $("#result"+numfila+" li").length;
-            numprts = 0;
+            numprtst = 0;
+            $(".result li:eq("+numprtst+")").css("background","#4C66A4");
+            $(".result li:eq("+numprtst+")").css("color","#FFFFFF");
           }
           });
       }
@@ -80,50 +86,52 @@ require_once '../../datos/conexion/bd_conexion.php';
       }
     });
 
+    $(document).on('click', '.buscar', function(){
+      $(".result").html("").hide();
+    });
+
+    $(document).on('click', function(e){
+      var clicked = $(e.target);
+      if (!clicked.hasClass("buscar")){
+        $(".result").html("").hide();
+      }
+    });
+
     function TeclaSeleccionCodigo(evt){
       var charCode = (evt.which) ? evt.which : evt.keyCode;
-      /*
-      switch(charCode){
-        case 13:
-          if($(".result").is(":visible")){
-            var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
-            nvchCodigo = nvchCodigo.replace(/\s/g,'');
-            $('#nvchCodigo'+numfila).val(nvchCodigo);
-            $(".result").html("").hide();
-          }
-          break;
-        case 38:
-          if($(".result").is(":visible")){
-            if(numprts + 1 <= numprt && numprts > 0)
-              numprts--;
-            var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
-            nvchCodigo = nvchCodigo.replace(/\s/g,'');
-          }
-          break;
-        case 40:
-          if($(".result").is(":visible")){
-            if(numprts < numprt-1)
-              numprts++;
-            var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
-            nvchCodigo = nvchCodigo.replace(/\s/g,'');
-          }
-          break;
-        default:
-      }*/
+      if($(".result").is(":visible")){
+        switch(charCode){
+          case 13:
+              var nvchCodigo = $(".result li:eq("+numprtst+")").find('.nvchCodigo').html();
+              var intIdProducto = $(".result li:eq("+numprtst+")").find('.intIdProducto').val();
+              nvchCodigo = nvchCodigo.replace(/\s/g,'');
+              intIdProducto = intIdProducto.replace(/\s/g,'');
+              $('#nvchCodigo'+numfila).val(nvchCodigo);
+              $('#nvchCodigo'+numfila).blur();
+              $(".result").html("").hide();
+              InsertarProductoElegido(intIdProducto,numfila);
+            break;
+          case 38:
+              $(".result li:eq("+numprtst+")").css("background","#FFFFFF");
+              $(".result li:eq("+numprtst+")").css("color","#000000");
 
-      if (charCode == 40){
-        if($(".result").is(":visible")){
-          if(numprts < numprt-1)
-            numprts++;
-          var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
-          nvchCodigo = nvchCodigo.replace(/\s/g,'');
-        }
-      } else if (charCode == 38){
-        if($(".result").is(":visible")){
-          if(numprts + 1 <= numprt && numprts > 0)
-            numprts--;
-          var nvchCodigo = $(".result li:eq("+numprts+")").find('.nvchCodigo').html();
-          nvchCodigo = nvchCodigo.replace(/\s/g,'');
+              if(numprtst + 1 <= numprt && numprtst > 0)
+                numprtst--;
+              
+              $(".result li:eq("+numprtst+")").css("background","#4C66A4");
+              $(".result li:eq("+numprtst+")").css("color","#FFFFFF");
+            break;
+          case 40:
+              $(".result li:eq("+numprtst+")").css("background","#FFFFFF");
+              $(".result li:eq("+numprtst+")").css("color","#000000");
+
+              if(numprtst < numprt-1)
+                numprtst++;
+
+              $(".result li:eq("+numprtst+")").css("background","#4C66A4");
+              $(".result li:eq("+numprtst+")").css("color","#FFFFFF");
+              return false;
+            break;
         }
       }
     }
@@ -293,6 +301,12 @@ require_once '../../datos/conexion/bd_conexion.php';
         background:#4c66a4;
         color:#FFF;
         cursor:pointer;
+    }
+
+    .showhover
+    {
+        background:#4c66a4;
+        color:#FFF;
     }
     </style>
   <div class="content-wrapper">
@@ -516,7 +530,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
                             <input style="width: 110px !important" type="text" class="buscar " id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
-                            <div class="result" id="result1">
+                            <div class="result" onkeydown="return TeclaSeleccionCodigo(event)" id="result1">
                         </td>
                         <td>
                             <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
