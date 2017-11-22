@@ -66,8 +66,8 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   success:function(datos)
 	   {
 	   	datos = datos.replace(/\s/g,''); //quitando espacio
-	   	//if (datos == "okokokokok") {
-	   	if (datos == "ok") {
+	   	if (datos == "okokokokok") {
+	   	//if (datos == "ok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");
@@ -555,4 +555,41 @@ function ver_formulario(){
 //////////////////////////////////////////////////////////////
 /*	FIN - Función Mostrar Formulario de registro de producto   */
 
+
+/*	Función Limpiar Formulario de registro de producto   */
+//////////////////////////////////////////////////////////////
+function limpiarformProducto(){
+      //$("#formulario-crud").html(datos);
+      $("#nvchDescripcion").val("");
+      //alert(datos);
+      $("#nvchObservacion").val("");
+      $("#nvchUnidadMedida").val("");
+      $("#intCantidad").val("");
+      $("#intCantidadMinima").val("");
+      $("#nvchDireccionImg").val("");
+      $("#resultadoimagen").attr("src","../../datos/inventario/imgproducto/productosinfoto.png");
+      $("#dcmPrecioCompra").val("");
+      $("#intIdTipoMonedaCompra").val(1);
+      $("#dcmPrecioVenta1").val("");
+      $("#dcmPrecioVenta2").val("");
+      $("#dcmPrecioVenta3").val("");
+      $("#dcmDescuentoVenta2").val("");
+      $("#dcmDescuentoVenta3").val("");
+      $("#intIdTipoMonedaVenta").val(1);
+      $("#intIdProducto").val("");
+      $("#dtmFechaIngreso").val("");
+      
+      $("#btn-agregar-codigo").show();
+      $("#btn-agregar-codigo-mostrar").hide();
+
+      $("#btn-agregar-ubigeo-nuevo").show();
+      $("#btn-agregar-ubigeo-mostrar").hide();
+
+      //imprime las tablas
+      $("#ListaDeCodigos").html(""); 
+      $("#ListaDeUbicaciones").html(""); 
+
+    }
+//////////////////////////////////////////////////////////////
+/*	FIN - unción Limpiar Formulario de registro de producto  */
 </script>

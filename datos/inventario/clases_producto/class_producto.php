@@ -240,7 +240,7 @@ class Producto
                 </button>
               </td>
               <td align="right" data-th="Opciones"> 
-                <button type="submit" id="'.$fila["intIdProducto"].'" onclick="ver_formulario();showmodalcreateproduct();" class="btn btn-xs btn-warning btn-mostrar-producto" data-toggle="tooltip" title="Editar">
+                <button type="submit" id="'.$fila["intIdProducto"].'" onclick="showmodalcreateproduct();" class="btn btn-xs btn-warning btn-mostrar-producto" data-toggle="tooltip" title="Editar">
                   <i class="fa fa-edit"></i>
                 </button>
                 <button type="submit" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto" data-toggle="tooltip" title="Eliminar">
