@@ -43,11 +43,11 @@ require_once '../../datos/conexion/bd_conexion.php';
 		      		Productos
 		      	</a>
 		      </li>
-		      <li class="" onclick="ver_formulario()" id="li_ver_editar_formulario">
+		      <!--li class="" onclick="ver_formulario()" id="li_ver_editar_formulario">
 		      	<a href="#tab_2" data-toggle="tab" aria-expanded="false" id="ver_editar_formulario">
 		      		Nuevo Producto
 		      	</a>
-		      </li>
+		      </li-->
 		    </ul>
 
 		    <div class="tab-content">
@@ -161,7 +161,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                       <div class="box-body">
                                         <div class="row">
                                             <!-- datos de Producto -->
-                                            <div class="col-lg-3 col-md-6">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
                                                   <!--h4 class="box-title text-center">Registro de Nuevo Producto</h4-->
                                                   <h4 class="box-title text-center">Editar Producto</h4>
                                                 <hr>
@@ -212,7 +212,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                             </div>
 
                                             <!-- datos Precios de Producto -->
-                                            <div class="col-lg-3 col-md-6">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
                                                 <h4 class="box-title text-center">Precios del Producto</h4>
                                                 <hr>
                                                 <div class="col-md-12">
@@ -322,7 +322,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                             </div>
 
                                             
-                                            <div class="col-lg-6 col-md-6">
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
 
                                                 <!-- Datos de codigos adicionales -->
                                                 <h4 class="box-title text-center">Códigos Adicionales</h4>
@@ -489,8 +489,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                                                     <input type="hidden" id="intIdProducto" name="intIdProducto" value="" />
                                                     <input type="hidden" name="dtmFechaIngreso" value="" />
                                                     <input type="button" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
-                                                    
-                                                    <input type="button" class="btn btn-xs" value="cerrar modal" data-dismiss="modal">
 
                                                     <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar Campos" style="margin: 0px 5px">
                                                 </div> 
@@ -509,7 +507,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                 </div>
                           </div>
                           <div class="modal-footer">
-                            
+                              <input type="button" class="btn btn-xm btn-danger" value="Cerrar Ventana" data-dismiss="modal">
                           </div>
                         </div>
                       </div>
