@@ -50,7 +50,6 @@ include('../_include/rstheader.php');
             </li>
             <li class="">
                 <a href="#formularioclientes" data-toggle="tab" id="liformularioclientes">Formulario de Clientes</a>
-                
             </li>
           </ul>
           <div class="tab-content">
@@ -144,10 +143,8 @@ include('../_include/rstheader.php');
 
             </div>
             <div class="tab-pane" id="formularioclientes">
-                <div class="content">
-                    <div id="formulario-crud"></div>
-                    <div id="resultadocrud"></div>
-                </div>
+                <div id="formulario-crud"></div>
+                <div id="resultadocrud"></div>
             </div>
           </div>
       </div>
@@ -176,7 +173,11 @@ include('../_include/rstheader.php');
 
 
 <script>
+  function verlistado(){
+    $('#lilistarclientes').click();
+  }
+
   function verformulario(){
-    $('#liformularioclientes').click()
+    $('#liformularioclientes').click();
   }
 </script>

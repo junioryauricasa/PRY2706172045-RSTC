@@ -27,8 +27,7 @@ class FormularioCliente
   function ConsultarFormulario($funcion)
   {
   ?> 
-      <div id="Formulario" class="box box-default">
-        <div class="box-header">
+      <div id="Formulario" class="">
           <?php 
             /*
             if($funcion == "F"){ 
@@ -44,16 +43,15 @@ class FormularioCliente
             */
           ?>
           
-          <!-- END Botones del box -->
+          <!-- END Botones del box 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" id="btn-form-cliente-remove" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
-          <!-- Botones del box -->
-
-        </div>
+          Botones del box -->
         <form id="form-cliente" method="POST">
           <div class="box-body">
+              <!-- formulario de cliente -->
               <div class="col-md-3">
 
                   <?php 
@@ -175,24 +173,22 @@ class FormularioCliente
                       <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-cliente" rows="6"><?php echo $this->nvchObservacion; ?></textarea>
                     </div>
                   </div>
-              </div>
-              <?php if($funcion == "M") { ?>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <input type="submit" id="btn-editar-cliente" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
-                    <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
-                  </div>
-                </div>
-              <?php } ?>
 
-              
+                  <!-- botones del formulario  -->
+                  <?php if($funcion == "M") { ?>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="submit" id="btn-editar-cliente" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
+                        <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
+                      </div>
+                    </div>
+                  <?php } ?>
+              </div>
+              <!-- END formulario de cliente -->
+
               <!-- formulario domicilio -->
               <div class="col-md-9">
-                  <div class="box-header with-border">
-                  </div>
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Domicilio</h3>
-                  </div>
+                    <h3 class="box-title text-left">Domicilio</h3>
                   <div class="box-body">
                       <div class="row">
                           <div class="col-md-3">
@@ -330,13 +326,12 @@ class FormularioCliente
               </div>
               <!-- END formulario domicilio -->
 
+              <br>
+
               <!-- formulario comunicacion -->
               <div class="col-md-9">
-                  <div class="box-header with-border">
-                  </div>
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Comunicación</h3>
-                  </div>
+                  <h3 class="box-title text-left">Comunicación</h3>
+
                   <div class="box-body">
                     <div class="row">
                       <div class="col-md-3">
@@ -422,7 +417,6 @@ class FormularioCliente
                   </div>
               </div>
                <!-- END formulario comunicacion -->
-
           </div>              
         </form>
         

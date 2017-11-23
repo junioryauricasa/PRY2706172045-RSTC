@@ -159,7 +159,11 @@ $(document).on('click', '#btn-editar-cliente', function(){
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
-	   		$("#btn-form-cliente-remove").click();
+	   		//$("#btn-form-cliente-remove").click();
+			
+			//$('#lilistarclientes').click();//redirige ala primera tab
+	   		$('#formularioclientes').close(); //cerrar el formulario despues de haberse actualizado
+	   	
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
