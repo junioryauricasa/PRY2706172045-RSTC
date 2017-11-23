@@ -615,7 +615,7 @@ function botonesRegistrar(){
 }
 
 function botonesActualizar(){
-	$("#btn-agregar-codigo").hide();
+	$("#btn-agregar-codigo-nuevo").hide();
     $("#btn-agregar-codigo-mostrar").show();
     $("#btn-actualizar-codigo").show();
     $("#btn-cancelar-codigo").show();
