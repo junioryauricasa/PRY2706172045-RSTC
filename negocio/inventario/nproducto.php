@@ -75,6 +75,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
+	   		$('#modal-showmodalcreateproduct').modal('hide');
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -88,7 +89,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 /* INICIO - Funcion Ajax - Mostrar Producto */
 $(document).on('click', '.btn-mostrar-producto', function(){
 	var intIdProducto = $(this).attr("id");
-    $("#funcion").val("A");
+   	var funcion = "M";
     var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
@@ -126,7 +127,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	    $("btn-agregar-ubigeo-mostrar").show();
 	    $("btn-actualizar-ubigeo").show();
 	    $("btn-cancelar-ubigeo").show();
-
+	    //showmodalcreateproduct();
 		//imprime las tablas
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
@@ -162,6 +163,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 $(document).on('click', '#btn-editar-producto', function(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+	  $("#funcion").val("A");
 	  if(EsVacio("nvchDescripcion") == false){
 	  	goToBox("#nvchDescripcionGroup");
 	  	return false;

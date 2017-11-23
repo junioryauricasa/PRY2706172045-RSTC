@@ -144,7 +144,7 @@ function SeleccionarCodigo(seleccion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Codigo Seleccionado */
 function EliminarCodigo(seleccion) {
-	 if(confirm('¿Estas seguro de eliminar este producto??')){
+	 if(confirm('¿Estás seguro de eliminar este producto?')){
 		  	var intIdCodigoProducto = $(seleccion).attr("idcp");
 			var intIdProducto = document.getElementById("intIdProducto").value;
 			var funcion = "ECP";
