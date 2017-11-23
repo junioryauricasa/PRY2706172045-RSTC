@@ -597,7 +597,7 @@ function limpiarformProducto(){
 //////////////////////////////////////////////////////////////
 /*	FIN - unción Limpiar Formulario de registro de producto  */
 function botonesRegistrar(){
-	$("#btn-agregar-codigo").show();
+	$("#btn-agregar-codigo-nuevo").show();
     $("#btn-agregar-codigo-mostrar").hide();
     $("#btn-actualizar-codigo").hide();
     $("#btn-cancelar-codigo").hide();
