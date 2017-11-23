@@ -271,15 +271,9 @@ function LimpiarCampos(){
 	AgregarFila(1);
 	AgregarFila(2);
 	AgregarFila(3);
-	if($("#intTipoDetalle").val() == 1){
-		$("#ValorVenta").val("S/. 0.00");
-		$("#IGVVenta").val("S/. 0.00");
-		$("#VentaTotal").val("S/. 0.00");
-	} else if($("#intTipoDetalle").val() == 2){
-		$("#ValorCompra").val("S/. 0.00");
-		$("#IGVCompra").val("S/. 0.00");
-		$("#CompraTotal").val("S/. 0.00");
-	}
+	$("#ValorComprobante").val("S/. 0.00");
+	$("#IGVComprobante").val("S/. 0.00");
+	$("#ComprobanteTotal").val("S/. 0.00"); 
 	$("#nvchObservacion").val("");
 	MostrarSeleccionComprobante();
 }
@@ -492,7 +486,7 @@ $(document).on('click', '#btn-editar-comprobante', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-comprobante', function(){
-  	  var intIdVenta = $(this).attr("id");
+  	  var intIdComprobante = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
@@ -500,7 +494,7 @@ $(document).on('click', '.btn-eliminar-comprobante', function(){
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,funcion:funcion},
+	   data:{intIdComprobante:intIdComprobante,funcion:funcion},
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
@@ -687,16 +681,6 @@ function PaginarComprobante(x,y,tipolistado) {
   });
 }
 /* FIN - Funcion Ajax - Paginar Cliente */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
-$(document).on('change', '#intIdTipoComprobante', function(){
-  	 var intIdTipoComprobante = document.getElementById("intIdTipoComprobante").value;
-  	 MostrarSeleccionComprobante(intIdTipoComprobante);
-	 return false;
-});
-/* FIN - Funcion Ajax - Cambiar Número de Elementos de Tipo Comprobante */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

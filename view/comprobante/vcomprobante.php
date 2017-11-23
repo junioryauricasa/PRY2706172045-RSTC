@@ -1,8 +1,8 @@
 <!-- TABLE: LATEST USERS -->
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#formRealizarComprobante" id="btnFormRealizarComprobante" data-toggle="tab" aria-expanded="true">Realizar Venta</a></li>
-          <li class=""><a href="#formListarComprobante" id="btnFormListarComprobante" data-toggle="tab" aria-expanded="false">Lista de Ventas</a></li>
+          <li class="active"><a href="#formRealizarComprobante" id="btnFormRealizarComprobante" data-toggle="tab" aria-expanded="true">Realizar <?php echo $lblTituloSingular; ?></a></li>
+          <li class=""><a href="#formListarComprobante" id="btnFormListarComprobante" data-toggle="tab" aria-expanded="false">Lista de <?php echo $lblTituloPlural; ?></a></li>
         </ul>
         <div class="tab-content">
           <!-- INICIO - Formulario Realizar Venta -->
@@ -16,9 +16,10 @@
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>
+              <?php if($intTipoDetalle != 2) { ?> 
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Lugar de Venta:</label>
+                  <label>Lugar de <?php echo $lblTituloSingular; ?>:</label>
                   <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
                   <?php 
                     try{   
@@ -36,10 +37,11 @@
                   </select>
                 </div>
               </div>
+              <?php } ?>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Comprobante:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="intIdTipoComprobante" name="intIdTipoComprobante"  class="form-control select2" form="form-comprobante">
+                  <select <?php if($intTipoDetalle != 2) echo 'onchange="MostrarSeleccionComprobante()"'; ?> id="intIdTipoComprobante" name="intIdTipoComprobante"  class="form-control select2" form="form-comprobante">
                   <?php 
                     try{
                     $sql_conexion = new Conexion_BD();
@@ -59,13 +61,14 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Serie:</label>
-                  <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" readonly form="form-comprobante"/>
+                  <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" form="form-comprobante"
+                  <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Numeración:</label>
-                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" readonly form="form-comprobante"/>
+                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" form="form-comprobante" <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
                 </div>
               </div>
               <div class="col-md-2">
@@ -87,7 +90,7 @@
                   </select>
                 </div>
               </div>
-              <script type="text/javascript">MostrarSeleccionComprobante();</script>
+              <?php if($intTipoDetalle != 2) { ?><script type="text/javascript">MostrarSeleccionComprobante();</script><?php } ?>
             </div>
             <div class="row">
               <div class="col-md-2">
@@ -349,21 +352,21 @@
                   <table border="1" class="ExcelTable2007 rwd-table" width="100%">
                     <tbody>
                       <tr>
-                          <th>Valor de Venta</th>
+                          <th>Valor de <?php echo $lblTituloSingular; ?></th>
                           <td style="width: 120px !important">
-                              <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
+                              <input type="text" id="ValorComprobante" name="ValorComprobante" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       <tr>
                           <th>IGV (18%)</th>
                           <td style="width: 120px !important">
-                              <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
+                              <input type="text" id="IGVComprobante" name="IGVComprobante" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       <tr>
-                          <th>Venta Total</th>
+                          <th><?php echo $lblTituloSingular; ?> Total</th>
                           <td style="width: 120px !important">
-                              <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
+                              <input type="text" id="ComprobanteTotal" name="ComprobanteTotal" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                     </tbody>
@@ -402,8 +405,8 @@
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
                   <div class="text-center">
-                    <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Venta" form="form-comprobante">
-                    <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-success" value="Nueva Venta" form="form-comprobante">
+                    <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                    <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-success" value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                   </div>
                 </div>
               </div>
@@ -460,7 +463,7 @@
               <div class="col-md-6">
               <div class="text-right">
                 <div class="form-group">
-                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Venta"/>
+                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva <?php echo $lblTituloSingular; ?>"/>
                 </div>
               </div>
               </div>
@@ -507,7 +510,7 @@
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                    <label class="text-left">Total de Ventas:</label>
+                    <label class="text-left">Total de <?php echo $lblTituloPlural; ?>:</label>
                     <input type="text" id="TotalComprobante" class="form-control select2" placeholder="0.00" readonly>
                 </div>
               </div>
@@ -524,9 +527,9 @@
                   <th>Cliente</th>
                   <th>Usuario que Generó</th>
                   <th>Fecha de Creación</th>
-                  <th>Valor de Venta</th>
+                  <th>Valor de <?php echo $lblTituloSingular; ?></th>
                   <th>IGV</th>
-                  <th>Venta Total</th>
+                  <th><?php echo $lblTituloSingular; ?> Total</th>
                   <th>Opciones</th>
                 </tr>
                 </thead>

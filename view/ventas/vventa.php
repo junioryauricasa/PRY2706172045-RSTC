@@ -31,7 +31,9 @@ require_once '../../datos/conexion/bd_conexion.php';
 
     <!-- Main content -->
     <section class="content">
-      <?php 
+      <?php
+        $lblTituloSingular = "Venta";
+        $lblTituloPlural = "Ventas";
         $intTipoDetalle = 1;
         require_once '../comprobante/vcomprobante.php'; 
       ?>

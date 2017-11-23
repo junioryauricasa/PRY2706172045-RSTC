@@ -230,7 +230,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>Sucursal:</label>
-                      <select id="intIdSucursal" name="intIdSucursal" class="form-control select2" >
+                      <select name="intIdSucursal" class="form-control select2">
                         <?php try{
                           $sql_conexion = new Conexion_BD();
                           $sql_conectar = $sql_conexion->Conectar();

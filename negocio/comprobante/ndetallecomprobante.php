@@ -244,36 +244,36 @@ function CalcularTotal(){
 		nvchSimbolo = "US$";
 	}
 
-	var VentaTotal = 0.00;
-	var IGVVenta = 0.00;
-	var ValorVenta = 0.00;
-	Number(IGVVenta);
-	Number(VentaTotal);
-	Number(ValorVenta);
+	var ComprobanteTotal = 0.00;
+	var IGVComprobante = 0.00;
+	var ValorComprobante = 0.00;
+	Number(IGVComprobante);
+	Number(ComprobanteTotal);
+	Number(ValorComprobante);
 
 	if(intIdTipoVenta == 1){
 		$('table tbody#ListaDeProductosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotal[]']").each(function() {
-	            VentaTotal = VentaTotal + Number(this.value);
+	            ComprobanteTotal = ComprobanteTotal + Number(this.value);
 	        }); 
 	    });
-	    ValorVenta = (VentaTotal / 1.18).toFixed(2);
-	    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-	    VentaTotal = VentaTotal.toFixed(2);
+	    ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
+	    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
+	    ComprobanteTotal = ComprobanteTotal.toFixed(2);
 	} else if(intIdTipoVenta == 2) {
 		$('table tbody#ListaDeServiciosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotalS[]']").each(function() {
-	            VentaTotal = VentaTotal + Number(this.value);
+	            ComprobanteTotal = ComprobanteTotal + Number(this.value);
 	        }); 
 	    });
-	    ValorVenta = (VentaTotal / 1.18).toFixed(2);
-	    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-	    VentaTotal = VentaTotal.toFixed(2);
+	    ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
+	    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
+	    ComprobanteTotal = ComprobanteTotal.toFixed(2);
 	}
 
-	$("#ValorVenta").val(nvchSimbolo + ' ' + ValorVenta);
-    $("#IGVVenta").val(nvchSimbolo + ' ' + IGVVenta);
-	$("#VentaTotal").val(nvchSimbolo + ' ' + VentaTotal);
+	$("#ValorComprobante").val(nvchSimbolo + ' ' + ValorComprobante);
+    $("#IGVComprobante").val(nvchSimbolo + ' ' + IGVComprobante);
+	$("#ComprobanteTotal").val(nvchSimbolo + ' ' + ComprobanteTotal);
 }
 /* FIN - Calcula el Total del Comprobante */
 //////////////////////////////////////////////////////////////
