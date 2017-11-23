@@ -23,6 +23,7 @@ $(document).on('click', '#btn-form-crear-producto', function(){
 $(document).on('click', '#btn-crear-producto', function(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+	  $("#funcion").val("I");
 	  if(EsVacio("nvchDescripcion") == false){
 	  	goToBox("#nvchDescripcionGroup");
 	  	return false;
@@ -87,7 +88,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 /* INICIO - Funcion Ajax - Mostrar Producto */
 $(document).on('click', '.btn-mostrar-producto', function(){
 	var intIdProducto = $(this).attr("id");
-    var funcion = "M";
+    $("#funcion").val("A");
     var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",

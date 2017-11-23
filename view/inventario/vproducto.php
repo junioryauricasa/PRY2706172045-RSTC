@@ -486,8 +486,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                                                 </div>  
 
                                                 <div class="box-footer clearfix">
-                                                    <input type="hidden" name="funcion" value="I" />
-                                                    <input type="hidden" name="funcion" value="A" />
+                                                    <input type="hidden" id="funcion" name="funcion" value=""/>
+                                                    <!--<input type="hidden" name="funcion" value="A" />-->
                                                     <input type="hidden" id="intIdProducto" name="intIdProducto" value="" />
                                                     <input type="hidden" name="dtmFechaIngreso" value="" />
                                                     <input type="button" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
