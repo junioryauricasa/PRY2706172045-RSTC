@@ -317,7 +317,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                                                 </div>
                                                 <br>
 
-                                                <input type="submit" id="btn-editar-producto" class="btn btn-sm btn-warning btn-flat pull-left hidden" value="Editar Producto">
+                                                <input type="button" id="btn-editar-producto" class="btn btn-sm btn-warning btn-flat pull-left hidden" value="Editar Producto">
                                                 <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left hidden" value="Limpiar" style="margin: 0px 5px">
                                             </div>
 

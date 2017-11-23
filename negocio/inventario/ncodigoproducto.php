@@ -38,6 +38,8 @@ function AgregarCodigo_II() {
     }
 	var tipolistado = "I";
 	var funcion = "ICP";
+	var y = document.getElementById("num-lista").value;
+  	var x = $(".marca").attr("idp") * y;
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
 	   method:"POST",
