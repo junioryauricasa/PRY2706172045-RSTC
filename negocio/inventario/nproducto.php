@@ -132,6 +132,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   	MostrarUbigeo(intIdProducto,tipolistado);
 	   	//goToBox("#Formulario");
 	   	showmodalcreateproduct();
+	   	botonesActualizar();
 	   }
 	  });
 	 return false;
@@ -604,8 +605,8 @@ function botonesRegistrar(){
 
     $("#btn-agregar-ubigeo-nuevo").show();
     $("#btn-agregar-ubigeo-mostrar").hide();
-    $("#btn-actualizar-codigo").hide();
-    $("#btn-cancelar-codigo").hide(); 
+    $("#btn-actualizar-ubigeo").hide();
+    $("#btn-cancelar-ubigeo").hide(); 
 }
 function botonesActualizar(){
 	$("#btn-agregar-codigo").hide();
@@ -615,8 +616,8 @@ function botonesActualizar(){
 
     $("#btn-agregar-ubigeo-nuevo").hide();
     $("#btn-agregar-ubigeo-mostrar").show();
-    $("#btn-actualizar-codigo").show();
-    $("#btn-cancelar-codigo").show(); 
+    $("#btn-actualizar-ubigeo").show();
+    $("#btn-cancelar-ubigeo").show(); 
 }
 
 </script>
