@@ -155,8 +155,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                             </h4>
                           </div>
                           <div class="modal-body">
-                            <div class="box-body">
-                              <div class="box-body">
                                 <div class="row">
 
                                     <form id="form-producto" method="POST">
@@ -491,6 +489,9 @@ require_once '../../datos/conexion/bd_conexion.php';
                                                     <input type="hidden" id="intIdProducto" name="intIdProducto" value="" />
                                                     <input type="hidden" name="dtmFechaIngreso" value="" />
                                                     <input type="button" id="btn-crear-producto" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Producto">
+                                                    
+                                                    <input type="button" class="btn btn-xs" value="cerrar modal" data-dismiss="modal">
+
                                                     <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar Campos" style="margin: 0px 5px">
                                                 </div> 
                                                 <!-- END Formulario de Ubicacion del producto -->
@@ -506,8 +507,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                                     <div id="resultadocrud"></div>
 
                                 </div>
-                              </div>
-                            </div><!-- /.box-body -->
                           </div>
                           <div class="modal-footer">
                             
