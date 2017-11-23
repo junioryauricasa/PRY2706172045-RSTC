@@ -197,7 +197,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                     <!-- datos de Producto -->
                     <div class="col-lg-3 col-md-6">
                           <!--h4 class="box-title text-center">Registro de Nuevo Producto</h4-->
-                          <h4 class="box-title text-center">Editar Producto</h4>
+                          <h4 id="lblTituloFormulario" class="box-title text-center"></h4>
                         <hr>
                         <div class="col-md-12">
                           <div id="nvchDescripcionGroup" class="form-group">

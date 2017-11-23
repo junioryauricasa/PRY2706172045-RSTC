@@ -581,6 +581,7 @@ function limpiarformProducto(){
 //////////////////////////////////////////////////////////////
 /*	FIN - unción Limpiar Formulario de registro de producto  */
 function botonesRegistrar(){
+	$("#lblTituloFormulario").html("Nuevo Producto");
 	$("#btn-crear-producto").show();
 	$("#btn-editar-producto").hide();
 	$("#btn-agregar-codigo-nuevo").show();
@@ -594,6 +595,7 @@ function botonesRegistrar(){
     $("#btn-cancelar-ubigeo").hide(); 
 }
 function botonesActualizar(){
+	$("#lblTituloFormulario").html("Modificar Producto");
 	$("#btn-crear-producto").hide();
 	$("#btn-editar-producto").show();
 	$("#btn-agregar-codigo-nuevo").hide();
