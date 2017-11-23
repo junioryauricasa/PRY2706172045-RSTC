@@ -116,8 +116,16 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 		$("#intIdProducto").val(datos.intIdProducto);
 		$("#dtmFechaIngreso").val(datos.dtmFechaIngreso);
 		
-		$("#btn-agregar-codigo").show();
-		$("#btn-agregar-codigo").hide();
+		$("#btn-agregar-codigo-nuevo").hide();
+	    $("#btn-agregar-codigo-mostrar").show();
+	    $("#btn-actualizar-codigo").show();
+	    $("#btn-cancelar-codigo").show();
+
+	    $("btn-agregar-ubigeo-nuevo").hide();
+	    $("btn-agregar-ubigeo-mostrar").show();
+	    $("btn-actualizar-ubigeo").show();
+	    $("btn-cancelar-ubigeo").show();
+
 		//imprime las tablas
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
@@ -578,18 +586,41 @@ function limpiarformProducto(){
       $("#intIdTipoMonedaVenta").val(1);
       $("#intIdProducto").val("");
       $("#dtmFechaIngreso").val("");
-      
-      $("#btn-agregar-codigo").show();
-      $("#btn-agregar-codigo-mostrar").hide();
 
-      $("#btn-agregar-ubigeo-nuevo").show();
-      $("#btn-agregar-ubigeo-mostrar").hide();
+      //imprime las tablas vacias
+      $("#ListaDeCodigos").html("");  //vacia las filas de la tabla
+      $("#ListaDeUbicaciones").html("");  //vacia las filas de la tabla
 
-      //imprime las tablas
-      $("#ListaDeCodigos").html(""); 
-      $("#ListaDeUbicaciones").html(""); 
+      botonesRegistrar();
 
     }
 //////////////////////////////////////////////////////////////
 /*	FIN - unción Limpiar Formulario de registro de producto  */
+
+
+
+function botonesRegistrar(){
+	$("#btn-agregar-codigo").show();
+    $("#btn-agregar-codigo-mostrar").hide();
+    $("#btn-actualizar-codigo").hide();
+    $("#btn-cancelar-codigo").hide();
+
+    $("#btn-agregar-ubigeo-nuevo").show();
+    $("#btn-agregar-ubigeo-mostrar").hide();
+    $("#btn-actualizar-codigo").hide();
+    $("#btn-cancelar-codigo").hide(); 
+}
+
+function botonesActualizar(){
+	$("#btn-agregar-codigo").hide();
+    $("#btn-agregar-codigo-mostrar").show();
+    $("#btn-actualizar-codigo").show();
+    $("#btn-cancelar-codigo").show();
+
+    $("#btn-agregar-ubigeo-nuevo").hide();
+    $("#btn-agregar-ubigeo-mostrar").show();
+    $("#btn-actualizar-codigo").show();
+    $("#btn-cancelar-codigo").show(); 
+}
+
 </script>
