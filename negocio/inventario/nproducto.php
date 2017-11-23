@@ -68,14 +68,15 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   {
 	   	datos = datos.replace(/\s/g,''); //quitando espacio
 	   	if (datos == "okokokokok") {
-	   	//if (datos == "ok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");
 	   		$('#txt-busqueda').val("");
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
-	   		$('#modal-showmodalcreateproduct').modal('hide');
+	   		botonesRegistrar();
+	   		limpiarformProducto();
+	   		$('#btnListarProducto').click();
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -98,9 +99,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   dataType:'json',
 	   success:function(datos)
 	   {
-	   	//$("#formulario-crud").html(datos);
 	   	$("#nvchDescripcion").val(datos.nvchDescripcion);
-	   	//alert(datos);
 	   	$("#nvchObservacion").val(datos.nvchObservacion);
 		$("#nvchUnidadMedida").val(datos.nvchUnidadMedida);
 		$("#intCantidad").val(datos.intCantidad);
@@ -130,31 +129,11 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 		//imprime las tablas
 	   	MostrarCodigo(intIdProducto,tipolistado);
 	   	MostrarUbigeo(intIdProducto,tipolistado);
-	   	//goToBox("#Formulario");
-	   	showmodalcreateproduct();
 	   	botonesActualizar();
+	   	$('#btnFormProducto').click();
 	   }
 	  });
 	 return false;
-  	  /* 
-  	  var intIdProducto = $(this).attr("id");
-  	  var funcion = "M";
-  	  var tipolistado = "T";
-	  $.ajax({
-	   url:"../../datos/inventario/funcion_producto.php",
-	   method:"POST",
-	   data:{intIdProducto:intIdProducto,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	$("#formulario-crud").html(datos);
-	   	$("#tipo-moneda").val($("#intIdTipoMonedaVenta").val());
-	   	MostrarCodigo(intIdProducto,tipolistado);
-	   	MostrarUbigeo(intIdProducto,tipolistado);
-	   	goToBox("#Formulario");
-	   }
-	  });
-	 return false;
-	 */
 });
 /* FIN - Funcion Ajax - Mostrar Producto */
 //////////////////////////////////////////////////////////////
@@ -213,6 +192,9 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   		$("#btn-form-producto-remove").click();
 	   		ListarProducto(x,y,tipolistado);
 	   		PaginarProducto(x,y,tipolistado);
+	   		limpiarformProducto();
+	   		botonesRegistrar();
+	   		$('#btnListarProducto').click();
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -549,6 +531,7 @@ function mostrar(){
 
 /*	Función Mostrar Formulario de registro de producto   */
 //////////////////////////////////////////////////////////////
+/*
 function ver_formulario(){
 	$("li#li_show_table_products").removeClass("active");
 	$("a#show_table_products").attr("aria-expanded","false");
@@ -564,6 +547,7 @@ function ver_formulario(){
 	$("#ListaDeUbicaciones").reload();
 
 }
+*/
 //////////////////////////////////////////////////////////////
 /*	FIN - Función Mostrar Formulario de registro de producto   */
 
@@ -572,21 +556,20 @@ function ver_formulario(){
 //////////////////////////////////////////////////////////////
 function limpiarformProducto(){
       //$("#formulario-crud").html(datos);
-      $("#nvchDescripcion").val("");
-      //alert(datos);
+      RestablecerValidacion("nvchDescripcion",1);
+      RestablecerValidacion("intCantidad",1);
+      RestablecerValidacion("intCantidadMinima",1);
+      RestablecerValidacion("dcmPrecioCompra",1);
+      RestablecerValidacion("dcmPrecioVenta1",1);
+      RestablecerValidacion("dcmPrecioVenta2",1);
+      RestablecerValidacion("dcmPrecioVenta3",1);
+      RestablecerValidacion("dcmDescuentoVenta2",1);
+      RestablecerValidacion("dcmDescuentoVenta3",1);
+
       $("#nvchObservacion").val("");
-      $("#nvchUnidadMedida").val("");
-      $("#intCantidad").val("");
-      $("#intCantidadMinima").val("");
       $("#nvchDireccionImg").val("");
       $("#resultadoimagen").attr("src","../../datos/inventario/imgproducto/productosinfoto.png");
-      $("#dcmPrecioCompra").val("");
       $("#intIdTipoMonedaCompra").val(1);
-      $("#dcmPrecioVenta1").val("");
-      $("#dcmPrecioVenta2").val("");
-      $("#dcmPrecioVenta3").val("");
-      $("#dcmDescuentoVenta2").val("");
-      $("#dcmDescuentoVenta3").val("");
       $("#intIdTipoMonedaVenta").val(1);
       $("#intIdProducto").val("");
       $("#dtmFechaIngreso").val("");
@@ -598,6 +581,8 @@ function limpiarformProducto(){
 //////////////////////////////////////////////////////////////
 /*	FIN - unción Limpiar Formulario de registro de producto  */
 function botonesRegistrar(){
+	$("#btn-crear-producto").show();
+	$("#btn-editar-producto").hide();
 	$("#btn-agregar-codigo-nuevo").show();
     $("#btn-agregar-codigo-mostrar").hide();
     $("#btn-actualizar-codigo").hide();
@@ -609,6 +594,8 @@ function botonesRegistrar(){
     $("#btn-cancelar-ubigeo").hide(); 
 }
 function botonesActualizar(){
+	$("#btn-crear-producto").hide();
+	$("#btn-editar-producto").show();
 	$("#btn-agregar-codigo-nuevo").hide();
     $("#btn-agregar-codigo-mostrar").show();
     $("#btn-actualizar-codigo").hide();
