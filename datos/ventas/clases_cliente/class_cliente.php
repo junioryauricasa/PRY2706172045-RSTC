@@ -259,11 +259,11 @@ class Cliente
         }
         echo '
             <td> 
-              <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente">
-                <i class="fa fa-edit" data-toggle="tooltip" title="Editar"></i>
+              <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente" onclick="verformulario()">
+                <i class="fa fa-edit" data-toggle="tooltip" title="Editar"></i> Editar 
               </button>
               <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-danger btn-eliminar-cliente">
-                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>
+                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> Eliminar
               </button>
             </td>
         </tr>';
