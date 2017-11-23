@@ -21,8 +21,8 @@ var numprtst = 0; Number(numprtst);
       var funcion = "BP"
       if(search != '')
       {
-          var intIdTipoMoneda = $("#intIdTipoMoneda").val();
-          $.ajax({
+        var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+        $.ajax({
           type: "POST",
           url: "../../datos/inventario/funcion_producto.php",
           data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
@@ -35,7 +35,7 @@ var numprtst = 0; Number(numprtst);
             $(".result li:eq("+numprtst+")").css("background","#4C66A4");
             $(".result li:eq("+numprtst+")").css("color","#FFFFFF");
           }
-          });
+        });
       }
       else {
         $("#result"+numfila).html("").hide();
@@ -259,8 +259,13 @@ function LimpiarCampos(){
 	$("#intIdTipoCliente").val("");
 	$("#intIdCliente").val("");
 	$("#intIdProveedor").val("");
+	$("#nvchSerie").val("");
+	$("#nvchNumeracion").val("");
 	$("#intIdSucursal").val(1);
-	$("#intIdTipoComprobante").val(1);
+	if($("#intTipoDetalle").val() == 1)
+		$("#intIdTipoComprobante").val(1);
+	else if($("#intTipoDetalle").val() == 2)
+		$("#intIdTipoComprobante").val(5);
 	$("#intIdTipoVenta").val(1);
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
@@ -275,7 +280,8 @@ function LimpiarCampos(){
 	$("#IGVComprobante").val("S/. 0.00");
 	$("#ComprobanteTotal").val("S/. 0.00"); 
 	$("#nvchObservacion").val("");
-	MostrarSeleccionComprobante();
+	if($("#intTipoDetalle").val() != 2)
+		MostrarSeleccionComprobante();
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
 //////////////////////////////////////////////////////////////
@@ -859,7 +865,7 @@ function MostrarSeleccionComprobante() {
 		   	$("#nvchSerie").val(datos.nvchSerie);
 		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
 	   	 } else {
-	   	 	alert(datos.resultado);
+	   	 	alert(datos);
 	   	 }
 	   }
 	  });

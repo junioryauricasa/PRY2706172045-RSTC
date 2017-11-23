@@ -59,16 +59,23 @@
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="form-group">
+                <div id="nvchSerieGroup" class="form-group">
                   <label>Serie:</label>
                   <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" form="form-comprobante"
-                  <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
+                  onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('nvchSerie')"
+                  maxlength="4" <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
+                  <span id="nvchSerieIcono" class="" aria-hidden=""></span>
+                  <div id="nvchSerieObs" class=""></div>
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="form-group">
+                <div id="nvchNumeracionGroup" class="form-group">
                   <label>Numeración:</label>
-                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" form="form-comprobante" <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
+                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" 
+                  form="form-comprobante" onkeypress="return EsNumeroEnteroTecla(event)" 
+                  onkeyup="EsNumeroEntero('nvchNumeracion')" maxlength="8" <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
+                  <span id="nvchNumeracionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchNumeracionObs" class=""></div>
                 </div>
               </div>
               <div class="col-md-2">
@@ -133,7 +140,7 @@
               </div>
               <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
-                  <label>Seleccionar Cliente:</label>
+                  <label>Seleccionar <?php echo $lblPersonaSingular; ?>:</label>
                   <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
                 </div>
               </div>
@@ -172,177 +179,17 @@
                   <input type="button" onclick="AgregarFila($('#intIdTipoVenta').val())" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
+              <?php if($intTipoDetalle == 1) { ?>
               <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cotización:</label>
                   <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
+              <?php } ?>
             </div>
 
-            <!-- INICIO Tabla - Repuestos -->
-            <div id="tablaRepuestos">
-            <div class="row">
-              <div class="col-md-12">
-                <!-- Comentar-->
-                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;" id="scrool-slim">
-                  <table class="ExcelTable2007 rwd-table" width="100%">
-                    <thead>
-                    <tr>
-                      <th class="heading" width="25px">&nbsp;</th>
-                      <th style="width: 110px" >Código</th>
-                      <th>Descripción</th>
-                      <th style="width: 110px" >Precio Lista</th>
-                      <th style="width: 110px" >Desc. (%)</th>
-                      <th style="width: 110px" >Precio Unit.</th>
-                      <th style="width: 110px" >Cantidad</th>
-                      <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="ListaDeProductosVender">
-                      <tr>
-                        <td class="heading" data-th="ID"></td>
-                        <td>
-                            <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
-                            <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
-                            <input style="width: 110px !important" type="text" class="buscar " id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
-                            <div class="result" id="result1">
-                        </td>
-                        <td>
-                            <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
-                        </td>
-                        <td>
-                            <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="" readonly />
-                            <input type="hidden" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
-                            <input type="hidden" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
-                        </td>
-                        <td>
-                            <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
-                          onkeyup="CalcularPrecioTotal(this)"/>
-                        </td>
-                        <td>
-                            <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" class="" readonly/>
-                        </td>
-                        <td>
-                            <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"
-                          onkeyup="CalcularPrecioTotal(this)" class=""/>
-                        </td>
-                        <td>
-                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-comprobante" class="" readonly/>
-                        </td>
-                        <td style="width: 25px !important" >
-                            <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
-                                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> 
-                            </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div>
-            <!-- FIN Tabla - Repuestos -->
-
-            <!-- INICIO Tabla - Servicios -->
-            <div id="tablaServicios">
-            <div class="row">
-              <div class="col-md-12">
-                <!-- Comentar-->
-                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
-                  <table class="ExcelTable2007 rwd-table" width="100%">
-                    <thead>
-                    <tr>
-                      <th class="heading" width="25px">&nbsp;</th>
-                      <th>Descripción</th>
-                      <th style="width: 110px" >Precio Unit.</th>
-                      <th style="width: 110px" >Cantidad</th>
-                      <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="ListaDeServiciosVender">
-                      <tr>
-                        <td class="heading" data-th="ID"></td>
-                        <td>
-                          <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
-                          <textarea id="nvchDescripcionS1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>
-                          <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
-                        </td>
-                        <td>
-                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" class=""/>
-                        </td>
-                        <td> 
-                          <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-comprobante" 
-                          onkeyup="CalcularPrecioTotalS(this)" class=""/>           
-                        </td>
-                        <td>
-                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-comprobante" class="" readonly/>
-                        </td>
-                        <td style="width: 25px !important" >
-                          <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
-                              <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> 
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div>
-            <!-- FIN Tabla - Servicios -->
-
-            <!-- INICIO Tabla - Maquinarias -->
-            <div id="tablaMaquinarias">
-            <div class="row">
-              <div class="col-md-12">
-                <!-- Comentar-->
-                <div class="table-responsive" style="max-height: 310px; overflow-y: visible;">
-                  <table class="ExcelTable2007 rwd-table" width="100%">
-                    <thead>
-                    <tr>
-                      <th class="heading" width="25px">&nbsp;</th>
-                      <th>Descripción</th>
-                      <th style="width: 110px" >Precio Unit.</th>
-                      <th style="width: 110px" >Cantidad</th>
-                      <th style="width: 110px" >Total</th>
-                      <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="ListaDeMaquinariasVender">
-                      <tr>
-                        <td class="heading" data-th="ID"></td>
-                        <td>
-                          <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
-                          <textarea id="nvchDescripcionM1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>
-                          <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
-                        </td>
-                        <td>
-                          <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" class=""/>
-                        </td>
-                        <td> 
-                          <input type="text" id="intCantidadM1" name="intCantidadM[]" idsprt="1" form="form-comprobante" 
-                          onkeyup="CalcularPrecioTotalM(this)" class=""/>           
-                        </td>
-                        <td>
-                          <input type="text" id="dcmTotalM1" name="dcmTotalM[]" form="form-comprobante" class="" readonly/>
-                        </td>
-                        <td style="width: 25px !important" >
-                          <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
-                              <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> 
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div>
-            <!-- FIN Tabla - Maquinarias -->
-            <script type="text/javascript">ElegirTabla(1);</script>
+            <?php require_once '../comprobante/vtablacomprobante.php' ?>
 
             <div class="row">
               <div class="col-md-9">
