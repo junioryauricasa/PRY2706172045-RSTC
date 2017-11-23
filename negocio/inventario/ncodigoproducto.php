@@ -176,12 +176,12 @@ function EliminarCodigo(seleccion) {
 function BotonesCodigo(accion) {
 	if(accion == "I"){
 		RestablecerValidacion("nvchCodigo",1);
-		$("#btn-agregar-codigo").show();
+		$("#btn-agregar-codigo-mostrar").show();
 		$("#btn-actualizar-codigo").hide();
 		$("#btn-cancelar-codigo").hide();
 	} else if (accion == "A") {
 		RestablecerValidacion("nvchCodigo",2);
-		$("#btn-agregar-codigo").hide();
+		$("#btn-agregar-codigo-mostrar").hide();
 		$("#btn-actualizar-codigo").show();
 		$("#btn-cancelar-codigo").show();
 	}

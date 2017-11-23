@@ -609,15 +609,15 @@ function botonesRegistrar(){
     $("#btn-cancelar-ubigeo").hide(); 
 }
 function botonesActualizar(){
-	$("#btn-agregar-codigo").hide();
+	$("#btn-agregar-codigo-nuevo").hide();
     $("#btn-agregar-codigo-mostrar").show();
-    $("#btn-actualizar-codigo").show();
-    $("#btn-cancelar-codigo").show();
+    $("#btn-actualizar-codigo").hide();
+    $("#btn-cancelar-codigo").hide();
 
     $("#btn-agregar-ubigeo-nuevo").hide();
     $("#btn-agregar-ubigeo-mostrar").show();
-    $("#btn-actualizar-ubigeo").show();
-    $("#btn-cancelar-ubigeo").show(); 
+    $("#btn-actualizar-ubigeo").hide();
+    $("#btn-cancelar-ubigeo").hide();
 }
 
 </script>

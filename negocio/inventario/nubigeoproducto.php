@@ -161,18 +161,14 @@ function BotonesUbigeo(accion) {
 	if(accion == "I"){
 		RestablecerValidacion("nvchUbicacion",1);
 		RestablecerValidacion("intCantidadUbigeo",1);
-		// botones a vizualizar
-		$("#btn-agregar-ubigeo-nuevo").hide(); //boton temporal
-		$("#btn-agregar-ubigeo-mostrar").show(); //boton registro
+		$("#btn-agregar-ubigeo-mostrar").show();
 		$("#btn-actualizar-ubigeo").hide();
 		$("#btn-cancelar-ubigeo").hide();
 
 	} else if (accion == "A") {
 		RestablecerValidacion("nvchUbicacion",2);
 		RestablecerValidacion("intCantidadUbigeo",2);
-		// botones a vizualizar
-		$("#btn-agregar-ubigeo-nuevo").hide(); //boton temporal
-		$("#btn-agregar-ubigeo-mostrar").show(); //boton registro
+		$("#btn-agregar-ubigeo-mostrar").hide();
 		$("#btn-actualizar-ubigeo").show();
 		$("#btn-cancelar-ubigeo").show();
 
