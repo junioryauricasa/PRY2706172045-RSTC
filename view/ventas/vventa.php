@@ -721,13 +721,16 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <input type="hidden" name="intTipoDetalle" value="1" form="form-comprobante">
+                  <input type="hidden" id="intTipoDetalle" name="intTipoDetalle" value="1" form="form-comprobante">
                   <input type="hidden" name="funcion" value="I" form="form-comprobante">
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
-                  <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Venta" form="form-comprobante">
+                  <div class="text-center">
+                    <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Venta" form="form-comprobante">
+                    <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-success" value="Nueva Venta" form="form-comprobante">
+                  </div>
                 </div>
               </div>
               <div class="col-md-10">
@@ -779,6 +782,13 @@ require_once '../../datos/conexion/bd_conexion.php';
                     }?>
                   </select>
                 </div>
+              </div>
+              <div class="col-md-6">
+              <div class="text-right">
+                <div class="form-group">
+                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Venta"/>
+                </div>
+              </div>
               </div>
             </div>
             <div class="row">
@@ -860,14 +870,12 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </ul>
               </nav>
             </div>
+            <script type="text/javascript">TotalComprobante();</script>
+            <!--
             <div class="row">
-              <script type="text/javascript">TotalComprobante();</script>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Venta"/>
-                </div>
-              </div>
+              
             </div>
+            -->
           </div>
           <!-- FIN - Formulario Listar Venta -->
         </div>
