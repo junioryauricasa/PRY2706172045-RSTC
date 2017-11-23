@@ -35,7 +35,7 @@ require_once '../../datos/conexion/bd_conexion.php';
   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-	      <div class="nav-tabs-custom">
+	     <div class="nav-tabs-custom">
 	     
 		    <ul class="nav nav-tabs">
 		      <li class="active" id="li_show_table_products">
