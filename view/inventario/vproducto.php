@@ -135,7 +135,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                     <!--button type="button" class="btn btn-sm btn-info btn-flat" onclick="ver_formulario();">Agregar Producto</button-->
 
                     <!-- Modal for New Product -->
-                    <button type="button" class="btn btn-sm btn-danger btn-flat" onclick="limpiarformProducto();showmodalcreateproduct()">Agregar Nuevo Producto</button>
+                    <button type="button" class="btn btn-sm btn-danger btn-flat" onclick="limpiarformProducto();showmodalcreateproduct();botonesRegistrar()">Agregar Nuevo Producto</button>
           
                     <!-- script for for New Product -->
                     <script type="text/javascript">
@@ -151,7 +151,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title"><i class="fa fa-book"></i>
-                                Registro Nuevo Producto
+                                Formulario de Producto <b><span style="font-size: 14px">(Recuerde rellenar todos los campos)</span></b>
                             </h4>
                           </div>
                           <div class="modal-body">
