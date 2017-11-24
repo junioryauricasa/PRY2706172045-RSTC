@@ -66,7 +66,8 @@ class FormularioCliente
                   <?php 
                     }
                   ?>
-
+                  
+                  <hr>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Tipo de Persona:</label>
@@ -178,8 +179,8 @@ class FormularioCliente
                   <?php if($funcion == "M") { ?>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="submit" id="btn-editar-cliente" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
-                        <input type="reset" id="btn-reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
+                        <input type="submit" id="btn-editar-cliente-actualizar" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
+                        <input type="reset" id="btn-reset-actualizar" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                       </div>
                     </div>
                   <?php } ?>
@@ -188,7 +189,8 @@ class FormularioCliente
 
               <!-- formulario domicilio -->
               <div class="col-md-9">
-                    <h3 class="box-title text-left">Domicilio</h3>
+                  <h3 class="box-title text-left">Domicilio</h3>
+                  <hr>
                   <div class="box-body">
                       <div class="row">
                           <div class="col-md-3">
@@ -331,7 +333,7 @@ class FormularioCliente
               <!-- formulario comunicacion -->
               <div class="col-md-9">
                   <h3 class="box-title text-left">Comunicación</h3>
-
+                  <hr>
                   <div class="box-body">
                     <div class="row">
                       <div class="col-md-3">

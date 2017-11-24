@@ -241,7 +241,7 @@ class Proveedor
         <td>'.$fila["nvchNombres"].'</td>';
         }
         echo '<td> 
-          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-proveedor">
+          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-proveedor" onclick="verformularioproveedor()">
             <i class="fa fa-edit"></i> Editar
           </button>
           <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-danger btn-eliminar-proveedor">

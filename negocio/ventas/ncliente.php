@@ -20,7 +20,7 @@ $(document).on('click', '#btn-form-crear-cliente', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
-$(document).on('click', '#btn-crear-cliente', function(){
+$(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	  var formData = $("#form-cliente").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
@@ -75,8 +75,9 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	   		//$("#btn-form-cliente-remove").click();
 			
 	   		limpiarformCliente();//limpiar formulario
-	   		$("#lilistarclientes").click();//volver a la primera pestana
 	   		botonescrear();
+	   		$("#lilistarclientes").click();//volver a la primera pestana
+	   		
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -113,7 +114,7 @@ $(document).on('click', '.btn-mostrar-cliente', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
-$(document).on('click', '#btn-editar-cliente', function(){
+$(document).on('click', '#btn-editar-cliente-actualizar', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
@@ -838,12 +839,16 @@ function limpiarformCliente(){
       //limpiando tablas
       $("#ListaDeComunicaciones").html("");//vacia tabla
       
-    }
+}
 //////////////////////////////////////////////////////////////
 /*	FIN * Función Limpiar Formulario de registro de cliente   */
 
 
+/*	Función Mostrar botones formularios de cliente   */
+///////////////////////////////////////////////////////////
 function botonescrear(){
+
+
       $("#btn-agregar-domicilio").show();
       $("#btn-agregar-domicilio").hide();
       $("#btn-actualizar-domicilio").hide();
@@ -855,9 +860,12 @@ function botonescrear(){
       $("#btn-cancelar-comunicacion").hide();
 
       //$("#intIdCliente").val("");
+      $("#btn-editar-cliente-actualizar").hide();
+      $("#btn-reset-actualizar").hide();
       $("#btn-crear-cliente-nuevo").show();
-      $("#btn-editar-cliente").hide();
-      $("#btn-reset-nuevo").show();
+      $("#btn-reset-nuevo").show();	  
+
+      //alert("se resetearon los botones para crear adecuadamente");
 }
 
 function botonesactualizar(){
@@ -871,11 +879,17 @@ function botonesactualizar(){
       $("#btn-actualizar-comunicacion").show();
       $("#btn-cancelar-comunicacion").show();
 
-      //$("#intIdCliente").val();
+      //$("#intIdCliente").val("");
+      $("#btn-editar-cliente-actualizar").show();
+      $("#btn-reset-actualizar").show();
       $("#btn-crear-cliente-nuevo").hide();
-      $("#btn-editar-cliente").show();
       $("#btn-reset-nuevo").hide();
+
+      //alert("se resetearon los botones para actualizar adecuadamente");
 }
+///////////////////////////////////////////////////////////
+/*	END * Función Mostrar botones formularios de cliente   */
+
 
 
 </script>
