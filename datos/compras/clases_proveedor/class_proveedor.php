@@ -79,6 +79,75 @@ class Proveedor
     }    
   }
 
+  public function ListarProveedorComprobante($busqueda,$x,$y,$intIdTipoPersona)
+  {
+    try{
+      if($busqueda != "" || $busqueda != null) {
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARProveedor(:busqueda,:x,:y,:intIdTipoPersona)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+        {
+          echo '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+          ';
+          if($intIdTipoPersona == 2) { 
+            echo '<td>'.$fila["nvchDNI"].'</td>'; 
+          }
+          echo '<td>'.$fila["nvchRUC"].'</td>';
+          if($intIdTipoPersona == 1) { 
+            echo '<td>'.$fila["nvchRazonSocial"].'</td>'; 
+          }
+          if($intIdTipoPersona == 2) {
+          echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
+          <td>'.$fila["nvchApellidoMaterno"].'</td>
+          <td>'.$fila["nvchNombres"].'</td>';
+          }
+          echo
+          '<td> 
+            <button type="button" idscli="'.$fila['intIdProveedor'].'" class="btn btn-xs btn-success" onclick="SeleccionarProveedor(this)">
+              <i class="fa fa-edit"></i> Seleccionar
+            </button>
+          </td>
+          </tr>';
+        }
+      } else {
+        echo "";
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function SeleccionarProveedorComprobante()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL mostrarProveedor(:intIdProveedor)');
+      $sql_comando -> execute(array(':intIdProveedor' => $this->intIdProveedor));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
+      $salida['intIdProveedor'] = $fila['intIdProveedor'];
+      $salida['nvchRUC'] = $fila['nvchRUC'];
+      $salida['nvchDNI'] = $fila['nvchDNI'];
+      $salida['nvchRazonSocial'] = $fila['nvchRazonSocial'];
+      $salida['nvchApellidoPaterno'] = $fila['nvchApellidoPaterno'];
+      $salida['nvchApellidoMaterno'] = $fila['nvchApellidoMaterno'];
+      $salida['nvchNombres'] = $fila['nvchNombres'];
+      $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
+      $salida['nvchDomicilio'] = $fila['nvchDomicilio'];
+      $salida['TipoProveedor'] = $fila['TipoProveedor'];
+      echo json_encode($salida);
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }    
+  }
+
   public function ActualizarProveedor()
   {
     try{
@@ -192,6 +261,25 @@ class Proveedor
   public function PaginarProveedores($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
   {
     try{
+      if($tipolistado == "V" && $busqueda == ""){
+        $output = ""; 
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Anterior</span>
+                    </a>
+                </li>';
+          $output .= 
+                '<li class="page-item">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Siguiente</span>
+                    </a>
+                </li>';
+        echo $output;
+        return false;
+      }
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();

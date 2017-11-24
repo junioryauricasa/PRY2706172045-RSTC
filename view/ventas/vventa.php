@@ -1,4 +1,8 @@
 <?php 
+$lblPersonaSingular = "Cliente";
+$lblTituloSingular = "Venta";
+$lblTituloPlural = "Ventas";
+$intTipoDetalle = 1;
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
 ?>  
@@ -32,10 +36,6 @@ require_once '../../datos/conexion/bd_conexion.php';
     <!-- Main content -->
     <section class="content">
       <?php
-        $lblPersonaSingular = "Cliente";
-        $lblTituloSingular = "Venta";
-        $lblTituloPlural = "Ventas";
-        $intTipoDetalle = 1;
         require_once '../comprobante/vcomprobante.php'; 
       ?>
     </section>
