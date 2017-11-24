@@ -74,32 +74,15 @@
   
 </head>
 <body>
-<table style="text-align: left; height: 119px; width: 772px;"
- border="0" cellpadding="1" cellspacing="1">
-  <tbody>
-    <tr>
-      <td style="width: 246px;" rowspan="2">
-        <!--img style="width: 224px; height: 57px;" alt="logo_resteco_azul" src="../../imagenes/logo_resteco_azul.png"><br>
-        <span id="letterlogan">¡18 Años Liderando el Sector Agrícola!</span-->
-        <img style="width: 274px;" alt="logo resteco azul" src="../../imagenes/logoresteco.PNG">
-      </td>
-      <td style="width: 270px;" rowspan="2"></td>
-      <td style="width: 103px;" rowspan="2">
-        <img style="width: 111px; height: 85px;" alt="" src="../../imagenes/logo_resteco_cnh.jpg">
-      </td>
-      <td style="width: 110px;">
-        <img style="width: 110px; height: 42px;" alt="logo_resteco_construction" src="../../imagenes/logo_resteco_case_construction.png">
-      </td>
-    </tr>
-    <tr>
-      <td style="width: 120px;">
-        <img style="width: 129px; height: 48px;" alt="logo_resteco_agriculture" src="../../imagenes/logo_resteco_case_agriculture.png">
-      </td>
-    </tr>
-  </tbody>
-</table>
-<center><span style="font-weight: bold; font-family: Arial;">COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?></span></center>
+
+<div class="">
+  <img style="width: 100%; margin-top: -50px" alt="logo resteco azul" src="../../imagenes/header-comprobantes.PNG">
+</div>
+<center>
+    <span style="font-weight: bold; font-family: Arial;">COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?></span>
+</center>
 <br>
+
 <table id="tablageneral" style="text-align: left; width: 700px;" cellpadding="1" cellspacing="1">
   <tbody>
     <tr>
@@ -144,10 +127,9 @@
     </tr>
   </tbody>
 </table>
-<br>
 <small><span style="text-align: left; font-weight: bold; font-family: Arial;">Estimado Cliente:</span><br>
 <span style="font-family: Arial;">Atendiendo a su solicitud de cotización nos es grato alcanzarle nuestra mejor oferta en los repuestos solicitados, que a continuación detallamos:</span></small>
-<br><br>
+<br>
 <table id="tabladetalle" style="text-align: left; width: 100%; height: 130px;" cellpadding="3" cellspacing="1">
   <tbody>
     <tr id="primerdetalle">
