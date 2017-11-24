@@ -32,7 +32,7 @@ switch($_POST['funcion']){
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Comprobante->IdCliente($_POST['intIdCliente']);
-    $Comprobante->IdProveedor($_POST['intIdProveedor']);
+    $Comprobante->Proveedor($_POST['intProveedor']);
     $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);
     $Comprobante->DNIRUC($_POST['nvchDNIRUC']);
     $Comprobante->Direccion($_POST['nvchDireccion']);
@@ -137,6 +137,19 @@ switch($_POST['funcion']){
   case "PCL":
     $Cliente = new Cliente();
     $Cliente->PaginarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],"V",$_POST['intIdTipoPersona']);
+    break;
+  case "SPR":
+    $Proveedor = new Proveedor();
+    $Proveedor->Proveedor($_POST['intIdProveedor']);
+    $Proveedor->SeleccionarProveedorComprobante();
+    break;
+  case "MPR":
+    $Proveedor = new Proveedor();
+    $Proveedor->ListarProveedorComprobante($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
+    break;
+  case "PPR":
+    $Proveedor = new Proveedor();
+    $Proveedor->PaginarProveedores($_POST['busqueda'],$_POST['x'],$_POST['y'],"V",$_POST['intIdTipoPersona']);
     break;
   case "ICT":
     $Cotizacion = new Cotizacion();

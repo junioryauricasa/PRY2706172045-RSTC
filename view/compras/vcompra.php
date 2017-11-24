@@ -1,11 +1,16 @@
-<?php 
+<?php
+$lblPersonaSingular = "Proveedor";
+$lblTituloSingular = "Compra";
+$lblTituloPlural = "Compras";
+$intTipoDetalle = 2;
 include('../_include/rstheader.php');
+require_once '../../datos/conexion/bd_conexion.php';
 ?>
     <?php require_once '../../negocio/comprobante/ncomprobante.php'; ?>
     <?php require_once '../../negocio/comprobante/ndetallecomprobante.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <?php require_once '../../view/modals/vformCliente.php'; ?>
+    <?php require_once '../../view/modals/vformProveedor.php'; ?>
     <?php require_once '../../view/modals/vformProducto.php'; ?>
     <?php require_once '../../view/modals/vformCotizacion.php'; ?>
     <?php require_once '../../negocio/inventario/nproducto.php'; ?>
@@ -32,10 +37,6 @@ include('../_include/rstheader.php');
     <section class="content">
       <!-- TABLE: LATEST USERS -->
       <?php
-        $lblPersonaSingular = "Proveedor";
-        $lblTituloSingular = "Compra";
-        $lblTituloPlural = "Compras";
-        $intTipoDetalle = 2;
         require_once '../comprobante/vcomprobante.php'; 
       ?>
     </section>

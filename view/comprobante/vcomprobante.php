@@ -141,7 +141,7 @@
               <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar <?php echo $lblPersonaSingular; ?>:</label>
-                  <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
+                  <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="form<?php echo $lblPersonaSingular;?>()">
                 </div>
               </div>
             </div>

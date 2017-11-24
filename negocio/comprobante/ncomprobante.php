@@ -227,6 +227,10 @@
       $("#formCliente").modal("show");
     }
 
+    function formProveedor(){
+      $("#formProveedor").modal("show");
+    }
+
     function formCotizacion(){
       $("#formCotizacion").modal("show");
     }
@@ -732,10 +736,14 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 /* INICIO - Funcion Ajax - Buscar Cliente */
 $(document).on('change', '#lista-persona', function(){
 	var intIdTipoPersona = document.getElementById("lista-persona").value;
+  var intTipoDetalle = $("#intTipoDetalle").val();
 	AccionCabecerasTabla(intIdTipoPersona);
 	var y = 5;
 	var x = 0;
-	ListarClientesSeleccion(x,y);
+  if(intTipoDetalle == 1)
+	   ListarClientesSeleccion(x,y);
+  else if(intTipoDetalle == 2)
+     ListarProveedoresSeleccion(x,y);
 });
 
 $(document).on('keyup', '#BusquedaCliente', function(){
@@ -744,10 +752,22 @@ $(document).on('keyup', '#BusquedaCliente', function(){
 	ListarClientesSeleccion(x,y);
 });
 
+$(document).on('keyup', '#BusquedaProveedor', function(){
+  var y = 5;
+  var x = 0;
+  ListarProveedoresSeleccion(x,y);
+});
+
 function PaginacionClientes(seleccion) {
 	var y = 5;
 	var x = $(seleccion).attr("idcli") * y;
 	ListarClientesSeleccion(x,y);
+}
+
+function PaginacionProveedores(seleccion) {
+  var y = 5;
+  var x = $(seleccion).attr("idpro") * y;
+  ListarProveedoresSeleccion(x,y);
 }
 /* FIN - Funcion Ajax - Buscar Cliente */
 //////////////////////////////////////////////////////////////
@@ -769,6 +789,22 @@ function ListarClientesSeleccion(x,y) {
 	   }
 	  });
 }
+
+function ListarProveedoresSeleccion(x,y) {
+  var busqueda = document.getElementById("BusquedaProveedor").value;
+  var funcion = "MPR";
+  var intIdTipoPersona = document.getElementById("lista-persona").value;
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+     success:function(datos)
+     {
+      $("#ListaDeProveedoresSeleccion").html(datos);
+      PaginarProveedoresSeleccion((x/y),y,intIdTipoPersona);
+     }
+    });
+}
 /* FIN - Listar Clientes para la Selección */
 //////////////////////////////////////////////////////////////
 
@@ -786,6 +822,20 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	   	$("#PaginacionDeClientes").html(datos);
 	   }
 	  });
+}
+
+function PaginarProveedoresSeleccion(x,y,intIdTipoPersona) {
+  var busqueda = document.getElementById("BusquedaProveedor").value;
+  var funcion = "PPR";
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+     success:function(datos)
+     {
+      $("#PaginacionDeProveedores").html(datos);
+     }
+    });
 }
 /* FIN - Paginar Clientes para la Selección */
 //////////////////////////////////////////////////////////////
@@ -818,6 +868,30 @@ function SeleccionarCliente(seleccion) {
 	   }
 	  });
 }
+
+function SeleccionarProveedor(seleccion) {
+  var intIdProveedor = $(seleccion).attr("idspro");
+  var funcion = "SPR";
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{intIdCliente:intIdCliente,funcion:funcion},
+     dataType:"json",
+     success:function(datos)
+     {
+      if(datos.intIdTipoPersona == 1){
+       $("#nvchNumDocumento").val(datos.nvchRUC);
+       $("#nvchDenominacion").val(datos.nvchRazonSocial);
+      } else if(datos.intIdTipoPersona == 2){
+       $("#nvchNumDocumento").val(datos.nvchDNI);
+       $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+      }
+      $("#intIdProveedor").val(datos.intIdProveedor);
+      $("#nvchDomicilio").val(datos.nvchDomicilio);
+      $("#formProveedor").modal("hide");
+     }
+    });
+}
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
 
@@ -840,6 +914,24 @@ function MostrarSeleccionCliente(intIdTipoPersona) {
       	$(".nvchRUC").show();
       	$(".nvchRazonSocial").hide();
 	  }
+}
+function MostrarSeleccionProveedor(intIdTipoPersona) {
+    AccionSeleccionClientes('M');
+    if(intIdTipoPersona == 1){
+      $(".nvchDNI").hide();
+        $(".nvchApellidoPaterno").hide();
+        $(".nvchApellidoMaterno").hide();
+        $(".nvchNombres").hide();
+        $(".nvchRUC").show();
+        $(".nvchRazonSocial").show();
+    } else if(intIdTipoPersona == 2){
+      $(".nvchDNI").show();
+        $(".nvchApellidoPaterno").show();
+        $(".nvchApellidoMaterno").show();
+        $(".nvchNombres").show();
+        $(".nvchRUC").show();
+        $(".nvchRazonSocial").hide();
+    }
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
