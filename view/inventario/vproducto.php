@@ -412,7 +412,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                             <div class="row">
                               <div class="col-md-12">
                                 <!-- Tabla de codigos por producto -->
-                                <div class="table-responsive"  style="max-height: 150px; overflow-y: visible; margin-bottom: 30px; overflow-x: hidden" id="scrool-slim">
+                                <div class="table-responsive" style="max-height: 150px; overflow-y: visible; margin-bottom: 30px; overflow-x: hidden" id="scrool-slim">
                                   <table class="ExcelTable2007 rwd-table" width="100%">
                                     <thead>
                                     <tr>

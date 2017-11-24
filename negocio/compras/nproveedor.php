@@ -455,32 +455,48 @@ function AgregarComunicacion_II() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Domicilio Nuevo */
 function AgregarDomicilio_II() {
-	var intIdCliente = document.getElementById("intIdCliente").value;
-	var nvchPais = document.getElementById("nvchPais").value;
-	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
-	var intIdProvincia = document.getElementById("intIdProvincia").value;
-	var intIdDistrito = document.getElementById("intIdDistrito").value;
-	var nvchDireccion = document.getElementById("nvchDireccion").value;
-	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
+	
+	alert("Ingresa a la funcion"); //test inicia funcion
+
+	var intIdCliente = document.getElementById("intIdCliente");
+	var nvchPais = document.getElementById("nvchPais");
+	var intIdDepartamento = document.getElementById("intIdDepartamento");
+	var intIdProvincia = document.getElementById("intIdProvincia");
+	var intIdDistrito = document.getElementById("intIdDistrito");
+	var nvchDireccion = document.getElementById("nvchDireccion");
+	var intIdTipoDomicilio = document.getElementById("tipo-domicilio");
+
+	alert("variables ok"); //test variables
+
 	var validacion = true;
 	$('#ListaDeDomicilios tr').each(function(){
         if($(this).find('td').eq(5).text() == 'Fiscal'){
-            validacion = false;
+            validacion == false;
+            alert("es falso"); //test imprime validacion
         }
     });
+	
 	if(EsLetra("nvchPais") == false){
 		return false;
+		alert("return false nvchPais esta vacio"); //test imprime validacion
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
+		alert("return false nvchDireccion esta vacio"); //test imprime validacion
 	} else if(validacion == false){
     	if (intIdTipoDomicilio == 1) {
 	    	MensajeNormal("No puede haber más de un Domicilio Fiscal",2);
 	    	return false;
+	    	alert("return false: No puede haber más de un Domicilio Fiscal"); //test imprime validacion
     	}
     }
+
+
 	var tipolistado = "I";
 	var funcion = "ID";
-	  $.ajax({
+
+	alert("variable: tipolistado="+tipolistado+" && funcion="+funcion+""); // test lectura de codigos
+
+	$.ajax({
 	   url:"../../datos/compras/funcion_proveedor.php",
 	   method:"POST",
 	   data:{intIdProveedor:intIdProveedor,
@@ -493,7 +509,9 @@ function AgregarDomicilio_II() {
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
+	   	//alert("AJAX exitoso");
 	   	if(datos == "ok"){
+	   		alert("datos = ok");
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
 	   		MostrarDomicilio(intIdCliente,tipolistado);
 	   		$("#intIdDepartamento").val(1);
@@ -503,7 +521,8 @@ function AgregarDomicilio_II() {
 	   		alert(datos);
 	   	}
 	   }
-	  });
+	});
+	alert("No entraste al ajax");
 }
 /* FIN - Insertar Domicilio Nuevo */
 //////////////////////////////////////////////////////////////
@@ -768,4 +787,13 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+
+
+/* FIN - Ocultar Botones */
+//////////////////////////////////////////////////////////////
+
 </script>

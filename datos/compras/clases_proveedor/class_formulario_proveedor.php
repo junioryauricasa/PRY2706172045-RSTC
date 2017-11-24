@@ -25,7 +25,7 @@ class FormularioProveedor
   function ConsultarFormulario($funcion)
   {
   ?> 
-      <div id="Formulario" class="box box-default">
+      <div id="Formulario" class="">
         <!--div class="box-header with-border"-->
           <?php 
               /*
@@ -38,8 +38,8 @@ class FormularioProveedor
           ?>
               <h3 class="box-title">Editar Proveedor</h3>
           <?php 
-              } 
-              */
+              }
+              */ 
           ?>
           <!--div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -51,6 +51,19 @@ class FormularioProveedor
 
             <!-- formulário de cliente -->
             <div class="col-md-3">
+                <?php 
+                    if($funcion == "F"){ 
+                ?>
+                    <h4 class="box-title text-left">Nuevo Proveedor</h4>
+                <?php 
+                    } else 
+                    if($funcion == "M") {
+                ?>
+                    <h4 class="box-title text-left">Editar Proveedor</h4>
+                <?php 
+                    } 
+                ?>
+                <hr>
                 <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
@@ -159,8 +172,6 @@ class FormularioProveedor
             <!-- END formulário de cliente -->
             
             <div class="col-md-9">
-                <div class="box-header with-border">
-                </div>
                 <div class="box-header with-border">
                   <h3 class="box-title">Domicilio</h3>
                 </div>
@@ -279,7 +290,7 @@ class FormularioProveedor
                         </div>
                       </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-height: 150px; overflow-y: visible; margin-bottom: 30px; overflow-x: hidden" id="scrool-slim">
                       <table class="ExcelTable2007 rwd-table" width="100%">
                         <thead>
                         <tr>
@@ -360,7 +371,7 @@ class FormularioProveedor
                           </div>
                         </div>
                       </div>
-                      <div class="table-responsive">
+                      <div class="table-responsive" style="max-height: 150px; overflow-y: visible; margin-bottom: 30px; overflow-x: hidden" id="scrool-slim">
                         <table class="ExcelTable2007 rwd-table" width="100%">
                           <thead>
                           <tr>
@@ -388,7 +399,7 @@ class FormularioProveedor
                     <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
                     <?php } ?>
                 </div>
-                
+
             </div>
 
 
