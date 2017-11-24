@@ -167,7 +167,7 @@
 
   <br>
   <table id="tabladetalle" style="text-align: left; width: 100%; height: 130px;" cellpadding="3" cellspacing="1">
-    <tbody>
+    <tbody style="font-size: 14px !important">
       <tr id="primerdetalle">
         <td style="font-weight: bold; font-family: Arial; text-align: center; width: 22px;"><small><small>ÍTEM</small></small></td>
         <td style="font-weight: bold; font-family: Arial; text-align: center; width: 77px;"><small><small>CÓDIGO</small></small></td>
