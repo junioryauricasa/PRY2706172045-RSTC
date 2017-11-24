@@ -16,7 +16,6 @@
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>
-              <?php if($intTipoDetalle != 2) { ?> 
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Lugar de <?php echo $lblTituloSingular; ?>:</label>
@@ -37,7 +36,6 @@
                   </select>
                 </div>
               </div>
-              <?php } ?>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Comprobante:</label>
@@ -164,6 +162,7 @@
                   <input type="text" id="nvchDomicilio" name="nvchDireccion" class="form-control select2" form="form-comprobante" readonly>
                 </div>
               </div>
+              <?php if($intTipoDetalle == 1) {?>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Cliente:</label>
@@ -171,6 +170,7 @@
                   <input type="hidden" id="intIdTipoCliente">
                 </div>
               </div>
+              <?php } ?>
             </div>
             <div class="row">
               <div class="col-md-2 opcion-boton-nuevo">

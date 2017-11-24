@@ -107,7 +107,7 @@ class Proveedor
           }
           echo
           '<td> 
-            <button type="button" idscli="'.$fila['intIdProveedor'].'" class="btn btn-xs btn-success" onclick="SeleccionarProveedor(this)">
+            <button type="button" idspro="'.$fila['intIdProveedor'].'" class="btn btn-xs btn-success" onclick="SeleccionarProveedor(this)">
               <i class="fa fa-edit"></i> Seleccionar
             </button>
           </td>
@@ -140,7 +140,6 @@ class Proveedor
       $salida['nvchNombres'] = $fila['nvchNombres'];
       $salida['intIdTipoPersona'] = $fila['intIdTipoPersona'];
       $salida['nvchDomicilio'] = $fila['nvchDomicilio'];
-      $salida['TipoProveedor'] = $fila['TipoProveedor'];
       echo json_encode($salida);
     }
     catch(PDPExceptio $e){
@@ -225,7 +224,7 @@ class Proveedor
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdProveedor"] == $_SESSION['intIdProveedor'] && $tipolistado == "E"){
           echo '<tr bgcolor="#B3E4C0">';
-        }else {
+        } else {
           echo '<tr>';
         }
         

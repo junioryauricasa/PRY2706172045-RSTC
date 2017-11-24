@@ -32,7 +32,7 @@ switch($_POST['funcion']){
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Comprobante->IdCliente($_POST['intIdCliente']);
-    $Comprobante->Proveedor($_POST['intProveedor']);
+    $Comprobante->IdProveedor($_POST['intIdProveedor']);
     $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);
     $Comprobante->DNIRUC($_POST['nvchDNIRUC']);
     $Comprobante->Direccion($_POST['nvchDireccion']);
@@ -50,25 +50,32 @@ switch($_POST['funcion']){
         $DetalleComprobante->IdProducto($_POST['intIdProducto']);
         $DetalleComprobante->Codigo($_POST['nvchCodigo']);
         $DetalleComprobante->Descripcion($_POST['nvchDescripcion']);
-        $DetalleComprobante->Precio($_POST['dcmPrecio']);
-        $DetalleComprobante->Descuento($_POST['dcmDescuento']);
+        if($_POST['intTipoDetalle'] == 1){
+            $DetalleComprobante->Precio($_POST['dcmPrecio']);
+            $DetalleComprobante->Descuento($_POST['dcmDescuento']);
+        }
         $DetalleComprobante->PrecioUnitario($_POST['dcmPrecioUnitario']);
         $DetalleComprobante->Cantidad($_POST['intCantidad']);
         $DetalleComprobante->Total($_POST['dcmTotal']);
         $DetalleComprobante->InsertarDetalleComprobante();
         $Producto = new Producto();
-        $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],0);
+        $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],((int)$_POST['intIdTipoVenta']-1));
         $Producto->ES_StockTotal($_POST['intIdProducto']);
         $KardexProducto = new KardexProducto();
         $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
         $KardexProducto->FechaMovimiento($dtmFechaCreacion);
         $KardexProducto->IdComprobante($_SESSION['intIdComprobante']);
         $KardexProducto->IdTipoComprobante($_POST['intIdTipoComprobante']);
-        $KardexProducto->TipoDetalle(1);
+        $KardexProducto->TipoDetalle($_POST['intTipoDetalle']);
         $KardexProducto->Serie($_POST['nvchSerie']);
         $KardexProducto->Numeracion($_POST['nvchNumeracion']);
         $KardexProducto->IdProducto($_POST['intIdProducto']);
-        $KardexProducto->CantidadSalida($_POST['intCantidad']);
+        if($_POST['intTipoDetalle'] == 1)
+            $KardexProducto->CantidadSalida($_POST['intCantidad']);
+        else if($_POST['intTipoDetalle'] == 2){
+            $KardexProducto->CantidadEntrada($_POST['intCantidad']);
+            $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario']);
+        }
         $KardexProducto->InsertarKardexProducto();
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
@@ -140,7 +147,7 @@ switch($_POST['funcion']){
     break;
   case "SPR":
     $Proveedor = new Proveedor();
-    $Proveedor->Proveedor($_POST['intIdProveedor']);
+    $Proveedor->IdProveedor($_POST['intIdProveedor']);
     $Proveedor->SeleccionarProveedorComprobante();
     break;
   case "MPR":

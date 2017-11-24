@@ -61,9 +61,16 @@ DELIMITER $$
     	IN _intIdProveedor INT
     )
 	BEGIN
-		SELECT * FROM tb_proveedor
+		SELECT PRO.*,
+		CONCAT(DPR.nvchDireccion,' ',DT.nvchDistrito,' - ',PR.nvchProvincia,' - ',DP.nvchDepartamento) AS nvchDomicilio
+		FROM tb_proveedor PRO
+		LEFT JOIN tb_domicilio_proveedor DPR ON PRO.intIdProveedor = DPR.intIdProveedor
+		LEFT JOIN tb_distritos DT ON DPR.intIdDistrito = DT.intIdDistrito
+		LEFT JOIN tb_provincias PR ON DPR.intIdProvincia = PR.intIdProvincia
+		LEFT JOIN tb_departamentos DP ON DPR.intIdDepartamento = DP.intIdDepartamento
 		WHERE 
-		intIdProveedor = _intIdProveedor;
+		DPR.intIdTipoDomicilio = 1 AND
+		PRO.intIdProveedor = _intIdProveedor;
     END 
 $$
 DELIMITER ;
