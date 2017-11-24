@@ -32,6 +32,7 @@ require_once '../../datos/conexion/bd_conexion.php';
     <!-- Main content -->
     <section class="content">
       <?php
+        $lblPersonaSingular = "Cliente";
         $lblTituloSingular = "Venta";
         $lblTituloPlural = "Ventas";
         $intTipoDetalle = 1;

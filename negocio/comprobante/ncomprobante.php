@@ -1,7 +1,7 @@
 <script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Operaciones de Comprobante */
-var numprtst = 0; Number(numprtst);
+	var numprtst = 0; Number(numprtst);
     var numprt = 0; Number(numprt);
     var num = 2;
     var nums = 2;
@@ -21,8 +21,8 @@ var numprtst = 0; Number(numprtst);
       var funcion = "BP"
       if(search != '')
       {
-          var intIdTipoMoneda = $("#intIdTipoMoneda").val();
-          $.ajax({
+        var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+        $.ajax({
           type: "POST",
           url: "../../datos/inventario/funcion_producto.php",
           data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
@@ -35,7 +35,7 @@ var numprtst = 0; Number(numprtst);
             $(".result li:eq("+numprtst+")").css("background","#4C66A4");
             $(".result li:eq("+numprtst+")").css("color","#FFFFFF");
           }
-          });
+        });
       }
       else {
         $("#result"+numfila).html("").hide();
@@ -140,6 +140,18 @@ var numprtst = 0; Number(numprtst);
     }
 
     function AgregarFila(intIdTipoVenta){
+    var intTipoDetalle = $("#intTipoDetalle").val();
+    var camposVender = '';
+    var readonlyVender = '';
+    if(intTipoDetalle == 1){
+    	camposVender ='<td>'+
+			            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
+			            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
+			            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
+			          '</td>'+
+			          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
+			            'onkeyup="CalcularPrecioTotal(this)"/></td>';
+	}
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
         '<tr>'+
@@ -150,14 +162,8 @@ var numprtst = 0; Number(numprtst);
               '<div class="result" id="result'+num+'">'+
           '</td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
-          '<td>'+
-            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
-            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
-            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
-          '</td>'+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
-            'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" readonly/></td>'+
+          camposVender+
+          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" '+readonlyVender+' /></td>'+
           '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
           '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
@@ -173,7 +179,6 @@ var numprtst = 0; Number(numprtst);
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>'+
-            //'<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-comprobante" />'+
           '</td>'+
           '<td>'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
@@ -198,7 +203,6 @@ var numprtst = 0; Number(numprtst);
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionM'+numm+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>'+
-            //'<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-comprobante" />'+
           '</td>'+
           '<td>'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
@@ -259,8 +263,13 @@ function LimpiarCampos(){
 	$("#intIdTipoCliente").val("");
 	$("#intIdCliente").val("");
 	$("#intIdProveedor").val("");
+	$("#nvchSerie").val("");
+	$("#nvchNumeracion").val("");
 	$("#intIdSucursal").val(1);
-	$("#intIdTipoComprobante").val(1);
+	if($("#intTipoDetalle").val() == 1)
+		$("#intIdTipoComprobante").val(1);
+	else if($("#intTipoDetalle").val() == 2)
+		$("#intIdTipoComprobante").val(5);
 	$("#intIdTipoVenta").val(1);
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
@@ -275,7 +284,8 @@ function LimpiarCampos(){
 	$("#IGVComprobante").val("S/. 0.00");
 	$("#ComprobanteTotal").val("S/. 0.00"); 
 	$("#nvchObservacion").val("");
-	MostrarSeleccionComprobante();
+	if($("#intTipoDetalle").val() != 2)
+		MostrarSeleccionComprobante();
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
 //////////////////////////////////////////////////////////////
@@ -859,7 +869,7 @@ function MostrarSeleccionComprobante() {
 		   	$("#nvchSerie").val(datos.nvchSerie);
 		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
 	   	 } else {
-	   	 	alert(datos.resultado);
+	   	 	alert(datos);
 	   	 }
 	   }
 	  });

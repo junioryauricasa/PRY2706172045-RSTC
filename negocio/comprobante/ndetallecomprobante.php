@@ -68,40 +68,56 @@ function CalcularPrecioTotal(accion) {
 	var dcmDescuentoVenta3 = $("#dcmDescuentoVenta3"+intIdProducto).val();
 	var dcmDescuento = $("#dcmDescuento"+intIdProducto).val();
 	var intCantidad = $("#intCantidad"+intIdProducto).val();
-	if((dcmDescuento == "" || dcmDescuento == null) && (intCantidad == "" || intCantidad == null)){
-		return false;
-	} else {
-		if(intIdTipoCliente == 1) {
-			if(Number(dcmDescuento) > dcmDescuentoVenta2) {
-				MensajeNormal("Sobrepasa al descuento 2",2);
-				$("#dcmDescuento"+intIdProducto).val("");
-				return false;
-			}
-		} else if (intIdTipoCliente == 2) {
-			if(Number(dcmDescuento) > dcmDescuentoVenta3) {
-				MensajeNormal("Sobrepasa al descuento 3",2);
-				$("#dcmDescuento"+intIdProducto).val("");
-				return false;
-			}
+	var dcmPrecioUnitario = $("#dcmPrecioUnitario"+intIdProducto).val();
+	var intTipoDetalle = $("#intTipoDetalle").val();
+	if(intTipoDetalle == 1){
+		if((dcmDescuento == "" || dcmDescuento == null) && (intCantidad == "" || intCantidad == null)){
+			return false;
 		} else {
-			MensajeNormal("Seleccionar un Cliente",2);
-			$("#dcmDescuento"+intIdProducto).val("");
-			return false
-		}
-		var dcmPrecioVenta1 = $("#dcmPrecio"+intIdProducto).val();
-		var dcmPrecioUnitario = (dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100))).toFixed(2);
-		$("#dcmPrecioUnitario"+intIdProducto).val(dcmPrecioUnitario);
+			if(intIdTipoCliente == 1) {
+				if(Number(dcmDescuento) > dcmDescuentoVenta2) {
+					MensajeNormal("Sobrepasa al descuento 2",2);
+					$("#dcmDescuento"+intIdProducto).val("");
+					return false;
+				}
+			} else if (intIdTipoCliente == 2) {
+				if(Number(dcmDescuento) > dcmDescuentoVenta3) {
+					MensajeNormal("Sobrepasa al descuento 3",2);
+					$("#dcmDescuento"+intIdProducto).val("");
+					return false;
+				}
+			} else {
+				MensajeNormal("Seleccionar un Cliente",2);
+				$("#dcmDescuento"+intIdProducto).val("");
+				return false
+			}
+			var dcmPrecioVenta1 = $("#dcmPrecio"+intIdProducto).val();
+			var dcmPrecioUnitario = (dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100))).toFixed(2);
+			$("#dcmPrecioUnitario"+intIdProducto).val(dcmPrecioUnitario);
 
+			if (intCantidad == "" || intCantidad == null) {
+				$("#dcmTotal"+intIdProducto).val("0.00");
+				CalcularTotal();
+				return false;
+			}
+			else {
+				var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+				$("#dcmTotal"+intIdProducto).val(dcmTotal);
+				CalcularTotal();
+			}
+		}
+	} else if(intTipoDetalle == 2) {
 		if (intCantidad == "" || intCantidad == null) {
 			$("#dcmTotal"+intIdProducto).val("0.00");
-			CalcularTotal();
 			return false;
 		}
-		else {
-			var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
-			$("#dcmTotal"+intIdProducto).val(dcmTotal);
-			CalcularTotal();
+		if (dcmPrecioUnitario == "" || dcmPrecioUnitario == null){
+			$("#dcmTotal"+intIdProducto).val("0.00");
+			return false;
 		}
+		var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+		$("#dcmTotal"+intIdProducto).val(dcmTotal);
+		CalcularTotal();
 	}
 }
 /* FIN - Calcular Precio Unitario */

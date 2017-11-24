@@ -32,6 +32,7 @@ include('../_include/rstheader.php');
     <section class="content">
       <!-- TABLE: LATEST USERS -->
       <?php
+        $lblPersonaSingular = "Proveedor";
         $lblTituloSingular = "Compra";
         $lblTituloPlural = "Compras";
         $intTipoDetalle = 2;
