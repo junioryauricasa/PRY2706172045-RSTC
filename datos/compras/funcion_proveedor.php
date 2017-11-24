@@ -47,9 +47,9 @@ switch($_POST['funcion']){
   	$DomicilioProveedor = new DomicilioProveedor();
     $DomicilioProveedor->IdProveedor($_POST['intIdProveedor']);
     $DomicilioProveedor->Pais($_POST['nvchPais']);
-    $DomicilioProveedor->Region($_POST['nvchRegion']);
-    $DomicilioProveedor->Provincia($_POST['nvchProvincia']);
-    $DomicilioProveedor->Distrito($_POST['nvchDistrito']);
+    $DomicilioProveedor->IdDepartamento($_POST['intIdDepartamento']);
+    $DomicilioProveedor->IdProvincia($_POST['intIdProvincia']);
+    $DomicilioProveedor->IdDistrito($_POST['intIdDistrito']);
     $DomicilioProveedor->Direccion($_POST['nvchDireccion']);
     $DomicilioProveedor->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
     $DomicilioProveedor->InsertarDomicilioProveedor_II();
@@ -102,9 +102,9 @@ switch($_POST['funcion']){
     $DomicilioProveedor->IdDomicilioProveedor($_POST['intIdDomicilioProveedor']);
     $DomicilioProveedor->IdProveedor($_POST['intIdProveedor']);
     $DomicilioProveedor->Pais($_POST['nvchPais']);
-    $DomicilioProveedor->Region($_POST['nvchRegion']);
-    $DomicilioProveedor->Provincia($_POST['nvchProvincia']);
-    $DomicilioProveedor->Distrito($_POST['nvchDistrito']);
+    $DomicilioProveedor->IdDepartamento($_POST['intIdDepartamento']);
+    $DomicilioProveedor->IdProvincia($_POST['intIdProvincia']);
+    $DomicilioProveedor->IdDistrito($_POST['intIdDistrito']);
     $DomicilioProveedor->Direccion($_POST['nvchDireccion']);
     $DomicilioProveedor->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
     $DomicilioProveedor->ActualizarDomicilioProveedor();
