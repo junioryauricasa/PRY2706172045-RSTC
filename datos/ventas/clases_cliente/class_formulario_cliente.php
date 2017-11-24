@@ -179,7 +179,7 @@ class FormularioCliente
                     <div class="col-md-12">
                       <div class="form-group">
                         <input type="submit" id="btn-editar-cliente" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
-                        <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
+                        <input type="reset" id="btn-reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                       </div>
                     </div>
                   <?php } ?>
@@ -300,7 +300,7 @@ class FormularioCliente
                             <input type="button" onclick="AgregarDomicilio_II()" id="btn-agregar-domicilio" name="btn-agregar-domicilio" class="btn btn-sm btn-success btn-flat" value="Agregar Domicilio">
                             <?php } ?>
                             <input type="button" onclick="ActualizarDomicilio()" id="btn-actualizar-domicilio" name="btn-actualizar-domicilio" class="btn btn-sm btn-warning btn-flat" value="Editar Domicilio">
-                              <input type="button" onclick="BotonesDomicilio('I')" id="btn-cancelar-domicilio" name="btn-cancelar-domicilio" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
+                            <input type="button" onclick="BotonesDomicilio('I')" id="btn-cancelar-domicilio" name="btn-cancelar-domicilio" class="btn btn-sm btn-danger btn-flat" value="Cancelar Modificación">
                           </div>
                         </div>
                       </div>
@@ -411,8 +411,8 @@ class FormularioCliente
                       <?php } ?>
                       <input type="hidden" name="intIdCliente" id="intIdCliente" value="<?php echo $this->intIdCliente; ?>" />
                       <?php if($funcion == "F"){ ?>
-                      <input type="submit" id="btn-crear-cliente" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
-                      <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
+                      <input type="submit" id="btn-crear-cliente-nuevo" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
+                      <input type="reset" id="btn-reset-nuevo" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
                       <?php } ?>
                   </div>
               </div>

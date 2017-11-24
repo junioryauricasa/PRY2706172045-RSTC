@@ -70,8 +70,13 @@ $(document).on('click', '#btn-crear-cliente', function(){
 	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   		$("#lista-persona").val($("#tipo-persona").val());
-	   		$("#btn-form-cliente-remove").click();
+	   		
+	   		//$("#lista-persona").val($("#tipo-persona").val());
+	   		//$("#btn-form-cliente-remove").click();
+			
+	   		limpiarformCliente();//limpiar formulario
+	   		$("#lilistarclientes").click();//volver a la primera pestana
+	   		botonescrear();
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -161,8 +166,9 @@ $(document).on('click', '#btn-editar-cliente', function(){
 	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		//$("#btn-form-cliente-remove").click();
 			
-			//$('#lilistarclientes').click();//redirige ala primera tab
-	   		$('#formularioclientes').close(); //cerrar el formulario despues de haberse actualizado
+	   		limpiarformCliente();//limpiar formulario
+	   		$("#lilistarclientes").click();//volver a la primera pestana
+	   		botonescrear();
 	   	
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
@@ -447,6 +453,7 @@ function AgregarComunicacion_II() {
 	   		MostrarComunicacion(intIdCliente,tipolistado);
 	   		RestablecerValidacion('nvchMedio',1);
 			RestablecerValidacion('nvchLugar',1);
+
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -503,6 +510,12 @@ function AgregarDomicilio_II() {
 	   		$("#intIdDepartamento").val(1);
 			MostrarProvincia();
 			RestablecerValidacion('nvchDireccion',1);
+
+			//limpiar formulario
+	   		limpiarformCliente();
+
+	   		$("#").click();
+
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -602,6 +615,10 @@ function ActualizarDomicilio() {
 	   		BotonesDomicilio(accion);
 	   		$("#intIdDepartamento").val(1);
 			MostrarProvincia();
+
+			limpiarformCliente();//limpiar formulario
+	   		$("#lilistarclientes").click();//volver a la primera pestana
+
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -771,4 +788,94 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+
+/*	Función Limpiar Formulario de registro de cliente   */
+//////////////////////////////////////////////////////////////
+function limpiarformCliente(){  
+
+      //restablecer valores
+      RestablecerValidacion("tipo-persona",1);
+      RestablecerValidacion("intIdTipoPersona",1);
+      RestablecerValidacion("nvchDNI",1);
+      RestablecerValidacion("nvchRUC",1);
+      RestablecerValidacion("nvchRazonSocial",1);
+      RestablecerValidacion("nvchApellidoPaterno",1);
+      RestablecerValidacion("nvchApellidoMaterno",1);
+      RestablecerValidacion("nvchNombres",1);
+      RestablecerValidacion("intIdTipoCliente",1);
+      RestablecerValidacion("nvchObservacion",1);
+
+
+      //persona
+      $("#tipo-persona").val(1);
+      $("#intIdTipoPersona").val("");
+      $("#nvchDNI").val("");
+      $("#nvchRUC").val("");
+      $("#nvchRazonSocial").val("");
+      $("#nvchApellidoPaterno").val("");
+      $("#nvchApellidoMaterno").val("");
+      $("#nvchNombres").val("");
+      $("#intIdTipoCliente").val("");
+      $("#nvchObservacion").val("");
+
+      //domicilio
+      $("#nvchPais").val("");
+      $("#intIdDepartamento").val(1);
+      $("#intIdProvincia").val(1);
+      $("#intIdDistrito").val(1);
+      $("#nvchDireccion").val("");
+      $("#tipo-domicilio").val(1);
+      $("#IdDomicilioCliente").val("");
+
+      //comunicacion
+      $("#nvchMedio").val("");
+      $("#nvchLugar").val("");
+      $("#tipo-comunicacion").val(1);
+      $("#IdComunicacionCliente").val("");
+
+      //limpiando tablas
+      $("#ListaDeDomicilios").html("");//vacia tabla
+      //limpiando tablas
+      $("#ListaDeComunicaciones").html("");//vacia tabla
+      
+    }
+//////////////////////////////////////////////////////////////
+/*	FIN * Función Limpiar Formulario de registro de cliente   */
+
+
+function botonescrear(){
+      $("#btn-agregar-domicilio").show();
+      $("#btn-agregar-domicilio").hide();
+      $("#btn-actualizar-domicilio").hide();
+      $("#btn-cancelar-domicilio").hide();
+
+      $("#btn-agregar-comunicacion").show();
+      $("#btn-agregar-comunicacion").hide();
+      $("#btn-actualizar-comunicacion").hide();
+      $("#btn-cancelar-comunicacion").hide();
+
+      //$("#intIdCliente").val("");
+      $("#btn-crear-cliente-nuevo").show();
+      $("#btn-editar-cliente").hide();
+      $("#btn-reset-nuevo").show();
+}
+
+function botonesactualizar(){
+      $("#btn-agregar-domicilio").hide();
+      $("#btn-agregar-domicilio").show();
+      $("#btn-actualizar-domicilio").show();
+      $("#btn-cancelar-domicilio").show();
+
+      $("#btn-agregar-comunicacion").hide();
+      $("#btn-agregar-comunicacion").show();
+      $("#btn-actualizar-comunicacion").show();
+      $("#btn-cancelar-comunicacion").show();
+
+      //$("#intIdCliente").val();
+      $("#btn-crear-cliente-nuevo").hide();
+      $("#btn-editar-cliente").show();
+      $("#btn-reset-nuevo").hide();
+}
+
+
 </script>

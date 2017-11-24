@@ -556,7 +556,7 @@ function ver_formulario(){
 //////////////////////////////////////////////////////////////
 function limpiarformProducto(){
       //$("#formulario-crud").html(datos);
-      RestablecerValidacion("nvchDescripcion",1);
+      RestablecerValidacion("nvchDescripcion",1); // 1 = desaparece validacion y 2 = se mntienen el estilo de validacion pero no valor
       RestablecerValidacion("intCantidad",1);
       RestablecerValidacion("intCantidadMinima",1);
       RestablecerValidacion("dcmPrecioCompra",1);
@@ -580,6 +580,8 @@ function limpiarformProducto(){
     }
 //////////////////////////////////////////////////////////////
 /*	FIN - unción Limpiar Formulario de registro de producto  */
+
+
 function botonesRegistrar(){
 	$("#lblTituloFormulario").html("Nuevo Producto");
 	$("#btn-crear-producto").show();
@@ -594,6 +596,7 @@ function botonesRegistrar(){
     $("#btn-actualizar-ubigeo").hide();
     $("#btn-cancelar-ubigeo").hide(); 
 }
+
 function botonesActualizar(){
 	$("#lblTituloFormulario").html("Modificar Producto");
 	$("#btn-crear-producto").hide();
