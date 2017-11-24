@@ -26,7 +26,7 @@
             <td>
                 <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                 <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
-                <input style="width: 110px !important" type="text" class="buscar " id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
+                <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
                 <div class="result" id="result1">
             </td>
             <td>
@@ -40,11 +40,11 @@
             </td>
             <td>
                 <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
-              onkeyup="CalcularPrecioTotal(this)"/>
+                onkeyup="CalcularPrecioTotal(this)"/>
             </td>
             <?php } ?>
             <td>
-                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" class="" readonly/>
+                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="" <?php if($intTipoDetalle == 1) { ?> readonly <?php } ?> />
             </td>
             <td>
                 <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"

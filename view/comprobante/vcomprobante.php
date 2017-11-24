@@ -219,15 +219,6 @@
                     </tbody>
                   </table>
                 </div>
-
-                <!--div class="form-group">
-                  <label>Valor de Venta:</label>
-                  <input type="text" id="ValorVenta" name="ValorVenta" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/><br>
-                  <label>IGV (18%):</label>
-                  <input type="text" id="IGVVenta" name="IGVVenta" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/><br>
-                  <label>Venta Total:</label>
-                  <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
-                </div-->
               </div>
             </div>
             <br><br>
