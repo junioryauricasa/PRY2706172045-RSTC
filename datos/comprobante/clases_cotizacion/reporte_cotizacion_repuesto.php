@@ -204,8 +204,8 @@
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 43; $j++){
-          if($j == 43) {
+        for($j = $i ; $j <= 45; $j++){
+          if($j == 45) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
@@ -254,15 +254,6 @@
 
   <table id="tablacontactos" style="text-align: left; width: 100%; ">
     <tbody>
-      <tr style="font-family: Arial; font-weight: bold;">
-        <td style="text-align: center; width: 147px;" colspan="7">
-          <small>
-            <small>
-              REPRESENTACIONES SERVICIOS TÉCNICOS COMERCIALES S.A.
-            </small>
-          </small>
-        </td>
-      </tr>
       <tr>
         <td style="font-family: Arial; font-weight: bold; width: 111px;" colspan="3">
           <small><small>NROS CTA. CTE. -BCP</small></small>
