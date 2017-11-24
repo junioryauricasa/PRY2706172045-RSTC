@@ -204,8 +204,8 @@
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 45; $j++){
-          if($j == 45) {
+        for($j = $i ; $j <= 42; $j++){
+          if($j == 42) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
@@ -279,22 +279,37 @@
         <td style="font-family: Arial; width: 8px;"><big></big></td>
         <td style="font-family: Arial; width: 108px;"><small><small>Cel.Repuestos</small></small></td>
         <td style="font-family: Arial; width: 8px;"><small><small>:</small></small></td>
-        <td style="font-family: Arial; width: 147px;"><small><small>943434458 - #943434458</small></small></td>
+        <td style="font-family: Arial; width: 147px;"><small><small>#964523815</small></small></td>
       </tr>
       <tr>
         <td style="font-family: Arial; font-weight: bold; width: 111px;" colspan="3"><small><small>CORREO ELECTRÓNICO</small></small></td>
         <td style="font-family: Arial; width: 8px;"></td>
-        <td style="font-family: Arial; width: 108px;"><small><small>Cel. Servicios</small></small></td>
-        <td style="font-family: Arial; width: 8px;"><small><small>:</small></small></td>
-        <td style="font-family: Arial; width: 147px;"><small><small>964648504 - #964648504</small></small></td>
+        <td style="font-family: Arial; font-weight: bold; width: 147px;"><small><small>DIRECCION:</small></small></td>
+        <td style="font-family: Arial; width: 8px;"><small><small></small></small></td>
+        <td style="font-family: Arial; width: 147px;"><small><small></small></small></td>
       </tr>
       <tr>
         <td style="font-family: Arial; width: 111px;" colspan="3"><small><small>ventas.repuestos@resteco.com.pe</small></small></td>
         <td style="font-family: Arial; width: 8px;"></td>
-        <td style="font-family: Arial; width: 108px;"><small><small>Cel. Maquinarias</small></small></td>
-        <td style="font-family: Arial; width: 8px;"><small><small>:</small></small></td>
-        <td style="font-family: Arial; width: 147px;"><small><small>942087405 - #942087405</small></small></td>
+        <td style="font-family: Arial; width: 108px;"><small><small>Av. Mariscal Castilla N° 2775 El</small></small></td>
+        <td style="font-family: Arial; width: 8px;"><small><small> Tambo – </small></small></td>
+        <td style="font-family: Arial; width: 147px;"><small><small>Huancayo</small></small></td>
       </tr>
+      <tr>
+        <td style="font-family: Arial; font-weight: bold; width: 111px;" colspan="3"><small><small>PAGINA WEB</small></small></td>
+        <td style="font-family: Arial; width: 8px;"></td>
+        <td style="font-family: Arial; font-weight: bold; width: 147px;"><small><small></small></small></td>
+        <td style="font-family: Arial; width: 8px;"><small><small></small></small></td>
+        <td style="font-family: Arial; width: 147px;"><small><small></small></small></td>
+      </tr>
+      <tr>
+        <td style="font-family: Arial; width: 111px;" colspan="3"><small><small>www.resteco.com.pe</small></small></td>
+        <td style="font-family: Arial; width: 8px;"></td>
+        <td style="font-family: Arial; width: 108px;"><small><small></small></small></td>
+        <td style="font-family: Arial; width: 8px;"><small><small></small></small></td>
+        <td style="font-family: Arial; width: 147px;"><small><small></small></small></td>
+      </tr>
+
     </tbody>
   </table>
 </div>
