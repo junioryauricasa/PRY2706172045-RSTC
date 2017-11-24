@@ -43,7 +43,7 @@
 
   <style>
     @page { 
-      /*margin: 180px 50px; */
+      margin-bottom: 130px
     }
 
     table#tabladetalle {
@@ -89,8 +89,9 @@
     #footer { 
       position: fixed; 
       left: 0px; 
-      bottom: 7px; 
+      bottom: 0px; 
       right: 0px;
+      height: 130px;
       text-align: center; 
     }
     #footer .page:after { content: counter(page, upper-roman); }
@@ -204,8 +205,8 @@
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 42; $j++){
-          if($j == 42) {
+        for($j = $i ; $j <= 32; $j++){
+          if($j == 32) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
@@ -252,11 +253,13 @@
     </tbody>
   </table>
 
+<div id="footer">
+
   <table id="tablacontactos" style="text-align: left; width: 100%; ">
     <tbody>
       <tr>
         <td style="font-family: Arial; font-weight: bold; width: 111px;" colspan="3">
-          <small><small>NROS CTA. CTE. -BCP</small></small>
+          <small><small>NUMEROS DE CTA CTE – BCP:</small></small>
         </td>
         <td style="font-family: Arial; width: 8px;"></td>
         <td style="font-family: Arial; font-weight: bold; width: 147px;" colspan="3">
@@ -312,9 +315,7 @@
 
     </tbody>
   </table>
-</div>
 
-<div id="footer">
   <img style="width: 100%; " alt="" src="../../imagenes/footer-comprobantes.PNG">
   <p class="page">Pagina </p>
 </div>
