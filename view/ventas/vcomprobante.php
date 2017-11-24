@@ -366,6 +366,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="text" id="nvchDenominacion" class="form-control select2" readonly>
                 </div>
               </div>
+              <?php if($intTipoDetalle == 1) {?>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Cliente:</label>
@@ -373,7 +374,8 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="hidden" id="intIdTipoCliente">
                 </div>
               </div>
-              <!--
+              <?php } ?>
+              <!-- 
               <div class="col-md-3 nvchApellidoPaterno">
                 <div class="form-group">
                   <label>Apellido Paterno:</label>

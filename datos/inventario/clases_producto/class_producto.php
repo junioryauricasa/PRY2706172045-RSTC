@@ -103,26 +103,6 @@ class Producto
       $salida['dtmFechaIngreso'] = $fila['dtmFechaIngreso'];
       $salida['nvchObservacion'] = $fila['nvchObservacion'];
       echo json_encode($salida); //importnate el encode
-      /*
-      $FormularioProducto = new FormularioProducto();
-      $FormularioProducto->IdProducto($fila['intIdProducto']);
-      $FormularioProducto->Descripcion($fila['nvchDescripcion']);
-      $FormularioProducto->UnidadMedida($fila['nvchUnidadMedida']);
-      $FormularioProducto->Cantidad($fila['intCantidad']);
-      $FormularioProducto->CantidadMinima($fila['intCantidadMinima']);
-      $FormularioProducto->DireccionImg($fila['nvchDireccionImg']);
-      $FormularioProducto->PrecioCompra($fila['dcmPrecioCompra']);
-      $FormularioProducto->IdTipoMonedaCompra($fila['intIdTipoMonedaCompra']);
-      $FormularioProducto->PrecioVenta1($fila['dcmPrecioVenta1']);
-      $FormularioProducto->PrecioVenta2($fila['dcmPrecioVenta2']);
-      $FormularioProducto->PrecioVenta3($fila['dcmPrecioVenta3']);
-      $FormularioProducto->DescuentoVenta2($fila['dcmDescuentoVenta2']);
-      $FormularioProducto->DescuentoVenta3($fila['dcmDescuentoVenta3']);
-      $FormularioProducto->IdTipoMonedaVenta($fila['intIdTipoMonedaVenta']);
-      $FormularioProducto->FechaIngreso($fila['dtmFechaIngreso']);
-      $FormularioProducto->Observacion($fila['nvchObservacion']);
-      $FormularioProducto->ConsultarFormulario($funcion);
-      */
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

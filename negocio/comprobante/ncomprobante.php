@@ -348,27 +348,52 @@ $(document).on('click', '#btn-form-crear-comprobante', function(){
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-comprobante', function(){
 	var intIdTipoVenta = $("#intIdTipoVenta").val();
-	if(intIdTipoVenta == 1){
-	  var num_filas_detalle_comprobante = document.getElementById('ListaDeProductosVender').rows.length;
-	  var intIdCliente = $("#intIdCliente").val();
-	  if(intIdCliente == "" || intIdCliente == null){
-	  	MensajeNormal("Seleccionar a un Cliente",2);
-	  	return false;
-	  } else if(num_filas_detalle_comprobante == 0){
-	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
-	  	return false;
-	  }
-	} else if(intIdTipoVenta == 2){
-	  var num_filas_detalle_comprobante = document.getElementById('ListaDeServiciosVender').rows.length;
-	  var intIdCliente = $("#intIdCliente").val();
-	  if(intIdCliente == "" || intIdCliente == null){
-	  	MensajeNormal("Seleccionar a un Cliente",2);
-	  	return false;
-	  } else if(num_filas_detalle_comprobante == 0){
-	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
-	  	return false;
-	  }
-	}
+  var intTipoDetalle = $("#intTipoDetalle").val();
+	if(intTipoDetalle == 1){
+    if(intIdTipoVenta == 1){
+  	  var num_filas_detalle_comprobante = document.getElementById('ListaDeProductosVender').rows.length;
+  	  var intIdCliente = $("#intIdCliente").val();
+  	  if(intIdCliente == "" || intIdCliente == null){
+  	  	MensajeNormal("Seleccionar a un Cliente",2);
+  	  	return false;
+  	  } else if(num_filas_detalle_comprobante == 0){
+  	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+  	  	return false;
+  	  }
+  	} else if(intIdTipoVenta == 2){
+  	  var num_filas_detalle_comprobante = document.getElementById('ListaDeServiciosVender').rows.length;
+  	  var intIdCliente = $("#intIdCliente").val();
+  	  if(intIdCliente == "" || intIdCliente == null){
+  	  	MensajeNormal("Seleccionar a un Cliente",2);
+  	  	return false;
+  	  } else if(num_filas_detalle_comprobante == 0){
+  	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+  	  	return false;
+  	  }
+  	}
+  } else if(intTipoDetalle == 2){
+    if(intIdTipoVenta == 1){
+      var num_filas_detalle_comprobante = document.getElementById('ListaDeProductosVender').rows.length;
+      var intIdProveedor = $("#intIdProveedor").val();
+      if(intIdProveedor == "" || intIdProveedor == null){
+        MensajeNormal("Seleccionar a un Proveedor",2);
+        return false;
+      } else if(num_filas_detalle_comprobante == 0){
+        MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+        return false;
+      }
+    } else if(intIdTipoVenta == 2){
+      var num_filas_detalle_comprobante = document.getElementById('ListaDeServiciosVender').rows.length;
+      var intIdProveedor = $("#intIdProveedor").val();
+      if(intIdProveedor == "" || intIdProveedor == null){
+        MensajeNormal("Seleccionar a un Proveedor",2);
+        return false;
+      } else if(num_filas_detalle_comprobante == 0){
+        MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+        return false;
+      }
+    }
+  }
 	  var formData = $("#form-comprobante").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
@@ -381,8 +406,12 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
+      datos = datos.replace(/\s/g,'');
 	   	if (datos=="okokokokokok" || datos=="okokok") {
-	   		MensajeNormal("Se generó correctamente la Venta",1);
+        if(intTipoDetalle == 1)
+	   		  MensajeNormal("Se generó correctamente la Venta",1);
+        else
+          MensajeNormal("Se generó correctamente la Compra",1);
 	   		$("#lista-comprobante").val(intIdTipoComprobante);
 	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
 	   		$('#txt-busqueda').val("");
@@ -390,7 +419,7 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   		$("#btnFormListarComprobante").click();
 	   		ListarComprobante(x,y,tipolistado);
 	   		PaginarComprobante(x,y,tipolistado);
-		}
+		  }
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
@@ -760,13 +789,13 @@ $(document).on('keyup', '#BusquedaProveedor', function(){
 
 function PaginacionClientes(seleccion) {
 	var y = 5;
-	var x = $(seleccion).attr("idcli") * y;
+	var x = $(seleccion).attr("idp") * y;
 	ListarClientesSeleccion(x,y);
 }
 
 function PaginacionProveedores(seleccion) {
   var y = 5;
-  var x = $(seleccion).attr("idpro") * y;
+  var x = $(seleccion).attr("idp") * y;
   ListarProveedoresSeleccion(x,y);
 }
 /* FIN - Funcion Ajax - Buscar Cliente */
@@ -875,7 +904,7 @@ function SeleccionarProveedor(seleccion) {
     $.ajax({
      url:"../../datos/comprobante/funcion_comprobante.php",
      method:"POST",
-     data:{intIdCliente:intIdCliente,funcion:funcion},
+     data:{intIdProveedor:intIdProveedor,funcion:funcion},
      dataType:"json",
      success:function(datos)
      {
