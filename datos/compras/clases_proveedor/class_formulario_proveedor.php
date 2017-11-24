@@ -171,6 +171,7 @@ class FormularioProveedor
             </div>
             <!-- END formulário de cliente -->
             
+
             <div class="col-md-9">
                 <div class="box-header with-border">
                   <h3 class="box-title">Domicilio</h3>
@@ -273,7 +274,7 @@ class FormularioProveedor
                               }?>
                             </select>
                           </div>
-                          <input type="hidden" name="IdDomicilioProveedor" id="intIdDomicilioProveedor" value="" />
+                          <input type="hidden" name="IdDomicilioProveedor" id="intIdDomicilioProveedor" value="" placeholder="intIdProveedor" />
                         </div>
                     </div>
                     <div class="row">
@@ -310,6 +311,7 @@ class FormularioProveedor
                     </div>
                 </div>
             </div>
+
 
             <div class="col-md-9">
 
