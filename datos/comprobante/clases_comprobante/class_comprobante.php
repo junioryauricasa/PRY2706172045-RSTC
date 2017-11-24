@@ -109,41 +109,7 @@ class Comprobante{
       $salida['intIdProveedor'] = $fila['intIdProveedor'];
   
       $salida['nvchObservacion'] = $fila['nvchObservacion'];
-      /*
-      $salida['intIdSucursal'] = $fila['intIdSucursal'];
-      $salida['dtmFechaCreacion'] = $fila['dtmFechaCreacion'];
-      $salida['nvchSerie'] = $fila['nvchSerie'];
-      $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
-      $salida['intIdUsuario'] = $fila['intIdUsuario'];*/
       echo json_encode($salida);
-      //echo $salida;
-      /*
-      $FormularioComprobante = new FormularioComprobante();
-      $FormularioComprobante->IdComprobante($fila['intIdComprobante']);
-      $FormularioComprobante->IdTipoComprobante($fila['intIdTipoComprobante']);
-      $FormularioComprobante->IdSucursal($fila['intIdSucursal']);
-      $FormularioComprobante->FechaCreacion($fila['dtmFechaCreacion']);
-      $FormularioComprobante->Serie($fila['nvchSerie']);
-      $FormularioComprobante->Numeracion($fila['nvchNumeracion']);
-      $FormularioComprobante->IdUsuario($fila['intIdUsuario']);
-      $FormularioComprobante->IdCliente($fila['intIdCliente']);
-      $FormularioComprobante->IdProveedor($fila['intIdProveedor']);
-      $FormularioComprobante->ClienteProveedor($fila['nvchClienteProveedor']);
-      $FormularioComprobante->DNIRUC($fila['nvchDNIRUC']);
-      $FormularioComprobante->Direccion($fila['nvchDireccion']);
-      $FormularioComprobante->IdTipoMoneda($fila['intIdTipoMoneda']);
-      $FormularioComprobante->IdTipoPago($fila['intIdTipoPago']);
-      $FormularioComprobante->IdTipoVenta($fila['intIdTipoVenta']);
-      $FormularioComprobante->Estado($fila['bitEstado']);
-
-      $FormularioComprobante->NombreUsuario($fila['NombreUsuario']);
-      $FormularioComprobante->SimboloMoneda($fila['NombreMoneda']);
-      $FormularioComprobante->NombrePago($fila['NombrePago']);
-      $FormularioComprobante->NombreVenta($fila['NombreVenta']);
-
-      $FormularioComprobante->Observacion($fila['nvchObservacion']);
-      $FormularioComprobante->MostrarDetalle();
-      */
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
