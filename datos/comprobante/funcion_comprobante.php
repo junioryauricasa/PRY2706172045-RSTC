@@ -113,7 +113,7 @@ switch($_POST['funcion']){
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $Comprobante->ListarComprobantes($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],
-            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+            $dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda'],$_POST['intTipoDetalle']);
     break;
   case "TV":
     $Comprobante = new Comprobante();
@@ -121,7 +121,7 @@ switch($_POST['funcion']){
     $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
-    $Comprobante->TotalComprobantes($_POST['busqueda'],$_POST['intIdTipoComprobante'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda']);
+    $Comprobante->TotalComprobantes($_POST['busqueda'],$_POST['intIdTipoComprobante'],$dtmFechaInicial,$dtmFechaFinal,$_POST['intIdTipoMoneda'],$_POST['intTipoDetalle']);
     break;
   case "P":
     $Comprobante = new Comprobante();
@@ -130,7 +130,7 @@ switch($_POST['funcion']){
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $Comprobante->PaginarComprobantes($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoComprobante'],
-            $dtmFechaInicial,$dtmFechaFinal);
+            $dtmFechaInicial,$dtmFechaFinal,$_POST['intTipoDetalle']);
     break;
   case "SCL":
     $Cliente = new Cliente();

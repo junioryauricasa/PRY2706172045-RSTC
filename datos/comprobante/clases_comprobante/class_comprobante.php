@@ -166,7 +166,7 @@ class Comprobante{
     }
   }
 
-  public function ListarComprobantes($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  public function ListarComprobantes($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda,$intTipoDetalle)
   {
     try{
       $salida = "";
@@ -179,26 +179,26 @@ class Comprobante{
       //Busqueda de Cliente por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
         $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
-          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
         $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
-          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Cliente por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarComprobante(:busqueda,:x,:y,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando = $sql_conectar->prepare('CALL buscarComprobante(:busqueda,:x,:y,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdTipoComprobante' => $intIdTipoComprobante,
-        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -235,9 +235,13 @@ class Comprobante{
         echo
         '
         <td class="heading" data-th="ID"></td>
-        <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-        <td>'.$fila["NombreCliente"].'</td>
-        <td>'.$fila["NombreUsuario"].'</td>
+        <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>';
+        if($intTipoDetalle == 1)
+          echo '<td>'.$fila["NombreCliente"].'</td>';
+        else if($intTipoDetalle == 2)
+          echo '<td>'.$fila["NombreProveedor"].'</td>';
+        echo
+        '<td>'.$fila["NombreUsuario"].'</td>
         <td>'.$fila["dtmFechaCreacion"].'</td>
         <td>'.$fila["SimboloMoneda"].' '.$fila["ValorComprobante"].'</td>
         <td>'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
@@ -262,15 +266,15 @@ class Comprobante{
     }  
   }
 
-  public function TotalComprobantes($busqueda,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  public function TotalComprobantes($busqueda,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda,$intTipoDetalle)
   {
     try{
       $TotalComprobantes = 0.00;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
       $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
-        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
@@ -307,16 +311,16 @@ class Comprobante{
     }  
   }
 
-  public function PaginarComprobantes($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal)
+  public function PaginarComprobantes($busqueda,$x,$y,$tipolistado,$intIdTipoComprobante,$dtmFechaInicial,$dtmFechaFinal,$intTipoDetalle)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
       $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
-        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

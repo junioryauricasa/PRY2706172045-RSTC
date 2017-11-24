@@ -636,6 +636,7 @@ function ListarComprobante(x,y,tipolistado) {
   var funcion = "L";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intTipoDetalle = $("#intTipoDetalle").val();
   
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
@@ -652,7 +653,7 @@ function ListarComprobante(x,y,tipolistado) {
       url:'../../datos/comprobante/funcion_comprobante.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda,intTipoDetalle:intTipoDetalle},
       success:function(datos) {
           $("#ListaDeComprobantes").html(datos);
           PaginarComprobante((x/y),y,tipolistado);
@@ -670,6 +671,7 @@ function TotalComprobante() {
   var funcion = "TV";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intTipoDetalle = $("#intTipoDetalle").val();
   
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
@@ -686,7 +688,7 @@ function TotalComprobante() {
       url:'../../datos/comprobante/funcion_comprobante.php',
       method:"POST",
       data:{busqueda:busqueda,funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda,intTipoDetalle:intTipoDetalle},
       success:function(datos) {
           $("#TotalComprobante").val(datos);
       }
@@ -701,6 +703,7 @@ function PaginarComprobante(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intTipoDetalle = $("#intTipoDetalle").val();
 
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
@@ -717,7 +720,7 @@ function PaginarComprobante(x,y,tipolistado) {
       url:'../../datos/comprobante/funcion_comprobante.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdTipoComprobante:intIdTipoComprobante,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
+      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intTipoDetalle:intTipoDetalle},
       success:function(datos) {
           $("#PaginacionDeComprobante").html(datos);
       }

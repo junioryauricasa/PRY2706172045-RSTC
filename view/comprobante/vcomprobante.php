@@ -19,7 +19,7 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Lugar de <?php echo $lblTituloSingular; ?>:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
+                  <select <?php if($intTipoDetalle == 1) { ?> onchange="MostrarSeleccionComprobante()" <?php } ?> id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
                   <?php 
                     try{   
                     $sql_conexion = new Conexion_BD();
@@ -362,7 +362,11 @@
                   <th class="listaNumBoletaVenta">Número de Boleta</th>
                   <th class="listaNumNotaCredito">Número de Nota de Crédito</th>
                   <th class="listaNumGuiaRemision">Número de Guía de Remisión</th>
+                  <?php if($intTipoDetalle == 1) { ?>
                   <th>Cliente</th>
+                  <?php } else if($intTipoDetalle == 2) { ?>
+                  <th>Proveedor</th>
+                  <?php } ?>
                   <th>Usuario que Generó</th>
                   <th>Fecha de Creación</th>
                   <th>Valor de <?php echo $lblTituloSingular; ?></th>

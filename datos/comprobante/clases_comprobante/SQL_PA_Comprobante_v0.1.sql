@@ -171,7 +171,8 @@ DELIMITER $$
 		IN _intTipoDetalle INT
     )
 	BEGIN
-		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario, 
+		IF(_intTipoDetalle = 1) THEN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		CASE 
 			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
@@ -183,7 +184,6 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
 		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
-		LEFT JOIN tb_proveedor PRO ON CR.intIdProveedor = PRO.intIdProveedor
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
@@ -197,6 +197,34 @@ DELIMITER $$
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY CR.intIdComprobante
 		LIMIT _x,_y;
+		END IF;
+		IF(_intTipoDetalle = 2) THEN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		CASE 
+			WHEN PRO.intIdTipoPersona = 1 THEN PRO.nvchRazonSocial
+			WHEN PRO.intIdTipoPersona = 2 THEN CONCAT(PRO.nvchNombres,' ',PRO.nvchApellidoPaterno,' ',PRO.nvchApellidoMaterno)
+		END AS NombreProveedor,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
+		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
+		SUM(DCR.dcmTotal) AS TotalComprobante
+		FROM tb_comprobante CR
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_proveedor PRO ON CR.intIdProveedor = PRO.intIdProveedor
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE 
+		(CR.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchNombres LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		CR.intIdTipoComprobante = _intIdTipoComprobante AND
+		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY CR.intIdComprobante
+		LIMIT _x,_y;
+		END IF;
     END 
 $$
 DELIMITER ;
@@ -211,7 +239,8 @@ DELIMITER $$
     	IN _intTipoDetalle INT
     )
 	BEGIN
-		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario, 
+	IF(_intTipoDetalle = 1) THEN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		CASE 
 			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
@@ -222,32 +251,46 @@ DELIMITER $$
 		SUM(DCR.dcmTotal) AS TotalComprobante
 		FROM tb_comprobante CR
 		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
-		IF(_intTipoDetalle == 1) THEN
 		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
-		END IF;
-		IF(_intTipoDetalle == 2) THEN
-		LEFT JOIN tb_proveedor PRO ON CR.intIdProveedor = PRO.intIdProveedor
-		END IF;
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
 		WHERE 
 		(CR.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
-		IF(_intTipoDetalle == 1) THEN
 		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		END IF;
-		IF(_intTipoDetalle == 2) THEN
-		PRO.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-		PRO.nvchNombres LIKE CONCAT(_elemento,'%') OR
-		PRO.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-		PRO.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		END IF;
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		CR.intIdTipoComprobante = _intIdTipoComprobante AND
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY CR.intIdComprobante;
+	END IF;
+	IF(_intTipoDetalle = 2) THEN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		CASE 
+			WHEN PRO.intIdTipoPersona = 1 THEN PRO.nvchRazonSocial
+			WHEN PRO.intIdTipoPersona = 2 THEN CONCAT(PRO.nvchNombres,' ',PRO.nvchApellidoPaterno,' ',PRO.nvchApellidoMaterno)
+		END AS NombreProveedor,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
+		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
+		SUM(DCR.dcmTotal) AS TotalComprobante
+		FROM tb_comprobante CR
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_proveedor PRO ON CR.intIdProveedor = PRO.intIdProveedor
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
+		WHERE 
+		(CR.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchNombres LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		PRO.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		CR.intIdTipoComprobante = _intIdTipoComprobante AND
+		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY CR.intIdComprobante;
+	END IF;
     END 
 $$
 DELIMITER ;
