@@ -43,7 +43,7 @@
 
   <style>
     @page { 
-      margin-bottom: 130px
+      margin-bottom: 100px
     }
 
     table#tabladetalle {
@@ -80,12 +80,13 @@
 
     /* Forms para header y footer */
     #header { 
-      position: fixed; 
       left: 0px; 
       top: 0px; 
-      right: 0px; 
+      right: 0px;
       text-align: center; 
     }
+    
+    /*
     #footer { 
       position: fixed; 
       left: 0px; 
@@ -93,6 +94,15 @@
       right: 0px;
       height: 130px;
       text-align: center; 
+    }
+    */
+    #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: right;
+        border-top: 1px solid gray;
+        height: 100px
     }
     #footer .page:after { content: counter(page, upper-roman); }
   </style>
@@ -205,8 +215,8 @@
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 32; $j++){
-          if($j == 32) {
+        for($j = $i ; $j <= 132; $j++){
+          if($j == 132) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
