@@ -101,26 +101,40 @@ $(document).on('click', '#btn-editar-moneda-tributaria', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-moneda-tributaria', function(){
-  	  var intIdMonedaTributaria = $(this).attr("id");
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
-  	  var tipolistado = "D";
-  	  var funcion = "E";
-	  $.ajax({
-	   url:"../../datos/administrativo/funcion_moneda_tributaria.php",
-	   method:"POST",
-	   data:{intIdMonedaTributaria:intIdMonedaTributaria,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	if (datos=="ok") {
-	   		MensajeNormal("Se Eliminó correctamente la Moneda Tributaria",1);
-	   		ListarMonedaTributaria(x,y,tipolistado);
-	   		PaginarMonedaTributaria((x/y),y,tipolistado);
-	   	}
-	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+	
+	var idreg = $('.btn-eliminar-moneda-tributaria').attr("id");
+
+	$('.mi-modal').modal('show');//mostrando modal
+	$(document).on('click', '.modal-btn-si', function(){
+
+	  	  var intIdMonedaTributaria = idreg;
+	  	  var y = document.getElementById("num-lista").value;
+	  	  var x = $(".marca").attr("idp") * y;
+	  	  var tipolistado = "D";
+	  	  var funcion = "E";
+		  $.ajax({
+			   url:"../../datos/administrativo/funcion_moneda_tributaria.php",
+			   method:"POST",
+			   data:{intIdMonedaTributaria:intIdMonedaTributaria,funcion:funcion},
+			   success:function(datos)
+			   {
+			   	if (datos=="ok") {
+			   		//alert('el codigo es: '+intIdMonedaTributaria);
+			   		MensajeNormal("Se Eliminó correctamente la Moneda Tributaria",1);
+			   		$('.mi-modal').modal('hide');
+			   		ListarMonedaTributaria(x,y,tipolistado);
+			   		PaginarMonedaTributaria((x/y),y,tipolistado);
+			   	}
+			   	else { $("#resultadocrud").html(datos); }
+			   }
+
+		  });
+
+	});
+
+	$(document).on('click', '.modal-btn-no', function(){
+		$('.mi-modal').modal('hide');
+	});
 });
 /* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////

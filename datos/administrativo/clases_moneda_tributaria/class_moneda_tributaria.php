@@ -132,8 +132,8 @@ class MonedaTributaria
           }
           echo 
           '
-              <td class="heading" data-th="ID"></td>
-              <td>'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
+              <td class="heading" data-th="ID" width="25px"></td>
+              <td width="90px" style="text-align: center">'.date('d/m/Y', strtotime($fila['dtmFechaCambio'])).'</td>
               <td>'.$fila["dcmCambio1"].'</td>
               <td>'.$fila["dcmCambio2"].'</td>
               <td> 
@@ -143,8 +143,10 @@ class MonedaTributaria
                 <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-tributaria">
                   <i class="fa fa-edit"></i> Eliminar
                 </button>
+
               </td>  
           </tr>';
+
           $i++;
       }
     }

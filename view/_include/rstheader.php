@@ -44,7 +44,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
 <style>
     div .table-responsive{
-      border: solid 1px #a9c4e9 !important;
+      /*border: solid 1px #a9c4e9 !important;*/
     }
     .table {
       border: 2px solid #727070;
