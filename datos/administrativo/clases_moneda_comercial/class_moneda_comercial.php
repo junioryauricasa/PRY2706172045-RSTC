@@ -149,7 +149,7 @@ class MonedaComercial
               <td align="right" data-th="Cambio">'.$fila["dcmCambio1"].'</td>
               <td>'.$fila["dcmCambio2"].'</td>
               <td> 
-                <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-comercial">
+                <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-comercial" onclick="showmodalNuevaMonedaCom()">
                   <i class="fa fa-edit"></i> Editar
                 </button>
                 <button type="button" id="'.$fila["intIdMonedaComercial"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-comercial">

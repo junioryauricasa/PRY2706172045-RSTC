@@ -189,6 +189,7 @@ require_once '../../datos/conexion/bd_conexion.php';
             </div>
           </div>
           <!-- END Modal codigo productos-->
+          
 		      </div>
           <div class="tab-pane" id="tab_2">
             <form id="form-producto" method="POST">

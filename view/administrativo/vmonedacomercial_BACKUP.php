@@ -115,40 +115,29 @@
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <!--button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Comercial</button-->
-          <!-- Modal for New moneda tributaria -->
-          <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
-
-          <!-- script for modal -->
-          <script type="text/javascript">
-                function showmodalNuevaMonedaCom(){
-                  $('#nuevamonedacomercial').modal('show'); // abrira el modal seleccionado
-                }
-          </script>
-        
-          <!-- INICIO modal -->
-          <div class="modal fade" id="nuevamonedacomercial" style="display: none;">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="result"></div>
-                  <div id="formulario-crud"></div>
-                  <!--div id="resultadocrud"></div-->
-              </div>
-            </div>
-          </div>
-          <!-- END modal -->
-
-
+          <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Comercial</button>
         </div>
       </div>
+
+      <div>
+        <div class="result"></div>
+      </div>
+
+      <div id="formulario-crud"></div>
+      <div id="resultadocrud"></div>
     </section>
   </div>
-  <style>
-    input{
-      padding: 2px 3px;
-    }
-    select{
-      padding: 3px;
-    }
-  </style>
+<script>
+  $('#modalcust').modal({
+    keyboard: false
+  });
+</script>
+<style>
+  input{
+    padding: 2px 3px;
+  }
+  select{
+    padding: 3px;
+  }
+</style>
 <?php include('../_include/rstfooter.php'); ?>

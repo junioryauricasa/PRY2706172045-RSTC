@@ -111,12 +111,12 @@
 <body>
 
 <div class="" id="header">
-  <img style="width: 100%; margin-top: -40px" alt="logo resteco azul" src="../../imagenes/header-comprobantes.PNG">
+  <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/header-comprobantes.PNG">
 </div>
 <br>
 
 <div class="">
-    <center style="padding-top: 40px">
+    <center style="padding-top: 20px">
         <span style="font-weight: bold; font-family: Arial;">COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/2017</span>
     </center>
     <table id="tablageneral" style="text-align: left; width: 100%;" cellpadding="1" cellspacing="1">
@@ -215,8 +215,8 @@
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 132; $j++){
-          if($j == 132) {
+        for($j = $i ; $j <= 32; $j++){
+          if($j == 32) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';

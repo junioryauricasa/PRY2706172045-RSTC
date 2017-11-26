@@ -121,16 +121,32 @@
           </div>
         </div>
         <div class="box-footer clearfix">     
-            <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Tributaria</button>
+            <!--button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Tributaria</button-->
+
+            <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaTrib()">Nueva Moneda Comercial</button>
+
+            <!-- script for modal -->
+            <script type="text/javascript">
+                  function showmodalNuevaMonedaTrib(){
+                    $('#modalNuevaMonedaTrib').modal('show'); // abrira el modal seleccionado
+                  }
+            </script>
         </div>
       </div>
 
-      <div>
-        <div class="result"></div>
-      </div>
 
-      <div id="formulario-crud"></div>
-      <div id="resultadocrud"></div>
+          <!-- INICIO modal -->
+          <div class="modal fade" id="modalNuevaMonedaTrib" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="result"></div>
+                  <div id="formulario-crud"></div>
+                  <!--div id="resultadocrud"></div-->
+              </div>
+            </div>
+          </div>
+          <!-- END modal -->
+
     </section>
   </div>
 

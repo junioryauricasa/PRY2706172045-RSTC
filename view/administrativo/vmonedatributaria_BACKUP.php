@@ -1,35 +1,35 @@
 <?php 
-		include('../_include/rstheader.php');
+    include('../_include/rstheader.php');
 ?>
     <script>
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <?php require_once '../../negocio/administrativo/nmonedacomercial.php'; ?>
-    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
-    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <!--<script type="text/javascript" src="../../negocio/administrativo/nmonedacomercial.js"></script>-->
+    <?php include('../../negocio/administrativo/nmonedatributaria.php'); ?>
+    <?php include('../../negocio/operaciones/nvalidaciones.php'); ?>
+    <?php include('../../negocio/operaciones/nestilos.php'); ?>
+    <!--<script type="text/javascript" src="../../negocio/administrativo/nmonedatributaria.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
-    <style>
-      .pagination a {
-          margin: 0 4px;
-      }
-      hr { 
-          display: block;
-          margin-top: 0.5em;
-          margin-bottom: 0.5em;
-          margin-left: auto;
-          margin-right: auto;
-          border-style: inset;
-          border-width: 1px;
-      }
-    </style>
+  <style>
+        .pagination a {
+            margin: 0 4px;
+        }
+        hr { 
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 1px;
+        }
+  </style>
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Administrar Cambios de Moneda Comercial
+        Administrar Cambios de Moneda Tributaria
         <small>Módulo Administrativo</small>
       </h1>
       <ol class="breadcrumb">
@@ -68,6 +68,12 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
+                  <label class="text-left">Ingresar Búsqueda:</label>
+                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
                 <label>Tipo de Cambio:</label>
                 <br>
                 <select id="lista-tipo-cambio" name="lista-tipo-cambio"  class="form-control select2">
@@ -100,55 +106,46 @@
                 <th>Opciones</th>
               </tr>
               </thead>
-              <tbody id="ListaDeMonedaComercial">
-                <script>ListarMonedaComercial(0,10,"T");</script>
+              <tbody id="ListaDeMonedaTributaria">
+                <script>ListarMonedaTributaria(0,10,"T");</script>
               </tbody>
             </table>
           </div>
           <hr>
           <div class="text-center">
             <nav aria-label="...">
-              <ul id="PaginacionDeMonedaComercial" class="pagination">
-                <script>PaginarMonedaComercial(0,10,"T");</script>
+              <ul id="PaginacionDeMonedaTributaria" class="pagination">
+                <script>PaginarMonedaTributaria(0,10,"T");</script>
               </ul>
             </nav>
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <!--button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Comercial</button-->
-          <!-- Modal for New moneda tributaria -->
-          <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
-
-          <!-- script for modal -->
-          <script type="text/javascript">
-                function showmodalNuevaMonedaCom(){
-                  $('#nuevamonedacomercial').modal('show'); // abrira el modal seleccionado
-                }
-          </script>
-        
-          <!-- INICIO modal -->
-          <div class="modal fade" id="nuevamonedacomercial" style="display: none;">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="result"></div>
-                  <div id="formulario-crud"></div>
-                  <!--div id="resultadocrud"></div-->
-              </div>
-            </div>
-          </div>
-          <!-- END modal -->
-
-
+            <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Tributaria</button>
         </div>
       </div>
+
+      <div>
+        <div class="result"></div>
+      </div>
+
+      <div id="formulario-crud"></div>
+      <div id="resultadocrud"></div>
     </section>
   </div>
-  <style>
+
+<script>
+    $('#modalcust').modal({
+      keyboard: false
+    });
+</script>
+<style>
     input{
       padding: 2px 3px;
     }
     select{
       padding: 3px;
     }
-  </style>
+</style>
+
 <?php include('../_include/rstfooter.php'); ?>

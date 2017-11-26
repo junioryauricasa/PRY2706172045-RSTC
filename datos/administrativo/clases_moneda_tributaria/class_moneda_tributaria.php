@@ -137,7 +137,7 @@ class MonedaTributaria
               <td>'.$fila["dcmCambio1"].'</td>
               <td>'.$fila["dcmCambio2"].'</td>
               <td> 
-                <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-tributaria">
+                <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-warning btn-mostrar-moneda-tributaria" onclick="showmodalNuevaMonedaTrib()">
                   <i class="fa fa-edit"></i> Editar
                 </button>
                 <button type="button" id="'.$fila["intIdMonedaTributaria"].'" class="btn btn-xs btn-danger btn-eliminar-moneda-tributaria">
