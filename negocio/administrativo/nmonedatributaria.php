@@ -105,8 +105,8 @@ $(document).on('click', '.btn-eliminar-moneda-tributaria', function(){
 	var idreg = $('.btn-eliminar-moneda-tributaria').attr("id");
 
 	$('.mi-modal').modal('show');//mostrando modal
+	
 	$(document).on('click', '.modal-btn-si', function(){
-
 	  	  var intIdMonedaTributaria = idreg;
 	  	  var y = document.getElementById("num-lista").value;
 	  	  var x = $(".marca").attr("idp") * y;
@@ -129,7 +129,6 @@ $(document).on('click', '.btn-eliminar-moneda-tributaria', function(){
 			   }
 
 		  });
-
 	});
 
 	$(document).on('click', '.modal-btn-no', function(){

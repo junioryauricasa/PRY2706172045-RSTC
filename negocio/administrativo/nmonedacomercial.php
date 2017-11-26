@@ -98,10 +98,17 @@ $(document).on('click', '#btn-editar-moneda-comercial', function(){
 /* FIN - Funcion Ajax - Actualizar Cliente */
 //////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-moneda-comercial', function(){
-  	  var intIdMonedaComercial = $(this).attr("id");
+	
+	var idreg = $('.btn-eliminar-moneda-comercial').attr("id");
+
+	$('.mi-modal').modal('show');//mostrando modal
+	
+	$(document).on('click', '.modal-btn-si', function(){
+  	  var intIdMonedaComercial = idreg;
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
@@ -114,16 +121,23 @@ $(document).on('click', '.btn-eliminar-moneda-comercial', function(){
 	   {
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se Eliminó correctamente la Moneda Comercial",1);
+	   		$('.mi-modal').modal('hide');
 	   		ListarMonedaComercial(x,y,tipolistado);
 	   		PaginarMonedaComercial((x/y),y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+			   }
+
+		  });
+	});
+
+	$(document).on('click', '.modal-btn-no', function(){
+		$('.mi-modal').modal('hide');
+	});
 });
 /* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar MonedaComercial Realizada */
