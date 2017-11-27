@@ -212,7 +212,7 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 
 	$('.mi-modal').modal('show');//mostrando modal
 	
-	alert(idreg);
+	//alert(idreg);
 	$(document).on('click', '.modal-btn-si', function(){
 		  	  var intIdProducto = idreg;
 		  	  var y = document.getElementById("num-lista").value;

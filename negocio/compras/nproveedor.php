@@ -173,7 +173,7 @@ $(document).on('click', '#btn-editar-proveedor', function(){
 /* INICIO - Funcion Ajax - Eliminar Proveedor */
 $(document).on('click', '.btn-eliminar-proveedor', function(){
 	
-	var idreg = $('.btn-eliminar-proveedor').attr("id");//pasando el id del modal -s variable
+	var idreg = $(this).attr("id");//pasando el id del modal -s variable
 
 	$('.mi-modal').modal('show');//mostrando modal
 

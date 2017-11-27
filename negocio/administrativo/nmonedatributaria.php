@@ -102,7 +102,7 @@ $(document).on('click', '#btn-editar-moneda-tributaria', function(){
 /* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-moneda-tributaria', function(){
 	
-	var idreg = $('.btn-eliminar-moneda-tributaria').attr("id");
+	var idreg = $(this).attr("id");
 
 	$('.mi-modal').modal('show');//mostrando modal
 	

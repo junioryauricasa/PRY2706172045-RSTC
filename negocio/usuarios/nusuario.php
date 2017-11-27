@@ -127,7 +127,7 @@ $(document).on('click', '#btn-editar-usuario', function(){
 /* INICIO - Funcion Ajax - Eliminar Usuario */
 $(document).on('click', '.btn-eliminar-usuario', function(){
 	
-	var idreg = $('.btn-eliminar-usuario').attr("id");
+	var idreg = $(this).attr("id");
 
 	$('.mi-modal').modal('show');//mostrando modal
 	

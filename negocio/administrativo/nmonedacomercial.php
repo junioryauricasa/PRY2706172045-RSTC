@@ -103,7 +103,7 @@ $(document).on('click', '#btn-editar-moneda-comercial', function(){
 /* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-moneda-comercial', function(){
 	
-	var idreg = $('.btn-eliminar-moneda-comercial').attr("id");
+	var idreg = $(this).attr("id");
 
 	$('.mi-modal').modal('show');//mostrando modal
 	
