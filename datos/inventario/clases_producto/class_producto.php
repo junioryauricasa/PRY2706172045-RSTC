@@ -3,7 +3,7 @@ require_once '../conexion/bd_conexion.php';
 require_once 'class_formulario_producto.php';
 class Producto
 {
-  /* INICIO - Atributos de Producto*/
+  /* INICIO - Atributos de Producto */
   private $intIdProducto;
   private $nvchDescripcion;
   private $nvchUnidadMedida;
@@ -363,22 +363,23 @@ class Producto
       $sql_conexion_cantidad = new Conexion_BD();
       $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
       foreach ($intIdProducto as $key => $value) {
-        $sql_comando = $sql_conectar_cantidad->prepare('CALL seleccionarUbigeoProducto_II(:intIdProducto,:intIdSucursal)');
-        $sql_comando -> execute(array(
-          ':intIdProducto' => $value,
-          ':intIdSucursal' => $intIdSucursal));
-        $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-        $intCantidadFinal = 0;
-        $intIdUbigeoProducto = $fila['intIdUbigeoProducto'];
-        $intCantidadInicial = $fila['intCantidadUbigeo'];
-        if($TipoES == 1){
-          $intCantidadFinal = $intCantidadInicial + $intCantidad[$key];
-        } else if($TipoES == 0){
-          $intCantidadFinal = $intCantidadInicial - $intCantidad[$key];
+        if($value != ""){
+          $sql_comando = $sql_conectar_cantidad->prepare('CALL seleccionarUbigeoProducto_II(:intIdProducto,:intIdSucursal)');
+          $sql_comando -> execute(array(
+            ':intIdProducto' => $value,
+            ':intIdSucursal' => $intIdSucursal));
+          $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+          $intCantidadFinal = 0;
+          $intIdUbigeoProducto = $fila['intIdUbigeoProducto'];
+          $intCantidadInicial = $fila['intCantidadUbigeo'];
+          if($TipoES == 1){
+            $intCantidadFinal = $intCantidadInicial + $intCantidad[$key];
+          } else if($TipoES == 0){
+            $intCantidadFinal = $intCantidadInicial - $intCantidad[$key];
+          }
+          $sql_comando = $sql_conectar_cantidad->prepare('CALL ES_STOCKUBIGEO(:intIdUbigeoProducto,:intCantidadUbigeo)');
+          $sql_comando -> execute(array(':intIdUbigeoProducto' => $intIdUbigeoProducto, ':intCantidadUbigeo' => $intCantidadFinal));
         }
-
-        $sql_comando = $sql_conectar_cantidad->prepare('CALL ES_STOCKUBIGEO(:intIdUbigeoProducto,:intCantidadUbigeo)');
-        $sql_comando -> execute(array(':intIdUbigeoProducto' => $intIdUbigeoProducto, ':intCantidadUbigeo' => $intCantidadFinal));
       }
       echo "ok";
     }
@@ -394,20 +395,22 @@ class Producto
       $sql_conexion_cantidad = new Conexion_BD();
       $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
       foreach ($intIdProducto as $key => $value) {
-      $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
-      $sql_comando_cantidad -> execute(array(':intIdProducto' => $value));
-      $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-      if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
-        $intCantidad = 0;
-      } else {
-        $intCantidad = $fila_cantidad["CantidadTotal"];
-      }
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');
-      $sql_comando -> execute(array(
-        ':intIdProducto' => $value,
-        ':intCantidad' => $intCantidad));
+        if($value != ""){
+          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
+          $sql_comando_cantidad -> execute(array(':intIdProducto' => $value));
+          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+          if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
+            $intCantidad = 0;
+          } else {
+            $intCantidad = $fila_cantidad["CantidadTotal"];
+          }
+          $sql_conexion = new Conexion_BD();
+          $sql_conectar = $sql_conexion->Conectar();
+          $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');
+          $sql_comando -> execute(array(
+            ':intIdProducto' => $value,
+            ':intCantidad' => $intCantidad));
+        }
       }
       echo 'ok';
     }
