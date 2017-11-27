@@ -1,16 +1,16 @@
-<?php 
-$lblPersonaSingular = "Cliente";
-$lblTituloSingular = "Venta";
-$lblTituloPlural = "Ventas";
-$intTipoDetalle = 1;
+<?php
+$lblPersonaSingular = "Proveedor";
+$lblTituloSingular = "Compra";
+$lblTituloPlural = "Compras";
+$intTipoDetalle = 2;
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
-?>  
+?>
     <?php require_once '../../negocio/comprobante/ncomprobante.php'; ?>
     <?php require_once '../../negocio/comprobante/ndetallecomprobante.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <?php require_once '../../view/modals/vformCliente.php'; ?>
+    <?php require_once '../../view/modals/vformProveedor.php'; ?>
     <?php require_once '../../view/modals/vformProducto.php'; ?>
     <?php require_once '../../view/modals/vformCotizacion.php'; ?>
     <?php require_once '../../negocio/inventario/nproducto.php'; ?>
@@ -23,11 +23,11 @@ require_once '../../datos/conexion/bd_conexion.php';
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Registro de Ventas
-        <small>Módulo de Ventas</small>
+        Registro de Compras
+        <small>Módulo de Compras</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="../default/index">Inicio</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Layout</a></li>
         <li class="active">Fixed</li>
       </ol>
@@ -35,16 +35,22 @@ require_once '../../datos/conexion/bd_conexion.php';
 
     <!-- Main content -->
     <section class="content">
+      <!-- TABLE: LATEST USERS -->
       <?php
         require_once '../comprobante/vcomprobante.php'; 
       ?>
     </section>
+    <!-- /.content -->
   </div>
+  <!-- /.content-wrapper -->
+<!-- Scripts DataTable -->
 <script>
+  // Modal
   $('#modalcust').modal({
     keyboard: false
   });
 </script>
+<!-- ENd Scripts DataTable -->
 <style>
   input{
     padding: 2px 3px;

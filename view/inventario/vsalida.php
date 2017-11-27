@@ -23,8 +23,8 @@ require_once '../../datos/conexion/bd_conexion.php';
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Registro de Ventas
-        <small>Módulo de Ventas</small>
+        Registro de Salidas
+        <small>Módulo de Inventario</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="../default/index">Inicio</a></li>
