@@ -208,10 +208,11 @@ $(document).on('click', '#btn-editar-producto', function(){
 /* INICIO - Funcion Ajax - Eliminar Producto */
 $(document).on('click', '.btn-eliminar-producto', function(){
 	
-	var idreg = $('.btn-eliminar-producto').attr("id");
+	var idreg = $(this).attr("id");
 
 	$('.mi-modal').modal('show');//mostrando modal
 	
+	alert(idreg);
 	$(document).on('click', '.modal-btn-si', function(){
 		  	  var intIdProducto = idreg;
 		  	  var y = document.getElementById("num-lista").value;
