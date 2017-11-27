@@ -207,8 +207,13 @@ $(document).on('click', '#btn-editar-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Producto */
 $(document).on('click', '.btn-eliminar-producto', function(){
-	if(confirm('¿Estás seguro de eliminar este producto?')){
-		  	  var intIdProducto = $(this).attr("id");
+	
+	var idreg = $('.btn-eliminar-producto').attr("id");
+
+	$('.mi-modal').modal('show');//mostrando modal
+	
+	$(document).on('click', '.modal-btn-si', function(){
+		  	  var intIdProducto = idreg;
 		  	  var y = document.getElementById("num-lista").value;
 		  	  var x = $(".marca").attr("idp") * y;
 		  	  var tipolistado = "D";
@@ -222,16 +227,19 @@ $(document).on('click', '.btn-eliminar-producto', function(){
 			   	datos = datos.replace(/\s/g,''); //quitando espacio
 			   	if (datos=="ok") { 
 			   		MensajeNormal("Se eliminó correctamente el Producto",1);
+			   		$('.mi-modal').modal('hide');
 			   		ListarProducto(x,y,tipolistado);
 			   		PaginarProducto(x,y,tipolistado);
 			   	}
 			   	else { $("#resultadocrud").html(datos); }
 			   }
-			  });
-			 return false;
-	}else{
-			return false;
-	}
+
+		  });
+	});
+
+	$(document).on('click', '.modal-btn-no', function(){
+		$('.mi-modal').modal('hide');
+	});
 });
 /* FIN - Funcion Ajax - Eliminar Producto */
 //////////////////////////////////////////////////////////////

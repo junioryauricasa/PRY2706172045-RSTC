@@ -172,27 +172,39 @@ $(document).on('click', '#btn-editar-proveedor', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Proveedor */
 $(document).on('click', '.btn-eliminar-proveedor', function(){
-  	  var intIdProveedor = $(this).attr("id");
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
-  	  var tipolistado = "D";
-  	  var funcion = "E";
-  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
-	  $.ajax({
-	   url:"../../datos/compras/funcion_proveedor.php",
-	   method:"POST",
-	   data:{intIdProveedor:intIdProveedor,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	if (datos=="ok") { 
-	   		MensajeNormal("Se Eliminó correctamente el Proveedor",1);
-	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
-	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
-	   	}
-	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+	
+	var idreg = $('.btn-eliminar-proveedor').attr("id");//pasando el id del modal -s variable
+
+	$('.mi-modal').modal('show');//mostrando modal
+
+	$(document).on('click', '.modal-btn-si', function(){
+	  	  var intIdProveedor = idreg;
+	  	  var y = document.getElementById("num-lista").value;
+	  	  var x = $(".marca").attr("idp") * y;
+	  	  var tipolistado = "D";
+	  	  var funcion = "E";
+	  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+		  $.ajax({
+		   url:"../../datos/compras/funcion_proveedor.php",
+		   method:"POST",
+		   data:{intIdProveedor:intIdProveedor,funcion:funcion},
+		   success:function(datos)
+		   {
+		   	if (datos=="ok") { 
+		   		MensajeNormal("Se Eliminó correctamente el Proveedor",1);
+		   		$('.mi-modal').modal('hide');
+		   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
+		   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
+		   	}
+		   	else { $("#resultadocrud").html(datos); }
+		   }
+		  });
+		 return false;
+	});
+
+	$(document).on('click', '.modal-btn-no', function(){
+		$('.mi-modal').modal('hide');
+	});
 });
 /* FIN - Funcion Ajax - Eliminar Proveedor */
 //////////////////////////////////////////////////////////////
