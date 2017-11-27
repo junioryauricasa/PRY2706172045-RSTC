@@ -3,7 +3,7 @@ session_start();
 require_once '../inventario/clases_producto/class_producto.php';
 require_once '../ventas/clases_cliente/class_cliente.php';
 require_once '../compras/clases_proveedor/class_proveedor.php';
-require_once '../ventas/clases_cotizacion/class_cotizacion.php';
+require_once 'clases_cotizacion/class_cotizacion.php';
 require_once 'clases_comprobante/class_comprobante.php';
 require_once 'clases_comprobante/class_detalle_comprobante.php';
 require_once '../numeraciones/class_numeraciones.php';
@@ -176,7 +176,7 @@ switch($_POST['funcion']){
     $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
-    $Cotizacion->PaginarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],$dtmFechaInicial,$dtmFechaFinal);
+    $Cotizacion->PaginarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],"V",$dtmFechaInicial,$dtmFechaFinal);
     break;
   case "NCPR":
     $Numeraciones = new Numeraciones();

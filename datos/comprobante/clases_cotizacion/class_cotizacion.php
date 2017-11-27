@@ -324,6 +324,25 @@ class Cotizacion{
   public function PaginarCotizaciones($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
+      if($tipolistado == "V" && $busqueda == ""){
+        $output = "";
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+      echo $output;
+      return false;
+      }
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
@@ -414,7 +433,7 @@ class Cotizacion{
     }  
   }
 
-  public function ListarCotizacionesVenta($busqueda,$x,$y,$dtmFechaInicial,$dtmFechaFinal)
+  public function ListarCotizacionesComprobante($busqueda,$x,$y,$dtmFechaInicial,$dtmFechaFinal)
   {
     try{
       if($busqueda != "" || $busqueda != null) {
