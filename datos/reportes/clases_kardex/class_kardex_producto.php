@@ -497,7 +497,7 @@ class KardexProducto
                 </button>
               </td>
               <td> 
-                <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning" onclick="VerKardexProducto(this)">
+                <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning" onclick="VerKardexProducto(this);clickdetalleskardex()">
                   <i class="fa fa-edit"></i> Ver Kardex
                 </button>
               </td>  
