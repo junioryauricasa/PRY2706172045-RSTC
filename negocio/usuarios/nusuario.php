@@ -126,7 +126,13 @@ $(document).on('click', '#btn-editar-usuario', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Usuario */
 $(document).on('click', '.btn-eliminar-usuario', function(){
-  	  var intIdUsuario = $(this).attr("id");
+	
+	var idreg = $('.btn-eliminar-usuario').attr("id");
+
+	$('.mi-modal').modal('show');//mostrando modal
+	
+	$(document).on('click', '.modal-btn-si', function(){
+  	  var intIdUsuario = idreg;
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
@@ -139,13 +145,19 @@ $(document).on('click', '.btn-eliminar-usuario', function(){
 	   {
 	   	if (datos=="ok") { 
 	   		MensajeNormal("Se Eliminó correctamente el Usuario",1);
+	   		$('.mi-modal').modal('hide');
 	   		ListarUsuario(x,y,tipolistado);
 	   		PaginarUsuario(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+			   }
+
+		  });
+	});
+
+	$(document).on('click', '.modal-btn-no', function(){
+		$('.mi-modal').modal('hide');
+	});
 });
 /* FIN - Funcion Ajax - Eliminar Usuario */
 //////////////////////////////////////////////////////////////
