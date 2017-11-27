@@ -485,7 +485,7 @@ class KardexProducto
               <td>'.$fila["dcmPrecioVenta3"].'</td>
               <td>'.$fila["intCantidad"].'</td>
               <td>
-                <button onclick="VerDetalleUbigeo(this)" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
+                <button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">
                   <i class="fa fa-edit"></i> Ver Detalle
                 </button>
               </td>
