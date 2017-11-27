@@ -39,37 +39,39 @@ class DetalleComprobante
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intCantidad as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarDetalleComprobante(:intIdComprobante,
-        :intIdTipoVenta,:intTipoDetalle,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,
-        :dcmPrecioUnitario,:intCantidad,:dcmTotal)');
-      if($this->intIdTipoVenta == 1){
-          $sql_comando->execute(array(
-          ':intIdComprobante' => $this->intIdComprobante,
-          ':intIdTipoVenta' => $this->intIdTipoVenta,
-          ':intTipoDetalle' => $this->intTipoDetalle,
-          ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-          ':intIdProducto' => $this->intIdProducto[$key],
-          ':nvchCodigo' => $this->nvchCodigo[$key],
-          ':nvchDescripcion' => $this->nvchDescripcion[$key],
-          ':dcmPrecio' => $this->dcmPrecio[$key],
-          ':dcmDescuento' => $this->dcmDescuento[$key],
-          ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-          ':intCantidad' => $value,
-          ':dcmTotal' => $this->dcmTotal[$key]));
-        } else if($this->intIdTipoVenta == 2){
-          $sql_comando->execute(array(
-          ':intIdComprobante' => $this->intIdComprobante,
-          ':intIdTipoVenta' => $this->intIdTipoVenta, 
-          ':intTipoDetalle' => $this->intTipoDetalle,
-          ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-          ':intIdProducto' => 0,
-          ':nvchCodigo' => '',
-          ':nvchDescripcion' => $this->nvchDescripcion[$key],
-          ':dcmPrecio' => 0.00,
-          ':dcmDescuento' => 0.00,
-          ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-          ':intCantidad' => $value,
-          ':dcmTotal' => $this->dcmTotal[$key]));
+        if($this->intIdProducto[$key] != ""){
+        $sql_comando = $sql_conectar->prepare('CALL insertarDetalleComprobante(:intIdComprobante,
+          :intIdTipoVenta,:intTipoDetalle,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,
+          :dcmPrecioUnitario,:intCantidad,:dcmTotal)');
+        if($this->intIdTipoVenta == 1){
+            $sql_comando->execute(array(
+            ':intIdComprobante' => $this->intIdComprobante,
+            ':intIdTipoVenta' => $this->intIdTipoVenta,
+            ':intTipoDetalle' => $this->intTipoDetalle,
+            ':dtmFechaRealizada' => $this->dtmFechaRealizada,
+            ':intIdProducto' => $this->intIdProducto[$key],
+            ':nvchCodigo' => $this->nvchCodigo[$key],
+            ':nvchDescripcion' => $this->nvchDescripcion[$key],
+            ':dcmPrecio' => $this->dcmPrecio[$key],
+            ':dcmDescuento' => $this->dcmDescuento[$key],
+            ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+            ':intCantidad' => $value,
+            ':dcmTotal' => $this->dcmTotal[$key]));
+          } else if($this->intIdTipoVenta == 2){
+            $sql_comando->execute(array(
+            ':intIdComprobante' => $this->intIdComprobante,
+            ':intIdTipoVenta' => $this->intIdTipoVenta, 
+            ':intTipoDetalle' => $this->intTipoDetalle,
+            ':dtmFechaRealizada' => $this->dtmFechaRealizada,
+            ':intIdProducto' => 0,
+            ':nvchCodigo' => '',
+            ':nvchDescripcion' => $this->nvchDescripcion[$key],
+            ':dcmPrecio' => 0.00,
+            ':dcmDescuento' => 0.00,
+            ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+            ':intCantidad' => $value,
+            ':dcmTotal' => $this->dcmTotal[$key]));
+          }
         }
       }
       echo "ok";

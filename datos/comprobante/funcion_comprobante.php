@@ -42,7 +42,7 @@ switch($_POST['funcion']){
     $Comprobante->Observacion($_POST['nvchObservacion']);
     $Comprobante->InsertarComprobante();
     $DetalleComprobante = new DetalleComprobante();
-    if($_POST['intIdTipoVenta'] == 1) {
+    if($_POST['intIdTipoVenta'] == 1 || $_POST['intIdTipoVenta'] == 3) {
         $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleComprobante->TipoDetalle($_POST['intTipoDetalle']);

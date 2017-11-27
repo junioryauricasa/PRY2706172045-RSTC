@@ -48,52 +48,54 @@ class KardexProducto
       $sql_conectar = $sql_conexion->Conectar();
 
       foreach ($this->intIdProducto as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL mostrarultimoKardexProducto(:intIdProducto)');
-      $sql_comando -> execute(array(':intIdProducto' => $value));
-      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-
-      $intCantidadStock = $fila['intCantidadStock'];
-      $dcmSaldoValorizado = $fila['dcmSaldoValorizado'];
-      if($this->intTipoDetalle == 1){
-        $intCantidadStock = $intCantidadStock - $this->intCantidadSalida[$key];
-        $sql_comando = $sql_conectar->prepare('CALL PROMEDIOPRECIOSALIDA(:intIdProducto)');
+      if($value != ""){
+        $sql_comando = $sql_conectar->prepare('CALL mostrarultimoKardexProducto(:intIdProducto)');
         $sql_comando -> execute(array(':intIdProducto' => $value));
         $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-        $this->dcmPrecioSalida = $fila['PromedioSalida'];
-        $this->dcmTotalSalida = $fila['PromedioSalida'] * $this->intCantidadSalida[$key];
-        $dcmSaldoValorizado = $dcmSaldoValorizado - $this->dcmTotalSalida;
-      } else if($this->intTipoDetalle == 2){
-        $this->dcmPrecioEntrada[$key] = round(($this->dcmPrecioEntrada[$key] / 1.18),2);
-        $this->dcmTotalEntrada[$key] = $this->intCantidadEntrada[$key] * $this->dcmPrecioEntrada[$key];
-        $intCantidadStock = $intCantidadStock + $this->intCantidadEntrada[$key];
-        $dcmSaldoValorizado = $dcmSaldoValorizado + $this->dcmTotalEntrada[$key];
-      }
 
-      $sql_comando = $sql_conectar->prepare('CALL insertarKardexProducto(@intIdMovimiento,:intIdTipoMoneda,:dtmFechaMovimiento,
-        :intTipoDetalle,:intIdComprobante,:intIdTipoComprobante,:nvchSerie,:nvchNumeracion,:intIdProducto,
-        :intCantidadEntrada,:intCantidadSalida,:intCantidadStock,:dcmPrecioEntrada,:dcmTotalEntrada,:dcmPrecioSalida,
-        :dcmTotalSalida,:dcmSaldoValorizado)');
-      $sql_comando->execute(array(
-        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
-        ':dtmFechaMovimiento' => $this->dtmFechaMovimiento,
-        ':intTipoDetalle' => $this->intTipoDetalle,
-        ':intIdComprobante' => $this->intIdComprobante,
-        ':intIdTipoComprobante' => $this->intIdTipoComprobante,
-        ':nvchSerie' => $this->nvchSerie,
-        ':nvchNumeracion' => $this->nvchNumeracion,
-        ':intIdProducto' => $value,
-        ':intCantidadEntrada' => $this->intCantidadEntrada[$key],
-        ':intCantidadSalida' => $this->intCantidadSalida[$key],
-        ':intCantidadStock' => $intCantidadStock,
-        ':dcmPrecioEntrada' => $this->dcmPrecioEntrada[$key],
-        ':dcmTotalEntrada' => $this->dcmTotalEntrada[$key],
-        ':dcmPrecioSalida' => $this->dcmPrecioSalida,
-        ':dcmTotalSalida' => $this->dcmTotalSalida,
-        ':dcmSaldoValorizado' => $dcmSaldoValorizado));
-      $sql_comando->closeCursor();
-      $salidas = $sql_conectar->query("select @intIdMovimiento as intIdMovimiento");
-      $salida = $salidas->fetchObject();
-      $_SESSION['intIdMovimiento'] = $salida->intIdMovimiento;
+        $intCantidadStock = $fila['intCantidadStock'];
+        $dcmSaldoValorizado = $fila['dcmSaldoValorizado'];
+        if($this->intTipoDetalle == 1){
+          $intCantidadStock = $intCantidadStock - $this->intCantidadSalida[$key];
+          $sql_comando = $sql_conectar->prepare('CALL PROMEDIOPRECIOSALIDA(:intIdProducto)');
+          $sql_comando -> execute(array(':intIdProducto' => $value));
+          $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+          $this->dcmPrecioSalida = $fila['PromedioSalida'];
+          $this->dcmTotalSalida = $fila['PromedioSalida'] * $this->intCantidadSalida[$key];
+          $dcmSaldoValorizado = $dcmSaldoValorizado - $this->dcmTotalSalida;
+        } else if($this->intTipoDetalle == 2){
+          $this->dcmPrecioEntrada[$key] = round(($this->dcmPrecioEntrada[$key] / 1.18),2);
+          $this->dcmTotalEntrada[$key] = $this->intCantidadEntrada[$key] * $this->dcmPrecioEntrada[$key];
+          $intCantidadStock = $intCantidadStock + $this->intCantidadEntrada[$key];
+          $dcmSaldoValorizado = $dcmSaldoValorizado + $this->dcmTotalEntrada[$key];
+        }
+
+        $sql_comando = $sql_conectar->prepare('CALL insertarKardexProducto(@intIdMovimiento,:intIdTipoMoneda,:dtmFechaMovimiento,
+          :intTipoDetalle,:intIdComprobante,:intIdTipoComprobante,:nvchSerie,:nvchNumeracion,:intIdProducto,
+          :intCantidadEntrada,:intCantidadSalida,:intCantidadStock,:dcmPrecioEntrada,:dcmTotalEntrada,:dcmPrecioSalida,
+          :dcmTotalSalida,:dcmSaldoValorizado)');
+        $sql_comando->execute(array(
+          ':intIdTipoMoneda' => $this->intIdTipoMoneda,
+          ':dtmFechaMovimiento' => $this->dtmFechaMovimiento,
+          ':intTipoDetalle' => $this->intTipoDetalle,
+          ':intIdComprobante' => $this->intIdComprobante,
+          ':intIdTipoComprobante' => $this->intIdTipoComprobante,
+          ':nvchSerie' => $this->nvchSerie,
+          ':nvchNumeracion' => $this->nvchNumeracion,
+          ':intIdProducto' => $value,
+          ':intCantidadEntrada' => $this->intCantidadEntrada[$key],
+          ':intCantidadSalida' => $this->intCantidadSalida[$key],
+          ':intCantidadStock' => $intCantidadStock,
+          ':dcmPrecioEntrada' => $this->dcmPrecioEntrada[$key],
+          ':dcmTotalEntrada' => $this->dcmTotalEntrada[$key],
+          ':dcmPrecioSalida' => $this->dcmPrecioSalida,
+          ':dcmTotalSalida' => $this->dcmTotalSalida,
+          ':dcmSaldoValorizado' => $dcmSaldoValorizado));
+        $sql_comando->closeCursor();
+        $salidas = $sql_conectar->query("select @intIdMovimiento as intIdMovimiento");
+        $salida = $salidas->fetchObject();
+        $_SESSION['intIdMovimiento'] = $salida->intIdMovimiento;
+      }
     }
       echo "ok";
     }
