@@ -272,10 +272,14 @@ function LimpiarCampos(){
 	$("#nvchSerie").val("");
 	$("#nvchNumeracion").val("");
 	$("#intIdSucursal").val(1);
-	if($("#intTipoDetalle").val() == 1)
+	if($("#intTipoDetalle").val() == 1 && $("#intIdTipoComprobanteI").val() == 0)
 		$("#intIdTipoComprobante").val(1);
-	else if($("#intTipoDetalle").val() == 2)
+	else if($("#intTipoDetalle").val() == 2 && $("#intIdTipoComprobanteI").val() == 0)
 		$("#intIdTipoComprobante").val(5);
+  else if($("#intTipoDetalle").val() == 1 && $("#intIdTipoComprobanteI").val() == 9)
+    $("#intIdTipoComprobante").val(9);
+  else if($("#intTipoDetalle").val() == 2 && $("#intIdTipoComprobanteI").val() == 10)
+    $("#intIdTipoComprobante").val(10);
 	$("#intIdTipoVenta").val(1);
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
