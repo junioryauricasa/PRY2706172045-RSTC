@@ -359,7 +359,7 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 		$("textarea#nvchObservacion").val(datos.nvchObservacion);
 		//HabilitacionOpciones(2);
 		ElegirTabla(datos.intIdTipoVenta);
-		MostrarDetalleCotizacion(intIdCotizacion,tipolistado);
+		MostrarDetalleCotizacion(datos.intIdCotizacion,datos.intIdTipoVenta);
 	   	$("#btnFormRealizarCotizacion").click();
 	   }
 	  });

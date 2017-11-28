@@ -25,8 +25,9 @@ function EliminarFilasVacias() {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-function MostrarDetalleCotizacion(intIdCotizacion,tipolistado) {
-	var funcion = "MDV";
+function MostrarDetalleCotizacion(intIdCotizacion,intIdTipoVenta) {
+	var funcion = "MDCT";
+	var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
