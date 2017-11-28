@@ -1,8 +1,9 @@
 <?php
 $lblPersonaSingular = "Proveedor";
-$lblTituloSingular = "Compra";
-$lblTituloPlural = "Compras";
+$lblTituloSingular = "Entrada";
+$lblTituloPlural = "Entradas";
 $intTipoDetalle = 2;
+$intIdTipoComprobante = 10;
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
 ?>

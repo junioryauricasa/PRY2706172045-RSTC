@@ -19,7 +19,7 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Lugar de <?php echo $lblTituloSingular; ?>:</label>
-                  <select <?php if($intTipoDetalle == 1) { ?> onchange="MostrarSeleccionComprobante()" <?php } ?> id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
+                  <select <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) { ?> onchange="MostrarSeleccionComprobante()" <?php } ?> id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
                   <?php 
                     try{   
                     $sql_conexion = new Conexion_BD();
@@ -39,13 +39,20 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Tipo de Comprobante:</label>
-                  <select <?php if($intTipoDetalle != 2) echo 'onchange="MostrarSeleccionComprobante()"'; ?> id="intIdTipoComprobante" name="intIdTipoComprobante"  class="form-control select2" form="form-comprobante">
+                  <select <?php if($intTipoDetalle == 1 || $intIdTipoComprobante != 0) echo 'onchange="MostrarSeleccionComprobante()"'; ?> id="intIdTipoComprobante" name="intIdTipoComprobante"  class="form-control select2" form="form-comprobante">
                   <?php 
                     try{
                     $sql_conexion = new Conexion_BD();
                     $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
-                    $sql_comando->execute(array(':intTipoDetalle' => $intTipoDetalle));
+                    $sql_comando;
+                    if($intIdTipoComprobante == 0){
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
+                      $sql_comando->execute(array(':intTipoDetalle' => $intTipoDetalle));
+                    }
+                    else if ($intIdTipoComprobante != 0){
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante_es(:intTipoDetalle,:intIdTipoComprobante)');
+                      $sql_comando->execute(array(':intTipoDetalle' => $intTipoDetalle, ':intIdTipoComprobante' => $intIdTipoComprobante));
+                    }
                     while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                     {
                       echo '<option value="'.$fila['intIdTipoComprobante'].'">'.$fila['nvchNombre'].'</option>';
@@ -61,7 +68,7 @@
                   <label>Serie:</label>
                   <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" form="form-comprobante"
                   onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('nvchSerie')"
-                  maxlength="4" <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
+                  maxlength="4" <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) echo 'readonly'; ?>/>
                   <span id="nvchSerieIcono" class="" aria-hidden=""></span>
                   <div id="nvchSerieObs" class=""></div>
                 </div>
@@ -71,7 +78,7 @@
                   <label>Numeración:</label>
                   <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" 
                   form="form-comprobante" onkeypress="return EsNumeroEnteroTecla(event)" 
-                  onkeyup="EsNumeroEntero('nvchNumeracion')" maxlength="8" <?php if($intTipoDetalle != 2) echo 'readonly'; ?>/>
+                  onkeyup="EsNumeroEntero('nvchNumeracion')" maxlength="8" <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) echo 'readonly'; ?>/>
                   <span id="nvchNumeracionIcono" class="" aria-hidden=""></span>
                   <div id="nvchNumeracionObs" class=""></div>
                 </div>
@@ -95,7 +102,7 @@
                   </select>
                 </div>
               </div>
-              <?php if($intTipoDetalle != 2) { ?><script type="text/javascript">MostrarSeleccionComprobante();</script><?php } ?>
+              <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) { ?><script type="text/javascript">MostrarSeleccionComprobante();</script><?php } ?>
             </div>
             <div class="row">
               <div class="col-md-2">
@@ -179,7 +186,7 @@
                   <input type="button" onclick="AgregarFila($('#intIdTipoVenta').val())" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
-              <?php if($intTipoDetalle == 1) { ?>
+              <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?>
               <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cotización:</label>
@@ -239,6 +246,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <input type="hidden" id="intTipoDetalle" name="intTipoDetalle" value="<?php echo $intTipoDetalle; ?>" form="form-comprobante">
+                  <input type="hidden" id="intIdTipoComprobanteI" name="intIdTipoComprobanteI" value="<?php echo $intIdTipoComprobante; ?>" form="form-comprobante">
                   <input type="hidden" name="funcion" value="I" form="form-comprobante">
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">

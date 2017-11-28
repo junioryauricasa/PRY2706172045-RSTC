@@ -1,7 +1,7 @@
 <script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Operaciones de Comprobante */
-	var numprtst = 0; Number(numprtst);
+	  var numprtst = 0; Number(numprtst);
     var numprt = 0; Number(numprt);
     var num = 2;
     var nums = 2;
@@ -141,9 +141,10 @@
 
     function AgregarFila(intIdTipoVenta){
     var intTipoDetalle = $("#intTipoDetalle").val();
+    var intIdTipoComprobante = $("#intIdTipoComprobanteI").val();
     var camposVender = '';
     var readonlyVender = '';
-    if(intTipoDetalle == 1){
+    if(intTipoDetalle == 1 && intIdTipoComprobante == 0){
     	camposVender ='<td>'+
 			            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
 			            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
@@ -151,6 +152,7 @@
 			          '</td>'+
 			          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
 			            'onkeyup="CalcularPrecioTotal(this)"/></td>';
+      readonlyVender = 'readonly';
 	}
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(

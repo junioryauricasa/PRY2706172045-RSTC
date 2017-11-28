@@ -3,6 +3,7 @@ $lblPersonaSingular = "Proveedor";
 $lblTituloSingular = "Compra";
 $lblTituloPlural = "Compras";
 $intTipoDetalle = 2;
+$intIdTipoComprobante = 0;
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
 ?>

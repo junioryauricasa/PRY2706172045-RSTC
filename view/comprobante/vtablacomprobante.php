@@ -10,7 +10,7 @@
           <th class="heading" width="25px">&nbsp;</th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
-          <?php if($intTipoDetalle == 1) { ?>
+          <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?>
           <th style="width: 110px" >Precio Lista</th>
           <th style="width: 110px" >Desc. (%)</th>
           <?php } ?>
@@ -32,7 +32,7 @@
             <td>
                 <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
             </td>
-            <?php if($intTipoDetalle == 1) { ?>
+            <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?>
             <td>
                 <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="" readonly />
                 <input type="hidden" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
@@ -44,7 +44,7 @@
             </td>
             <?php } ?>
             <td>
-                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="" <?php if($intTipoDetalle == 1) { ?> readonly <?php } ?> />
+                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="" <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?> readonly <?php } ?> />
             </td>
             <td>
                 <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"

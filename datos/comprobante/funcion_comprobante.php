@@ -42,7 +42,7 @@ switch($_POST['funcion']){
     $Comprobante->Observacion($_POST['nvchObservacion']);
     $Comprobante->InsertarComprobante();
     $DetalleComprobante = new DetalleComprobante();
-    if($_POST['intIdTipoVenta'] == 1 || $_POST['intIdTipoVenta'] == 3) {
+    if($_POST['intIdTipoVenta'] == 1) {
         $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleComprobante->TipoDetalle($_POST['intTipoDetalle']);
@@ -50,7 +50,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->IdProducto($_POST['intIdProducto']);
         $DetalleComprobante->Codigo($_POST['nvchCodigo']);
         $DetalleComprobante->Descripcion($_POST['nvchDescripcion']);
-        if($_POST['intTipoDetalle'] == 1){
+        if($_POST['intTipoDetalle'] == 1 && $_POST['intIdTipoComprobanteI'] == 0){
             $DetalleComprobante->Precio($_POST['dcmPrecio']);
             $DetalleComprobante->Descuento($_POST['dcmDescuento']);
         }

@@ -3,6 +3,7 @@ $lblPersonaSingular = "Cliente";
 $lblTituloSingular = "Venta";
 $lblTituloPlural = "Ventas";
 $intTipoDetalle = 1;
+$intIdTipoComprobante = 0;
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
 ?>  
