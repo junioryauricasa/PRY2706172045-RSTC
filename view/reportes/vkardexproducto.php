@@ -33,7 +33,7 @@ include('../_include/rstheader.php');
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#tab-kardex-producto" data-toggle="tab">Kardex de Productos</a>
+                    <a href="#tab-kardex-producto" id="tab-kardex-producto-btn" data-toggle="tab">Kardex de Productos</a>
                 </li>
                 <li>
                     <a href="#tab-detalles-kardex-producto" id="tab-detalles-kardex-producto-btn" data-toggle="tab">Detalles kardex de Producto</a>
@@ -47,11 +47,11 @@ include('../_include/rstheader.php');
                       Kardex
                       <small>Módulo de Reportes</small>
                     </h1>
-                    <ol class="breadcrumb">
+                    <!--ol class="breadcrumb">
                       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                       <li><a href="#">Layout</a></li>
                       <li class="active">Fixed</li>
-                    </ol>
+                    </ol-->
                   </section>
                   <!-- Inicio - Main content -->
                   <section class="content">
@@ -170,33 +170,7 @@ include('../_include/rstheader.php');
                           </nav>
                         </div>
                         <!-- END - paginacion de productos -->
-                        <div id="TablaDetalleUbigeo">
-                        <hr>
-                        <input type="hidden" id="intIdProducto"/>
-                        <div class="row">
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <label>Mostrar:</label>
-                              <br>
-                              <select id="num-lista" name="num-lista"  class="form-control select2">
-                                    <option value="10">Ver 10 Resultados</option>
-                                    <option value="25">Ver 25 Resultados</option>
-                                    <option value="50">Ver 50 Resultados</option>
-                                    <option value="100">Ver 100 Resultados</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="text-left">Ingresar Búsqueda:</label>
-                                <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
-                            </div>
-                          </div>
-                        </div>
-
                         
-
-                      </div>
 
                       <div class="box-footer clearfix">     
                         <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat pull-left">Generar Reporte PDF</button>
@@ -213,6 +187,37 @@ include('../_include/rstheader.php');
 
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                       
+
+                        <div id="TablaDetalleUbigeo">
+                          <hr>
+                          <input type="hidden" id="intIdProducto"/>
+                          <div class="row">
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <label>Mostrar:</label>
+                                <br>
+                                <select id="num-lista" name="num-lista"  class="form-control select2">
+                                      <option value="10">Ver 10 Resultados</option>
+                                      <option value="25">Ver 25 Resultados</option>
+                                      <option value="50">Ver 50 Resultados</option>
+                                      <option value="100">Ver 100 Resultados</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                  <label class="text-left">Ingresar Búsqueda:</label>
+                                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+                              </div>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form-group">
+                                  <input type="button" value="Volver a la Página de Inicio" class="btn btn-sm btn-danger btn-flat pull-right" style="margin-top: 25px" onclick="$('#tab-kardex-producto-btn').click()">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       <div class="table-responsive">
                         <table class="ExcelTable2007 rwd-table" width="100%">
                           <thead>
@@ -243,7 +248,7 @@ include('../_include/rstheader.php');
                       <hr>
                       
                       <div class="text-center">
-                        <nav aria-label="...">
+                        <nav aria-label="">
                           <ul id="PaginacionDeKardex" class="pagination">
                           </ul>
                         </nav>
@@ -306,9 +311,6 @@ include('../_include/rstheader.php');
             </div>
           </div>
           <!-- END Modal codigo productos-->
-
-
-
 
 <script>
   // Modal
