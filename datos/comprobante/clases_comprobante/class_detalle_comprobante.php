@@ -104,7 +104,7 @@ class DetalleComprobante
                 '<div class="result" id="result'.$i.'">'.
             '</td>'.
             '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila['nvchDescripcion'].'" readonly/></td>';
-            if($fila['intTipoDetalle'] == 1){
+            if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 9){
             echo
             '<td>'.
               '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-venta" value="'.$fila['dcmPrecio'].'" readonly />'.
@@ -130,32 +130,6 @@ class DetalleComprobante
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
               <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
           </tr>';
-        /*
-        if($fila['intIdTipoVenta'] == 1){
-          echo
-          '<tr>
-              <td class="heading" data-th="ID"></td>
-              <td>'.$i.'</td>
-              <td>'.$fila['nvchCodigo'].'</td>
-              <td>'.$fila['nvchDescripcion'].'</td>
-              <td>'.$fila['intCantidad'].'</td>
-              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
-              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
-              </tr>';
-              $i++;
-            } else if($fila['intIdTipoVenta'] == 2){
-              echo
-              '
-              <tr>
-              <td class="heading" data-th="ID"></td>
-              <td>'.$i.'</td>
-              <td>S'.$i.'</td>
-              <td>'.$fila['nvchDescripcion'].'</td>
-              <td>'.$fila['intCantidad'].'</td>
-              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecioUnitario'].'</td>
-              <td>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
-          </tr>';
-          */
           $i++;
         }
       }
