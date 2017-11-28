@@ -185,6 +185,7 @@ function CambiarMoneda(){
 
 	var funcion = "MF";
 	var nvchFecha = $("#nvchFecha").val();
+	var intIdTipoComprobante = $("#intIdTipoComprobante").val();
 	  $.ajax({
 	   url:"../../datos/administrativo/funcion_moneda_comercial.php",
 	   method:"POST",
@@ -192,51 +193,78 @@ function CambiarMoneda(){
 	   success:function(datos)
 	   {
 	   	if(intIdTipoVenta == 1){
-	   	$('table tbody#ListaDeProductosVender tr').each(function() {
-        	$(this).find("td input[name='fila[]']").each(function() {
-        		if($("#dcmPrecio"+this.value).val() != ""){
-	        		dcmPrecio = $("#dcmPrecio"+this.value).val();
-	        		dcmDescuento = $("#dcmDescuento"+this.value).val();
-	        		intCantidad = $("#intCantidad"+this.value).val();
-	        		Number(datos);
+		   	if(intIdTipoComprobante < 5){
+			   	$('table tbody#ListaDeProductosVender tr').each(function() {
+		        	$(this).find("td input[name='fila[]']").each(function() {
+		        		if($("#dcmPrecio"+this.value).val() != ""){
+			        		dcmPrecio = $("#dcmPrecio"+this.value).val();
+			        		dcmDescuento = $("#dcmDescuento"+this.value).val();
+			        		intCantidad = $("#intCantidad"+this.value).val();
+			        		Number(datos);
 
-		        	if(intIdTipoMoneda == 1) {
-		        		dcmPrecio = (dcmPrecio * datos).toFixed(2);
-		        	} else if(intIdTipoMoneda == 2){
-		        		dcmPrecio = (dcmPrecio / datos).toFixed(2);
-		        	}
+				        	if(intIdTipoMoneda == 1) {
+				        		dcmPrecio = (dcmPrecio * datos).toFixed(2);
+				        	} else if(intIdTipoMoneda == 2){
+				        		dcmPrecio = (dcmPrecio / datos).toFixed(2);
+				        	}
 
-		        	$("#dcmPrecio"+this.value).val(dcmPrecio);
+				        	$("#dcmPrecio"+this.value).val(dcmPrecio);
 
-			        if($("#dcmDescuento"+this.value).val() != ""){
-			           	dcmPrecioUnitario = (dcmPrecio - (dcmPrecio*(dcmDescuento/100))).toFixed(2);
-			        	$("#dcmPrecioUnitario"+this.value).val(dcmPrecioUnitario);
-			        }
-			        if($("#intCantidad"+this.value).val() != ""){
-			        	dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
-			        	$("#dcmTotal"+this.value).val(dcmTotal);
-			        }
-			    }
-	        }); 
-	    });
+					        if($("#dcmDescuento"+this.value).val() != ""){
+					           	dcmPrecioUnitario = (dcmPrecio - (dcmPrecio*(dcmDescuento/100))).toFixed(2);
+					        	$("#dcmPrecioUnitario"+this.value).val(dcmPrecioUnitario);
+					        }
+					        if($("#intCantidad"+this.value).val() != ""){
+					        	dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+					        	$("#dcmTotal"+this.value).val(dcmTotal);
+					        }
+					    }
+			        }); 
+			    });
+		   	} else if (intIdTipoComprobante >= 5){
+		   		$('table tbody#ListaDeProductosVender tr').each(function() {
+		        	$(this).find("td input[name='fila[]']").each(function() {
+		        		if($("#dcmPrecioUnitario"+this.value).val() != ""){
+			        		dcmPrecioUnitario = $("#dcmPrecioUnitario"+this.value).val();
+				    		intCantidad = $("#intCantidad"+this.value).val();
+				    		Number(datos);
+				    		if($("#dcmPrecioUnitario"+this.value).val() != ""){
+					        	if(intIdTipoMoneda == 1){
+					        		dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
+					        	} else if(intIdTipoMoneda == 2){
+					        		dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
+					        	}
+					        	$("#dcmPrecioUnitario"+this.value).val(dcmPrecioUnitario);
+					        }
+
+				        	if($("#intCantidad"+this.value).val() != ""){
+				        		dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+				        		$("#dcmTotal"+this.value).val(dcmTotal);
+				        	}
+					    }
+			        }); 
+			    });
+		   	}
 	   	} else if(intIdTipoVenta == 2){
 	   	$('table tbody#ListaDeServiciosVender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
-		   		dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+this.value).val();
-	    		intCantidad = $("#intCantidadS"+this.value).val();
-	    		Number(datos);
-	    		if($("#dcmPrecioUnitarioS"+this.value).val() != ""){
-		        	if(intIdTipoMoneda == 1){
-		        		dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
-		        	} else if(intIdTipoMoneda == 2){
-		        		dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
-		        	}
-		        	$("#dcmPrecioUnitarioS"+this.value).val(dcmPrecioUnitario);
-		        }
+        		if($("#dcmPrecioUnitario"+this.value).val() != ""){
+			   		dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+this.value).val();
+		    		intCantidad = $("#intCantidadS"+this.value).val();
+		    		Number(datos);
+		    		if($("#dcmPrecioUnitarioS"+this.value).val() != ""){
+			        	if(intIdTipoMoneda == 1){
+			        		dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
+			        	} else if(intIdTipoMoneda == 2){
+			        		dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
+			        	}
+			        	$("#dcmPrecioUnitarioS"+this.value).val(dcmPrecioUnitario);
+			        }
 
-	        	if($("#intCantidadS"+this.value).val() != ""){
-	        		dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
-	        		$("#dcmTotalS"+this.value).val(dcmTotal);
+		        	if($("#intCantidadS"+this.value).val() != ""){
+		        		dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+		        		$("#dcmTotalS"+this.value).val(dcmTotal);
+		        	}
 	        	}
         	}); 
 	    });

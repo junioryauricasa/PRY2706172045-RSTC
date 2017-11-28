@@ -294,8 +294,15 @@
                       try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
-                      $sql_comando->execute(array(':intTipoDetalle' => $intTipoDetalle));
+                      $sql_comando;
+                      if($intIdTipoComprobante == 0){
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante(:intTipoDetalle)');
+                        $sql_comando->execute(array(':intTipoDetalle' => $intTipoDetalle));
+                      }
+                      else if ($intIdTipoComprobante != 0){
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipocomprobante_es(:intTipoDetalle,:intIdTipoComprobante)');
+                        $sql_comando->execute(array(':intTipoDetalle' => $intTipoDetalle, ':intIdTipoComprobante' => $intIdTipoComprobante));
+                      }
                       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                       {
                         echo '<option value="'.$fila['intIdTipoComprobante'].'">'.$fila['nvchNombre'].'</option>';

@@ -51,7 +51,8 @@ DELIMITER $$
 		IN _inTipoDetalle INT)
 	BEGIN
 		SELECT * FROM tb_tipo_comprobante
-		WHERE intTipoDetalle = _inTipoDetalle;
+		WHERE intTipoDetalle = _inTipoDetalle
+		LIMIT 4;
     END 
 $$
 DELIMITER ;
