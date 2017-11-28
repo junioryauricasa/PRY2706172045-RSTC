@@ -25,19 +25,19 @@ function EliminarFilasVacias() {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
-function MostrarDetalleVenta(intIdVenta,tipolistado) {
+function MostrarDetalleCotizacion(intIdCotizacion,tipolistado) {
 	var funcion = "MDV";
 	  $.ajax({
-	   url:"../../datos/comprobante/funcion_comprobante.php",
+	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdVenta:intIdVenta,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
-	   	if($("#intIdTipoVenta").val() == 1){
-	   		$("#ListaDeProductosComprar").html(datos);
-	   	} else if($("#intIdTipoVenta").val() == 2){
-	   		$("#ListaDeServiciosComprar").html(datos);
-	   	}
+	   	if(intIdTipoVenta == 1)
+	   		$("#ListaDeProductosVender").html(datos);
+	   	else if(intIdTipoVenta == 2)
+	   		$("#ListaDeServiciosVender").html(datos);
+	   	CalcularTotal();
 	   }
 	  });
 }
@@ -46,11 +46,11 @@ function MostrarDetalleVenta(intIdVenta,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Campos */
-function CamposDetalleVenta(accion) {
+function CamposDetalleCotizacion(accion) {
 	if(accion == "I"){
-		$("#CamposDetalleVenta").show();
+		$("#CamposDetalleCotizacion").show();
 	} else if (accion == "C") {
-		$("#CamposDetalleVenta").hide();
+		$("#CamposDetalleCotizacion").hide();
 	}
 }
 /* FIN - Ocultar Campos */
@@ -61,21 +61,21 @@ function CamposDetalleVenta(accion) {
 function CalcularPrecioTotal(accion) {
 	var intIdTipoCliente = $("#intIdTipoCliente").val();
 	var intIdProducto = $(accion).attr("idsprt");
-	var dcmDescuentoVenta2 = $("#dcmDescuentoVenta2"+intIdProducto).val();
-	var dcmDescuentoVenta3 = $("#dcmDescuentoVenta3"+intIdProducto).val();
+	var dcmDescuentoCotizacion2 = $("#dcmDescuentoCotizacion2"+intIdProducto).val();
+	var dcmDescuentoCotizacion3 = $("#dcmDescuentoCotizacion3"+intIdProducto).val();
 	var dcmDescuento = $("#dcmDescuento"+intIdProducto).val();
 	var intCantidad = $("#intCantidad"+intIdProducto).val();
 	if((dcmDescuento == "" || dcmDescuento == null) && (intCantidad == "" || intCantidad == null)){
 		return false;
 	} else {
 		if(intIdTipoCliente == 1) {
-			if(Number(dcmDescuento) > dcmDescuentoVenta2) {
+			if(Number(dcmDescuento) > dcmDescuentoCotizacion2) {
 				MensajeNormal("Sobrepasa al descuento 2",2);
 				$("#dcmDescuento"+intIdProducto).val("");
 				return false;
 			}
 		} else if (intIdTipoCliente == 2) {
-			if(Number(dcmDescuento) > dcmDescuentoVenta3) {
+			if(Number(dcmDescuento) > dcmDescuentoCotizacion3) {
 				MensajeNormal("Sobrepasa al descuento 3",2);
 				$("#dcmDescuento"+intIdProducto).val("");
 				return false;
@@ -85,8 +85,8 @@ function CalcularPrecioTotal(accion) {
 			$("#dcmDescuento"+intIdProducto).val("");
 			return false
 		}
-		var dcmPrecioVenta1 = $("#dcmPrecio"+intIdProducto).val();
-		var dcmPrecioUnitario = (dcmPrecioVenta1 - (dcmPrecioVenta1*(dcmDescuento/100))).toFixed(2);
+		var dcmPrecioCotizacion1 = $("#dcmPrecio"+intIdProducto).val();
+		var dcmPrecioUnitario = (dcmPrecioCotizacion1 - (dcmPrecioCotizacion1*(dcmDescuento/100))).toFixed(2);
 		$("#dcmPrecioUnitario"+intIdProducto).val(dcmPrecioUnitario);
 
 		if (intCantidad == "" || intCantidad == null) {
@@ -149,7 +149,7 @@ function CalcularPrecioTotalM(accion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CambiarMoneda(){
-	var intIdTipoVenta = $("#intIdTipoVenta").val();
+	var intIdTipoCotizacion = $("#intIdTipoCotizacion").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var dcmDescuento = 0.00;
 	var intCantidad = 0;
@@ -169,7 +169,7 @@ function CambiarMoneda(){
 	   data:{funcion:funcion},
 	   success:function(datos)
 	   {
-	   	if(intIdTipoVenta == 1){
+	   	if(intIdTipoCotizacion == 1){
 	   	$('table tbody#ListaDeProductosVender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
         		if($("#dcmPrecio"+this.value).val() != ""){
@@ -197,7 +197,7 @@ function CambiarMoneda(){
 			    }
 	        }); 
 	    });
-	   	} else if(intIdTipoVenta == 2){
+	   	} else if(intIdTipoCotizacion == 2){
 	   	$('table tbody#ListaDeServiciosVender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
 		   		dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+this.value).val();
@@ -229,7 +229,7 @@ function CambiarMoneda(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
-	var intIdTipoVenta = $("#intIdTipoVenta").val();
+	var intIdTipoCotizacion = $("#intIdTipoCotizacion").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var nvchSimbolo = "";
 
@@ -239,36 +239,36 @@ function CalcularTotal(){
 		nvchSimbolo = "US$";
 	}
 
-	var VentaTotal = 0.00;
-	var IGVVenta = 0.00;
-	var ValorVenta = 0.00;
-	Number(IGVVenta);
-	Number(VentaTotal);
-	Number(ValorVenta);
+	var CotizacionTotal = 0.00;
+	var IGVCotizacion = 0.00;
+	var ValorCotizacion = 0.00;
+	Number(IGVCotizacion);
+	Number(CotizacionTotal);
+	Number(ValorCotizacion);
 
-	if(intIdTipoVenta == 1){
+	if(intIdTipoCotizacion == 1){
 		$('table tbody#ListaDeProductosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotal[]']").each(function() {
-	            VentaTotal = VentaTotal + Number(this.value);
+	            CotizacionTotal = CotizacionTotal + Number(this.value);
 	        }); 
 	    });
-	    ValorVenta = (VentaTotal / 1.18).toFixed(2);
-	    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-	    VentaTotal = VentaTotal.toFixed(2);
-	} else if(intIdTipoVenta == 2) {
+	    ValorCotizacion = (CotizacionTotal / 1.18).toFixed(2);
+	    IGVCotizacion = (CotizacionTotal - ValorCotizacion).toFixed(2);
+	    CotizacionTotal = CotizacionTotal.toFixed(2);
+	} else if(intIdTipoCotizacion == 2) {
 		$('table tbody#ListaDeServiciosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotalS[]']").each(function() {
-	            VentaTotal = VentaTotal + Number(this.value);
+	            CotizacionTotal = CotizacionTotal + Number(this.value);
 	        }); 
 	    });
-	    ValorVenta = (VentaTotal / 1.18).toFixed(2);
-	    IGVVenta = (VentaTotal - ValorVenta).toFixed(2);
-	    VentaTotal = VentaTotal.toFixed(2);
+	    ValorCotizacion = (CotizacionTotal / 1.18).toFixed(2);
+	    IGVCotizacion = (CotizacionTotal - ValorCotizacion).toFixed(2);
+	    CotizacionTotal = CotizacionTotal.toFixed(2);
 	}
 
-	$("#ValorVenta").val(nvchSimbolo + ' ' + ValorVenta);
-    $("#IGVVenta").val(nvchSimbolo + ' ' + IGVVenta);
-	$("#VentaTotal").val(nvchSimbolo + ' ' + VentaTotal);
+	$("#ValorCotizacion").val(nvchSimbolo + ' ' + ValorCotizacion);
+    $("#IGVCotizacion").val(nvchSimbolo + ' ' + IGVCotizacion);
+	$("#CotizacionTotal").val(nvchSimbolo + ' ' + CotizacionTotal);
 }
 /* FIN - Calcula el Total del Comprobante */
 //////////////////////////////////////////////////////////////
@@ -281,13 +281,13 @@ function VerImagenProducto(seleccion) {
     $("#CuadroImagenTitulo").css("color", "#FFFFFF");
     $("#CuadroImagenFooter").css("background-color", "#cfd8dc");
     $("#CuadroImagenTitulo").html("Imágen del Producto");
-	//$("#DireccionImgProducto").html("<img class='img-responsive center-block' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+	//$("#DireccionImgProducto").html("<img class='img-responsive center-block' src='../../datos/inCotizacionrio/imgproducto/"+nvchDireccionImg+"' />");
 
 	/* Mostrara una imagen nula si el producto no posee imagen */
 	if(!nvchDireccionImg){
-		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inventario/imgproducto/productosinfoto.png'/>");
+		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inCotizacionrio/imgproducto/productosinfoto.png'/>");
 	}else{
-		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inventario/imgproducto/"+nvchDireccionImg+"' />");
+		$("#DireccionImgProducto").html("<img class='img-responsive center-block' style='width: 400px' src='../../datos/inCotizacionrio/imgproducto/"+nvchDireccionImg+"' />");
 	}
 	
 	$("#CuadroImagen").modal("show");
@@ -302,7 +302,7 @@ function VerDetalleUbigeo(seleccion) {
 	var intIdProducto = $(seleccion).attr("id");
 	var funcion = "VDU";
 	  $.ajax({
-	   url:"../../datos/inventario/funcion_producto.php",
+	   url:"../../datos/inCotizacionrio/funcion_producto.php",
 	   method:"POST",
 	   data:{intIdProducto:intIdProducto,funcion:funcion},
 	   success:function(datos)
@@ -326,33 +326,9 @@ function LimpiarDetalleUbigeo() {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Listar Domicilios según Ingresa */
-function InsertarCotizacion(seleccion) {
-	var intIdCotizacion = $(seleccion).attr("idct");
-	var funcion = "ICT";
-	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
-
-	$.ajax({
-	   url:"../../datos/comprobante/funcion_comprobante.php",
-	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,num:num},
-	   success:function(datos)
-	   {
-	   	EliminarFilasVacias();
-	   	$("#ListaDeProductosVender").append(datos); 
-	   	ReestablecerNumeracionFilas();
-	   	CalcularTotal();
-	   	$("#formCotizacion").modal("hide");
-	   }
-	});
-}
-/* FIN - Listar Domicilios según Ingresa */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
 /* INICIO - Reestablecer Numeración de Filas */
 function ReestablecerNumeracionFilas(){
-	var num_filas_ventas = document.getElementById('ListaDeProductosVender').rows.length;
+	var num_filas_Cotizacions = document.getElementById('ListaDeProductosVender').rows.length;
 	$('table tbody#ListaDeProductosVender tr').each(function() {
         $(this).find("td input[name='fila[]']").each(function() {
             	num = this.value;

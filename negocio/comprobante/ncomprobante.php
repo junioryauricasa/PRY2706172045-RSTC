@@ -281,6 +281,7 @@ function LimpiarCampos(){
   else if($("#intTipoDetalle").val() == 2 && $("#intIdTipoComprobanteI").val() == 10)
     $("#intIdTipoComprobante").val(10);
 	$("#intIdTipoVenta").val(1);
+  $("#intIdTipoVenta").change();
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
 	$("#ListaDeProductosVender").html("");
@@ -447,12 +448,6 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   dataType:"json",
 	   success:function(datos)
 	   {
-	   	//alert(datos);
-	   	/*
-	   	$("#formulario-crud").html(datos);
-	   	goToBox("#Formulario");
-	   	$("#tipo-comprobante").val($("#intIdTipoComprobante").val());
-	   	*/
 	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
 	   	$("#intIdSucursal").val(datos.intIdSucursal);
 	   	$("#intIdTipoComprobante").val(datos.intIdTipoComprobante);

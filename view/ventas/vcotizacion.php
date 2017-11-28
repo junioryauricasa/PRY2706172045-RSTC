@@ -15,157 +15,6 @@ require_once '../../datos/conexion/bd_conexion.php';
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript">
-    var num = 2;
-    var nums = 2;
-    var numfila = 0;
-    $(document).on('keyup', '.buscar', function(){
-      $(this).closest('tr').find("input[name='fila[]']").each(function() {
-         numfila = this.value;
-      });
-
-      var search = $(this).val();
-      search = search.replace(/\s/g,'');
-      var funcion = "BP"
-      if(search != '')
-      {
-          var intIdTipoMoneda = $("#intIdTipoMoneda").val();
-          $.ajax({
-          type: "POST",
-          url: "../../datos/inventario/funcion_producto.php",
-          data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
-          cache: false,
-          success: function(html)
-          {
-            $("#result"+numfila).html(html).show();
-          }
-          });
-      }
-      else {
-        $("#result"+numfila).html("").hide();
-      }
-      return false; 
-    });
-
-    $(document).on('click', '.result', function(e){
-      var clicked = $(e.target);
-      if(!clicked.find('.nvchCodigo').html()) {
-        $("#formProducto").modal("show");
-      } else {
-        var nvchCodigo = clicked.find('.nvchCodigo').html();
-        var intIdProducto = clicked.find('.intIdProducto').val();
-        nvchCodigo = nvchCodigo.replace(/\s/g,'');
-        intIdProducto = intIdProducto.replace(/\s/g,'');
-        $('#nvchCodigo'+numfila).val(nvchCodigo);
-        $(".result").html("").hide();
-        InsertarProductoElegido(intIdProducto,numfila);
-      }
-      numfila = 0;
-    });
-
-    $(document).on('click', '.buscar', function(){
-      $(".result").html("").hide();
-    });
-
-    $(document).on('click', function(e){
-      var clicked = $(e.target);
-      if (!clicked.hasClass("buscar")){
-        $(".result").html("").hide();
-      }
-    });
-
-    function InsertarProductoElegido(intIdProducto,id){
-      var funcion = "SP";
-      var intIdTipoMoneda = $("#intIdTipoMoneda").val();
-      $.ajax({
-       url:"../../datos/inventario/funcion_producto.php",
-       method:"POST",
-       data:{intIdProducto:intIdProducto,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
-       dataType:"json",
-       success:function(datos)
-       {
-        $("#intIdProducto"+id).val(datos.intIdProducto);
-        $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
-        $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
-        $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);
-        $("#dcmDescuentoVenta3"+id).val(datos.dcmDescuentoVenta3);
-       }
-      });
-    }
-
-    function AgregarFila(intIdTipoVenta){
-    if(intIdTipoVenta == 1){
-        $('#ListaDeProductosVender').append(
-        '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-cotizacion" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-cotizacion" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-cotizacion" />'+
-              '<div class="result" id="result'+num+'">'+
-          '</td>'+
-          '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-cotizacion" readonly/></td>'+
-          '<td>'+
-            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-cotizacion" readonly />'+
-            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-cotizacion" readonly />'+
-            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-cotizacion" readonly />'+
-          '</td>'+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-cotizacion" idsprt="'+num+'"'+
-            'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-cotizacion" readonly/></td>'+
-          '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-cotizacion" idsprt="'+num+'"'+
-            'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-cotizacion" readonly/></td>'+
-          '<td>'+
-            '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
-          '</td>'+
-        '</tr>');
-        num++;
-      } else if(intIdTipoVenta == 2){
-        $('#ListaDeServiciosVender').append(
-        '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
-          '<td>'+
-            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-cotizacion" />'+
-            '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-cotizacion" rows="4"></textarea>'+
-            //'<input type="text" style="width: 100%" id="nvchDescripcionS'+nums+'" name="nvchDescripcionS[]" form="form-cotizacion" />'+
-          '</td>'+
-          '<td>'+
-            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-cotizacion" onkeyup="CalcularPrecioTotalS(this)"/>'+
-          '</td>'+
-          '<td>'+
-            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-cotizacion" onkeyup="CalcularPrecioTotalS(this)"/>'+
-          '</td>'+
-          '<td>'+
-            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-cotizacion" readonly/>'+
-          '</td>'+
-          '<td style="width: 25px !important" >'+
-            '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
-                '<i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>' +
-            '</button>'+
-          '</td>'+
-        '</tr>');
-        nums++;
-      }
-    }
-
-    function formCliente(){
-      $("#formCliente").modal("show");
-    }
-
-    function ElegirTabla(intIdTipoVenta){
-      if(intIdTipoVenta == 1){
-        $("#tablaRepuestos").show();
-        $("#tablaServicios").hide();
-        $("#tablaMaquinarias").hide();
-        CalcularTotal();
-      } else if(intIdTipoVenta == 2) {
-        $("#tablaRepuestos").hide();
-        $("#tablaServicios").show();
-        $("#tablaMaquinarias").hide();
-        CalcularTotal();
-      }
-    }
-    </script>
     <style>
     textarea.textoarea:first-line { font-weight: bold; }
     .pagination a {
@@ -238,26 +87,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <label>Fecha Actual:</label>
                   <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" readonly form="form-cotizacion"/>
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label>Lugar de Venta:</label>
-                  <select onchange="MostrarSeleccionCotizacion()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-cotizacion">
-                  <?php 
-                    try{   
-                    $sql_conexion = new Conexion_BD();
-                    $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
-                    $sql_comando->execute();
-                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                    {
-                      echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
-                    }
-                  }catch(PDPExceptions $e){
-                    echo $e->getMessage();
-                  }?>
-                  </select>
                 </div>
               </div>
               <div class="col-md-2">
@@ -594,13 +423,14 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-12">
                 <div class="form-group">
                   <input type="hidden" name="funcion" value="I" form="form-cotizacion">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-cotizacion">
-                  <button type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary" form="form-cotizacion">
-                    Realizar Cotización
-                  </button>
+                  <div class="text-center">
+                    <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización" form="form-cotizacion">
+                    <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-success" value="Nueva Cotización" form="form-cotizacion">
+                  </div>
                 </div>
               </div>
               <div class="col-md-10">
@@ -630,6 +460,13 @@ require_once '../../datos/conexion/bd_conexion.php';
                 <div class="form-group">
                     <label class="text-left">Ingresar Búsqueda:</label>
                     <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="text-right">
+                  <div class="form-group">
+                    <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Cotización"/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -708,16 +545,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </ul>
               </nav>
             </div>
-            <div class="row">
-              <script type="text/javascript">TotalCotizacion();</script>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <button type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-primary" form="form-cotizacion">
-                    Nueva Cotización
-                  </button>
-                </div>
-              </div>
-            </div>
+            <script type="text/javascript">TotalCotizacion();</script>
           </div>
           <!-- FIN - Formulario Listar Venta -->
         </div>

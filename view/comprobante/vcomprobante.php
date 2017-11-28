@@ -314,11 +314,11 @@
                 </div>
               </div>
               <div class="col-md-6">
-              <div class="text-right">
-                <div class="form-group">
-                  <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva <?php echo $lblTituloSingular; ?>"/>
+                <div class="text-right">
+                  <div class="form-group">
+                    <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva <?php echo $lblTituloSingular; ?>"/>
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
             <div class="row">

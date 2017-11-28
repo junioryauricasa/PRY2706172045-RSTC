@@ -102,34 +102,28 @@ class Cotizacion{
       $sql_comando -> execute(array(':intIdCotizacion' => $this->intIdCotizacion));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-      $FormularioCotizacion = new FormularioCotizacion();
-      $FormularioCotizacion->IdCotizacion($fila['intIdCotizacion']);
-      $FormularioCotizacion->Serie($fila['nvchSerie']);
-      $FormularioCotizacion->Numeracion($fila['nvchNumeracion']);
-      $FormularioCotizacion->IdUsuario($fila['intIdUsuario']);
-      $FormularioCotizacion->IdCliente($fila['intIdCliente']);
-      $FormularioCotizacion->Atencion($fila['nvchAtencion']);
-      $FormularioCotizacion->IdTipoMoneda($fila['intIdTipoMoneda']);
-      $FormularioCotizacion->IdTipoPago($fila['intIdTipoPago']);
-      $FormularioCotizacion->DiasValidez($fila['intDiasValidez']);
-      $FormularioCotizacion->IdTipoVenta($fila['intIdTipoVenta']);
-      $FormularioCotizacion->Tipo($fila['nvchTipo']);
-      $FormularioCotizacion->Modelo($fila['nvchModelo']);
-      $FormularioCotizacion->Marca($fila['nvchMarca']);
-      $FormularioCotizacion->Horometro($fila['nvchHorometro']);
-      
-      $FormularioCotizacion->NombreUsuario($fila['NombreUsuario']);
-      $FormularioCotizacion->NombreCliente($fila['NombreCliente']);
-      $FormularioCotizacion->DNICliente($fila['DNICliente']);
-      $FormularioCotizacion->RUCCliente($fila['RUCCliente']);
-      $FormularioCotizacion->SimboloMoneda($fila['SimboloMoneda']);
-      $FormularioCotizacion->NombrePago($fila['NombrePago']);
-      $FormularioCotizacion->NombreVenta($fila['NombreVenta']);
+      $salida['intIdCotizacion'] = $fila['intIdCotizacion'];
 
-      $FormularioCotizacion->FechaCreacion($fila['dtmFechaCreacion']);
-      $FormularioCotizacion->Observacion($fila['nvchObservacion']);
-      //$FormularioCotizacion->ConsultarFormulario($funcion);
-      $FormularioCotizacion->MostrarDetalle();
+      $salida['dtmFechaCreacion'] = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
+      //$salida['nvchSerie'] = $fila['nvchSerie'];
+      //$salida['nvchNumeracion'] = $fila['nvchNumeracion'];
+      $salida['intIdTipoVenta'] = $fila['intIdTipoVenta'];
+      $salida['intIdTipoMoneda'] = $fila['intIdTipoMoneda'];
+      $salida['intIdTipoPago'] = $fila['intIdTipoPago'];
+
+      $salida['nvchDNIRUC'] = $fila['nvchDNIRUC'];
+      $salida['nvchClienteProveedor'] = $fila['nvchClienteProveedor'];
+      $salida['nvchDireccion'] = $fila['nvchDireccion'];
+      $salida['TipoCliente'] = $fila['TipoCliente'];
+      $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['intDiasValidez'] = $fila['intDiasValidez'];
+      $salida['nvchTipo'] = $fila['nvchTipo'];
+      $salida['nvchModelo'] = $fila['nvchModelo'];
+      $salida['nvchMarca'] = $fila['nvchMarca'];
+      $salida['nvchHorometro'] = $fila['nvchHorometro'];
+      $salida['intIdCliente'] = $fila['intIdCliente'];
+      $salida['nvchObservacion'] = $fila['nvchObservacion'];
+      echo json_encode($salida);
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
