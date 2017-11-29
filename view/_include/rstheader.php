@@ -191,7 +191,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 </li>
               </ul>
             </li>
-            <li class="" id=""><a href="../inventario/vmaquinaria">Equipos</a></li>
+            <li class="" id=""><a href="../equipo/vcotizacionequipo">Equipos</a></li>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Mi Cuenta 

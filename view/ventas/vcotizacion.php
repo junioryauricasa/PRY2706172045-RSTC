@@ -250,12 +250,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <input type="button" onclick="AgregarFila($('#intIdTipoVenta').val())" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label>Seleccionar Cotización:</label>
-                  <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
-                </div>
-              </div>
             </div>
 
             <!-- INICIO Tabla - Repuestos -->
