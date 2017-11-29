@@ -360,7 +360,7 @@ class Usuario
     	        <td>'.$fila["NombreTipoUsuario"].'</td>
     	        <td>'.$fila["bitUserEstado"].'</td>
     	        <td> 
-    	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-warning btn-mostrar-usuario">
+    	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-warning btn-mostrar-usuario" onclick="clickdetallesUsuario()">
     	            <i class="fa fa-edit"></i> Editar
     	          </button>
     	          <button type="submit" id="'.$fila["intIdUsuario"].'" class="btn btn-xs btn-danger btn-eliminar-usuario">

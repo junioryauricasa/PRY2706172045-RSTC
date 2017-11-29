@@ -29,7 +29,7 @@
       }
     </style>
   <div class="content-wrapper">
-    <section class="content-header">
+    <!--section class="content-header">
       <h1>
         Administrar Usuario
         <small>Módulo de Usuario</small>
@@ -39,80 +39,93 @@
         <li><a href="#">Layout</a></li>
         <li class="active">Estatico</li>
       </ol>
-    </section>
+    </section-->
 
     <!-- Main content -->
     <section class="content">
       <!-- TABLE: LATEST USERS -->
-      <div class="box box-info">
-        <div class="box-header with-border">
-          <h3 class="box-title">Registro de Usuarios</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Mostrar:</label>
-                <br>
-                <select id="num-lista" name="num-lista"  class="form-control select2" >
-                      <option value="10">Seleccionar</option>
-                      <option value="10">Ver 10 Resultados</option>
-                      <option value="25">Ver 25 Resultados</option>
-                      <option value="50">Ver 50 Resultados</option>
-                      <option value="100">Ver 100 Resultados</option>
-                </select>
-              </div>
+      <div class="nav-tabs-custom">
+
+            <ul class="nav nav-tabs">
+              <li class="active">
+                  <a href="#tab_1" data-toggle="tab" id="tab-listado-usuario-btn">Administrar Usuarios</a>
+              </li>
+              <li>
+                  <a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulário de Usuarios</a>
+              </li>
+            </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="">
+                        <h3 class="">Registro de Usuarios</h3>
+                        <div class="">
+                        </div>
+                      </div>
+                      <div class="">
+                        <div class="row">
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Mostrar:</label>
+                              <br>
+                              <select id="num-lista" name="num-lista"  class="form-control select2" >
+                                    <option value="10">Seleccionar</option>
+                                    <option value="10">Ver 10 Resultados</option>
+                                    <option value="25">Ver 25 Resultados</option>
+                                    <option value="50">Ver 50 Resultados</option>
+                                    <option value="100">Ver 100 Resultados</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="text-left">Ingresar Búsqueda:</label>
+                                <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="table-responsive">
+                          <table  class="ExcelTable2007 rwd-table" width="100%">
+                            <thead>
+                            <tr>
+                              <th class="heading" width="25px">&nbsp;</th>
+                              <th>DNI</th>
+                              <th>Nombres y Apellidos</th>
+                              <th>Usuario</th>
+                              <th>Tipo Usuario</th>
+                              <th>Estado</th>
+                              <th>Opciones</th>
+                            </tr>
+                            </thead>
+                            <tbody id="ListaDeUsuarios">
+                              <script>ListarUsuario(0,10,"T");</script>
+                            </tbody>
+                          </table>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                          <nav aria-label="...">
+                            <ul id="PaginacionDeUsuarios" class="pagination">
+                              <script>PaginarUsuario(0,10,"T");</script>
+                            </ul>
+                          </nav>
+                        </div>
+                        <br>
+                        <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" onclick="clickdetallesUsuario()">Agregar Usuario</button>
+                      </div> 
+                  </div>                 
+                </div>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                  <label class="text-left">Ingresar Búsqueda:</label>
-                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
-              </div>
+
+            <div class="tab-pane active" id="tab_2">    
+                <div class="result"></div>
+                <div id="formulario-crud"></div>
+                <div id="resultadocrud"></div>
             </div>
-          </div>
-          <div class="table-responsive">
-            <table  class="ExcelTable2007 rwd-table" width="100%">
-              <thead>
-              <tr>
-                <th class="heading" width="25px">&nbsp;</th>
-                <th>DNI</th>
-                <th>Nombres y Apellidos</th>
-                <th>Usuario</th>
-                <th>Tipo Usuario</th>
-                <th>Estado</th>
-                <th>Opciones</th>
-              </tr>
-              </thead>
-              <tbody id="ListaDeUsuarios">
-                <script>ListarUsuario(0,10,"T");</script>
-              </tbody>
-            </table>
-          </div>
-          <hr>
-          <div class="text-center">
-            <nav aria-label="...">
-              <ul id="PaginacionDeUsuarios" class="pagination">
-                <script>PaginarUsuario(0,10,"T");</script>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left">Agregar Usuario</button>
         </div>
       </div>
-
-      <div>
-        <div class="result"></div>
-      </div>
-
-      <div id="formulario-crud"></div>
-      <div id="resultadocrud"></div>
     </section>
   </div>
 
@@ -143,9 +156,13 @@
 
   
 <script>
-  $('#modalcust').modal({
-    keyboard: false
-  });
+
+  function clickdetallesUsuario(){
+      $('#tab-detalles-usuario-btn').click();
+  }
+  function clienteslistado(){
+      $('#tab-listado-usuario-btn').click();
+  }
 </script>
 <style>
   input{

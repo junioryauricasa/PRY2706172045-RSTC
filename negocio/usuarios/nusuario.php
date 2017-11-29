@@ -49,8 +49,9 @@ $(document).on('click', '#btn-crear-usuario', function(){
 	   		MensajeNormal("Se agregó correctamente el nuevo Usuario",1);
 	   		$('#txt-busqueda').val("");
 	   		ListarUsuario(x,y,tipolistado);
-	   		PaginarUsuario(x,y,tipolistado);
+	   		PaginarUsuario(x,y,tipolistado);clienteslistado();
 	   		$("#btn-form-usuario-remove").click();
+	   		$("#formulario-crud").html(datos);//resetear los datos
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -110,10 +111,12 @@ $(document).on('click', '#btn-editar-usuario', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente el Usuario",1);
+	   		MensajeNormal("Se modificaron correctamente los datos",1);
+	   		clienteslistado();
 	   		ListarUsuario(x,y,tipolistado);
 	   		PaginarUsuario(x,y,tipolistado);
 	   		$("#btn-form-usuario-remove").click();
+	   		$("#formulario-crud").html(datos);//resetear los datos
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
