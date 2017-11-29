@@ -108,7 +108,17 @@ $(document).on('click', '#btn-editar-ordencompra', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Proveedor */
 $(document).on('click', '.btn-eliminar-ordencompra', function(){
-  	  var intIdOrdenCompra = $(this).attr("id");
+	
+	var idreg = $(this).attr("id");
+
+	//alert(idreg);
+
+	$('.mi-modal').modal('show');//mostrando modal
+	
+	//alert(idreg);
+	$(document).on('click', '.modal-btn-si', function(){
+	//$(document).on('click', '.btn-eliminar-ordencompra', function(){
+  	  var intIdOrdenCompra = idreg;
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "D";
@@ -121,13 +131,19 @@ $(document).on('click', '.btn-eliminar-ordencompra', function(){
 	   {
 	   	if (datos=="ok") { 
 	   		MensajeNormal("Se anuló correctamente el Orden de Compra",1);
+	   		$('.mi-modal').modal('hide');
 	   		ListarOrdenCompra(x,y,tipolistado);
 	   		PaginarOrdenCompra(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+			   }
+
+		  });
+	});
+
+	$(document).on('click', '.modal-btn-no', function(){
+		$('.mi-modal').modal('hide');
+	});
 });
 /* FIN - Funcion Ajax - Eliminar Proveedor */
 //////////////////////////////////////////////////////////////
