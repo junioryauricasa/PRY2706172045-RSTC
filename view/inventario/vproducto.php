@@ -103,16 +103,16 @@ require_once '../../datos/conexion/bd_conexion.php';
 			              <thead>
 			              <tr>
 			                <th class="heading" width="25px">&nbsp;</th>
-			                <th style="min-width: 50px; max-width: 50px">Código</th>
-			                <th>Descripción</th>
-			                <th>Tipo de Moneda Venta</th>
-			                <th>Precio de Venta 1</th>
-			                <th>Precio de Venta 2</th>
-			                <th>Precio de Venta 3</th>
-			                <th>Cant. Total</th>
-			                <th>Ubicación</th>
-			                <th>Imágen</th>
-			                <th>Opciones</th>
+			                <th style="width: 120px">Código</th>
+			                <th style="width: 500px">Descripción</th>
+			                <th style="width: 150px">Moneda de Venta</th>
+			                <th style="width: 125px">Precio de Venta 1</th>
+			                <th style="width: 125px">Precio de Venta 2</th>
+			                <th style="width: 125px">Precio de Venta 3</th>
+			                <th style="width: 90px">Cant. Total</th>
+			                <th style="width: 80px">Ubicación</th>
+			                <th style="width: 70px">Imágen</th>
+			                <th style="width: 100px; text-align:center">Opciones</th>
 			              </tr>
 			              </thead>
 			              <tbody id="ListaDeProductos">

@@ -135,16 +135,11 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
             <td style="font-family: Calibri;"><small>'.$fila["intCantidadEntrada"].'</small></td>
             <td style="font-family: Calibri;"><small>'.$fila["intCantidadSalida"].'</small></td>
             <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</small>
-            </td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</small>
-            </td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</small>
-            </td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</small>
-            </td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</small>
-            </td> 
+            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</small></td>
+            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</small></td> 
         </tr>';
         $j++;
       }

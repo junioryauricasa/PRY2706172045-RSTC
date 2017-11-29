@@ -142,17 +142,17 @@ include('../_include/rstheader.php');
                           <table class="ExcelTable2007 rwd-table" width="100%">
                             <thead>
                             <tr>
-                              <th class="heading" width="25px">&nbsp;</th>
-                              <th>Código</th>
-                              <th>Descripción</th>
-                              <th>Tipo de Moneda</th>
-                              <th>Precio de Venta 1</th>
-                              <th>Precio de Venta 2</th>
-                              <th>Precio de Venta 3</th>
-                              <th>Cant. Total</th>
-                              <th>Ubicación</th>
-                              <th>Imágen</th>
-                              <th>Opciones</th>
+                              <th class="heading" style="width: 25px !important">&nbsp;</th>
+                              <th style="width: 120px">Código</th>
+                              <th style="width: 400px">Descripción</th>
+                              <th style="width: 125px">Tipo de Moneda</th>
+                              <th style="width: 125px">Precio de Venta 1</th>
+                              <th style="width: 125px">Precio de Venta 2</th>
+                              <th style="width: 125px">Precio de Venta 3</th>
+                              <th style="width: 100px">Cant. Total</th>
+                              <th style="width: 95px">Ubicación</th>
+                              <th style="width: 55px">Imágen</th>
+                              <th style="width: 95px">Opciones</th>
                             </tr>
                             </thead>
                             <tbody id="ListaDeProductos">

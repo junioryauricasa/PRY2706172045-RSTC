@@ -116,4 +116,8 @@
   array (
     'normal' => DOMPDF_FONT_DIR . '402f4e06d242a1ee73222e2311acc6e3',
   ),
+  'elegance' => 
+  array (
+    'normal' => DOMPDF_FONT_DIR . '6f19c9e3a03bf4bfd9187749fb698cbe',
+  ),
 ) ?>

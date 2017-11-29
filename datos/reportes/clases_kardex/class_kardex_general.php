@@ -68,15 +68,15 @@ class KardexGeneral
 
         echo 
         '<tr>
-            <td class="heading" data-th="ID"></td>
-            <td>'.$j.'</td>
-            <td>'.$fila["dtmFechaMovimiento"].'</td>
-            <td>'.$fila["nvchCodigo"].'</td>
-            <td>'.$fila["nvchDescripcion"].'</td>
-            <td>'.$fila["CantidadEntradaTotal"].'</td>
-            <td>'.$fila["CantidadSalidaTotal"].'</td>
-            <td>'.$fila["intCantidadStock"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td> 
+            <td class="heading" data-th="ID" style="width: 25px !important"></td>
+            <td style="width: 30px; text-align: center">'.$j.'</td>
+            <td style="width: 100px; text-align: center">'.$fila["dtmFechaMovimiento"].'</td>
+            <td style="width: 140px; text-align: center">'.$fila["nvchCodigo"].'</td>
+            <td style="width: 450px">'.$fila["nvchDescripcion"].'</td>
+            <td style="width: 100px; text-align: center">'.$fila["CantidadEntradaTotal"].'</td>
+            <td style="width: 120px; text-align: center">'.$fila["CantidadSalidaTotal"].'</td>
+            <td style="width: 120px; text-align: center">'.$fila["intCantidadStock"].'</td>
+            <td style="width: 120px; text-align: center">'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td> 
         </tr>';
         $j++;
       }
