@@ -8,8 +8,37 @@
   <head>
   <style>
       @page { 
-          margin: 25px 25px; 
+          margin: 25px;
       }
+          /* Forms para header y footer */
+      #header { 
+        left: 0px; 
+        top: 0px; 
+        right: 0px;
+        text-align: center; 
+      }
+      
+      /*
+      #footer { 
+        position: fixed; 
+        left: 0px; 
+        bottom: 0px; 
+        right: 0px;
+        height: 130px;
+        text-align: center; 
+      }
+      */
+      #footer {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          text-align: right;
+          /*
+          border-top: 1px solid gray;
+          */
+          height: 20px
+      }
+      #footer .page:after { content: counter(page, upper-roman); }
   </style>
   </head>
   <body>

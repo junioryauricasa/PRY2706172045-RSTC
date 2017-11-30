@@ -160,7 +160,8 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
     $dompdf->set_paper($paper,$orientation);
     $dompdf->load_html($html);
     $dompdf->render();
-    $dompdf->stream($filename.".pdf");
+    //$dompdf->stream($filename.".pdf");
+    $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
   $filename = 'Reporte_Kardex_Producto_'.$nvchCodigo;
   $dompdf = new DOMPDF();
