@@ -57,53 +57,34 @@
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>
-              <!--
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Seleccionar el Tipo de Equipo:</label>
-                  <select id="intIdPlantillaCotizacion" name="intIdPlantillaCotizacion" onchange="ElegirTabla(this.value)" class="form-control select2" form="form-cotizacion">
+                  <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="ListarTipoEquipo(this.value)" class="form-control select2" form="form-cotizacion">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipoventacotizacion()');
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipoventacotizacionequipo()');
                       $sql_comando->execute();
                       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                       {
-                        echo '<option value="'.$fila['intIdPlantillaCotizacion'].'">'.$fila['nvchNombre'].'</option>';
+                        echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
                       }
                     }catch(PDPExceptions $e){
                       echo $e->getMessage();
                     }?>
                   </select>
                 </div>
-              </div>-->
-              <div class="col-md-2">
-                <div id="nvchDiasValidezGroup" class="form-group">
-                  <label>Validez de Oferta:</label>
-                  <input type="text" id="nvchDiasValidez" name="nvchDiasValidez" class="form-control select2" placeholder="Ingrese número de días" 
-                  value="" onkeyup="EsVacio('nvchDiasValidez')" maxlength="3" form="form-cotizacion" required>
-                  <span id="nvchDiasValidezIcono" class="" aria-hidden=""></span>
-                  <div id="nvchDiasValidezObs" class=""></div>
-                </div>
               </div>
-              <div class="col-md-3">
-                <div id="nvchAtencionGroup" class="form-group">
-                  <label>Atención:</label>
-                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
-                  value="" onkeyup="EsVacio('nvchAtencion')" maxlength="250" form="form-cotizacion" required>
-                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
-                  <div id="nvchAtencionObs" class=""></div>
-                </div>
-              </div>
-              <div class="col-md-2">
+              <div class="col-md-5">
                 <div class="form-group">
                   <label>Seleccionar Plantilla:</label>
                   <select id="intIdPlantillaCotizacion" name="intIdPlantillaCotizacion"  class="form-control select2" form="form-comprobante">
                   <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrarplantillacotizacion()');
-                      $sql_comando->execute();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrarplantillacotizacion(:intIdTipoVenta)');
+                      $sql_comando->execute(array(':intIdTipoVenta' => 3));
                       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                       {
                         echo '<option value="'.$fila['intIdPlantillaCotizacion'].'">'.$fila['nvchNombre'].'</option>';
@@ -150,6 +131,15 @@
             </div>
             <div class="row">
               <div class="col-md-3">
+                <div id="nvchAtencionGroup" class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="" onkeyup="EsVacio('nvchAtencion')" maxlength="250" form="form-cotizacion" required>
+                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchAtencionObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
                 <div id="nvchGarantiaGroup" class="form-group">
                   <label>Garantía:</label>
                   <input type="text" id="nvchGarantia" name="nvchGarantia" class="form-control select2" 
@@ -179,6 +169,8 @@
                   <div id="nvchLugarEntregaObs" class=""></div>
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-md-3">
                 <div id="nvchTiempoEntregaGroup" class="form-group">
                   <label>Tiempo de Entrega:</label>
@@ -187,6 +179,15 @@
                   onkeyup="EsVacio('nvchTiempoEntrega')"  form="form-cotizacion" required>
                   <span id="nvchTiempoEntregaIcono" class="" aria-hidden=""></span>
                   <div id="nvchTiempoEntregaObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div id="nvchDiasValidezGroup" class="form-group">
+                  <label>Validez de Oferta:</label>
+                  <input type="text" id="nvchDiasValidez" name="nvchDiasValidez" class="form-control select2" placeholder="Ingrese número de días" 
+                  value="" onkeyup="EsVacio('nvchDiasValidez')" maxlength="3" form="form-cotizacion" required>
+                  <span id="nvchDiasValidezIcono" class="" aria-hidden=""></span>
+                  <div id="nvchDiasValidezObs" class=""></div>
                 </div>
               </div>
             </div>

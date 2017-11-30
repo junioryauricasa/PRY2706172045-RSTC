@@ -118,6 +118,10 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
             <li class="" id="ver-en-pc"><a href="../default/">Inicio</a></li>
             <li class="" id=""><a href="../default/dashboard">Información General</a></li>
+            <?php 
+              if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Almacenero'){
+                echo ""
+            ?>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Inventario 
@@ -129,6 +133,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../inventario/vsalida">Administrar Salida</a></li>
               </ul>
             </li>
+            <?php 
+            "";
+              }
+            ?>
+            <?php 
+              if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Almacenero'){
+                echo ""
+            ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Compras
@@ -140,6 +152,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../compras/vordencompra">Registro de Órdenes de Compra</a></li>
               </ul>
             </li>
+            <?php 
+            "";
+              }
+            ?>
+            <?php 
+              if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Vendedor'){
+                echo ""
+            ?>
             <li class="dropdown" id="ver-en-tablet">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Ventas 
@@ -151,6 +171,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../ventas/vcotizacion">Registro de Cotización</a></li>
               </ul>
             </li>
+            <?php 
+            "";
+              }
+            ?>
+            <?php 
+              if($_SESSION['NombrePermiso'] == 'Administrador'){
+                echo ""
+            ?>
             <li class="dropdown" id="ver-en-tablet" role="menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Reportes
@@ -161,6 +189,10 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../reportes/vkardexgeneral">Reporte Kardex General</a></li>
               </ul>
             </li>
+            <?php 
+            "";
+              }
+            ?>
             <!--li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Usuarios 
@@ -172,6 +204,10 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
               </ul>
             </li-->
+            <?php 
+              if($_SESSION['NombrePermiso'] == 'Administrador'){
+                echo ""
+            ?>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Administrativo 
@@ -191,7 +227,19 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 </li>
               </ul>
             </li>
+            <?php 
+            "";
+              }
+            ?>
+            <?php 
+              if($_SESSION['NombrePermiso'] == 'Administrador'){
+                echo ""
+            ?>
             <li class="" id=""><a href="../equipo/vcotizacionequipo">Equipos</a></li>
+            <?php 
+            "";
+              }
+            ?>
             <li class="dropdown" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Mi Cuenta 
@@ -297,7 +345,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
 
         <?php 
-          if($_SESSION['NombrePermiso'] == 'Administrador'){
+          if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Almacenero'){
             echo ""
         ?>
 
@@ -329,6 +377,11 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 </ul>
               </li>
               <!--END Ventas-->
+        <?php 
+            "";
+          }
+        ?>
+
 
               <!--Reportes-->
               <li class="treeview">
@@ -413,10 +466,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 </ul>
               </li>
               <!--END Usuarios-->
-            <?php 
-            "";
-          }
-        ?>
+            
             <!--Mi cuenta-->
             <li class="treeview">
               <a href="#">
