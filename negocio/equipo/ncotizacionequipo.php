@@ -15,7 +15,7 @@ function LimpiarCampos(){
 	$("#nvchDomicilio").val("");
 	$("#TipoCliente").val("");
 	$("#intIdCliente").val("");
-  $("#intIdTipoVenta").val(1);
+  $("#intIdTipoVenta").val(3);
   $("#intIdTipoVenta").change();
 	RestablecerValidacion("nvchDiasValidez",1);
 	RestablecerValidacion("nvchAtencion",1);
@@ -76,6 +76,7 @@ $(document).on('click', '#btn-form-crear-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-cotizacion', function(){
+    $("#funcion").val("I");
     var intIdCliente = $("#intIdCliente").val();
 	  if(intIdCliente == "" || intIdCliente == null){
 	  	MensajeNormal("Seleccionar a un Cliente",2);
@@ -95,16 +96,11 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	   	datos = datos.replace(/\s/g,'');
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se generó correctamente la Cotización",1);
-	   		//$('#txt-busqueda').val("");
-	   		//LimpiarCampos();
-	   		//$("#btnFormListarCotizacion").click();
-	   		//ListarCotizacion(x,y,tipolistado);
-	   		//PaginarCotizacion(x,y,tipolistado);
-        var dtmFechaCreacion = $("#nvchFecha").val();
-        var nvchDiasValidez = $("#nvchDiasValidez").val();
-        var nvchAtencion = $("#nvchAtencion").val();
-        var url = '../../datos/equipo/plantillas/reporte_maquinaria.php?intIdMaquinaria='+intIdMaquinaria;
-        window.open(url, '_blank');
+	   		$('#txt-busqueda').val("");
+	   		LimpiarCampos();
+	   		$("#btnFormListarCotizacion").click();
+	   		ListarCotizacion(x,y,tipolistado);
+	   		PaginarCotizacion(x,y,tipolistado);
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -114,6 +110,15 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 /* FIN - Funcion Ajax - Insertar Cliente */
 //////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Reporte Cotizacion */
+$(document).on('click', '.btn-reporte-cotizacion', function(){
+  var intIdCotizacionEquipo = $(this).attr("id");
+  var url = '../../datos/equipo/clases_equipo/reporte_equipo.php?intIdCotizacionEquipo='+intIdCotizacionEquipo;
+  window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Reporte Cotizacion */
+//////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
@@ -156,7 +161,7 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
 $(document).on('click', '#btn-editar-cotizacion', function(){
-  	  var funcion = "A";
+      $("#funcion").val("A");
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
@@ -266,8 +271,9 @@ $(document).on('change', '#lista-tipo-moneda', function(){
 function ListarCotizacion(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
-  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  //var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   
+  /*
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
   } else {
@@ -278,12 +284,12 @@ function ListarCotizacion(x,y,tipolistado) {
   } else {
   	var dtmFechaFinal = $("#dtmFechaFinal").val();
   }
+  */
 
   $.ajax({
       url:'../../datos/equipo/funcion_equipo.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
       success:function(datos) {
           $("#ListaDeCotizaciones").html(datos);
           PaginarCotizacion((x/y),y,tipolistado);
@@ -296,6 +302,7 @@ function ListarCotizacion(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Total Ventas */
+/*
 function TotalCotizacion() {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "TV";
@@ -321,6 +328,7 @@ function TotalCotizacion() {
       }
   });
 }
+*/
 /* FIN - Funcion Ajax - Total Ventas */
 //////////////////////////////////////////////////////////////
 
@@ -329,7 +337,7 @@ function TotalCotizacion() {
 function PaginarCotizacion(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
-
+  /*
   if(EsFecha("dtmFechaInicial") == false){
   	var dtmFechaInicial = "";
   } else {
@@ -340,12 +348,12 @@ function PaginarCotizacion(x,y,tipolistado) {
   } else {
   	var dtmFechaFinal = $("#dtmFechaFinal").val();
   }
+  */
 
   $.ajax({
       url:'../../datos/equipo/funcion_equipo.php',
       method:"POST",
-      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-      		dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
       success:function(datos) {
           $("#PaginacionDeCotizacion").html(datos);
       }
@@ -420,7 +428,7 @@ function ListarClientesSeleccion(x,y) {
 	var funcion = "MCL";
 	var intIdTipoPersona = document.getElementById("lista-persona").value;
 	  $.ajax({
-	   url:"../../datos/equipo/funcion_equipo.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -439,7 +447,7 @@ function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "PCL";
 	  $.ajax({
-	   url:"../../datos/equipo/funcion_equipo.php",
+	   url:"../../datos/ventas/funcion_venta.php",
 	   method:"POST",
 	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
 	   success:function(datos)
@@ -457,7 +465,7 @@ function SeleccionarCliente(seleccion) {
 	var intIdCliente = $(seleccion).attr("idscli");
 	var funcion = "SCL";
 	  $.ajax({
-	   url:"../../datos/equipo/funcion_equipo.php",
+	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
 	   data:{intIdCliente:intIdCliente,funcion:funcion},
 	   dataType:"json",
@@ -503,5 +511,20 @@ function MostrarSeleccionCliente(intIdTipoPersona) {
 	  }
 }
 /* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Campos */
+function CalcularVentaIGV() {
+  if(EsDecimal('dcmPrecioVenta') == false){
+    return false;
+  }
+  var dcmPrecioVenta = $("#dcmPrecioVenta").val();
+  var dcmValorVenta = (dcmPrecioVenta / 1.18).toFixed(2) ;
+  var dcmIGVVenta = (dcmPrecioVenta - dcmValorVenta).toFixed(2);
+    $("#dcmIGVVenta").val(dcmIGVVenta);
+    $("#dcmValorVenta").val(dcmValorVenta);
+}
+/* FIN - Ocultar Campos */
 //////////////////////////////////////////////////////////////
 </script>

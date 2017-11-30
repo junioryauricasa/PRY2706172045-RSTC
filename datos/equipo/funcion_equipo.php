@@ -11,7 +11,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->FechaCreacion($dtmFechaCreacion);
     $CotizacionEquipo->IdTipoVenta($_POST['intIdTipoVenta']);
     $CotizacionEquipo->IdPlantillaCotizacion($_POST['intIdPlantillaCotizacion']);
-    $CotizacionEquipo->IdUsuario($_POST['intIdUsuario']);
+    $CotizacionEquipo->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $CotizacionEquipo->IdCliente($_POST['intIdCliente']);
     $CotizacionEquipo->ClienteProveedor($_POST['nvchClienteProveedor']);
     $CotizacionEquipo->DNIRUC($_POST['nvchDNIRUC']);
@@ -61,7 +61,7 @@ switch($_POST['funcion']){
     break;
   case "L":
     $CotizacionEquipo = new CotizacionEquipo();
-    $CotizacionEquipo->ListarCotizacionEquipo($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'];
+    $CotizacionEquipo->ListarCotizacionEquipo($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
   case "LTE":
     $CotizacionEquipo = new CotizacionEquipo();

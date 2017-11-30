@@ -79,7 +79,7 @@
               <div class="col-md-5">
                 <div class="form-group">
                   <label>Seleccionar Plantilla:</label>
-                  <select id="intIdPlantillaCotizacion" name="intIdPlantillaCotizacion"  class="form-control select2" form="form-comprobante">
+                  <select id="intIdPlantillaCotizacion" name="intIdPlantillaCotizacion"  class="form-control select2" form="form-cotizacion">
                   <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
@@ -143,7 +143,7 @@
                 <div id="nvchGarantiaGroup" class="form-group">
                   <label>Garantía:</label>
                   <input type="text" id="nvchGarantia" name="nvchGarantia" class="form-control select2" 
-                  placeholder="Ingrese la Garantía" maxlength="25" 
+                  placeholder="Ingrese la Garantía" maxlength="25" value="01 Año, sin límites de horas" 
                   onkeyup="EsVacio('nvchGarantia')"  form="form-cotizacion" required>
                   <span id="nvchGarantiaIcono" class="" aria-hidden=""></span>
                   <div id="nvchGarantiaObs" class=""></div>
@@ -153,7 +153,7 @@
                 <div id="nvchFormaPagoGroup" class="form-group">
                   <label>Forma de Pago:</label>
                   <input type="text" id="nvchFormaPago" name="nvchFormaPago" class="form-control select2" 
-                  placeholder="Ingrese la Forma de Pago" maxlength="75" 
+                  placeholder="Ingrese la Forma de Pago" maxlength="75" value="Contado o Leasing" 
                   onkeyup="EsVacio('nvchFormaPago')"  form="form-cotizacion" required>
                   <span id="nvchFormaPagoIcono" class="" aria-hidden=""></span>
                   <div id="nvchFormaPagoObs" class=""></div>
@@ -163,7 +163,7 @@
                 <div id="nvchLugarEntregaGroup" class="form-group">
                   <label>Lugar de Entrega:</label>
                   <input type="text" id="nvchLugarEntrega" name="nvchLugarEntrega" class="form-control select2" 
-                  placeholder="Ingrese el Lugar de Entrega" maxlength="75" 
+                  placeholder="Ingrese el Lugar de Entrega" maxlength="75" value="Almacenes de Huancayo" 
                   onkeyup="EsVacio('nvchMarca')"  form="form-cotizacion" required>
                   <span id="nvchLugarEntregaIcono" class="" aria-hidden=""></span>
                   <div id="nvchLugarEntregaObs" class=""></div>
@@ -175,7 +175,7 @@
                 <div id="nvchTiempoEntregaGroup" class="form-group">
                   <label>Tiempo de Entrega:</label>
                   <input type="text" id="nvchTiempoEntrega" name="nvchTiempoEntrega" class="form-control select2" 
-                  placeholder="Ingrese el Tiempo de Entrega" maxlength="65" 
+                  placeholder="Ingrese el Tiempo de Entrega" maxlength="65" value="Inmediata, salvo previa venta" 
                   onkeyup="EsVacio('nvchTiempoEntrega')"  form="form-cotizacion" required>
                   <span id="nvchTiempoEntregaIcono" class="" aria-hidden=""></span>
                   <div id="nvchTiempoEntregaObs" class=""></div>
@@ -184,10 +184,55 @@
               <div class="col-md-2">
                 <div id="nvchDiasValidezGroup" class="form-group">
                   <label>Validez de Oferta:</label>
-                  <input type="text" id="nvchDiasValidez" name="nvchDiasValidez" class="form-control select2" placeholder="Ingrese número de días" 
+                  <input type="text" id="nvchDiasValidez" name="nvchDiasValidez" class="form-control select2" placeholder="Ingrese número de días" value="15 Días" 
                   value="" onkeyup="EsVacio('nvchDiasValidez')" maxlength="3" form="form-cotizacion" required>
                   <span id="nvchDiasValidezIcono" class="" aria-hidden=""></span>
                   <div id="nvchDiasValidezObs" class=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Tipo de Moneda:</label>
+                  <select id="intIdTipoMoneda" name="intIdTipoMoneda"  class="form-control select2" form="form-cotizacion">
+                  <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div id="dcmValoVentaGroup" class="form-group">
+                  <label>Valor Venta:</label>
+                  <input type="text" id="dcmValorVenta" class="form-control select2"
+                  value="0.00" maxlength="15" required readonly>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div id="dcmIGVVentaGroup" class="form-group">
+                  <label>IGV (18%):</label>
+                  <input type="text" id="dcmIGVVenta" class="form-control select2"
+                  value="0.00" maxlength="15" required readonly>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div id="dcmPrecioVentaGroup" class="form-group">
+                  <label>Precio Venta:</label>
+                  <input type="text" id="dcmPrecioVenta" name="dcmPrecioVenta" class="form-control select2" 
+                  placeholder="Ingrese Precio" value="" 
+                  onkeypress="return EsDecimalTecla(event)" onkeyup="CalcularVentaIGV()" maxlength="15" form="form-cotizacion" required>
+                  <span id="dcmPrecioVentaIcono" class="" aria-hidden=""></span>
+                  <div id="dcmPrecioVentaObs" class=""></div>
                 </div>
               </div>
             </div>
@@ -203,7 +248,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <input type="hidden" name="funcion" value="I" form="form-cotizacion">
+                  <input type="hidden" name="funcion" id="funcion" value="" form="form-cotizacion">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-cotizacion">
                   <div class="text-center">
                     <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización de Equipo" form="form-cotizacion">
@@ -255,6 +300,7 @@
                   <th class="heading" width="25px">&nbsp;</th>
                   <th>Plantilla</th>
                   <th>Cliente</th>
+                  <th>Uusario que Generó</th>
                   <th>Fecha de Creación</th>
                   <th>Opciones</th>
                 </tr>
@@ -272,7 +318,7 @@
                 </ul>
               </nav>
             </div>
-            <script type="text/javascript">TotalCotizacion();</script>
+            <!--<script type="text/javascript">TotalCotizacion();</script>-->
           </div>
           <!-- FIN - Formulario Listar Venta -->
         </div>

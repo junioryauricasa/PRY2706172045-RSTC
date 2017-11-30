@@ -25,12 +25,12 @@ DELIMITER $$
 	BEGIN
 		INSERT INTO tb_cotizacion_equipo
 		(dtmFechaCreacion,intIdTipoVenta,intIdPlantillaCotizacion,intIdUsuario,intIdCliente,nvchClienteProveedor,nvchDNIRUC,
-		nvchDireccion,nvchAtencion,nvchGarantia,nvchFormaPago,nvchLugarEntrega,nvchTiempoEntrega,nvchDiasValidez,dcmPrecioVenta,
-		intIdTipoMoneda,nvchObservacion)
+		nvchDireccion,nvchAtencion,nvchGarantia,nvchFormaPago,nvchLugarEntrega,nvchTiempoEntrega,nvchDiasValidez,
+		intIdTipoMoneda,dcmPrecioVenta,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_intIdTipoVenta,_intIdPlantillaCotizacion,_intIdUsuario,_intIdCliente,_nvchClienteProveedor,_nvchDNIRUC,
-		_nvchDireccion,_nvchAtencion,_nvchGarantia,_nvchFormaPago,_nvchLugarEntrega,_nvchTiempoEntrega,_nvchDiasValidez,_dcmPrecioVenta,
-		_intIdTipoMoneda,_nvchObservacion);
+		_nvchDireccion,_nvchAtencion,_nvchGarantia,_nvchFormaPago,_nvchLugarEntrega,_nvchTiempoEntrega,_nvchDiasValidez,
+		_intIdTipoMoneda,_dcmPrecioVenta,_nvchObservacion);
 		SET _intIdCotizacionEquipo = LAST_INSERT_ID();
     END
 $$
@@ -89,8 +89,9 @@ DELIMITER $$
     	IN _intIdCotizacionEquipo INT
     )
 	BEGIN
-		SELECT * FROM tb_cotizacion_equipo 
-		WHERE intIdCotizacionEquipo = _intIdCotizacionEquipo;
+		SELECT CE.*,PC.nvchWord FROM tb_cotizacion_equipo CE
+		LEFT JOIN tb_plantilla_cotizacion PC ON CE.intIdPlantillaCotizacion = PC.intIdPlantillaCotizacion
+		WHERE CE.intIdCotizacionEquipo = _intIdCotizacionEquipo;
     END 
 $$
 DELIMITER ;
@@ -116,10 +117,14 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT * FROM tb_cotizacion_equipo
+		SELECT CE.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		PC.nvchNombre AS NombrePlantilla
+		FROM tb_cotizacion_equipo CE
+		LEFT JOIN tb_plantilla_cotizacion PC ON CE.intIdPlantillaCotizacion = PC.intIdPlantillaCotizacion
+		LEFT JOIN tb_usuario U ON CE.intIdUsuario = U.intIdUsuario
 		WHERE 
-		nvchClienteProveedor LIKE CONCAT(_elemento,'%') OR
-		nvchDNIRUC LIKE CONCAT(_elemento,'%')
+		CE.nvchClienteProveedor LIKE CONCAT(_elemento,'%') OR
+		CE.nvchDNIRUC LIKE CONCAT(_elemento,'%')
 		LIMIT _x,_y;
     END
 $$
@@ -131,10 +136,14 @@ DELIMITER $$
     	IN _elemento VARCHAR(500)
     )
 	BEGIN
-		SELECT * FROM tb_cotizacion_equipo
+		SELECT CE.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		PC.nvchNombre AS NombrePlantilla
+		FROM tb_cotizacion_equipo CE
+		LEFT JOIN tb_plantilla_cotizacion PC ON CE.intIdPlantillaCotizacion = PC.intIdPlantillaCotizacion
+		LEFT JOIN tb_usuario U ON CE.intIdUsuario = U.intIdUsuario
 		WHERE 
-		nvchClienteProveedor LIKE CONCAT(_elemento,'%') OR
-		nvchDNIRUC LIKE CONCAT(_elemento,'%');
+		CE.nvchClienteProveedor LIKE CONCAT(_elemento,'%') OR
+		CE.nvchDNIRUC LIKE CONCAT(_elemento,'%');
     END 
 $$
 DELIMITER ;

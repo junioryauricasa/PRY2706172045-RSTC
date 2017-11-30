@@ -30,6 +30,7 @@ class CotizacionEquipo
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function ClienteProveedor($nvchClienteProveedor){ $this->nvchClienteProveedor = $nvchClienteProveedor; }
   public function DNIRUC($nvchDNIRUC){ $this->nvchDNIRUC = $nvchDNIRUC; }
+  public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function Garantia($nvchGarantia){ $this->nvchGarantia = $nvchGarantia; }
   public function FormaPago($nvchFormaPago){ $this->nvchFormaPago = $nvchFormaPago; }
@@ -51,8 +52,8 @@ class CotizacionEquipo
         :intIdPlantillaCotizacion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchGarantia,
         :nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,:nvchDiasValidez,:intIdTipoMoneda,:dcmPrecioVenta,:nvchObservacion)');
       $sql_comando->execute(array(
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':intIdTipoVenta' => $this->intIdTipoVenta, 
-        ':dtmFechaCreacion' => $this->$dtmFechaCreacion,
         ':intIdPlantillaCotizacion' => $this->intIdPlantillaCotizacion,
         ':intIdUsuario' => $this->intIdUsuario,
         ':intIdCliente' => $this->intIdCliente,
@@ -211,35 +212,33 @@ class CotizacionEquipo
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($fila["nvchCodigo"]!=""){
-          if($i == ($cantidad - $x) && $tipolistado == "N"){
-            echo '<tr bgcolor="#BEE1EB">';
-          } else if($fila["intIdCotizacionEquipo"] == $_SESSION['intIdCotizacionEquipo'] && $tipolistado == "E"){
-            echo '<tr bgcolor="#B3E4C0">';
-          }else {
-            echo '<tr>';
-          }
-          echo 
-          '
-              <td class="heading" style="" data-th="ID"></td>
-              <td align="left" data-th="Código">'.$fila["NombrePlantilla"].'</td>
-              <td align="right" data-th="Descripción">'.$fila["nvchClienteProveedor"].'</td>
-              <td align="right"data-th="Tipo de Moneda Venta">'.$fila["NombreUsuario"].'</td>
-              <td align="right" data-th="Cant. Total" style="text-align:center">'.$fila["dtmFechaCreacion"].'</td>
-              <td align="right" data-th="Opciones" style="text-align:center"> 
-                <button type="button" id="'.$fila["intIdCotizacionEquipo"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion" data-toggle="tooltip" title="Editar">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button type="button" id="'.$fila["intIdCotizacionEquipo"].'" class="btn btn-xs btn-danger btn-eliminar-cotizacion" data-toggle="tooltip" title="Eliminar">
-                  <i class="fa fa-trash"></i>
-                </button>
-                <button type="button" id="'.$fila["intIdCotizacionEquipo"].'" class="btn btn-xs btn-default btn-reporte-cotizacion">
-                  <i class="fa fa-download"></i> Reporte
-                </button>
-              </td>  
-          </tr>';
-          $i++;
+        if($i == ($cantidad - $x) && $tipolistado == "N"){
+          echo '<tr bgcolor="#BEE1EB">';
+        } else if($fila["intIdCotizacionEquipo"] == $_SESSION['intIdCotizacionEquipo'] && $tipolistado == "E"){
+          echo '<tr bgcolor="#B3E4C0">';
+        }else {
+          echo '<tr>';
         }
+        echo 
+        '
+            <td class="heading" style="" data-th="ID"></td>
+            <td align="left" data-th="Código">'.$fila["NombrePlantilla"].'</td>
+            <td align="right" data-th="Descripción">'.$fila["nvchClienteProveedor"].'</td>
+            <td align="right"data-th="Tipo de Moneda Venta">'.$fila["NombreUsuario"].'</td>
+            <td align="right" data-th="Cant. Total" style="text-align:center">'.$fila["dtmFechaCreacion"].'</td>
+            <td align="right" data-th="Opciones" style="text-align:center"> 
+              <button type="button" id="'.$fila["intIdCotizacionEquipo"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion" data-toggle="tooltip" title="Editar">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button type="button" id="'.$fila["intIdCotizacionEquipo"].'" class="btn btn-xs btn-danger btn-eliminar-cotizacion" data-toggle="tooltip" title="Eliminar">
+                <i class="fa fa-trash"></i>
+              </button>
+              <button type="button" id="'.$fila["intIdCotizacionEquipo"].'" class="btn btn-xs btn-default btn-reporte-cotizacion">
+                <i class="fa fa-download"></i> Reporte
+              </button>
+            </td>  
+        </tr>';
+        $i++;
       }
     }
     catch(PDPExceptio $e){
