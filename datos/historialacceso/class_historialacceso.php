@@ -54,7 +54,7 @@ class HistorialAcceso
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
-        } else if($fila["intIdHistory"] == $_SESSION['intIdHistory'] && $tipolistado == "E"){
+        } else if($fila["intIdHistorialAcceso"] == $_SESSION['intIdHistory'] && $tipolistado == "E"){
           echo '<tr bgcolor="#B3E4C0">';
         }else {
           echo '<tr>';
@@ -62,11 +62,11 @@ class HistorialAcceso
 
         echo '
   	          <td class="heading" data-th="ID"></td>
-              <td>'.$fila["intIdHistory"].'</td>
-    	        <td>'.$fila["intIdUser"].'</td>
-    	        <td>'.$fila["dateDateAccesso"].'</td> 
-              <td>'.$fila["nvchIpAccesso"].'</td> 
-    	        <td>'.$fila["nvchBrowser"].'</td>
+              <td>HSTRACCSS-00000'.$fila["intIdHistorialAcceso"].'</td>
+    	        <td>'.$fila["intIdUsuario"].'</td>
+    	        <td>'.$fila["dtmFechaAcceso"].'</td> 
+              <td>'.$fila["nvchIpOrigen"].'</td> 
+    	        <td>'.$fila["nvchNavegador"].'</td>
 	        </tr>';
         $i++;
       }
