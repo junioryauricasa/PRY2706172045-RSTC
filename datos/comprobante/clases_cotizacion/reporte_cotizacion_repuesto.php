@@ -72,8 +72,6 @@
       border-right: 2px solid black;
     }
 
-
-
     @page { 
       margin: 100px 30px 60px 30px; 
     }
@@ -110,14 +108,12 @@
     </header>
     <!-- END header pdf -->
     
-    <div class="content" style="padding-top: -50px">
+    <div class="content" style="padding-top: -65px">
         <center>
             <span style="font-weight: bold; font-family: Arial;">
               COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
             </span>
         </center>
-        
-        <br>
 
         <table id="tablageneral" style="text-align: left; width: 100%;" cellpadding="1" cellspacing="1">
           <tbody style="padding: 5px">
