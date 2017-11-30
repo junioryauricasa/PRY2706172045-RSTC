@@ -42,6 +42,7 @@ $(document).on('click', '#btn-crear-ordencompra', function(){
 	   {
 	   	if (datos=="okok") {
 	   		MensajeNormal("Se agregó correctamente la cotización",1);
+	   		vertab1();
 	   		$("#btn-form-ordencompra-remove").click();
 	   		$('#txt-busqueda').val("");
 	   		ListarOrdenCompra(x,y,tipolistado);
@@ -482,4 +483,34 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 }
 /* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////
+/* INICIO - ver formulario tab2 */
+function verform(){
+	$('#btnFormOC').click();
+}
+/* END - ver formulario tab2 */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - ver listado tab1 */
+function vertab1(){
+	$('#btnListarOC').click();
+	var funcion = "F";
+	$.ajax({
+	 url:"../../datos/compras/funcion_ordencompra.php",
+	 method:'POST',
+	 data:{funcion:funcion},
+	 success:function(datos)
+	 {
+	  $("#formulario-crud").html(datos);
+	  goToBox("#Formulario");
+	 }
+	});
+	return false;
+}
+/* END - ver listado tab1 */
+//////////////////////////////////////////////////////////////
+
 </script>

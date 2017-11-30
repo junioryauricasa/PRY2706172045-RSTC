@@ -229,7 +229,7 @@ class OrdenCompra{
             <td>'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
             <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
             <td> 
-              <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra">
+              <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra" onclick="verform()">
                 <i class="fa fa-edit"></i> Ver Detalle
               </button>
               <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-danger btn-eliminar-ordencompra">

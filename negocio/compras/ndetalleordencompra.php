@@ -168,8 +168,11 @@ function SeleccionarDetalleOrdenCompra(seleccion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Eliminar Comunicacion Seleccionado */
+/* INICIO - Eliminar Detalle Orden de Compra Seleccionado */
 function EliminarDetalleOrdenCompra(seleccion) {
+	
+	//$('.mi-modal').modal('show');//mostrando modal
+
 	var intIdOperacionOrdenCompra = $(seleccion).attr("idooc");
 	var intIdOrdenCompra = document.getElementById("intIdOrdenCompra").value;
 	var funcion = "EDOC";
@@ -181,12 +184,42 @@ function EliminarDetalleOrdenCompra(seleccion) {
 	   success:function(datos)
 	   {
 	   	 if(datos=="ok"){
-	   	 	alert("Se eliminó correctamente el Domicilio Seleccionado");
+	   	 	//alert("Se eliminó correctamente el Domicilio Seleccionado");
+	   	 	MensajeNormal("Se eliminó correctamente el Producto",1);
 	   	 	MostrarDetalleOrdenCompra(intIdOrdenCompra,tipolistado);
 	   	 }
 	   }
 	  });
 }
+
+/*
+function EliminarDetalleOrdenCompra(seleccion) {
+	
+	$('.mi-modal').modal('show');//mostrando modal
+	
+	var intIdOperacionOrdenCompra = $(seleccion).attr("idooc");
+	
+	alert (intIdOperacionOrdenCompra); //mostradno el Id
+	
+	$(document).on('click', '.modal-btn-si', function(){
+		var intIdOrdenCompra = document.getElementById("intIdOrdenCompra").value;
+		var funcion = "EDOC";
+		var tipolistado = "T";
+		  $.ajax({
+		   url:"../../datos/compras/funcion_ordencompra.php",
+		   method:"POST",
+		   data:{intIdOperacionOrdenCompra:intIdOperacionOrdenCompra,funcion:funcion},
+		   success:function(datos)
+		   {
+		   	 if(datos=="ok"){
+		   	 	alert("Se eliminó correctamente el Domicilio Seleccionado");
+		   	 	MostrarDetalleOrdenCompra(intIdOrdenCompra,tipolistado);
+		   	 }
+		   }
+		  });
+	});
+}
+*/
 /* FIN - Eliminar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 

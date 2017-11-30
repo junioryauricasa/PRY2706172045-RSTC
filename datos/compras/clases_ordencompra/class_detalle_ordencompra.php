@@ -89,7 +89,9 @@ class DetalleOrdenCompra
           echo '<tr bgcolor="#F7FCCF">';
         }
       	echo 
-      	'<td>'.$i.'</td>
+      	'
+        <td class="heading" data-th="ID"></td>
+        <td>'.$i.'</td>
         <td><input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
@@ -99,7 +101,7 @@ class DetalleOrdenCompra
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleOrdenCompra(this)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-danger" onclick="EliminarDetalleOrdenCompra(this)">
+          <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-danger" onclick="EliminarDetalleOrdenCompra(this)" id="eliminar-detalle-orden-de-compra">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>

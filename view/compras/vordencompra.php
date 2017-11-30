@@ -29,7 +29,7 @@ include('../_include/rstheader.php');
       }
     </style>
   <div class="content-wrapper">
-    <section class="content-header">
+    <!--section class="content-header">
       <h1>
         Orden de Compra
         <small>Módulo de Compras</small>
@@ -39,161 +39,181 @@ include('../_include/rstheader.php');
         <li><a href="#">Layout</a></li>
         <li class="active">Fixed</li>
       </ol>
-    </section>
+    </section-->
 
     <!-- Main content -->
     <section class="content">
-      <!-- TABLE: LATEST USERS -->
-      <div class="box box-info">
-        <div class="box-header with-border">
-          <h3 class="box-title">Ordenes de Compra</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Mostrar:</label>
-                <br>
-                <select id="num-lista" name="num-lista"  class="form-control select2">
-                      <option value="10">Ver 10 Resultados</option>
-                      <option value="25">Ver 25 Resultados</option>
-                      <option value="50">Ver 50 Resultados</option>
-                      <option value="100">Ver 100 Resultados</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                  <label class="text-left">Ingresar Búsqueda:</label>
-                  <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Tipo Moneda:</label>
-                <br>
-                <select id="lista-tipo-moneda" class="form-control select2">
-                  <?php 
-                    require_once '../../datos/conexion/bd_conexion.php';
-                    try{
-                    $sql_conexion = new Conexion_BD();
-                    $sql_conectar = $sql_conexion->Conectar();
-                    $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
-                    $sql_comando->execute();
-                    while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                    {
-                      echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
-                    }
-                  }catch(PDPExceptions $e){
-                    echo $e->getMessage();
-                  }?>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                  <label class="text-left">Fecha Inicial:</label>
-                  <input type="text" id="dtmFechaInicial" class="form-control select2" placeholder="dd/mm/aaaa" value="">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                  <label class="text-left">Fecha Final:</label>
-                  <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                  <label class="text-left">Opción:</label>
-                  <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                  <label class="text-left">Total Orden Compra:</label>
-                  <input type="text" id="TotalOrdenCompra" class="form-control select2" placeholder="0.00" readonly>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="ExcelTable2007 rwd-table" width="100%">
-              <thead>
-              <tr>
-                <th class="heading" width="25px">&nbsp;</th>
-                <th>Numeración</th>
-                <th>Proveedor</th>
-                <th>Usuario</th>
-                <th>Fecha de Creación</th>
-                <th>Valor de Compra</th>
-                <th>IGV</th>
-                <th>Total Compra</th>
-                <th>Opciones</th>
-              </tr>
-              </thead>
-              <tbody id="ListaDeOrdenCompra">
-                <script>ListarOrdenCompra(0,10,"T");</script>
-              </tbody>
-            </table>
-          </div>
-          <hr>
-          <div class="text-center">
-            <nav aria-label="...">
-              <ul id="PaginacionDeOrdenCompra" class="pagination">
-                <script>PaginarOrdenCompra(0,10,"T");</script>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="box-footer clearfix">     
-          <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-info btn-flat pull-left">Crear Orden de Compra</button>
-        </div>
-      </div>
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active" id="li_show_table_products">
+                <a href="#tab_1" data-toggle="tab" aria-expanded="true" id="btnListarOC">
+                  Lista de Productos
+                </a>
+              </li>
+              <li class="" id="li_ver_editar_formulario">
+                <a href="#tab_2" data-toggle="tab" aria-expanded="false" id="btnFormOC">
+                  Formulario Producto
+                </a>
+              </li>
+            </ul>
 
-      <div>
-        <div class="result"></div>
-      </div>
+            <!-- INICIO Contenido de los tabs -->
+            <div class="tab-content">
+                <!-- INICIO tab 1  -->
+                <div class="tab-pane active" id="tab_1">
+                  <!-- INICIO TABLE: -->
+                  <div class="">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Ordenes de Compra</h3>
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <label>Mostrar:</label>
+                            <br>
+                            <select id="num-lista" name="num-lista"  class="form-control select2">
+                                  <option value="10">Ver 10 Resultados</option>
+                                  <option value="25">Ver 25 Resultados</option>
+                                  <option value="50">Ver 50 Resultados</option>
+                                  <option value="100">Ver 100 Resultados</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                              <label class="text-left">Ingresar Búsqueda:</label>
+                              <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <label>Tipo Moneda:</label>
+                            <br>
+                            <select id="lista-tipo-moneda" class="form-control select2">
+                              <?php 
+                                require_once '../../datos/conexion/bd_conexion.php';
+                                try{
+                                $sql_conexion = new Conexion_BD();
+                                $sql_conectar = $sql_conexion->Conectar();
+                                $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                                $sql_comando->execute();
+                                while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                {
+                                  echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                                }
+                              }catch(PDPExceptions $e){
+                                echo $e->getMessage();
+                              }?>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                              <label class="text-left">Fecha Inicial:</label>
+                              <input type="text" id="dtmFechaInicial" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                              <label class="text-left">Fecha Final:</label>
+                              <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                              <label class="text-left">Opción:</label>
+                              <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                              <label class="text-left">Total Orden Compra:</label>
+                              <input type="text" id="TotalOrdenCompra" class="form-control select2" placeholder="0.00" readonly>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="ExcelTable2007 rwd-table" width="100%">
+                          <thead>
+                          <tr>
+                            <th class="heading" width="25px">&nbsp;</th>
+                            <th>Numeración</th>
+                            <th>Proveedor</th>
+                            <th>Usuario</th>
+                            <th>Fecha de Creación</th>
+                            <th>Valor de Compra</th>
+                            <th>IGV</th>
+                            <th>Total Compra</th>
+                            <th>Opciones</th>
+                          </tr>
+                          </thead>
+                          <tbody id="ListaDeOrdenCompra">
+                            <script>ListarOrdenCompra(0,10,"T");</script>
+                          </tbody>
+                        </table>
+                      </div>
+                      <hr>
+                      <div class="text-center">
+                        <nav aria-label="...">
+                          <ul id="PaginacionDeOrdenCompra" class="pagination">
+                            <script>PaginarOrdenCompra(0,10,"T");</script>
+                          </ul>
+                        </nav>
+                      </div>
+                    </div>
+                    <div class="box-footer clearfix">     
+                      <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-info btn-flat pull-left" onclick="verform()">Crear Orden de Compra</button>
+                    </div>
+                  </div>
+                  <!-- END TABLE: -->
+                </div>
+                <!-- INICIO tab 1  -->
 
-      <div id="formulario-crud"></div>
-      <div id="resultadocrud"></div>
+                <!-- INICIO tab 2  -->
+                <div class="tab-pane" id="tab_2">
+                  <div class="result"></div>
+                  <div id="formulario-crud"></div>
+                  <div id="resultadocrud"></div>
+                </div>
+                <!-- END tab 2  -->
+            </div>
+            <!-- END contenido de los tabs -->
+        </div>
     </section>
     <!-- /.content -->
   </div>
 
-        <!-- INICIO modal confirmar -->
-        <div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
-              </div>
-              <div class="modal-body">
-                Estas seguro de eliminar registro?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default modal-btn-si" id="">Si</button>
-                <button type="button" class="btn btn-primary modal-btn-no" id="">No</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END modal confirmar -->
 
-<script>
-  // Modal
-  $('#modalcust').modal({
-    keyboard: false
-  });
-</script>
+<!-- INICIO modal confirmar -->
+<div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+      </div>
+      <div class="modal-body">
+        Estas seguro de eliminar registro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modal-btn-si" id="">Si</button>
+        <button type="button" class="btn btn-primary modal-btn-no" id="">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END modal confirmar -->
+
 <!-- ENd Scripts DataTable -->
 <style>
   input{
