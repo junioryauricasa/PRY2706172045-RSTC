@@ -47,12 +47,12 @@ include('../_include/rstheader.php');
             <ul class="nav nav-tabs">
               <li class="active" id="li_show_table_products">
                 <a href="#tab_1" data-toggle="tab" aria-expanded="true" id="btnListarOC">
-                  Lista de Productos
+                  Orden de Compra
                 </a>
               </li>
               <li class="" id="li_ver_editar_formulario">
                 <a href="#tab_2" data-toggle="tab" aria-expanded="false" id="btnFormOC">
-                  Formulario Producto
+                  Formulario
                 </a>
               </li>
             </ul>
