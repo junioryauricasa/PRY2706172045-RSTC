@@ -12,6 +12,7 @@ DELIMITER $$
     IN _nvchClienteProveedor VARCHAR(350),
     IN _nvchDNIRUC VARCHAR(11),
 	IN _nvchDireccion VARCHAR(450),
+	IN _nvchTelefono VARCHAR(100),
 	IN _nvchAtencion VARCHAR(250),
 	IN _nvchGarantia VARCHAR(250),
 	IN _nvchFormaPago VARCHAR(250),
@@ -20,17 +21,18 @@ DELIMITER $$
 	IN _nvchDiasValidez VARCHAR(50),
 	In _intIdTipoMoneda INT,
 	IN _dcmPrecioVenta DECIMAL(11,2),
+	IN _intIdAutor INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_cotizacion_equipo
 		(dtmFechaCreacion,intIdTipoVenta,intIdPlantillaCotizacion,intIdUsuario,intIdCliente,nvchClienteProveedor,nvchDNIRUC,
-		nvchDireccion,nvchAtencion,nvchGarantia,nvchFormaPago,nvchLugarEntrega,nvchTiempoEntrega,nvchDiasValidez,
-		intIdTipoMoneda,dcmPrecioVenta,nvchObservacion)
+		nvchDireccion,nvchTelefono,nvchAtencion,nvchGarantia,nvchFormaPago,nvchLugarEntrega,nvchTiempoEntrega,nvchDiasValidez,
+		intIdTipoMoneda,dcmPrecioVenta,intIdAutor,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_intIdTipoVenta,_intIdPlantillaCotizacion,_intIdUsuario,_intIdCliente,_nvchClienteProveedor,_nvchDNIRUC,
-		_nvchDireccion,_nvchAtencion,_nvchGarantia,_nvchFormaPago,_nvchLugarEntrega,_nvchTiempoEntrega,_nvchDiasValidez,
-		_intIdTipoMoneda,_dcmPrecioVenta,_nvchObservacion);
+		_nvchDireccion,_nvchTelefono,_nvchAtencion,_nvchGarantia,_nvchFormaPago,_nvchLugarEntrega,_nvchTiempoEntrega,_nvchDiasValidez,
+		_intIdTipoMoneda,_dcmPrecioVenta,_intIdAutor,_nvchObservacion);
 		SET _intIdCotizacionEquipo = LAST_INSERT_ID();
     END
 $$
@@ -48,6 +50,7 @@ DELIMITER $$
     IN _nvchClienteProveedor VARCHAR(350),
     IN _nvchDNIRUC VARCHAR(11),
 	IN _nvchDireccion VARCHAR(450),
+	IN _nvchTelefono VARCHAR(100),
 	IN _nvchAtencion VARCHAR(250),
 	IN _nvchGarantia VARCHAR(250),
 	IN _nvchFormaPago VARCHAR(250),
@@ -56,6 +59,7 @@ DELIMITER $$
 	IN _nvchDiasValidez VARCHAR(50),
 	In _intIdTipoMoneda INT,
 	IN _dcmPrecioVenta DECIMAL(11,2),
+	IN _intIdAutor INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
@@ -68,6 +72,7 @@ DELIMITER $$
 		nvchClienteProveedor = _nvchClienteProveedor,
 		nvchDNIRUC = _nvchDNIRUC,
 		nvchDireccion = _nvchDireccion,
+		nvchTelefono = _nvchTelefono,
 		nvchAtencion = _nvchAtencion,
 		nvchGarantia = _nvchGarantia,
 		nvchFormaPago = _nvchFormaPago,
@@ -76,6 +81,7 @@ DELIMITER $$
 		nvchDiasValidez = _nvchDiasValidez,
 		intIdTipoMoneda = _intIdTipoMoneda,
 		dcmPrecioVenta = _dcmPrecioVenta,
+		intIdAutor = _intIdAutor,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdCotizacionEquipo = _intIdCotizacionEquipo;
@@ -89,8 +95,10 @@ DELIMITER $$
     	IN _intIdCotizacionEquipo INT
     )
 	BEGIN
-		SELECT CE.*,PC.nvchWord FROM tb_cotizacion_equipo CE
+		SELECT CE.*,PC.nvchWord,TMN.nvchSimbolo,A.nvchAutor,A.nvchCargo FROM tb_cotizacion_equipo CE
 		LEFT JOIN tb_plantilla_cotizacion PC ON CE.intIdPlantillaCotizacion = PC.intIdPlantillaCotizacion
+		LEFT JOIN tb_tipo_moneda TMN ON CE.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_autor A ON CE.intIdAutor = A.intIdAutor
 		WHERE CE.intIdCotizacionEquipo = _intIdCotizacionEquipo;
     END 
 $$

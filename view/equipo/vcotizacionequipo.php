@@ -131,6 +131,15 @@
             </div>
             <div class="row">
               <div class="col-md-3">
+                <div id="nvchTelefonoGroup" class="form-group">
+                  <label>Teléfono:</label>
+                  <input type="text" id="nvchTelefono" name="nvchTelefono" class="form-control select2" placeholder="Ingrese Atención" 
+                  value="" onkeyup="EsVacio('nvchTelefono')" maxlength="250" form="form-cotizacion" required>
+                  <span id="nvchTelefonoIcono" class="" aria-hidden=""></span>
+                  <div id="nvchTelefonoObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-3">
                 <div id="nvchAtencionGroup" class="form-group">
                   <label>Atención:</label>
                   <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
@@ -143,7 +152,7 @@
                 <div id="nvchGarantiaGroup" class="form-group">
                   <label>Garantía:</label>
                   <input type="text" id="nvchGarantia" name="nvchGarantia" class="form-control select2" 
-                  placeholder="Ingrese la Garantía" maxlength="25" value="01 Año, sin límites de horas" 
+                  placeholder="Ingrese la Garantía" maxlength="250" value="01 Año, sin límites de horas" 
                   onkeyup="EsVacio('nvchGarantia')"  form="form-cotizacion" required>
                   <span id="nvchGarantiaIcono" class="" aria-hidden=""></span>
                   <div id="nvchGarantiaObs" class=""></div>
@@ -153,29 +162,29 @@
                 <div id="nvchFormaPagoGroup" class="form-group">
                   <label>Forma de Pago:</label>
                   <input type="text" id="nvchFormaPago" name="nvchFormaPago" class="form-control select2" 
-                  placeholder="Ingrese la Forma de Pago" maxlength="75" value="Contado o Leasing" 
+                  placeholder="Ingrese la Forma de Pago" maxlength="150" value="Contado o Leasing" 
                   onkeyup="EsVacio('nvchFormaPago')"  form="form-cotizacion" required>
                   <span id="nvchFormaPagoIcono" class="" aria-hidden=""></span>
                   <div id="nvchFormaPagoObs" class=""></div>
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-md-3">
                 <div id="nvchLugarEntregaGroup" class="form-group">
                   <label>Lugar de Entrega:</label>
                   <input type="text" id="nvchLugarEntrega" name="nvchLugarEntrega" class="form-control select2" 
-                  placeholder="Ingrese el Lugar de Entrega" maxlength="75" value="Almacenes de Huancayo" 
+                  placeholder="Ingrese el Lugar de Entrega" maxlength="250" value="Almacenes de Huancayo" 
                   onkeyup="EsVacio('nvchMarca')"  form="form-cotizacion" required>
                   <span id="nvchLugarEntregaIcono" class="" aria-hidden=""></span>
                   <div id="nvchLugarEntregaObs" class=""></div>
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-md-3">
                 <div id="nvchTiempoEntregaGroup" class="form-group">
                   <label>Tiempo de Entrega:</label>
                   <input type="text" id="nvchTiempoEntrega" name="nvchTiempoEntrega" class="form-control select2" 
-                  placeholder="Ingrese el Tiempo de Entrega" maxlength="65" value="Inmediata, salvo previa venta" 
+                  placeholder="Ingrese el Tiempo de Entrega" maxlength="150" value="Inmediata, salvo previa venta" 
                   onkeyup="EsVacio('nvchTiempoEntrega')"  form="form-cotizacion" required>
                   <span id="nvchTiempoEntregaIcono" class="" aria-hidden=""></span>
                   <div id="nvchTiempoEntregaObs" class=""></div>
@@ -185,9 +194,28 @@
                 <div id="nvchDiasValidezGroup" class="form-group">
                   <label>Validez de Oferta:</label>
                   <input type="text" id="nvchDiasValidez" name="nvchDiasValidez" class="form-control select2" placeholder="Ingrese número de días" value="15 Días" 
-                  value="" onkeyup="EsVacio('nvchDiasValidez')" maxlength="3" form="form-cotizacion" required>
+                  value="" onkeyup="EsVacio('nvchDiasValidez')" maxlength="150" form="form-cotizacion" required>
                   <span id="nvchDiasValidezIcono" class="" aria-hidden=""></span>
                   <div id="nvchDiasValidezObs" class=""></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Seleccionar el Tipo de Equipo:</label>
+                  <select id="intIdAutor" name="intIdAutor" class="form-control select2" form="form-cotizacion">
+                    <?php try{
+                      $sql_conexion = new Conexion_BD();
+                      $sql_conectar = $sql_conexion->Conectar();
+                      $sql_comando = $sql_conectar->prepare('CALL MOSTRARAUTOR()');
+                      $sql_comando->execute();
+                      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                      {
+                        echo '<option value="'.$fila['intIdAutor'].'">'.$fila['nvchAutor'].' - '.$fila['nvchCargo'].'</option>';
+                      }
+                    }catch(PDPExceptions $e){
+                      echo $e->getMessage();
+                    }?>
+                  </select>
                 </div>
               </div>
             </div>

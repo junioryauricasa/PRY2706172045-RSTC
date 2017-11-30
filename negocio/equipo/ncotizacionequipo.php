@@ -17,12 +17,20 @@ function LimpiarCampos(){
 	$("#intIdCliente").val("");
   $("#intIdTipoVenta").val(3);
   $("#intIdTipoVenta").change();
+  $("#intIdAutor").val(1);
 	RestablecerValidacion("nvchDiasValidez",1);
 	RestablecerValidacion("nvchAtencion",1);
+  RestablecerValidacion("nvchTelefono",1);
 	RestablecerValidacion("nvchGarantia",1);
 	RestablecerValidacion("nvchFormaPago",1);
 	RestablecerValidacion("nvchLugarEntrega",1);
 	RestablecerValidacion("nvchTiempoEntrega",1);
+  $("#nvchGarantia").val("01 Año, sin límites de horas");
+  $("#nvchFormaPago").val("Contado o Leasing");
+  $("#nvchLugarEntrega").val("Almacenes de Huancayo");
+  $("#nvchTiempoEntrega").val("Inmediata, salvo previa venta");
+  $("#nvchDiasValidez").val("15 Días");
+
 	$("#nvchObservacion").val("");
 }
 /* FIN - Funcion Ajax - Limpiear campos del Cotizacion */

@@ -29,9 +29,13 @@ $nvchFormaPago = $fila['nvchFormaPago'];
 $nvchLugarEntrega = $fila['nvchLugarEntrega'];
 $nvchTiempoEntrega = $fila['nvchTiempoEntrega'];
 $nvchDiasValidez = $fila['nvchDiasValidez'];
+$nvchSimbolo = $fila['nvchSimbolo'];
 $dcmPrecioVenta = $fila['dcmPrecioVenta'];
 
-$nvchTelefono = "984312867";
+$nvchAutor = $fila['nvchAutor'];
+$nvchCargo = $fila['nvchCargo'];
+
+$nvchTelefono = $fila['nvchTelefono'];
 $dcmValorVenta = round($dcmPrecioVenta/1.18,2);
 $dcmIGVVenta = $dcmPrecioVenta - $dcmValorVenta;
 
@@ -48,6 +52,7 @@ $templateWord->setValue('nvchClienteProveedor',$nvchClienteProveedor);
 $templateWord->setValue('nvchDireccion',$nvchDireccion);
 $templateWord->setValue('nvchAtencion',$nvchAtencion);
 $templateWord->setValue('nvchTelefono',$nvchTelefono);
+$templateWord->setValue('nvchSimbolo',$nvchSimbolo);
 $templateWord->setValue('dcmValorVenta',$dcmValorVenta);
 $templateWord->setValue('dcmIGVVenta',$dcmIGVVenta);
 $templateWord->setValue('dcmPrecioVenta',$dcmPrecioVenta);
@@ -56,6 +61,8 @@ $templateWord->setValue('nvchFormaPago',$nvchFormaPago);
 $templateWord->setValue('nvchLugarEntrega',$nvchLugarEntrega);
 $templateWord->setValue('nvchTiempoEntrega',$nvchTiempoEntrega);
 $templateWord->setValue('nvchDiasValidez',$nvchDiasValidez);
+$templateWord->setValue('nvchAutor',$nvchAutor);
+$templateWord->setValue('nvchCargo',$nvchCargo);
 $temp_file = tempnam(sys_get_temp_dir(), 'PHPWord');
 
 $templateWord->saveAs($temp_file);

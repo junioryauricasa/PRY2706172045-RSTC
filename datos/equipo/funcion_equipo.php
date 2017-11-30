@@ -16,6 +16,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->ClienteProveedor($_POST['nvchClienteProveedor']);
     $CotizacionEquipo->DNIRUC($_POST['nvchDNIRUC']);
     $CotizacionEquipo->Direccion($_POST['nvchDireccion']);
+    $CotizacionEquipo->Telefono($_POST['nvchTelefono']);
     $CotizacionEquipo->Atencion($_POST['nvchAtencion']);
     $CotizacionEquipo->Garantia($_POST['nvchGarantia']);
     $CotizacionEquipo->FormaPago($_POST['nvchFormaPago']);
@@ -24,6 +25,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->DiasValidez($_POST['nvchDiasValidez']);
     $CotizacionEquipo->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $CotizacionEquipo->PrecioVenta($_POST['dcmPrecioVenta']);
+    $CotizacionEquipo->IdAutor($_POST['intIdAutor']);
     $CotizacionEquipo->Observacion($_POST['nvchObservacion']);
     $CotizacionEquipo->InsertarCotizacionEquipo();
     break;
@@ -38,6 +40,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->ClienteProveedor($_POST['nvchClienteProveedor']);
     $CotizacionEquipo->DNIRUC($_POST['nvchDNIRUC']);
     $CotizacionEquipo->Direccion($_POST['nvchDireccion']);
+    $CotizacionEquipo->Telefono($_POST['nvchTelefono']);
     $CotizacionEquipo->Atencion($_POST['nvchAtencion']);
     $CotizacionEquipo->Garantia($_POST['nvchGarantia']);
     $CotizacionEquipo->FormaPago($_POST['nvchFormaPago']);
@@ -46,6 +49,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->DiasValidez($_POST['nvchDiasValidez']);
     $CotizacionEquipo->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $CotizacionEquipo->PrecioVenta($_POST['dcmPrecioVenta']);
+    $CotizacionEquipo->IdAutor($_POST['intIdAutor']);
     $CotizacionEquipo->Observacion($_POST['nvchObservacion']);
     $CotizacionEquipo->ActualizarCotizacionEquipo();
     break;
