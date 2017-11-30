@@ -18,6 +18,7 @@ DELIMITER $$
 	IN _nvchLugarEntrega VARCHAR(250),
 	IN _nvchTiempoEntrega VARCHAR(250),
 	IN _nvchDiasValidez VARCHAR(50),
+	In _intIdTipoMoneda INT,
 	IN _dcmPrecioVenta DECIMAL(11,2),
 	IN _nvchObservacion VARCHAR(2500)
     )
@@ -25,11 +26,11 @@ DELIMITER $$
 		INSERT INTO tb_cotizacion_equipo
 		(dtmFechaCreacion,intIdTipoVenta,intIdPlantillaCotizacion,intIdUsuario,intIdCliente,nvchClienteProveedor,nvchDNIRUC,
 		nvchDireccion,nvchAtencion,nvchGarantia,nvchFormaPago,nvchLugarEntrega,nvchTiempoEntrega,nvchDiasValidez,dcmPrecioVenta,
-		nvchObservacion)
+		intIdTipoMoneda,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_intIdTipoVenta,_intIdPlantillaCotizacion,_intIdUsuario,_intIdCliente,_nvchClienteProveedor,_nvchDNIRUC,
 		_nvchDireccion,_nvchAtencion,_nvchGarantia,_nvchFormaPago,_nvchLugarEntrega,_nvchTiempoEntrega,_nvchDiasValidez,_dcmPrecioVenta,
-		_nvchObservacion);
+		_intIdTipoMoneda,_nvchObservacion);
 		SET _intIdCotizacionEquipo = LAST_INSERT_ID();
     END
 $$
@@ -53,6 +54,7 @@ DELIMITER $$
 	IN _nvchLugarEntrega VARCHAR(250),
 	IN _nvchTiempoEntrega VARCHAR(250),
 	IN _nvchDiasValidez VARCHAR(50),
+	In _intIdTipoMoneda INT,
 	IN _dcmPrecioVenta DECIMAL(11,2),
 	IN _nvchObservacion VARCHAR(2500)
     )
@@ -72,6 +74,7 @@ DELIMITER $$
 		nvchLugarEntrega = _nvchLugarEntrega,
 		nvchTiempoEntrega = _nvchTiempoEntrega,
 		nvchDiasValidez = _nvchDiasValidez,
+		intIdTipoMoneda = _intIdTipoMoneda,
 		dcmPrecioVenta = _dcmPrecioVenta,
 		nvchObservacion = _nvchObservacion
 		WHERE 

@@ -22,6 +22,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->LugarEntrega($_POST['nvchLugarEntrega']);
     $CotizacionEquipo->TiempoEntrega($_POST['nvchTiempoEntrega']);
     $CotizacionEquipo->DiasValidez($_POST['nvchDiasValidez']);
+    $CotizacionEquipo->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $CotizacionEquipo->PrecioVenta($_POST['dcmPrecioVenta']);
     $CotizacionEquipo->Observacion($_POST['nvchObservacion']);
     $CotizacionEquipo->InsertarCotizacionEquipo();
@@ -43,6 +44,7 @@ switch($_POST['funcion']){
     $CotizacionEquipo->LugarEntrega($_POST['nvchLugarEntrega']);
     $CotizacionEquipo->TiempoEntrega($_POST['nvchTiempoEntrega']);
     $CotizacionEquipo->DiasValidez($_POST['nvchDiasValidez']);
+    $CotizacionEquipo->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $CotizacionEquipo->PrecioVenta($_POST['dcmPrecioVenta']);
     $CotizacionEquipo->Observacion($_POST['nvchObservacion']);
     $CotizacionEquipo->ActualizarCotizacionEquipo();

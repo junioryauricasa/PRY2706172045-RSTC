@@ -287,7 +287,7 @@ function ListarCotizacion(x,y,tipolistado) {
       success:function(datos) {
           $("#ListaDeCotizaciones").html(datos);
           PaginarCotizacion((x/y),y,tipolistado);
-          TotalCotizacion();
+          //TotalCotizacion();
       }
   });
 }

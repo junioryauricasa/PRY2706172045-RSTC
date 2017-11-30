@@ -18,6 +18,7 @@ class CotizacionEquipo
   private $nvchLugarEntrega;
   private $nvchTiempoEntrega;
   private $nvchDiasValidez;
+  private $intIdTipoMoneda;
   private $dcmPrecioVenta;
   private $nvchObservacion;
   
@@ -35,6 +36,7 @@ class CotizacionEquipo
   public function LugarEntrega($nvchLugarEntrega){ $this->nvchLugarEntrega = $nvchLugarEntrega; }
   public function TiempoEntrega($nvchTiempoEntrega){ $this->nvchTiempoEntrega = $nvchTiempoEntrega; }
   public function DiasValidez($nvchDiasValidez){ $this->nvchDiasValidez = $nvchDiasValidez; }
+  public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function PrecioVenta($dcmPrecioVenta){ $this->dcmPrecioVenta = $dcmPrecioVenta; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Comunicacion Proveedor */
@@ -47,7 +49,7 @@ class CotizacionEquipo
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCotizacionEquipo(@intIdCotizacionEquipo,:dtmFechaCreacion,:intIdTipoVenta,
         :intIdPlantillaCotizacion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchGarantia,
-        :nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,:nvchDiasValidez,:dcmPrecioVenta,:nvchObservacion)');
+        :nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,:nvchDiasValidez,:intIdTipoMoneda,:dcmPrecioVenta,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoVenta' => $this->intIdTipoVenta, 
         ':dtmFechaCreacion' => $this->$dtmFechaCreacion,
@@ -63,6 +65,7 @@ class CotizacionEquipo
         ':nvchLugarEntrega' => $this->nvchLugarEntrega,
         ':nvchTiempoEntrega' => $this->nvchTiempoEntrega,
         ':nvchDiasValidez' => $this->nvchDiasValidez,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dcmPrecioVenta' => $this->dcmPrecioVenta,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -101,6 +104,7 @@ class CotizacionEquipo
       $salida['nvchLugarEntrega'] = $fila['nvchLugarEntrega'];
       $salida['nvchTiempoEntrega'] = $fila['nvchTiempoEntrega'];
       $salida['nvchDiasValidez'] = $fila['nvchDiasValidez'];
+      $salida['intIdTipoMoneda'] = $fila['intIdTipoMoneda'];
       $salida['dcmPrecioVenta'] = $fila['dcmPrecioVenta'];
       $salida['nvchObservacion'] = $fila['nvchObservacion'];
       echo json_encode($salida);
@@ -117,7 +121,7 @@ class CotizacionEquipo
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare(':intIdCotizacionEquipo,:dtmFechaCreacion,:intIdTipoVenta,
         :intIdPlantillaCotizacion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchGarantia,
-        :nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,:nvchDiasValidez,:dcmPrecioVenta,:nvchObservacion)');
+        :nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,:nvchDiasValidez,:intIdTipoMoneda,:dcmPrecioVenta,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCotizacionEquipo' => $this->intIdCotizacionEquipo,
         ':intIdTipoVenta' => $this->intIdTipoVenta, 
@@ -134,6 +138,7 @@ class CotizacionEquipo
         ':nvchLugarEntrega' => $this->nvchLugarEntrega,
         ':nvchTiempoEntrega' => $this->nvchTiempoEntrega,
         ':nvchDiasValidez' => $this->nvchDiasValidez,
+        ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':dcmPrecioVenta' => $this->dcmPrecioVenta,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdCotizacionEquipo'] = $this->intIdCotizacionEquipo;
