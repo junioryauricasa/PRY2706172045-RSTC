@@ -95,7 +95,7 @@ DELIMITER $$
     	IN _intIdCotizacionEquipo INT
     )
 	BEGIN
-		SELECT CE.*,PC.nvchWord,TMN.nvchSimbolo,A.nvchAutor,A.nvchCargo FROM tb_cotizacion_equipo CE
+		SELECT CE.*,PC.nvchWord,TMN.nvchSimbolo,A.nvchAutor,A.nvchCargo,PC.nvchProduccion FROM tb_cotizacion_equipo CE
 		LEFT JOIN tb_plantilla_cotizacion PC ON CE.intIdPlantillaCotizacion = PC.intIdPlantillaCotizacion
 		LEFT JOIN tb_tipo_moneda TMN ON CE.intIdTipoMoneda = TMN.intIdTipoMoneda
 		LEFT JOIN tb_autor A ON CE.intIdAutor = A.intIdAutor

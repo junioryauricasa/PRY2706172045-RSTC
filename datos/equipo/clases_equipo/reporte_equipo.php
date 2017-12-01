@@ -12,12 +12,11 @@ $sql_conectar = $sql_conexion->Conectar();
 $sql_comando = $sql_conectar->prepare('CALL MostrarCotizacionEquipo(:intIdCotizacionEquipo)');
 $sql_comando -> execute(array(':intIdCotizacionEquipo' => $intIdCotizacionEquipo));
 $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+
 $dtmFechaCreacion = $fila['dtmFechaCreacion'];
 $nvchDia = date('d', strtotime($dtmFechaCreacion));
 $numMes = Round(date('m', strtotime($dtmFechaCreacion)));
-
 $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-
 $nvchMes = $meses[$numMes-1];
 $nvchAnio = date('Y', strtotime($dtmFechaCreacion));
 $nvchClienteProveedor = $fila['nvchClienteProveedor'];
@@ -34,6 +33,8 @@ $dcmPrecioVenta = $fila['dcmPrecioVenta'];
 
 $nvchAutor = $fila['nvchAutor'];
 $nvchCargo = $fila['nvchCargo'];
+
+$nvchProduccion = $fila['nvchProduccion'];
 
 $nvchTelefono = $fila['nvchTelefono'];
 $dcmValorVenta = round($dcmPrecioVenta/1.18,2);
@@ -66,7 +67,7 @@ $templateWord->setValue('nvchCargo',$nvchCargo);
 $temp_file = tempnam(sys_get_temp_dir(), 'PHPWord');
 
 $templateWord->saveAs($temp_file);
-header("Content-Disposition: attachment; filename=documento_120A.docx; charset=iso-8859-1");
+header("Content-Disposition: attachment; filename=".$nvchProduccion.".docx; charset=iso-8859-1");
 echo file_get_contents($temp_file);
 unlink($temp_file);    
 ?>
