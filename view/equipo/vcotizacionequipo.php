@@ -92,7 +92,7 @@
                     }catch(PDPExceptions $e){
                       echo $e->getMessage();
                     }?>
-                </select>
+                  </select>
                 </div>
               </div>
               <div class="col-md-2">
@@ -278,12 +278,16 @@
                 <div class="form-group">
                   <input type="hidden" name="funcion" id="funcion" value="" form="form-cotizacion">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-cotizacion">
+                  <input type="hidden" id="intIdUsuario" name="intIdUsuario" value="" form="form-cotizacion">
+                  <input type="hidden" id="intIdCotizacionEquipo" name="intIdCotizacionEquipo" value="" form="form-cotizacion">
                   <div class="text-center">
                     <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización de Equipo" form="form-cotizacion">
+                    <input type="button" id="btn-editar-cotizacion" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar Cotización de Equipo" form="form-cotizacion">
                     <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-success" value="Nueva Cotización de Equipo" form="form-cotizacion">
                   </div>
                 </div>
               </div>
+              <script>HabilitacionOpciones(1);</script>
               <div class="col-md-10">
                 <div class="form-group" id="resultadocrud">
                 </div>
