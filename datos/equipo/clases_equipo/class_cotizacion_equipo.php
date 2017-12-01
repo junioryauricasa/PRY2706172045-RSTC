@@ -114,6 +114,10 @@ class CotizacionEquipo
       $salida['nvchDiasValidez'] = $fila['nvchDiasValidez'];
       $salida['intIdTipoMoneda'] = $fila['intIdTipoMoneda'];
       $salida['dcmPrecioVenta'] = $fila['dcmPrecioVenta'];
+
+      $salida['dcmValorVenta'] = Round(($fila['dcmPrecioVenta']/1.18),2);
+      $salida['dcmIGVVenta'] = Round(($fila['dcmPrecioVenta'] - $salida['dcmValorVenta']),2);
+
       $salida['intIdAutor'] = $fila['intIdAutor'];
       $salida['nvchObservacion'] = $fila['nvchObservacion'];
       echo json_encode($salida);

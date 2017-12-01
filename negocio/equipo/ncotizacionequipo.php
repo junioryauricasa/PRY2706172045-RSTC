@@ -16,6 +16,7 @@ $("#nvchDomicilio").val("");
 $("#TipoCliente").val("");
 $("#intIdCliente").val("");
 $("#intIdTipoVenta").val(3);
+$("#intIdTipoMoneda").val(1);
 $("#intIdTipoVenta").change();
 $("#intIdAutor").val(1);
 $("#dcmIGVVenta").val("0.00");
@@ -33,8 +34,7 @@ $("#nvchFormaPago").val("Contado o Leasing");
 $("#nvchLugarEntrega").val("Almacenes de Huancayo");
 $("#nvchTiempoEntrega").val("Inmediata, salvo previa venta");
 $("#nvchDiasValidez").val("15 Días");
-
-	$("#nvchObservacion").val("");
+$("#nvchObservacion").val("");
 }
 /* FIN - Funcion Ajax - Limpiear campos del Cotizacion */
 //////////////////////////////////////////////////////////////
@@ -134,22 +134,20 @@ $(document).on('click', '.btn-reporte-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
 $(document).on('click', '.btn-mostrar-cotizacion', function(){
-  	  var intIdCotizacion = $(this).attr("id");
+  	  var intIdCotizacionEquipo = $(this).attr("id");
   	  var funcion = "M";
   	  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/equipo/funcion_equipo.php",
 	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion},
+	   data:{intIdCotizacionEquipo:intIdCotizacionEquipo,funcion:funcion},
 	   dataType:"json",
 	   success:function(datos)
 	   {
+	   	LimpiarCampos();
 	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
-	   	//$("#nvchSerie").val(datos.nvchSerie);
-	   	//$("#nvchNumeracion").val(datos.nvchNumeracion);
 	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
 	   	$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
-	   	$("#intIdTipoPago").val(datos.intIdTipoPago);
 
 	   	$("#nvchNumDocumento").val(datos.nvchDNIRUC);
 		$("#nvchDenominacion").val(datos.nvchClienteProveedor);
@@ -157,10 +155,19 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 		$("#TipoCliente").val(datos.TipoCliente);
 		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 		$("#intIdCliente").val(datos.intIdCliente);
+
+		$("#nvchGarantia").val(datos.nvchGarantia);
+		$("#nvchTiempoEntrega").val(datos.nvchTiempoEntrega);
+		$("#nvchLugarEntrega").val(datos.nvchLugarEntrega);
+		$("#nvchDiasValidez").val(datos.nvchDiasValidez);
+		$("#nvchFormaPago").val(datos.nvchFormaPago);
+
+		$("#dcmValorVenta").val(datos.dcmValorVenta);
+		$("#dcmIGVVenta").val(datos.dcmIGVVenta);
+		$("#dcmPrecioVenta").val(datos.dcmPrecioVenta);
+
 		$("textarea#nvchObservacion").val(datos.nvchObservacion);
 		//HabilitacionOpciones(2);
-		ElegirTabla(datos.intIdTipoVenta);
-		MostrarDetalleCotizacion(datos.intIdCotizacion,datos.intIdTipoVenta);
 	   	$("#btnFormRealizarCotizacion").click();
 	   }
 	  });
