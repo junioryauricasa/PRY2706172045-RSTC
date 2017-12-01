@@ -93,7 +93,6 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 
 	   		crear_nuevo_proveedor();
 
-
 	   		var id_seleccion = <?php echo $_SESSION['intIdProveedor'] ?>;//obteniendo el valor de inico de session ultimo registrado en mi maquina y pasando a js
 			//alert(id_seleccion+1);//imprimie el valor de session + 1
 
@@ -101,9 +100,7 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 
 	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
 
-
 			$('#btntabbuscarproveedor').click();
-			
 			$('#formProveedor').modal('hide')
 
 		}
