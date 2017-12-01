@@ -175,8 +175,8 @@
         <?php
             $i++;
           }
-          for($j = $i ; $j <= 21; $j++){
-            if($j == 21) {
+          for($j = $i ; $j <= 37; $j++){
+            if($j == 37) {
               echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
             } else {
               echo '<tr class="segundodetalle" style="text-align: center; color:white;">';

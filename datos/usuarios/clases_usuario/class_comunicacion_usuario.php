@@ -90,7 +90,7 @@ class ComunicacionUsuario
               <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-warning" onclick="SeleccionarComunicacion(this)">
                 <i class="fa fa-edit"></i> Editar
               </button>
-              <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-danger" onclick="EliminarComunicacion(this)">
+              <button type="button" idcu="'.$fila['intIdComunicacionUsuario'].'" class="btn btn-xs btn-danger btn-eliminar-comunicacion-usuario" onclick="EliminarComunicacion(this)">
                 <i class="fa fa-edit"></i> Eliminar
               </button>
             </td>

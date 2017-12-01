@@ -285,22 +285,29 @@ function SeleccionarComunicacion(seleccion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Eliminar Comunicacion Seleccionado */
 function EliminarComunicacion(seleccion) {
-	var intIdComunicacionUsuario = $(seleccion).attr("idcu");
-	var funcion = "EC";
-	var tipolistado = "T";
-	var intIdUsuario = $("#intIdUsuario-comunicacion").val();
-	  $.ajax({
-	   url:"../../datos/usuarios/funcion_usuario.php",
-	   method:"POST",
-	   data:{intIdComunicacionUsuario:intIdComunicacionUsuario,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	 if(datos=="ok"){
-	   	 	MensajeNormal("Se eliminó correctamente la Comunicación",1);
-	   	 	MostrarComunicacion(intIdUsuario,tipolistado);
-	   	 }
-	   }
-	  });
+	
+	//$('.mi-modal').modal('show');//mostrando modal
+
+	//$(document).on('click', '.modal-btn-si', function(){
+
+		var intIdComunicacionUsuario = $(seleccion).attr("idcu");
+		var funcion = "EC";
+		var tipolistado = "T";
+		var intIdUsuario = $("#intIdUsuario-comunicacion").val();
+		$.ajax({
+		   url:"../../datos/usuarios/funcion_usuario.php",
+		   method:"POST",
+		   data:{intIdComunicacionUsuario:intIdComunicacionUsuario,funcion:funcion},
+		   success:function(datos)
+		   {
+		   	 if(datos=="ok"){
+		   	 	MensajeNormal("Se eliminó correctamente la Comunicación",1);
+		   	 	MostrarComunicacion(intIdUsuario,tipolistado);
+		   	 }
+		   }
+		});
+
+	//}
 }
 /* FIN - Eliminar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////

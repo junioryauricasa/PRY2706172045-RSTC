@@ -237,8 +237,8 @@
     <?php
         $i++;
       }
-      for($j = $i ; $j <= 15; $j++){
-        if($j == 15) {
+      for($j = $i ; $j <= 30; $j++){
+        if($j == 30) {
           echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
         } else {
           echo '<tr class="segundodetalle" style="text-align: center; color:white;">';

@@ -418,6 +418,30 @@
         </section><!-- /.content -->
       </div>
 
+
+<!-- INICIO modal confirmar -->
+<div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+      </div>
+      <div class="modal-body">
+        Estas seguro de eliminar registro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modal-btn-si" id="">Si</button>
+        <button type="button" class="btn btn-primary modal-btn-no" id="">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END modal confirmar -->
+
+
 <script>
   // Modal
   $('#modalcust').modal({
