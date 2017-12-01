@@ -1,4 +1,5 @@
 <script>
+var SNuevoProveedor = "";
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Proveedor */
 $(document).on('click', '#btn-form-crear-proveedor', function(){
@@ -37,7 +38,7 @@ function crear_nuevo_proveedor(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Proveedor */
-$(document).on('click', '#btn-crear-proveedor', function(){
+$(document).on('click', '#btn-crear-proveedor-nuevo', function(){
 	  var formData = $("#form-proveedor").serialize();
 	  var funcion = "I";
 	  var y = document.getElementById("num-lista").value;
@@ -86,21 +87,17 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
-	   		$("#btn-form-proveedor-remove").click();
 
+	   		limpiarformProveedor();//limpiar formulario
+	   		botonescrear();
+	   		if(SNuevoProveedor == "I"){
 	   		crear_nuevo_proveedor();
-
-	   		var id_seleccion = <?php echo $_SESSION['intIdProveedor'] ?>;//obteniendo el valor de inico de session ultimo registrado en mi maquina y pasando a js
-			//alert(id_seleccion+1);//imprimie el valor de session + 1
-
+	   		var id_seleccion = <?php echo $_SESSION['intIdProveedor'] ?>;//obteniendo el valor de inico de session ultimo 
 	   		SeleccionarProveedorS(id_seleccion+1);//incoca a la funcion proveedor
-
-	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
-
-			//$('#btntabbuscarproveedor').click();
-			 $('#btntabbuscarproveedor').click();
+	   		$('#btntabbuscarproveedor').click();
 			$('#formProveedor').modal('hide')
-
+			}
+			$("#btn-listaproveedores").click();
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -111,6 +108,58 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 /* FIN - Funcion Ajax - Insertar Proveedor */
 //////////////////////////////////////////////////////////////
 
+/*	Función Limpiar Formulario de registro de cliente   */
+//////////////////////////////////////////////////////////////
+function limpiarformProveedor(){  
+
+      //restablecer valores
+      RestablecerValidacion("tipo-persona",1);
+      RestablecerValidacion("intIdTipoPersona",1);
+      RestablecerValidacion("nvchDNI",1);
+      RestablecerValidacion("nvchRUC",1);
+      RestablecerValidacion("nvchRazonSocial",1);
+      RestablecerValidacion("nvchApellidoPaterno",1);
+      RestablecerValidacion("nvchApellidoMaterno",1);
+      RestablecerValidacion("nvchNombres",1);
+      RestablecerValidacion("intIdTipoCliente",1);
+      RestablecerValidacion("nvchObservacion",1);
+
+
+      //persona
+      $("#tipo-persona").val(1);
+      $("#intIdTipoPersona").val("");
+      $("#nvchDNI").val("");
+      $("#nvchRUC").val("");
+      $("#nvchRazonSocial").val("");
+      $("#nvchApellidoPaterno").val("");
+      $("#nvchApellidoMaterno").val("");
+      $("#nvchNombres").val("");
+      $("#intIdTipoCliente").val("");
+      $("#nvchObservacion").val("");
+
+      //domicilio
+      $("#nvchPais").val("");
+      $("#intIdDepartamento").val(1);
+      $("#intIdProvincia").val(1);
+      $("#intIdDistrito").val(1);
+      $("#nvchDireccion").val("");
+      $("#tipo-domicilio").val(1);
+      $("#IdDomicilioCliente").val("");
+
+      //comunicacion
+      $("#nvchMedio").val("");
+      $("#nvchLugar").val("");
+      $("#tipo-comunicacion").val(1);
+      $("#IdComunicacionCliente").val("");
+
+      //limpiando tablas
+      $("#ListaDeDomicilios").html("");//vacia tabla
+      //limpiando tablas
+      $("#ListaDeComunicaciones").html("");//vacia tabla
+      
+}
+//////////////////////////////////////////////////////////////
+/*	FIN * Función Limpiar Formulario de registro de cliente   */
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Proveedor */
@@ -138,7 +187,7 @@ $(document).on('click', '.btn-mostrar-proveedor', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Proveedor */
-$(document).on('click', '#btn-editar-proveedor', function(){
+$(document).on('click', '#btn-editar-proveedor-actualizar', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(".marca").attr("idp") * y;
@@ -679,10 +728,44 @@ function SeleccionarDomicilio(seleccion) {
 /* FIN - Mostrar Domicilio Seleccionado */
 //////////////////////////////////////////////////////////////
 
+/*	Función Mostrar botones formularios de cliente   */
+///////////////////////////////////////////////////////////
+function botonescrear(){
+      $("#btn-agregar-domicilio").show();
+      $("#btn-agregar-domicilio").hide();
+      $("#btn-actualizar-domicilio").hide();
+      $("#btn-cancelar-domicilio").hide();
 
+      $("#btn-agregar-comunicacion").show();
+      $("#btn-agregar-comunicacion").hide();
+      $("#btn-actualizar-comunicacion").hide();
+      $("#btn-cancelar-comunicacion").hide();
 
+      //$("#intIdCliente").val("");
+      $("#btn-editar-proveedor-actualizar").hide();
+      $("#btn-reset-actualizar").hide();
+      $("#btn-crear-proveedor-nuevo").show();
+      $("#btn-reset-nuevo").show();	  
+}
 
+function botonesactualizar(){
+      $("#btn-agregar-domicilio").hide();
+      $("#btn-agregar-domicilio").show();
+      $("#btn-actualizar-domicilio").show();
+      $("#btn-cancelar-domicilio").show();
 
+      $("#btn-agregar-comunicacion").hide();
+      $("#btn-agregar-comunicacion").show();
+      $("#btn-actualizar-comunicacion").show();
+      $("#btn-cancelar-comunicacion").show();
+
+      $("#btn-editar-proveedor-actualizar").show();
+      $("#btn-reset-actualizar").show();
+      $("#btn-crear-proveedor-nuevo").hide();
+      $("#btn-reset-nuevo").hide();
+}
+///////////////////////////////////////////////////////////
+/*	END * Función Mostrar botones formularios de cliente   */
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Comunicacion Seleccionado */

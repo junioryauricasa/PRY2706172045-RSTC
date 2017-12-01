@@ -97,6 +97,7 @@
                       <!-- INICIO - formulario proveedor -->
                       <div id="formulario-crud"></div>
                       <div id="resultadocrud"></div>
+                      <script type="text/javascript">SNuevoProveedor = "I";</script>
                       <!-- END - formulario proveedor -->
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <script>
+var SNuevoCliente = "";
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
 $(document).on('click', '#btn-form-crear-cliente', function(){
@@ -84,26 +85,20 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	   		AccionCabecerasTabla(intIdTipoPersona);
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   		
-	   		//$("#lista-persona").val($("#tipo-persona").val());
+	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		//$("#btn-form-cliente-remove").click();
 			
 	   		limpiarformCliente();//limpiar formulario
 	   		botonescrear();
 	   		$("#lilistarclientes").click();//volver a la primera pestana
-
-
+	   		
+	   		if(SNuevoCliente == "I"){
 	   		crear_nuevo_cliente();
-
-	   		var id_seleccion2 = <?php echo $_SESSION['intIdCliente'] ?>;//obteniendo el valor de inico de session ultimo registrado en mi maquina y pasando a js
-			//alert(id_seleccion+1);//imprimie el valor de session + 1
-
+	   		var id_seleccion2 = <?php echo $_SESSION['intIdCliente'] ?>;
 	   		SeleccionarClienteS(id_seleccion2+1);//incoca a la funcion proveedor
-
-	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
 	   		$('#tablistadoclientebutton').click();
 			$('#formCliente').modal('hide');
-
+			}
 
 		}
 	   	else { $("#resultadocrud").html(datos); }

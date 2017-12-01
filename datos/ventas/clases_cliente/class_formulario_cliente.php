@@ -179,7 +179,7 @@ class FormularioCliente
                   <?php if($funcion == "M") { ?>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="submit" id="btn-editar-cliente-actualizar" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
+                        <input type="button" id="btn-editar-cliente-actualizar" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
                         <input type="reset" id="btn-reset-actualizar" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                       </div>
                     </div>
@@ -413,7 +413,7 @@ class FormularioCliente
                       <?php } ?>
                       <input type="hidden" name="intIdCliente" id="intIdCliente" value="<?php echo $this->intIdCliente; ?>" />
                       <?php if($funcion == "F"){ ?>
-                      <input type="submit" id="btn-crear-cliente-nuevo" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
+                      <input type="button" id="btn-crear-cliente-nuevo" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
                       <input type="reset" id="btn-reset-nuevo" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
                       <?php } ?>
                   </div>
