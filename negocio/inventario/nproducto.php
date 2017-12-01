@@ -1,4 +1,13 @@
 <script>
+function DescripcionProducto(intIdTipoVenta){
+	if(intIdTipoVenta == 1){
+		$("#nvchDescripcionCol").show();
+		$("#nvchDescripcionOCol").hide();
+	} else {
+		$("#nvchDescripcionCol").hide();
+		$("#nvchDescripcionOCol").show();
+	}
+}
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Producto */
 $(document).on('click', '#btn-form-crear-producto', function(){

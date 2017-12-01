@@ -57,7 +57,6 @@
         $(".result").html("").hide();
         InsertarProductoElegido(intIdProducto,numfila);
       }
-      numfila = 0;
     });
 
     $(document).on('click', '.buscar', function(){
@@ -132,6 +131,7 @@
        success:function(datos)
        {
         $("#intIdProducto"+id).val(datos.intIdProducto);
+        $("#detalleUbigeoProducto"+id).html(datos.detalleUbigeoProducto);
         $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
         $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
         $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);
@@ -164,6 +164,7 @@
               '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="result'+num+'">'+
           '</td>'+
+          '<td id="detalleUbigeoProducto'+num+'"></td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
           camposVender+
           '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" '+readonlyVender+' /></td>'+

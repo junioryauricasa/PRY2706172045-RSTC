@@ -134,14 +134,6 @@ require_once '../../datos/conexion/bd_conexion.php';
     			      </div>
     			    </section>
 
-              <!-- script for modal detalles prod -->
-              <script type="text/javascript">
-                    function showmodaldetalles(){
-                      $('#modal-detalleproductos').modal('show');
-                    }
-              </script>
-              <!-- Modal codigo productos-->
-
               <!--div class="modal modal-default fade" id="modal-detalleproductos" data-backdrop="static">
                 <div class="modal-dialog" style="">
                   <div class="modal-content">
@@ -184,48 +176,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                   </div>
                 </div>
               </div-->
-
-
-              <div class="modal fade" tabindex="-1" role="dialog" id="modal-detalleproductos">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title"><i class="fa fa-book" style=""></i>
-                          Detalle de la ubicación del Producto: <b><span id="CodigoProducto"></span></b>
-                      </h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                          <div class="col-xs-12">
-                              <div id="TablaDetalleUbigeo">
-                                  <div class="table-responsive">
-                                    <table class="rwd-table ExcelTable2007" width="100%">
-                                      <thead>
-                                        <tr>
-                                          <th class="heading" style="width: 25px">&nbsp;</th>
-                                          <th>Sucursal</th>
-                                          <th>Ubicación en el Almacén</th>
-                                          <th>Cantidad</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody id="DetalleUbigeo">
-                                      </tbody>
-                                    </table>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-danger btn-flat">Limpiar Detalles</button>
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
               <!-- END Modal codigo productos-->
               
 		      </div>
@@ -239,6 +189,26 @@ require_once '../../datos/conexion/bd_conexion.php';
                             <h4 id="lblTituloFormulario" class="box-title text-center"></h4>
                           <hr>
                           <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Tipo de Producto:</label>
+                              <select id="intIdTipoVenta" onchange="DescripcionProducto(this.value)" name="intIdTipoVenta" class="form-control select2" >
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrartipoventacompras()');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo '<option value="'.$fila['intIdTipoVenta'].'">'.$fila['nvchNombre'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                              <script type="text/javascript">$("#intIdTipoMonedaCompra").val();</script>
+                            </div>
+                          </div>
+                          <div id="nvchDescripcionCol" class="col-md-12">
                             <div id="nvchDescripcionGroup" class="form-group">
                               <label>Descripción:</label>
                               <input type="text" id="nvchDescripcion" name="nvchDescripcion" class="form-control select2" 
@@ -248,6 +218,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <div id="nvchDescripcionObs" class=""></div>
                             </div>
                           </div>
+                          <div id="nvchDescripcionOCol" class="col-md-12">
+                            <div id="nvchDescripcionOGroup" class="form-group">
+                              <label>Descripción:</label>
+                              <textarea id="nvchDescripcionR" class="form-control select2" maxlength="800" value=" " name="nvchDescripcionR" form="form-producto" placeholder="Ingrese Observación" rows="6">
+                              </textarea>
+                            </div>
+                          </div>
+                          <script type="text/javascript">DescripcionProducto(1);</script>
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Unidad de Medida:</label>
