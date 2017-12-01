@@ -463,9 +463,14 @@ class Producto
           ?>
             <div class="show" align="left">
               <span class="btnNuevoProducto">
-                <a href="#" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <span class="nvchCodigo" id="textbolder" style=""> Click Aquí</span> para ingresar uno nuevo
+                <a href="#" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <span id="textbolder" style=""> Click Aquí</span> para ingresar uno nuevo
               </span>
             </div>
+            <!--<div class="show" align="left">
+              <span class="btnNuevoProducto">
+                <a href="#" class="text-danger" style="font-weight: bolder; color: red">No existe el producto</a>: Hacer <span class="nvchCodigo" id="textbolder" style=""> Click Aquí</span> para ingresar uno nuevo
+              </span>
+            </div>-->
           <?php
         }
       }

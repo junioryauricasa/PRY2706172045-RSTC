@@ -1,5 +1,5 @@
 <div id="formProducto" class="modal fade">
- <div class="modal-dialog modal-lg">
+ <div class="modal-dialog modal-lg" style="width: 95%">
    <div class="modal-content">
     <div style="background-color: #78909c;"  class="modal-header">
      <button type="button" class="close" data-dismiss="modal">&times;</button>
