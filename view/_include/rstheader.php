@@ -221,7 +221,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulo Usuarios</a>
                     <ul class="dropdown-menu">
                         <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
-                        <li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>
+                        <!--<li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>-->
                         <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
                     </ul>
                 </li>

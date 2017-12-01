@@ -201,7 +201,7 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label>Seleccionar el Tipo de Equipo:</label>
+                  <label>Seleccionar Autor de la Cotización:</label>
                   <select id="intIdAutor" name="intIdAutor" class="form-control select2" form="form-cotizacion">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
