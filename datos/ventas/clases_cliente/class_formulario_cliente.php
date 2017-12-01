@@ -104,7 +104,7 @@ class FormularioCliente
                       <label>RUC:</label>
                       <input type="text" id="nvchRUC" name="nvchRUC" class="form-control select2" placeholder="Ingrese RUC" 
                       value="<?php echo $this->nvchRUC; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
-                      onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11" required>
+                      onkeyup="EsNumeroEnteroOp('nvchRUC')" maxlength="11" required>
                       <span id="nvchRUCIcono" class="" aria-hidden=""></span>
                       <div id="nvchRUCObs" class=""></div>
                     </div>
@@ -179,7 +179,7 @@ class FormularioCliente
                   <?php if($funcion == "M") { ?>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="submit" id="btn-editar-cliente-actualizar" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
+                        <input type="button" id="btn-editar-cliente-actualizar" class="btn btn-sm btn-warning btn-flat" value="Editar Cliente"> 
                         <input type="reset" id="btn-reset-actualizar" class="btn btn-sm btn-danger btn-flat" value="Limpiar" required="">
                       </div>
                     </div>
@@ -413,7 +413,7 @@ class FormularioCliente
                       <?php } ?>
                       <input type="hidden" name="intIdCliente" id="intIdCliente" value="<?php echo $this->intIdCliente; ?>" />
                       <?php if($funcion == "F"){ ?>
-                      <input type="submit" id="btn-crear-cliente-nuevo" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
+                      <input type="button" id="btn-crear-cliente-nuevo" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Cliente">
                       <input type="reset" id="btn-reset-nuevo" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
                       <?php } ?>
                   </div>

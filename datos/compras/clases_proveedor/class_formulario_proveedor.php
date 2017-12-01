@@ -103,7 +103,7 @@ class FormularioProveedor
                         <label>RUC:</label>
                         <input type="text" id="nvchRUC" name="nvchRUC" class="form-control select2" placeholder="Ingrese RUC" 
                         value="<?php echo $this->nvchRUC; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
-                        onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11" required>
+                        onkeyup="EsNumeroEnteroOp('nvchRUC')" maxlength="11" required>
                         <span id="nvchRUCIcono" class="" aria-hidden=""></span>
                         <div id="nvchRUCObs" class=""></div>
                       </div>
@@ -162,8 +162,8 @@ class FormularioProveedor
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="submit" id="btn-editar-proveedor" class="btn btn-sm btn-warning btn-flat" value="Editar Proveedor"> 
-                      <input type="reset" class="btn btn-sm btn-danger btn-flat" value="Limpiar">
+                      <input type="button" id="btn-editar-proveedor-actualizar" class="btn btn-sm btn-warning btn-flat" value="Editar Proveedor"> 
+                      <input type="reset" id="btn-reset-actualizar" class="btn btn-sm btn-danger btn-flat" value="Limpiar">
                     </div>
                   </div>
                 </div>
@@ -397,8 +397,8 @@ class FormularioProveedor
                     <?php } ?>
                     <input type="hidden" name="intIdProveedor" id="intIdProveedor" value="<?php echo $this->intIdProveedor; ?>" />
                     <?php if($funcion == "F"){ ?>
-                    <input type="submit" id="btn-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Proveedor" onclick="">
-                    <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
+                    <input type="button" id="btn-crear-proveedor-nuevo" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Proveedor" onclick="">
+                    <input type="reset" id="btn-reset-nuevo" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
                     <?php } ?>
                 </div>
 

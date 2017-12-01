@@ -45,6 +45,9 @@ if (isset($_POST['btnIngresar'])) {
                   ':nvchFechaAcceso' => $datetimelogin,
                   ':nvchIpOrigen' => getHostByName(getHostName()),
                   ':nvchNavegador' => $ua));
+            $_SESSION['intIdCliente'] = 0;
+            $_SESSION['intIdProveedor'] = 0;
+            $_SESSION['intIdProducto'] = 0;
             header("Location: view/default/");
           }
         } else {

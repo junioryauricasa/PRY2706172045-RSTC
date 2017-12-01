@@ -98,6 +98,7 @@
                         <div class="tab-pane" id="formularioclientes">
                             <div id="formulario-crud"></div>
                             <div id="resultadocrud"></div>
+                            <script type="text/javascript">SNuevoCliente = "I";</script>
                         </div>
                         <!-- END - formulario vcliente -->
                     </div>

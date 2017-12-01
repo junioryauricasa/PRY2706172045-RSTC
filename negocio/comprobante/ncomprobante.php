@@ -6,6 +6,7 @@
     var num = 2;
     var nums = 2;
     var numm = 2;
+    var numi = 2;
     var numfila = 0;
     $(document).on('keyup', '.buscar', function(evt){
       var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -202,6 +203,11 @@
         $('#ListaDeMaquinariasVender').append(
         '<tr>'+
           '<td class="heading" data-th="ID"></td>'+
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'+num+'" name="nvchCodigoM[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+              '<div class="result" id="resultM'+num+'">'+
+          '</td>'+
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionM'+numm+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>'+
@@ -222,6 +228,35 @@
           '</td>'+
         '</tr>');
         numm++;
+      } else if(intIdTipoVenta == 4){
+        $('#ListaDeImplementosVender').append(
+        '<tr>'+
+          '<td class="heading" data-th="ID"></td>'+
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'+num+'" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+              '<div class="result" id="resultI'+num+'">'+
+          '</td>'+
+          '<td>'+
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
+            '<textarea id="nvchDescripcionI'+numi+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>'+
+          '</td>'+
+          '<td>'+
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'+numi+'" name="dcmPrecioUnitarioI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" id="intCantidadI'+numi+'" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
+          '</td>'+
+          '<td>'+
+            '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" form="form-comprobante" readonly/>'+
+          '</td>'+
+          '<td style="width: 25px !important" >'+
+            '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
+                '<i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>' +
+            '</button>'+
+          '</td>'+
+        '</tr>');
+        numi++;
       }
     }
 
@@ -242,16 +277,25 @@
         $("#tablaRepuestos").show();
         $("#tablaServicios").hide();
         $("#tablaMaquinarias").hide();
+        $("#tablaImplementos").hide();
         CalcularTotal();
       } else if(intIdTipoVenta == 2) {
         $("#tablaRepuestos").hide();
         $("#tablaServicios").show();
         $("#tablaMaquinarias").hide();
+        $("#tablaImplementos").hide();
         CalcularTotal();
       } else if(intIdTipoVenta == 3) {
         $("#tablaRepuestos").hide();
         $("#tablaServicios").hide();
         $("#tablaMaquinarias").show();
+        $("#tablaImplementos").hide();
+        CalcularTotal();
+      } else if(intIdTipoVenta == 4) {
+        $("#tablaRepuestos").hide();
+        $("#tablaServicios").hide();
+        $("#tablaMaquinarias").hide();
+        $("#tablaImplementos").show();
         CalcularTotal();
       }
     }
