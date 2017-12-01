@@ -67,6 +67,7 @@ DELIMITER $$
 		SET
 		dtmFechaCreacion = _dtmFechaCreacion,
 		intIdTipoVenta = _intIdTipoVenta,
+		intIdPlantillaCotizacion = _intIdPlantillaCotizacion,
 		intIdUsuario = _intIdUsuario,
 		intIdCliente = _intIdCliente,
 		nvchClienteProveedor = _nvchClienteProveedor,

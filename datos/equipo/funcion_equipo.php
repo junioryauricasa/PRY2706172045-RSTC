@@ -32,7 +32,9 @@ switch($_POST['funcion']){
   case "A":
     $CotizacionEquipo = new CotizacionEquipo();
     $CotizacionEquipo->IdCotizacionEquipo($_POST['intIdCotizacionEquipo']);
-    $CotizacionEquipo->FechaCreacion($_POST['dtmFechaCreacion']);
+    $dtmFechaCreacion = str_replace('/', '-', $_POST['nvchFecha']);
+    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($dtmFechaCreacion));
+    $CotizacionEquipo->FechaCreacion($dtmFechaCreacion);
     $CotizacionEquipo->IdTipoVenta($_POST['intIdTipoVenta']);
     $CotizacionEquipo->IdPlantillaCotizacion($_POST['intIdPlantillaCotizacion']);
     $CotizacionEquipo->IdUsuario($_POST['intIdUsuario']);

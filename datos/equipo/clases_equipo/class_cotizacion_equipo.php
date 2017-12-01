@@ -95,7 +95,7 @@ class CotizacionEquipo
       $sql_comando -> execute(array(':intIdCotizacionEquipo' => $this->intIdCotizacionEquipo));
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
       $salida['intIdCotizacionEquipo'] = $fila['intIdCotizacionEquipo'];
-      $salida['dtmFechaCreacion'] = $fila['dtmFechaCreacion'];
+      $salida['dtmFechaCreacion'] = date('d/m/Y H:i:s', strtotime($fila['dtmFechaCreacion']));
       $salida['intIdTipoVenta'] = $fila['intIdTipoVenta'];
       $salida['intIdPlantillaCotizacion'] = $fila['intIdPlantillaCotizacion'];
       $salida['intIdUsuario'] = $fila['intIdUsuario'];
@@ -132,13 +132,14 @@ class CotizacionEquipo
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare(':intIdCotizacionEquipo,:dtmFechaCreacion,:intIdTipoVenta,
-        :intIdPlantillaCotizacion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchTelefono,:nvchAtencion,:nvchGarantia,
-        :nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,:nvchDiasValidez,:intIdTipoMoneda,:dcmPrecioVenta,:intIdAutor,:nvchObservacion)');
+      $sql_comando = $sql_conectar->prepare('CALL ACTUALIZARCOTIZACIONEQUIPO(:intIdCotizacionEquipo,:dtmFechaCreacion,
+        :intIdTipoVenta,:intIdPlantillaCotizacion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,
+        :nvchDireccion,:nvchTelefono,:nvchAtencion,:nvchGarantia,:nvchFormaPago,:nvchLugarEntrega,:nvchTiempoEntrega,
+        :nvchDiasValidez,:intIdTipoMoneda,:dcmPrecioVenta,:intIdAutor,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCotizacionEquipo' => $this->intIdCotizacionEquipo,
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':intIdTipoVenta' => $this->intIdTipoVenta, 
-        ':dtmFechaCreacion' => $this->$dtmFechaCreacion,
         ':intIdPlantillaCotizacion' => $this->intIdPlantillaCotizacion,
         ':intIdUsuario' => $this->intIdUsuario,
         ':intIdCliente' => $this->intIdCliente,

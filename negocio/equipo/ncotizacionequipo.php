@@ -1,4 +1,6 @@
 <script>
+var SintIdPlantillaCotizacion = 0;
+var SIIPC = 0;
 //////////////////////////////////////////////////////////////
 /* INICIO - Operaciones de Comprobante */
 function formCliente(){
@@ -18,6 +20,7 @@ $("#intIdCliente").val("");
 $("#intIdTipoVenta").val(3);
 $("#intIdTipoMoneda").val(1);
 $("#intIdTipoVenta").change();
+$("#intIdPlantillaCotizacion").val(1);
 $("#intIdAutor").val(1);
 $("#dcmIGVVenta").val("0.00");
 $("#dcmValorVenta").val("0.00");
@@ -40,6 +43,20 @@ $("#nvchObservacion").val("");
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
+function HabilitacionOpciones(accion){
+	if(accion == 1){
+		$('.opcion-boton-nuevo').show();
+		$('.opcion-boton-editar').hide();
+	} else {
+		$('.opcion-boton-nuevo').hide();
+		$('.opcion-boton-editar').show();
+	}
+}
+/* FIN - Funcion Ajax - Limpiear campos del Comprobante */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Formulario de Realizar Venta */
 function ListarTipoEquipo(intIdTipoVenta){
   var funcion = "LTE";
@@ -48,8 +65,15 @@ function ListarTipoEquipo(intIdTipoVenta){
      method:'POST',
      data:{funcion:funcion,intIdTipoVenta:intIdTipoVenta},
      success:function(datos)
-     {
-       $("#intIdPlantillaCotizacion").html(datos); 
+     { 
+       $("#intIdPlantillaCotizacion").html(datos);
+       if($("#funcion").val()=="M" && SIIPC < 2){
+       	$("#intIdPlantillaCotizacion").val(SintIdPlantillaCotizacion);
+       	SIIPC++;
+       } else {
+       	 $("#funcion").val("");
+       	 SIIPC = 0;
+       }
      }
     });
 }
@@ -63,25 +87,6 @@ function NuevaCotizacion(){
 	$("#btnFormRealizarCotizacion").click();
 }
 /* FIN - Funcion Ajax - Formulario de Realizar Venta */
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
-$(document).on('click', '#btn-form-crear-cotizacion', function(){
-	  var funcion = "F";
-	  $.ajax({
-	   url:"../../datos/equipo/funcion_equipo.php",
-	   method:'POST',
-	   data:{funcion:funcion},
-	   success:function(datos)
-	   {
-	   	$("#formulario-crud").html(datos);
-	   	goToBox("#Formulario");
-	   }
-	  });
-	 return false;
-});
-/* FIN - Funcion Ajax - Visualizar Formulario Crear Cliente */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -134,6 +139,7 @@ $(document).on('click', '.btn-reporte-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
 $(document).on('click', '.btn-mostrar-cotizacion', function(){
+	  $("#funcion").val("M");
   	  var intIdCotizacionEquipo = $(this).attr("id");
   	  var funcion = "M";
   	  var tipolistado = "T";
@@ -145,9 +151,11 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	LimpiarCampos();
+	   	$("#intIdCotizacionEquipo").val(datos.intIdCotizacionEquipo);
 	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
 	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
 	   	$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
+	   	//$("#intIdPlantillaCotizacion").val(datos.intIdPlantillaCotizacion);
 
 	   	$("#nvchNumDocumento").val(datos.nvchDNIRUC);
 		$("#nvchDenominacion").val(datos.nvchClienteProveedor);
@@ -155,6 +163,9 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 		$("#TipoCliente").val(datos.TipoCliente);
 		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 		$("#intIdCliente").val(datos.intIdCliente);
+		$("#intIdUsuario").val(datos.intIdUsuario);
+		$("#nvchTelefono").val(datos.nvchTelefono);
+		$("#nvchAtencion").val(datos.nvchAtencion);
 
 		$("#nvchGarantia").val(datos.nvchGarantia);
 		$("#nvchTiempoEntrega").val(datos.nvchTiempoEntrega);
@@ -167,7 +178,9 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 		$("#dcmPrecioVenta").val(datos.dcmPrecioVenta);
 
 		$("textarea#nvchObservacion").val(datos.nvchObservacion);
-		//HabilitacionOpciones(2);
+		HabilitacionOpciones(2);
+		SintIdPlantillaCotizacion = datos.intIdPlantillaCotizacion;
+		$("#intIdTipoVenta").change();
 	   	$("#btnFormRealizarCotizacion").click();
 	   }
 	  });
@@ -184,7 +197,6 @@ $(document).on('click', '#btn-editar-cotizacion', function(){
   	  var x = $(".marca").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-cotizacion").serialize();
-  	  var intIdTipoCotizacion = document.getElementById("tipo-cotizacion").value;
 	  $.ajax({
 	   url:"../../datos/equipo/funcion_equipo.php",
 	   method:"POST",
@@ -192,9 +204,12 @@ $(document).on('click', '#btn-editar-cotizacion', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente el Cotizacion",1);
+	   		MensajeNormal("Se Modificó correctamente la Cotizacion",1);
 	   		ListarCotizacion(x,y,tipolistado);
 	   		PaginarCotizacion(x,y,tipolistado);
+	   		LimpiarCampos();
+	   		HabilitacionOpciones(1);
+	   		$("#btnFormListarCotizacion").click();
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
