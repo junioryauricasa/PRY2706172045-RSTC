@@ -945,6 +945,85 @@ function SeleccionarCliente(seleccion) {
 	   }
 	  });
 }
+/* FIN - Seleccion del Cliente */
+///////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Insertar Producto */
+$(document).on('click', '#btn-crear-producto-s', function(){
+    var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
+    var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+    $("#funcion").val("I");
+    if(EsVacio("nvchDescripcion") == false){
+      goToBox("#nvchDescripcionGroup");
+      return false;
+    } else if(EsNumeroEntero("intCantidadMinima") == false){
+      goToBox("#intCantidadMinimaGroup");
+      return false;
+    } else if(EsDecimal("dcmPrecioCompra") == false){
+      goToBox("#dcmPrecioCompraGroup");
+      return false;
+    } else if(EsDecimal("dcmPrecioVenta1") == false){
+      goToBox("#dcmPrecioVenta1Group");
+      return false;
+    } else if(EsDecimal("dcmPrecioVenta2") == false){
+      goToBox("#dcmPrecioVenta2Group");
+      return false;
+    } else if(EsDecimal("dcmPrecioVenta3") == false){
+      goToBox("#dcmPrecioVenta3Group");
+      return false;
+    } else if(EsDecimal("dcmDescuentoVenta2") == false){
+      goToBox("#dcmDescuentoVenta2Group");
+      return false;
+    } else if(EsDecimal("dcmDescuentoVenta3") == false){
+      goToBox("#dcmDescuentoVenta3Group");
+      return false;
+    } else if(num_filas_codigo == 0){
+      MensajeNormal("Ingrese por lo menos un Código de Producto",2);
+      return false;
+    } else if(num_filas_ubicacion == 0){
+      MensajeNormal("Ingresar por lo menos una Ubicación del Producto",2);
+      return false;
+    }
+    var formData = $("#form-producto").serialize();
+    var funcion = "I";
+    var y = document.getElementById("num-lista").value;
+      var x = 0;
+      var tipolistado = "N";
+    $.ajax({
+     url: "../../datos/inventario/funcion_producto.php",
+     method: "POST",
+     data: formData,
+     success:function(datos)
+     {
+      datos = datos.replace(/\s/g,''); //quitando espacio
+      if (datos == "okokokokok") {
+        MensajeNormal("Se agregó correctamente el nuevo Producto",1);
+        limpiarformProducto();
+        ConsultarIdProducto();
+      }
+      else { $("#resultadocrud").html(datos); }
+     }
+    });
+   return false;
+});
+
+function ConsultarIdProducto(){
+  var funcion = "Id";
+  $.ajax({
+     url: "../../datos/inventario/funcion_producto.php",
+     method: "POST",
+     data: {funcion:funcion},
+     success:function(datos)
+     {
+      datos = datos.replace(/\s/g,'');
+      InsertarProductoElegido(datos,numfila);
+      $("#formProducto").modal("hide");
+     }
+    });
+}
+/* FIN - Funcion Ajax - Insertar Producto */
+//////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////
 // INICIO - funcion creada para autoselecionar cliente despues de su registro
