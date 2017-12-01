@@ -776,5 +776,14 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     background-repeat: none;
 }
 
+/*
+text area el ancho 
+*/
+textarea{
+    max-width: 100%;
+    min-width: 100%;
 
+    min-height: 100px;
+    overflow-x: hidden;
+}
 </style>
