@@ -100,7 +100,8 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 
 	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
 
-			$('#btntabbuscarproveedor').click();
+			//$('#btntabbuscarproveedor').click();
+			 $('#btntabbuscarproveedor').click();
 			$('#formProveedor').modal('hide')
 
 		}
