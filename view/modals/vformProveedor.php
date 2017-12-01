@@ -1,5 +1,7 @@
-<div id="formProveedor" class="modal fade" style="">
- <div class="modal-dialog modal-lg">
+<?php require_once '../../negocio/compras/nproveedor.php'; ?>
+
+<div id="formProveedor" class="modal fade">
+ <div class="modal-dialog modal-lg" style="width: 95%">
    <div class="modal-content">
     <div style="background-color: #78909c;"  class="modal-header">
      <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -9,8 +11,16 @@
         <section class="content">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#formBuscarProveedor" data-toggle="tab" aria-expanded="true">Buscar Proveedor</a></li>
-                  <li class=""><a href="#formRegistroProveedor" data-toggle="tab" aria-expanded="false">Registro Proveedor</a></li>
+                  <li class="active">
+                    <a href="#formBuscarProveedor" data-toggle="tab" aria-expanded="true">
+                        Buscar Proveedor
+                    </a>
+                  </li>
+                  <li class="">
+                      <a href="#formRegistroProveedor" data-toggle="tab" aria-expanded="false" id="btntabformulario">
+                        Registro Proveedor
+                      </a>
+                  </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="formBuscarProveedor">
@@ -47,7 +57,8 @@
                             <div class="form-group">
                               <label>Nuevo Proveedor:</label>
                               <br>
-                              <a href="../ventas/vProveedor" class="btn btn-sm btn-primary btn-flat" target="_blank">+ Agregar</a>
+                              <!--a href="../ventas/vProveedor" class="btn btn-sm btn-primary btn-flat" target="_blank">+ Agregar</a-->
+                              <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left" onclick="verformulario()">Agregar Proveedor</button>
                             </div>
                           </div>
                         </div>
@@ -82,7 +93,10 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="formRegistroProveedor">
-                        
+                      <!-- INICIO - formulario proveedor -->
+                      <div id="formulario-crud"></div>
+                      <div id="resultadocrud"></div>
+                      <!-- END - formulario proveedor -->
                     </div>
                 </div>
             </div>
@@ -94,3 +108,10 @@
    </div>
  </div>
 </div>
+
+
+<script>
+  function verformulario(){
+    $('#btntabformulario').click();
+  }
+</script>

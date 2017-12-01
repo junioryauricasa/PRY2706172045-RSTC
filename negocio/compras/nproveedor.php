@@ -15,6 +15,21 @@ $(document).on('click', '#btn-form-crear-proveedor', function(){
 	  });
 	 return false;
 });
+
+function crear_nuevo_proveedor(){
+	  var funcion = "F";
+	  $.ajax({
+	   url:"../../datos/compras/funcion_proveedor.php",
+	   method:'POST',
+	   data:{funcion:funcion},
+	   success:function(datos)
+	   {
+	   	$("#formulario-crud").html(datos);
+	   	goToBox("#Formulario");
+	   }
+	  });
+	 return false;
+}
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Proveedor */
 //////////////////////////////////////////////////////////////
 
@@ -73,6 +88,8 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		$("#btn-form-proveedor-remove").click();
+
+	   		crear_nuevo_proveedor()
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
