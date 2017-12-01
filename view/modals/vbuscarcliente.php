@@ -9,8 +9,16 @@
         <section class="content">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#formBuscarCliente" data-toggle="tab" aria-expanded="true">Buscar Cliente</a></li>
-                  <li class=""><a href="#formRegistroCliente" data-toggle="tab" aria-expanded="false">Registro Cliente</a></li>
+                  <li class="active">
+                      <a href="#formBuscarCliente" data-toggle="tab" aria-expanded="true" id="btnbuscarcliente">
+                          Buscar Cliente
+                      </a>
+                  </li>
+                  <li class="">
+                      <a href="#formRegistroCliente" data-toggle="tab" aria-expanded="false">
+                          Registro Cliente
+                      </a>
+                  </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="formBuscarCliente">

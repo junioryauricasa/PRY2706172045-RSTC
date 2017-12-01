@@ -104,8 +104,8 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	   		SeleccionarClienteS(id_seleccion2+1);//incoca a la funcion proveedor
 
 	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
-
-			$('#formCliente').modal('hide')
+	   		$('#tablistadoclientebutton').click();
+			$('#formCliente').modal('hide');
 
 
 		}
