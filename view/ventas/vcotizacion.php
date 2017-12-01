@@ -83,7 +83,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Fecha Actual:</label>
-                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" readonly form="form-cotizacion"/>
+                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" form="form-cotizacion"/>
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>
@@ -200,7 +200,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div id="nvchTipoCol" class="col-md-3">
                 <div id="nvchTipoGroup" class="form-group">
                   <label>Tipo:</label>
                   <input type="text" id="nvchTipo" name="nvchTipo" class="form-control select2" 
@@ -210,7 +210,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <div id="nvchTipoObs" class=""></div>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div id="nvchModeloCol" class="col-md-3">
                 <div id="nvchModeloGroup" class="form-group">
                   <label>Modelo:</label>
                   <input type="text" id="nvchModelo" name="nvchModelo" class="form-control select2" 
@@ -220,7 +220,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <div id="nvchModeloObs" class=""></div>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div id="nvchMarcaCol" class="col-md-3">
                 <div id="nvchMarcaGroup" class="form-group">
                   <label>Marca:</label>
                   <input type="text" id="nvchMarca" name="nvchMarca" class="form-control select2" 
@@ -230,7 +230,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <div id="nvchMarcaObs" class=""></div>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div id="nvchHorometroCol" class="col-md-3">
                 <div id="nvchHorometroGroup" class="form-group">
                   <label>Horómetro:</label>
                   <input type="text" id="nvchHorometro" name="nvchHorometro" class="form-control select2" 
@@ -241,6 +241,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
+            <script type="text/javascript">CamposMaquinaria(1);</script>
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
@@ -396,7 +397,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       <tr style="">
                         <td style="width: var(--anchoCampoTableFooter) !important; " class="text-center heading-back"><span> Venta Total </span></td>
                         <td style="width: var(--anchoCampoTableFooter) !important">
-                            <input type="text" id="VentaTotal" name="VentaTotal" class="form-control select2" value="S/. 0.00" readonly form="form-cotizacion" style=""/>
+                            <input type="text" id="CotizacionTotal" name="CotizacionTotal" class="form-control select2" value="S/. 0.00" readonly form="form-cotizacion" style=""/>
                         </td>
                         <td style="width: 23px !important;"></td>
                       </tr>

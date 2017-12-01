@@ -12,7 +12,7 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Fecha Actual:</label>
-                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" readonly form="form-comprobante"/>
+                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" form="form-comprobante"/>
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>
@@ -67,8 +67,8 @@
                 <div id="nvchSerieGroup" class="form-group">
                   <label>Serie:</label>
                   <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" form="form-comprobante"
-                  onkeypress="return EsNumeroEnteroTecla(event)" onkeyup="EsNumeroEntero('nvchSerie')"
-                  maxlength="4" <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) echo 'readonly'; ?>/>
+                  onkeyup="EsVacio('nvchSerie')"
+                  maxlength="6" <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) echo 'readonly'; ?>/>
                   <span id="nvchSerieIcono" class="" aria-hidden=""></span>
                   <div id="nvchSerieObs" class=""></div>
                 </div>
@@ -90,7 +90,10 @@
                     <?php try{
                       $sql_conexion = new Conexion_BD();
                       $sql_conectar = $sql_conexion->Conectar();
-                      $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
+                      if($intTipoDetalle == 1)
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipoventa()');
+                      else if($intTipoDetalle == 2)
+                        $sql_comando = $sql_conectar->prepare('CALL mostrartipoventacompras()');
                       $sql_comando->execute();
                       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                       {

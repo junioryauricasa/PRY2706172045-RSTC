@@ -241,11 +241,7 @@ function CalcularTotal(){
 	}
 
 	var CotizacionTotal = 0.00;
-	var IGVCotizacion = 0.00;
-	var ValorCotizacion = 0.00;
-	Number(IGVCotizacion);
 	Number(CotizacionTotal);
-	Number(ValorCotizacion);
 
 	if(intIdTipoCotizacion == 1){
 		$('table tbody#ListaDeProductosVender tr').each(function() {
@@ -253,8 +249,6 @@ function CalcularTotal(){
 	            CotizacionTotal = CotizacionTotal + Number(this.value);
 	        }); 
 	    });
-	    ValorCotizacion = (CotizacionTotal / 1.18).toFixed(2);
-	    IGVCotizacion = (CotizacionTotal - ValorCotizacion).toFixed(2);
 	    CotizacionTotal = CotizacionTotal.toFixed(2);
 	} else if(intIdTipoCotizacion == 2) {
 		$('table tbody#ListaDeServiciosVender tr').each(function() {
@@ -262,13 +256,8 @@ function CalcularTotal(){
 	            CotizacionTotal = CotizacionTotal + Number(this.value);
 	        }); 
 	    });
-	    ValorCotizacion = (CotizacionTotal / 1.18).toFixed(2);
-	    IGVCotizacion = (CotizacionTotal - ValorCotizacion).toFixed(2);
 	    CotizacionTotal = CotizacionTotal.toFixed(2);
 	}
-
-	$("#ValorCotizacion").val(nvchSimbolo + ' ' + ValorCotizacion);
-    $("#IGVCotizacion").val(nvchSimbolo + ' ' + IGVCotizacion);
 	$("#CotizacionTotal").val(nvchSimbolo + ' ' + CotizacionTotal);
 }
 /* FIN - Calcula el Total del Comprobante */

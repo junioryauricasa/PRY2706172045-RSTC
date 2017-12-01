@@ -209,11 +209,13 @@
         $("#tablaRepuestos").show();
         $("#tablaServicios").hide();
         $("#tablaMaquinarias").hide();
+        CamposMaquinaria(intIdTipoVenta);
         CalcularTotal();
       } else if(intIdTipoVenta == 2) {
         $("#tablaRepuestos").hide();
         $("#tablaServicios").show();
         $("#tablaMaquinarias").hide();
+        CamposMaquinaria(intIdTipoVenta);
         CalcularTotal();
       }
     }
@@ -580,6 +582,24 @@ function AccionSeleccionClientes(funcion) {
 	  }
 }
 /* FIN - Seleccion del Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Ocultar Botones */
+function CamposMaquinaria(intIdTipoVenta) {
+  if(intIdTipoVenta == "1"){
+    $("#nvchTipoCol").hide();
+    $("#nvchMarcaCol").hide();
+    $("#nvchModeloCol").hide();
+    $("#nvchHorometroCol").hide();
+  } else if (intIdTipoVenta == "2") {
+    $("#nvchTipoCol").show();
+    $("#nvchMarcaCol").show();
+    $("#nvchModeloCol").show();
+    $("#nvchHorometroCol").show();
+  }
+}
+/* FIN - Ocultar Botones */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

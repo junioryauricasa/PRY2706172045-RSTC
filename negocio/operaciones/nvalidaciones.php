@@ -98,6 +98,27 @@ function EsLetraOp(NombreId){
   }
 }
 
+function EsNumeroEnteroOp(NombreId){
+  var Valor = $("#"+NombreId).val();
+  if (EsVacioOp(NombreId) == true){
+    return true;
+  } else if(/^\d+$/.test(Valor) == false) {
+    $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Debe ser solo numérico");
+    return false;
+  } else {
+    $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
+    if(NombreId == "intCantidadOrdenCompra") {
+      CalcularTotalOrdenCompra(NombreId);
+    }
+    return true;
+  }
+}
+
 function EsLetra(NombreId){
   var Valor = $("#"+NombreId).val();
   if (EsVacio(NombreId) == false){

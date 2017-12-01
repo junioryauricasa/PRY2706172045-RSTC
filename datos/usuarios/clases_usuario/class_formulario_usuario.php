@@ -75,7 +75,7 @@ class FormularioUsuario
                         <label>RUC (Opcional):</label>
                         <input type="text" id="nvchRUC" name="nvchRUC" class="form-control select2" placeholder="Ingrese RUC" 
                         value="<?php echo $this->nvchRUC; ?>" onkeypress="return EsNumeroEnteroTecla(event)" 
-                        onkeyup="EsNumeroEntero('nvchRUC')" maxlength="11">
+                        onkeyup="EsNumeroEnteroOP('nvchRUC')" maxlength="11">
                         <span id="nvchRUCIcono" class="" aria-hidden=""></span>
                         <div id="nvchRUCObs" class=""></div>
                       </div>

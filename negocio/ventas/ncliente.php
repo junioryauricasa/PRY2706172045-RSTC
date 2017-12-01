@@ -54,10 +54,7 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	  		return false;
 	  	}
 	  } else if(intIdTipoPersona == 2){
-	  	if(EsNumeroEntero("nvchRUC") == false){
-	  		goToBox("#nvchRUC");
-	  		return false;
-	  	} else if(EsNumeroEntero("nvchDNI") == false){
+		if(EsNumeroEntero("nvchDNI") == false){
 	  		goToBox("#nvchDNI");
 	  		return false;
 	  	} else if(EsVacio("nvchApellidoPaterno") == false){
