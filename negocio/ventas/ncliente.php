@@ -15,6 +15,23 @@ $(document).on('click', '#btn-form-crear-cliente', function(){
 	  });
 	 return false;
 });
+
+function crear_nuevo_cliente(){
+	$(document).on('click', '#btn-form-crear-cliente', function(){
+		  var funcion = "F";
+		  $.ajax({
+		   url:"../../datos/ventas/funcion_cliente.php",
+		   method:'POST',
+		   data:{funcion:funcion},
+		   success:function(datos)
+		   {
+		   	$("#formulario-crud").html(datos);
+		   	goToBox("#Formulario");
+		   }
+		  });
+		 return false;
+	});
+}
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Cliente */
 //////////////////////////////////////////////////////////////
 
@@ -77,7 +94,20 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	   		limpiarformCliente();//limpiar formulario
 	   		botonescrear();
 	   		$("#lilistarclientes").click();//volver a la primera pestana
-	   		
+
+
+	   		crear_nuevo_cliente();
+
+	   		var id_seleccion2 = <?php echo $_SESSION['intIdCliente'] ?>;//obteniendo el valor de inico de session ultimo registrado en mi maquina y pasando a js
+			//alert(id_seleccion+1);//imprimie el valor de session + 1
+
+	   		SeleccionarClienteS(id_seleccion2+1);//incoca a la funcion proveedor
+
+	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
+
+			$('#formCliente').modal('hide')
+
+
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
