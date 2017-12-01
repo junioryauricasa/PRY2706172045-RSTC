@@ -349,8 +349,8 @@
     $dompdf->set_paper($paper,$orientation);
     $dompdf->load_html($html);
     $dompdf->render();
-    $dompdf->stream($filename.".pdf"); //descargar automaticamente
-    //$dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
+    //$dompdf->stream($filename.".pdf"); //descargar automaticamente
+    $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
   $filename = 'INGRESO_INTERNO_DE_REPUESTOS';
   $dompdf = new DOMPDF();

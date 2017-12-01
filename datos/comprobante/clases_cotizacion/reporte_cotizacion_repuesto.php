@@ -263,7 +263,7 @@
         <br>
 
         <!-- INICIO - Tabla de informacion de contacto -->
-        <table id="tablacontactos" style="text-align: left; width: 100%; ">
+        <!--table id="tablacontactos" style="text-align: left; width: 100%; ">
           <tbody>
             <tr>
               <td style="font-family: Arial; font-weight: bold; width: 111px;" colspan="3">
@@ -322,8 +322,10 @@
             </tr>
 
           </tbody>
-        </table>
+        </table-->
         <!-- INICIO - Tabla de informacion de contacto -->
+
+        <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/footer-cotizacion-repuesto.PNG">
 
     </div>
 
