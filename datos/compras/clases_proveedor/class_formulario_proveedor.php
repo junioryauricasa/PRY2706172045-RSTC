@@ -397,7 +397,7 @@ class FormularioProveedor
                     <?php } ?>
                     <input type="hidden" name="intIdProveedor" id="intIdProveedor" value="<?php echo $this->intIdProveedor; ?>" />
                     <?php if($funcion == "F"){ ?>
-                    <input type="submit" id="btn-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Proveedor">
+                    <input type="submit" id="btn-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left" value="Crear Proveedor" onclick="">
                     <input type="reset" class="btn btn-sm btn-danger btn-flat pull-left" value="Limpiar" style="margin: 0px 5px">
                     <?php } ?>
                 </div>

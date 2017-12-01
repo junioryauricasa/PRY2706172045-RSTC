@@ -47,6 +47,9 @@ class Proveedor
       $salida = $salidas->fetchObject();
       $_SESSION['intIdProveedor'] = $salida->intIdProveedor;
       echo "ok";
+
+      //echo "<script>alert(".$_SESSION['intIdProveedor'].")</script>";
+      //SeleccionarProveedorComprobante($_SESSION['intIdProveedor']);
     }
     catch(PDPExceptions $e){
       echo $e->getMessage();
