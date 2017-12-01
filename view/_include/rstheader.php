@@ -201,7 +201,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               <ul class="dropdown-menu">
                 <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
                 <li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>
-                <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
+                <li><a href="../historialacceso/vhistorialacceso">Historial de Accesos</a></li>
               </ul>
             </li-->
             <?php 
@@ -222,7 +222,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                     <ul class="dropdown-menu">
                         <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
                         <!--<li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>-->
-                        <li><a href="../historialacceso/vhistoryaccess">Historial de Accesos</a></li>
+                        <li><a href="../historialacceso/vhistorialacceso">Historial de Accesos</a></li>
                     </ul>
                 </li>
               </ul>
@@ -426,7 +426,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                     </a>
                   </li>
                   <li>
-                    <a href="../historialacceso/vhistoryaccess">
+                    <a href="../historialacceso/vhistorialacceso">
                       <i class="fa fa-circle-o"></i> 
                        Historial de acceso
                     </a>
