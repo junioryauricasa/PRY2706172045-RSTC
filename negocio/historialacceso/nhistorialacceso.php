@@ -1,6 +1,6 @@
+<script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Producto */
-
 function ListarHistorialDeAcceso(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
@@ -13,13 +13,11 @@ function ListarHistorialDeAcceso(x,y,tipolistado) {
       }
   });
 }
-
 /* FIN - Funcion Ajax - Listar Producto */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Cambiar Número de Elementos de Lista Producto */
-
 $(document).on('change', '#num-lista', function(){
   	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -38,7 +36,6 @@ $(document).on('change', '#num-lista', function(){
 	  });
 	 return false;
 });
-
 /* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Producto */
 //////////////////////////////////////////////////////////////
 
@@ -62,7 +59,6 @@ function PaginarHistorialDeAcceso(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Cambiar Página de Lista Producto */
-
 $(document).on('click', '.btn-pagina', function(){
       var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -81,13 +77,11 @@ $(document).on('click', '.btn-pagina', function(){
 	  });
 	 return false;
 });
-
 /* FIN - Funcion Ajax - Cambiar Página de Lista Producto */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
-
 $(document).on('keyup', '#txt-busqueda', function(){
 	  var busqueda = document.getElementById("txt-busqueda").value;
   	  var y = document.getElementById("num-lista").value;
@@ -106,6 +100,6 @@ $(document).on('keyup', '#txt-busqueda', function(){
 	  });
 	 return false;
 });
-
 /* FIN - Funcion Ajax - Buscar Elemento Ingresa de la Lista del Producto II */
-//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////}
+</script

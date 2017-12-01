@@ -42,13 +42,17 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT * FROM tb_historial_acceso 
+		SELECT HA.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario 
+		FROM tb_historial_acceso HA
+		LEFT JOIN tb_usuario U ON HA.intIdUsuario = U.intIdUsuario
 		WHERE 
-			intIdHistorialAcceso LIKE CONCAT('%',_elemento,'%') OR 
-			intIdUsuario LIKE CONCAT('%',_elemento,'%') OR 
-			dtmFechaAcceso LIKE CONCAT('%',_elemento,'%') OR 
-			nvchIpOrigen LIKE CONCAT('%',_elemento,'%') OR 
-			nvchNavegador LIKE CONCAT('%',_elemento,'%') 
+			U.nvchNombres LIKE CONCAT(_elemento,'%') OR 
+			U.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+			U.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR 
+			HA.nvchFechaAcceso LIKE CONCAT(_elemento,'%') OR 
+			HA.nvchIpOrigen LIKE CONCAT(_elemento,'%') OR 
+			HA.nvchNavegador LIKE CONCAT(_elemento,'%')
+		ORDER BY HA.intIdHistorialAcceso DESC
 		LIMIT _x,_y;
     	END 
 $$
@@ -60,13 +64,17 @@ DELIMITER $$
     	IN _elemento VARCHAR(500)
     )
 	BEGIN
-		SELECT * FROM tb_historial_acceso 
+		SELECT HA.*, CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario 
+		FROM tb_historial_acceso HA
+		LEFT JOIN tb_usuario U ON HA.intIdUsuario = U.intIdUsuario
 		WHERE 
-			intIdHistorialAcceso LIKE CONCAT('%',_elemento,'%') OR 
-			intIdUsuario LIKE CONCAT('%',_elemento,'%') OR 
-			dtmFechaAcceso LIKE CONCAT('%',_elemento,'%') OR 
-			nvchIpOrigen LIKE CONCAT('%',_elemento,'%') OR 
-			nvchNavegador LIKE CONCAT('%',_elemento,'%');
+			U.nvchNombres LIKE CONCAT(_elemento,'%') OR 
+			U.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+			U.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR 
+			HA.nvchFechaAcceso LIKE CONCAT(_elemento,'%') OR 
+			HA.nvchIpOrigen LIKE CONCAT(_elemento,'%') OR 
+			HA.nvchNavegador LIKE CONCAT(_elemento,'%')
+		ORDER BY HA.intIdHistorialAcceso DESC;
     	END 
 $$
 DELIMITER ;

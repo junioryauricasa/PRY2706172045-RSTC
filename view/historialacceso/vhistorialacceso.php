@@ -6,8 +6,7 @@
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-    <script type="text/javascript" src="../../negocio/historialacceso/nhistorialacceso.js"></script>
-    <!--script type="text/javascript" src="ajax/vhistorialacceso.js"></script-->
+    <?php require_once '../../negocio/historialacceso/nhistorialacceso.php'; ?>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -81,7 +80,7 @@
               <thead>
               <tr>
                 <th class="heading" width="25px">&nbsp;</th>
-                <th>#Código</th>
+                <th>Código</th>
                 <th>Usuario</th>
                 <th>Último Acceso</th>
                 <th>IP Registrada</th>

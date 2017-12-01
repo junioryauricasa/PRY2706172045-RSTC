@@ -1,22 +1,22 @@
 <?php
 session_start();
 require_once '../conexion/bd_conexion.php';
-$_SESSION['intIdHistory'] = 0; //guardar variable de session para ser sombreado
+$_SESSION['intIdHistorialAcceso'] = 0; //guardar variable de session para ser sombreado
 
 class HistorialAcceso
 {
   /* INICIO - Atributos de Producto*/
-  private $intIdHistory;
-  private $intIdUser;
-  private $dateDateAccesso;
-  private $nvchIpAccesso;
-  private $nvchBrowser;
+  private $intIdHistorialAcceso;
+  private $intIdUsuario;
+  private $dtmFechaAcceso;
+  private $nvchIpOrigen;
+  private $nvchNavegador;
   
-  public function intIdHistory($intIdHistory){ $this->intIdHistory = $intIdHistory; }
-  public function intIdUser($intIdUser){ $this->intIdUser = $intIdUser; }
-  public function dateDateAccesso($dateDateAccesso){ $this->dateDateAccesso = $dateDateAccesso; }
-  public function nvchIpAccesso($nvchIpAccesso){ $this->nvchIpAccesso = $nvchIpAccesso; }
-  public function nvchBrowser($nvchBrowser){ $this->nvchBrowser = $nvchBrowser; }
+  public function IdHistorialAcceso($intIdHistorialAcceso){ $this->intIdHistorialAcceso = $intIdHistorialAcceso; }
+  public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
+  public function FechaAcceso($dtmFechaAcceso){ $this->dtmFechaAcceso = $dtmFechaAcceso; }
+  public function IpOrigen($nvchIpOrigen){ $this->nvchIpOrigen = $nvchIpOrigen; }
+  public function Navegador($nvchNavegador){ $this->nvchNavegador = $nvchNavegador; }
   /* FIN - Atributos de Producto */
 
  
@@ -54,7 +54,7 @@ class HistorialAcceso
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
           echo '<tr bgcolor="#BEE1EB">';
-        } else if($fila["intIdHistorialAcceso"] == $_SESSION['intIdHistory'] && $tipolistado == "E"){
+        } else if($fila["intIdHistorialAcceso"] == $_SESSION['intIdHistorialAcceso'] && $tipolistado == "E"){
           echo '<tr bgcolor="#B3E4C0">';
         }else {
           echo '<tr>';
@@ -62,9 +62,9 @@ class HistorialAcceso
 
         echo '
   	          <td class="heading" data-th="ID"></td>
-              <td>HSTRACCSS-00000'.$fila["intIdHistorialAcceso"].'</td>
-    	        <td>'.$fila["intIdUsuario"].'</td>
-    	        <td>'.$fila["dtmFechaAcceso"].'</td> 
+              <td>HDA-'.$fila["intIdHistorialAcceso"].'</td>
+    	        <td>'.$fila["NombreUsuario"].'</td>
+    	        <td>'.$fila["nvchFechaAcceso"].'</td> 
               <td>'.$fila["nvchIpOrigen"].'</td> 
     	        <td>'.$fila["nvchNavegador"].'</td>
 	        </tr>';
