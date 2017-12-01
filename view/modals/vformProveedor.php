@@ -1,4 +1,5 @@
 <?php require_once '../../negocio/compras/nproveedor.php'; ?>
+ <?php require_once '../../negocio/operaciones/ndatosgenerales.php'; //PRECARGA LOS UBIGEOS?>
 
 <div id="formProveedor" class="modal fade">
  <div class="modal-dialog modal-lg" style="width: 95%">
@@ -12,7 +13,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active">
-                    <a href="#formBuscarProveedor" data-toggle="tab" aria-expanded="true">
+                    <a href="#formBuscarProveedor" data-toggle="tab" aria-expanded="true" id="btntabbuscarproveedor">
                         Buscar Proveedor
                     </a>
                   </li>

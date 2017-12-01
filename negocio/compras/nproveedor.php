@@ -30,6 +30,8 @@ function crear_nuevo_proveedor(){
 	  });
 	 return false;
 }
+
+
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Proveedor */
 //////////////////////////////////////////////////////////////
 
@@ -89,15 +91,31 @@ $(document).on('click', '#btn-crear-proveedor', function(){
 	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		$("#btn-form-proveedor-remove").click();
 
-	   		crear_nuevo_proveedor()
+	   		crear_nuevo_proveedor();
+
+
+	   		var id_seleccion = <?php echo $_SESSION['intIdProveedor'] ?>;//obteniendo el valor de inico de session ultimo registrado en mi maquina y pasando a js
+			//alert(id_seleccion+1);//imprimie el valor de session + 1
+
+	   		SeleccionarProveedorS(id_seleccion+1);//incoca a la funcion proveedor
+
+	   		//alert('se ha seleccionado el proveedor '+id_seleccion);
+
+
+			$('#btntabbuscarproveedor').click();
+			
+			$('#formProveedor').modal('hide')
+
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
 	 return false;
 });
+
 /* FIN - Funcion Ajax - Insertar Proveedor */
 //////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Proveedor */

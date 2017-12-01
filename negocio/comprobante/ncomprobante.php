@@ -925,6 +925,29 @@ function SeleccionarProveedor(seleccion) {
      }
     });
 }
+
+function SeleccionarProveedorS(intIdProveedor) {
+  var funcion = "SPR";
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{intIdProveedor:intIdProveedor,funcion:funcion},
+     dataType:"json",
+     success:function(datos)
+     {
+      if(datos.intIdTipoPersona == 1){
+       $("#nvchNumDocumento").val(datos.nvchRUC);
+       $("#nvchDenominacion").val(datos.nvchRazonSocial);
+      } else if(datos.intIdTipoPersona == 2){
+       $("#nvchNumDocumento").val(datos.nvchDNI);
+       $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+      }
+      $("#intIdProveedor").val(datos.intIdProveedor);
+      $("#nvchDomicilio").val(datos.nvchDomicilio);
+      $("#formProveedor").modal("hide");
+     }
+    });
+}
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
 
