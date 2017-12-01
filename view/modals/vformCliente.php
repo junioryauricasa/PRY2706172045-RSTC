@@ -1,4 +1,5 @@
-    <?php require_once '../../negocio/ventas/ncliente.php'; ?>
+<?php require_once '../../negocio/ventas/ncliente.php'; ?>
+<?php require_once '../../negocio/operaciones/ndatosgenerales.php'; //PRECARGA LOS UBIGEOS?>
 
 <div id="formCliente" class="modal fade" style="">
  <div class="modal-dialog modal-lg" style="width: 95%">
