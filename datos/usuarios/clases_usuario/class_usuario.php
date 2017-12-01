@@ -289,7 +289,7 @@ class Usuario
       $i = 0;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarHistorialAcceso(:intIdUsuario)');
+      $sql_comando = $sql_conectar->prepare('CALL MostrarHistorialAcceso_10(:intIdUsuario)');
       $sql_comando -> execute(array(':intIdUsuario' => $this->intIdUsuario));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       { 

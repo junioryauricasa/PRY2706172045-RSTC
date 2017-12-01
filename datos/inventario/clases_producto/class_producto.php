@@ -509,6 +509,7 @@ class Producto
         }
 
         $salida['intIdProducto'] = $fila['intIdProducto'];
+        $salida['nvchCodigo'] = $fila['nvchCodigo'];
         $salida['nvchDescripcion'] = $fila['nvchDescripcion'];
         $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];
         $salida['dcmDescuentoVenta2'] = $fila['dcmDescuentoVenta2'];
