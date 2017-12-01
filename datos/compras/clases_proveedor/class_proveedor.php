@@ -190,6 +190,20 @@ class Proveedor
     }
   }
 
+  public function ConsultarUltimoId(){
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL CONSULTARULTIMOIDPRoveedor()');
+      $sql_comando -> execute();
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      echo $fila['intIdProveedor'];
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
   public function ListarProveedores($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
   {
     try{

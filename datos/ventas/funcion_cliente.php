@@ -99,6 +99,10 @@ switch($_POST['funcion']){
     $FormularioCliente = new FormularioCliente();
     $FormularioCliente->ConsultarFormulario($_POST['funcion']);
     break;
+  case "Id":
+    $Cliente = new Cliente();
+    $Cliente->ConsultarUltimoId();
+    break;
   case "AD":
     $DomicilioCliente = new DomicilioCliente();
     $DomicilioCliente->IdDomicilioCliente($_POST['intIdDomicilioCliente']);

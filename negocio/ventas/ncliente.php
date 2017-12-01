@@ -1,5 +1,6 @@
 <script>
 var SNuevoCliente = "";
+var SintIdCliente = 0;
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Cliente */
 $(document).on('click', '#btn-form-crear-cliente', function(){
@@ -87,17 +88,13 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		//$("#btn-form-cliente-remove").click();
-			
-	   		limpiarformCliente();//limpiar formulario
+	   		limpiarformCliente();
 	   		botonescrear();
 	   		$("#lilistarclientes").click();//volver a la primera pestana
 	   		
 	   		if(SNuevoCliente == "I"){
 	   		crear_nuevo_cliente();
-	   		var id_seleccion2 = <?php echo $_SESSION['intIdCliente'] ?>;
-	   		SeleccionarClienteS(id_seleccion2+1);//incoca a la funcion proveedor
-	   		$('#tablistadoclientebutton').click();
-			$('#formCliente').modal('hide');
+	   		ConsultarIdCliente();
 			}
 
 		}
@@ -106,6 +103,22 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	  });
 	 return false;
 });
+
+function ConsultarIdCliente(){
+	var funcion = "Id";
+	$.ajax({
+	   url: "../../datos/ventas/funcion_cliente.php",
+	   method: "POST",
+	   data: {funcion:funcion},
+	   success:function(datos)
+	   {
+	   	datos = datos.replace(/\s/g,'');
+	   	SeleccionarClienteS(datos);
+   		$('#tablistadoclientebutton').click();
+		$('#formCliente').modal('hide');
+	   }
+	  });
+}
 /* FIN - Funcion Ajax - Insertar Cliente */
 //////////////////////////////////////////////////////////////
 

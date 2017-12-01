@@ -92,10 +92,7 @@ $(document).on('click', '#btn-crear-proveedor-nuevo', function(){
 	   		botonescrear();
 	   		if(SNuevoProveedor == "I"){
 	   		crear_nuevo_proveedor();
-	   		var id_seleccion = <?php echo $_SESSION['intIdProveedor'] ?>;//obteniendo el valor de inico de session ultimo 
-	   		SeleccionarProveedorS(id_seleccion+1);//incoca a la funcion proveedor
-	   		$('#btntabbuscarproveedor').click();
-			$('#formProveedor').modal('hide')
+	   		ConsultarIdProveedor();
 			}
 			$("#btn-listaproveedores").click();
 		}
@@ -105,6 +102,21 @@ $(document).on('click', '#btn-crear-proveedor-nuevo', function(){
 	 return false;
 });
 
+function ConsultarIdProveedor(){
+	var funcion = "Id";
+	$.ajax({
+	   url: "../../datos/compras/funcion_proveedor.php",
+	   method: "POST",
+	   data: {funcion:funcion},
+	   success:function(datos)
+	   {
+	   	datos = datos.replace(/\s/g,'');
+	   	SeleccionarProveedorS(datos);
+   		$('#btntabbuscarproveedor').click();
+		$('#formProveedor').modal('hide')
+	   }
+	  });
+}
 /* FIN - Funcion Ajax - Insertar Proveedor */
 //////////////////////////////////////////////////////////////
 

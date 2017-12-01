@@ -97,6 +97,10 @@ switch($_POST['funcion']){
     $FormularioProveedor = new FormularioProveedor();
     $FormularioProveedor->ConsultarFormulario($_POST['funcion']);
     break;
+  case "Id":
+    $Proveedor = new Proveedor();
+    $Proveedor->ConsultarUltimoId();
+    break;
   case "AD":
     $DomicilioProveedor = new DomicilioProveedor();
     $DomicilioProveedor->IdDomicilioProveedor($_POST['intIdDomicilioProveedor']);

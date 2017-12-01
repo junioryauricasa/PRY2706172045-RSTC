@@ -158,6 +158,20 @@ class Producto
     }
   }
 
+  public function ConsultarUltimoId(){
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL CONSULTARULTIMOIDPRODUCTO()');
+      $sql_comando -> execute();
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      echo $fila['intIdProducto'];
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
   /* Funcion listar productos */
   public function ListarProductos($busqueda,$x,$y,$tipolistado,$TipoBusqueda)
   {

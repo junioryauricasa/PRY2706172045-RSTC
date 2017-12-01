@@ -9,7 +9,7 @@ include('../_include/rstheader.php');
     <?php require_once '../../negocio/ventas/ncliente.php'; ?>
     <?php require_once '../../negocio/operaciones/ndatosgenerales.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
-    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>}
     <!--<script type="text/javascript" src="../../negocio/ventas/ncliente.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/ndatosgenerales.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->

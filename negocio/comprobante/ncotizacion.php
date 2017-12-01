@@ -769,14 +769,28 @@ $(document).on('click', '#btn-crear-producto-s', function(){
       if (datos == "okokokokok") {
         MensajeNormal("Se agregó correctamente el nuevo Producto",1);
         limpiarformProducto();
-        InsertarProductoElegido(<?php echo $_SESSION['intIdProducto']+1; ?>,numfila);
-        $("#formProducto").modal("hide");
+        ConsultarIdProducto();
       }
       else { $("#resultadocrud").html(datos); }
      }
     });
    return false;
 });
+
+function ConsultarIdProducto(){
+  var funcion = "Id";
+  $.ajax({
+     url: "../../datos/inventario/funcion_producto.php",
+     method: "POST",
+     data: {funcion:funcion},
+     success:function(datos)
+     {
+      datos = datos.replace(/\s/g,'');
+      InsertarProductoElegido(datos,numfila);
+      $("#formProducto").modal("hide");
+     }
+    });
+}
 /* FIN - Funcion Ajax - Insertar Producto */
 //////////////////////////////////////////////////////////////
 

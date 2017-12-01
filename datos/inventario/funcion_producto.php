@@ -183,6 +183,10 @@ switch($_POST['funcion']){
     $FormularioProducto = new FormularioProducto();
     $FormularioProducto->ConsultarFormulario($_POST['funcion']);
     break;
+  case "Id":
+    $Producto = new Producto();
+    $Producto->ConsultarUltimoId();
+    break;
   case "BP":
     $Producto = new Producto();
     $Producto->BuscarProducto($_POST['search'],$_POST['intIdTipoMoneda']);
