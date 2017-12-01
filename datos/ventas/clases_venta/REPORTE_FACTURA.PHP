@@ -32,6 +32,7 @@
 
 
 <?php
+  // INICIO  - Funcion de conversion de numero a texto
   class NumberToLetterConverter {
     private $UNIDADES = array(
           '',
@@ -200,6 +201,8 @@
           return $output;
       }
   }
+
+  // ENd  - Funcion de conversion de numero a texto
 ?>
 
 <!DOCTYPE HTML>
