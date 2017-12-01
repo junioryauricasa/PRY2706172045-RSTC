@@ -218,7 +218,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-success btn-flat">Limpiar Detalles</button>
+                      <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-danger btn-flat">Limpiar Detalles</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                   </div>
