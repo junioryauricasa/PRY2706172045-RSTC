@@ -195,8 +195,8 @@
     <?php
         $i++;
       }
-      for($j = $i ; $j <= 20; $j++){
-        if($j == 20) {
+      for($j = $i ; $j <= 40; $j++){
+        if($j == 40) {
           echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
         } else {
           echo '<tr class="segundodetalle" style="text-align: center; color:white;">';

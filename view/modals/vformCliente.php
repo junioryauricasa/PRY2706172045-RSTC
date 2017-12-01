@@ -1,5 +1,7 @@
+    <?php require_once '../../negocio/ventas/ncliente.php'; ?>
+
 <div id="formCliente" class="modal fade" style="">
- <div class="modal-dialog modal-lg">
+ <div class="modal-dialog modal-lg" style="width: 95%">
    <div class="modal-content">
     <div style="background-color: #78909c;"  class="modal-header">
      <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -9,8 +11,16 @@
         <section class="content">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#formBuscarCliente" data-toggle="tab" aria-expanded="true">Buscar Cliente</a></li>
-                  <li class=""><a href="#formRegistroCliente" data-toggle="tab" aria-expanded="false">Registro Cliente</a></li>
+                  <li class="active">
+                    <a href="#formBuscarCliente" data-toggle="tab" aria-expanded="true" id="tablistadoclientebutton">
+                          Buscar Cliente
+                    </a>
+                  </li>
+                  <li class="">
+                      <a href="#formRegistroCliente" data-toggle="tab" id="tabformularioclientebutton" aria-expanded="false"> 
+                          Registro Cliente
+                      </a>
+                  </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="formBuscarCliente">
@@ -47,7 +57,8 @@
                             <div class="form-group">
                               <label>Nuevo Cliente:</label>
                               <br>
-                              <a href="../ventas/vcliente" class="btn btn-sm btn-primary btn-flat" target="_blank">+ Agregar</a>
+                              <!--a href="../ventas/vcliente" class="btn btn-sm btn-primary btn-flat" target="_blank">+ Agregar</a-->
+                              <button type="button" id="btn-form-crear-cliente" class="btn btn-sm btn-info btn-flat pull-left" onclick="verformulariocliente()">Agregar Cliente</button>
                             </div>
                           </div>
                         </div>
@@ -82,7 +93,12 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="formRegistroCliente">
-                        
+                        <!-- INICIO - formulario vcliente -->
+                        <div class="tab-pane" id="formularioclientes">
+                            <div id="formulario-crud"></div>
+                            <div id="resultadocrud"></div>
+                        </div>
+                        <!-- END - formulario vcliente -->
                     </div>
                 </div>
             </div>
@@ -94,3 +110,10 @@
    </div>
  </div>
 </div>
+
+
+<script>
+  function verformulariocliente(){
+    $('#tabformularioclientebutton').click();
+  }
+</script>
