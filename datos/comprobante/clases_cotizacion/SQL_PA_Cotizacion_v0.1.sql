@@ -21,18 +21,18 @@ DELIMITER $$
 	IN _nvchModelo VARCHAR(75),
 	IN _nvchMarca VARCHAR(75),
 	IN _nvchHorometro VARCHAR(65),
-	IN _bitEstado INT,
+	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_cotizacion 
 		(dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,nvchClienteProveedor,nvchDNIRUC,nvchDireccion,
 			nvchAtencion,intIdTipoMoneda,intIdTipoPago,intDiasValidez,intIdTipoVenta,nvchTipo,nvchModelo,nvchMarca,nvchHorometro,
-			bitEstado,nvchObservacion)
+			intEstado,nvchObservacion)
 		VALUES
 		(_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_nvchClienteProveedor,_nvchDNIRUC,_nvchDireccion,
 			_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_intDiasValidez,_intIdTipoVenta,_nvchTipo,_nvchModelo,_nvchMarca,
-			_nvchHorometro,_bitEstado,_nvchObservacion);
+			_nvchHorometro,_intEstado,_nvchObservacion);
 		SET _intIdCotizacion = LAST_INSERT_ID();
     END 
 $$

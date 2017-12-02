@@ -4,7 +4,8 @@ DROP PROCEDURE IF EXISTS INSERTARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARPRODUCTO(
 	OUT _intIdProducto INT,
-    IN _nvchDescripcion VARCHAR(500),
+	IN _intIdTipoVenta INT,
+    IN _nvchDescripcion VARCHAR(2500),
     IN _nvchUnidadMedida VARCHAR(50),
     IN _intCantidad INT,
     IN _intCantidadMinima INT,
@@ -22,11 +23,11 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_producto 
-		(nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioCompra,intIdTipoMonedaCompra,
+		(intIdTipoVenta,nvchDescripcion,nvchUnidadMedida,intCantidad,intCantidadMinima,nvchDireccionImg,dcmPrecioCompra,intIdTipoMonedaCompra,
 		dcmPrecioVenta1,dcmPrecioVenta2,dcmPrecioVenta3,dcmDescuentoVenta2,dcmDescuentoVenta3,intIdTipoMonedaVenta,dtmFechaIngreso,
 		nvchObservacion)
 		VALUES
-		(_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioCompra,_intIdTipoMonedaCompra,
+		(_intIdTipoVenta,_nvchDescripcion,_nvchUnidadMedida,_intCantidad,_intCantidadMinima,_nvchDireccionImg,_dcmPrecioCompra,_intIdTipoMonedaCompra,
 		_dcmPrecioVenta1,_dcmPrecioVenta2,_dcmPrecioVenta3,_dcmDescuentoVenta2,_dcmDescuentoVenta3,_intIdTipoMonedaVenta,_dtmFechaIngreso,
 		_nvchObservacion);
 		SET _intIdProducto = LAST_INSERT_ID();
@@ -38,7 +39,8 @@ DROP PROCEDURE IF EXISTS ACTUALIZARPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARPRODUCTO(
 	IN _intIdProducto INT,
-    IN _nvchDescripcion VARCHAR(500),
+	IN _intIdTipoVenta INT,
+    IN _nvchDescripcion VARCHAR(2500),
     IN _nvchUnidadMedida VARCHAR(50),
     IN _intCantidadMinima INT,
     IN _nvchDireccionImg VARCHAR(450),
@@ -56,6 +58,7 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_producto
 		SET
+		intIdTipoVenta = _intIdTipoVenta,
 		nvchDescripcion = _nvchDescripcion,
 		nvchUnidadMedida = _nvchUnidadMedida,
 		intCantidadMinima = _intCantidadMinima,

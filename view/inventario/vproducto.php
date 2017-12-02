@@ -218,11 +218,12 @@ require_once '../../datos/conexion/bd_conexion.php';
                               <div id="nvchDescripcionObs" class=""></div>
                             </div>
                           </div>
-                          <div id="nvchDescripcionOCol" class="col-md-12">
-                            <div id="nvchDescripcionOGroup" class="form-group">
+                          <div id="nvchDescripcionRCol" class="col-md-12">
+                            <div id="nvchDescripcionRGroup" class="form-group">
                               <label>Descripción:</label>
-                              <textarea id="nvchDescripcionR" class="form-control select2" maxlength="800" value=" " name="nvchDescripcionR" form="form-producto" placeholder="Ingrese Observación" rows="6">
-                              </textarea>
+                              <textarea onkeyup="EsVacio('nvchDescripcionR')" id="nvchDescripcionR" class="form-control select2" maxlength="800" name="nvchDescripcionR" form="form-producto" placeholder="Ingrese Descripción" rows="6"></textarea>
+                              <span id="nvchDescripcionRIcono" class="" aria-hidden=""></span>
+                              <div id="nvchDescripcionRObs" class=""></div>
                             </div>
                           </div>
                           <script type="text/javascript">DescripcionProducto(1);</script>
@@ -256,8 +257,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Observación y/o Datos Adicionales (Opcional):</label>
-                              <textarea id="nvchObservacion" class="form-control select2" maxlength="800" value=" " name="nvchObservacion" form="form-producto" placeholder="Ingrese Observación" rows="6">
-                              </textarea>
+                              <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-producto" placeholder="Ingrese Observación" rows="6"></textarea>
                             </div>
                           </div>
                       </div>

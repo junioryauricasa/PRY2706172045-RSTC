@@ -131,6 +131,7 @@
        success:function(datos)
        {
         $("#intIdProducto"+id).val(datos.intIdProducto);
+        $("#nvchCodigo"+id).val(datos.nvchCodigo);
         $("#detalleUbigeoProducto"+id).html(datos.detalleUbigeoProducto);
         $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
         $("#nvchDescripcion"+id).val(datos.nvchDescripcion);

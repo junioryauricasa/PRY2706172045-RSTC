@@ -15,15 +15,16 @@ DELIMITER $$
 	IN _intIdUsuario INT,
 	IN _intIdDireccionEmpresa INT,
 	IN _dtmFechaCreacion DATETIME,
+	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_orden_compra 
 		(nvchSerie,nvchNumeracion,nvchRazonSocial,nvchRUC,nvchAtencion,intIdTipoMoneda,intIdTipoPago,nvchNombreDe
-			,intIdUsuario,intIdDireccionEmpresa,dtmFechaCreacion,nvchObservacion)
+			,intIdUsuario,intIdDireccionEmpresa,dtmFechaCreacion,intEstado,nvchObservacion)
 		VALUES
 		(_nvchSerie,_nvchNumeracion,_nvchRazonSocial,_nvchRUC,_nvchAtencion,_intIdTipoMoneda,_intIdTipoPago,_nvchNombreDe
-			,_intIdUsuario,_intIdDireccionEmpresa,_dtmFechaCreacion,_nvchObservacion);
+			,_intIdUsuario,_intIdDireccionEmpresa,_dtmFechaCreacion,_intEstado,_nvchObservacion);
 		SET _intIdOrdenCompra = LAST_INSERT_ID();
     END 
 $$
@@ -61,6 +62,7 @@ DELIMITER $$
 	IN _intIdUsuario INT,
 	IN _intIdDireccionEmpresa INT,
 	IN _dtmFechaCreacion DATETIME,
+	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
@@ -77,6 +79,7 @@ DELIMITER $$
 		intIdUsuario = _intIdUsuario,
 		intIdDireccionEmpresa = _intIdDireccionEmpresa,
 		dtmFechaCreacion = _dtmFechaCreacion,
+		intEstado = _intEstado,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdOrdenCompra = _intIdOrdenCompra;

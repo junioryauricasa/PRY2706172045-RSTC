@@ -5,6 +5,7 @@ class Producto
 {
   /* INICIO - Atributos de Producto */
   private $intIdProducto;
+  private $intIdTipoVenta;
   private $nvchDescripcion;
   private $nvchUnidadMedida;
   private $intCantidad;
@@ -22,6 +23,7 @@ class Producto
   private $nvchObservacion;
   
   public function IdProducto($intIdProducto){ $this->intIdProducto = $intIdProducto; }
+  public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
   public function Descripcion($nvchDescripcion){ $this->nvchDescripcion = $nvchDescripcion; }
   public function UnidadMedida($nvchUnidadMedida){ $this->nvchUnidadMedida = $nvchUnidadMedida; }
   public function Cantidad($intCantidad){ $this->intCantidad = $intCantidad; }
@@ -45,11 +47,12 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:nvchDescripcion,
+      $sql_comando = $sql_conectar->prepare('CALL insertarproducto(@intIdProducto,:intIdTipoVenta,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidad,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioCompra,:intIdTipoMonedaCompra,
         :dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,:intIdTipoMonedaVenta,
         :dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
+        ':intIdTipoVenta' => $this->intIdTipoVenta,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidad' => 0,
@@ -87,6 +90,7 @@ class Producto
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $salida['intIdProducto'] = $fila["intIdProducto"];
+      $salida['intIdTipoVenta'] = $fila["intIdTipoVenta"];
       $salida['nvchDescripcion'] = $fila["nvchDescripcion"];
       $salida['nvchUnidadMedida'] = $fila['nvchUnidadMedida'];
       $salida['intCantidad'] = $fila['intCantidad'];
@@ -114,12 +118,13 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:nvchDescripcion,
+      $sql_comando = $sql_conectar->prepare('CALL actualizarproducto(:intIdProducto,:intIdTipoVenta,:nvchDescripcion,
         :nvchUnidadMedida,:intCantidadMinima,:nvchDireccionImg,:dcmPrecioCompra,:intIdTipoMonedaCompra,
         :dcmPrecioVenta1,:dcmPrecioVenta2,:dcmPrecioVenta3,:dcmDescuentoVenta2,:dcmDescuentoVenta3,
         :intIdTipoMonedaVenta,:dtmFechaIngreso,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto,
+        ':intIdTipoVenta' => $this->intIdTipoVenta,
         ':nvchDescripcion' => $this->nvchDescripcion,
         ':nvchUnidadMedida' => $this->nvchUnidadMedida,
         ':intCantidadMinima' => $this->intCantidadMinima,

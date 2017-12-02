@@ -68,7 +68,7 @@
                   <label>Serie:</label>
                   <input type="text" id="nvchSerie" name="nvchSerie" class="form-control select2" form="form-comprobante"
                   onkeyup="EsVacio('nvchSerie')"
-                  maxlength="6" <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) echo 'readonly'; ?>/>
+                  maxlength="6"/>
                   <span id="nvchSerieIcono" class="" aria-hidden=""></span>
                   <div id="nvchSerieObs" class=""></div>
                 </div>
@@ -78,7 +78,7 @@
                   <label>Numeración:</label>
                   <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" 
                   form="form-comprobante" onkeypress="return EsNumeroEnteroTecla(event)" 
-                  onkeyup="EsNumeroEntero('nvchNumeracion')" maxlength="8" <?php if($intTipoDetalle == 1 || $intIdTipoComprobante == 9 || $intIdTipoComprobante == 10) echo 'readonly'; ?>/>
+                  onkeyup="EsNumeroEntero('nvchNumeracion')" maxlength="8"/>
                   <span id="nvchNumeracionIcono" class="" aria-hidden=""></span>
                   <div id="nvchNumeracionObs" class=""></div>
                 </div>

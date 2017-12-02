@@ -16,6 +16,7 @@ class OrdenCompra{
   private $intIdUsuario;
   private $intIdDireccionEmpresa;
   private $dtmFechaCreacion;
+  private $intEstado;
   private $nvchObservacion;
   
   public function IdOrdenCompra($intIdOrdenCompra){ $this->intIdOrdenCompra = $intIdOrdenCompra; }
@@ -30,6 +31,7 @@ class OrdenCompra{
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
   public function intIdDireccionEmpresa($intIdDireccionEmpresa){ $this->intIdDireccionEmpresa = $intIdDireccionEmpresa; }
   public function FechaCreacion($dtmFechaCreacion){ $this->dtmFechaCreacion = $dtmFechaCreacion; }
+  public function Estado($intEstado){ $this->intEstado = $intEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
 
@@ -41,7 +43,7 @@ class OrdenCompra{
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarOrdenCompra(@intIdOrdenCompra,:nvchSerie,:nvchNumeracion,
         :nvchRazonSocial,:nvchRUC,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:nvchNombreDe,:intIdUsuario,
-        :intIdDireccionEmpresa,:dtmFechaCreacion,:nvchObservacion)');
+        :intIdDireccionEmpresa,:dtmFechaCreacion,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchSerie' => '0001',
         ':nvchNumeracion' => '', 
@@ -54,6 +56,7 @@ class OrdenCompra{
         ':intIdUsuario' => $this->intIdUsuario,
         ':intIdDireccionEmpresa' => 1,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdOrdenCompra AS intIdOrdenCompra");
@@ -127,7 +130,8 @@ class OrdenCompra{
         ':nvchNombreDe' => $this->nvchNombreDe,
         ':intIdUsuario' => $this->intIdUsuario,
         ':intIdDireccionEmpresa' => $this->intIdDireccionEmpresa,
-        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,}
+        ':intEstado' => 1;
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdOrdenCompra'] = $this->intIdOrdenCompra;
       echo "ok";

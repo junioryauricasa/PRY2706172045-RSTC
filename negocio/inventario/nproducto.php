@@ -2,10 +2,10 @@
 function DescripcionProducto(intIdTipoVenta){
 	if(intIdTipoVenta == 1){
 		$("#nvchDescripcionCol").show();
-		$("#nvchDescripcionOCol").hide();
+		$("#nvchDescripcionRCol").hide();
 	} else {
 		$("#nvchDescripcionCol").hide();
-		$("#nvchDescripcionOCol").show();
+		$("#nvchDescripcionRCol").show();
 	}
 }
 //////////////////////////////////////////////////////////////
@@ -32,11 +32,21 @@ $(document).on('click', '#btn-form-crear-producto', function(){
 $(document).on('click', '#btn-crear-producto', function(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+	  var intIdTipoVenta = $("#intIdTipoVenta").val();
 	  $("#funcion").val("I");
-	  if(EsVacio("nvchDescripcion") == false){
-	  	goToBox("#nvchDescripcionGroup");
-	  	return false;
-	  } else if(EsNumeroEntero("intCantidadMinima") == false){
+	  if(intIdTipoVenta == 1){
+		if(EsVacio("nvchDescripcion") == false){
+		  	goToBox("#nvchDescripcionGroup");
+		  	return false;
+		  }
+	  } else {
+	  	if(EsVacio("nvchDescripcionR") == false){
+		  	goToBox("#nvchDescripcionRGroup");
+		  	return false;
+		  }
+	  }
+
+	  if(EsNumeroEntero("intCantidadMinima") == false){
 	  	goToBox("#intCantidadMinimaGroup");
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioCompra") == false){
@@ -108,7 +118,12 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   dataType:'json',
 	   success:function(datos)
 	   {
-	   	$("#nvchDescripcion").val(datos.nvchDescripcion);
+	   	if(datos.intIdTipoVenta == 1)
+	   		$("#nvchDescripcion").val(datos.nvchDescripcion);
+	   	else
+	   		$("#nvchDescripcionR").val(datos.nvchDescripcion);
+	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
+	   	$("#intIdTipoVenta").change();
 	   	$("#nvchObservacion").val(datos.nvchObservacion);
 		$("#nvchUnidadMedida").val(datos.nvchUnidadMedida);
 		$("#intCantidad").val(datos.intCantidad);
@@ -152,11 +167,21 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 $(document).on('click', '#btn-editar-producto', function(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
+	  var intIdTipoVenta = $("#intIdTipoVenta").val();
 	  $("#funcion").val("A");
-	  if(EsVacio("nvchDescripcion") == false){
-	  	goToBox("#nvchDescripcionGroup");
-	  	return false;
-	  } else if(EsNumeroEntero("intCantidadMinima") == false){
+	  if(intIdTipoVenta == 1){
+		if(EsVacio("nvchDescripcion") == false){
+		  	goToBox("#nvchDescripcionGroup");
+		  	return false;
+		  }
+	  } else {
+	  	if(EsVacio("nvchDescripcionR") == false){
+		  	goToBox("#nvchDescripcionRGroup");
+		  	return false;
+		  }
+	  }
+
+	  if(EsNumeroEntero("intCantidadMinima") == false){
 	  	goToBox("#intCantidadMinimaGroup");
 	  	return false;
 	  } else if(EsDecimal("dcmPrecioCompra") == false){
@@ -579,6 +604,7 @@ function ver_formulario(){
 function limpiarformProducto(){
       //$("#formulario-crud").html(datos);
       RestablecerValidacion("nvchDescripcion",1); // 1 = desaparece validacion y 2 = se mntienen el estilo de validacion pero no valor
+      RestablecerValidacion("nvchDescripcionR",1);
       RestablecerValidacion("intCantidad",1);
       RestablecerValidacion("intCantidadMinima",1);
       RestablecerValidacion("dcmPrecioCompra",1);
@@ -594,6 +620,8 @@ function limpiarformProducto(){
       $("#intIdTipoMonedaCompra").val(1);
       $("#intIdTipoMonedaVenta").val(1);
       $("#intIdProducto").val("");
+      $("#intIdTipoVenta").val(1);
+      $("#intIdTipoVenta").change();
       $("#dtmFechaIngreso").val("");
       //imprime las tablas vacias
       $("#ListaDeCodigos").html("");  //vacia las filas de la tabla

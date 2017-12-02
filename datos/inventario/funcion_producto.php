@@ -21,7 +21,11 @@ if(empty($_SESSION['intIdMaquinaria'])){
 switch($_POST['funcion']){
   case "I":
     $Producto = new Producto();
-    $Producto->Descripcion($_POST['nvchDescripcion']);
+    $Producto->IdTipoVenta($_POST['intIdTipoVenta']);
+    if($_POST['intIdTipoVenta']==1)
+        $Producto->Descripcion($_POST['nvchDescripcion']);
+    else
+        $Producto->Descripcion($_POST['nvchDescripcionR']);
     $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
     $Producto->CantidadMinima($_POST['intCantidadMinima']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
@@ -89,7 +93,11 @@ switch($_POST['funcion']){
   case "A":
     $Producto = new Producto();
     $Producto->IdProducto($_POST['intIdProducto']);
-    $Producto->Descripcion($_POST['nvchDescripcion']);
+    $Producto->IdTipoVenta($_POST['intIdTipoVenta']);
+    if($_POST['intIdTipoVenta'] == 1)
+        $Producto->Descripcion($_POST['nvchDescripcion']);
+    else
+        $Producto->Descripcion($_POST['nvchDescripcionR']);
     $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
     $Producto->CantidadMinima($_POST['intCantidadMinima']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);

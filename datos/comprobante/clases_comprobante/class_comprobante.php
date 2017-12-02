@@ -18,7 +18,7 @@ class Comprobante{
   private $intIdTipoMoneda;
   private $intIdTipoPago;
   private $intIdTipoVenta;
-  private $bitEstado;
+  private $intEstado;
   private $nvchObservacion;
   
   public function IdComprobante($intIdComprobante){ $this->intIdComprobante = $intIdComprobante; }
@@ -37,7 +37,7 @@ class Comprobante{
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
-  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function Estado($intEstado){ $this->intEstado = $intEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
 
@@ -49,7 +49,7 @@ class Comprobante{
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarComprobante(@intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,
-        :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:bitEstado,:nvchObservacion)');
+        :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
         ':intTipoDetalle' => $this->intTipoDetalle,
@@ -66,7 +66,7 @@ class Comprobante{
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intIdTipoVenta' => $this->intIdTipoVenta,
-        ':bitEstado' => 1,
+        ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdComprobante as intIdComprobante");
@@ -123,7 +123,7 @@ class Comprobante{
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarComprobante(:intIdComprobante,:intIdTipoComprobante,:intIdSucursal,
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,
-        :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:bitEstado,:nvchObservacion)');
+        :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdComprobante' => $this->intIdComprobante,
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
@@ -141,7 +141,7 @@ class Comprobante{
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intIdTipoVenta' => $this->intIdTipoVenta,
-        ':bitEstado' => 1,
+        ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdComprobante'] = $this->intIdComprobante;
       echo "ok";

@@ -19,16 +19,16 @@ DELIMITER $$
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
-	IN _bitEstado INT,
+	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
 		INSERT INTO tb_comprobante
 		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,intIdProveedor,
-			nvchClienteProveedor,nvchDNIRUC,nvchDireccion,intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,bitEstado,nvchObservacion)
+			nvchClienteProveedor,nvchDNIRUC,nvchDireccion,intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
 		VALUES
 		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_intIdProveedor,
-			_nvchClienteProveedor,_nvchDNIRUC,_nvchDireccion,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_bitEstado,_nvchObservacion);
+			_nvchClienteProveedor,_nvchDNIRUC,_nvchDireccion,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,_nvchObservacion);
 		SET _intIdComprobante = LAST_INSERT_ID();
     END 
 $$
@@ -69,7 +69,7 @@ DELIMITER $$
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
-	IN _bitEstado INT,
+	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
@@ -91,7 +91,7 @@ DELIMITER $$
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
 		intIdTipoVenta = _intIdTipoVenta,
-		bitEstado = _bitEstado,
+		intEstado = _intEstado,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdComprobante = _intIdComprobante;
@@ -133,7 +133,7 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_venta
 		SET
-		bitEstado = 0
+		intEstado = 0
 		WHERE 
 		intIdComprobante = _intIdComprobante;
     END 

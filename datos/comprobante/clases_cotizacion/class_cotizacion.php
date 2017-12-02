@@ -21,7 +21,7 @@ class Cotizacion{
   private $nvchModelo;
   private $nvchMarca;
   private $nvchHorometro;
-  private $bitEstado;
+  private $intEstado;
   private $nvchObservacion;
   
   public function IdCotizacion($intIdCotizacion){ $this->intIdCotizacion = $intIdCotizacion; }
@@ -42,7 +42,7 @@ class Cotizacion{
   public function Modelo($nvchModelo){ $this->nvchModelo = $nvchModelo; }
   public function Marca($nvchMarca){ $this->nvchMarca = $nvchMarca; }
   public function Horometro($nvchHorometro){ $this->nvchHorometro = $nvchHorometro; }
-  public function Estado($bitEstado){ $this->bitEstado = $bitEstado; }
+  public function Estado($intEstado){ $this->intEstado = $intEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
 
@@ -55,7 +55,7 @@ class Cotizacion{
       $sql_comando = $sql_conectar->prepare('CALL insertarCotizacion(@intIdCotizacion,:dtmFechaCreacion,:nvchSerie,:nvchNumeracion,
         :intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:intIdTipoMoneda,
         :intIdTipoPago,:intDiasValidez,:intIdTipoVenta,:nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,
-        :bitEstado,:nvchObservacion)');
+        :intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
         ':nvchSerie' => '0001',
@@ -74,7 +74,7 @@ class Cotizacion{
         ':nvchModelo' => $this->nvchModelo,
         ':nvchMarca' => $this->nvchMarca,
         ':nvchHorometro' => $this->nvchHorometro, 
-        ':bitEstado' => 1,
+        ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdCotizacion as intIdCotizacion");
@@ -137,7 +137,7 @@ class Cotizacion{
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarCotizacion(:intIdCotizacion,:dtmFechaCreacion,:nvchSerie,
         :nvchNumeracion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,:nvchTipo,:nvchModelo,
-        :nvchMarca,:nvchHorometro,:bitEstado,:nvchObservacion)');
+        :nvchMarca,:nvchHorometro,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
@@ -154,7 +154,7 @@ class Cotizacion{
         ':nvchModelo' => $this->nvchModelo,
         ':nvchMarca' => $this->nvchMarca,
         ':nvchHorometro' => $this->nvchHorometro, 
-        ':bitEstado' => 1,
+        ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdCotizacion'] = $this->intIdCotizacion;
       echo "ok";
