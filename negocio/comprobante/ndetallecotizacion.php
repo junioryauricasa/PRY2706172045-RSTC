@@ -150,7 +150,7 @@ function CalcularPrecioTotalM(accion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CambiarMoneda(){
-	var intIdTipoCotizacion = $("#intIdTipoCotizacion").val();
+	var intIdTipoVenta = $("#intIdTipoVenta").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var dcmDescuento = 0.00;
 	var intCantidad = 0;
@@ -170,7 +170,7 @@ function CambiarMoneda(){
 	   data:{funcion:funcion},
 	   success:function(datos)
 	   {
-	   	if(intIdTipoCotizacion == 1){
+	   	if(intIdTipoVenta == 1){
 	   	$('table tbody#ListaDeProductosVender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
         		if($("#dcmPrecio"+this.value).val() != ""){
@@ -198,7 +198,7 @@ function CambiarMoneda(){
 			    }
 	        }); 
 	    });
-	   	} else if(intIdTipoCotizacion == 2){
+	   	} else if(intIdTipoVenta == 2){
 	   	$('table tbody#ListaDeServiciosVender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
 		   		dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+this.value).val();
@@ -230,7 +230,7 @@ function CambiarMoneda(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
-	var intIdTipoCotizacion = $("#intIdTipoCotizacion").val();
+	var intIdTipoVenta = $("#intIdTipoVenta").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var nvchSimbolo = "";
 
@@ -243,14 +243,14 @@ function CalcularTotal(){
 	var CotizacionTotal = 0.00;
 	Number(CotizacionTotal);
 
-	if(intIdTipoCotizacion == 1){
+	if(intIdTipoVenta == 1){
 		$('table tbody#ListaDeProductosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotal[]']").each(function() {
 	            CotizacionTotal = CotizacionTotal + Number(this.value);
 	        }); 
 	    });
 	    CotizacionTotal = CotizacionTotal.toFixed(2);
-	} else if(intIdTipoCotizacion == 2) {
+	} else if(intIdTipoVenta == 2) {
 		$('table tbody#ListaDeServiciosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotalS[]']").each(function() {
 	            CotizacionTotal = CotizacionTotal + Number(this.value);

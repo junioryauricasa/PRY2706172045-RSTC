@@ -469,7 +469,8 @@ class Producto
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
                 </span>&nbsp;
-                <?php echo ' | '.$fila['nvchDescripcion'].' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1']; ?>
+                <?php echo ' | '.$fila['nvchDescripcion'].' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1'].' | '.
+                'Cantidad: '.$fila['intCantidad']; ?>
               </li>
           <?php
           }
@@ -528,6 +529,9 @@ class Producto
         $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];
         $salida['dcmDescuentoVenta2'] = $fila['dcmDescuentoVenta2'];
         $salida['dcmDescuentoVenta3'] = $fila['dcmDescuentoVenta3'];
+        $salida['detalleUbigeoProducto'] = '<button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">
+                  <i class="fa fa-edit"></i> Ver Detalle
+                  </button>';
         echo json_encode($salida);
     }
     catch(PDPExceptio $e){
