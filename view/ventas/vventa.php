@@ -21,37 +21,40 @@ require_once '../../datos/conexion/bd_conexion.php';
           $('[data-toggle="tooltip"]').tooltip(); 
       });
     </script>
-  <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Registro de Ventas
-        <small>Módulo de Ventas</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="../default/index">Inicio</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
-    </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <?php
-        require_once '../comprobante/vcomprobante.php'; 
-      ?>
-    </section>
-  </div>
-<script>
-  $('#modalcust').modal({
-    keyboard: false
-  });
-</script>
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Registro de Ventas
+      <small>Módulo de Ventas</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="../default/index">Inicio</a></li>
+      <li><a href="#">Layout</a></li>
+      <li class="active">Fixed</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <?php
+      require_once '../comprobante/vcomprobante.php'; 
+    ?>
+  </section>
+</div>
+  
+  <script>
+    $('#modalcust').modal({
+      keyboard: false
+    });
+  </script>
+
 <style>
-  input{
-    padding: 2px 3px;
-  }
-  select{
-    padding: 3px;
-  }
+    input{
+      padding: 2px 3px;
+    }
+    select{
+      padding: 3px;
+    }
 </style>
 <?php include('../_include/rstfooter.php'); ?>

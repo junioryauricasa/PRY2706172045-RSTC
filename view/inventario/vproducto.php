@@ -602,4 +602,44 @@ require_once '../../datos/conexion/bd_conexion.php';
     }
   </style>
 
+
+
+<!-- INICIO - elemento emergente estilo chat -->
+<div class="box box-info direct-chat direct-chat-warning" id="chatbox">
+  <div class="box-header with-border">
+    <h3 class="box-title">Informacion auxiliar</h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" style="">
+        <!-- Conversations are loaded here -->
+        <div class="direct-chat-messages">
+          <!-- Message. Default to the left -->
+          <div class="direct-chat-msg">
+            <div class="direct-chat-info clearfix">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet dignissimos placeat dicta omnis, obcaecati eaque ullam unde, quas iusto, nobis libero optio magnam earum aspernatur cupiditate dolorum nisi officia commodi.</p>
+            </div>
+          </div>
+        </div>
+        <!--/.direct-chat-messages-->
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer" style="">
+    <!--form action="#" method="post">
+      <div class="input-group">
+        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+        <span class="input-group-btn">
+              <button type="button" class="btn btn-warning btn-flat">Enviar</button>
+            </span>
+      </div>
+    </form-->
+  </div>
+  <!-- /.box-footer-->
+</div>
+<!-- END - elemento emergente estilo chat -->
+
+
 <?php include('../_include/rstfooter.php'); ?>

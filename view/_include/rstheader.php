@@ -740,7 +740,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
 .ExcelTable2007 TD {
     border: 0px;
-    background-color: white;
+    /*background-color: white;*/
     
     padding-top: 3px;
     padding-bottom: 3px;
@@ -776,6 +776,12 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     background-repeat: none;
 }
 
+
+
+table tr:hover{
+    background-color: #80808038;
+}
+
 /*
 text area el ancho 
 */
@@ -786,4 +792,24 @@ textarea{
     min-height: 100px;
     overflow-x: hidden;
 }
+
+
+/*
+  rows / registros deshabilitados
+*/
+table tr .deshabilitado{
+  background-color: #ff0000ba;
+}
+
+
+#chatbox{
+  z-index: 1000;
+  width: 300px;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+
+  margin-bottom: 0px;
+}
+
 </style>

@@ -45,7 +45,7 @@ class FormularioProducto
           <div class="box-body">
             <div class="row">
                 <!-- datos de Producto -->
-                <div class="col-lg-5 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <?php 
                       if($funcion == "F"){ 
                     ?>
@@ -108,7 +108,7 @@ class FormularioProducto
                 </div>
 
                 <!-- datos Precios de Producto -->
-                <div class="col-lg-2 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <h4 class="box-title text-center">Precios del Producto</h4>
                     <hr>
                     <div class="col-md-12">
@@ -223,7 +223,7 @@ class FormularioProducto
                 </div>
 
                 <!-- Datos de codigos adicionales -->
-                <div class="col-lg-5 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <h4 class="box-title text-center">Códigos Adicionales</h4>
                     <hr>
                     
