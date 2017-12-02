@@ -1,6 +1,9 @@
 <?php
   session_start();
   require_once '../../conexion/bd_conexion.php';
+
+  $anio = date('y'); // anio en 2 digitos
+
   $intIdCotizacion = $_GET['intIdCotizacion'];
   ob_start();
   $sql_conexion = new Conexion_BD();
@@ -201,8 +204,536 @@
           return $output;
       }
   }
-
   // ENd  - Funcion de conversion de numero a texto
+
+
+// FUNCIONES DE CONVERSION DE NUMEROS A LETRAS.
+function centimos()
+{
+  global $importe_parcial;
+ 
+  //$importe_parcial = number_format($importe_parcial, 2, ".", "") * 100;
+  $importe_parcial = number_format($importe_parcial,2,".","");
+ 
+  if ($importe_parcial > 0)
+    $num_letra = " con ".decena_centimos($importe_parcial);
+  else
+    $num_letra = "";
+ 
+  return $num_letra;
+}
+ 
+function unidad_centimos($numero)
+{
+  switch ($numero)
+  {
+    case 9:
+    {
+      $num_letra = "nueve céntimos";
+      break;
+    }
+    case 8:
+    {
+      $num_letra = "ocho céntimos";
+      break;
+    }
+    case 7:
+    {
+      $num_letra = "siete céntimos";
+      break;
+    }
+    case 6:
+    {
+      $num_letra = "seis céntimos";
+      break;
+    }
+    case 5:
+    {
+      $num_letra = "cinco céntimos";
+      break;
+    }
+    case 4:
+    {
+      $num_letra = "cuatro céntimos";
+      break;
+    }
+    case 3:
+    {
+      $num_letra = "tres céntimos";
+      break;
+    }
+    case 2:
+    {
+      $num_letra = "dos céntimos";
+      break;
+    }
+    case 1:
+    {
+      $num_letra = "un céntimo";
+      break;
+    }
+  }
+  return $num_letra;
+}
+ 
+function decena_centimos($numero)
+{
+  if ($numero >= 10)
+  {
+    if ($numero >= 90 && $numero <= 99)
+    {
+        if ($numero == 90)
+          return "noventa céntimos";
+        else if ($numero == 91)
+          return "noventa y un céntimos";
+        else
+          return "noventa y ".unidad_centimos($numero - 90);
+    }
+    if ($numero >= 80 && $numero <= 89)
+    {
+      if ($numero == 80)
+        return "ochenta céntimos";
+      else if ($numero == 81)
+        return "ochenta y un céntimos";
+      else
+        return "ochenta y ".unidad_centimos($numero - 80);
+    }
+    if ($numero >= 70 && $numero <= 79)
+    {
+      if ($numero == 70)
+        return "setenta céntimos";
+      else if ($numero == 71)
+        return "setenta y un céntimos";
+      else
+        return "setenta y ".unidad_centimos($numero - 70);
+    }
+    if ($numero >= 60 && $numero <= 69)
+    {
+      if ($numero == 60)
+        return "sesenta céntimos";
+      else if ($numero == 61)
+        return "sesenta y un céntimos";
+      else
+        return "sesenta y ".unidad_centimos($numero - 60);
+    }
+    if ($numero >= 50 && $numero <= 59)
+    {
+      if ($numero == 50)
+        return "cincuenta céntimos";
+      else if ($numero == 51)
+        return "cincuenta y un céntimos";
+      else
+        return "cincuenta y ".unidad_centimos($numero - 50);
+    }
+    if ($numero >= 40 && $numero <= 49)
+    {
+      if ($numero == 40)
+        return "cuarenta céntimos";
+      else if ($numero == 41)
+        return "cuarenta y un céntimos";
+      else
+        return "cuarenta y ".unidad_centimos($numero - 40);
+    }
+    if ($numero >= 30 && $numero <= 39)
+    {
+      if ($numero == 30)
+        return "treinta céntimos";
+      else if ($numero == 91)
+        return "treinta y un céntimos";
+      else
+        return "treinta y ".unidad_centimos($numero - 30);
+    }
+    if ($numero >= 20 && $numero <= 29)
+    {
+      if ($numero == 20)
+        return "veinte céntimos";
+      else if ($numero == 21)
+        return "veintiun céntimos";
+      else
+        return "veinti".unidad_centimos($numero - 20);
+    }
+    if ($numero >= 10 && $numero <= 19)
+    {
+      if ($numero == 10)
+        return "diez céntimos";
+      else if ($numero == 11)
+        return "once céntimos";
+      else if ($numero == 11)
+        return "doce céntimos";
+      else if ($numero == 11)
+        return "trece céntimos";
+      else if ($numero == 11)
+        return "catorce céntimos";
+      else if ($numero == 11)
+        return "quince céntimos";
+      else if ($numero == 11)
+        return "dieciseis céntimos";
+      else if ($numero == 11)
+        return "diecisiete céntimos";
+      else if ($numero == 11)
+        return "dieciocho céntimos";
+      else if ($numero == 11)
+        return "diecinueve céntimos";
+    }
+  }
+  else
+    return unidad_centimos($numero);
+}
+ 
+function unidad($numero)
+{
+  switch ($numero)
+  {
+    case 9:
+    {
+      $num = "nueve";
+      break;
+    }
+    case 8:
+    {
+      $num = "ocho";
+      break;
+    }
+    case 7:
+    {
+      $num = "siete";
+      break;
+    }
+    case 6:
+    {
+      $num = "seis";
+      break;
+    }
+    case 5:
+    {
+      $num = "cinco";
+      break;
+    }
+    case 4:
+    {
+      $num = "cuatro";
+      break;
+    }
+    case 3:
+    {
+      $num = "tres";
+      break;
+    }
+    case 2:
+    {
+      $num = "dos";
+      break;
+    }
+    case 1:
+    {
+      $num = "uno";
+      break;
+    }
+  }
+  return $num;
+}
+ 
+function decena($numero)
+{
+  if ($numero >= 90 && $numero <= 99)
+  {
+    $num_letra = "noventa ";
+ 
+    if ($numero > 90)
+      $num_letra = $num_letra."y ".unidad($numero - 90);
+  }
+  else if ($numero >= 80 && $numero <= 89)
+  {
+    $num_letra = "ochenta ";
+ 
+    if ($numero > 80)
+      $num_letra = $num_letra."y ".unidad($numero - 80);
+  }
+  else if ($numero >= 70 && $numero <= 79)
+  {
+      $num_letra = "setenta ";
+ 
+    if ($numero > 70)
+      $num_letra = $num_letra."y ".unidad($numero - 70);
+  }
+  else if ($numero >= 60 && $numero <= 69)
+  {
+    $num_letra = "sesenta ";
+ 
+    if ($numero > 60)
+      $num_letra = $num_letra."y ".unidad($numero - 60);
+  }
+  else if ($numero >= 50 && $numero <= 59)
+  {
+    $num_letra = "cincuenta ";
+ 
+    if ($numero > 50)
+      $num_letra = $num_letra."y ".unidad($numero - 50);
+  }
+  else if ($numero >= 40 && $numero <= 49)
+  {
+    $num_letra = "cuarenta ";
+ 
+    if ($numero > 40)
+      $num_letra = $num_letra."y ".unidad($numero - 40);
+  }
+  else if ($numero >= 30 && $numero <= 39)
+  {
+    $num_letra = "treinta ";
+ 
+    if ($numero > 30)
+      $num_letra = $num_letra."y ".unidad($numero - 30);
+  }
+  else if ($numero >= 20 && $numero <= 29)
+  {
+    if ($numero == 20)
+      $num_letra = "veinte ";
+    else
+      $num_letra = "veinti".unidad($numero - 20);
+  }
+  else if ($numero >= 10 && $numero <= 19)
+  {
+    switch ($numero)
+    {
+      case 10:
+      {
+        $num_letra = "diez ";
+        break;
+      }
+      case 11:
+      {
+        $num_letra = "once ";
+        break;
+      }
+      case 12:
+      {
+        $num_letra = "doce ";
+        break;
+      }
+      case 13:
+      {
+        $num_letra = "trece ";
+        break;
+      }
+      case 14:
+      {
+        $num_letra = "catorce ";
+        break;
+      }
+      case 15:
+      {
+        $num_letra = "quince ";
+        break;
+      }
+      case 16:
+      {
+        $num_letra = "dieciseis ";
+        break;
+      }
+      case 17:
+      {
+        $num_letra = "diecisiete ";
+        break;
+      }
+      case 18:
+      {
+        $num_letra = "dieciocho ";
+        break;
+      }
+      case 19:
+      {
+        $num_letra = "diecinueve ";
+        break;
+      }
+    }
+  }
+  else
+    $num_letra = unidad($numero);
+ 
+  return $num_letra;
+}
+ 
+function centena($numero)
+{
+  if ($numero >= 100)
+  {
+    if ($numero >= 900 & $numero <= 999)
+    {
+      $num_letra = "novecientos ";
+ 
+      if ($numero > 900)
+        $num_letra = $num_letra.decena($numero - 900);
+    }
+    else if ($numero >= 800 && $numero <= 899)
+    {
+      $num_letra = "ochocientos ";
+ 
+      if ($numero > 800)
+        $num_letra = $num_letra.decena($numero - 800);
+    }
+    else if ($numero >= 700 && $numero <= 799)
+    {
+      $num_letra = "setecientos ";
+ 
+      if ($numero > 700)
+        $num_letra = $num_letra.decena($numero - 700);
+    }
+    else if ($numero >= 600 && $numero <= 699)
+    {
+      $num_letra = "seiscientos ";
+ 
+      if ($numero > 600)
+        $num_letra = $num_letra.decena($numero - 600);
+    }
+    else if ($numero >= 500 && $numero <= 599)
+    {
+      $num_letra = "quinientos ";
+ 
+      if ($numero > 500)
+        $num_letra = $num_letra.decena($numero - 500);
+    }
+    else if ($numero >= 400 && $numero <= 499)
+    {
+      $num_letra = "cuatrocientos ";
+ 
+      if ($numero > 400)
+        $num_letra = $num_letra.decena($numero - 400);
+    }
+    else if ($numero >= 300 && $numero <= 399)
+    {
+      $num_letra = "trescientos ";
+ 
+      if ($numero > 300)
+        $num_letra = $num_letra.decena($numero - 300);
+    }
+    else if ($numero >= 200 && $numero <= 299)
+    {
+      $num_letra = "doscientos ";
+ 
+      if ($numero > 200)
+        $num_letra = $num_letra.decena($numero - 200);
+    }
+    else if ($numero >= 100 && $numero <= 199)
+    {
+      if ($numero == 100)
+        $num_letra = "cien ";
+      else
+        $num_letra = "ciento ".decena($numero - 100);
+    }
+  }
+  else
+    $num_letra = decena($numero);
+ 
+  return $num_letra;
+}
+ 
+function cien()
+{
+  global $importe_parcial;
+ 
+  $parcial = 0; $car = 0;
+ 
+  while (substr($importe_parcial, 0, 1) == 0)
+    $importe_parcial = substr($importe_parcial, 1, strlen($importe_parcial) - 1);
+ 
+  if ($importe_parcial >= 1 && $importe_parcial <= 9.99)
+    $car = 1;
+  else if ($importe_parcial >= 10 && $importe_parcial <= 99.99)
+    $car = 2;
+  else if ($importe_parcial >= 100 && $importe_parcial <= 999.99)
+    $car = 3;
+ 
+  $parcial = substr($importe_parcial, 0, $car);
+  $importe_parcial = substr($importe_parcial, $car);
+ 
+  $num_letra = centena($parcial).centimos();
+ 
+  return $num_letra;
+}
+ 
+function cien_mil()
+{
+  global $importe_parcial;
+ 
+  $parcial = 0; $car = 0;
+ 
+  while (substr($importe_parcial, 0, 1) == 0)
+    $importe_parcial = substr($importe_parcial, 1, strlen($importe_parcial) - 1);
+ 
+  if ($importe_parcial >= 1000 && $importe_parcial <= 9999.99)
+    $car = 1;
+  else if ($importe_parcial >= 10000 && $importe_parcial <= 99999.99)
+    $car = 2;
+  else if ($importe_parcial >= 100000 && $importe_parcial <= 999999.99)
+    $car = 3;
+ 
+  $parcial = substr($importe_parcial, 0, $car);
+  $importe_parcial = substr($importe_parcial, $car);
+ 
+  if ($parcial > 0)
+  {
+    if ($parcial == 1)
+      $num_letra = "mil ";
+    else
+      $num_letra = centena($parcial)." mil ";
+  }
+ 
+  return $num_letra;
+}
+ 
+ 
+function millon()
+{
+  global $importe_parcial;
+ 
+  $parcial = 0; $car = 0;
+ 
+  while (substr($importe_parcial, 0, 1) == 0)
+    $importe_parcial = substr($importe_parcial, 1, strlen($importe_parcial) - 1);
+ 
+  if ($importe_parcial >= 1000000 && $importe_parcial <= 9999999.99)
+    $car = 1;
+  else if ($importe_parcial >= 10000000 && $importe_parcial <= 99999999.99)
+    $car = 2;
+  else if ($importe_parcial >= 100000000 && $importe_parcial <= 999999999.99)
+    $car = 3;
+ 
+  $parcial = substr($importe_parcial, 0, $car);
+  $importe_parcial = substr($importe_parcial, $car);
+ 
+  if ($parcial == 1)
+    $num_letras = "un millón ";
+  else
+    $num_letras = centena($parcial)." millones ";
+ 
+  return $num_letras;
+}
+ 
+function convertir_a_letras($numero)
+{
+  global $importe_parcial;
+ 
+  $importe_parcial = $numero;
+ 
+  if ($numero < 1000000000)
+  {
+    if ($numero >= 1000000 && $numero <= 999999999.99)
+      $num_letras = millon().cien_mil().cien();
+    else if ($numero >= 1000 && $numero <= 999999.99)
+      $num_letras = cien_mil().cien();
+    else if ($numero >= 1 && $numero <= 999.99)
+      $num_letras = cien();
+    else if ($numero >= 0.01 && $numero <= 0.99)
+    {
+      if ($numero == 0.01)
+        $num_letras = "un céntimo";
+      else
+        $num_letras = convertir_a_letras(($numero * 100)."/100")." céntimos";
+    }
+  }
+  return $num_letras;
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -214,27 +745,31 @@
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
 
   <style>
+    table tr td {
+      color: black;
+      padding: 0.05em
+    }
     table#tabladetalle {
       border-collapse: collapse;
     }
     table#tablageneral {
-      border: 2px solid black;
+      border: 0px solid black;
       border-collapse: collapse;
     }
     tr#primerdetalle>td, tr#cuartodetalle>td, tr#quintodetalle>td, td.celdatotales{
-      border: 2px solid black;
+      border: 0px solid black;
     }
     table#tablacontactos {
-      border: 2px solid black;
+      border: 0px solid black;
     }
     tr.segundodetalle>td{
-      border-left: 2px solid black;
-      border-right: 2px solid black;
+      border-left: 0px solid black;
+      border-right: 0px solid black;
     }
     tr.ultimodetalle>td{
-      border-bottom: 2px solid black; 
-      border-left: 2px solid black;
-      border-right: 2px solid black;
+      border-bottom: 0px solid black; 
+      border-left: 0px solid black;
+      border-right: 0px solid black;
     }
 
     /* font para eslogan */
@@ -269,9 +804,6 @@
 </style>
 
 <style>
-    table>tr{
-      padding: 0px;
-    }
     span{
       font-size: 12px;
       margin-top: 10px !important;
@@ -301,7 +833,11 @@
     .centered {text-align:center}
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
 </style>
-<body> 
+
+<body>
+
+ <!--img src="../../imagenes/background-factura.JPG" alt=""-->
+ 
  <div class="row" style="margin-top: 0px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
@@ -319,162 +855,171 @@
               <!--span>Fecha de Emisión……..de………………………..de 20……...</span-->
               <span style="margin-left: 110px !important;font-weight: bolder">20</span> 
               <span style="margin-left: 50px !important;font-weight: bolder">Enero</span>
-              <span style="margin-left: 105px !important;font-weight: bolder">17</span>
+              <span style="margin-left: 105px !important;font-weight: bolder"><?php echo $anio; ?></span>
           </p>
       </div>
   </div>
 
   <div class="row">
       <div class="" style="width: 100%; margin-top: 6px; text-align: left; z-index: 10">
-<table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; border: solid 2px transparent">
-  <tbody>
-    <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
-          <!--span>Señor(es):</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
-          <span style="margin-left: -5px; color: green">carlos montana</span>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 20% !important;">
-          <!--span>Forma de Pago:</span--> 
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-          <span style="margin-left: -20px; color: green">Efectivo</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
-          <!--span>RUC / DNI:</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
-          <span style="color: green; margin-left: -5px">10750005760</span>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
-          <!--span>Guía de remisión:</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-          <span style="color: green; margin-left: -20px">GRUIA000000212</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
-          <!--span>Dirección:</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
-          <span style="color: green; margin-left: -5px">Psje Alamedas 123</span>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
-          <!--span>Asesor de Ventas:</span--> 
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-          <span style="color: green; margin-left: -20px">Hector vivanco</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; border: solid 2px transparent">
+            <tbody>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
+                    <!--span>Señor(es):</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
+                    <span style="margin-left: -5px; color: green">carlos montana</span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 20% !important;">
+                    <!--span>Forma de Pago:</span--> 
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                    <span style="margin-left: -20px; color: green">Efectivo</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
+                    <!--span>RUC / DNI:</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
+                    <span style="color: green; margin-left: -5px">10750005760</span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
+                    <!--span>Guía de remisión:</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                    <span style="color: green; margin-left: -20px">GRUIA000000212</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
+                    <!--span>Dirección:</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
+                    <span style="color: green; margin-left: -5px">Psje Alamedas 123</span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
+                    <!--span>Asesor de Ventas:</span--> 
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                    <span style="color: green; margin-left: -20px">Hector vivanco</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
       </div>
   </div>
 
   <div class="row">
     <div class="" style="width: 100%; margin-top: 7px; text-align: left; z-index: 10">
-<table id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
-  <tbody>
-    <tr id="primerdetalle" style="">
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 5% !important;">
-          <small>
-            <small>
-                ITEM
-            </small>
-          </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important;">
-          <small>
-            <small>
-                CÓDIGO
-            </small>
-          </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 44% !important;">
-        <small>
-            <small>
-                DESCRIPCIÓN
-            </small>
-        </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important;">
-        <small>
-            <small>
-                CANT.
-          </small>
-        </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.8% !important;">
-          <small>
-            <small>
-                P. UNIT.
-            </small>
-          </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13,8% !important;">
-          <small>
-            <small>
-                P. TOTAL
-            </small>
-          </small>
-      </td>
-    </tr>
+        <table id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
+          <tbody>
+            <tr id="primerdetalle" style="">
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 8% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>ITEM</span-->
+                    </small>
+                  </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>CÓDIGO</span-->
+                    </small>
+                  </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50% !important; height: 25px !important">
+                <small>
+                    <small>
+                        <!--span>DESCRIPCIÓN</span-->
+                    </small>
+                </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+                <small>
+                    <small>
+                        <!--span>CANT.</span-->
+                  </small>
+                </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.8% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>P. UNIT.</span-->
+                    </small>
+                  </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13,8% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>P. TOTAL</span-->
+                    </small>
+                  </small>
+              </td>
+            </tr>
 
-    <?php
-      $ValorCotizacion = 0.00;
-      $IGVCotizacion = 0.00;
-      $TotalCotizacion = 0.00;
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
-      $cantidad = $sql_comando -> rowCount();
-      $i = 1;
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        $TotalCotizacion += $fila['dcmTotal'];
-    ?>
-    <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
-      <td style="width: 5% !important; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 16.67% !important; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 44% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 11% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 13.8% !important; font-size:x-small; text-align: left"><?php //echo $fila['']; ?></td>
-      <td style="width: 13.8% !important; font-size:x-small; text-align: left"><?php //echo $fila['']; ?></td>
-    </tr>
-    <?php
-        $i++;
-      }
-      for($j = $i ; $j <= 32; $j++){
-        if($j == 32) {
-          echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
-        } else {
-          echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
-        }
-    ?>
-      <td style="width: 5% !important; font-size:x-small;">|</td>
-      <td style="width: 16.67% !important; font-size:x-small;">|</td>
-      <td style="width: 44% !important; font-size:x-small;">|</td>
-      <td style="width: 11% !important; font-size:x-small;">|</td>
-      <td style="width: 13.8% !important; font-size:x-small;">|</td>
-      <td style="width: 13.8% !important; font-size:x-small;">|</td>
-    </tr>
-    <?php
-      }
-      $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
-      $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
-    ?>
-  </tbody>
-</table>
+            <?php
+              $ValorCotizacion = 0.00;
+              $IGVCotizacion = 0.00;
+              $TotalCotizacion = 0.00;
+              $sql_conexion = new Conexion_BD();
+              $sql_conectar = $sql_conexion->Conectar();
+              $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
+              $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+              $cantidad = $sql_comando -> rowCount();
+              $i = 1;
+              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+              {
+                $TotalCotizacion += $fila['dcmTotal'];
+            ?>
+            <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
+              <td style="width: 8% !important; font-size:x-small; padding:0px"><?php echo $i; ?></td>
+              <td style="width: 16.67% !important; font-size:x-small; padding:0px">123121231212</td>
+              <td style="width: 50% !important; font-size:x-small; padding:0px">123121231212</td>
+              <td style="width: 11% !important; font-size:x-small; padding:0px">123121231212</td>
+              <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">123121231212</td>
+              <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">123121231212</td>
+            </tr>
+            <?php
+                $i++;
+              }
+              for($j = $i ; $j <= 32; $j++){
+                if($j == 32) {
+                  echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
+                } else {
+                  echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
+                }
+
+                $descripcion = 'Lorem ipsum dolor sit amet, consectetur Aemo suaznabarso'; //56 carateres por linea de item
+            ?>
+              <td style="width: 8% !important; font-size:x-small;"><?php echo $j ?></td>
+              <td style="width: 16.67% !important; font-size:x-small;">20443881540</td>
+              <td style="width: 50% !important; max-width: 50% !important; font-size:x-small; text-align: left; padding-left: 3px; padding-right: 3px;word-wrap: break-word"><?php echo $descripcion; ?></td>
+              <td style="width: 11% !important; font-size:x-small;"><?php echo strlen($descripcion) ?></td>
+              <td style="width: 13.8% !important; font-size:x-small;">|</td>
+              <td style="width: 13.8% !important; font-size:x-small;">|</td>
+            </tr>
+            <?php
+              }
+              $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
+              $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
+            ?>
+          </tbody>
+        </table>
     </div>
+  </div>
+
+  <div class="row" style="width: 90%; margin: 0 auto; font-size: 12px; padding-top: 5px">
+    <?php 
+        $numero = 1000.45;
+        convertir_a_letras(1900);
+    ?>
   </div>
 <br>  
 
-<style>
+<!--style>
     * {
         box-sizing: border-box;
     }
@@ -502,7 +1047,7 @@
 
     .centered {text-align:center}
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
-</style>
+</style-->
 
 </body>
 
@@ -525,21 +1070,3 @@
   pdf_create($html,$filename,'A4','portrait');
 
 ?>
-
-  <!--div style="z-index: 100; width: 100%; margin: 0 auto; padding: 55px; text-align: center">
-    <div class="row">
-      <div class="" style="width: 61%; height: 100px; float: left; border: solid 2px transparent; ">
-      </div>
-      <div class="" style="width: 38%; height: 135px; float: left; border: solid 2px transparent; color: transparent;">
-          <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: -8px; color: transparent; height: 25px"></h1>
-          <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 22px; padding-top: -10px; color: transparent; height: 25px"></h1>
-          <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: 10px; color: transparent; height: 25px"></h1>
-          <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 10px; padding-top: -12px; color: black !important;">20443881540</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12" style="border: solid 2px green; margin-top: 150px;">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum labore, qui nulla aut! Consectetur maiores eveniet inventore sunt sequi quaerat unde, expedita officiis aut nostrum soluta omnis sit vitae, eum.    
-      </div>
-    </div>
-  </div-->
