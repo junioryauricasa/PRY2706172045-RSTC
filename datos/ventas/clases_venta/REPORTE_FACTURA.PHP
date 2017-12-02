@@ -269,7 +269,7 @@
         position: fixed;
         top: 0;
         left: 0;
-    }
+    
 </style>
 
 <style>
@@ -302,10 +302,12 @@
     .centered {text-align:center}
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
 </style>
+
 <body>
 
  <!--img src="../../imagenes/background-factura.JPG" alt=""-->
  
+<body> 
  <div class="row" style="margin-top: 0px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
