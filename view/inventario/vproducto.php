@@ -234,7 +234,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                 <div class="box-body">
                   <div class="row">
                       <!-- datos de Producto -->
-                      <div class="col-lg-3 col-md-6">
+                      <div class="col-lg-5 col-md-6">
                             <!--h4 class="box-title text-center">Registro de Nuevo Producto</h4-->
                             <h4 id="lblTituloFormulario" class="box-title text-center"></h4>
                           <hr>
@@ -285,7 +285,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       </div>
 
                       <!-- datos Precios de Producto -->
-                      <div class="col-lg-3 col-md-6">
+                      <div class="col-lg-2 col-md-6">
                           <h4 class="box-title text-center">Precios del Producto</h4>
                           <hr>
                           <div class="col-md-12">
@@ -393,7 +393,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                       </div>
 
                       
-                      <div class="col-lg-6 col-md-6">
+                      <div class="col-lg-5 col-md-6">
 
                           <!-- Datos de codigos adicionales -->
                           <h4 class="box-title text-center">Códigos Adicionales</h4>

@@ -214,27 +214,31 @@
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
 
   <style>
+    table tr td {
+      color: black;
+      padding: 0.045454545454545456em
+    }
     table#tabladetalle {
       border-collapse: collapse;
     }
     table#tablageneral {
-      border: 2px solid black;
+      border: 0px solid black;
       border-collapse: collapse;
     }
     tr#primerdetalle>td, tr#cuartodetalle>td, tr#quintodetalle>td, td.celdatotales{
-      border: 2px solid black;
+      border: 0px solid black;
     }
     table#tablacontactos {
-      border: 2px solid black;
+      border: 0px solid black;
     }
     tr.segundodetalle>td{
-      border-left: 2px solid black;
-      border-right: 2px solid black;
+      border-left: 0px solid black;
+      border-right: 0px solid black;
     }
     tr.ultimodetalle>td{
-      border-bottom: 2px solid black; 
-      border-left: 2px solid black;
-      border-right: 2px solid black;
+      border-bottom: 0px solid black; 
+      border-left: 0px solid black;
+      border-right: 0px solid black;
     }
 
     /* font para eslogan */
@@ -269,9 +273,6 @@
 </style>
 
 <style>
-    table>tr{
-      padding: 0px;
-    }
     span{
       font-size: 12px;
       margin-top: 10px !important;
@@ -303,7 +304,7 @@
 </style>
 <body>
 
- <img src="../../imagenes/background-factura.JPG" alt="">
+ <!--img src="../../imagenes/background-factura.JPG" alt=""-->
  
  <div class="row" style="margin-top: 0px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
@@ -329,155 +330,157 @@
 
   <div class="row">
       <div class="" style="width: 100%; margin-top: 6px; text-align: left; z-index: 10">
-<table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; border: solid 2px transparent">
-  <tbody>
-    <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
-          <!--span>Señor(es):</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
-          <span style="margin-left: -5px; color: green">carlos montana</span>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 20% !important;">
-          <!--span>Forma de Pago:</span--> 
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-          <span style="margin-left: -20px; color: green">Efectivo</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
-          <!--span>RUC / DNI:</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
-          <span style="color: green; margin-left: -5px">10750005760</span>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
-          <!--span>Guía de remisión:</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-          <span style="color: green; margin-left: -20px">GRUIA000000212</span>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
-          <!--span>Dirección:</span-->
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
-          <span style="color: green; margin-left: -5px">Psje Alamedas 123</span>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
-          <!--span>Asesor de Ventas:</span--> 
-      </td>
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-          <span style="color: green; margin-left: -20px">Hector vivanco</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; border: solid 2px transparent">
+            <tbody>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
+                    <!--span>Señor(es):</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
+                    <span style="margin-left: -5px; color: green">carlos montana</span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 20% !important;">
+                    <!--span>Forma de Pago:</span--> 
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                    <span style="margin-left: -20px; color: green">Efectivo</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
+                    <!--span>RUC / DNI:</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
+                    <span style="color: green; margin-left: -5px">10750005760</span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
+                    <!--span>Guía de remisión:</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                    <span style="color: green; margin-left: -20px">GRUIA000000212</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
+                    <!--span>Dirección:</span-->
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
+                    <span style="color: green; margin-left: -5px">Psje Alamedas 123</span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
+                    <!--span>Asesor de Ventas:</span--> 
+                </td>
+                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                    <span style="color: green; margin-left: -20px">Hector vivanco</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
       </div>
   </div>
 
   <div class="row">
     <div class="" style="width: 100%; margin-top: 7px; text-align: left; z-index: 10">
-<table id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
-  <tbody>
-    <tr id="primerdetalle" style="">
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 5% !important;">
-          <small>
-            <small>
-                ITEM
-            </small>
-          </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important;">
-          <small>
-            <small>
-                CÓDIGO
-            </small>
-          </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 44% !important;">
-        <small>
-            <small>
-                DESCRIPCIÓN
-            </small>
-        </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important;">
-        <small>
-            <small>
-                CANT.
-          </small>
-        </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.8% !important;">
-          <small>
-            <small>
-                P. UNIT.
-            </small>
-          </small>
-      </td>
-      <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13,8% !important;">
-          <small>
-            <small>
-                P. TOTAL
-            </small>
-          </small>
-      </td>
-    </tr>
+        <table id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
+          <tbody>
+            <tr id="primerdetalle" style="">
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 8% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>ITEM</span-->
+                    </small>
+                  </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>CÓDIGO</span-->
+                    </small>
+                  </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50% !important; height: 25px !important">
+                <small>
+                    <small>
+                        <!--span>DESCRIPCIÓN</span-->
+                    </small>
+                </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+                <small>
+                    <small>
+                        <!--span>CANT.</span-->
+                  </small>
+                </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.8% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>P. UNIT.</span-->
+                    </small>
+                  </small>
+              </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13,8% !important; height: 25px !important">
+                  <small>
+                    <small>
+                        <!--span>P. TOTAL</span-->
+                    </small>
+                  </small>
+              </td>
+            </tr>
 
-    <?php
-      $ValorCotizacion = 0.00;
-      $IGVCotizacion = 0.00;
-      $TotalCotizacion = 0.00;
-      $sql_conexion = new Conexion_BD();
-      $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
-      $cantidad = $sql_comando -> rowCount();
-      $i = 1;
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        $TotalCotizacion += $fila['dcmTotal'];
-    ?>
-    <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
-      <td style="width: 5% !important; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 16.67% !important; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 44% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 11% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 13.8% !important; font-size:x-small; text-align: left"><?php //echo $fila['']; ?></td>
-      <td style="width: 13.8% !important; font-size:x-small; text-align: left"><?php //echo $fila['']; ?></td>
-    </tr>
-    <?php
-        $i++;
-      }
-      for($j = $i ; $j <= 32; $j++){
-        if($j == 32) {
-          echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
-        } else {
-          echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
-        }
-    ?>
-      <td style="width: 5% !important; font-size:x-small;">|</td>
-      <td style="width: 16.67% !important; font-size:x-small;">|</td>
-      <td style="width: 44% !important; font-size:x-small;">|</td>
-      <td style="width: 11% !important; font-size:x-small;">|</td>
-      <td style="width: 13.8% !important; font-size:x-small;">|</td>
-      <td style="width: 13.8% !important; font-size:x-small;">|</td>
-    </tr>
-    <?php
-      }
-      $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
-      $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
-    ?>
-  </tbody>
-</table>
+            <?php
+              $ValorCotizacion = 0.00;
+              $IGVCotizacion = 0.00;
+              $TotalCotizacion = 0.00;
+              $sql_conexion = new Conexion_BD();
+              $sql_conectar = $sql_conexion->Conectar();
+              $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
+              $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+              $cantidad = $sql_comando -> rowCount();
+              $i = 1;
+              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+              {
+                $TotalCotizacion += $fila['dcmTotal'];
+            ?>
+            <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
+              <td style="width: 8% !important; font-size:x-small; padding:0px"><?php echo $i; ?></td>
+              <td style="width: 16.67% !important; font-size:x-small; padding:0px">123121231212</td>
+              <td style="width: 50% !important; font-size:x-small; padding:0px">123121231212</td>
+              <td style="width: 11% !important; font-size:x-small; padding:0px">123121231212</td>
+              <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">123121231212</td>
+              <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">123121231212</td>
+            </tr>
+            <?php
+                $i++;
+              }
+              for($j = $i ; $j <= 32; $j++){
+                if($j == 32) {
+                  echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
+                } else {
+                  echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
+                }
+
+                $descripcion = 'Lorem ipsum dolor sit amet, consectetur Aemo suaznabarso'; //56 carateres por linea de item
+            ?>
+              <td style="width: 8% !important; font-size:x-small;"><?php echo $j ?></td>
+              <td style="width: 16.67% !important; font-size:x-small;">20443881540</td>
+              <td style="width: 50% !important; max-width: 50% !important; font-size:x-small; text-align: left; padding-left: 3px; padding-right: 3px;word-wrap: break-word"><?php echo $descripcion; ?></td>
+              <td style="width: 11% !important; font-size:x-small;"><?php echo strlen($descripcion) ?></td>
+              <td style="width: 13.8% !important; font-size:x-small;">|</td>
+              <td style="width: 13.8% !important; font-size:x-small;">|</td>
+            </tr>
+            <?php
+              }
+              $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
+              $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
+            ?>
+          </tbody>
+        </table>
     </div>
   </div>
 <br>  
 
-<style>
+<!--style>
     * {
         box-sizing: border-box;
     }
@@ -505,7 +508,7 @@
 
     .centered {text-align:center}
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
-</style>
+</style-->
 
 </body>
 
