@@ -1059,9 +1059,9 @@ function convertir_a_letras($numero)
   </div>
 
   <!-- table para el footer -->
-  <div class="row" style=" padding-top: 15px; z-index: 10">
+  <div class="row" style=" padding-top: 10px; z-index: 10">
     <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
-      <!-- INICIO - row VALOR VENTA -->
+      <!-- INICIO - row VALOR TOTAL -->
       <tr>
         <td style="width: 8% !important; font-size:x-small; padding:0px"></td>
         <td style="width: 56.67% !important; font-size:x-small; padding:0px">
@@ -1077,35 +1077,11 @@ function convertir_a_letras($numero)
           <span></span>
         </td>
         <td style="width: 13.8% !important; font-size:x-small;"></td>
-        <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding-right: 7px;">
-          <span>159345.20</span>
-        </td>
-      </tr>
-      <!-- END - row VALOR VENTA -->
-
-      <!-- INICIO - row IGV -->
-      <tr>
-        <td colspan="3"></td>
-        <td style="width: 11% !important; font-size:x-small;">
-          <span></span>
-        </td>
-        <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding-right: 6px; padding-top: 10px">
-          <span>159345.20</span>
-        </td>
-      </tr>
-      <!-- END - row IGV -->
-
-      <!-- INICIO - row TOTAL -->
-      <tr>
-        <td colspan="3"></td>
-        <td style="width: 11% !important; font-size:x-small;">
-          <span></span>
-        </td>
         <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding-right: 6px; padding-top: 10px">
           <span style="">159345.20</span>
         </td>
       </tr>
-      <!-- END - row TOTAL -->
+      <!-- END - row VALOR TOTAL -->
     </table>
   </div>
 <br>  
@@ -1155,7 +1131,7 @@ function convertir_a_letras($numero)
     //$dompdf->stream($filename.".pdf"); //descargar automaticamente
     $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
-  $filename = 'REPORTE_FACTURA';
+  $filename = 'REPORTE_BOLETA_DE_VENTA';
   $dompdf = new DOMPDF();
   $html = ob_get_clean();
   pdf_create($html,$filename,'A4','portrait');
