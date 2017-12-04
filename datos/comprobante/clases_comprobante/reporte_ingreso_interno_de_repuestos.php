@@ -17,6 +17,9 @@
   //$nvchAtencion = $fila['nvchAtencion'];
 
   $NombreUsuario = $fila['NombreUsuario'];
+  $nvchDNIRUC = $fila['nvchDNIRUC'];
+  $nvchClienteProveedor = $fila['nvchClienteProveedor'];
+  $nvchDireccion = $fila['nvchDireccion'];
   // $SimboloMoneda = $fila['SimboloMoneda'];
   $NombrePago = $fila['NombrePago'];
   $NombreVenta = $fila['NombreVenta'];
@@ -112,21 +115,21 @@
       <tbody style="">
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important; padding-left: 5px"><small><small>Razón Social</small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 40%;"><small><small>: <?php echo $nvchClienteProveedor; ?></small></small></td>
+          <td style="font-family: Arial; width: 40%;"><small><small>: <?php echo $nvchClienteProveedor; ?></small></small></td>
 
           <td style="font-weight: bold; font-family: Arial; width: 20% !important"><small><small>N° RUC </small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 20%;"><small><small>: <?php echo $DNICliente; ?></small></small></td>
+          <td style="font-family: Arial; width: 20%;"><small><small>: <?php echo $nvchDNIRUC; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important; padding-left: 5px"><small><small>Solicitado por</small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 40%;"><small><small>: <?php echo $nvchAtencion; ?></small></small></td>
+          <td style="font-family: Arial; width: 40%;"><small><small>: <?php //echo $nvchAtencion; ?></small></small></td>
 
           <td style="font-weight: bold; font-family: Arial; width: 20% !important;"><small><small>Fecha de Factura</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 20%;"><small><small><small>: <?php echo $dtmFechaCreacion; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important;padding-left: 5px; padding-bottom: 20px"><small><small>Observación</small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 40%; padding-bottom: 20px"><small><small>: </small></small></td>
+          <td style="font-weight: bold; font-family: Arial; width: 40%; padding-bottom: 20px"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
 
           <td style="font-weight: bold; font-family: Arial; width: 20% !important"><small><small></small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 20%;"><small><small></small></small></td>
@@ -161,8 +164,8 @@
         <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
           <td style="width: 7% !important; font-size:x-small;"><?php echo $i; ?></td>
           <td style="width: 7% !important; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
-          <td style="width: 20% !important; font-size:x-small;"><?php echo $fila['CodigoProducto']; ?></td>
-          <td style="width: 66% !important; font-size:x-small; text-align: left; padding-left: 5px"><?php echo $fila['DescripcionProducto']; ?></td>
+          <td style="width: 20% !important; font-size:x-small;"><?php echo $fila['nvchCodigo']; ?></td>
+          <td style="width: 66% !important; font-size:x-small; text-align: left; padding-left: 5px"><?php echo $fila['nvchDescripcion']; ?></td>
         </tr>
         <?php
             $i++;

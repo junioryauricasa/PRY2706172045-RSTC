@@ -592,7 +592,7 @@ $(document).on('click', '.btn-reporte-comprobante', function(){
   var intIdTipoComprobante = $(this).attr("idcr");
   if(intIdTipoComprobante == 9)
     var url = '../../datos/comprobante/clases_comprobante/reporte_salida_interna_de_repuestos.php?intIdComprobante='+intIdComprobante;
-  else if(intIdTipoVenta == 10)
+  else if(intIdTipoComprobante == 10)
     var url = '../../datos/comprobante/clases_comprobante/reporte_ingreso_interno_de_repuestos.php?intIdComprobante='+intIdComprobante;
   window.open(url, '_blank');
 });
