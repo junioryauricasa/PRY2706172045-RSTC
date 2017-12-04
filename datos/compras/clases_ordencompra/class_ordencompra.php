@@ -235,14 +235,11 @@ class OrdenCompra{
             <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
             <td> 
               <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra" onclick="verform()">
-                <i class="fa fa-edit"></i> Ver Detalle
-              </button>
+                <i class="fa fa-edit"></i></button>
               <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-danger btn-eliminar-ordencompra">
-                <i class="fa fa-trash"></i> Eliminar
-              </button>
+                <i class="fa fa-trash"></i></button>
               <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-default btn-reporte-ordencompra">
-                <i class="fa fa-download"></i> Reporte
-              </button>
+                <i class="fa fa-download"></i></button>
             </td>
         </tr>';
         $i++;

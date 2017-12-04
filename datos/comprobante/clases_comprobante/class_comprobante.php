@@ -255,15 +255,14 @@ class Comprobante{
         <td>'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>
         <td> 
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
-            <i class="fa fa-edit"></i> Ver Detalle
-          </button>
+            <i class="fa fa-edit"></i></button>
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-danger btn-anular-comprobante">
-            <i class="fa fa-trash"></i> Anular
-          </button>
-          <button type="button" id="'.$fila["intIdComprobante"].'" idcr="'.$fila["intIdTipoComprobante"].'" class="btn btn-xs btn-default btn-reporte-comprobante">
-            <i class="fa fa-download"></i> Reporte
-          </button>
-        </td>
+            <i class="fa fa-trash"></i></button>';
+        if($fila['intTipoDetalle'] == 1 || $fila['intIdTipoComprobante'] == 10){  
+        echo '<button type="button" id="'.$fila["intIdComprobante"].'" idcr="'.$fila["intIdTipoComprobante"].'" class="btn btn-xs btn-default btn-reporte-comprobante">
+            <i class="fa fa-download"></i></button>';
+        }
+        echo '</td>
         </tr>';
         $i++;
       }

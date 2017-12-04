@@ -150,6 +150,16 @@ $(document).on('click', '.btn-eliminar-ordencompra', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Reporte Cotizacion */
+$(document).on('click', '.btn-reporte-ordencompra', function(){
+  var intIdOrdenCompra = $(this).attr("id");
+  var url = '../../datos/comprobante/clases_orden_compra/reporte_orden_de_compra.php?intIdOrdenCompra='+intIdOrdenCompra;
+  window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Reporte Cotizacion */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Buscar Orden de Compra r */
 $(document).on('change', '#num-lista', function(){
   var y = document.getElementById("num-lista").value;

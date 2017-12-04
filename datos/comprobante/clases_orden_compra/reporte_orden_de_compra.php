@@ -4,30 +4,23 @@
 
   $year = date('Y') ;
 
-  $intIdCotizacion = $_GET['intIdCotizacion'];
+  $intIdOrdenCompra = $_GET['intIdOrdenCompra'];
   ob_start();
   $sql_conexion = new Conexion_BD();
   $sql_conectar = $sql_conexion->Conectar();
-  $sql_comando = $sql_conectar->prepare('CALL MostrarCotizacion(:intIdCotizacion)');
-  $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+  $sql_comando = $sql_conectar->prepare('CALL MostrarOrdenCompra(:intIdOrdenCompra)');
+  $sql_comando -> execute(array(':intIdOrdenCompra' => $intIdOrdenCompra));
   $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
   $nvchSerie = $fila['nvchSerie'];
   $nvchNumeracion = $fila['nvchNumeracion'];
   $nvchAtencion = $fila['nvchAtencion'];
-  $intDiasValidez = $fila['intDiasValidez'];
-  $nvchTipo = $fila['nvchTipo'];
-  $nvchModelo = $fila['nvchModelo'];
-  $nvchMarca = $fila['nvchMarca'];
-  $nvchHorometro = $fila['nvchHorometro'];
-  
+  $nvchRazonSocial = $fila['nvchRazonSocial'];
+  $nvchRUC = $fila['nvchRUC'];
+  $nvchNombreDe = $fila['nvchNombreDe'];
   $NombreUsuario = $fila['NombreUsuario'];
-  $NombreCliente = $fila['NombreCliente'];
-  $DNICliente = $fila['DNICliente'];
-  $RUCCliente = $fila['RUCCliente'];
   $SimboloMoneda = $fila['SimboloMoneda'];
   $NombrePago = $fila['NombrePago'];
-  $NombreVenta = $fila['NombreVenta'];
 
   $dtmFechaCreacion = $fila['dtmFechaCreacion'];
   $nvchObservacion = $fila['nvchObservacion'];
@@ -107,7 +100,7 @@
 <div class="container">
     <center>
         <span style="font-weight: bold; font-family: Arial;">
-            ORDEN DE COMPRA  Nº RSA-RSA-0000001<?php //echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
+            ORDEN DE COMPRA  Nº RSA-RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
         </span>
     </center>
 <br>
@@ -119,23 +112,23 @@
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 71px; padding-left: 5px"><small><small>Razón Social</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-      <td style="width: 220px;"><small></small></td>
+      <td style="width: 220px;"><small><?php echo $nvchRazonSocial; ?></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Forma de Pago</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-      <td style="width: 230px;"><small></small></td>
+      <td style="width: 230px;"><small><?php echo $NombrePago; ?></small></td>
     </tr>
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>RUC</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-      <td style="width: 220px;"><small></small></td>
+      <td style="width: 220px;"><small><?php echo $nvchRUC; ?></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Moneda</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-      <td style="width: 230px;"><small></small></td>
+      <td style="width: 230px;"><small><?php echo $SimboloMoneda; ?></small></td>
     </tr>
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 71px;padding-left: 5px"><small><small>Atención</small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-      <td style="width: 220px;"></td>
+      <td style="width: 220px;"><small><?php echo $nvchAtencion; ?></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small></small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small></small></small></td>
       <td style="width: 230px;"><small></small></td>
@@ -148,19 +141,19 @@
   <tbody>
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 20% !important; padding-left: 5px"><small><small>A nombre de:</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 80% !important;"><small><small>:</small></small></td>
+      <td style="font-family: Arial; width: 80% !important;"><small><small>: <?php echo $nvchNombreDe; ?></small></small></td>
     </tr>
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 20% !important; padding-left: 5px"><small><small>Con Atención</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 80% !important;"><small><small>:</small></small></td>
+      <td style="font-family: Arial; width: 80% !important;"><small><small>:</small></small></td>
     </tr>
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 20% !important;;padding-left: 5px"><small><small>Dirección de entrega</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 80% !important;"><small><small>:</small></small></td>
+      <td style="font-family: Arial; width: 80% !important;"><small><small>:</small></small></td>
     </tr>
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 20% !important;padding-left: 5px; padding-bottom: 20px"><small><small>Observación</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 80% !important; padding-bottom: 20px"><small><small>:</small></small></td>
+      <td style="font-family: Arial; width: 80% !important; padding-bottom: 20px"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
     </tr>
   </tbody>
 </table>
@@ -213,26 +206,26 @@
         </td>
     </tr>
     <?php
-      $ValorCotizacion = 0.00;
-      $IGVCotizacion = 0.00;
-      $TotalCotizacion = 0.00;
+      $ValorOrdenCompra = 0.00;
+      $IGVOrdenCompra = 0.00;
+      $TotalOrdenCompra = 0.00;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleOrdenCompra(:intIdOrdenCompra)');
+      $sql_comando -> execute(array(':intIdOrdenCompra' => $intIdOrdenCompra));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        $TotalCotizacion += $fila['dcmTotal'];
+        $TotalOrdenCompra += $fila['dcmTotal'];
     ?>
     <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
       <td style="width: 7% !important; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 15% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 45% !important; font-size:x-small; text-align: left"><?php //echo $fila['']; ?></td>
-      <td style="width: 10% !important; font-size:x-small;"><?php //echo $SimboloMoneda.' '.$fila['dcmPrecioUnitario']; ?></td>
-      <td style="width: 10% !important; font-size:x-small;"><?php //echo $SimboloMoneda.' '.$fila['dcmPrecioUnitario']; ?></td>
-      <td style="width: 13% !important; font-size:x-small;"><?php //echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></td>
+      <td style="width: 15% !important; font-size:x-small;"><?php echo $fila['nvchCodigo']; ?></td>
+      <td style="width: 45% !important; font-size:x-small; text-align: left"><?php echo $fila['nvchDescripcion']; ?></td>
+      <td style="width: 10% !important; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
+      <td style="width: 10% !important; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmPrecio']; ?></td>
+      <td style="width: 13% !important; font-size:x-small;"><?php echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></td>
     </tr>
     <?php
         $i++;
@@ -253,8 +246,8 @@
     </tr>
     <?php
       }
-      $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
-      $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
+      $ValorOrdenCompra = number_format($TotalOrdenCompra/1.18,2,'.','');
+      $IGVOrdenCompra = $TotalOrdenCompra - $ValorOrdenCompra;
     ?>
     <tr>
       <td style="width: 7% !important; font-size:x-small;"></td>
@@ -271,7 +264,7 @@
       <td class="celdatotales" style="text-align: center; width: 13% !important;">
           <small>
               <small>
-                <?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>       
+                <?php echo $SimboloMoneda.' '.round($TotalOrdenCompra,2); ?>       
               </small>
           </small>
       </td>
