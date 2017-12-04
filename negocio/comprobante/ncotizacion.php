@@ -425,6 +425,7 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 /* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Reporte Cotizacion */
 $(document).on('click', '.btn-reporte-cotizacion', function(){
 	var intIdCotizacion = $(this).attr("id");
@@ -433,7 +434,6 @@ $(document).on('click', '.btn-reporte-cotizacion', function(){
 		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_repuesto.php?intIdCotizacion='+intIdCotizacion;
 	else if(intIdTipoVenta == 2)
 		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_servicio.php?intIdCotizacion='+intIdCotizacion;
-
 	window.open(url, '_blank');
 });
 /* FIN - Funcion Ajax - Reporte Cotizacion */

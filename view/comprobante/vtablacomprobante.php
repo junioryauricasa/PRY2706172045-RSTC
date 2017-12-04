@@ -30,7 +30,7 @@
                 <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
                 <div class="result" id="result1">
             </td>
-            <td id="detalleUbigeoProducto1"></td>
+            <td id="detalleUbigeoProducto1" class="text-center"></td>
             <td>
                 <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
             </td>

@@ -260,7 +260,7 @@ class Comprobante{
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-danger btn-anular-comprobante">
             <i class="fa fa-trash"></i> Anular
           </button>
-          <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-default btn-download-report">
+          <button type="button" id="'.$fila["intIdComprobante"].'" idcr="'.$fila["intIdTipoComprobante"].'" class="btn btn-xs btn-default btn-reporte-comprobante">
             <i class="fa fa-download"></i> Reporte
           </button>
         </td>
@@ -284,27 +284,29 @@ class Comprobante{
         ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
-        $sql_conexion_moneda = new Conexion_BD();
-        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
-        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
-        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
-        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
-        if($intIdTipoMoneda == 1){
-          if($fila['intIdTipoMoneda'] != 1) {
-            $fila['TotalComprobante'] = round($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2);
-            $fila['IGVComprobante'] = round($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2); 
-            $fila['ValorComprobante'] = round($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2); 
+        if($fila['intEstado'] == 1){
+          $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+          $sql_conexion_moneda = new Conexion_BD();
+          $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+          $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+          $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+          $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+          if($intIdTipoMoneda == 1){
+            if($fila['intIdTipoMoneda'] != 1) {
+              $fila['TotalComprobante'] = round($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2);
+              $fila['IGVComprobante'] = round($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2); 
+              $fila['ValorComprobante'] = round($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2); 
+            }
+          } 
+          else if ($intIdTipoMoneda == 2){
+            if($fila['intIdTipoMoneda'] != 2){
+              $fila['TotalComprobante'] = round($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2);
+              $fila['IGVComprobante'] = round($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2);
+              $fila['ValorComprobante'] = round($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2);
+            }
           }
-        } 
-        else if ($intIdTipoMoneda == 2){
-          if($fila['intIdTipoMoneda'] != 2){
-            $fila['TotalComprobante'] = round($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2);
-            $fila['IGVComprobante'] = round($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2);
-            $fila['ValorComprobante'] = round($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2);
-          }
+          $TotalComprobantes += $fila['TotalComprobante'];
         }
-        $TotalComprobantes += $fila['TotalComprobante'];
       }
       if($intIdTipoMoneda == 1){
         $SimboloMoneda = "S/.";

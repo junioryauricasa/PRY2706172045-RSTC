@@ -517,6 +517,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                 <thead>
                 <tr>
                   <th class="heading" width="25px">&nbsp;</th>
+                  <th>Serie</th>
                   <th>Numeración</th>
                   <th>Cliente</th>
                   <th>Usuario que Generó</th>

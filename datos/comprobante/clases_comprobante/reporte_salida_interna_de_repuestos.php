@@ -1,36 +1,31 @@
 <?php
-  session_start();
-  require_once '../../conexion/bd_conexion.php';
+session_start();
+require_once '../../conexion/bd_conexion.php';
 
-  $year = date('Y') ;
+$year = date('Y') ;
 
-  $intIdCotizacion = $_GET['intIdCotizacion'];
-  ob_start();
-  $sql_conexion = new Conexion_BD();
-  $sql_conectar = $sql_conexion->Conectar();
-  $sql_comando = $sql_conectar->prepare('CALL MostrarCotizacion(:intIdCotizacion)');
-  $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
-  $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+$intIdComprobante = $_GET['intIdComprobante'];
+ob_start();
+$sql_conexion = new Conexion_BD();
+$sql_conectar = $sql_conexion->Conectar();
+$sql_comando = $sql_conectar->prepare('CALL MostrarComprobante(:intIdComprobante)');
+$sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
+$fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
-  $nvchSerie = $fila['nvchSerie'];
-  $nvchNumeracion = $fila['nvchNumeracion'];
-  $nvchAtencion = $fila['nvchAtencion'];
-  $intDiasValidez = $fila['intDiasValidez'];
-  $nvchTipo = $fila['nvchTipo'];
-  $nvchModelo = $fila['nvchModelo'];
-  $nvchMarca = $fila['nvchMarca'];
-  $nvchHorometro = $fila['nvchHorometro'];
-  
-  $NombreUsuario = $fila['NombreUsuario'];
-  $NombreCliente = $fila['NombreCliente'];
-  $DNICliente = $fila['DNICliente'];
-  $RUCCliente = $fila['RUCCliente'];
-  $SimboloMoneda = $fila['SimboloMoneda'];
-  $NombrePago = $fila['NombrePago'];
-  $NombreVenta = $fila['NombreVenta'];
+$nvchSerie = $fila['nvchSerie'];
+$nvchNumeracion = $fila['nvchNumeracion'];
+//$nvchAtencion = $fila['nvchAtencion'];
 
-  $dtmFechaCreacion = $fila['dtmFechaCreacion'];
-  $nvchObservacion = $fila['nvchObservacion'];
+$NombreUsuario = $fila['NombreUsuario'];
+$nvchDNIRUC = $fila['nvchDNIRUC'];
+$nvchClienteProveedor = $fila['nvchClienteProveedor'];
+$nvchDireccion = $fila['nvchDireccion'];
+//$SimboloMoneda = $fila['SimboloMoneda'];
+$NombrePago = $fila['NombrePago'];
+$NombreVenta = $fila['NombreVenta'];
+
+$dtmFechaCreacion = $fila['dtmFechaCreacion'];
+$nvchObservacion = $fila['nvchObservacion'];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -108,7 +103,7 @@
 
     <center>
         <span style="font-weight: bold; font-family: Arial;">
-          SALIDA INTERNA DE REPUESTOS Nº RSA-0000001<?php //echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
+          SALIDA INTERNA DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
         </span>
     </center>
 <br>
@@ -123,31 +118,31 @@
   <tbody style="">
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Cliente</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small>: <?php echo $nvchClienteProveedor; ?></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important"><small><small>N° RUC / DNI</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small>: <?php echo $nvchDNIRUC; ?></small></small></td>
     </tr>
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Atención</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;"><small><small>Destino</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php //echo $; ?></small></small></td>
     </tr>
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Dirección</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small>: </small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small>:  <?php echo $nvchDireccion; ?></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;"><small><small>Vendedor(a)</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php echo $NombreUsuario; ?></small></small></td>
     </tr>
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Solicitado por</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;"><small><small></small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small><small></small></small></td>
@@ -155,9 +150,8 @@
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;padding-left: 5px; padding-bottom: 30px"><small><small>Observación</small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%; padding-bottom: 30px"><small><small>: </small></small></td>
-
-      <td style="font-weight: bold; font-family: Arial; width: 15% !important"><small><small></small></small></td>
+      <td style="font-family: Arial; width: 35%; padding-bottom: 30px"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
+      <td style="font-family: Arial; width: 15% !important"><small><small></small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small></small></small></td>
     </tr>
   </tbody>
@@ -173,30 +167,30 @@
       <td style="font-weight: bold; font-family: Arial; text-align: center; width: 66% !important;"><small><small>DESCRIPCIÓN</small></small></td>
     </tr>
     <?php
-      $ValorCotizacion = 0.00;
-      $IGVCotizacion = 0.00;
-      $TotalCotizacion = 0.00;
+      $ValorComprobante = 0.00;
+      $IGVComprobante = 0.00;
+      $TotalComprobante = 0.00;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
+      $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
       $cantidad = $sql_comando -> rowCount();
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        $TotalCotizacion += $fila['dcmTotal'];
+        $TotalComprobante += $fila['dcmTotal'];
     ?>
     <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
       <td style="width: 7% !important; font-size:x-small;"><?php echo $i; ?></td>
-      <td style="width: 7% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 20% !important; font-size:x-small;"><?php //echo $fila['']; ?></td>
-      <td style="width: 66% !important; font-size:x-small; text-align: left"><?php //echo $fila['']; ?></td>
+      <td style="width: 7% !important; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
+      <td style="width: 20% !important; font-size:x-small;"><?php echo $fila['nvchCodigo']; ?></td>
+      <td style="width: 66% !important; font-size:x-small; text-align: left"><?php echo $fila['nvchDescripcion']; ?></td>
     </tr>
     <?php
         $i++;
       }
-      for($j = $i ; $j <= 40; $j++){
-        if($j == 40) {
+      for($j = $i ; $j <= 39; $j++){
+        if($j == 39) {
           echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
         } else {
           echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
@@ -209,8 +203,8 @@
     </tr>
     <?php
       }
-      $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
-      $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
+      $ValorComprobante = number_format($TotalComprobante/1.18,2,'.','');
+      $IGVComprobante = $TotalComprobante - $ValorComprobante;
     ?>
     
     <!--tr id="cuartodetalle">
@@ -442,7 +436,7 @@
     //$dompdf->stream($filename.".pdf"); //descargar automaticamente
     $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
-  $filename = 'SALIDA_INTERNA_DE_REPUESTOS';
+  $filename = 'Salida_Interna_De_Repuestos';
   $dompdf = new DOMPDF();
   $html = ob_get_clean();
   pdf_create($html,$filename,'A4','portrait');

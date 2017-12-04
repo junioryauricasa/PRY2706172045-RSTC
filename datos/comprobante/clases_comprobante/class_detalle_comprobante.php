@@ -103,6 +103,9 @@ class DetalleComprobante
                 '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" form="form-venta" value="'.$fila['nvchCodigo'].'" readonly/>'.
                 '<div class="result" id="result'.$i.'">'.
             '</td>'.
+            '<td id="detalleUbigeoProducto'.$i.'" class="text-center"><button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">
+                  <i class="fa fa-edit"></i> Ver Detalle
+                  </button></td>'.
             '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila['nvchDescripcion'].'" readonly/></td>';
             if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 9){
             echo

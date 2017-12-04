@@ -10,10 +10,6 @@ include('../_include/rstheader.php');
     <?php require_once '../../negocio/compras/ndetalleordencompra.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <!--<script type="text/javascript" src="../../negocio/compras/nordencompra.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/compras/ndetalleordencompra.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -145,6 +141,7 @@ include('../_include/rstheader.php');
                           <thead>
                           <tr>
                             <th class="heading" width="25px">&nbsp;</th>
+                            <th>Serie</th>
                             <th>Numeración</th>
                             <th>Proveedor</th>
                             <th>Usuario</th>

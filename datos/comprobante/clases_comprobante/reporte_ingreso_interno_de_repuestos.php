@@ -4,28 +4,20 @@
 
   $year = date('Y') ;
 
-  $intIdCotizacion = $_GET['intIdCotizacion'];
+  $intIdComprobante = $_GET['intIdComprobante'];
   ob_start();
   $sql_conexion = new Conexion_BD();
   $sql_conectar = $sql_conexion->Conectar();
-  $sql_comando = $sql_conectar->prepare('CALL MostrarCotizacion(:intIdCotizacion)');
-  $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+  $sql_comando = $sql_conectar->prepare('CALL MostrarComprobante(:intIdComprobante)');
+  $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
   $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
   $nvchSerie = $fila['nvchSerie'];
   $nvchNumeracion = $fila['nvchNumeracion'];
-  $nvchAtencion = $fila['nvchAtencion'];
-  $intDiasValidez = $fila['intDiasValidez'];
-  $nvchTipo = $fila['nvchTipo'];
-  $nvchModelo = $fila['nvchModelo'];
-  $nvchMarca = $fila['nvchMarca'];
-  $nvchHorometro = $fila['nvchHorometro'];
-  
+  //$nvchAtencion = $fila['nvchAtencion'];
+
   $NombreUsuario = $fila['NombreUsuario'];
-  $NombreCliente = $fila['NombreCliente'];
-  $DNICliente = $fila['DNICliente'];
-  $RUCCliente = $fila['RUCCliente'];
-  $SimboloMoneda = $fila['SimboloMoneda'];
+  // $SimboloMoneda = $fila['SimboloMoneda'];
   $NombrePago = $fila['NombrePago'];
   $NombreVenta = $fila['NombreVenta'];
 
@@ -120,7 +112,7 @@
       <tbody style="">
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important; padding-left: 5px"><small><small>Razón Social</small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 40%;"><small><small>: <?php echo $NombreCliente; ?></small></small></td>
+          <td style="font-weight: bold; font-family: Arial; width: 40%;"><small><small>: <?php echo $nvchClienteProveedor; ?></small></small></td>
 
           <td style="font-weight: bold; font-family: Arial; width: 20% !important"><small><small>N° RUC </small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 20%;"><small><small>: <?php echo $DNICliente; ?></small></small></td>
@@ -153,18 +145,18 @@
           <td style="font-weight: bold; font-family: Arial; text-align: center; width: 66% !important;"><small><small>DESCRIPCIÓN</small></small></td>
         </tr>
         <?php
-          $ValorCotizacion = 0.00;
-          $IGVCotizacion = 0.00;
-          $TotalCotizacion = 0.00;
+          $ValorComprobante = 0.00;
+          $IGVComprobante = 0.00;
+          $TotalComprobante = 0.00;
           $sql_conexion = new Conexion_BD();
           $sql_conectar = $sql_conexion->Conectar();
-          $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
-          $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+          $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
+          $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
           $cantidad = $sql_comando -> rowCount();
           $i = 1;
           while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
           {
-            $TotalCotizacion += $fila['dcmTotal'];
+            $TotalComprobante += $fila['dcmTotal'];
         ?>
         <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
           <td style="width: 7% !important; font-size:x-small;"><?php echo $i; ?></td>
@@ -189,8 +181,8 @@
         </tr>
         <?php
           }
-          $ValorCotizacion = number_format($TotalCotizacion/1.18,2,'.','');
-          $IGVCotizacion = $TotalCotizacion - $ValorCotizacion;
+          $ValorComprobante = number_format($TotalComprobante/1.18,2,'.','');
+          $IGVComprobante = $TotalComprobante - $ValorComprobante;
         ?>
         
         <!--tr id="cuartodetalle">
@@ -199,7 +191,7 @@
           </td-->
           <!--td style="width: 86px; text-align: center;">
             <small><small>
-              <?php echo $SimboloMoneda.' '.$IGVCotizacion; ?>    
+              <?php echo $SimboloMoneda.' '.$IGVComprobante; ?>    
             </small></small>
           </td>
         </tr-->
@@ -209,7 +201,7 @@
           </td>
           <td style="width: 86px; text-align: center;">
             <small><small>
-              <?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>    
+              <?php echo $SimboloMoneda.' '.$TotalComprobante; ?>    
             </small></small>
           </td>
         </tr-->

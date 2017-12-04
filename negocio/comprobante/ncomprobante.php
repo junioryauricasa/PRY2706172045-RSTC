@@ -165,7 +165,7 @@
               '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="result'+num+'">'+
           '</td>'+
-          '<td id="detalleUbigeoProducto'+num+'"></td>'+
+          '<td id="detalleUbigeoProducto'+num+'" class="text-center"></td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
           camposVender+
           '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
@@ -583,6 +583,20 @@ $(document).on('click', '.modal-btn-no', function(){
   });
 });
 /* FIN - Funcion Ajax - Eliminar Cliente */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Reporte Cotizacion */
+$(document).on('click', '.btn-reporte-comprobante', function(){
+  var intIdComprobante = $(this).attr("id");
+  var intIdTipoComprobante = $(this).attr("idcr");
+  if(intIdTipoComprobante == 9)
+    var url = '../../datos/comprobante/clases_comprobante/reporte_salida_interna_de_repuestos.php?intIdComprobante='+intIdComprobante;
+  else if(intIdTipoVenta == 10)
+    var url = '../../datos/comprobante/clases_comprobante/reporte_ingreso_interno_de_repuestos.php?intIdComprobante='+intIdComprobante;
+  window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Reporte Cotizacion */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

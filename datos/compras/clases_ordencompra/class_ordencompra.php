@@ -130,8 +130,8 @@ class OrdenCompra{
         ':nvchNombreDe' => $this->nvchNombreDe,
         ':intIdUsuario' => $this->intIdUsuario,
         ':intIdDireccionEmpresa' => $this->intIdDireccionEmpresa,
-        ':dtmFechaCreacion' => $this->dtmFechaCreacion,}
-        ':intEstado' => 1;
+        ':dtmFechaCreacion' => $this->dtmFechaCreacion,
+        ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdOrdenCompra'] = $this->intIdOrdenCompra;
       echo "ok";
@@ -225,7 +225,8 @@ class OrdenCompra{
         echo
         '
             <td class="heading" data-th="ID"></td>
-            <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["nvchSerie"].'</td>
+            <td>'.$fila["nvchNumeracion"].'</td>
             <td>'.$fila["nvchRazonSocial"].'</td>
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>
@@ -233,13 +234,13 @@ class OrdenCompra{
             <td>'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
             <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
             <td> 
-              <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra" onclick="verform()">
+              <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra" onclick="verform()">
                 <i class="fa fa-edit"></i> Ver Detalle
               </button>
-              <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-danger btn-eliminar-ordencompra">
+              <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-danger btn-eliminar-ordencompra">
                 <i class="fa fa-trash"></i> Eliminar
               </button>
-              <button type="submit" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-default btn-download-report">
+              <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-default btn-download-report">
                 <i class="fa fa-download"></i> Reporte
               </button>
             </td>
