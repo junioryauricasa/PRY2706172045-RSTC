@@ -240,7 +240,7 @@ class OrdenCompra{
               <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-danger btn-eliminar-ordencompra">
                 <i class="fa fa-trash"></i> Eliminar
               </button>
-              <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-default btn-download-report">
+              <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-default btn-reporte-ordencompra">
                 <i class="fa fa-download"></i> Reporte
               </button>
             </td>
