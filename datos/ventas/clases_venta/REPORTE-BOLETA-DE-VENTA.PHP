@@ -806,7 +806,7 @@ function convertir_a_letras($numero)
     }
 
     span{
-      color: green;
+      /*color: green;*/
       font-size: 12px; /*fuente importante considerar*/
     }
     .row::after {
@@ -855,7 +855,7 @@ function convertir_a_letras($numero)
   </div>
   
   <div class="row" style="">
-      <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;color: green">
+      <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;">
           <p style="width: 85% !important; margin: 0 auto; font-size: 14px">
               <!--span>Fecha de Emisión……..de………………………..de 20……...</span-->
               <span style="margin-left: 110px !important;font-weight: bolder">20</span> 
@@ -996,9 +996,9 @@ function convertir_a_letras($numero)
                 </span>
               </td>
               <td style="width: 11% !important; font-size:x-small; padding:0px">
-                <span>
+                <!--span-->
                   <?php echo strlen($descripcion) ?>
-                </span>
+                <!--/span-->
               </td>
               <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">
                 <span>
@@ -1033,9 +1033,9 @@ function convertir_a_letras($numero)
                 </span>
               </td>
               <td style="width: 11% !important; font-size:x-small;">
-                <span>
+                <!--span-->
                   <?php echo strlen($descripcion) ?>
-                </span>
+                <!--/span-->
               </td>
               <td style="width: 13.8% !important; font-size:x-small;">
                 <span>

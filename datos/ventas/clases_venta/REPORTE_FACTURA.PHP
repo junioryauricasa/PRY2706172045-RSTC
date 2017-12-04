@@ -806,7 +806,7 @@ function convertir_a_letras($numero)
     }
 
     span{
-      color: green;
+      /*color: green;*/
       font-size: 12px; /*fuente importante considerar*/
     }
     .row::after {
@@ -855,7 +855,7 @@ function convertir_a_letras($numero)
   </div>
   
   <div class="row" style="">
-      <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;color: green">
+      <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;/*color: green*/">
           <p style="width: 85% !important; margin: 0 auto; font-size: 14px">
               <!--span>Fecha de Emisión……..de………………………..de 20……...</span-->
               <span style="margin-left: 110px !important;font-weight: bolder">20</span> 
