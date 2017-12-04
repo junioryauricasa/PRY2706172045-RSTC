@@ -151,12 +151,12 @@ class Comprobante{
     }
   }
 
-  public function EliminarComprobante()
+  public function AnularComprobante()
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL EliminarComprobante(:intIdComprobante)');
+      $sql_comando = $sql_conectar->prepare('CALL AnularComprobante(:intIdComprobante)');
       $sql_comando -> execute(array(':intIdComprobante' => $this->intIdComprobante));
       $_SESSION['intIdComprobante'] = $this->intIdComprobante;
       echo 'ok';
@@ -186,7 +186,9 @@ class Comprobante{
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
-      } else if ($tipolistado == "D"){
+      } 
+      /*
+      else if ($tipolistado == "D"){
         $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
         $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
           ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
@@ -195,6 +197,7 @@ class Comprobante{
         if($residuo == 0)
         {$x = $x - $y;}
       }
+      */
       //Busqueda de Cliente por el comando LIMIT
       $sql_comando = $sql_conectar->prepare('CALL buscarComprobante(:busqueda,:x,:y,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdTipoComprobante' => $intIdTipoComprobante,
@@ -229,7 +232,9 @@ class Comprobante{
           echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdComprobante"] == $_SESSION['intIdComprobante'] && $tipolistado == "E"){
           echo '<tr bgcolor="#B3E4C0">';
-        }else {
+        } else if($fila["intEstado"] == 0){
+          echo '<tr bgcolor="#F09C9C">';
+        } else {
           echo '<tr>';
         }
         echo

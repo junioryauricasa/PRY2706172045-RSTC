@@ -502,37 +502,18 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
 	   	$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
 	   	$("#intIdTipoPago").val(datos.intIdTipoPago);
-
 	   	$("#nvchNumDocumento").val(datos.nvchDNIRUC);
-		$("#nvchDenominacion").val(datos.nvchClienteProveedor);
-		$("#nvchDomicilio").val(datos.nvchDireccion);
-		$("#TipoCliente").val(datos.TipoCliente);
-		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
-
-		$("#intIdCliente").val(datos.intIdCliente);
-		$("#intIdProveedor").val(datos.intIdProveedor);
-		
-		$("textarea#nvchObservacion").val(datos.nvchObservacion);
-		HabilitacionOpciones(2);
-		ElegirTabla(datos.intIdTipoVenta);
-		MostrarDetalleComprobante(datos.intIdComprobante,datos.intIdTipoVenta);
-		/*if(datos.intIdTipoVenta == 1)
-
-		else if(datos.intIdTipoVenta == 2)
-
-		else if(datos.intIdTipoVenta == 3)
-		*/		
-		/*$("#ListaDeProductosVender").html("");
-		$("#ListaDeServiciosVender").html("");
-		$("#ListaDeMaquinariasVender").html("");
-		AgregarFila(1);
-		AgregarFila(2);
-		AgregarFila(3);*/
-		//$("#nvchObservacion").val("");
-
-	   	$("#btnFormRealizarComprobante").click();
-	   	//MostrarSeleccionComprobante($("#intIdTipoComprobante").val());
-	   	//MostrarDetalleComprobante(intIdComprobante,tipolistado);
+		  $("#nvchDenominacion").val(datos.nvchClienteProveedor);
+		  $("#nvchDomicilio").val(datos.nvchDireccion);
+  		$("#TipoCliente").val(datos.TipoCliente);
+  		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
+  		$("#intIdCliente").val(datos.intIdCliente);
+  		$("#intIdProveedor").val(datos.intIdProveedor);
+  		$("textarea#nvchObservacion").val(datos.nvchObservacion);
+  		HabilitacionOpciones(2);
+  		ElegirTabla(datos.intIdTipoVenta);
+  		MostrarDetalleComprobante(datos.intIdComprobante,datos.intIdTipoVenta);
+  	  $("#btnFormRealizarComprobante").click();
 	   }
 	  });
 	 return false;
@@ -557,11 +538,6 @@ $(document).on('click', '#btn-editar-comprobante', function(){
 	   {
 	   	if (datos=="ok") {
 	   		MensajeNormal("Se modificó correctamente el Comprobante",1);
-	   		/*
-	   		$("#lista-comprobante").val($("#tipo-comprobante").val());
-	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
-	   		$("#btn-form-comprobante-remove").click();
-	   		*/
 	   		ListarComprobante(x,y,tipolistado);
 	   		PaginarComprobante(x,y,tipolistado);
 	   	}
@@ -575,27 +551,36 @@ $(document).on('click', '#btn-editar-comprobante', function(){
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
-$(document).on('click', '.btn-eliminar-comprobante', function(){
-  	  var intIdComprobante = $(this).attr("id");
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
-  	  var tipolistado = "D";
-  	  var funcion = "E";
-	  $.ajax({
-	   url:"../../datos/comprobante/funcion_comprobante.php",
-	   method:"POST",
-	   data:{intIdComprobante:intIdComprobante,funcion:funcion},
-	   success:function(datos)
-	   {
-	   	if (datos=="ok") {
-	   		MensajeNormal("Se anuló correctamente el Comprobante",1);
-	   		ListarComprobante(x,y,tipolistado);
-	   		PaginarComprobante((x/y),y,tipolistado);
-	   	}
-	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+$(document).on('click', '.btn-anular-comprobante', function(){
+var intIdComprobante = $(this).attr("id");
+$('#MensajeAnularConfirmar').modal('show');
+$(document).on('click', '.modal-btn-si', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = $(".marca").attr("idp") * y;
+  var tipolistado = "D";
+  var funcion = "E";
+  $.ajax({
+  url:"../../datos/comprobante/funcion_comprobante.php",
+  method:"POST",
+  data:{intIdComprobante:intIdComprobante,funcion:funcion},
+  success:function(datos)
+  {
+    datos = datos.replace(/\s/g,'');
+    if (datos=="ok") {
+      MensajeNormal("Se Anuló correctamente el Comprobante",1);
+      ListarComprobante(x,y,tipolistado);
+      PaginarComprobante((x/y),y,tipolistado);
+    }
+    else { $("#resultadocrud").html(datos); }
+  }
+  });
+  $('#MensajeAnularConfirmar').modal('hide');
+  return false;
+});
+
+$(document).on('click', '.modal-btn-no', function(){
+  $('#MensajeAnularConfirmar').modal('hide');
+  });
 });
 /* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////

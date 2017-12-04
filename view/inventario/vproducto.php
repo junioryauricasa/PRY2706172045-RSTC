@@ -559,7 +559,6 @@ require_once '../../datos/conexion/bd_conexion.php';
   <!-- /.content-wrapper -->
 <!-- Scripts DataTable -->
 
-
 <!-- INICIO modal confirmar -->
 <div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">

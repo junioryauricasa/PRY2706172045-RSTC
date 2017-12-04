@@ -104,7 +104,7 @@ switch($_POST['funcion']){
   case "E":
     $Comprobante = new Comprobante();
     $Comprobante->IdComprobante($_POST['intIdComprobante']);
-    $Comprobante->EliminarComprobante();
+    $Comprobante->AnularComprobante();
     break;
   case "L":
     $Comprobante = new Comprobante();
