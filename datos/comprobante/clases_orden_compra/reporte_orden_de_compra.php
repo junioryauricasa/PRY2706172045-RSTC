@@ -264,7 +264,7 @@
       <td class="celdatotales" style="text-align: center; width: 13% !important;">
           <small>
               <small>
-                <?php echo $SimboloMoneda.' '.round($TotalOrdenCompra,2); ?>       
+                <?php echo $SimboloMoneda.' '.round((double)$TotalOrdenCompra,2); ?>       
               </small>
           </small>
       </td>
