@@ -150,9 +150,7 @@ $nvchObservacion = $fila['nvchObservacion'];
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;padding-left: 5px; padding-bottom: 30px"><small><small>Observación</small></small></td>
-      <td style="font-family: Arial; width: 35%; padding-bottom: 30px"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
-      <td style="font-family: Arial; width: 15% !important"><small><small></small></small></td>
-      <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small></small></small></td>
+      <td style="font-family: Arial; width: 35%; padding-bottom: 30px" colspan="3"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
     </tr>
   </tbody>
 </table>

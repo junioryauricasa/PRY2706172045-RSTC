@@ -129,10 +129,7 @@
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important;padding-left: 5px; padding-bottom: 20px"><small><small>Observación</small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 40%; padding-bottom: 20px"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
-
-          <td style="font-weight: bold; font-family: Arial; width: 20% !important"><small><small></small></small></td>
-          <td style="font-weight: bold; font-family: Arial; width: 20%;"><small><small></small></small></td>
+          <td style="font-weight: bold; font-family: Arial; width: 40%; padding-bottom: 20px" colspan="3"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
         </tr>
       </tbody>
     </table>
