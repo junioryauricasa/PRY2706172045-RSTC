@@ -2,14 +2,6 @@
 include('../_include/rstheader.php');
 require_once '../../datos/conexion/bd_conexion.php';
 ?>  
-    <?php require_once '../../negocio/ventas/ncomprobante.php'; ?>
-    <?php require_once '../../negocio/ventas/ndetallecomprobante.php'; ?>
-    <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
-    <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <?php require_once '../../view/modals/vformCliente.php'; ?>
-    <?php require_once '../../view/modals/vformProducto.php'; ?>
-    <?php require_once '../../negocio/inventario/nproducto.php'; ?>
-
     <script>
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip(); 
@@ -218,9 +210,11 @@ require_once '../../datos/conexion/bd_conexion.php';
           <div class="tab-pane active" id="formRealizarVenta">
             <div class="row">
               <div class="col-md-2">
-                <div class="form-group">
+                <div id="nvchFechaGroup" class="form-group">
                   <label>Fecha Actual:</label>
-                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" readonly form="form-venta"/>
+                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" placeholder="dd/mm/aaaa" maxlength="10" onkeyup="EsFecha('nvchFecha')" form="form-venta"/>
+                  <span id="nvchFechaIcono" class="" aria-hidden=""></span>
+                  <div id="nvchFechaObs" class=""></div>
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>

@@ -143,19 +143,19 @@
 
     function AgregarFila(intIdTipoVenta){
     var intTipoDetalle = $("#intTipoDetalle").val();
-    var intIdTipoComprobante = $("#intIdTipoComprobanteI").val();
+    var intIdTipoComprobante = $("#intIdTipoComprobante").val();
     var camposVender = '';
     var readonlyVender = '';
-    if(intTipoDetalle == 1 && intIdTipoComprobante == 0){
-    	camposVender ='<td>'+
+    	camposVender ='<td class="filaPrecio">'+
 			            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
 			            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
 			            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
 			          '</td>'+
-			          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
+			          '<td class="filaDescuento"><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
 			            'onkeyup="CalcularPrecioTotal(this)"/></td>';
-      readonlyVender = 'readonly';
-	}
+    if(intTipoDetalle == 1 && intIdTipoComprobante < 9){
+      readonlyVender = 'readonly="true"';
+	  }
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
         '<tr>'+
@@ -168,7 +168,7 @@
           '<td id="detalleUbigeoProducto'+num+'"></td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
           camposVender+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" '+readonlyVender+' /></td>'+
+          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
           '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
           '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
@@ -317,7 +317,7 @@ function LimpiarCampos(){
 	$("#intIdProveedor").val("");
 	$("#nvchSerie").val("");
 	$("#nvchNumeracion").val("");
-	$("#intIdSucursal").val(1);
+	$("#intIdSucursalC").val(1);
 	if($("#intTipoDetalle").val() == 1 && $("#intIdTipoComprobanteI").val() == 0)
 		$("#intIdTipoComprobante").val(1);
 	else if($("#intTipoDetalle").val() == 2 && $("#intIdTipoComprobanteI").val() == 0)
@@ -351,14 +351,14 @@ function LimpiarCampos(){
 /* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
 function HabilitacionOpciones(accion){
 	if(accion == 1){
-		$('#intIdSucursal').attr("disabled", false);
+		$('#intIdSucursalC').attr("disabled", false);
 		$('#intIdTipoComprobante').attr("disabled", false);
 		$('#intIdTipoVenta').attr("disabled", false);
 		$('#intIdTipoPago').attr("disabled", false);
 		$('.opcion-boton-nuevo').show();
 		$('.opcion-columna-nuevo').show();
 	} else {
-		$('#intIdSucursal').attr("disabled", true);
+		$('#intIdSucursalC').attr("disabled", true);
 		$('#intIdTipoComprobante').attr("disabled", true);
 		$('#intIdTipoVenta').attr("disabled", true);
 		$('#intIdTipoPago').attr("disabled", true);
@@ -495,7 +495,7 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   success:function(datos)
 	   {
 	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
-	   	$("#intIdSucursal").val(datos.intIdSucursal);
+	   	$("#intIdSucursalC").val(datos.intIdSucursal);
 	   	$("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
 	   	$("#nvchSerie").val(datos.nvchSerie);
 	   	$("#nvchNumeracion").val(datos.nvchNumeracion);
@@ -1159,24 +1159,40 @@ $(document).on('change', '#lugar-comprobante', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Cliente */
 function MostrarSeleccionComprobante() {
+    var intTipoDetalle = $("#intTipoDetalle").val();
 	  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
-	  var intIdSucursal = $("#intIdSucursal").val();
-	  var funcion = "NCPR";
-	  $.ajax({
-	   url:"../../datos/comprobante/funcion_comprobante.php",
-	   method:"POST",
-	   data:{funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,intIdSucursal:intIdSucursal},
-	   dataType:"json",
-	   success:function(datos)
-	   { 
-	   	 if(datos.resultado == "ok"){
-		   	$("#nvchSerie").val(datos.nvchSerie);
-		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
-	   	 } else {
-	   	 	alert(datos);
-	   	 }
-	   }
-	  });
+    if((intTipoDetalle == 1 && intIdTipoComprobante >= 9) || intTipoDetalle == 2){
+      $(".filaPrecio").hide();
+      $(".filaDescuento").hide();
+      $(".txtPrecioUnitario").attr("readonly",false);
+    } else {
+      $(".filaPrecio").show();
+      $(".filaDescuento").show();
+      $(".txtPrecioUnitario").attr("readonly",true);
+    }
+    if(intTipoDetalle == 1 || intIdTipoComprobante == 9 || intIdTipoComprobante == 10)
+    {
+      var intIdSucursal = $("#intIdSucursalC").val();
+  	  var funcion = "NCPR";
+  	  $.ajax({
+  	   url:"../../datos/comprobante/funcion_comprobante.php",
+  	   method:"POST",
+  	   data:{funcion:funcion,intIdTipoComprobante:intIdTipoComprobante,intIdSucursal:intIdSucursal},
+  	   dataType:"json",
+  	   success:function(datos)
+  	   { 
+  	   	 if(datos.resultado == "ok"){
+  		   	$("#nvchSerie").val(datos.nvchSerie);
+  		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
+  	   	 } else {
+  	   	 	alert(datos);
+  	   	 }
+  	   }
+  	  });
+    } else {
+      $("#nvchSerie").val("");
+      $("#nvchNumeracion").val("");
+    }
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////

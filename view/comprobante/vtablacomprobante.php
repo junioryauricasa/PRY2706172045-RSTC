@@ -11,9 +11,9 @@
           <th style="width: 110px" >Código</th>
           <th>Ubicación</th>
           <th>Descripción</th>
-          <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?>
-          <th style="width: 110px" >Precio Lista</th>
-          <th style="width: 110px" >Desc. (%)</th>
+          <?php if($intTipoDetalle == 1) { ?>
+          <th style="width: 110px" class="filaPrecio">Precio Lista</th>
+          <th style="width: 110px" class="filaDescuento">Desc. (%)</th>
           <?php } ?>
           <th style="width: 110px" >Precio Unit.</th>
           <th style="width: 110px" >Cantidad</th>
@@ -34,19 +34,19 @@
             <td>
                 <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
             </td>
-            <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?>
-            <td>
+            <?php if($intTipoDetalle == 1) { ?>
+            <td class="filaPrecio">
                 <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="" readonly />
                 <input type="hidden" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
                 <input type="hidden" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
             </td>
-            <td>
+            <td class="filaDescuento">
                 <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
                 onkeyup="CalcularPrecioTotal(this)"/>
             </td>
             <?php } ?>
             <td>
-                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="" <?php if($intTipoDetalle == 1 && $intIdTipoComprobante == 0) { ?> readonly <?php } ?> />
+                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="txtPrecioUnitario" <?php if($intTipoDetalle == 1) { ?> readonly="true" <?php } ?> />
             </td>
             <td>
                 <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"

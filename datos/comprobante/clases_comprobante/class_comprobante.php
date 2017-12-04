@@ -235,7 +235,9 @@ class Comprobante{
         echo
         '
         <td class="heading" data-th="ID"></td>
-        <td>'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>';
+        <td>'.$fila["nvchSerie"].'</td>
+        <td>'.$fila["nvchNumeracion"].'</td>
+        <td>'.$fila["NombreComprobante"].'</td>';
         if($intTipoDetalle == 1)
           echo '<td>'.$fila["NombreCliente"].'</td>';
         else if($intTipoDetalle == 2)

@@ -82,7 +82,6 @@ class FormularioMonedaTributaria
                         <div id="dtmFechaCambioGroup" class="form-group">
                           <label>Fecha:</label>
                           <input type="text" id="dtmFechaCambio" name="dtmFechaCambio" class="form-control select2" placeholder="dd/mm/aaaa" value="<?php echo $this->dtmFechaCambio; ?>" onkeyup="EsFecha('dtmFechaCambio')" maxlength="10">
-                          
                           <span id="dtmFechaCambioIcono" class="" aria-hidden=""></span>
                           <div id="dtmFechaCambioObs" class=""></div>
                         </div>
