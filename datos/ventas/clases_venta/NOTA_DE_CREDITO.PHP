@@ -1,4 +1,5 @@
 <?php
+  // NOTA_DE_CREDITO.PHP
   session_start();
   require_once '../../conexion/bd_conexion.php';
 
@@ -837,7 +838,7 @@ function convertir_a_letras($numero)
 
 <body>
 
- <!--img src="../../imagenes/background-factura.JPG" alt="" width="100%" style=""-->
+ <!--img src="../../imagenes/NOTA_DECREDITO.PNG" alt="" width="100%" style=""-->
  
  <div class="row" style="margin-top: -10px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
@@ -867,7 +868,7 @@ function convertir_a_letras($numero)
 
   <div class="row">
       <div class="" style="width: 100%; margin-top: 6px; text-align: left; z-index: 10">
-          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; border: solid 2px transparent">
+          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
             <tbody>
               <tr>
                 <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
@@ -880,21 +881,7 @@ function convertir_a_letras($numero)
                     <!--span>Forma de Pago:</span--> 
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px;">Efectivo</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
-                    <!--span>RUC / DNI:</span-->
-                </td>
-                <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
-                    <span style="margin-left: -5px">10750005760</span>
-                </td>
-                <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
-                    <!--span>Guía de remisión:</span-->
-                </td>
-                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px">GRUIA000000212</span>
+                    <span style="margin-left: -20px;">1075000576 <?php //echo $nvchRUC; ?></span>
                 </td>
               </tr>
               <tr>
@@ -908,7 +895,7 @@ function convertir_a_letras($numero)
                     <!--span>Asesor de Ventas:</span--> 
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px">Hector vivanco</span>
+                    <span style="margin-left: -20px"></span>
                 </td>
               </tr>
             </tbody>
@@ -1016,9 +1003,9 @@ function convertir_a_letras($numero)
               }
               for($j = $i ; $j <= 32; $j++){
                 if($j == 32) {
-                  echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
+                  echo '<tr class="ultimodetalle" style="text-align: center; /*color:white;*/">';
                 } else {
-                  echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
+                  echo '<tr class="segundodetalle" style="text-align: center; /*color:white;*/">';
                 }
             ?>
               <td style="width: 8% !important; font-size:x-small;"><?php //echo $j ?></td>
@@ -1108,6 +1095,7 @@ function convertir_a_letras($numero)
       <!-- END - row TOTAL -->
     </table>
   </div>
+
 <br>  
 
 <!--style>
@@ -1155,7 +1143,7 @@ function convertir_a_letras($numero)
     //$dompdf->stream($filename.".pdf"); //descargar automaticamente
     $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
-  $filename = 'REPORTE_FACTURA';
+  $filename = 'NOTA DE CREDITO';
   $dompdf = new DOMPDF();
   $html = ob_get_clean();
   pdf_create($html,$filename,'A4','portrait');
