@@ -66,7 +66,7 @@ class FormularioOrdenCompra
                     <div class="row">
                       <div class="col-md-12">
                         <div id="nvchRUCGroup" class="form-group">
-                          <label>RUC:</label>
+                          <label>Número de Identidad del Proveedor:</label>
                           <input type="text" maxlength="11" minlength="11" id="nvchRUC" name="nvchRUC" placeholder="Ingrese RUC" class="form-control select2" value="<?php echo $this->nvchRUC; ?>" onkeyup="EsVacioOp('nvchRUC')" maxlength="125" >
                           <span id="nvchRUCIcono" class="" aria-hidden=""></span>
                           <div id="nvchRUCObs" class=""></div>

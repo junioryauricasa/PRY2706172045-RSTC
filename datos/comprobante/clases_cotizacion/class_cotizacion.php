@@ -244,8 +244,8 @@ class Cotizacion{
         }
         echo'
             <td class="heading" data-th="ID"></td>
-            <td>'.$fila["nvchSerie"].'</td>
             <td>'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["NombreVenta"].'</td>
             <td>'.$fila["NombreCliente"].'</td>
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>

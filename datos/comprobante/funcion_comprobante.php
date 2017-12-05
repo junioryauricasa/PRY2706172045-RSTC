@@ -50,7 +50,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->IdProducto($_POST['intIdProducto']);
         $DetalleComprobante->Codigo($_POST['nvchCodigo']);
         $DetalleComprobante->Descripcion($_POST['nvchDescripcion']);
-        if($_POST['intTipoDetalle'] == 1 && $_POST['intIdTipoComprobanteI'] == 0){
+        if($_POST['intTipoDetalle'] == 1 && $_POST['intIdTipoComprobante'] < 3){
             $DetalleComprobante->Precio($_POST['dcmPrecio']);
             $DetalleComprobante->Descuento($_POST['dcmDescuento']);
         }
@@ -59,7 +59,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->Total($_POST['dcmTotal']);
         $DetalleComprobante->InsertarDetalleComprobante();
         $Producto = new Producto();
-        $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],((int)$_POST['intIdTipoVenta']-1));
+        $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],((int)$_POST['intTipoDetalle']-1));
         $Producto->ES_StockTotal($_POST['intIdProducto']);
         $KardexProducto = new KardexProducto();
         $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);

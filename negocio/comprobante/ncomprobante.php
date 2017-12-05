@@ -132,7 +132,7 @@
        {
         $("#intIdProducto"+id).val(datos.intIdProducto);
         $("#nvchCodigo"+id).val(datos.nvchCodigo);
-        $("#detalleUbigeoProducto"+id).html(datos.detalleUbigeoProducto);
+        //$("#detalleUbigeoProducto"+id).html(datos.detalleUbigeoProducto);
         $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
         $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
         $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);
@@ -165,7 +165,6 @@
               '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="result'+num+'">'+
           '</td>'+
-          '<td id="detalleUbigeoProducto'+num+'" class="text-center"></td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
           camposVender+
           '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
@@ -260,6 +259,15 @@
         '</tr>');
         numi++;
       }
+    if((intTipoDetalle == 1 && intIdTipoComprobante >= 9) || intTipoDetalle == 2){
+      $(".filaPrecio").hide();
+      $(".filaDescuento").hide();
+      $(".txtPrecioUnitario").attr("readonly",false);
+    } else {
+      $(".filaPrecio").show();
+      $(".filaDescuento").show();
+      $(".txtPrecioUnitario").attr("readonly",true);
+    }
     }
 
     function formCliente(){
@@ -318,14 +326,10 @@ function LimpiarCampos(){
 	$("#nvchSerie").val("");
 	$("#nvchNumeracion").val("");
 	$("#intIdSucursalC").val(1);
-	if($("#intTipoDetalle").val() == 1 && $("#intIdTipoComprobanteI").val() == 0)
+	if($("#intTipoDetalle").val() == 1)
 		$("#intIdTipoComprobante").val(1);
-	else if($("#intTipoDetalle").val() == 2 && $("#intIdTipoComprobanteI").val() == 0)
+	else if($("#intTipoDetalle").val() == 2)
 		$("#intIdTipoComprobante").val(5);
-  else if($("#intTipoDetalle").val() == 1 && $("#intIdTipoComprobanteI").val() == 9)
-    $("#intIdTipoComprobante").val(9);
-  else if($("#intTipoDetalle").val() == 2 && $("#intIdTipoComprobanteI").val() == 10)
-    $("#intIdTipoComprobante").val(10);
 	$("#intIdTipoVenta").val(1);
   $("#intIdTipoVenta").change();
 	$("#intIdTipoMoneda").val(1);
@@ -337,11 +341,12 @@ function LimpiarCampos(){
 	AgregarFila(1);
 	AgregarFila(2);
 	AgregarFila(3);
+  AgregarFila(4);
 	$("#ValorComprobante").val("S/. 0.00");
 	$("#IGVComprobante").val("S/. 0.00");
 	$("#ComprobanteTotal").val("S/. 0.00"); 
 	$("#nvchObservacion").val("");
-	if($("#intTipoDetalle").val() != 2)
+	if($("#intTipoDetalle").val() == 1)
 		MostrarSeleccionComprobante();
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */

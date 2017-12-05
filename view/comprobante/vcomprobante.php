@@ -11,7 +11,7 @@
             <div class="row">
               <div class="col-md-2">
                 <div id="nvchFechaGroup" class="form-group">
-                  <label>Fecha Actual:</label>
+                  <label>Fecha:</label>
                   <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" placeholder="dd/mm/aaaa" maxlength="10" onkeyup="EsFecha('nvchFecha')" form="form-venta"/>
                   <span id="nvchFechaIcono" class="" aria-hidden=""></span>
                   <div id="nvchFechaObs" class=""></div>

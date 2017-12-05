@@ -10,9 +10,6 @@ include('../_include/rstheader.php');
     <?php require_once '../../negocio/reportes/nkardexproducto.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
-    <!--<script type="text/javascript" src="../../negocio/reportes/nkardexproducto.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -145,10 +142,6 @@ include('../_include/rstheader.php');
                               <th class="heading" style="width: 25px !important">&nbsp;</th>
                               <th style="width: 120px">Código</th>
                               <th style="width: 400px">Descripción</th>
-                              <th style="width: 125px">Tipo de Moneda</th>
-                              <th style="width: 125px">Precio de Venta 1</th>
-                              <th style="width: 125px">Precio de Venta 2</th>
-                              <th style="width: 125px">Precio de Venta 3</th>
                               <th style="width: 100px">Cant. Total</th>
                               <th style="width: 95px">Ubicación</th>
                               <th style="width: 55px">Imágen</th>

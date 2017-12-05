@@ -84,7 +84,7 @@ require_once '../../datos/conexion/bd_conexion.php';
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Fecha Actual:</label>
+                  <label>Fecha:</label>
                   <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" form="form-cotizacion"/>
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
@@ -507,7 +507,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                    <label class="text-left">Total de Ventas:</label>
+                    <label class="text-left">Total de Cotizaciones:</label>
                     <input type="text" id="TotalCotizacion" class="form-control select2" placeholder="0.00" readonly>
                 </div>
               </div>
@@ -517,8 +517,9 @@ require_once '../../datos/conexion/bd_conexion.php';
                 <thead>
                 <tr>
                   <th class="heading" width="25px">&nbsp;</th>
-                  <th>Serie</th>
+                  <!--<th>Serie</th>-->
                   <th>Numeración</th>
+                  <th>Tipo Cotizac.</th>
                   <th>Cliente</th>
                   <th>Usuario que Generó</th>
                   <th>Fecha de Creación</th>
