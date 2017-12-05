@@ -186,6 +186,7 @@ DELIMITER $$
 			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 		END AS NombreCliente,
 		TMN.nvchSimbolo AS SimboloMoneda,
+		TV.nvchNombre AS NombreVenta,
 		ROUND((SUM(DCT.dcmTotal)/1.18),2) AS ValorCotizacion,
 		SUM(DCT.dcmTotal) - ROUND((SUM(DCT.dcmTotal)/1.18),2) AS IGVCotizacion,
 		SUM(DCT.dcmTotal) AS TotalCotizacion
@@ -194,6 +195,7 @@ DELIMITER $$
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
 		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_venta TV ON CT.intIdTipoVenta = TV.intIdTipoVenta
 		WHERE
 		(CT.nvchSerie LIKE CONCAT(_elemento,'%') OR 
 		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
@@ -224,6 +226,7 @@ DELIMITER $$
 			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 		END AS NombreCliente,
 		TMN.nvchSimbolo AS SimboloMoneda,
+		TV.nvchNombre AS NombreVenta,
 		ROUND((SUM(DCT.dcmTotal)/1.18),2) AS ValorCotizacion,
 		SUM(DCT.dcmTotal) - ROUND((SUM(DCT.dcmTotal)/1.18),2) AS IGVCotizacion,
 		SUM(DCT.dcmTotal) AS TotalCotizacion
@@ -232,6 +235,7 @@ DELIMITER $$
 		LEFT JOIN tb_cliente C ON CT.intIdCliente = C.intIdCliente
 		LEFT JOIN tb_detalle_cotizacion DCT ON CT.intIdCotizacion = DCT.intIdCotizacion
 		LEFT JOIN tb_tipo_moneda TMN ON CT.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_venta TV ON CT.intIdTipoVenta = TV.intIdTipoVenta
 		WHERE
 		(CT.nvchSerie LIKE CONCAT(_elemento,'%') OR
 		CT.nvchNumeracion LIKE CONCAT(_elemento,'%') OR

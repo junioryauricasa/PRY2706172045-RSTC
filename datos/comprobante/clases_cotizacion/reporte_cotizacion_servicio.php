@@ -110,7 +110,7 @@
 
     <center>
         <span style="font-weight: bold; font-family: Arial;">
-          COTIZACIÓN DE SERVICIOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion.'/'.$year; ?>
+          COTIZACIÓN DE SERVICIOS Nº RSA-<?php echo $nvchNumeracion.'/'.$year; ?>
         </span>
     </center>
 

@@ -5,6 +5,7 @@
   $year = date('Y') ;
 
   $intIdCotizacion = $_GET['intIdCotizacion'];
+  $intConfirmacion = $_GET['intConfirmacion'];
   ob_start();
   $sql_conexion = new Conexion_BD();
   $sql_conectar = $sql_conexion->Conectar();
@@ -111,7 +112,7 @@
     <div class="content" style="padding-top: -65px">
         <center>
             <span style="font-weight: bold; font-family: Arial;">
-              COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
+              COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchNumeracion; ?>/<?php echo $year; ?>
             </span>
         </center>
 
@@ -201,7 +202,7 @@
             ?>
             <tr class="segundodetalle" style="/*text-align: center*/; border-bottom: 0px solid">
               <td style="width: 22px; font-size:x-small; text-align: center"><?php echo $i; ?></td>
-              <td style="width: 77px; font-size:x-small; text-align: center"><?php echo $fila['CodigoProducto']; ?></td>
+              <td style="width: 77px; font-size:x-small; text-align: center"><?php if($intConfirmacion == 1) echo $fila['CodigoProducto']; else echo '';?></td>
               <td style="width: 179px; font-size:x-small; text-align: left"><span style="padding-left: 5px"><?php echo $fila['DescripcionProducto']; ?></span></td>
               <td style="width: 17px; font-size:x-small; text-align: center"><?php echo $fila['intCantidad']; ?></td>
               <td style="width: 76px; font-size:x-small;"><span style="padding-left: 3px"><?php echo $SimboloMoneda.' '.$fila['dcmPrecio']; ?></span></td>

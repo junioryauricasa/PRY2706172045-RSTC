@@ -481,10 +481,6 @@ class KardexProducto
               <td class="heading" data-th="ID" width="25px"></td>
               <td>'.$fila["nvchCodigo"].'</td>
               <td>'.$fila["nvchDescripcion"].'</td>
-              <td>'.$fila["nvchSimbolo"].'</td>
-              <td>'.$fila["dcmPrecioVenta1"].'</td>
-              <td>'.$fila["dcmPrecioVenta2"].'</td>
-              <td>'.$fila["dcmPrecioVenta3"].'</td>
               <td>'.$fila["intCantidad"].'</td>
               <td>
                 <button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success">

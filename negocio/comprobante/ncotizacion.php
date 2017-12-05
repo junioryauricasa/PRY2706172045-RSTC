@@ -425,17 +425,44 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 /* FIN - Funcion Ajax - Eliminar Cliente */
 //////////////////////////////////////////////////////////////
 
+var intIdC = 0;
+var intIdTV = 0;
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Reporte Cotizacion */
 $(document).on('click', '.btn-reporte-cotizacion', function(){
-	var intIdCotizacion = $(this).attr("id");
-	var intIdTipoVenta = $(this).attr("idtv");
-	if(intIdTipoVenta == 1)
-		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_repuesto.php?intIdCotizacion='+intIdCotizacion;
-	else if(intIdTipoVenta == 2)
-		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_servicio.php?intIdCotizacion='+intIdCotizacion;
-	window.open(url, '_blank');
+var intIdCotizacion = $(this).attr("id");
+var intIdTipoVenta = $(this).attr("idtv");
+var intConfirmacion = 0;
+if(intIdTipoVenta == 1){
+    intIdC = intIdCotizacion;
+    intIdTV = intIdTipoVenta;
+    $('#MensajeVisualizarCodigos').modal('show');
+  }
+else
+  ReporteCotizacion(intIdCotizacion,intIdTipoVenta,intConfirmacion);
 });
+
+$(document).on('click', '#MVC-btn-si', function(){
+  var intConfirmacion = 1;
+  $('#MensajeVisualizarCodigos').modal('hide');
+  ReporteCotizacion(intIdC,intIdTV,intConfirmacion);
+});
+
+$(document).on('click', '#MVC-btn-no', function(){
+  var intConfirmacion = 0;
+  $('#MensajeVisualizarCodigos').modal('hide');
+  ReporteCotizacion(intIdC,intIdTV,intConfirmacion);
+});
+
+function ReporteCotizacion(intIdCotizacion,intIdTipoVenta,intConfirmacion){
+if(intIdTipoVenta == 1)
+var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_repuesto.php?intIdCotizacion='+intIdCotizacion+'&intConfirmacion='+intConfirmacion;
+else if(intIdTipoVenta == 2)
+  var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_servicio.php?intIdCotizacion='+intIdCotizacion;
+window.open(url);
+return false;
+}
 /* FIN - Funcion Ajax - Reporte Cotizacion */
 //////////////////////////////////////////////////////////////
 
@@ -515,7 +542,7 @@ function ListarCotizacion(x,y,tipolistado) {
 /* INICIO - Funcion Ajax - Total Ventas */
 function TotalCotizacion() {
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "TV";
+  var funcion = "TCT";
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   
   if(EsFecha("dtmFechaInicial") == false){
