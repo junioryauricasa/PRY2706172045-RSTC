@@ -447,12 +447,9 @@ class Cotizacion{
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>
             <td> 
-              <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
+              <button type="button" idscli="'.$fila["intIdCliente"].'" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
               onclick="InsertarCotizacion(this)">
                 <i class="fa fa-edit"></i> Elegir
-              </button>
-              <button type="button" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-default">
-                <i class="fa fa-download"></i> Reporte
               </button>
             </td>
           </tr>';

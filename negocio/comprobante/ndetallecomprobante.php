@@ -378,6 +378,7 @@ function LimpiarDetalleUbigeo() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
 function InsertarCotizacion(seleccion) {
+	SeleccionarCliente(seleccion);
 	var intIdCotizacion = $(seleccion).attr("idct");
 	var funcion = "ICT";
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
