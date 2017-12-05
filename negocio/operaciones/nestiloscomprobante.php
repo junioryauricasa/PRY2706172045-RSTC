@@ -16,7 +16,7 @@
     {
         position: absolute;
         z-index: 1;
-        width:500px;
+        width:900px;
         padding:10px;
         display:none;
         margin-top:-1px;

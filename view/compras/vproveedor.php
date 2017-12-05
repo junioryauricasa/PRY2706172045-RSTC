@@ -64,18 +64,7 @@ include('../_include/rstheader.php');
                           <h3 class="box-title">Registro de Proveedores</h3>
                           <div class="box-body">
                             <div class="row">
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Mostrar:</label>
-                                  <br>
-                                  <select id="num-lista" name="num-lista"  class="form-control select2">
-                                    <option value="10">Ver 10 Resultados</option>
-                                    <option value="25">Ver 25 Resultados</option>
-                                    <option value="50">Ver 50 Resultados</option>
-                                    <option value="100">Ver 100 Resultados</option>
-                                  </select>
-                                </div>
-                              </div>
+                              <?php include '../campos/cmbNumLista.php'; ?>
                               <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="text-left">Ingresar Búsqueda:</label>

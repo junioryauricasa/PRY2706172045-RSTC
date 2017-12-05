@@ -188,29 +188,18 @@ DELIMITER $$
     END
 $$
 DELIMITER ;
-
-DROP PROCEDURE IF EXISTS BUSCARPRODUCTO_II;
+/*
+DROP PROCEDURE IF EXISTS BUSCARPRODUCTO;
 DELIMITER $$
-	CREATE PROCEDURE BUSCARPRODUCTO_II(
+	CREATE PROCEDURE BUSCARPRODUCTO(
     	IN _elemento VARCHAR(500),
-    	IN _TipoBusqueda VARCHAR(2)
+		IN _x INT,
+		IN _y INT,
+		IN _TipoBusqueda VARCHAR(2)
     )
 	BEGIN
-	IF(_TipoBusqueda = "T") THEN
-		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
-		FROM tb_producto P
-		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
-		WHERE 
-		(P.nvchDescripcion LIKE CONCAT(_elemento,'%') OR
-		P.nvchUnidadMedida LIKE CONCAT(_elemento,'%') OR
-		P.intCantidad LIKE CONCAT(_elemento,'%') OR
-		P.dtmFechaIngreso LIKE CONCAT(_elemento,'%')) AND
-		CP.intIdTipoCodigoProducto = 1
-		ORDER BY P.intIdProducto;
-	END IF;
-	IF(_TipoBusqueda = "C") THEN
-		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda, CP.*
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
@@ -221,9 +210,107 @@ DELIMITER $$
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
 		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
 		WHERE 
-		CP.nvchCodigo LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		ORDER BY P.intIdProducto
+		LIMIT _x,_y;
+    END
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARPRODUCTO_II;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARPRODUCTO_II(
+    	IN _elemento VARCHAR(500),
+    	IN _TipoBusqueda VARCHAR(2)
+    )
+	BEGIN
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
 		ORDER BY P.intIdProducto;
-	END IF;
+    END 
+$$
+DELIMITER ;
+*/
+DROP PROCEDURE IF EXISTS BUSCARPRODUCTO;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARPRODUCTO(
+    	IN _elemento VARCHAR(500),
+		IN _x INT,
+		IN _y INT,
+		IN _TipoBusqueda VARCHAR(2)
+    )
+	BEGIN
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
+		END) AS CantidadHuancayo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 2 THEN UP.intCantidadUbigeo
+		END) AS CantidadSanJeronimo,
+		CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		GROUP BY P.intIdProducto
+		ORDER BY P.intIdProducto
+		LIMIT _x,_y;
+    END
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARPRODUCTO_II;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARPRODUCTO_II(
+    	IN _elemento VARCHAR(500),
+    	IN _TipoBusqueda VARCHAR(2)
+    )
+	BEGIN
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
+		END) AS CantidadHuancayo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 2 THEN UP.intCantidadUbigeo
+		END) AS CantidadSanJeronimo,
+		CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		GROUP BY P.intIdProducto
+		ORDER BY P.intIdProducto;
     END 
 $$
 DELIMITER ;
@@ -247,19 +334,33 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS CANTIDADUBIGEO;
 DELIMITER $$
 CREATE PROCEDURE CANTIDADUBIGEO(
-	IN _intIdProducto INT,
-	IN _nvchSucursal VARCHAR(500)
+	IN _intIdProducto INT
     )
 	BEGIN
-		SELECT UP.nvchSucursal,SUM(UP.intCantidadUbigeo) AS CantidadUbigeo
-		FROM tb_producto P
-		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
-		WHERE 
-		P.intIdProducto = _intIdProducto AND UP.nvchSucursal = _nvchSucursal
-		GROUP BY UP.nvchSucursal,UP.intIdProducto;
+		SELECT 
+		SUM(CASE 
+			WHEN intIdSucursal = 1 THEN intCantidadUbigeo
+		END) AS CantidadHuancayo,
+		SUM(CASE 
+			WHEN intIdSucursal = 2 THEN intCantidadUbigeo
+		END) AS CantidadSanJeronimo
+		FROM tb_ubigeo_producto WHERE intIdProducto = _intIdProducto 
+		GROUP BY intIdProducto;
 	END
 $$
 DELIMITER ;
+
+,
+CASE 
+	WHEN intIdSucursal = 2 THEN intCantidadUbigeo
+END AS CantidadSanJeronimo
+
+SELECT 
+	(SELECT SUM(intCantidadUbigeo) FROM tb_ubigeo_producto 
+	WHERE intIdProducto = _intIdProducto AND intIdSucursal = 1) AS CantidadHuancayo,
+	(SELECT SUM(intCantidadUbigeo) FROM tb_ubigeo_producto 
+	WHERE intIdProducto = _intIdProducto AND intIdSucursal = 2) AS CantidadSanJeronimo
+FROM tb_ubigeo_producto WHERE intIdProducto = _intIdProducto GROUP BY intIdProducto;
 
 DROP PROCEDURE IF EXISTS BUSCARPRODUCTOCODIGO;
 DELIMITER $$

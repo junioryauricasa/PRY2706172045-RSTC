@@ -64,34 +64,26 @@ require_once '../../datos/conexion/bd_conexion.php';
     			      <div class="">
     			        <div class="box-body">
     			          <div class="row">
-    			            <div class="col-md-2">
-    			              <div class="form-group">
-    			                <label>Mostrar:</label>
-    			                <br>
-    			                <select id="num-lista" name="num-lista"  class="form-control select2" >
-    			                  <option value="10">Ver 10 Resultados</option>
-    			                  <option value="25">Ver 25 Resultados</option>
-    			                  <option value="50">Ver 50 Resultados</option>
-    			                  <option value="100">Ver 100 Resultados</option>
-    			                </select>
-    			              </div>
-    			            </div>
+                      <?php include '../campos/cmbNumLista.php'; ?>
     			            <div class="col-md-2">
     			              <div class="form-group">
     			                <label class="text-left">Ingresar Búsqueda:</label>
     			                <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
     			              </div>
     			            </div>
-    			            <div class="col-md-2">
+    			            <div id="tipo-busquedaCol" class="col-md-2">
     			              <div class="form-group">
     			                <label>Tipo de Búsqueda:</label>
     			                <br>
     			                <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2" >
     			                  <option value="C">Por Códigos</option>
-    			                  <option value="T">Resto de Campos</option>
+    			                  <!--<option value="T">Resto de Campos</option>-->
     			                </select>
     			              </div>
     			            </div>
+                      <script type="text/javascript">
+                        $("#tipo-busquedaCol").hide();
+                      </script>
     			          </div>
     			          <div class="table-responsive">
     			            <table class="rwd-table ExcelTable2007" width="100%">
@@ -100,10 +92,10 @@ require_once '../../datos/conexion/bd_conexion.php';
     			                <th class="heading" width="25px">&nbsp;</th>
     			                <th style="width: 120px">Código</th>
     			                <th style="width: 500px">Descripción</th>
-    			                <th style="width: 150px">Moneda de Venta</th>
-    			                <th style="width: 125px">Precio de Venta 1</th>
-    			                <th style="width: 125px">Precio de Venta 2</th>
-    			                <th style="width: 125px">Precio de Venta 3</th>
+    			                <th style="width: 150px">Moneda</th>
+    			                <th style="width: 125px">Precio Venta 1</th>
+    			                <th style="width: 125px">Precio Venta 2</th>
+    			                <th style="width: 125px">Precio Venta 3</th>
     			                <th style="width: 90px">Cant. Total</th>
     			                <th style="width: 80px">Ubicación</th>
     			                <th style="width: 70px">Imágen</th>
@@ -133,51 +125,6 @@ require_once '../../datos/conexion/bd_conexion.php';
     			        </div>
     			      </div>
     			    </section>
-
-              <!--div class="modal modal-default fade" id="modal-detalleproductos" data-backdrop="static">
-                <div class="modal-dialog" style="">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title"><i class="fa fa-book" style=""></i>
-                          Detalle de la ubicación del Producto: <b><span id="CodigoProducto"></span></b>
-                      </h4>
-                    </div>
-                    <div class="modal-body">
-                      <div class="box-body">
-                        <div class="box-body">
-                          <div class="row">
-                            <div class="col-xs-12">
-                                <div id="TablaDetalleUbigeo">
-                                    <div class="table-responsive">
-                                      <table class="rwd-table ExcelTable2007" width="100%">
-                                        <thead>
-                                          <tr>
-                                            <th class="heading" style="width: 25px">&nbsp;</th>
-                                            <th>Sucursal</th>
-                                            <th>Ubicación en el Almacén</th>
-                                            <th>Cantidad</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody id="DetalleUbigeo">
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" onclick="LimpiarDetalleUbigeo()" class="btn btn-xs btn-success btn-flat">Limpiar Detalles</button>
-                      <button type="button" class="btn btn-xs btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
-                    </div>
-                  </div>
-                </div>
-              </div-->
-              <!-- END Modal codigo productos-->
-              
 		      </div>
           <div class="tab-pane" id="tab_2">
               <form id="form-producto" method="POST">

@@ -468,14 +468,17 @@ class Producto
                 $fila['nvchSimbolo'] = "US$";
               }
             }
+            if($fila['CantidadHuancayo'] == null || $fila['CantidadHuancayo'] == "") 
+              $fila['CantidadHuancayo'] = 0;
+            if($fila['CantidadSanJeronimo'] == null || $fila['CantidadSanJeronimo'] == "") 
+              $fila['CantidadSanJeronimo'] = 0;
           ?>
               <li class="show truncate" align="left" id="">
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
                 </span>&nbsp;
-                <?php echo ' | '.$fila['nvchDescripcion'].' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1'].' | '.
-                'Cantidad: '.$fila['intCantidad']; ?>
+                <?php echo ' | '.$fila['nvchDescripcion'].' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1'].' | '.'Cantidad Huancayo: '.$fila['CantidadHuancayo'].' | Cantidad San Jerónimo: '.$fila['CantidadSanJeronimo']; ?>
               </li>
           <?php
           }
