@@ -154,3 +154,130 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+
+SELECT dtmFechaIngreso AS FechaMovimiento, 'Entrada' AS TipoMovimiento, 'Apertura' AS TipoComprobante, 
+		'-' AS Serie, '-' AS Numeracion, intCantidad AS Entrada , 0 AS Salida,
+		(intCantidad + 0) AS Stock, dcmPrecioCompra AS PrecioEntrada, (dcmPrecioCompra*intCantidad) AS TotalEntrada,
+		0.00 AS PrecioSalida, 0.00 AS TotalSalida, (dcmPrecioCompra*intCantidad) AS SaldoValorizado
+		FROM tb_producto
+		WHERE intIdProducto = 23
+		UNION
+SELECT dtmFechaCreacion AS FechaMovimiento, 
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 'Salida'
+			WHEN CR.intTipoDetalle = 2 THEN 'Entrada'
+		END AS TipoMovimiento,
+		TCR.nvchNombre AS TipoComprobante,
+		CR.nvchSerie AS Serie,
+		CR.nvchNumeracion AS Numeracion,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 0
+			WHEN CR.intTipoDetalle = 2 THEN SUM(DCR.intCantidad)
+		END AS Entrada,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN SUM(DCR.intCantidad)
+			WHEN CR.intTipoDetalle = 2 THEN 0
+		END AS Salida,
+		(SUM(DCR.intCantidad) + UlimoStock) AS Stock,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 0
+			WHEN CR.intTipoDetalle = 2 THEN SUM(DCR.dcmPrecioUnitario)
+		END AS PrecioEntrada,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 0
+			WHEN CR.intTipoDetalle = 2 THEN SUM(DCR.dcmPrecioUnitario) * SUM(DCR.intCantidad)
+		END AS TotalEntrada,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN SUM(DCR.dcmPrecioUnitario)
+			WHEN CR.intTipoDetalle = 2 THEN 0
+		END AS PrecioSalida,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN SUM(DCR.dcmPrecioUnitario) * SUM(DCR.intCantidad)
+			WHEN CR.intTipoDetalle = 2 THEN 0
+		END AS TotalSalida,
+		SUM(DCR.dcmPrecioUnitario) * SUM(DCR.intCantidad) AS SaldoValorizado
+		FROM tb_comprobante CR
+		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		WHERE DCR.intIdProducto = 23
+		GROUP BY CR.intIdComprobante;
+
+		DEFAULT SELECT COUNT(*) FROM tb_detalle_comprobante WHERE intIdComprobante = 23
+
+
+DECLARE i INT DEFAULT 3;
+WHILE i<5 DO
+  SELECT COUNT(*) FROM tb_detalle_comprobante WHERE intIdComprobante = 23;
+  SET i=i+1;
+END WHILE;
+
+DROP PROCEDURE IF EXISTS PRUEBAKARDEX;
+DELIMITER $$
+	CREATE PROCEDURE PRUEBAKARDEX()
+	BEGIN
+		SET @@Stock = 0;
+		SELECT dtmFechaIngreso AS FechaMovimiento, 'Entrada' AS TipoMovimiento, 'Apertura' AS TipoComprobante, 
+		'-' AS Serie, '-' AS Numeracion, intCantidad AS Entrada , 0 AS Salida,
+		(@@Stock := intCantidad) AS Stock, (@@PrecioPromedio := 1000+125) AS PrecioEntrada, (dcmPrecioCompra*intCantidad) AS TotalEntrada,
+		0.00 AS PrecioSalida, 0.00 AS TotalSalida, (@@SaldoValorizado := dcmPrecioCompra*intCantidad) AS SaldoValorizado
+		FROM tb_producto
+		WHERE intIdProducto = 23
+		UNION
+		SELECT dtmFechaCreacion AS FechaMovimiento,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 'Salida'
+			WHEN CR.intTipoDetalle = 2 THEN 'Entrada'
+		END AS TipoMovimiento,
+		TCR.nvchNombre AS TipoComprobante,
+		CR.nvchSerie AS Serie,
+		CR.nvchNumeracion AS Numeracion,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 0
+			WHEN CR.intTipoDetalle = 2 THEN DCR.intCantidad
+		END AS Entrada,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN DCR.intCantidad
+			WHEN CR.intTipoDetalle = 2 THEN 0
+		END AS Salida,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN @Stock := @Stock - DCR.intCantidad
+			WHEN CR.intTipoDetalle = 2 THEN @Stock := @Stock + DCR.intCantidad
+		END AS Stock,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 0
+			WHEN CR.intTipoDetalle = 2 THEN DCR.dcmPrecioUnitario
+		END AS PrecioEntrada,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN 0
+			WHEN CR.intTipoDetalle = 2 THEN DCR.dcmPrecioUnitario * DCR.intCantidad
+		END AS TotalEntrada,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN DCR.dcmPrecioUnitario
+			WHEN CR.intTipoDetalle = 2 THEN 0
+		END AS PrecioSalida,
+		CASE 
+			WHEN CR.intTipoDetalle = 1 THEN DCR.dcmPrecioUnitario * DCR.intCantidad
+			WHEN CR.intTipoDetalle = 2 THEN 0
+		END AS TotalSalida,
+		DCR.dcmPrecioUnitario * DCR.intCantidad AS SaldoValorizado
+		FROM tb_comprobante CR
+		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		WHERE DCR.intIdProducto = 23
+		GROUP BY CR.intIdComprobante;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ej;
+CREATE procedure ej (IN val int)     
+  begin
+    define i int;
+    set i = 0;
+    while i<5 do
+      INSERT INTO prueba VALUES (i);
+      set i=i+1;
+    end while;
+  end$$
+delimiter ;

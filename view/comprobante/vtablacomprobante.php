@@ -9,7 +9,6 @@
         <tr>
           <th class="heading" width="25px">&nbsp;</th>
           <th style="width: 110px" >Código</th>
-          <th>Ubicación</th>
           <th>Descripción</th>
           <?php if($intTipoDetalle == 1) { ?>
           <th style="width: 110px" class="filaPrecio">Precio Lista</th>
@@ -30,7 +29,6 @@
                 <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
                 <div class="result" id="result1">
             </td>
-            <td id="detalleUbigeoProducto1" class="text-center"></td>
             <td>
                 <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
             </td>
