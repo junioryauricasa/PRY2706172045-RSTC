@@ -19,14 +19,30 @@ function MostrarUbigeo(intIdProducto,tipolistado) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Ubigeo Nueva */
 function AgregarUbigeo_II() {
+	var intIdSucursal = document.getElementById("intIdSucursal").value;
+	var nvchSucursal = "";
+	if(intIdSucursal == 1)
+		nvchSucursal = "Huancayo";
+	else
+		nvchSucursal = "San Jerónimo";
 	if(EsVacio("nvchUbicacion") == false){
 		return false;
 	}
 	if(EsNumeroEntero("intCantidadUbigeo") == false){
 		return false;
 	}
+	var validacion = true;
+	$('#ListaDeUbicaciones tr').each(function(){
+		var texto = $(this).find('td').eq(1).text().replace(/\s/g,'');;
+        if(texto == nvchSucursal){
+            validacion = false;
+        }
+    });
+    if(validacion == false){
+    	MensajeNormal("No puede haber más de una Ubicación de la Sucursal seleccionada",2);
+    	return false;
+    }
 	var intIdProducto = document.getElementById("intIdProducto").value;
-	var intIdSucursal = document.getElementById("intIdSucursal").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacion").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeo").value;
 	var tipolistado = "I";
