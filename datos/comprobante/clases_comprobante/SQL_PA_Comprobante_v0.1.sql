@@ -73,7 +73,7 @@ DELIMITER $$
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
-		UPDATE tb_venta
+		UPDATE tb_comprobante
 		SET
 		intIdComprobante = _intIdComprobante,
 		intIdTipoComprobante = _intIdTipoComprobante,

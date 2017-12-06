@@ -375,7 +375,7 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 $(document).on('click', '#btn-editar-cotizacion', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
+  	  var x = $(".marca-cotizacion").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-cotizacion").serialize();
   	  var intIdTipoCotizacion = document.getElementById("tipo-cotizacion").value;
@@ -403,7 +403,7 @@ $(document).on('click', '#btn-editar-cotizacion', function(){
 $(document).on('click', '.btn-eliminar-cotizacion', function(){
   	  var intIdVenta = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
+  	  var x = $(".marca-cotizacion").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
 	  $.ajax({
@@ -489,7 +489,7 @@ $(document).on('click', '#btnBuscar', function(){
   	ListarCotizacion(x,y,tipolistado);
 });
 
-$(document).on('click', '.btn-pagina', function(){
+$(document).on('click', '.btn-pagina-cotizacion', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
   	var tipolistado = "T";
@@ -498,7 +498,7 @@ $(document).on('click', '.btn-pagina', function(){
 
 $(document).on('change', '#lista-tipo-moneda', function(){
   	var y = document.getElementById("num-lista").value;
-  	var x = $(".marca").attr("idp") * y;
+  	var x = $(".marca-cotizacion").attr("idp") * y;
   	var tipolistado = "T";
   	ListarCotizacion(x,y,tipolistado);
 });

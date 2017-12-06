@@ -22,7 +22,6 @@ if(empty($_SESSION['TotalCompra'])){
 }
 switch($_POST['funcion']){
   case "I":
-    echo "a";
     $Comprobante = new Comprobante();
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $Comprobante->TipoDetalle($_POST['intTipoDetalle']);
@@ -43,25 +42,25 @@ switch($_POST['funcion']){
     $Comprobante->Observacion($_POST['nvchObservacion']);
     $Comprobante->InsertarComprobante();
     $DetalleComprobante = new DetalleComprobante();
-    if($_POST['intIdTipoVenta'] == 1) {
+    if($_POST['intIdTipoVenta'] == 1 || $_POST['intIdTipoVenta'] >=3) {
         $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleComprobante->TipoDetalle($_POST['intTipoDetalle']);
         $DetalleComprobante->FechaRealizada($dtmFechaCreacion);
-        $DetalleComprobante->IdProducto($_POST['intIdProducto']);
-        $DetalleComprobante->Codigo($_POST['nvchCodigo']);
-        $DetalleComprobante->Descripcion($_POST['nvchDescripcion']);
+        $DetalleComprobante->IdProducto($_POST['intIdProducto'.$_POST['Letra']]);
+        $DetalleComprobante->Codigo($_POST['nvchCodigo'.$_POST['Letra']]);
+        $DetalleComprobante->Descripcion($_POST['nvchDescripcion'.$_POST['Letra']]);
         if($_POST['intTipoDetalle'] == 1 && $_POST['intIdTipoComprobante'] < 3){
             $DetalleComprobante->Precio($_POST['dcmPrecio']);
             $DetalleComprobante->Descuento($_POST['dcmDescuento']);
         }
-        $DetalleComprobante->PrecioUnitario($_POST['dcmPrecioUnitario']);
-        $DetalleComprobante->Cantidad($_POST['intCantidad']);
-        $DetalleComprobante->Total($_POST['dcmTotal']);
-        $DetalleComprobante->InsertarDetalleComprobante();
+        $DetalleComprobante->PrecioUnitario($_POST['dcmPrecioUnitario'.$_POST['Letra']]);
+        $DetalleComprobante->Cantidad($_POST['intCantidad'.$_POST['Letra']]);
+        $DetalleComprobante->Total($_POST['dcmTotal'.$_POST['Letra']]);
+        $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
         $Producto = new Producto();
-        $Producto->ES_StockUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal'],$_POST['intCantidad'],((int)$_POST['intTipoDetalle']-1));
-        $Producto->ES_StockTotal($_POST['intIdProducto']);
+        $Producto->ES_StockUbigeo($_POST['intIdProducto'.$_POST['Letra']],$_POST['intIdSucursal'],$_POST['intCantidad'.$_POST['Letra']],((int)$_POST['intTipoDetalle']-1));
+        $Producto->ES_StockTotal($_POST['intIdProducto'.$_POST['Letra']]);
         $KardexProducto = new KardexProducto();
         $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
         $KardexProducto->FechaMovimiento($dtmFechaCreacion);
@@ -70,12 +69,12 @@ switch($_POST['funcion']){
         $KardexProducto->TipoDetalle($_POST['intTipoDetalle']);
         $KardexProducto->Serie($_POST['nvchSerie']);
         $KardexProducto->Numeracion($_POST['nvchNumeracion']);
-        $KardexProducto->IdProducto($_POST['intIdProducto']);
+        $KardexProducto->IdProducto($_POST['intIdProducto'.$_POST['Letra']]);
         if($_POST['intTipoDetalle'] == 1)
-            $KardexProducto->CantidadSalida($_POST['intCantidad']);
+            $KardexProducto->CantidadSalida($_POST['intCantidad'.$_POST['Letra']]);
         else if($_POST['intTipoDetalle'] == 2){
-            $KardexProducto->CantidadEntrada($_POST['intCantidad']);
-            $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario']);
+            $KardexProducto->CantidadEntrada($_POST['intCantidad'.$_POST['Letra']]);
+            $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario'.$_POST['Letra']]);
         }
         $KardexProducto->InsertarKardexProducto();
     } else if($_POST['intIdTipoVenta'] == 2) {
@@ -91,6 +90,56 @@ switch($_POST['funcion']){
     }
     $Numeraciones = new Numeraciones();
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
+    break;
+  case "A":
+    $Comprobante = new Comprobante();
+    $Comprobante->IdComprobante($_POST['intIdComprobante']);
+    $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Comprobante->TipoDetalle($_POST['intTipoDetalle']);
+    $Comprobante->IdSucursal($_POST['intIdSucursal']);
+    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($_POST['nvchFecha']));
+    $Comprobante->FechaCreacion($dtmFechaCreacion);
+    $Comprobante->Serie($_POST['nvchSerie']);
+    $Comprobante->Numeracion($_POST['nvchNumeracion']);
+    $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Comprobante->IdCliente($_POST['intIdCliente']);
+    $Comprobante->IdProveedor($_POST['intIdProveedor']);
+    $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);
+    $Comprobante->DNIRUC($_POST['nvchDNIRUC']);
+    $Comprobante->Direccion($_POST['nvchDireccion']);
+    $Comprobante->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $Comprobante->IdTipoPago($_POST['intIdTipoPago']);
+    $Comprobante->IdTipoVenta($_POST['intIdTipoVenta']);
+    $Comprobante->Observacion($_POST['nvchObservacion']);
+    $Comprobante->ActualizarComprobante();
+    $DetalleComprobante = new DetalleComprobante();
+    if($_POST['intIdTipoVenta'] == 1 || $_POST['intIdTipoVenta'] >=3) {
+        $DetalleComprobante->IdComprobante($_POST['intIdComprobante']);
+        $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleComprobante->TipoDetalle($_POST['intTipoDetalle']);
+        $DetalleComprobante->FechaRealizada($dtmFechaCreacion);
+        $DetalleComprobante->IdProducto($_POST['intIdProducto'.$_POST['Letra']]);
+        $DetalleComprobante->Codigo($_POST['nvchCodigo'.$_POST['Letra']]);
+        $DetalleComprobante->Descripcion($_POST['nvchDescripcion'.$_POST['Letra']]);
+        if($_POST['intTipoDetalle'] == 1 && $_POST['intIdTipoComprobante'] < 3){
+            $DetalleComprobante->Precio($_POST['dcmPrecio']);
+            $DetalleComprobante->Descuento($_POST['dcmDescuento']);
+        }
+        $DetalleComprobante->PrecioUnitario($_POST['dcmPrecioUnitario'.$_POST['Letra']]);
+        $DetalleComprobante->Cantidad($_POST['intCantidad'.$_POST['Letra']]);
+        $DetalleComprobante->Total($_POST['dcmTotal'.$_POST['Letra']]);
+        $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
+    } else if($_POST['intIdTipoVenta'] == 2) {
+        $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
+        $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleComprobante->TipoDetalle($_POST['intTipoDetalle']);
+        $DetalleComprobante->FechaRealizada($dtmFechaCreacion);
+        $DetalleComprobante->Descripcion($_POST['nvchDescripcionS']);
+        $DetalleComprobante->PrecioUnitario($_POST['dcmPrecioUnitarioS']);
+        $DetalleComprobante->Cantidad($_POST['intCantidadS']);
+        $DetalleComprobante->Total($_POST['dcmTotalS']);
+        $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
+    }
     break;
   case "M":
     $Comprobante = new Comprobante();

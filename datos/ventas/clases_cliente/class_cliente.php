@@ -311,6 +311,16 @@ class Cliente
         echo $output;
         return false;
       }
+      $btnEvento = "";
+      $btnPagina = "";
+      if($tipolistado == "V"){
+        $btnEvento = 'onclick="PaginacionClientes(this)"';
+        $btnPagina = '';
+      }
+      else{
+        $btnEvento = '';
+        $btnPagina = 'btn-pagina-cliente';
+      }
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
@@ -340,7 +350,7 @@ class Cliente
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.($x-1).'" class="page-link btn-pagina" aria-label="Previous">
+                <a idp="'.($x-1).'" class="page-link '.$btnPagina.'" '.$btnEvento.' aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
@@ -349,11 +359,11 @@ class Cliente
         }
 
           if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link '.$btnPagina.' marca-cliente" '.$btnEvento.'>'.($i+1).'</a></li>';
           }
           else
           {
-            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link '.$btnPagina.'" '.$btnEvento.'>'.($i+1).'</a></li>';
           }
 
         if($i==($numpaginas-1))
@@ -370,7 +380,7 @@ class Cliente
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.($x+1).'" class="page-link btn-pagina" aria-label="Next">
+                <a idp="'.($x+1).'" class="page-link '.$btnPagina.'" aria-label="Next" '.$btnEvento.'>
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
@@ -381,14 +391,14 @@ class Cliente
       if($output == ""){
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Previous">
+                <a class="page-link '.$btnPagina.'" '.$btnEvento.' aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
             </li>';
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Next">
+                <a class="page-link '.$btnPagina.'" '.$btnEvento.' aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>

@@ -323,14 +323,14 @@ class Cotizacion{
         $output = "";
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Previous">
+                <a class="page-link btn-pagina-cotizacion" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
             </li>';
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Next">
+                <a class="page-link btn-pagina-cotizacion" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
@@ -367,7 +367,7 @@ class Cotizacion{
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.($x-1).'" class="page-link btn-pagina" aria-label="Previous">
+                <a idp="'.($x-1).'" class="page-link btn-pagina-cotizacion" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
@@ -376,11 +376,11 @@ class Cotizacion{
         }
 
           if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina-cotizacion marca-cotizacion">'.($i+1).'</a></li>';
           }
           else
           {
-            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina-cotizacion">'.($i+1).'</a></li>';
           }
 
         if($i==($ipaginas-1))
@@ -397,7 +397,7 @@ class Cotizacion{
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.($x+1).'" class="page-link btn-pagina" aria-label="Next">
+                <a idp="'.($x+1).'" class="page-link btn-pagina-cotizacion" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
@@ -408,14 +408,14 @@ class Cotizacion{
       if($output == ""){
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Previous">
+                <a class="page-link btn-pagina-cotizacion" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
             </li>';
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Next">
+                <a class="page-link btn-pagina-cotizacion" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>

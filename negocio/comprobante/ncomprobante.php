@@ -177,15 +177,15 @@
     var intIdTipoComprobante = $("#intIdTipoComprobante").val();
     var camposVender = '';
     var readonlyVender = '';
-    	camposVender ='<td class="filaPrecio">'+
-			            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
-			            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
-			            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
-			          '</td>'+
-			          '<td class="filaDescuento"><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
-			            'onkeyup="CalcularPrecioTotal(this)"/></td>';
     if(intTipoDetalle == 1 && intIdTipoComprobante < 9){
       readonlyVender = 'readonly="true"';
+      camposVender ='<td class="filaPrecio">'+
+                  '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
+                  '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
+                  '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
+                '</td>'+
+                '<td class="filaDescuento"><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
+                  'onkeyup="CalcularPrecioTotal(this)"/></td>';
 	  }
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
@@ -236,7 +236,7 @@
         '<tr>'+
           '<td class="heading" data-th="ID">'+numm+'</td>'+
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'+numm+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'+numm+'" name="intIdProductoM[]" form="form-comprobante" />'+
               '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'+numm+'" name="nvchCodigoM[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="resultM'+numm+'">'+
           '</td>'+
@@ -265,7 +265,7 @@
         '<tr>'+
           '<td class="heading" data-th="ID">'+numi+'</td>'+
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'+numi+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'+numi+'" name="intIdProductoI[]" form="form-comprobante" />'+
               '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'+numi+'" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="resultI'+numi+'">'+
           '</td>'+
@@ -339,6 +339,8 @@
         $("#tablaImplementos").show();
         CalcularTotal();
       }
+      TipoLetra();
+      TipoTabla();
     }
 /* FIN - Operaciones de Comprobante */
 //////////////////////////////////////////////////////////////
@@ -346,6 +348,9 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
 function LimpiarCampos(){
+  RestablecerValidacion("nvchFecha",1);
+  RestablecerValidacion("nvchSerie",1);
+  RestablecerValidacion("nvchNumeracion",1);
 	$("#nvchFecha").val(FechaActual());
 	$("#nvchNumDocumento").val("");
 	$("#nvchDenominacion").val("");
@@ -365,14 +370,8 @@ function LimpiarCampos(){
   $("#intIdTipoVenta").change();
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
-	$("#ListaDeProductosVender").html("");
-	$("#ListaDeServiciosVender").html("");
-	$("#ListaDeMaquinariasVender").html("");
+	LimpiarTablas();
 	HabilitacionOpciones(1);
-	AgregarFila(1);
-	AgregarFila(2);
-	AgregarFila(3);
-  AgregarFila(4);
 	$("#ValorComprobante").val("S/. 0.00");
 	$("#IGVComprobante").val("S/. 0.00");
 	$("#ComprobanteTotal").val("S/. 0.00"); 
@@ -382,6 +381,21 @@ function LimpiarCampos(){
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
 //////////////////////////////////////////////////////////////
+
+function LimpiarTablas(){
+  $("#ListaDeProductosVender").html("");
+  $("#ListaDeServiciosVender").html("");
+  $("#ListaDeMaquinariasVender").html("");
+  $("#ListaDeImplementosVender").html("");
+  num = 1;
+  nums = 1;
+  numm = 1;
+  numi = 1;
+  AgregarFila(1);
+  AgregarFila(2);
+  AgregarFila(3);
+  AgregarFila(4);
+}
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
@@ -396,6 +410,7 @@ function HabilitacionOpciones(accion){
     $("#nvchNumeracion").attr("readonly",false);
 		$('.opcion-boton-nuevo').show();
 		$('.opcion-columna-nuevo').show();
+    $("#funcionC").val("I");
 	} else {
     <?php if($_SESSION['intIdTipoUsuario'] != 1) {?>
 		$('#intIdSucursalC').attr("disabled", true);
@@ -410,6 +425,7 @@ function HabilitacionOpciones(accion){
     $('#btn-crear-comprobante').hide();
     $('.opcion-boton-editar').show();
     <?php } ?>
+    $("#funcionC").val("A");
 	}
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
@@ -448,7 +464,8 @@ function ValidacionFilasVacias(TipoVenta,Letra) {
   $('table tbody#ListaDe'+TipoVenta+'Vender tr').each(function() {
         $(this).find("td input[name='dcmTotal"+Letra+"[]']").each(function() {
             if(this.value == "" || this.value == null){
-              i++;            }
+              i++;            
+            }
         });
     });
   return i;
@@ -532,7 +549,6 @@ function ValidacionComprobante(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-comprobante', function(){
-  $("#funcion").val("I");
   var resultado = ValidacionComprobante();
   if(resultado == false){
     return true;
@@ -541,7 +557,7 @@ $(document).on('click', '#btn-crear-comprobante', function(){
   var y = document.getElementById("num-lista").value;
   var x = 0;
   var tipolistado = "N";
-  var intIdTipoComprobante = document.getElementById("intIdTipoComprobante").value;
+  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
 	  $.ajax({
 	   url: "../../datos/comprobante/funcion_comprobante.php",
 	   method: "POST",
@@ -554,13 +570,13 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   		  MensajeNormal("Se generó correctamente la Venta",1);
         else
           MensajeNormal("Se generó correctamente la Compra",1);
-	   		$("#lista-comprobante").val(intIdTipoComprobante);
+	   		//$("#lista-comprobante").val(intIdTipoComprobante);
 	   		AccionCabecerasTablaComprobante(intIdTipoComprobante);
 	   		$('#txt-busqueda').val("");
 	   		LimpiarCampos();
 	   		$("#btnFormListarComprobante").click();
 	   		ListarComprobante(x,y,tipolistado);
-	   		PaginarComprobante(x,y,tipolistado);
+	   		//PaginarComprobante(x,y,tipolistado);
 		  }
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -614,28 +630,38 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
 $(document).on('click', '#btn-editar-comprobante', function(){
-	  $("#funcion").val("A");
-
-	  var y = document.getElementById("num-lista").value;
-	  var x = $(".marca").attr("idp") * y;
-	  var tipolistado = "E";
-	  var formData = $("#form-comprobante").serialize();
-	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
-	  $.ajax({
-	   url:"../../datos/comprobante/funcion_comprobante.php",
-	   method:"POST",
-	   data:formData,
-	   success:function(datos)
-	   {
-	   	if (datos=="okok") {
-	   		MensajeNormal("Se Modificó correctamente el Comprobante",1);
-	   		ListarComprobante(x,y,tipolistado);
-	   		PaginarComprobante(x,y,tipolistado);
-	   	}
-	   	else { $("#resultadocrud").html(datos); }
-	   }
-	  });
-	 return false;
+  var resultado = ValidacionComprobante();
+  if(resultado == false){
+    return true;
+  }
+  var formData = $("#form-comprobante").serialize();
+  var y = document.getElementById("num-lista").value;
+  var x = $(".marca-comprobante").attr("idp") * y;
+  var tipolistado = "E";
+  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+    $.ajax({
+     url: "../../datos/comprobante/funcion_comprobante.php",
+     method: "POST",
+     data: formData,
+     success:function(datos)
+     {
+      datos = datos.replace(/\s/g,'');
+      if (datos=="okok") {
+        if(intTipoDetalle == 1)
+          MensajeNormal("Se Modificó correctamente la Venta",1);
+        else
+          MensajeNormal("Se Modificó correctamente la Compra",1);
+        //$("#lista-comprobante").val(intIdTipoComprobante);
+        AccionCabecerasTablaComprobante(intIdTipoComprobante);
+        LimpiarCampos();
+        $("#btnFormListarComprobante").click();
+        ListarComprobante(x,y,tipolistado);
+        //PaginarComprobante((x/y),y,tipolistado);
+      }
+      else { $("#resultadocrud").html(datos); }
+     }
+    });
+   return false;
 });
 /* FIN - Funcion Ajax - Actualizar Cliente */
 //////////////////////////////////////////////////////////////
@@ -647,7 +673,7 @@ var intIdComprobante = $(this).attr("id");
 $('#MensajeAnularConfirmar').modal('show');
 $(document).on('click', '.modal-btn-si', function(){
   var y = document.getElementById("num-lista").value;
-  var x = $(".marca").attr("idp") * y;
+  var x = $(".marca-comprobante").attr("idp") * y;
   var tipolistado = "D";
   var funcion = "E";
   $.ajax({
@@ -660,7 +686,7 @@ $(document).on('click', '.modal-btn-si', function(){
     if (datos=="ok") {
       MensajeNormal("Se Anuló correctamente el Comprobante",1);
       ListarComprobante(x,y,tipolistado);
-      PaginarComprobante((x/y),y,tipolistado);
+      //PaginarComprobante((x/y),y,tipolistado);
     }
     else { $("#resultadocrud").html(datos); }
   }
@@ -750,7 +776,7 @@ $(document).on('click', '#btnBuscar', function(){
   	ListarComprobante(x,y,tipolistado);
 });
 
-$(document).on('click', '.btn-pagina', function(){
+$(document).on('click', '.btn-pagina-comprobante', function(){
   	var y = document.getElementById("num-lista").value;
   	var x = $(this).attr("idp") * y;
   	var tipolistado = "T";
@@ -759,7 +785,7 @@ $(document).on('click', '.btn-pagina', function(){
 
 $(document).on('change', '#lista-tipo-moneda', function(){
   	var y = document.getElementById("num-lista").value;
-  	var x = $(".marca").attr("idp") * y;
+  	var x = $(".marca-comprobante").attr("idp") * y;
   	var tipolistado = "T";
   	ListarComprobante(x,y,tipolistado);
 });
