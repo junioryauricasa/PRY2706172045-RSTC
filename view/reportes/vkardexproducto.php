@@ -133,7 +133,7 @@ include('../_include/rstheader.php');
                             <tr>
                               <th class="heading" style="width: 25px !important">&nbsp;</th>
                               <th style="width: 120px">Código</th>
-                              <th style="width: 400px">Descripción</th>
+                              <th style="">Descripción</th>
                               <th style="width: 100px">Cant. Total</th>
                               <th style="width: 95px">Ubicación</th>
                               <th style="width: 55px">Imágen</th>
@@ -207,7 +207,7 @@ include('../_include/rstheader.php');
                         <table class="ExcelTable2007 rwd-table" width="100%">
                           <thead>
                           <tr>
-                            <th class="heading" width="25px">&nbsp;</th>
+                            <th class="heading" style="width: 25px !important">&nbsp;</th>
                             <th>Ítem</th>
                             <th>Fecha</th>
                             <th>Tipo de Mov.</th>

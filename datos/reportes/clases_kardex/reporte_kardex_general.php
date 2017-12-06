@@ -168,7 +168,7 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["dtmFechaMovimiento"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
-                      <td style="font-family: Calibri; text-align: left; padding: 3px "><small>'.$fila["nvchDescripcion"].'</small></td>
+                      <td style="font-family: Calibri; text-align: left; padding: 3px; word-wrap: break-word; "><small>'.$fila["nvchDescripcion"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["CantidadEntradaTotal"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["CantidadSalidaTotal"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
@@ -182,7 +182,6 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
           </table>
       </div>
   </div>
-
 </div>
 
     <footer>
