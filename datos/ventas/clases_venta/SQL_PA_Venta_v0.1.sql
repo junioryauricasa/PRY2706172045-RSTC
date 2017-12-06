@@ -227,28 +227,3 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
-
-DROP PROCEDURE IF EXISTS LISTARULTIMASVENTAS;
-DELIMITER $$
-	CREATE PROCEDURE LISTARULTIMASVENTAS()
-	BEGIN
-		SELECT V.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
-		TC.nvchNombre AS NombreComprobante,
-		CASE 
-			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
-			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
-		END AS NombreCliente,
-		TMN.nvchSimbolo AS SimboloMoneda,
-		ROUND((SUM(DV.dcmTotal)/1.18),2) AS ValorVenta,
-		SUM(DV.dcmTotal) - ROUND((SUM(DV.dcmTotal)/1.18),2) AS IGVVenta,
-		SUM(DV.dcmTotal) AS TotalVenta
-		FROM tb_venta V
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
-		LEFT JOIN tb_detalle_venta DV ON V.intIdVenta = DV.intIdVenta
-		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
-		LEFT JOIN tb_tipo_comprobante TC ON V.intIdTipoComprobante = TC.intIdTipoComprobante
-		GROUP BY V.intIdVenta DESC LIMIT 10;
-    END
-$$
-DELIMITER ;

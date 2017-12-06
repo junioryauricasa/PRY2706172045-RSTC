@@ -1069,38 +1069,8 @@ function SeleccionarCliente(seleccion) {
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Producto */
 $(document).on('click', '#btn-crear-producto-s', function(){
-    var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
-    var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
-    $("#funcion").val("I");
-    if(EsVacio("nvchDescripcion") == false){
-      goToBox("#nvchDescripcionGroup");
-      return false;
-    } else if(EsNumeroEntero("intCantidadMinima") == false){
-      goToBox("#intCantidadMinimaGroup");
-      return false;
-    } else if(EsDecimal("dcmPrecioCompra") == false){
-      goToBox("#dcmPrecioCompraGroup");
-      return false;
-    } else if(EsDecimal("dcmPrecioVenta1") == false){
-      goToBox("#dcmPrecioVenta1Group");
-      return false;
-    } else if(EsDecimal("dcmPrecioVenta2") == false){
-      goToBox("#dcmPrecioVenta2Group");
-      return false;
-    } else if(EsDecimal("dcmPrecioVenta3") == false){
-      goToBox("#dcmPrecioVenta3Group");
-      return false;
-    } else if(EsDecimal("dcmDescuentoVenta2") == false){
-      goToBox("#dcmDescuentoVenta2Group");
-      return false;
-    } else if(EsDecimal("dcmDescuentoVenta3") == false){
-      goToBox("#dcmDescuentoVenta3Group");
-      return false;
-    } else if(num_filas_codigo == 0){
-      MensajeNormal("Ingrese por lo menos un Código de Producto",2);
-      return false;
-    } else if(num_filas_ubicacion == 0){
-      MensajeNormal("Ingresar por lo menos una Ubicación del Producto",2);
+    var resultado = ValidacionProducto();
+    if(resultado == false){
       return false;
     }
     var formData = $("#form-producto").serialize();

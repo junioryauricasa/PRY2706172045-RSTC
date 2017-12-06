@@ -190,9 +190,9 @@
                                     <td data-th="Cliente">'.$fila["NombreCliente"].'</td>
                                     <td data-th="Fecha">'.$fila["dtmFechaCreacion"].'</td>
                                     <td data-th="Moneda">'.$fila["SimboloMoneda"].'</td>
-                                    <td data-th="Valor Venta">'.$fila["ValorVenta"].'</td>
-                                    <td data-th="IGV">'.$fila["IGVVenta"].'</td>
-                                    <td data-th="Venta">'.$fila["TotalVenta"].'</td>
+                                    <td data-th="Valor Venta">'.$fila["ValorComprobante"].'</td>
+                                    <td data-th="IGV">'.$fila["IGVComprobante"].'</td>
+                                    <td data-th="Venta">'.$fila["TotalComprobante"].'</td>
                                 </tr>';
                               }
                             } catch(PDPExceptio $e) {

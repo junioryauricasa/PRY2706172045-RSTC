@@ -21,8 +21,8 @@ if(empty($_SESSION['intIdMaquinaria'])){
 switch($_POST['funcion']){
   case "I":
     $Producto = new Producto();
-    $Producto->IdTipoVenta($_POST['intIdTipoVenta']);
-    if($_POST['intIdTipoVenta']==1)
+    $Producto->IdTipoVenta($_POST['intIdTipoProducto']);
+    if($_POST['intIdTipoProducto']==1)
         $Producto->Descripcion($_POST['nvchDescripcion']);
     else
         $Producto->Descripcion($_POST['nvchDescripcionR']);
@@ -93,8 +93,8 @@ switch($_POST['funcion']){
   case "A":
     $Producto = new Producto();
     $Producto->IdProducto($_POST['intIdProducto']);
-    $Producto->IdTipoVenta($_POST['intIdTipoVenta']);
-    if($_POST['intIdTipoVenta'] == 1)
+    $Producto->IdTipoVenta($_POST['intIdTipoProducto']);
+    if($_POST['intIdTipoProducto'] == 1)
         $Producto->Descripcion($_POST['nvchDescripcion']);
     else
         $Producto->Descripcion($_POST['nvchDescripcionR']);

@@ -45,7 +45,7 @@ DELIMITER $$
 		SET
 		nvchNumeracion = _nvchNumeracion
 		WHERE 
-		intIdVenta = _intIdVenta;
+		intIdComprobante = _intIdComprobante;
     END 
 $$
 DELIMITER ;
@@ -109,7 +109,7 @@ DELIMITER $$
 		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		TMN.nvchNombre AS NombreMoneda,
 		TPG.nvchNombre AS NombrePago,
-		TV.nvchNombre AS NombreVenta,
+		TCR.nvchNombre AS NombreVenta,
 		TCL.nvchNombre AS TipoCliente,
 		TCL.intIdTipoCliente
 	    FROM tb_comprobante CR
@@ -118,7 +118,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_cliente TCL ON C.intIdTipoCliente = TCL.intIdTipoCliente
 		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
 		LEFT JOIN tb_tipo_pago TPG ON CR.intIdTipoPago = TPG.intIdTipoPago
-		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TV.intIdTipoVenta
+		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TCR.intIdTipoVenta
 		WHERE 
 		CR.intIdComprobante = _intIdComprobante;
     END 
@@ -147,13 +147,13 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT V.*,U.nvchUsername as NombreUsuario, 
+		SELECT CR.*,U.nvchUsername as NombreUsuario, 
 			CASE 
 				WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 				WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 			END AS NombreCliente FROM tb_venta V 
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
  		LIMIT _x,_y;
     END 
 $$
@@ -411,7 +411,7 @@ DROP PROCEDURE IF EXISTS LISTARULTIMOSCOMPROBANTE;
 DELIMITER $$
 	CREATE PROCEDURE LISTARULTIMOSCOMPROBANTE()
 	BEGIN
-		SELECT V.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		TC.nvchNombre AS NombreComprobante,
 		CASE 
 			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
@@ -422,11 +422,38 @@ DELIMITER $$
 		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVVenta,
 		SUM(DCR.dcmTotal) AS TotalVenta
 		FROM tb_venta V
-		LEFT JOIN tb_usuario U ON V.intIdUsuario = U.intIdUsuario
-		LEFT JOIN tb_cliente C ON V.intIdCliente = C.intIdCliente
-		LEFT JOIN tb_detalle_venta DV ON V.intIdVenta = DCR.intIdVenta
-		LEFT JOIN tb_tipo_moneda TMN ON V.intIdTipoMoneda = TMN.intIdTipoMoneda
-		LEFT JOIN tb_tipo_comprobante TC ON V.intIdTipoComprobante = TC.intIdTipoComprobante
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_comprobante TC ON CR.intIdTipoComprobante = TC.intIdTipoComprobante
+		GROUP BY CR.intIdComprobante DESC LIMIT 10;
+    END
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS LISTARULTIMASVENTAS;
+DELIMITER $$
+	CREATE PROCEDURE LISTARULTIMASVENTAS()
+	BEGIN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		TC.nvchNombre AS NombreComprobante,
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
+		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
+		SUM(DCR.dcmTotal) AS TotalComprobante
+		FROM tb_comprobante CR
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_comprobante TC ON CR.intIdTipoComprobante = TC.intIdTipoComprobante
+		WHERE
+		CR.intIdTipoComprobante <= 2
 		GROUP BY CR.intIdComprobante DESC LIMIT 10;
     END
 $$

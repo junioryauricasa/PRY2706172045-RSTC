@@ -1,3 +1,4 @@
+
 <script>
 function DescripcionProducto(intIdTipoVenta){
 	if(intIdTipoVenta == 1){
@@ -27,12 +28,10 @@ $(document).on('click', '#btn-form-crear-producto', function(){
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Producto */
 //////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Insertar Producto */
-$(document).on('click', '#btn-crear-producto', function(){
+function ValidacionProducto(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
-	  var intIdTipoVenta = $("#intIdTipoVenta").val();
+	  var intIdTipoVenta = $("#intIdTipoProducto").val();
 	  $("#funcion").val("I");
 	  if(intIdTipoVenta == 1){
 		if(EsVacio("nvchDescripcion") == false){
@@ -72,6 +71,16 @@ $(document).on('click', '#btn-crear-producto', function(){
 	  	return false;
 	  } else if(num_filas_ubicacion == 0){
 	  	MensajeNormal("Ingresar por lo menos una Ubicación del Producto",2);
+	  	return false;
+	  }
+	  return true;
+}
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Insertar Producto */
+$(document).on('click', '#btn-crear-producto', function(){
+	  var resultado = ValidacionProducto();
+	  if(resultado == false){
 	  	return false;
 	  }
 	  var formData = $("#form-producto").serialize();
@@ -122,8 +131,8 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   		$("#nvchDescripcion").val(datos.nvchDescripcion);
 	   	else
 	   		$("#nvchDescripcionR").val(datos.nvchDescripcion);
-	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
-	   	$("#intIdTipoVenta").change();
+	   	$("#intIdTipoProducto").val(datos.intIdTipoVenta);
+	   	$("#intIdTipoProducto").change();
 	   	$("#nvchObservacion").val(datos.nvchObservacion);
 		$("#nvchUnidadMedida").val(datos.nvchUnidadMedida);
 		$("#intCantidad").val(datos.intCantidad);
@@ -167,7 +176,7 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 $(document).on('click', '#btn-editar-producto', function(){
 	  var num_filas_codigo = document.getElementById('ListaDeCodigos').rows.length;
 	  var num_filas_ubicacion = document.getElementById('ListaDeUbicaciones').rows.length;
-	  var intIdTipoVenta = $("#intIdTipoVenta").val();
+	  var intIdTipoVenta = $("#intIdTipoProducto").val();
 	  $("#funcion").val("A");
 	  if(intIdTipoVenta == 1){
 		if(EsVacio("nvchDescripcion") == false){
@@ -377,14 +386,14 @@ function AgregarCodigo() {
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
 	var validacion = true;
 	$('#ListaDeCodigos tr').each(function(){
-        if($(this).find('td').eq(1).text() == 'Principal'){
+		var texto = $(this).find('td').eq(2).text().replace(/\s/g,'');
+        if(texto == 'Principal'){
             validacion = false;
         }
     });
     if(EsVacio("nvchCodigo") == false){
 		return false;
-	}
-    else if(validacion == false){
+	} else if(validacion == false){
     	if (intIdTipoCodigoProducto == 1) {
 	    	MensajeNormal("No puede haber más de un Código Principal",2);
 	    	return false;
@@ -397,6 +406,7 @@ function AgregarCodigo() {
 		+intIdTipoCodigoProducto+'"/>'+$("#tipo-codigo-producto option:selected").html()+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
+	RestablecerValidacion("nvchCodigo",1);
 }
 /* FIN - Listar Códigos según Ingresa */
 //////////////////////////////////////////////////////////////
@@ -438,6 +448,8 @@ function AgregarUbigeo() {
 		+intCantidadUbigeo+'"/>'+intCantidadUbigeo+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
+	RestablecerValidacion("nvchUbicacion",1);
+	RestablecerValidacion("intCantidadUbigeo",1);
 }
 /* FIN - Listar Ubicaciones según Ingresa */
 //////////////////////////////////////////////////////////////
@@ -559,15 +571,16 @@ function limpiarformProducto(){
       RestablecerValidacion("dcmPrecioVenta3",1);
       RestablecerValidacion("dcmDescuentoVenta2",1);
       RestablecerValidacion("dcmDescuentoVenta3",1);
-
+      $("#dcmDescuentoVenta2").val("7");
+      $("#dcmDescuentoVenta3").val("15");
       $("#nvchObservacion").val("");
       $("#nvchDireccionImg").val("");
       $("#resultadoimagen").attr("src","../../datos/inventario/imgproducto/productosinfoto.png");
       $("#intIdTipoMonedaCompra").val(1);
       $("#intIdTipoMonedaVenta").val(1);
       $("#intIdProducto").val("");
-      $("#intIdTipoVenta").val(1);
-      $("#intIdTipoVenta").change();
+      $("#intIdTipoProducto").val(1);
+      $("#intIdTipoProducto").change();
       $("#dtmFechaIngreso").val("");
       //imprime las tablas vacias
       $("#ListaDeCodigos").html("");  //vacia las filas de la tabla
