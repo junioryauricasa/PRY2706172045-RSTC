@@ -203,11 +203,11 @@
               <textarea id="nvchDescripcionI1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>
             </td>
             <td>
-              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" class=""/>
+              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" class=""/>
             </td>
             <td> 
               <input type="text" id="intCantidadI1" name="intCantidadI[]" idsprt="1" form="form-comprobante" 
-              onkeyup="CalcularPrecioTotalM(this)" class=""/>           
+              onkeyup="CalcularPrecioTotalI(this)" class=""/>           
             </td>
             <td>
               <input type="text" id="dcmTotalI1" name="dcmTotalI[]" form="form-comprobante" class="" readonly/>

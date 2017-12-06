@@ -80,8 +80,8 @@ class Cotizacion{
       $salidas = $sql_conectar->query("select @intIdCotizacion as intIdCotizacion");
       $salida = $salidas->fetchObject();
       $_SESSION['intIdCotizacion'] = $salida->intIdCotizacion;
-      $Numeraciones = new Numeraciones();
-      $nvchNumeracion = $Numeraciones -> NumeracionSimpleInterna($_SESSION['intIdCotizacion']);
+      $ieraciones = new Numeraciones();
+      $nvchNumeracion = $ieraciones -> NumeracionSimpleInterna($_SESSION['intIdCotizacion']);
       $sql_comando = $sql_conectar->prepare('CALL InsertarNumeracionCotizacion(:intIdCotizacion,:nvchNumeracion)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $_SESSION['intIdCotizacion'],
@@ -185,7 +185,7 @@ class Cotizacion{
       $salida = "";
       $residuo = 0;
       $cantidad = 0;
-      $numpaginas = 0;
+      $ipaginas = 0;
       $i = 0;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
@@ -195,8 +195,8 @@ class Cotizacion{
         $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
         $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
         $cantidad = $sql_comando -> rowCount();
-        $numpaginas = ceil($cantidad / $y);
-        $x = ($numpaginas - 1) * $y;
+        $ipaginas = ceil($cantidad / $y);
+        $x = ($ipaginas - 1) * $y;
         $i = 1;
       } else if ($tipolistado == "D"){
         $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
@@ -209,7 +209,7 @@ class Cotizacion{
       //Busqueda de Cliente por el comando LIMIT
       $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
-      $numpaginas = ceil($cantidad / $y);
+      $ipaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
@@ -345,13 +345,13 @@ class Cotizacion{
       $sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
       $cantidad = $sql_comando -> rowCount();
-      $numpaginas = ceil($cantidad / $y);
+      $ipaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
-      { $x = $numpaginas - 1; }
+      { $x = $ipaginas - 1; }
       else if($tipolistado == "E")
       { $x = $x / $y; }
       $output = "";
-      for($i = 0; $i < $numpaginas; $i++){
+      for($i = 0; $i < $ipaginas; $i++){
         if($i==0)
         {
           //$output = 'No s eencontraron nada';
@@ -383,9 +383,9 @@ class Cotizacion{
             $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
           }
 
-        if($i==($numpaginas-1))
+        if($i==($ipaginas-1))
         {
-          if($x==($numpaginas-1))
+          if($x==($ipaginas-1))
           {
             $output .= 
             '<li class="page-item disabled">
@@ -463,13 +463,14 @@ class Cotizacion{
     }  
   }
 
-  public function InsertarCotizacionComprobante($intIdCotizacion,$intIdTipoMoneda,$num)
+  public function InsertarCotizacionComprobante($intIdCotizacion,$intIdTipoMoneda,$i)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:intIdCotizacion)');
       $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         $dtmFechaCambio =  date('Y-m-d');
@@ -501,29 +502,29 @@ class Cotizacion{
         $dcmTotal = number_format(($dcmPrecioUnitario * $fila['intCantidad']),2,'.','');
         echo '
         <tr>
-        <td class="heading" data-th="ID"></td> '.
-        '<td><input type="hidden" name="fila[]" value="'.$num.'" form="form-venta" />'.
-            '<input type="hidden" id="intIdProducto'.$num.'" name="intIdProducto[]" form="form-venta" value="'.$fila_producto['intIdProducto'].'" />'.
-            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$num.'" name="nvchCodigo[]" form="form-venta" value="'.$fila_producto['nvchCodigo'].'" />'.
-            '<div class="result" id="result'.$num.'">'.
+        <td class="heading" data-th="ID">'.$i.'</td> '.
+        '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-venta" />'.
+            '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-venta" value="'.$fila_producto['intIdProducto'].'" />'.
+            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" form="form-venta" value="'.$fila_producto['nvchCodigo'].'" />'.
+            '<div class="result" id="result'.$i.'">'.
         '</td>'.
-        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$num.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
+        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
         '<td>'.
-          '<input type="text" id="dcmPrecio'.$num.'" name="dcmPrecio[]" form="form-venta" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
-          '<input type="hidden" id="dcmDescuentoVenta2'.$num.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
-          '<input type="hidden" id="dcmDescuentoVenta3'.$num.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
+          '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-venta" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta3'.$i.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
         '</td>'.
-        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$num.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$num.'"'.
+        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$i.'"'.
           'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" /></td>'.
-        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$num.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
-        '<td><input type="text" id="intCantidad'.$num.'" name="intCantidad[]" form="form-venta" idsprt="'.$num.'"'.
+        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
+        '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-venta" idsprt="'.$i.'"'.
           'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'"/></td>'.
-        '<td><input type="text" id="dcmTotal'.$num.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
+        '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
         '<td>'.
           '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
         '</td>'.
       '</tr>';
-      $num++;
+      $i++;
       }
     }
     catch(PDPExceptions $e){

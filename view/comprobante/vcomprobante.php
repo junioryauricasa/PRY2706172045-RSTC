@@ -245,6 +245,8 @@
                   <input type="hidden" id="intTipoDetalle" name="intTipoDetalle" value="<?php echo $intTipoDetalle; ?>" form="form-comprobante">
                   <input type="hidden" id="intIdTipoComprobanteI" name="intIdTipoComprobanteI" value="<?php echo $intIdTipoComprobante; ?>" form="form-comprobante">
                   <input type="hidden" name="funcion" id="funcion" value="" form="form-comprobante">
+                  <input type="hidden" name="Letra" id="Letra" value="" form="form-comprobante">
+                  <input type="hidden" name="Tabla" id="Tabla" value="" form="form-comprobante">
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
                   <div class="text-center">

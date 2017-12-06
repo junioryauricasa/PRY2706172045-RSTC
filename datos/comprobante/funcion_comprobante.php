@@ -19,9 +19,10 @@ if(empty($_SESSION['TotalVenta'])){
 }
 if(empty($_SESSION['TotalCompra'])){
   $_SESSION['TotalCompra'] = 0;
-} 
+}
 switch($_POST['funcion']){
   case "I":
+    echo "a";
     $Comprobante = new Comprobante();
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $Comprobante->TipoDetalle($_POST['intTipoDetalle']);

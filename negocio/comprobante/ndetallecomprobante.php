@@ -34,12 +34,19 @@ function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
 	   data:{intIdComprobante:intIdComprobante,funcion:funcion,tipolistado:tipolistado},
 	   success:function(datos)
 	   {
-	   	if(intIdTipoVenta == 1)
+	   	if(intIdTipoVenta == 1){
 	   		$("#ListaDeProductosVender").html(datos);
-	   	else if(intIdTipoVenta == 2)
+	   		num = document.getElementById('ListaDeProductosVender').rows.length + 1;
+	   	} else if(intIdTipoVenta == 2){
 	   		$("#ListaDeServiciosVender").html(datos);
-	   	else if(intIdTipoVenta == 3)
+	   		nums = document.getElementById('ListaDeServiciosVender').rows.length + 1;
+	   	} else if(intIdTipoVenta == 3){
 	   		$("#ListaDeMaquinariasVender").html(datos);
+	   		numm = document.getElementById('ListaDeMaquinariasVender').rows.length + 1;
+	   	} else if(intIdTipoVenta == 4){
+	   		$("#ListaDeImplementosVender").html(datos);
+	   		numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
+	   	}
 	   	CalcularTotal();
 	   }
 	  });
@@ -167,6 +174,27 @@ function CalcularPrecioTotalM(accion) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Calcular Precio Unitario */
+function CalcularPrecioTotalI(accion) {
+	var numfila = $(accion).attr("idsprt");
+	var intCantidad = $("#intCantidadI"+numfila).val();
+	var dcmPrecioUnitario = $("#dcmPrecioUnitarioI"+numfila).val();
+	if (intCantidad == "" || intCantidad == null) {
+		$("#dcmTotalI"+numfila).val("0.00");
+		CalcularTotal();
+	} else if(dcmPrecioUnitario == "" || dcmPrecioUnitario == "") {
+		$("#dcmTotalI"+numfila).val("0.00");
+		CalcularTotal();
+	} else {
+		var dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+		$("#dcmTotalI"+numfila).val(dcmTotal);
+		CalcularTotal();
+	}
+}
+/* FIN - Calcular Precio Unitario */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CambiarMoneda(){
 	var intIdTipoVenta = $("#intIdTipoVenta").val();
@@ -182,6 +210,9 @@ function CambiarMoneda(){
 	Number(dcmTotal);
 	Number(dcmDescuento);
 	Number(intCantidad);
+
+	var Letra = TipoLetra();
+	var Tabla = TipoTabla();
 
 	var funcion = "MF";
 	var nvchFecha = $("#nvchFecha").val();
@@ -222,48 +253,48 @@ function CambiarMoneda(){
 			        }); 
 			    });
 		   	} else if (intIdTipoComprobante >= 5){
-		   		$('table tbody#ListaDeProductosVender tr').each(function() {
+		   		$('table tbody#ListaDe'+Tabla+'Vender tr').each(function() {
 		        	$(this).find("td input[name='fila[]']").each(function() {
-		        		if($("#dcmPrecioUnitario"+this.value).val() != ""){
-			        		dcmPrecioUnitario = $("#dcmPrecioUnitario"+this.value).val();
-				    		intCantidad = $("#intCantidad"+this.value).val();
+		        		if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
+			        		dcmPrecioUnitario = $("#dcmPrecioUnitario"+Letra+this.value).val();
+				    		intCantidad = $("#intCantidad"+Letra+this.value).val();
 				    		Number(datos);
-				    		if($("#dcmPrecioUnitario"+this.value).val() != ""){
+				    		if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
 					        	if(intIdTipoMoneda == 1){
 					        		dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
 					        	} else if(intIdTipoMoneda == 2){
 					        		dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
 					        	}
-					        	$("#dcmPrecioUnitario"+this.value).val(dcmPrecioUnitario);
+					        	$("#dcmPrecioUnitario"+Letra+this.value).val(dcmPrecioUnitario);
 					        }
 
-				        	if($("#intCantidad"+this.value).val() != ""){
+				        	if($("#intCantidad"+Letra+this.value).val() != ""){
 				        		dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
-				        		$("#dcmTotal"+this.value).val(dcmTotal);
+				        		$("#dcmTotal"+Letra+this.value).val(dcmTotal);
 				        	}
 					    }
 			        }); 
 			    });
 		   	}
-	   	} else if(intIdTipoVenta == 2){
-	   	$('table tbody#ListaDeServiciosVender tr').each(function() {
+	   	} else if(intIdTipoVenta >= 2){
+	   	$('table tbody#ListaDe'+Tabla+'Vender tr').each(function() {
         	$(this).find("td input[name='fila[]']").each(function() {
-        		if($("#dcmPrecioUnitario"+this.value).val() != ""){
-			   		dcmPrecioUnitario = $("#dcmPrecioUnitarioS"+this.value).val();
-		    		intCantidad = $("#intCantidadS"+this.value).val();
+        		if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
+			   		dcmPrecioUnitario = $("#dcmPrecioUnitario"+Letra+this.value).val();
+		    		intCantidad = $("#intCantidad"+Letra+this.value).val();
 		    		Number(datos);
-		    		if($("#dcmPrecioUnitarioS"+this.value).val() != ""){
+		    		if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
 			        	if(intIdTipoMoneda == 1){
 			        		dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
 			        	} else if(intIdTipoMoneda == 2){
 			        		dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
 			        	}
-			        	$("#dcmPrecioUnitarioS"+this.value).val(dcmPrecioUnitario);
+			        	$("#dcmPrecioUnitario"+Letra+this.value).val(dcmPrecioUnitario);
 			        }
 
-		        	if($("#intCantidadS"+this.value).val() != ""){
+		        	if($("#intCantidad"+Letra+this.value).val() != ""){
 		        		dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
-		        		$("#dcmTotalS"+this.value).val(dcmTotal);
+		        		$("#dcmTotal"+Letra+this.value).val(dcmTotal);
 		        	}
 	        	}
         	}); 
@@ -279,7 +310,6 @@ function CambiarMoneda(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Calcula el Total del Comprobante */
 function CalcularTotal(){
-	var intIdTipoVenta = $("#intIdTipoVenta").val();
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
 	var nvchSimbolo = "";
 
@@ -296,15 +326,21 @@ function CalcularTotal(){
 	Number(ComprobanteTotal);
 	Number(ValorComprobante);
 
+	var Letra = TipoLetra();
+	var Tabla = TipoTabla();
+
+	$('table tbody#ListaDe'+Tabla+'Vender tr').each(function() {
+        $(this).find("td input[name='dcmTotal"+Letra+"[]']").each(function() {
+            ComprobanteTotal = ComprobanteTotal + Number(this.value);
+        }); 
+    });
+    ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
+    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
+    ComprobanteTotal = ComprobanteTotal.toFixed(2);
+
+	/*
 	if(intIdTipoVenta == 1){
-		$('table tbody#ListaDeProductosVender tr').each(function() {
-	        $(this).find("td input[name='dcmTotal[]']").each(function() {
-	            ComprobanteTotal = ComprobanteTotal + Number(this.value);
-	        }); 
-	    });
-	    ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
-	    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
-	    ComprobanteTotal = ComprobanteTotal.toFixed(2);
+		
 	} else if(intIdTipoVenta == 2) {
 		$('table tbody#ListaDeServiciosVender tr').each(function() {
 	        $(this).find("td input[name='dcmTotalS[]']").each(function() {
@@ -315,7 +351,7 @@ function CalcularTotal(){
 	    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
 	    ComprobanteTotal = ComprobanteTotal.toFixed(2);
 	}
-
+	*/
 	$("#ValorComprobante").val(nvchSimbolo + ' ' + ValorComprobante);
     $("#IGVComprobante").val(nvchSimbolo + ' ' + IGVComprobante);
 	$("#ComprobanteTotal").val(nvchSimbolo + ' ' + ComprobanteTotal);
@@ -390,12 +426,13 @@ function InsertarCotizacion(seleccion) {
 	   success:function(datos)
 	   {
 	   	EliminarFilasVacias();
-	   	$("#ListaDeProductosVender").append(datos); 
-	   	ReestablecerNumeracionFilas();
+	   	$("#ListaDeProductosVender").html(datos); 
+	   	//ReestablecerNumeracionFilas();
 	   	CalcularTotal();
 	   	$("#formCotizacion").modal("hide");
 	   }
 	});
+	num = document.getElementById('ListaDeProductosVender').rows.length + 1;
 }
 /* FIN - Listar Domicilios según Ingresa */
 //////////////////////////////////////////////////////////////

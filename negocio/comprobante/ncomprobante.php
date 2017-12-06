@@ -8,6 +8,49 @@
     var numm = 2;
     var numi = 2;
     var numfila = 0;
+
+    function TipoLetra(){
+      var intIdTipoVenta = $("#intIdTipoVenta").val();
+      var Letra = "";
+      switch(intIdTipoVenta){
+        case "1":
+          Letra = "";
+          break;
+        case "1":
+          Letra = "S";
+          break;
+        case "3":
+          Letra = "M";
+          break;
+        case "4":
+          Letra = "I";
+          break;
+      }
+      $("#Letra").val(Letra);
+      return Letra;
+    }
+
+    function TipoTabla(){
+      var intIdTipoVenta = $("#intIdTipoVenta").val();
+      var Tabla = "";
+      switch(intIdTipoVenta){
+        case "1":
+          Tabla = "Productos";
+          break;
+        case "2":
+          Tabla = "Servicios";
+          break;
+        case "3":
+          Tabla = "Maquinarias";
+          break;
+        case "4":
+          Tabla = "Implementos";
+          break;
+      }
+      $("#Tabla").val(Tabla);
+      return Tabla;
+    }
+
     $(document).on('keyup', '.buscar', function(evt){
       var charCode = (evt.which) ? evt.which : evt.keyCode;
       if(charCode == 40 || charCode == 38)
@@ -17,6 +60,7 @@
          numfila = this.value;
       });
 
+      var Letra = TipoLetra();
       var search = $(this).val();
       search = search.replace(/\s/g,'');
       var funcion = "BP"
@@ -30,8 +74,8 @@
           cache: false,
           success: function(html)
           {
-            $("#result"+numfila).html(html).show();
-            numprt = $("#result"+numfila+" li").length;
+            $("#result"+Letra+numfila).html(html).show();
+            numprt = $("#result"+Letra+numfila+" li").length;
             numprtst = 0;
             $(".result li:eq("+numprtst+")").css("background","#4C66A4");
             $(".result li:eq("+numprtst+")").css("color","#FFFFFF");
@@ -39,7 +83,7 @@
         });
       }
       else {
-        $("#result"+numfila).html("").hide();
+        $("#result"+Letra+numfila).html("").hide();
       }
       return false; 
     });
@@ -53,25 +97,10 @@
         var intIdProducto = clicked.find('.intIdProducto').val();
         nvchCodigo = nvchCodigo.replace(/\s/g,'');
         intIdProducto = intIdProducto.replace(/\s/g,'');
-        $('#nvchCodigo'+numfila).val(nvchCodigo);
+        //$('#nvchCodigo'+numfila).val(nvchCodigo);
         $(".result").html("").hide();
         InsertarProductoElegido(intIdProducto,numfila);
       }
-    });
-
-    $(document).on('click', '.buscar', function(){
-      $(".result").html("").hide();
-    });
-
-    $(document).on('click', function(e){
-      var clicked = $(e.target);
-      if (!clicked.hasClass("buscar")){
-        $(".result").html("").hide();
-      }
-    });
-
-    $(document).on('click', '.buscar', function(){
-      $(".result").html("").hide();
     });
 
     $(document).on('click', function(e){
@@ -82,6 +111,7 @@
     });
 
     function TeclaSeleccionCodigo(evt){
+      var Letra = TipoLetra();
       var charCode = (evt.which) ? evt.which : evt.keyCode;
       if($(".result").is(":visible")){
         switch(charCode){
@@ -90,8 +120,8 @@
               var intIdProducto = $(".result li:eq("+numprtst+")").find('.intIdProducto').val();
               nvchCodigo = nvchCodigo.replace(/\s/g,'');
               intIdProducto = intIdProducto.replace(/\s/g,'');
-              $('#nvchCodigo'+numfila).val(nvchCodigo);
-              $('#nvchCodigo'+numfila).blur();
+              $('#nvchCodigo'+Letra+numfila).val(nvchCodigo);
+              $('#nvchCodigo'+Letra+numfila).blur();
               $(".result").html("").hide();
               InsertarProductoElegido(intIdProducto,numfila);
             break;
@@ -123,6 +153,7 @@
     function InsertarProductoElegido(intIdProducto,id){
       var funcion = "SP";
       var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+      var Letra = TipoLetra();
       $.ajax({
        url:"../../datos/inventario/funcion_producto.php",
        method:"POST",
@@ -130,13 +161,13 @@
        dataType:"json",
        success:function(datos)
        {
-        $("#intIdProducto"+id).val(datos.intIdProducto);
-        $("#nvchCodigo"+id).val(datos.nvchCodigo);
+        $("#intIdProducto"+Letra+id).val(datos.intIdProducto);
+        $("#nvchCodigo"+Letra+id).val(datos.nvchCodigo);
         //$("#detalleUbigeoProducto"+id).html(datos.detalleUbigeoProducto);
-        $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
-        $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
-        $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);
-        $("#dcmDescuentoVenta3"+id).val(datos.dcmDescuentoVenta3);
+        $("#nvchDescripcion"+Letra+id).val(datos.nvchDescripcion);
+        $("#dcmPrecio"+Letra+id).val(datos.dcmPrecioVenta1);
+        $("#dcmDescuentoVenta2"+Letra+id).val(datos.dcmDescuentoVenta2);
+        $("#dcmDescuentoVenta3"+Letra+id).val(datos.dcmDescuentoVenta3);
        }
       });
     }
@@ -507,7 +538,6 @@ $(document).on('click', '#btn-crear-comprobante', function(){
     return true;
   }
   var formData = $("#form-comprobante").serialize();
-  var funcion = "I";
   var y = document.getElementById("num-lista").value;
   var x = 0;
   var tipolistado = "N";
