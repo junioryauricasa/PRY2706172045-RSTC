@@ -202,7 +202,7 @@ $(document).on('click', '.btn-mostrar-proveedor', function(){
 $(document).on('click', '#btn-editar-proveedor-actualizar', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
+  	  var x = $(".marca-proveedor").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-proveedor").serialize();
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
@@ -271,7 +271,7 @@ $(document).on('click', '.btn-eliminar-proveedor', function(){
 	$(document).on('click', '.modal-btn-si', function(){
 	  	  var intIdProveedor = idreg;
 	  	  var y = document.getElementById("num-lista").value;
-	  	  var x = $(".marca").attr("idp") * y;
+	  	  var x = $(".marca-proveedor").attr("idp") * y;
 	  	  var tipolistado = "D";
 	  	  var funcion = "E";
 	  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
@@ -319,7 +319,7 @@ $(document).on('change', '#lista-persona', function(){
 	  ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 });
 
-$(document).on('click', '.btn-pagina', function(){
+$(document).on('click', '.btn-pagina-proveedor', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(this).attr("idp") * y;
   	  var tipolistado = "T";

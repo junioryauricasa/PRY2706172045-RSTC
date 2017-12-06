@@ -152,7 +152,7 @@ $(document).on('click', '.btn-mostrar-cliente', function(){
 $(document).on('click', '#btn-editar-cliente-actualizar', function(){
   	  var funcion = "A";
   	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
+  	  var x = $(".marca-cliente").attr("idp") * y;
   	  var tipolistado = "E";
   	  var formData = $("#form-cliente").serialize();
   	  var intIdTipoPersona = document.getElementById("tipo-persona").value;
@@ -220,7 +220,7 @@ $(document).on('click', '#btn-editar-cliente-actualizar', function(){
 $(document).on('click', '.btn-eliminar-cliente', function(){
   	  var intIdCliente = $(this).attr("id");
   	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
+  	  var x = $(".marca-cliente").attr("idp") * y;
   	  var tipolistado = "D";
   	  var funcion = "E";
   	  var intIdTipoPersona = document.getElementById("lista-persona").value;
@@ -253,7 +253,7 @@ $(document).on('change', '#num-lista', function(){
 	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
 });
 
-$(document).on('click', '.btn-pagina', function(){
+$(document).on('click', '.btn-pagina-cliente', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = $(this).attr("idp") * y;
   	  var tipolistado = "T";

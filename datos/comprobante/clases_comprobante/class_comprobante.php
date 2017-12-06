@@ -121,9 +121,10 @@ class Comprobante{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ActualizarComprobante(:intIdComprobante,:intIdTipoComprobante,:intIdSucursal,
-        :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,
-        :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
+      $sql_comando = $sql_conectar->prepare('CALL ActualizarComprobante(:intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
+        :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,
+        :nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,
+        :intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdComprobante' => $this->intIdComprobante,
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
@@ -333,8 +334,6 @@ class Comprobante{
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
       { $x = $numpaginas - 1; }
-      else if($tipolistado == "E")
-      { $x = $x / $y; }
       $output = "";
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
@@ -352,7 +351,7 @@ class Comprobante{
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.($x-1).'" class="page-link btn-pagina" aria-label="Previous">
+                <a idp="'.($x-1).'" class="page-link btn-pagina-comprobante" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
@@ -361,11 +360,11 @@ class Comprobante{
         }
 
         if($x==$i){
-          $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina marca">'.($i+1).'</a></li>';
+          $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina-comprobante marca-comprobante">'.($i+1).'</a></li>';
         }
         else
         {
-          $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina">'.($i+1).'</a></li>';
+          $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina-comprobante">'.($i+1).'</a></li>';
         }
 
         if($i==($numpaginas-1))
@@ -382,7 +381,7 @@ class Comprobante{
           } else {
             $output .= 
             '<li class="page-item">
-                <a idp="'.($x+1).'" class="page-link btn-pagina" aria-label="Next">
+                <a idp="'.($x+1).'" class="page-link btn-pagina-comprobante" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
@@ -393,14 +392,14 @@ class Comprobante{
       if($output == ""){
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Previous">
+                <a class="page-link btn-pagina-comprobante" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Anterior</span>
                 </a>
             </li>';
         $output .= 
             '<li class="page-item">
-                <a class="page-link btn-pagina" aria-label="Next">
+                <a class="page-link btn-pagina-comprobante" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Siguiente</span>
                 </a>
