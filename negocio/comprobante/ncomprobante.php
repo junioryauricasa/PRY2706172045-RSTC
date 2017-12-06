@@ -159,7 +159,7 @@
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
         '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
+          '<td class="heading" data-th="ID">'+num+'</td>'+
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
               '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
               '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
@@ -179,7 +179,7 @@
       } else if(intIdTipoVenta == 2){
         $('#ListaDeServiciosVender').append(
         '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
+          '<td class="heading" data-th="ID">'+nums+'</td>'+
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>'+
@@ -203,11 +203,11 @@
       } else if(intIdTipoVenta == 3){
         $('#ListaDeMaquinariasVender').append(
         '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'+num+'" name="nvchCodigoM[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
-              '<div class="result" id="resultM'+num+'">'+
+          '<td class="heading" data-th="ID">'+numm+'</td>'+
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'+numm+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'+numm+'" name="nvchCodigoM[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+              '<div class="result" id="resultM'+numm+'">'+
           '</td>'+
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
@@ -232,11 +232,11 @@
       } else if(intIdTipoVenta == 4){
         $('#ListaDeImplementosVender').append(
         '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'+num+'" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
-              '<div class="result" id="resultI'+num+'">'+
+          '<td class="heading" data-th="ID">'+numi+'</td>'+
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'+numi+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'+numi+'" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+              '<div class="result" id="resultI'+numi+'">'+
           '</td>'+
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
@@ -356,19 +356,29 @@ function LimpiarCampos(){
 /* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
 function HabilitacionOpciones(accion){
 	if(accion == 1){
+    $('.opcion-boton-editar').hide();
 		$('#intIdSucursalC').attr("disabled", false);
 		$('#intIdTipoComprobante').attr("disabled", false);
 		$('#intIdTipoVenta').attr("disabled", false);
 		$('#intIdTipoPago').attr("disabled", false);
+    $("#nvchSerie").attr("readonly",false);
+    $("#nvchNumeracion").attr("readonly",false);
 		$('.opcion-boton-nuevo').show();
 		$('.opcion-columna-nuevo').show();
 	} else {
+    <?php if($_SESSION['intIdTipoUsuario'] != 1) {?>
 		$('#intIdSucursalC').attr("disabled", true);
 		$('#intIdTipoComprobante').attr("disabled", true);
 		$('#intIdTipoVenta').attr("disabled", true);
 		$('#intIdTipoPago').attr("disabled", true);
-		$('.opcion-boton-nuevo').hide();
+    $("#nvchSerie").attr("readonly",true);
+    $("#nvchNumeracion").attr("readonly",true);
 		$('.opcion-columna-nuevo').hide();
+    $('.opcion-boton-editar').show();
+    <?php } else {?>
+    $('#btn-crear-comprobante').hide();
+    $('.opcion-boton-editar').show();
+    <?php } ?>
 	}
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
@@ -402,62 +412,106 @@ $(document).on('click', '#btn-form-crear-comprobante', function(){
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Cliente */
 //////////////////////////////////////////////////////////////
 
+function ValidacionFilasVacias(TipoVenta,Letra) {
+  var i = 0;
+  $('table tbody#ListaDe'+TipoVenta+'Vender tr').each(function() {
+        $(this).find("td input[name='dcmTotal"+Letra+"[]']").each(function() {
+            if(this.value == "" || this.value == null){
+              i++;            }
+        });
+    });
+  return i;
+}
+
+function ValidacionComprobante(){
+  var intIdTipoVenta = $("#intIdTipoVenta").val();
+  //var intTipoDetalle = $("#intTipoDetalle").val();
+  var Persona = "<?php echo $lblPersonaSingular; ?>";
+  var intIdPersona = $("#intId"+Persona).val()
+  if(intIdPersona == "" || intIdPersona == null){
+    MensajeNormal("Seleccionar a un "+Persona,2);
+    return false;
+  } else if(EsFecha('nvchFecha') == false){
+    goToBox("#nvchFechaGroup");
+    return false;
+  } else if(EsVacio('nvchSerie') == false){
+    goToBox("#nvchSerieGroup");
+    return false;
+  } else if(EsVacio('nvchNumeracion') == false){
+    goToBox("#nvchNumeracionGroup");
+    return false;
+  }
+
+  switch(intIdTipoVenta){
+    case "1":
+        var num_filas_detalle_comprobante = document.getElementById('ListaDeProductosVender').rows.length;
+        if(num_filas_detalle_comprobante == 0){
+          MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+          return false;
+        } else {
+          var filas_vacias = ValidacionFilasVacias("Productos","");
+          if (filas_vacias == num_filas_detalle_comprobante) {
+            MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+            return false;
+          }
+        }
+        break;
+    case "2":
+        var num_filas_detalle_comprobante = document.getElementById('ListaDeServiciosVender').rows.length;
+        if(num_filas_detalle_comprobante == 0){
+          MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+          return false;
+        } else {
+          var filas_vacias = ValidacionFilasVacias("Servicios","S");
+          if (filas_vacias == num_filas_detalle_comprobante) {
+            MensajeNormal("Ingresar por lo menos elegir un Servicio",2);
+            return false;
+          }
+        }
+        break;
+    case "3":
+        var num_filas_detalle_comprobante = document.getElementById('ListaDeMaquinariasVender').rows.length;
+        if(num_filas_detalle_comprobante == 0){
+          MensajeNormal("Ingresar por lo menos ingresar una Maquinaria",2);
+          return false;
+        } else {
+          var filas_vacias = ValidacionFilasVacias("Maquinarias","M");
+          if (filas_vacias == num_filas_detalle_comprobante) {
+            MensajeNormal("Ingresar por lo menos elegir una Maquinaria",2);
+            return false;
+          }
+        }
+        break;
+    case "4":
+        var num_filas_detalle_comprobante = document.getElementById('ListaDeImplementosVender').rows.length;
+        if(num_filas_detalle_comprobante == 0){
+          MensajeNormal("Ingresar por lo menos ingresar un Implemento",2);
+          return false;
+        } else {
+          var filas_vacias = ValidacionFilasVacias("Implementos","I");
+          if (filas_vacias == num_filas_detalle_comprobante) {
+            MensajeNormal("Ingresar por lo menos elegir un Implemento",2);
+            return false;
+          }
+        }
+        break;
+  }
+}
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-comprobante', function(){
-	var intIdTipoVenta = $("#intIdTipoVenta").val();
-  var intTipoDetalle = $("#intTipoDetalle").val();
-	if(intTipoDetalle == 1){
-    if(intIdTipoVenta == 1){
-  	  var num_filas_detalle_comprobante = document.getElementById('ListaDeProductosVender').rows.length;
-  	  var intIdCliente = $("#intIdCliente").val();
-  	  if(intIdCliente == "" || intIdCliente == null){
-  	  	MensajeNormal("Seleccionar a un Cliente",2);
-  	  	return false;
-  	  } else if(num_filas_detalle_comprobante == 0){
-  	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
-  	  	return false;
-  	  }
-  	} else if(intIdTipoVenta == 2){
-  	  var num_filas_detalle_comprobante = document.getElementById('ListaDeServiciosVender').rows.length;
-  	  var intIdCliente = $("#intIdCliente").val();
-  	  if(intIdCliente == "" || intIdCliente == null){
-  	  	MensajeNormal("Seleccionar a un Cliente",2);
-  	  	return false;
-  	  } else if(num_filas_detalle_comprobante == 0){
-  	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
-  	  	return false;
-  	  }
-  	}
-  } else if(intTipoDetalle == 2){
-    if(intIdTipoVenta == 1){
-      var num_filas_detalle_comprobante = document.getElementById('ListaDeProductosVender').rows.length;
-      var intIdProveedor = $("#intIdProveedor").val();
-      if(intIdProveedor == "" || intIdProveedor == null){
-        MensajeNormal("Seleccionar a un Proveedor",2);
-        return false;
-      } else if(num_filas_detalle_comprobante == 0){
-        MensajeNormal("Ingresar por lo menos elegir un Producto",2);
-        return false;
-      }
-    } else if(intIdTipoVenta == 2){
-      var num_filas_detalle_comprobante = document.getElementById('ListaDeServiciosVender').rows.length;
-      var intIdProveedor = $("#intIdProveedor").val();
-      if(intIdProveedor == "" || intIdProveedor == null){
-        MensajeNormal("Seleccionar a un Proveedor",2);
-        return false;
-      } else if(num_filas_detalle_comprobante == 0){
-        MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
-        return false;
-      }
-    }
+  $("#funcion").val("I");
+  var resultado = ValidacionComprobante();
+  if(resultado == false){
+    return true;
   }
-	  var formData = $("#form-comprobante").serialize();
-	  var funcion = "I";
-	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "N";
-  	  var intIdTipoComprobante = document.getElementById("intIdTipoComprobante").value;
+  var formData = $("#form-comprobante").serialize();
+  var funcion = "I";
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "N";
+  var intIdTipoComprobante = document.getElementById("intIdTipoComprobante").value;
 	  $.ajax({
 	   url: "../../datos/comprobante/funcion_comprobante.php",
 	   method: "POST",
@@ -499,6 +553,7 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   dataType:"json",
 	   success:function(datos)
 	   {
+      $("#intIdComprobante").val(datos.intIdComprobante);
 	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
 	   	$("#intIdSucursalC").val(datos.intIdSucursal);
 	   	$("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
@@ -529,20 +584,21 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
 $(document).on('click', '#btn-editar-comprobante', function(){
-  	  var funcion = "A";
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca").attr("idp") * y;
-  	  var tipolistado = "E";
-  	  var formData = $("#form-comprobante").serialize();
-  	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
+	  $("#funcion").val("A");
+
+	  var y = document.getElementById("num-lista").value;
+	  var x = $(".marca").attr("idp") * y;
+	  var tipolistado = "E";
+	  var formData = $("#form-comprobante").serialize();
+	  var intIdTipoComprobante = document.getElementById("tipo-comprobante").value;
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente el Comprobante",1);
+	   	if (datos=="okok") {
+	   		MensajeNormal("Se Modificó correctamente el Comprobante",1);
 	   		ListarComprobante(x,y,tipolistado);
 	   		PaginarComprobante(x,y,tipolistado);
 	   	}

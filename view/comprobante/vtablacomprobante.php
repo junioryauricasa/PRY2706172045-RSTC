@@ -22,7 +22,7 @@
         </thead>
         <tbody id="ListaDeProductosVender">
           <tr>
-            <td class="heading" data-th="ID"></td>
+            <td class="heading" data-th="ID">1</td>
             <td>
                 <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                 <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
@@ -86,7 +86,7 @@
         </thead>
         <tbody id="ListaDeServiciosVender">
           <tr>
-            <td class="heading" data-th="ID"></td>
+            <td class="heading" data-th="ID">1</td>
             <td>
               <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
               <textarea id="nvchDescripcionS1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>
@@ -136,7 +136,7 @@
         </thead>
         <tbody id="ListaDeMaquinariasVender">
           <tr>
-            <td class="heading" data-th="ID"></td>
+            <td class="heading" data-th="ID">1</td>
             <td>
                 <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                 <input style="width: 110px !important" type="hidden" id="intIdProductoM1" name="intIdProductoM[]" form="form-comprobante" />
@@ -191,7 +191,7 @@
         </thead>
         <tbody id="ListaDeImplementosVender">
           <tr>
-            <td class="heading" data-th="ID"></td>
+            <td class="heading" data-th="ID">1</td>
             <td>
                 <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                 <input style="width: 110px !important" type="hidden" id="intIdProductoI1" name="intIdProductoI[]" form="form-comprobante" />

@@ -244,11 +244,12 @@
                 <div class="form-group">
                   <input type="hidden" id="intTipoDetalle" name="intTipoDetalle" value="<?php echo $intTipoDetalle; ?>" form="form-comprobante">
                   <input type="hidden" id="intIdTipoComprobanteI" name="intIdTipoComprobanteI" value="<?php echo $intIdTipoComprobante; ?>" form="form-comprobante">
-                  <input type="hidden" name="funcion" value="I" form="form-comprobante">
+                  <input type="hidden" name="funcion" id="funcion" value="" form="form-comprobante">
                   <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
                   <div class="text-center">
                     <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                     <input type="button" id="btn-editar-comprobante" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                     <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-success" value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                   </div>
                 </div>
@@ -258,6 +259,7 @@
                 </div>
               </div>
             </div>
+            <script type="text/javascript">HabilitacionOpciones(1);</script>
           </div>
           <script type="text/javascript">MostrarSeleccionComprobante();</script>
           <!-- FIN - Formulario Realizar Venta -->
