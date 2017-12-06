@@ -1,6 +1,5 @@
 <?php require_once '../../negocio/compras/nproveedor.php'; ?>
-<?php require_once '../../negocio/operaciones/ndatosgenerales.php'; //PRECARGA LOS UBIGEOS?>
-
+<?php require_once '../../negocio/operaciones/ndatosgenerales.php';?>
 <div id="formProveedor" class="modal fade">
  <div class="modal-dialog modal-lg" style="width: 95%">
    <div class="modal-content">
