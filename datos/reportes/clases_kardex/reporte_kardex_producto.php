@@ -95,11 +95,11 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
  
   <!-- INICIO header pdf -->
   <header class="" id="header" style="">
-    <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/header-comprobantes.PNG">
+    <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/header-kardex.PNG">
   </header>
   <!-- END header pdf -->
 
-  <div style="text-align: center;">
+  <div style="text-align: center; margin-top: -30px">
   <div style="text-align: left;"><big
    style="font-family: Calibri;"><big><span
    style="font-weight: bold;"></span></big></big>
