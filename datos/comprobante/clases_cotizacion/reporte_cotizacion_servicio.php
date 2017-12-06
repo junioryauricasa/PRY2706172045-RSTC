@@ -269,8 +269,8 @@
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 31; $j++){
-          if($j == 31) {
+        for($j = $i ; $j <= 33; $j++){
+          if($j == 33) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';

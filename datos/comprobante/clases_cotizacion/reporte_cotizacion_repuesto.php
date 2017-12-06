@@ -208,13 +208,13 @@
               <td style="width: 76px; font-size:x-small;"><span style="padding-left: 3px"><?php echo $SimboloMoneda.' '.$fila['dcmPrecio']; ?></span></td>
               <td style="width: 50px; font-size:x-small; text-align: center"><?php echo round($fila['dcmDescuento'],0).'%'; ?></td>
               <td style="width: 81px; font-size:x-small;"><span style="padding-left: 3px"><?php echo $SimboloMoneda.' '.$fila['dcmPrecioUnitario']; ?></span></td>
-              <td style="width: 86px; font-size:x-small;"><span style="padding-left: 3px; padding-left: 3px"><?php echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></span></td>
+              <td style="width: 86px; font-size:x-small;"><span style="padding-left: 3px;"><?php echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></span></td>
             </tr>
             <?php
                 $i++;
               }
-              for($j = $i ; $j <= 22; $j++){
-                if($j == 22) {
+              for($j = $i ; $j <= 28; $j++){
+                if($j == 28) {
                   echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
                 } else {
                   echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
