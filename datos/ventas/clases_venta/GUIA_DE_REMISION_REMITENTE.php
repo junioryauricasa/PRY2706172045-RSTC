@@ -928,6 +928,13 @@ function convertir_a_letras($numero)
                     </small>
                   </small>
               </td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+                <small>
+                    <small>
+                        <!--span>CANT.</span-->
+                  </small>
+                </small>
+              </td>
               <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important; height: 25px !important">
                   <small>
                     <small>
@@ -941,27 +948,6 @@ function convertir_a_letras($numero)
                         <!--span>DESCRIPCIÓN</span-->
                     </small>
                 </small>
-              </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
-                <small>
-                    <small>
-                        <!--span>CANT.</span-->
-                  </small>
-                </small>
-              </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.8% !important; height: 25px !important">
-                  <small>
-                    <small>
-                        <!--span>P. UNIT.</span-->
-                    </small>
-                  </small>
-              </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13,8% !important; height: 25px !important">
-                  <small>
-                    <small>
-                        <!--span>P. TOTAL</span-->
-                    </small>
-                  </small>
               </td>
             </tr>
 
