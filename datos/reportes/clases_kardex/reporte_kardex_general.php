@@ -23,6 +23,9 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
   </head>
 
   <style>
+    table{
+      font-size: 11px !important
+    }
 
     table#tabladetalle {
       border-collapse: collapse;
@@ -165,7 +168,7 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["dtmFechaMovimiento"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
-                      <td style="font-family: Calibri; text-align: left"><small>'.$fila["nvchDescripcion"].'</small></td>
+                      <td style="font-family: Calibri; text-align: left; padding: 3px "><small>'.$fila["nvchDescripcion"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["CantidadEntradaTotal"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["CantidadSalidaTotal"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
