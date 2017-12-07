@@ -282,7 +282,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                     </thead>
                     <tbody id="ListaDeProductosVender">
                       <tr>
-                        <td class="heading" data-th="ID"></td>
+                        <td class="heading" data-th="ID">1</td>
                         <td>
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-cotizacion" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-cotizacion" />
@@ -344,7 +344,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                     </thead>
                     <tbody id="ListaDeServiciosVender">
                       <tr>
-                        <td class="heading" data-th="ID"></td>
+                        <td class="heading" data-th="ID">1</td>
                         <td>
                           <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-cotizacion" />
                           <textarea id="nvchDescripcionS1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-cotizacion" rows="4"></textarea>
