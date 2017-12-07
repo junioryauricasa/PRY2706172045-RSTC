@@ -122,7 +122,13 @@ include('../_include/rstheader.php');
                                 </ul>
                               </nav>
                             </div>
-                            <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat pull-left" onclick="verformularioproveedor()">Agregar Proveedor</button>
+    
+                            <!-- Agregar proveedor -->
+                            <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-danger btn-flat" onclick="verformularioproveedor()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Proveedor</button> 
+    
+                            <!-- button para descarga de excel -->
+                            <a href="#" class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
+
                           </div>    
                           
                         </div>
@@ -143,8 +149,6 @@ include('../_include/rstheader.php');
         </div>
     </section>
   </div>
-
-
 
         <!-- INICIO modal confirmar -->
         <div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
