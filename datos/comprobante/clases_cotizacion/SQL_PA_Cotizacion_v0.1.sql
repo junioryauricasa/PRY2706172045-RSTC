@@ -59,9 +59,13 @@ DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARCOTIZACION(
 	IN _intIdCotizacion INT,
 	IN _dtmFechaCreacion DATETIME,
+	IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
 	IN _intIdCliente INT,
+	IN _nvchClienteProveedor VARCHAR(350),
+	IN _nvchDNIRUC VARCHAR(11),
+	IN _nvchDireccion VARCHAR(450),
 	IN _nvchAtencion VARCHAR(250),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
@@ -71,6 +75,7 @@ DELIMITER $$
 	IN _nvchModelo VARCHAR(75),
 	IN _nvchMarca VARCHAR(75),
 	IN _nvchHorometro VARCHAR(65),
+	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
 	BEGIN
@@ -81,6 +86,9 @@ DELIMITER $$
 		nvchNumeracion = _nvchNumeracion,
 		intIdUsuario = _intIdUsuario,
 		intIdCliente = _intIdCliente,
+		nvchClienteProveedor = _nvchClienteProveedor,
+		nvchDNIRUC = _nvchDNIRUC,
+		nvchDireccion = _nvchDireccion,
 		nvchAtencion = _nvchAtencion,
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
@@ -90,6 +98,8 @@ DELIMITER $$
 		nvchModelo = _nvchModelo,
 		nvchMarca = _nvchMarca,
 		nvchHorometro = _nvchHorometro,
+		nvchObservacion = _nvchObservacion,
+		intEstado = _intEstado,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdCotizacion = _intIdCotizacion;

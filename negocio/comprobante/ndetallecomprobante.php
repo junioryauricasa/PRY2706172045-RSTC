@@ -27,11 +27,10 @@ function EliminarFilasVacias() {
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
 function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
 	var funcion = "MDCR";
-	var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
-	   data:{intIdComprobante:intIdComprobante,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdComprobante:intIdComprobante,funcion:funcion,intIdTipoVenta:intIdTipoVenta},
 	   success:function(datos)
 	   {
 	   	if(intIdTipoVenta == 1){
@@ -416,23 +415,38 @@ function LimpiarDetalleUbigeo() {
 function InsertarCotizacion(seleccion) {
 	SeleccionarCliente(seleccion);
 	var intIdCotizacion = $(seleccion).attr("idct");
+	var intIdTV= $(seleccion).attr("idtv");
+	var NombreVenta = $(seleccion).attr("nv");
 	var funcion = "ICT";
 	var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+	var intIdTipoVenta = $("#intIdTipoVenta").val();
+	if(intIdTV != intIdTipoVenta){
+		MensajeNormal("Esta Cotización no se puede insertar, ya que esta Cotización pertenece al tipo de venta "+NombreVenta,2);
+		return false;
+	}
 
 	$.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,num:num},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,num:num,intIdTipoVenta:intIdTipoVenta},
 	   success:function(datos)
 	   {
-	   	EliminarFilasVacias();
-	   	$("#ListaDeProductosVender").html(datos); 
-	   	//ReestablecerNumeracionFilas();
+	   	//EliminarFilasVacias();
+	   	if(intIdTipoVenta == 1){
+	   		$("#ListaDeProductosVender").html(datos);
+	   		num = document.getElementById('ListaDeProductosVender').rows.length + 1;
+	   	}
+	   	else if(intIdTipoVenta == 2){
+	   		$("#ListaDeServiciosVender").html(datos);
+	   		nums = document.getElementById('ListaDeServiciosVender').rows.length + 1;
+	   	}
+	   	else {
+	   		MensajeNormal("No se puede Insertar la Cotización a este Tipo de Venta",2)
+	   	}  
 	   	CalcularTotal();
 	   	$("#formCotizacion").modal("hide");
 	   }
 	});
-	num = document.getElementById('ListaDeProductosVender').rows.length + 1;
 }
 /* FIN - Listar Domicilios según Ingresa */
 //////////////////////////////////////////////////////////////

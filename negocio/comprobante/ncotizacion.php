@@ -140,30 +140,28 @@
 
     function AgregarFila(intIdTipoVenta){
     var camposVender = '';
-    var readonlyVender = '';
-	camposVender ='<td>'+
-		            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-comprobante" readonly />'+
-		            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
-		            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
+	   camposVender ='<td>'+
+		            '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" form="form-cotizacion" readonly />'+
+		            '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-cotizacion" readonly />'+
+		            '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-cotizacion" readonly />'+
 		          '</td>'+
-		          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
+		          '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-cotizacion" idsprt="'+num+'"'+
 		            'onkeyup="CalcularPrecioTotal(this)"/></td>';
-  	readonlyVender = 'readonly';
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
         '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+          '<td class="heading" data-th="ID">'+num+'</td>'+
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-cotizacion" />'+
+              '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-cotizacion" />'+
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-cotizacion" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="result'+num+'">'+
           '</td>'+
-          '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
+          '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-cotizacion" readonly/></td>'+
           camposVender+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" '+readonlyVender+' /></td>'+
-          '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
+          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-cotizacion" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" readonly /></td>'+
+          '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-cotizacion" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
+          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-cotizacion" readonly/></td>'+
           '<td>'+
             '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
           '</td>'+
@@ -172,19 +170,19 @@
       } else if(intIdTipoVenta == 2){
         $('#ListaDeServiciosVender').append(
         '<tr>'+
-          '<td class="heading" data-th="ID"></td>'+
+          '<td class="heading" data-th="ID">'+nums+'</td>'+
           '<td>'+
-            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-comprobante" />'+
-            '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>'+
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-cotizacion" />'+
+            '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-cotizacion" rows="4"></textarea>'+
           '</td>'+
           '<td>'+
-            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-cotizacion" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-cotizacion" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-comprobante" readonly/>'+
+            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-cotizacion" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
@@ -224,12 +222,24 @@
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Limpiear campos del Cotizacion */
+function ValidacionFilasVacias(TipoVenta,Letra) {
+  var i = 0;
+  $('table tbody#ListaDe'+TipoVenta+'Vender tr').each(function() {
+        $(this).find("td input[name='dcmTotal"+Letra+"[]']").each(function() {
+            if(this.value == "" || this.value == null){
+              i++;            
+            }
+        });
+    });
+  return i;
+}
+
 function LimpiarCampos(){
 	$("#nvchNumDocumento").val("");
 	$("#nvchDenominacion").val("");
 	$("#nvchDomicilio").val("");
 	$("#TipoCliente").val("");
-	$("#intIdCliente").val("");
+	$("#intIdClienteC").val("");
 	$("#intIdTipoVenta").val(1);
 	$("#intIdTipoVenta").change();
 	$("#intIdTipoMoneda").val(1);
@@ -242,8 +252,8 @@ function LimpiarCampos(){
 	RestablecerValidacion("nvchModelo",1);
 	RestablecerValidacion("nvchMarca",1);
 	RestablecerValidacion("nvchHorometro",1);
-	AgregarFila(1);
-	AgregarFila(2);
+	LimpiarTablas();
+  HabilitacionOpciones(1);
 	$("#VentaTotal").val("S/. 0.00");
 	$("#nvchObservacion").val("");
 }
@@ -255,6 +265,100 @@ function LimpiarCampos(){
 function NuevaCotizacion(){
 	LimpiarCampos();
 	$("#btnFormRealizarCotizacion").click();
+}
+
+function LimpiarTablas(){
+  $("#ListaDeProductosVender").html("");
+  $("#ListaDeServiciosVender").html("");
+  num = 1;
+  nums = 1;
+  AgregarFila(1);
+  AgregarFila(2);
+}
+
+function HabilitacionOpciones(accion){
+  if(accion == 1){
+    $('.opcion-boton-editar').hide();
+    $('#intIdTipoVenta').attr("disabled", false);
+    $('#intIdTipoPago').attr("disabled", false);
+    $('.opcion-boton-nuevo').show();
+    $('.opcion-columna-nuevo').show();
+    $("#funcionC").val("I");
+  } else {
+    <?php if($_SESSION['intIdTipoUsuario'] != 1) {?>
+    $('#intIdTipoVenta').attr("disabled", true);
+    $('#intIdTipoPago').attr("disabled", true);
+    $('.opcion-columna-nuevo').hide();
+    $('.opcion-boton-editar').show();
+    <?php } else {?>
+    $('#btn-crear-cotizacion').hide();
+    $('.opcion-boton-editar').show();
+    <?php } ?>
+    $("#funcionC").val("A");
+  }
+}
+
+function ValidacionCotizacion(){
+  var intIdTipoVenta = $("#intIdTipoVenta").val();
+  var intIdCliente = $("#intIdClienteC").val()
+  if(intIdCliente == "" || intIdCliente == null){
+    MensajeNormal("Seleccionar a un Cliente",2);
+    return false;
+  } else if(EsFecha('nvchFecha') == false){
+    goToBox("#nvchFechaGroup");
+    return false;
+  } else if(EsNumeroEntero('intDiasValidez') == false){
+    goToBox("#intDiasValidezGroup");
+    return false;
+  } else if(EsVacio('nvchAtencion') == false){
+    goToBox("#nvchAtencionGroup");
+    return false;
+  }
+
+  if(intIdTipoVenta == 2){
+    if(EsVacio('nvchTipo') == false){
+      goToBox("#nvchTipoGroup");
+      return false;
+    } else if(EsVacio('nvchModelo') == false){
+      goToBox("#nvchModeloGroup");
+      return false;
+    } else if(EsVacio('nvchMarca') == false){
+      goToBox("#nvchMarcaGroup");
+      return false;
+    } else if(EsVacio('nvchHorometro') == false){
+      goToBox("#nvchHorometroGroup");
+      return false;
+    }
+  }
+
+  switch(intIdTipoVenta){
+    case "1":
+        var num_filas_detalle_cotizacion = document.getElementById('ListaDeProductosVender').rows.length;
+        if(num_filas_detalle_cotizacion == 0){
+          MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+          return false;
+        } else {
+          var filas_vacias = ValidacionFilasVacias("Productos","");
+          if (filas_vacias == num_filas_detalle_cotizacion) {
+            MensajeNormal("Ingresar por lo menos elegir un Producto",2);
+            return false;
+          }
+        }
+        break;
+    case "2":
+        var num_filas_detalle_cotizacion = document.getElementById('ListaDeServiciosVender').rows.length;
+        if(num_filas_detalle_cotizacion == 0){
+          MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
+          return false;
+        } else {
+          var filas_vacias = ValidacionFilasVacias("Servicios","S");
+          if (filas_vacias == num_filas_detalle_cotizacion) {
+            MensajeNormal("Ingresar por lo menos elegir un Servicio",2);
+            return false;
+          }
+        }
+        break;
+  }
 }
 /* FIN - Funcion Ajax - Formulario de Realizar Venta */
 //////////////////////////////////////////////////////////////
@@ -281,33 +385,15 @@ $(document).on('click', '#btn-form-crear-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Insertar Cliente */
 $(document).on('click', '#btn-crear-cotizacion', function(){
-	var intIdTipoVenta = $("#intIdTipoVenta").val();
-	if(intIdTipoVenta == 1){
-	  var num_filas_detalle_Cotizacion = document.getElementById('ListaDeProductosVender').rows.length;
-	  var intIdCliente = $("#intIdCliente").val();
-	  if(intIdCliente == "" || intIdCliente == null){
-	  	MensajeNormal("Seleccionar a un Cliente",2);
-	  	return false;
-	  } else if(num_filas_detalle_Cotizacion == 0){
-	  	MensajeNormal("Ingresar por lo menos elegir un Producto",2);
-	  	return false;
-	  }
-	} else if(intIdTipoVenta == 2){
-	  var num_filas_detalle_Cotizacion = document.getElementById('ListaDeServiciosVender').rows.length;
-	  var intIdCliente = $("#intIdCliente").val();
-	  if(intIdCliente == "" || intIdCliente == null){
-	  	MensajeNormal("Seleccionar a un Cliente",2);
-	  	return false;
-	  } else if(num_filas_detalle_Cotizacion == 0){
-	  	MensajeNormal("Ingresar por lo menos ingresar un Servicio",2);
-	  	return false;
-	  }
-	}
-	  var formData = $("#form-cotizacion").serialize();
-	  var funcion = "I";
-	  var y = document.getElementById("num-lista").value;
-  	  var x = 0;
-  	  var tipolistado = "N";
+  var resultado = ValidacionCotizacion();
+  if(resultado == false){
+    return true;
+  }
+	var formData = $("#form-cotizacion").serialize();
+  var funcion = "I";
+  var y = document.getElementById("num-lista").value;
+  var x = 0;
+  var tipolistado = "N";
 	  $.ajax({
 	   url: "../../datos/comprobante/funcion_cotizacion.php",
 	   method: "POST",
@@ -321,8 +407,8 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 	   		LimpiarCampos();
 	   		$("#btnFormListarCotizacion").click();
 	   		ListarCotizacion(x,y,tipolistado);
-	   		PaginarCotizacion(x,y,tipolistado);
-		}
+	   		//PaginarCotizacion(x,y,tipolistado);
+		  }
 	   	else { $("#resultadocrud").html(datos); }
 	   }
 	  });
@@ -335,9 +421,9 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Cliente */
 $(document).on('click', '.btn-mostrar-cotizacion', function(){
-  	  var intIdCotizacion = $(this).attr("id");
-  	  var funcion = "M";
-  	  var tipolistado = "T";
+  var intIdCotizacion = $(this).attr("id");
+  var funcion = "M";
+  var tipolistado = "T";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
@@ -345,24 +431,30 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 	   dataType:"json",
 	   success:function(datos)
 	   {
-	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
-	   	//$("#nvchSerie").val(datos.nvchSerie);
-	   	//$("#nvchNumeracion").val(datos.nvchNumeracion);
-	   	$("#intIdTipoVenta").val(datos.intIdTipoVenta);
-	   	$("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
-	   	$("#intIdTipoPago").val(datos.intIdTipoPago);
-
-	   	$("#nvchNumDocumento").val(datos.nvchDNIRUC);
-		$("#nvchDenominacion").val(datos.nvchClienteProveedor);
-		$("#nvchDomicilio").val(datos.nvchDireccion);
-		$("#TipoCliente").val(datos.TipoCliente);
-		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
-		$("#intIdCliente").val(datos.intIdCliente);
-		$("textarea#nvchObservacion").val(datos.nvchObservacion);
-		//HabilitacionOpciones(2);
-		ElegirTabla(datos.intIdTipoVenta);
-		MostrarDetalleCotizacion(datos.intIdCotizacion,datos.intIdTipoVenta);
-	   	$("#btnFormRealizarCotizacion").click();
+       $("#intIdCotizacion").val(datos.intIdCotizacion);
+       $("#nvchSerie").val(datos.nvchSerie);
+       $("#nvchNumeracion").val(datos.nvchNumeracion);
+     	 $("#nvchFecha").val(datos.dtmFechaCreacion);
+       $("#nvchAtencion").val(datos.nvchAtencion);
+       $("#intDiasValidez").val(datos.intDiasValidez);
+       $("#nvchTipo").val(datos.nvchTipo);
+       $("#nvchMarca").val(datos.nvchMarca);
+       $("#nvchModelo").val(datos.nvchModelo);
+       $("#nvchHorometro").val(datos.nvchHorometro);
+     	 $("#intIdTipoVenta").val(datos.intIdTipoVenta);
+     	 $("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
+     	 $("#intIdTipoPago").val(datos.intIdTipoPago);
+       $("#nvchNumDocumento").val(datos.nvchDNIRUC);
+  	   $("#nvchDenominacion").val(datos.nvchClienteProveedor);
+  	   $("#nvchDomicilio").val(datos.nvchDireccion);
+  	   $("#TipoCliente").val(datos.TipoCliente);
+       $("#intIdTipoCliente").val(datos.intIdTipoCliente);
+       $("#intIdClienteC").val(datos.intIdCliente);
+       $("textarea#nvchObservacion").val(datos.nvchObservacion);
+  	   HabilitacionOpciones(2);
+  	   ElegirTabla(datos.intIdTipoVenta);
+  	   MostrarDetalleCotizacion(datos.intIdCotizacion,datos.intIdTipoVenta);
+     	 $("#btnFormRealizarCotizacion").click();
 	   }
 	  });
 	 return false;
@@ -373,22 +465,28 @@ $(document).on('click', '.btn-mostrar-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Actualizar Cliente */
 $(document).on('click', '#btn-editar-cotizacion', function(){
-  	  var funcion = "A";
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca-cotizacion").attr("idp") * y;
-  	  var tipolistado = "E";
-  	  var formData = $("#form-cotizacion").serialize();
-  	  var intIdTipoCotizacion = document.getElementById("tipo-cotizacion").value;
+  var resultado = ValidacionCotizacion();
+  if(resultado == false){
+    return true;
+  }
+  var funcion = "A";
+  var y = document.getElementById("num-lista").value;
+  var x = $(".marca-cotizacion").attr("idp") * y;
+  var tipolistado = "E";
+  var formData = $("#form-cotizacion").serialize();
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
 	   data:formData,
 	   success:function(datos)
 	   {
-	   	if (datos=="ok") {
+      datos = datos.replace(/\s/g,'');
+	   	if (datos=="okok") {
 	   		MensajeNormal("Se modificó correctamente el Cotizacion",1);
+        LimpiarCampos();
+        $("#btnFormListarCotizacion").click();
 	   		ListarCotizacion(x,y,tipolistado);
-	   		PaginarCotizacion(x,y,tipolistado);
+	   		//PaginarCotizacion(x,y,tipolistado);
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -401,11 +499,11 @@ $(document).on('click', '#btn-editar-cotizacion', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Cliente */
 $(document).on('click', '.btn-eliminar-cotizacion', function(){
-  	  var intIdVenta = $(this).attr("id");
-  	  var y = document.getElementById("num-lista").value;
-  	  var x = $(".marca-cotizacion").attr("idp") * y;
-  	  var tipolistado = "D";
-  	  var funcion = "E";
+	  var intIdVenta = $(this).attr("id");
+	  var y = document.getElementById("num-lista").value;
+	  var x = $(".marca-cotizacion").attr("idp") * y;
+	  var tipolistado = "D";
+	  var funcion = "E";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
@@ -732,11 +830,11 @@ function SeleccionarCliente(seleccion) {
 	   	 $("#nvchNumDocumento").val(datos.nvchDNI);
 	   	 $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
 	   	}
-	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#intIdClienteC").val(datos.intIdCliente);
 	   	$("#TipoCliente").val(datos.TipoCliente);
 	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 	   	$("#nvchDomicilio").val(datos.nvchDomicilio);
-	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#intIdClienteC").val(datos.intIdCliente);
 	   	$("#formCliente").modal("hide");
 	   }
 	  });

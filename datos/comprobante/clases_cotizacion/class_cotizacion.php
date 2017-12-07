@@ -80,8 +80,8 @@ class Cotizacion{
       $salidas = $sql_conectar->query("select @intIdCotizacion as intIdCotizacion");
       $salida = $salidas->fetchObject();
       $_SESSION['intIdCotizacion'] = $salida->intIdCotizacion;
-      $ieraciones = new Numeraciones();
-      $nvchNumeracion = $ieraciones -> NumeracionSimpleInterna($_SESSION['intIdCotizacion']);
+      $Numeraciones = new Numeraciones();
+      $nvchNumeracion = $Numeraciones -> NumeracionSimpleInterna($_SESSION['intIdCotizacion']);
       $sql_comando = $sql_conectar->prepare('CALL InsertarNumeracionCotizacion(:intIdCotizacion,:nvchNumeracion)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $_SESSION['intIdCotizacion'],
@@ -105,8 +105,8 @@ class Cotizacion{
       $salida['intIdCotizacion'] = $fila['intIdCotizacion'];
 
       $salida['dtmFechaCreacion'] = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
-      //$salida['nvchSerie'] = $fila['nvchSerie'];
-      //$salida['nvchNumeracion'] = $fila['nvchNumeracion'];
+      $salida['nvchSerie'] = $fila['nvchSerie'];
+      $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
       $salida['intIdTipoVenta'] = $fila['intIdTipoVenta'];
       $salida['intIdTipoMoneda'] = $fila['intIdTipoMoneda'];
       $salida['intIdTipoPago'] = $fila['intIdTipoPago'];
@@ -116,6 +116,7 @@ class Cotizacion{
       $salida['nvchDireccion'] = $fila['nvchDireccion'];
       $salida['TipoCliente'] = $fila['TipoCliente'];
       $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['nvchAtencion'] = $fila['nvchAtencion'];
       $salida['intDiasValidez'] = $fila['intDiasValidez'];
       $salida['nvchTipo'] = $fila['nvchTipo'];
       $salida['nvchModelo'] = $fila['nvchModelo'];
@@ -135,9 +136,10 @@ class Cotizacion{
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL ActualizarCotizacion(:intIdCotizacion,:dtmFechaCreacion,:nvchSerie,
-        :nvchNumeracion,:intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:intIdTipoMoneda,:intIdTipoPago,:intDiasValidez,:intIdTipoVenta,:nvchTipo,:nvchModelo,
-        :nvchMarca,:nvchHorometro,:intEstado,:nvchObservacion)');
+      $sql_comando = $sql_conectar->prepare('CALL ActualizarCotizacion(:intIdCotizacion,:dtmFechaCreacion,:nvchSerie,:nvchNumeracion,
+        :intIdUsuario,:intIdCliente,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:intIdTipoMoneda,
+        :intIdTipoPago,:intDiasValidez,:intIdTipoVenta,:nvchTipo,:nvchModelo,:nvchMarca,:nvchHorometro,
+        :intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCotizacion' => $this->intIdCotizacion,
         ':dtmFechaCreacion' => $this->dtmFechaCreacion,
@@ -145,6 +147,9 @@ class Cotizacion{
         ':nvchNumeracion' => $this->nvchNumeracion,
         ':intIdUsuario' => $this->intIdUsuario, 
         ':intIdCliente' => $this->intIdCliente,
+        ':nvchClienteProveedor' => $this->nvchClienteProveedor,
+        ':nvchDNIRUC' => $this->nvchDNIRUC,
+        ':nvchDireccion' => $this->nvchDireccion,
         ':nvchAtencion' => $this->nvchAtencion,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
@@ -348,8 +353,8 @@ class Cotizacion{
       $ipaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
       { $x = $ipaginas - 1; }
-      else if($tipolistado == "E")
-      { $x = $x / $y; }
+      //else if($tipolistado == "E")
+      //{ $x = $x / $y; }
       $output = "";
       for($i = 0; $i < $ipaginas; $i++){
         if($i==0)
@@ -446,8 +451,10 @@ class Cotizacion{
             <td>'.$fila["NombreCliente"].'</td>
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td>'.$fila["NombreVenta"].'</td>
             <td> 
-              <button type="button" idscli="'.$fila["intIdCliente"].'" idct="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning" 
+              <button type="button" idscli="'.$fila["intIdCliente"].'" idtv="'.$fila['intIdTipoVenta'].'" 
+              idct="'.$fila["intIdCotizacion"].'" nv="'.$fila["NombreVenta"].'" class="btn btn-xs btn-warning" 
               onclick="InsertarCotizacion(this)">
                 <i class="fa fa-edit"></i> Elegir
               </button>
@@ -463,13 +470,19 @@ class Cotizacion{
     }  
   }
 
-  public function InsertarCotizacionComprobante($intIdCotizacion,$intIdTipoMoneda,$i)
+  public function InsertarCotizacionComprobante($intIdCotizacion,$intIdTipoMoneda,$i,$intIdTipoVenta)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL InsertarCotizacionVenta(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      $sql_comando;
+      if($intIdTipoVenta == 1){
+        $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
+        $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      } else if($intIdTipoVenta == 2){
+        $sql_comando = $sql_conectar->prepare('CALL MOSTRARDETALLECOTIZACIONSERVICIO(:intIdCotizacion)');
+        $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
+      }
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -500,30 +513,53 @@ class Cotizacion{
         }
         $dcmPrecioUnitario = number_format(($fila_producto['dcmPrecioVenta1'] - ($fila_producto['dcmPrecioVenta1']*($fila['dcmDescuento']/100))),2,'.','');
         $dcmTotal = number_format(($dcmPrecioUnitario * $fila['intCantidad']),2,'.','');
+        if($intIdTipoVenta == 1){
         echo '
         <tr>
         <td class="heading" data-th="ID">'.$i.'</td> '.
-        '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-venta" />'.
-            '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-venta" value="'.$fila_producto['intIdProducto'].'" />'.
-            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" form="form-venta" value="'.$fila_producto['nvchCodigo'].'" />'.
+        '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+            '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-comprobante" value="'.$fila_producto['intIdProducto'].'" />'.
+            '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" form="form-comprobante" value="'.$fila_producto['nvchCodigo'].'" />'.
             '<div class="result" id="result'.$i.'">'.
         '</td>'.
-        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
+        '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-comprobante" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
         '<td>'.
-          '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-venta" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
-          '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
-          '<input type="hidden" id="dcmDescuentoVenta3'.$i.'" form="form-venta" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
+          '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-comprobante" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
+          '<input type="hidden" id="dcmDescuentoVenta3'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
         '</td>'.
-        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$i.'"'.
-          'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" /></td>'.
-        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
-        '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-venta" idsprt="'.$i.'"'.
+        '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-comprobante" idsprt="'.$i.'"'.
+          'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'"/></td>'.
+        '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-comprobante" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
+        '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
           'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'"/></td>'.
-        '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
+        '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.
         '<td>'.
           '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
         '</td>'.
       '</tr>';
+      } else if($intIdTipoVenta == 2){
+        echo 
+        '<tr>'.
+          '<td class="heading" data-th="ID">'.$i.'</td>'.
+          '<td>'.
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+            '<textarea id="nvchDescripcionS'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4">'.$fila['nvchDescripcion'].'</textarea>'.
+          '</td>'.
+          '<td>'.
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'.$i.'" name="dcmPrecioUnitarioS[]" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" value="'.$fila['dcmPrecioUnitario'].'"/>'.
+          '</td>'.
+          '<td>'.
+            '<input type="text" id="intCantidadS'.$i.'" name="intCantidadS[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalS(this)"/>'.
+          '</td>'.
+          '<td>'.
+            '<input type="text" id="dcmTotalS'.$i.'" name="dcmTotalS[]" value="'.$fila['dcmTotal'].'" form="form-comprobante" readonly/>'.
+          '</td>'.
+          '<td>'.
+            '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
+          '</td>'.
+        '</tr>';
+      }
       $i++;
       }
     }

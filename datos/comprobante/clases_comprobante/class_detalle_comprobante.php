@@ -45,7 +45,7 @@ class DetalleComprobante
       $dcmPrecio = 0.00;
       $dcmDescuento = 0.00;
       foreach ($this->intCantidad as $key => $value) {
-        if($this->intIdProducto[$key] != ""){
+        if($this->dcmTotal[$key] != ""){
         $sql_comando = $sql_conectar->prepare('CALL insertarDetalleComprobante(:intIdComprobante,
           :intIdTipoVenta,:intTipoDetalle,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,:intCantidad,:dcmTotal)');
           if($this->intIdTipoVenta != 2){
@@ -69,7 +69,7 @@ class DetalleComprobante
             ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
             ':intCantidad' => $value,
             ':dcmTotal' => $this->dcmTotal[$key]));
-          } else {
+          } else if ($this->intIdTipoVenta == 2) {
             $sql_comando->execute(array(
             ':intIdComprobante' => $this->intIdComprobante,
             ':intIdTipoVenta' => $this->intIdTipoVenta, 
@@ -93,14 +93,19 @@ class DetalleComprobante
     }
   }
 
-  public function MostrarDetalleComprobante($tipolistado)
+  public function MostrarDetalleComprobante($intIdTipoVenta)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
-      $sql_comando -> execute(array(':intIdComprobante' => $this->intIdComprobante));
-      $cantidad = $sql_comando -> rowCount();
+      $sql_comando;
+      if($intIdTipoVenta == 1 || $intIdTipoVenta >=3){
+        $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
+        $sql_comando -> execute(array(':intIdComprobante' => $this->intIdComprobante));
+      } else if($intIdTipoVenta == 2){
+        $sql_comando = $sql_conectar->prepare('CALL MOSTRARDETALLEComprobanteSERVICIO(:intIdComprobante)');
+        $sql_comando -> execute(array(':intIdComprobante' => $this->intIdComprobante));
+      }
       $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -112,20 +117,27 @@ class DetalleComprobante
               '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
             '</td>';
         }
-        if($fila['intIdTipoVenta'] == 1){
+        $sql_conexion_producto = new Conexion_BD();
+        $sql_conectar_producto = $sql_conexion_producto->Conectar();
+        $sql_comando_producto = $sql_conectar_producto->prepare('CALL MOSTRARPRODUCTO(:intIdProducto)');
+        $sql_comando_producto -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+        $fila_producto = $sql_comando_producto -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoVenta == 1){
           echo
           '<tr>
             <td class="heading" data-th="ID">'.$i.'</td> '.
             '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-                '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-comprobante" value="'.$fila['intIdProducto'].'" />'.
-                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" '.$readonly.' />'.
+                '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-comprobante" value="'.$fila_producto['intIdProducto'].'" />'.
+                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" value="'.$fila_producto['nvchCodigo'].'" form="form-comprobante" '.$readonly.' />'.
                 '<div class="result" id="result'.$i.'">'.
             '</td>'.
-            '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-comprobante" value="'.$fila['nvchDescripcion'].'" readonly/></td>';
+            '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-comprobante" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>';
             if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 9){
             echo
             '<td>'.
-              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-comprobante" value="'.$fila['dcmPrecio'].'" readonly/>'.
+              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-comprobante" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
+              '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
+              '<input type="hidden" id="dcmDescuentoVenta3'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
             '</td>'.
             '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" '.$readonly.' /></td>';
@@ -137,7 +149,7 @@ class DetalleComprobante
             '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
           '</tr>';
               $i++;
-        } else if($fila['intIdTipoVenta'] == 2){
+        } else if($intIdTipoVenta == 2){
               echo
               '<tr>'.
                 '<td class="heading" data-th="ID">'.$i.'</td>'.
@@ -156,18 +168,18 @@ class DetalleComprobante
                 '</td>'.$filaEliminar;
               '</tr>';
               $i++;
-        } else if($fila['intIdTipoVenta'] == 3){
+        } else if($intIdTipoVenta == 3){
           echo
           '<tr>'.
           '<td class="heading" data-th="ID">'.$i.'</td>'.
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'.$i.'" name="intIdProductoM[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'.$i.'" name="nvchCodigoM[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'.$i.'" name="intIdProductoM[]" value="'.$fila_producto['intIdProducto'].'" form="form-comprobante" />'.
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'.$i.'" name="nvchCodigoM[]" value="'.$fila_producto['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
               '<div class="result" id="resultM'.$i.'">'.
           '</td>'.
           '<td>'.
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-            '<textarea id="nvchDescripcionM'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
+            '<textarea id="nvchDescripcionM'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila_producto['nvchDescripcion'].'</textarea>'.
           '</td>'.
           '<td>'.
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'.$i.'" name="dcmPrecioUnitarioM[]" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
@@ -180,18 +192,18 @@ class DetalleComprobante
           '</td>'.$filaEliminar.
         '</tr>';
         $i++;
-        } else if($fila['intIdTipoVenta'] == 4){
+        } else if($intIdTipoVenta == 4){
           echo
           '<tr>'.
           '<td class="heading" data-th="ID">'.$i.'</td>'.
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'.$i.'" name="intIdProductoI[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'.$i.'" name="nvchCodigoI[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'.$i.'" name="intIdProductoI[]" value="'.$fila_producto['intIdProducto'].'" form="form-comprobante" />'.
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'.$i.'" name="nvchCodigoI[]" value="'.$fila_producto['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
               '<div class="result" id="resultM'.$i.'">'.
           '</td>'.
           '<td>'.
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-            '<textarea id="nvchDescripcionI'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
+            '<textarea id="nvchDescripcionI'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila_producto['nvchDescripcion'].'</textarea>'.
           '</td>'.
           '<td>'.
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'.$i.'" name="dcmPrecioUnitarioI[]" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.

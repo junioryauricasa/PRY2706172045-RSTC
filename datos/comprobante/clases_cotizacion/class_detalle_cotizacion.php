@@ -32,41 +32,47 @@ class DetalleCotizacion
   /* FIN - Atributos de Detalle Cotizacion */
 
   /* INICIO - Métodos de Detalle Cotizacion */
-  public function InsertarDetalleCotizacion()
+  public function InsertarDetalleCotizacion($funcion)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
+      if($funcion == "A"){
+        $sql_comando = $sql_conectar->prepare('CALL ELIMINARDETALLESCOTIZACION(:intIdCotizacion)');
+        $sql_comando->execute(array(':intIdCotizacion' => $this->intIdCotizacion));
+      }
       foreach ($this->intCantidad as $key => $value) {
+      if($this->dcmTotal[$key] != ""){
       $sql_comando = $sql_conectar->prepare('CALL insertarDetalleCotizacion(:intIdCotizacion,:intIdTipoVenta,
       	:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,
         :intCantidad,:dcmTotal)');
-        if($this->intIdTipoVenta == 1){
-          $sql_comando->execute(array(
-          ':intIdCotizacion' => $this->intIdCotizacion,
-          ':intIdTipoVenta' => $this->intIdTipoVenta,
-          ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-          ':intIdProducto' => $this->intIdProducto[$key],
-          ':nvchCodigo' => $this->nvchCodigo[$key],
-          ':nvchDescripcion' => $this->nvchDescripcion[$key],
-          ':dcmPrecio' => $this->dcmPrecio[$key],
-          ':dcmDescuento' => $this->dcmDescuento[$key],
-          ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-          ':intCantidad' => $value,
-          ':dcmTotal' => $this->dcmTotal[$key]));
-        } else if($this->intIdTipoVenta == 2){
-          $sql_comando->execute(array(
-          ':intIdCotizacion' => $this->intIdCotizacion,
-          ':intIdTipoVenta' => $this->intIdTipoVenta,
-          ':dtmFechaRealizada' => $this->dtmFechaRealizada,
-          ':intIdProducto' => 0,
-          ':nvchCodigo' => '',
-          ':nvchDescripcion' => $this->nvchDescripcion[$key],
-          ':dcmPrecio' => 0.00,
-          ':dcmDescuento' => 0.00,
-          ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
-          ':intCantidad' => $value,
-          ':dcmTotal' => $this->dcmTotal[$key]));
+          if($this->intIdTipoVenta == 1){
+            $sql_comando->execute(array(
+            ':intIdCotizacion' => $this->intIdCotizacion,
+            ':intIdTipoVenta' => $this->intIdTipoVenta,
+            ':dtmFechaRealizada' => $this->dtmFechaRealizada,
+            ':intIdProducto' => $this->intIdProducto[$key],
+            ':nvchCodigo' => $this->nvchCodigo[$key],
+            ':nvchDescripcion' => $this->nvchDescripcion[$key],
+            ':dcmPrecio' => $this->dcmPrecio[$key],
+            ':dcmDescuento' => $this->dcmDescuento[$key],
+            ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+            ':intCantidad' => $value,
+            ':dcmTotal' => $this->dcmTotal[$key]));
+          } else if($this->intIdTipoVenta == 2){
+            $sql_comando->execute(array(
+            ':intIdCotizacion' => $this->intIdCotizacion,
+            ':intIdTipoVenta' => $this->intIdTipoVenta,
+            ':dtmFechaRealizada' => $this->dtmFechaRealizada,
+            ':intIdProducto' => 0,
+            ':nvchCodigo' => '',
+            ':nvchDescripcion' => $this->nvchDescripcion[$key],
+            ':dcmPrecio' => 0.00,
+            ':dcmDescuento' => 0.00,
+            ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
+            ':intCantidad' => $value,
+            ':dcmTotal' => $this->dcmTotal[$key]));
+          }
         }
       }
       echo "ok";
@@ -100,49 +106,72 @@ class DetalleCotizacion
     }
   }
 
-  public function MostrarDetalleCotizacion($tipolistado)
+  public function MostrarDetalleCotizacion($intIdTipoVenta)
   {
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
-      $sql_comando -> execute(array(':intIdCotizacion' => $this->intIdCotizacion));
-      $cantidad = $sql_comando -> rowCount();
+      $sql_comando;
+      if($intIdTipoVenta == 1){
+        $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleCotizacion(:intIdCotizacion)');
+        $sql_comando -> execute(array(':intIdCotizacion' => $this->intIdCotizacion));
+      } else if($intIdTipoVenta == 2){
+        $sql_comando = $sql_conectar->prepare('CALL MOSTRARDETALLECOTIZACIONSERVICIO(:intIdCotizacion)');
+        $sql_comando -> execute(array(':intIdCotizacion' => $this->intIdCotizacion));
+      }
       $i = 1;
+      $filaEliminar = '<td>'.
+              '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
+            '</td>';
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($fila['intIdTipoVenta'] == 1){
+        if($intIdTipoVenta == 1){
+          $sql_conexion_producto = new Conexion_BD();
+          $sql_conectar_producto = $sql_conexion_producto->Conectar();
+          $sql_comando_producto = $sql_conectar_producto->prepare('CALL MOSTRARPRODUCTO(:intIdProducto)');
+          $sql_comando_producto -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+          $fila_producto = $sql_comando_producto -> fetch(PDO::FETCH_ASSOC);
           echo
         	'<tr>
             <td class="heading" data-th="ID">'.$i.'</td> '.
-            '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-venta" />'.
-                '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-venta" value="'.$fila['intIdProducto'].'" />'.
-                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" form="form-venta" value="'.$fila['nvchCodigo'].'" readonly/>'.
+            '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-cotizacion" />'.
+                '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-cotizacion" value="'.$fila['intIdProducto'].'" />'.
+                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'" form="form-cotizacion"/>'.
                 '<div class="result" id="result'.$i.'">'.
             '</td>'.
-            '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-venta" value="'.$fila['nvchDescripcion'].'" readonly/></td>'.
+            '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-cotizacion" value="'.$fila['nvchDescripcion'].'" readonly/></td>'.
             '<td>'.
-              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-venta" value="'.$fila['dcmPrecio'].'" readonly />'.
+              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-cotizacion" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
+              '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.
+              '<input type="hidden" id="dcmDescuentoVenta3'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
             '</td>'.
-            '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-venta" idsprt="'.$i.'"'.
-              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" readonly/></td>'.
-            '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-venta" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
-            '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-venta" idsprt="'.$i.'"'.
-              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" readonly/></td>'.
-            '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-venta" value="'.$fila['dcmTotal'].'" readonly/></td>'.
+            '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-cotizacion" idsprt="'.$i.'"'.
+              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'"/></td>'.
+            '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-cotizacion" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
+            '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-cotizacion" idsprt="'.$i.'"'.
+              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'"/></td>'.
+            '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-cotizacion" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar.
           '</tr>';
           $i++;
-        } else if($fila['intIdTipoVenta'] == 2){
+        } else if($intIdTipoVenta == 2){
           echo
-          '<tr>
-            <td class="heading" data-th="ID">'.$i.'</td>
-            <td>'.$i.'</td>
-            <td>'.$fila['intCantidad'].'</td>
-            <td>'.$fila['nvchDescripcionServicio'].'</td>
-            <td>'.$fila['dcmPrecioUnitario'].'</td>
-            <td>'.$fila['dcmTotal'].'</td>
-          </tr>';
-          $i++;
+              '<tr>'.
+                '<td class="heading" data-th="ID">'.$i.'</td>'.
+                '<td>'.
+                  '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-cotizacion" />'.
+                  '<textarea id="nvchDescripcionS'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-cotizacion" rows="4">'.$fila['nvchDescripcion'].'</textarea>'.
+                '</td>'.
+                '<td>'.
+                  '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'.$i.'" name="dcmPrecioUnitarioS[]" idsprt="'.$i.'" form="form-cotizacion" onkeyup="CalcularPrecioTotalS(this)" value="'.$fila['dcmPrecioUnitario'].'"/>'.
+                '</td>'.
+                '<td>'.
+                  '<input type="text" id="intCantidadS'.$i.'" name="intCantidadS[]" idsprt="'.$i.'" form="form-cotizacion" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalS(this)"/>'.
+                '</td>'.
+                '<td>'.
+                  '<input type="text" id="dcmTotalS'.$i.'" name="dcmTotalS[]" value="'.$fila['dcmTotal'].'" form="form-cotizacion" readonly/>'.
+                '</td>'.$filaEliminar.
+              '</tr>';
+              $i++;
         }
       }
     }

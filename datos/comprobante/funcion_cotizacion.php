@@ -54,7 +54,7 @@ switch($_POST['funcion']){
         $DetalleCotizacion->Cantidad($_POST['intCantidadS']);
         $DetalleCotizacion->Total($_POST['dcmTotalS']);
     }
-    $DetalleCotizacion->InsertarDetalleCotizacion();
+    $DetalleCotizacion->InsertarDetalleCotizacion($_POST['funcion']);
     break;
   case "IDCT":
     $DetalleCotizacion = new DetalleCotizacion();
@@ -68,14 +68,51 @@ switch($_POST['funcion']){
     break;
   case "A":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->IdCotizacion($_POST['intIdCotizacion']);
-    $Cotizacion->Numeracion($_POST['nvchNumeracion']);
-    $Cotizacion->IdUsuario($_POST['intIdUsuario']);
-    $Cotizacion->IdCliente($_POST['intIdCliente']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
+    $Cotizacion->IdCotizacion($_POST['intIdCotizacion']);
+    $Cotizacion->Serie($_POST['nvchSerie']);
+    $Cotizacion->Numeracion($_POST['nvchNumeracion']);
+    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($_POST['nvchFecha']));
     $Cotizacion->FechaCreacion($dtmFechaCreacion);
-    $Cotizacion->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    $Cotizacion->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    $Cotizacion->IdCliente($_POST['intIdCliente']);
+    $Cotizacion->DNIRUC($_POST['nvchDNIRUC']);
+    $Cotizacion->ClienteProveedor($_POST['nvchClienteProveedor']);
+    $Cotizacion->Direccion($_POST['nvchDireccion']);
+    $Cotizacion->Atencion($_POST['nvchAtencion']);
+    $Cotizacion->IdTipoMoneda($_POST['intIdTipoMoneda']);
+    $Cotizacion->IdTipoPago($_POST['intIdTipoPago']);
+    $Cotizacion->DiasValidez($_POST['intDiasValidez']);
+    $Cotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+    $Cotizacion->Tipo($_POST['nvchTipo']);
+    $Cotizacion->Modelo($_POST['nvchModelo']);
+    $Cotizacion->Marca($_POST['nvchMarca']);
+    $Cotizacion->Horometro($_POST['nvchHorometro']);
+    $Cotizacion->Observacion($_POST['nvchObservacion']);
     $Cotizacion->ActualizarCotizacion();
+    $DetalleCotizacion = new DetalleCotizacion();
+    if($_POST['intIdTipoVenta'] == 1) {
+        $DetalleCotizacion->IdCotizacion($_POST['intIdCotizacion']);
+        $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
+        $DetalleCotizacion->IdProducto($_POST['intIdProducto']);
+        $DetalleCotizacion->Codigo($_POST['nvchCodigo']);
+        $DetalleCotizacion->Descripcion($_POST['nvchDescripcion']);
+        $DetalleCotizacion->Precio($_POST['dcmPrecio']);
+        $DetalleCotizacion->Descuento($_POST['dcmDescuento']);
+        $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitario']);
+        $DetalleCotizacion->Cantidad($_POST['intCantidad']);
+        $DetalleCotizacion->Total($_POST['dcmTotal']);
+    } else if($_POST['intIdTipoVenta'] == 2) {
+        $DetalleCotizacion->IdCotizacion($_POST['intIdCotizacion']);
+        $DetalleCotizacion->IdTipoVenta($_POST['intIdTipoVenta']);
+        $DetalleCotizacion->FechaRealizada($dtmFechaCreacion);
+        $DetalleCotizacion->Descripcion($_POST['nvchDescripcionS']);
+        $DetalleCotizacion->PrecioUnitario($_POST['dcmPrecioUnitarioS']);
+        $DetalleCotizacion->Cantidad($_POST['intCantidadS']);
+        $DetalleCotizacion->Total($_POST['dcmTotalS']);
+    }
+    $DetalleCotizacion->InsertarDetalleCotizacion($_POST['funcion']);
     break;
   case "ADCT":
     $DetalleCotizacion = new DetalleCotizacion();
@@ -100,7 +137,7 @@ switch($_POST['funcion']){
   case "MDCT":
     $DetalleCotizacion = new DetalleCotizacion();
     $DetalleCotizacion->IdCotizacion($_POST['intIdCotizacion']);
-    $DetalleCotizacion->MostrarDetalleCotizacion($_POST['tipolistado']);
+    $DetalleCotizacion->MostrarDetalleCotizacion($_POST['intIdTipoVenta']);
     break;
   case "SDCT":
     $DetalleCotizacion = new DetalleCotizacion();

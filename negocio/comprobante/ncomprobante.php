@@ -16,7 +16,7 @@
         case "1":
           Letra = "";
           break;
-        case "1":
+        case "2":
           Letra = "S";
           break;
         case "3":
@@ -473,7 +473,6 @@ function ValidacionFilasVacias(TipoVenta,Letra) {
 
 function ValidacionComprobante(){
   var intIdTipoVenta = $("#intIdTipoVenta").val();
-  //var intTipoDetalle = $("#intTipoDetalle").val();
   var Persona = "<?php echo $lblPersonaSingular; ?>";
   var intIdPersona = $("#intId"+Persona+"C").val()
   if(intIdPersona == "" || intIdPersona == null){
@@ -558,6 +557,7 @@ $(document).on('click', '#btn-crear-comprobante', function(){
   var x = 0;
   var tipolistado = "N";
   var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+  var intTipoDetalle = $("#intTipoDetalle").val();
 	  $.ajax({
 	   url: "../../datos/comprobante/funcion_comprobante.php",
 	   method: "POST",
@@ -639,6 +639,7 @@ $(document).on('click', '#btn-editar-comprobante', function(){
   var x = $(".marca-comprobante").attr("idp") * y;
   var tipolistado = "E";
   var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+  var intTipoDetalle = $("#intTipoDetalle").val();
     $.ajax({
      url: "../../datos/comprobante/funcion_comprobante.php",
      method: "POST",

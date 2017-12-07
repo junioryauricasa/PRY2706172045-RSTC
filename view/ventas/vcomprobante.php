@@ -337,16 +337,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
-            <!--
-            <div class="row">
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label>Seleccionar Cliente:</label>
-                  <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="formCliente()">
-                </div>
-              </div>
-            </div>
-            -->
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
@@ -369,34 +359,6 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
               <?php } ?>
-              <!-- 
-              <div class="col-md-3 nvchApellidoPaterno">
-                <div class="form-group">
-                  <label>Apellido Paterno:</label>
-                  <input type="text" id="nvchApellidoPaterno" class="form-control select2" readonly>
-                </div>
-              </div>
-              <div class="col-md-3 nvchApellidoMaterno">
-                <div class="form-group">
-                  <label>Apellido Materno:</label>
-                  <input type="text" id="nvchApellidoMaterno" class="form-control select2" readonly>
-                </div>
-              </div>
-              <div class="col-md-3 nvchNombres">
-                <div class="form-group">
-                  <label>Nombres:</label>
-                  <input type="text" id="nvchNombres" class="form-control select2" readonly>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Tipo de Cliente:</label>
-                  <input type="text" id="TipoCliente" class="form-control select2" readonly>
-                  <input type="hidden" id="intIdTipoCliente">
-                </div>
-              </div>
-              -->
-            
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Domicilio:</label>

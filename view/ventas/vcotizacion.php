@@ -89,6 +89,14 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
               <div class="col-md-2">
+                <div id="nvchNumeracionGroup" class="form-group">
+                  <label>Numeración:</label>
+                  <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" 
+                  form="form-cotizacion" readonly/>
+                  <input type="hidden" id="nvchSerie" name="nvchSerie" class="form-control select2" form="form-cotizacion" readonly/>
+                </div>
+              </div>
+              <div class="col-md-2">
                 <div class="form-group">
                   <label>Seleccionar el Tipo de Venta:</label>
                   <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="ElegirTabla(this.value)" class="form-control select2" form="form-cotizacion">
@@ -419,10 +427,12 @@ require_once '../../datos/conexion/bd_conexion.php';
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <input type="hidden" name="funcion" value="I" form="form-cotizacion">
-                  <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-cotizacion">
+                  <input type="hidden" name="funcion" id="funcionC" value="" form="form-cotizacion">
+                  <input type="hidden" id="intIdCotizacion" name="intIdCotizacion" value="" form="form-cotizacion">
+                  <input type="hidden" id="intIdClienteC" name="intIdCliente" value="" form="form-cotizacion">
                   <div class="text-center">
                     <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización" form="form-cotizacion">
+                     <input type="button" id="btn-editar-cotizacion" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar Cotización" form="form-cotizacion">
                     <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-success" value="Nueva Cotización" form="form-cotizacion">
                   </div>
                 </div>
@@ -432,6 +442,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                 </div>
               </div>
             </div>
+            <script type="text/javascript">HabilitacionOpciones(1);</script>
           </div>
           <!-- FIN - Formulario Realizar Venta -->
 
@@ -448,7 +459,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-8">
                 <div class="text-right">
                   <div class="form-group">
-                    <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva Cotización"/>
+                    <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-primary" form="form-cotizacion" value="Nueva Cotización"/>
                   </div>
                 </div>
               </div>

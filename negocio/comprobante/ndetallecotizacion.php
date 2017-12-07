@@ -31,7 +31,7 @@ function MostrarDetalleCotizacion(intIdCotizacion,intIdTipoVenta) {
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_cotizacion.php",
 	   method:"POST",
-	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,tipolistado:tipolistado},
+	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoVenta:intIdTipoVenta},
 	   success:function(datos)
 	   {
 	   	if(intIdTipoVenta == 1)

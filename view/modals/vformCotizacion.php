@@ -48,6 +48,7 @@
                                 <th>Cliente</th>
                                 <th>Usuario que Generó</th>
                                 <th>Fecha de Creación</th>
+                                <th>Tipo Venta</th>
                                 <th>Opción</th>
                               </tr>
                             </thead>

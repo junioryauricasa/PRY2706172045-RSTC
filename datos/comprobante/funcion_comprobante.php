@@ -86,7 +86,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->PrecioUnitario($_POST['dcmPrecioUnitarioS']);
         $DetalleComprobante->Cantidad($_POST['intCantidadS']);
         $DetalleComprobante->Total($_POST['dcmTotalS']);
-        $DetalleComprobante->InsertarDetalleComprobante();
+        $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
     }
     $Numeraciones = new Numeraciones();
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
@@ -130,7 +130,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->Total($_POST['dcmTotal'.$_POST['Letra']]);
         $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
     } else if($_POST['intIdTipoVenta'] == 2) {
-        $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
+        $DetalleComprobante->IdComprobante($_POST['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
         $DetalleComprobante->TipoDetalle($_POST['intTipoDetalle']);
         $DetalleComprobante->FechaRealizada($dtmFechaCreacion);
@@ -149,7 +149,7 @@ switch($_POST['funcion']){
   case "MDCR":
     $DetalleComprobante = new DetalleComprobante();
     $DetalleComprobante->IdComprobante($_POST['intIdComprobante']);
-    $DetalleComprobante->MostrarDetalleComprobante($_POST['tipolistado']);
+    $DetalleComprobante->MostrarDetalleComprobante($_POST['intIdTipoVenta']);
     break;
   case "E":
     $Comprobante = new Comprobante();
@@ -210,7 +210,7 @@ switch($_POST['funcion']){
     break;
   case "ICT":
     $Cotizacion = new Cotizacion();
-    $Cotizacion->InsertarCotizacionComprobante($_POST['intIdCotizacion'],$_POST['intIdTipoMoneda'],$_POST['num']);
+    $Cotizacion->InsertarCotizacionComprobante($_POST['intIdCotizacion'],$_POST['intIdTipoMoneda'],$_POST['num'],$_POST['intIdTipoVenta']);
     break;
   case "MCT":
     $Cotizacion = new Cotizacion();
