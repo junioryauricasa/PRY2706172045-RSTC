@@ -409,33 +409,33 @@ class Producto
 
   public function ES_StockTotal($intIdProducto)
   {
-  try{
-      $intCantidad = 0;
-      $sql_conexion_cantidad = new Conexion_BD();
-      $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
-      foreach ($intIdProducto as $key => $value) {
-        if($value != ""){
-          $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
-          $sql_comando_cantidad -> execute(array(':intIdProducto' => $value));
-          $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
-          if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
-            $intCantidad = 0;
-          } else {
-            $intCantidad = $fila_cantidad["CantidadTotal"];
-          }
-          $sql_conexion = new Conexion_BD();
-          $sql_conectar = $sql_conexion->Conectar();
-          $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');
-          $sql_comando -> execute(array(
-            ':intIdProducto' => $value,
-            ':intCantidad' => $intCantidad));
+    try{
+          $intCantidad = 0;
+          $sql_conexion_cantidad = new Conexion_BD();
+          $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
+          foreach ($intIdProducto as $key => $value) {
+            if($value != ""){
+              $sql_comando_cantidad = $sql_conectar_cantidad->prepare('CALL CANTIDADTOTALPRODUCTO(:intIdProducto)');
+              $sql_comando_cantidad -> execute(array(':intIdProducto' => $value));
+              $fila_cantidad = $sql_comando_cantidad -> fetch(PDO::FETCH_ASSOC);
+              if($fila_cantidad["CantidadTotal"] == "" || $fila_cantidad["CantidadTotal"] == NULL){
+                $intCantidad = 0;
+              } else {
+                $intCantidad = $fila_cantidad["CantidadTotal"];
+              }
+              $sql_conexion = new Conexion_BD();
+              $sql_conectar = $sql_conexion->Conectar();
+              $sql_comando = $sql_conectar->prepare('CALL ES_STOCKTOTAL(:intIdProducto,:intCantidad)');
+              $sql_comando -> execute(array(
+                ':intIdProducto' => $value,
+                ':intCantidad' => $intCantidad));
+            }
         }
+        echo 'ok';
       }
-      echo 'ok';
-    }
-    catch(PDPExceptio $e){
-      echo $e->getMessage();
-    }
+      catch(PDPExceptio $e){
+        echo $e->getMessage();
+      }
   }
 
   public function BuscarProducto($buscar,$intIdTipoMoneda)
@@ -547,4 +547,5 @@ class Producto
     } 
   }
   /* FIN - Métodos de Producto */
+
 }
