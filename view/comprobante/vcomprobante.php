@@ -248,8 +248,8 @@
                   <input type="hidden" name="funcion" id="funcionC" value="" form="form-comprobante">
                   <input type="hidden" name="Letra" id="Letra" value="" form="form-comprobante">
                   <input type="hidden" name="Tabla" id="Tabla" value="" form="form-comprobante">
-                  <input type="hidden" id="intIdProveedor" name="intIdProveedor" value="" form="form-comprobante">
-                  <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-comprobante">
+                  <input type="hidden" id="intIdProveedorC" name="intIdProveedor" value="" form="form-comprobante">
+                  <input type="hidden" id="intIdClienteC" name="intIdCliente" value="" form="form-comprobante">
                   <div class="text-center">
                     <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                      <input type="button" id="btn-editar-comprobante" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">

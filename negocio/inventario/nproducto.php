@@ -8,6 +8,8 @@ function DescripcionProducto(intIdTipoVenta){
 		$("#nvchDescripcionCol").hide();
 		$("#nvchDescripcionRCol").show();
 	}
+	RestablecerValidacion('nvchDescripcion',1);
+	RestablecerValidacion('nvchDescripcionR',1);
 }
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Producto */

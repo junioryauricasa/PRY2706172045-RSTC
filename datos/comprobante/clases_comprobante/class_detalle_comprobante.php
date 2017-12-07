@@ -41,12 +41,21 @@ class DetalleComprobante
       if($funcion == "A"){
         $sql_comando = $sql_conectar->prepare('CALL ELIMINARDETALLESCOMPROBANTE(:intIdComprobante)');
         $sql_comando->execute(array(':intIdComprobante' => $this->intIdComprobante));
-      } 
+      }
+      $dcmPrecio = 0.00;
+      $dcmDescuento = 0.00;
       foreach ($this->intCantidad as $key => $value) {
         if($this->intIdProducto[$key] != ""){
         $sql_comando = $sql_conectar->prepare('CALL insertarDetalleComprobante(:intIdComprobante,
           :intIdTipoVenta,:intTipoDetalle,:dtmFechaRealizada,:intIdProducto,:nvchCodigo,:nvchDescripcion,:dcmPrecio,:dcmDescuento,:dcmPrecioUnitario,:intCantidad,:dcmTotal)');
-        if($this->intIdTipoVenta == 1 || $this->intIdTipoVenta >= 3){
+          if($this->intIdTipoVenta != 2){
+            if($this->intIdTipoVenta >= 3){
+              $dcmPrecio = 0.00;
+              $dcmDescuento = 0.00;
+            } else if($this->intIdTipoVenta == 1){
+              $dcmPrecio = $this->dcmPrecio[$key];
+              $dcmDescuento = $this->dcmDescuento[$key];
+            }
             $sql_comando->execute(array(
             ':intIdComprobante' => $this->intIdComprobante,
             ':intIdTipoVenta' => $this->intIdTipoVenta,
@@ -55,12 +64,12 @@ class DetalleComprobante
             ':intIdProducto' => $this->intIdProducto[$key],
             ':nvchCodigo' => $this->nvchCodigo[$key],
             ':nvchDescripcion' => $this->nvchDescripcion[$key],
-            ':dcmPrecio' => $this->dcmPrecio[$key],
-            ':dcmDescuento' => $this->dcmDescuento[$key],
+            ':dcmPrecio' => $dcmPrecio,
+            ':dcmDescuento' => $dcmDescuento,
             ':dcmPrecioUnitario' => $this->dcmPrecioUnitario[$key],
             ':intCantidad' => $value,
             ':dcmTotal' => $this->dcmTotal[$key]));
-          } else if($this->intIdTipoVenta == 2){
+          } else {
             $sql_comando->execute(array(
             ':intIdComprobante' => $this->intIdComprobante,
             ':intIdTipoVenta' => $this->intIdTipoVenta, 

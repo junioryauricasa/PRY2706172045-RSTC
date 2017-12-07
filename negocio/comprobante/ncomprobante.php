@@ -357,8 +357,8 @@ function LimpiarCampos(){
 	$("#nvchDomicilio").val("");
 	$("#TipoCliente").val("");
 	$("#intIdTipoCliente").val("");
-	$("#intIdCliente").val("");
-	$("#intIdProveedor").val("");
+	$("#intIdClienteC").val("");
+	$("#intIdProveedorC").val("");
 	$("#nvchSerie").val("");
 	$("#nvchNumeracion").val("");
 	$("#intIdSucursalC").val(1);
@@ -475,7 +475,7 @@ function ValidacionComprobante(){
   var intIdTipoVenta = $("#intIdTipoVenta").val();
   //var intTipoDetalle = $("#intTipoDetalle").val();
   var Persona = "<?php echo $lblPersonaSingular; ?>";
-  var intIdPersona = $("#intId"+Persona).val()
+  var intIdPersona = $("#intId"+Persona+"C").val()
   if(intIdPersona == "" || intIdPersona == null){
     MensajeNormal("Seleccionar a un "+Persona,2);
     return false;
@@ -613,8 +613,8 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 		  $("#nvchDomicilio").val(datos.nvchDireccion);
   		$("#TipoCliente").val(datos.TipoCliente);
   		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
-  		$("#intIdCliente").val(datos.intIdCliente);
-  		$("#intIdProveedor").val(datos.intIdProveedor);
+  		$("#intIdClienteC").val(datos.intIdCliente);
+  		$("#intIdProveedorC").val(datos.intIdProveedor);
   		$("textarea#nvchObservacion").val(datos.nvchObservacion);
   		HabilitacionOpciones(2);
   		ElegirTabla(datos.intIdTipoVenta);
@@ -1054,11 +1054,11 @@ function SeleccionarCliente(seleccion) {
 	   	 $("#nvchNumDocumento").val(datos.nvchDNI);
 	   	 $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
 	   	}
-	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#intIdClienteC").val(datos.intIdCliente);
 	   	$("#TipoCliente").val(datos.TipoCliente);
 	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 	   	$("#nvchDomicilio").val(datos.nvchDomicilio);
-	   	$("#intIdCliente").val(datos.intIdCliente);
+	   	$("#intIdClienteC").val(datos.intIdCliente);
 	   	$("#formCliente").modal("hide");
 	   }
 	  });
@@ -1131,11 +1131,11 @@ function SeleccionarClienteS(intIdCliente) {
        $("#nvchNumDocumento").val(datos.nvchDNI);
        $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
       }
-      $("#intIdCliente").val(datos.intIdCliente);
+      $("#intIdClienteC").val(datos.intIdCliente);
       $("#TipoCliente").val(datos.TipoCliente);
       $("#intIdTipoCliente").val(datos.intIdTipoCliente);
       $("#nvchDomicilio").val(datos.nvchDomicilio);
-      $("#intIdCliente").val(datos.intIdCliente);
+      $("#intIdClienteC").val(datos.intIdCliente);
       $("#formCliente").modal("hide");
      }
     });
@@ -1161,7 +1161,7 @@ function SeleccionarProveedor(seleccion) {
        $("#nvchNumDocumento").val(datos.nvchDNI);
        $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
       }
-      $("#intIdProveedor").val(datos.intIdProveedor);
+      $("#intIdProveedorC").val(datos.intIdProveedor);
       $("#nvchDomicilio").val(datos.nvchDomicilio);
       $("#formProveedor").modal("hide");
      }
@@ -1184,7 +1184,7 @@ function SeleccionarProveedorS(intIdProveedor) {
        $("#nvchNumDocumento").val(datos.nvchDNI);
        $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
       }
-      $("#intIdProveedor").val(datos.intIdProveedor);
+      $("#intIdProveedorC").val(datos.intIdProveedor);
       $("#nvchDomicilio").val(datos.nvchDomicilio);
       $("#formProveedor").modal("hide");
      }
