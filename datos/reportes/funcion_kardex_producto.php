@@ -71,7 +71,7 @@ switch($_POST['funcion']){
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $KardexProducto->IdProducto($_POST['intIdProducto']);
     $KardexProducto->ListarKardexProducto($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$dtmFechaInicial,
-        $dtmFechaFinal,$_POST['intIdTipoMoneda']);
+        $dtmFechaFinal,$_POST['intIdTipoMoneda'],$_POST['intIdSucursal']);
     break;
   case "P":
     $KardexProducto = new KardexProducto();
@@ -81,7 +81,7 @@ switch($_POST['funcion']){
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $KardexProducto->IdProducto($_POST['intIdProducto']);
     $KardexProducto->PaginarKardexProducto($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$dtmFechaInicial,
-        $dtmFechaFinal);
+        $dtmFechaFinal,$_POST['intIdSucursal']);
     break;
   case "LP":
     $KardexProducto = new KardexProducto();

@@ -151,7 +151,29 @@ include('../_include/rstheader.php');
                                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
                               </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <label>Elegir Sucursal:</label>
+                                <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
+                                <option value="T">General</option>
+                                <?php
+                                require_once '../../datos/conexion/bd_conexion.php';
+                                  try{   
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
                               <div class="form-group">
                                   <input type="button" value="Volver a la Página de Inicio" class="btn btn-sm btn-danger btn-flat pull-right" style="margin-top: 25px" onclick="$('#tab-kardex-producto-btn').click()">
                               </div>

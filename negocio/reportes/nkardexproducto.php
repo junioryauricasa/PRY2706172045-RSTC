@@ -79,6 +79,13 @@ $(document).on('change', '#lista-tipo-moneda', function(){
     var tipolistado = "T";
     ListarKardex(x,y,tipolistado);
 });
+
+$(document).on('change', '#intIdSucursal', function(){
+    var y = document.getElementById("num-lista").value;
+    var x = $(".marca").attr("idp") * y;
+    var tipolistado = "T";
+    ListarKardex(x,y,tipolistado);
+});
 /* FIN - Funcion Ajax - Buscar Kardex Realizada */
 //////////////////////////////////////////////////////////////
 
@@ -89,6 +96,7 @@ function ListarKardex(x,y,tipolistado) {
   var funcion = "L";
   var intIdProducto = document.getElementById("intIdProducto").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intIdSucursal = $("#intIdSucursal").val();
 
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
@@ -105,7 +113,8 @@ function ListarKardex(x,y,tipolistado) {
       url:'../../datos/reportes/funcion_kardex_producto.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdProducto:intIdProducto,
-          dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+          dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda,
+          intIdSucursal:intIdSucursal},
       success:function(datos) {
 	      $("#ListaDeKardex").html(datos);
 	      PaginarKardex((x/y),y,tipolistado);
@@ -121,6 +130,7 @@ function ReporteKardex() {
   var busqueda = document.getElementById("txt-busqueda").value;
   var intIdProducto = document.getElementById("intIdProducto").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intIdSucursal = $("#intIdSucursal").val();
 
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
@@ -162,7 +172,7 @@ function PaginarKardex(x,y,tipolistado) {
       url:'../../datos/reportes/funcion_kardex_producto.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdProducto:intIdProducto,
-        dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal},
+        dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdSucursal:intIdSucursal},
       success:function(datos) {
           $("#PaginacionDeKardex").html(datos);
       }

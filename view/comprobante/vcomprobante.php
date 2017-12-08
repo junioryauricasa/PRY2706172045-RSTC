@@ -30,9 +30,9 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Lugar de <?php echo $lblTituloSingular; ?>:</label>
-                  <select onchange="MostrarSeleccionComprobante()" id="intIdSucursalC" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
+                  <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
                   <?php 
-                    try{   
+                    try{
                     $sql_conexion = new Conexion_BD();
                     $sql_conectar = $sql_conexion->Conectar();
                     $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
