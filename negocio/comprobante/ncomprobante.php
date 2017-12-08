@@ -351,7 +351,7 @@ function LimpiarCampos(){
   RestablecerValidacion("nvchFecha",1);
   RestablecerValidacion("nvchSerie",1);
   RestablecerValidacion("nvchNumeracion",1);
-	$("#nvchFecha").val(FechaActual());
+	//$("#nvchFecha").val(FechaActual());
 	$("#nvchNumDocumento").val("");
 	$("#nvchDenominacion").val("");
 	$("#nvchDomicilio").val("");
@@ -411,6 +411,7 @@ function HabilitacionOpciones(accion){
 		$('.opcion-boton-nuevo').show();
 		$('.opcion-columna-nuevo').show();
     $("#funcionC").val("I");
+    OpcionFecha("2");
 	} else {
     <?php if($_SESSION['intIdTipoUsuario'] != 1) {?>
 		$('#intIdSucursalC').attr("disabled", true);
@@ -421,9 +422,13 @@ function HabilitacionOpciones(accion){
     $("#nvchNumeracion").attr("readonly",true);
 		$('.opcion-columna-nuevo').hide();
     $('.opcion-boton-editar').show();
+    $("#txtOpcionFecha").val("1");
+    OpcionFecha("1");
+    $("nvchFecha").attr("readonly",true);
     <?php } else {?>
     $('#btn-crear-comprobante').hide();
     $('.opcion-boton-editar').show();
+    OpcionFecha("1");
     <?php } ?>
     $("#funcionC").val("A");
 	}
@@ -478,7 +483,7 @@ function ValidacionComprobante(){
   if(intIdPersona == "" || intIdPersona == null){
     MensajeNormal("Seleccionar a un "+Persona,2);
     return false;
-  } else if(EsFecha('nvchFecha') == false){
+  } else if(EsFechaHora('nvchFecha') == false){
     goToBox("#nvchFechaGroup");
     return false;
   } else if(EsVacio('nvchSerie') == false){

@@ -12,12 +12,21 @@
               <div class="col-md-2">
                 <div id="nvchFechaGroup" class="form-group">
                   <label>Fecha:</label>
-                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" placeholder="dd/mm/aaaa" maxlength="10" onkeyup="EsFecha('nvchFecha')" form="form-comprobante"/>
-                  <span id="nvchFechaIcono" class="" aria-hidden=""></span>
+                  <div id="groupFecha" class="input-group">
+                    <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" placeholder="dd/mm/aaaa HH:mm:ss" maxlength="19" onkeyup="EsFechaHora('nvchFecha')" form="form-comprobante" readonly/>
+                    <span class="input-group-btn">
+                      <button class="btn btn-success" type="button" onclick="OpcionFecha($('#txtOpcionFecha').val())">
+                        <i class="fa fa-edit" data-toggle="tooltip" title="" id="iconOpFecha" data-original-title="Modificar"></i>
+                      </button>
+                    </span>
+                    <input type="hidden" id="txtOpcionFecha" value="1">
+                  </div>
+                  <!--<span id="nvchFechaIcono" class="" aria-hidden=""></span>-->
                   <div id="nvchFechaObs" class=""></div>
                   <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
                 </div>
               </div>
+              <script type="text/javascript">IniciarHora();</script>
               <div class="col-md-2">
                 <div class="form-group">
                   <label>Lugar de <?php echo $lblTituloSingular; ?>:</label>

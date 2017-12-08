@@ -267,8 +267,8 @@ class KardexProducto
       /*$sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdProducto' => $this->intIdProducto, 
         ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));*/
-      $sql_comando = $sql_conectar->prepare('CALL PRUEBAKARDEX(:intIdProducto)');
-      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
+      $sql_comando = $sql_conectar->prepare('CALL PRUEBAKARDEX(:intIdProducto,:intIdTipoMoneda)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda));
       $numpaginas = ceil($cantidad / $y);
       $j = 1;
       /*
@@ -345,31 +345,38 @@ class KardexProducto
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         $nvchSimbolo = "";
+        /*
         $dtmFechaCambio =  date('Y-m-d', strtotime($fila['FechaMovimiento']));
         $sql_conexion_moneda = new Conexion_BD();
         $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
         $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
         $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
-        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);*/
         if($intIdTipoMoneda == 1){
           $nvchSimbolo = "S/.";
+          /*
           if($fila['TipoMoneda'] != 1) {
             $fila['PrecioEntrada'] = number_format($fila['PrecioEntrada']*$fila_moneda['dcmCambio2'],2,'.','');
             $fila['TotalEntrada'] = number_format($fila['TotalEntrada']*$fila_moneda['dcmCambio2'],2,'.',''); 
             $fila['PrecioSalida'] = number_format($fila['PrecioSalida']*$fila_moneda['dcmCambio2'],2,'.',''); 
             $fila['TotalSalida'] = number_format($fila['TotalSalida']*$fila_moneda['dcmCambio2'],2,'.','');
             $fila['SaldoValorizado'] = number_format($fila['SaldoValorizado']*$fila_moneda['dcmCambio2'],2,'.',''); 
-          }
+          }*/
         } 
         else if ($intIdTipoMoneda == 2){
           $nvchSimbolo = "US$";
-          if($fila['TipoMoneda'] != 2){
+          /*if($fila['TipoMoneda'] != 2){
             $fila['PrecioEntrada'] = number_format($fila['PrecioEntrada']/$fila_moneda['dcmCambio2'],2,'.','');
             $fila['TotalEntrada'] = number_format($fila['TotalEntrada']/$fila_moneda['dcmCambio2'],2,'.',''); 
             $fila['PrecioSalida'] = number_format($fila['PrecioSalida']/$fila_moneda['dcmCambio2'],2,'.',''); 
             $fila['TotalSalida'] = number_format($fila['TotalSalida']/$fila_moneda['dcmCambio2'],2,'.','');
             $fila['SaldoValorizado'] = number_format($fila['SaldoValorizado']/$fila_moneda['dcmCambio2'],2,'.','');
-          }
+            <td> 
+              <button type="button" id="" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+            </td> 
+          }*/
         }
         echo 
         '<tr>
@@ -391,7 +398,7 @@ class KardexProducto
               <button type="button" id="" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
                 <i class="fa fa-edit"></i> Ver Detalle
               </button>
-            </td>  
+            </td> 
         </tr>';
         $j++;
       }

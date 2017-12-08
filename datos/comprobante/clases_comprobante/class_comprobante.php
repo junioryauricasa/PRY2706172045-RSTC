@@ -90,7 +90,7 @@ class Comprobante{
 
       $salida['intIdComprobante'] = $fila['intIdComprobante'];
 
-      $salida['dtmFechaCreacion'] = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
+      $salida['dtmFechaCreacion'] = date('d/m/Y H:i:s', strtotime($fila['dtmFechaCreacion']));
       $salida['intIdSucursal'] = $fila['intIdSucursal'];
       $salida['intIdTipoComprobante'] = $fila['intIdTipoComprobante'];
       $salida['nvchSerie'] = $fila['nvchSerie'];
