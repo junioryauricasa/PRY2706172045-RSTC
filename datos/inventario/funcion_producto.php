@@ -26,7 +26,6 @@ switch($_POST['funcion']){
         $Producto->Descripcion($_POST['nvchDescripcion']);
     else
         $Producto->Descripcion($_POST['nvchDescripcionR']);
-<<<<<<< HEAD
     $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
     $Producto->CantidadMinima($_POST['intCantidadMinima']);
     $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
@@ -61,40 +60,6 @@ switch($_POST['funcion']){
     $KardexProducto = new KardexProducto();
     $KardexProducto->IdProducto($_SESSION['intIdProducto']);
     $KardexProducto->InsertarKardexProductoInicial();
-=======
-        $Producto->UnidadMedida($_POST['nvchUnidadMedida']);
-        $Producto->CantidadMinima($_POST['intCantidadMinima']);
-        $nvchDireccionImg = pathinfo($_POST['nvchDireccionImg'],PATHINFO_BASENAME);
-        $Producto->DireccionImg($nvchDireccionImg);
-        $Producto->PrecioCompra($_POST['dcmPrecioCompra']);
-        $Producto->IdTipoMonedaCompra($_POST['intIdTipoMonedaCompra']);
-        $Producto->PrecioVenta1($_POST['dcmPrecioVenta1']);
-        $Producto->PrecioVenta2($_POST['dcmPrecioVenta2']);
-        $Producto->PrecioVenta3($_POST['dcmPrecioVenta3']);
-        $Producto->DescuentoVenta2($_POST['dcmDescuentoVenta2']);
-        $Producto->DescuentoVenta3($_POST['dcmDescuentoVenta3']);
-        $Producto->IdTipoMonedaVenta($_POST['intIdTipoMonedaVenta']);
-        $dtmFechaIngreso = date("Y-m-d H:i:s");
-        $Producto->FechaIngreso($dtmFechaIngreso);
-        $Producto->Observacion($_POST['nvchObservacion']);
-        $Producto->InsertarProducto();
-        $CodigoProducto = new CodigoProducto();
-        $CodigoProducto->IdProducto($_SESSION['intIdProducto']);
-        $CodigoProducto->Codigo($_POST['nvchCodigo']);
-        $CodigoProducto->IdTipoCodigoProducto($_POST['intIdTipoCodigoProducto']);
-        $CodigoProducto->InsertarCodigoProducto();
-        $UbigeoProducto = new UbigeoProducto();
-        $UbigeoProducto->IdProducto($_SESSION['intIdProducto']);
-        $UbigeoProducto->IdSucursal($_POST['intIdSucursal']);
-        $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
-        $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
-        $UbigeoProducto->InsertarUbigeoProducto();
-        $Producto->AumentarStockTotal($_SESSION['intIdProducto']);
-
-        $KardexProducto = new KardexProducto();
-        $KardexProducto->IdProducto($_SESSION['intIdProducto']);
-        $KardexProducto->InsertarKardexProductoInicial();
->>>>>>> 9fec34e1a6d80a87b3f02bc11cc7449aff1c32e4
     break;
   case "IMQ":
     $Maquinaria = new Maquinaria();
