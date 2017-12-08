@@ -1,4 +1,8 @@
 <?php 
+  /*
+    Descripción: Exporta sin mensaje de alerta pero no logra mandar el formato con estilos para u vizualizzacion
+  */
+
 	require_once '../../conexion/bd_conexion.php';
   // ~elemento=busqueda&lista-tipo-moneda=lista_tipo_moneda&dtmFechaInicial=dtmFechaInicial&dtmFechaFinal=dtmFechaFinal;
 	
@@ -15,8 +19,8 @@
     $extension = $tipo == 'EXCEL' ? '.xls' : '.doc';
     $NombreArchivo = 'ReporteOrdenDeCompra_'.$elemento;
     header("Content-type: application/vnd.ms-$tipo");
-    header("Content-Disposition: attachment; filename=$NombreArchivo$now$extension"); //exportacion a la antigua
-    //header("Content-Disposition: attachment; filename=$NombreArchivo$now.csv");
+    //header("Content-Disposition: attachment; filename=$NombreArchivo$now$extension"); //exportacion a la antigua
+    header("Content-Disposition: attachment; filename=$NombreArchivo$now.csv");
     header("Pragma: no-cache");
     header("Expires: 0");
     // INICIO - SENTENCIAS PARA EXCEL
@@ -28,6 +32,7 @@
       $sql_comando = $sql_conectar->prepare('CALL BUSCARORDENCOMPRA_II(:elemento,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':elemento' => 'resteco', ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
 
+      /*
       echo '
         <h1>Reporte de Orden de Compra</h1>
         <table>
@@ -45,7 +50,11 @@
             </thead>
             <tbody>
       ';
+      */
 
+      echo "Reporte de Orden de Compra \n";
+      echo "\n";
+      echo "SERIE;NUMERACON;PROVEEDOR;USUARIO;FECHA DE CREACION;VALOR DE COMPRA;IGV;TOTAL COMPRA \n";
 
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {   

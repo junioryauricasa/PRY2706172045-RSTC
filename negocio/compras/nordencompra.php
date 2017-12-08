@@ -529,14 +529,26 @@ function vertab1(){
 $(document).on('click', '#DescargarListaProveedorExcel', function(){
 
 	  //alert('ingresaste a la funcion descargar');
-	  var busqueda = $("#txt-busqueda").val();
-	  var lista_tipo_moneda = $("#lista-tipo-moneda").val();
+	  var busqueda = document.getElementById("txt-busqueda").value;
+  	  var funcion = "L";
+	  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
 	  var dtmFechaInicial = $("#dtmFechaInicial").val();
 	  var dtmFechaFinal = $("#dtmFechaFinal").val();
 
+	  if(EsFecha("dtmFechaInicial") == false){
+	    var dtmFechaInicial = "";
+	  } else {
+	    var dtmFechaInicial = $("#dtmFechaInicial").val();
+	  }
+	  if(EsFecha("dtmFechaFinal") == false){
+	    var dtmFechaFinal = FechaActual();
+	  } else {
+	    var dtmFechaFinal = $("#dtmFechaFinal").val();
+	  }
+
 	  //alert('parametros> busqueda:'+busqueda+' && tipo_persona:'+tipo_persona);
 
-	  var url = '../../datos/compras/clases_ordencompra/reporteexcel.php?elemento='+busqueda+'&listatipomoneda='+lista_tipo_moneda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
+	  var url = '../../datos/compras/clases_ordencompra/reporteexcel.php?elemento='+busqueda+'&intIdTipoMoneda='+intIdTipoMoneda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
 
 	  //alert(url);
 	  window.open(url);
