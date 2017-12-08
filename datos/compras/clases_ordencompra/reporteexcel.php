@@ -13,7 +13,7 @@
     $dtmFechaFinal = str_replace('/', '-', $dtmFechaFinal);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     // INICIO - SENTENCIAS PARA EXCEL
-    $now = date("d-m-Y_H:i:s");
+    $now = date("d-m-Y _ H:i:s");
     $tipo = isset($_REQUEST['t']) ? $_REQUEST['t'] : 'EXCEL';
     $extension = $tipo == 'EXCEL' ? '.xls' : '.doc';
     $NombreArchivo = 'ReporteOrdenDeCompra_'.$elemento;
@@ -76,14 +76,14 @@
         }
         echo
         '
-            <td>'.$fila["nvchSerie"].'</td>
-            <td>'.$fila["nvchNumeracion"].'</td>
-            <td>'.$fila["nvchRazonSocial"].'</td>
-            <td>'.$fila["NombreUsuario"].'</td>
-            <td>'.$fila["dtmFechaCreacion"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorOrdenCompra"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.$fila["nvchSerie"].'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.$fila["nvchNumeracion"].'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.utf8_decode($fila["nvchRazonSocial"]).'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.utf8_decode($fila["NombreUsuario"]).'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.$fila["dtmFechaCreacion"].'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.$fila["SimboloMoneda"].' '.$fila["ValorOrdenCompra"].'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
+            <td style="text-align:left;" style="border: solid 1px black !important">'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
         </tr>';
         $i++;
       }
