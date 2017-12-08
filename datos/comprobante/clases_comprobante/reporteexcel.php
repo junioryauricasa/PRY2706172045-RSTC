@@ -77,8 +77,32 @@
           '
 		        <tr>
 	              	<td style="border: solid 1px black">'.utf8_decode($fila["nvchSerie"]).'</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["nvchNumeracion"]).'</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["NombreComprobante"]).'</td>';
+	                <td style="border: solid 1px black">'.utf8_decode($fila["nvchNumeracion"]).'</td>';
+              
+              if($fila["intIdTipoComprobante"] == 1){
+                $fila["nvchNombre"] = 'Factura';
+              }else if($fila["intIdTipoComprobante"] == 2){
+                $fila["nvchNombre"] = 'Boleta de Venta';
+              }else if($fila["intIdTipoComprobante"] == 3){
+                $fila["nvchNombre"] = 'Guia de Remision';
+              }else if($fila["intIdTipoComprobante"] == 4){
+                $fila["nvchNombre"] = 'Nota de Credito';
+              }else if($fila["intIdTipoComprobante"] == 5){
+                $fila["nvchNombre"] = 'Factura';
+              }else if($fila["intIdTipoComprobante"] == 6){
+                $fila["nvchNombre"] = 'Boleta de Venta';
+              }else if($fila["intIdTipoComprobante"] == 7){
+                $fila["nvchNombre"] = 'Guia de Remision';
+              }else if($fila["intIdTipoComprobante"] == 8){
+                $fila["nvchNombre"] = 'Nota de Credito';
+              }else if($fila["intIdTipoComprobante"] == 9){
+                $fila["nvchNombre"] = 'Guia Interna de Salida';
+              }else if($fila["intIdTipoComprobante"] == 10){
+                $fila["nvchNombre"] = 'Guia Interna de Entrada';
+              }
+
+                  echo '
+	                <td style="border: solid 1px black">'.utf8_decode($fila["nvchNombre"]).'</td>';
                   if($intTipoDetalle == 1)
                     echo '<td style="border: solid 1px black">'.utf8_decode($fila["NombreCliente"]).'</td>';
                   else if($intTipoDetalle == 2)
