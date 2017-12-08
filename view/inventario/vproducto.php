@@ -118,10 +118,15 @@ $funcionComprobante = 0;
     			        </div>
     			        <div class="box-footer clearfix">
     			          <div class="row">
-    			            <div class="col-md-5">  
+    			            <div class="col-md-5">
+
                         <!-- Modal for New Product -->
-                        <button type="button" class="btn btn-sm btn-danger btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()">Agregar Nuevo Producto</button>
-    			            </div>
+                        <button type="button" class="btn btn-sm btn-danger btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo Producto</button>
+
+                        <!-- button para descarga de excel -->
+                        <a href="#" class="btn btn-sm btn-success btn-flat" id="DescargarListaProductoExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
+    			            
+                      </div>
     			          </div>
     			        </div>
     			      </div>

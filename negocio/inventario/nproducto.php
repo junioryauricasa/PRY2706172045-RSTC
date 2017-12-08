@@ -1,5 +1,5 @@
-
 <script>
+
 function DescripcionProducto(intIdTipoVenta){
 	if(intIdTipoVenta == 1){
 		$("#nvchDescripcionCol").show();
@@ -11,6 +11,7 @@ function DescripcionProducto(intIdTipoVenta){
 	RestablecerValidacion('nvchDescripcion',1);
 	RestablecerValidacion('nvchDescripcionR',1);
 }
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Producto */
 $(document).on('click', '#btn-form-crear-producto', function(){
@@ -622,5 +623,17 @@ function botonesActualizar(){
     $("#btn-actualizar-ubigeo").hide();
     $("#btn-cancelar-ubigeo").hide();
 }
+
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en excel*/
+$(document).on('click', '#DescargarListaProductoExcel', function(){
+	  var busqueda = $("#txt-busqueda").val();
+	  var url = '../../datos/inventario/clases_producto/reporteexcel.php?busqueda='+busqueda;
+	  window.open(url);
+});
+/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
+//////////////////////////////////////////////////////////////
+
 
 </script>

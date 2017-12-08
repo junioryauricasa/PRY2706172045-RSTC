@@ -231,10 +231,13 @@ DELIMITER $$
 	 	@i AS CantidadEntradas,
 		ROUND((@PrecioPromedio*intCantidadInicial),2) AS TotalEntrada,
 		0.00 AS PrecioSalida, 0.00 AS TotalSalida, 
-		(@SaldoValorizado := ROUND((@SaldoValorizado + (@PrecioPromedio*intCantidadInicial)),2)) AS SaldoValorizado
+		(@SaldoValorizado := ROUND((@SaldoValorizado + (@PrecioPromedio*intCantidadInicial)),2)) AS SaldoValorizado,
+		intIdTipoMonedaCompra AS TipoMoneda,
+		0 AS Iden
 		FROM tb_producto
 		WHERE intIdProducto = _intIdProducto
 		UNION
+		SELECT * FROM (
 		SELECT dtmFechaCreacion AS FechaMovimiento,
 		CASE 
 			WHEN CR.intTipoDetalle = 1 THEN 'Salida'
@@ -282,12 +285,14 @@ DELIMITER $$
 		CASE 
 			WHEN DCR.intTipoDetalle = 1 THEN ROUND((@SaldoValorizado := @SaldoValorizado - @PrecioSalida),2)
 			WHEN DCR.intTipoDetalle = 2 THEN ROUND((@SaldoValorizado := @SaldoValorizado + ROUND((ROUND((DCR.dcmPrecioUnitario/1.18),2) * DCR.intCantidad),2)),2)
-		END AS SaldoValorizado
+		END AS SaldoValorizado,
+		CR.intIdTipoMoneda AS TipoMoneda,
+		CR.intIdComprobante AS Iden
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto
-		GROUP BY CR.intIdComprobante;
+		ORDER BY DCR.dtmFechaRealizada,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden;
     END 
 $$
 DELIMITER ;

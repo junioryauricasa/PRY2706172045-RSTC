@@ -344,10 +344,36 @@ class KardexProducto
       */
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $nvchSimbolo = "";
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['FechaMovimiento']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          $nvchSimbolo = "S/.";
+          if($fila['TipoMoneda'] != 1) {
+            $fila['PrecioEntrada'] = number_format($fila['PrecioEntrada']*$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['TotalEntrada'] = number_format($fila['TotalEntrada']*$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['PrecioSalida'] = number_format($fila['PrecioSalida']*$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['TotalSalida'] = number_format($fila['TotalSalida']*$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['SaldoValorizado'] = number_format($fila['SaldoValorizado']*$fila_moneda['dcmCambio2'],2,'.',''); 
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          $nvchSimbolo = "US$";
+          if($fila['TipoMoneda'] != 2){
+            $fila['PrecioEntrada'] = number_format($fila['PrecioEntrada']/$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['TotalEntrada'] = number_format($fila['TotalEntrada']/$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['PrecioSalida'] = number_format($fila['PrecioSalida']/$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['TotalSalida'] = number_format($fila['TotalSalida']/$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['SaldoValorizado'] = number_format($fila['SaldoValorizado']/$fila_moneda['dcmCambio2'],2,'.','');
+          }
+        }
         echo 
         '<tr>
-            <td class="heading" data-th="ID"></td>
-            <td>'.$j.'</td>
+            <td class="heading" data-th="ID">'.$j.'</td>
             <td>'.$fila["FechaMovimiento"].'</td>
             <td>'.$fila["TipoMovimiento"].'</td>
             <td>'.$fila["TipoComprobante"].'</td>
@@ -356,11 +382,11 @@ class KardexProducto
             <td>'.$fila["Entrada"].'</td>
             <td>'.$fila["Salida"].'</td>
             <td>'.$fila["Stock"].'</td>
-            <td>'.$fila["PrecioEntrada"].'</td>
-            <td>'.$fila["TotalEntrada"].'</td>
-            <td>'.$fila["PrecioSalida"].'</td>
-            <td>'.$fila["TotalSalida"].'</td>
-            <td>'.$fila["SaldoValorizado"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["PrecioEntrada"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["TotalEntrada"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["PrecioSalida"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["TotalSalida"].'</td>
+            <td>'.$nvchSimbolo.' '.$fila["SaldoValorizado"].'</td>
             <td> 
               <button type="button" id="" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
                 <i class="fa fa-edit"></i> Ver Detalle

@@ -160,13 +160,15 @@ DELIMITER $$
 	BEGIN
 		SELECT * FROM tb_proveedor
 		WHERE 
-		( intIdProveedor LIKE CONCAT(_elemento,'%') OR
-		nvchDNI LIKE CONCAT(_elemento,'%') OR
-		nvchRUC LIKE CONCAT(_elemento,'%') OR
-		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
-		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
-		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		nvchNombres LIKE CONCAT(_elemento,'%') ) AND
+		( 
+			intIdProveedor LIKE CONCAT(_elemento,'%') OR
+			nvchDNI LIKE CONCAT(_elemento,'%') OR
+			nvchRUC LIKE CONCAT(_elemento,'%') OR
+			nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+			nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+			nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+			nvchNombres LIKE CONCAT(_elemento,'%') 
+		) AND
 		intIdTipoPersona = _intIdTipoPersona;
     END 
 $$

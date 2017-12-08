@@ -208,18 +208,17 @@ include('../_include/rstheader.php');
                           <thead>
                           <tr>
                             <th class="heading" style="width: 25px !important">&nbsp;</th>
-                            <th>Ítem</th>
-                            <th>Fecha</th>
-                            <th>Tipo de Mov.</th>
-                            <th>Tipo Comprobante</th>
+                            <th>Fecha Mov.</th>
+                            <th>Tipo Mov.</th>
+                            <th>Tipo Comprob.</th>
                             <th>Serie</th>
                             <th>Numeración</th>
                             <th>Cantidad Entrada</th>
                             <th>Cantidad Salida</th>
                             <th>Stock</th>
-                            <th>Precio Uni. Entrada</th>
+                            <th>Precio Entrada</th>
                             <th>Total Entrada</th>
-                            <th>Precio Uni. Salida</th>
+                            <th>Precio Salida</th>
                             <th>Total Salida</th>
                             <th>Saldo Valorizado</th>
                             <th>Opción</th>

@@ -97,7 +97,8 @@ switch($_POST['funcion']){
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
     $Comprobante->TipoDetalle($_POST['intTipoDetalle']);
     $Comprobante->IdSucursal($_POST['intIdSucursal']);
-    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($_POST['nvchFecha']));
+    $dtmFechaCreacion = str_replace('/', '-', $_POST['nvchFecha']);
+    $dtmFechaCreacion = date('Y-m-d', strtotime($dtmFechaCreacion));
     $Comprobante->FechaCreacion($dtmFechaCreacion);
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
