@@ -82,13 +82,24 @@ require_once '../../datos/conexion/bd_conexion.php';
           <div class="tab-pane active" id="formRealizarCotizacion">
             <div class="row">
               <div class="col-md-2">
-                <div class="form-group">
+                <div id="nvchFechaGroup" class="form-group">
                   <label>Fecha:</label>
-                  <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" form="form-cotizacion"/>
-                  <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
+                  <div id="groupFecha" class="input-group">
+                    <input type="text" id="nvchFecha" name="nvchFecha" class="form-control select2" placeholder="dd/mm/aaaa HH:mm:ss" maxlength="19" onkeyup="EsFechaHora('nvchFecha')" form="form-cotizacion" readonly/>
+                    <span class="input-group-btn">
+                      <button class="btn btn-success" type="button" onclick="OpcionFecha($('#txtOpcionFecha').val())">
+                        <i class="fa fa-edit" data-toggle="tooltip" title="" id="iconOpFecha" data-original-title="Modificar"></i>
+                      </button>
+                    </span>
+                    <input type="hidden" id="txtOpcionFecha" value="1">
+                  </div>
+                  <!--<span id="nvchFechaIcono" class="" aria-hidden=""></span>-->
+                  <div id="nvchFechaObs" class=""></div>
+                  <!--<script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>-->
                 </div>
               </div>
-              <div class="col-md-2">
+              <script type="text/javascript">IniciarHora();</script>
+              <div id="nvchNumeracionCol" class="col-md-2">
                 <div id="nvchNumeracionGroup" class="form-group">
                   <label>Numeración:</label>
                   <input type="text" id="nvchNumeracion" name="nvchNumeracion" class="form-control select2" 

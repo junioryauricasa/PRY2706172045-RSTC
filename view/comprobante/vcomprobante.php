@@ -23,7 +23,7 @@
                   </div>
                   <!--<span id="nvchFechaIcono" class="" aria-hidden=""></span>-->
                   <div id="nvchFechaObs" class=""></div>
-                  <script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>
+                  <!--<script type="text/javascript">$("#nvchFecha").val(FechaActual());</script>-->
                 </div>
               </div>
               <script type="text/javascript">IniciarHora();</script>

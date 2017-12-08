@@ -284,6 +284,7 @@ function HabilitacionOpciones(accion){
     $('.opcion-boton-nuevo').show();
     $('.opcion-columna-nuevo').show();
     $("#funcionC").val("I");
+    $("#nvchNumeracionCol").hide();
   } else {
     <?php if($_SESSION['intIdTipoUsuario'] != 1) {?>
     $('#intIdTipoVenta').attr("disabled", true);
@@ -295,6 +296,7 @@ function HabilitacionOpciones(accion){
     $('.opcion-boton-editar').show();
     <?php } ?>
     $("#funcionC").val("A");
+    $("#nvchNumeracionCol").show();
   }
 }
 
@@ -304,7 +306,7 @@ function ValidacionCotizacion(){
   if(intIdCliente == "" || intIdCliente == null){
     MensajeNormal("Seleccionar a un Cliente",2);
     return false;
-  } else if(EsFecha('nvchFecha') == false){
+  } else if(EsFechaHora('nvchFecha') == false){
     goToBox("#nvchFechaGroup");
     return false;
   } else if(EsNumeroEntero('intDiasValidez') == false){
