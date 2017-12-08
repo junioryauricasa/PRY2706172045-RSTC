@@ -1308,7 +1308,6 @@ $(document).on('click', '#DescargarListaComprobanteExcel', function(){
 
   // invocando al excel
   var url = '../../datos/comprobante/clases_comprobante/reporteexcel.php?elemento='+busqueda+'&intIdTipoComprobante='+intIdTipoComprobante+'&intIdTipoMoneda='+intIdTipoMoneda+'&intTipoDetalle='+intTipoDetalle+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
-  alert(url);
   window.open(url);
 
 });

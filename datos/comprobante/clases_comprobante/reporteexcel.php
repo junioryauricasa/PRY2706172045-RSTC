@@ -8,6 +8,11 @@
 	$dtmFechaInicial = $_GET['dtmFechaInicial'];
 	$dtmFechaFinal = $_GET['dtmFechaFinal'];
 
+  $dtmFechaInicial = str_replace('/', '-', $dtmFechaInicial);
+  $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+  $dtmFechaFinal = str_replace('/', '-', $dtmFechaFinal);
+  $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+
 	$tipo = isset($_REQUEST['t']) ? $_REQUEST['t'] : 'EXCEL';
     $extension = $tipo == 'EXCEL' ? '.xls' : '.doc';
     $NombreArchivo = 'ReporteComprobante_'.$elemento;
@@ -45,19 +50,45 @@
       ';
 
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-          echo 
+      {   
+        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
+        $sql_conexion_moneda = new Conexion_BD();
+        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+        if($intIdTipoMoneda == 1){
+          if($fila['intIdTipoMoneda'] != 1) {
+            $fila['TotalComprobante'] = round($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVComprobante'] = round($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorComprobante'] = round($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2); 
+            $fila['SimboloMoneda'] = "S/.";
+          }
+        } 
+        else if ($intIdTipoMoneda == 2){
+          if($fila['intIdTipoMoneda'] != 2){
+            $fila['TotalComprobante'] = round($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVComprobante'] = round($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorComprobante'] = round($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2);
+            $fila['SimboloMoneda'] = "US$";
+          }
+        }
+        echo 
           '
 		        <tr>
 	              	<td style="border: solid 1px black">'.utf8_decode($fila["nvchSerie"]).'</td>
 	                <td style="border: solid 1px black">'.utf8_decode($fila["nvchNumeracion"]).'</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["intIdTipoComprobante"]).'</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["nvchNombres"]).'</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["nvchUsername"]).'</td>
+	                <td style="border: solid 1px black">'.utf8_decode($fila["NombreComprobante"]).'</td>';
+                  if($intTipoDetalle == 1)
+                    echo '<td style="border: solid 1px black">'.utf8_decode($fila["NombreCliente"]).'</td>';
+                  else if($intTipoDetalle == 2)
+                    echo '<td style="border: solid 1px black">'.utf8_decode($fila["NombreProveedor"]).'</td>';
+                  echo
+	                '<td style="border: solid 1px black">'.utf8_decode($fila["NombreUsuario"]).'</td>
 	                <td style="border: solid 1px black">'.utf8_decode($fila["dtmFechaCreacion"]).'</td>
-	                <td style="border: solid 1px black">TIPO COMPROBNTE</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["IGVComprobante"]).'</td>
-	                <td style="border: solid 1px black">'.utf8_decode($fila["TotalComprobante"]).'</td>
+	                <td style="border: solid 1px black">'.$fila["SimboloMoneda"].' '.$fila["ValorComprobante"].'</td>
+	                <td style="border: solid 1px black">'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
+	                <td style="border: solid 1px black">'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>
 		        </tr>
           ';
       }

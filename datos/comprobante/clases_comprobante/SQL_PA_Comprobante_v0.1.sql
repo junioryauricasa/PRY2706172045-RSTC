@@ -304,6 +304,7 @@ DELIMITER $$
 			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 		END AS NombreCliente,
+		TCR.nvchNombre AS NombreComprobante,
 		TMN.nvchSimbolo AS SimboloMoneda,
 		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
 		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
@@ -330,6 +331,7 @@ DELIMITER $$
 			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
 			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
 		END AS NombreCliente,
+		TCR.nvchNombre AS NombreComprobante,
 		TMN.nvchSimbolo AS SimboloMoneda,
 		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
 		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
@@ -356,6 +358,7 @@ DELIMITER $$
 			WHEN PRO.intIdTipoPersona = 1 THEN PRO.nvchRazonSocial
 			WHEN PRO.intIdTipoPersona = 2 THEN CONCAT(PRO.nvchNombres,' ',PRO.nvchApellidoPaterno,' ',PRO.nvchApellidoMaterno)
 		END AS NombreProveedor,
+		TCR.nvchNombre AS NombreComprobante,
 		TMN.nvchSimbolo AS SimboloMoneda,
 		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
 		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
@@ -382,6 +385,7 @@ DELIMITER $$
 			WHEN PRO.intIdTipoPersona = 1 THEN PRO.nvchRazonSocial
 			WHEN PRO.intIdTipoPersona = 2 THEN CONCAT(PRO.nvchNombres,' ',PRO.nvchApellidoPaterno,' ',PRO.nvchApellidoMaterno)
 		END AS NombreProveedor,
+		TCR.nvchNombre AS NombreComprobante,
 		TMN.nvchSimbolo AS SimboloMoneda,
 		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
 		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
