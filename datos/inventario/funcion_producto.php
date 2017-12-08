@@ -57,9 +57,9 @@ switch($_POST['funcion']){
     $Producto->CantidadInicial($_SESSION['intIdProducto']);
     $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],1);
     $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],2);
-    $KardexProducto = new KardexProducto();
-    $KardexProducto->IdProducto($_SESSION['intIdProducto']);
-    $KardexProducto->InsertarKardexProductoInicial();
+    //$KardexProducto = new KardexProducto();
+    //$KardexProducto->IdProducto($_SESSION['intIdProducto']);
+    //$KardexProducto->InsertarKardexProductoInicial();
     break;
   case "IMQ":
     $Maquinaria = new Maquinaria();

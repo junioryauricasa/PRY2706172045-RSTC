@@ -185,6 +185,7 @@ class Producto
       $cantidad = 0;
       $numpaginas = 0;
       $i = 0;
+      $j = $x + 1;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       //Busqueda de producto por el comando LIMIT
@@ -196,6 +197,7 @@ class Producto
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
+        $j = $x + 1;
       } else if ($tipolistado == "D"){
         $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
         $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
@@ -220,7 +222,7 @@ class Producto
           }
           echo 
           '
-              <td class="heading" style="" data-th="ID"></td>
+              <td class="heading" style="" data-th="ID">'.$j.'</td>
               <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
               <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
               <td align="right"data-th="Tipo de Moneda Venta">'.$fila["nvchSimbolo"].'</td>
@@ -247,7 +249,7 @@ class Producto
                 </button>
               </td>  
           </tr>';
-          $i++;
+          $i++; $j++;
         }
       }
     }
@@ -393,7 +395,7 @@ class Producto
     try{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL CANTIDADINICIALPRODUCTO(:intIdProducto,:intIdSucursal)');
+      $sql_comando = $sql_conectar->prepare('CALL CANTIDADINICIALUBIGEO(:intIdProducto,:intIdSucursal)');
       $sql_comando -> execute(array(':intIdProducto' => $intIdProducto,':intIdSucursal'=>$intIdSucursal));
       echo 'ok';
     }

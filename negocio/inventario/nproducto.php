@@ -98,7 +98,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   success:function(datos)
 	   {
 	   	datos = datos.replace(/\s/g,''); //quitando espacio
-	   	if (datos == "okokokokok") {
+	   	if (datos == "okokokokokokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");
