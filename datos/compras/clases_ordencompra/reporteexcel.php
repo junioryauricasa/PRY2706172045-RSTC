@@ -8,7 +8,10 @@
     $dtmFechaFinal = $_GET['dtmFechaFinal'];
 
     //echo '<br>CALL BUSCARORDENCOMPRA_II('.$elemento.','.$dtmFechaInicial.','.$dtmFechaFinal.')';
-
+    $dtmFechaInicial = str_replace('/', '-', $dtmFechaInicial);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $dtmFechaFinal);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     // INICIO - SENTENCIAS PARA EXCEL
     $now = date("d-m-Y_H:i:s");
     $tipo = isset($_REQUEST['t']) ? $_REQUEST['t'] : 'EXCEL';
@@ -26,7 +29,7 @@
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL BUSCARORDENCOMPRA_II(:elemento,:dtmFechaInicial,:dtmFechaFinal)');
-      $sql_comando -> execute(array(':elemento' => 'resteco', ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      $sql_comando -> execute(array(':elemento' => $elemento, ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
 
       echo '
         <h1>Reporte de Orden de Compra</h1>
@@ -46,7 +49,7 @@
             <tbody>
       ';
 
-
+      $i = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {   
         $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
@@ -57,62 +60,32 @@
         $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
         if($intIdTipoMoneda == 1){
           if($fila['intIdTipoMoneda'] != 1) {
-            $fila['TotalComprobante'] = round($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2);
-            $fila['IGVComprobante'] = round($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2); 
-            $fila['ValorComprobante'] = round($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2); 
+            $fila['TotalOrdenCompra'] = round($fila['TotalOrdenCompra']*$fila_moneda['dcmCambio2'],2);
+            $fila['IGVOrdenCompra'] = round($fila['IGVOrdenCompra']*$fila_moneda['dcmCambio2'],2); 
+            $fila['ValorOrdenCompra'] = round($fila['ValorOrdenCompra']*$fila_moneda['dcmCambio2'],2); 
             $fila['SimboloMoneda'] = "S/.";
           }
         } 
         else if ($intIdTipoMoneda == 2){
           if($fila['intIdTipoMoneda'] != 2){
-            $fila['TotalComprobante'] = round($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2);
-            $fila['IGVComprobante'] = round($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2);
-            $fila['ValorComprobante'] = round($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2);
+            $fila['TotalOrdenCompra'] = round($fila['TotalOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['IGVOrdenCompra'] = round($fila['IGVOrdenCompra']/$fila_moneda['dcmCambio2'],2);
+            $fila['ValorOrdenCompra'] = round($fila['ValorOrdenCompra']/$fila_moneda['dcmCambio2'],2);
             $fila['SimboloMoneda'] = "US$";
           }
         }
-        echo 
-          '
-            <tr>
-                  <td style="border: solid 1px black">'.utf8_decode($fila["nvchSerie"]).'</td>
-                  <td style="border: solid 1px black">'.utf8_decode($fila["nvchNumeracion"]).'</td>';
-              
-                  if($fila["intIdTipoComprobante"] == 1){
-                    $fila["nvchNombre"] = 'Factura';
-                  }else if($fila["intIdTipoComprobante"] == 2){
-                    $fila["nvchNombre"] = 'Boleta de Venta';
-                  }else if($fila["intIdTipoComprobante"] == 3){
-                    $fila["nvchNombre"] = 'Guia de Remision';
-                  }else if($fila["intIdTipoComprobante"] == 4){
-                    $fila["nvchNombre"] = 'Nota de Credito';
-                  }else if($fila["intIdTipoComprobante"] == 5){
-                    $fila["nvchNombre"] = 'Factura';
-                  }else if($fila["intIdTipoComprobante"] == 6){
-                    $fila["nvchNombre"] = 'Boleta de Venta';
-                  }else if($fila["intIdTipoComprobante"] == 7){
-                    $fila["nvchNombre"] = 'Guia de Remision';
-                  }else if($fila["intIdTipoComprobante"] == 8){
-                    $fila["nvchNombre"] = 'Nota de Credito';
-                  }else if($fila["intIdTipoComprobante"] == 9){
-                    $fila["nvchNombre"] = 'Guia Interna de Salida';
-                  }else if($fila["intIdTipoComprobante"] == 10){
-                    $fila["nvchNombre"] = 'Guia Interna de Entrada';
-                  }
-
-                  echo '
-                  <td style="border: solid 1px black">'.utf8_decode($fila["nvchNombre"]).'</td>';
-                  if($intTipoDetalle == 1)
-                    echo '<td style="border: solid 1px black">'.utf8_decode($fila["NombreCliente"]).'</td>';
-                  else if($intTipoDetalle == 2)
-                    echo '<td style="border: solid 1px black">'.utf8_decode($fila["NombreProveedor"]).'</td>';
-                  echo
-                  '<td style="border: solid 1px black">'.utf8_decode($fila["NombreUsuario"]).'</td>
-                  <td style="border: solid 1px black">'.utf8_decode($fila["dtmFechaCreacion"]).'</td>
-                  <td style="border: solid 1px black">'.$fila["SimboloMoneda"].' '.$fila["ValorComprobante"].'</td>
-                  <td style="border: solid 1px black">'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
-                  <td style="border: solid 1px black">'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>
-            </tr>
-          ';
+        echo
+        '
+            <td>'.$fila["nvchSerie"].'</td>
+            <td>'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["nvchRazonSocial"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorOrdenCompra"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
+        </tr>';
+        $i++;
       }
 
       echo '

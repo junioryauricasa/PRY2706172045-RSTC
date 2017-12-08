@@ -552,7 +552,6 @@ $(document).on('click', '#DescargarListaProveedorExcel', function(){
 
 	  //alert(url);
 	  window.open(url);
-
 });
 /* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
 //////////////////////////////////////////////////////////////
