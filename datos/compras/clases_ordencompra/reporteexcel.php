@@ -12,16 +12,18 @@
     $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
     $dtmFechaFinal = str_replace('/', '-', $dtmFechaFinal);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+
     // INICIO - SENTENCIAS PARA EXCEL
     $now = date("d-m-Y _ H:i:s");
     $tipo = isset($_REQUEST['t']) ? $_REQUEST['t'] : 'EXCEL';
     $extension = $tipo == 'EXCEL' ? '.xls' : '.doc';
     $NombreArchivo = 'ReporteOrdenDeCompra_'.$elemento;
-    header("Content-type: application/vnd.ms-$tipo");
+    header("Content-Type: application / vnd.openxmlformats-officedocument.spreadsheetml.sheet ');");
     header("Content-Disposition: attachment; filename=$NombreArchivo$now$extension"); //exportacion a la antigua
     //header("Content-Disposition: attachment; filename=$NombreArchivo$now.csv");
-    header("Pragma: no-cache");
+    header("Pragma: Public");
     header("Expires: 0");
+    header("Content-Transfer-Encoding: binary ");
     // INICIO - SENTENCIAS PARA EXCEL
     
     try{
