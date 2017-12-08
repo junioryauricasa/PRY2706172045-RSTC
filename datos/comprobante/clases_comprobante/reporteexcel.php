@@ -31,7 +31,7 @@
       $sql_comando -> execute(array(':elemento' => $elemento, ':intIdTipoComprobante' => $intIdTipoComprobante,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal, ':intTipoDetalle' => $intTipoDetalle));
 
       echo '
-        <h1>Reporte de Comprobante</h1>
+        <h1>Reporte de Comprobante - Compras</h1>
         <table>
             <thead>
                 <tr>

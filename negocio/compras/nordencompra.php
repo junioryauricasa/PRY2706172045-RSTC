@@ -523,4 +523,26 @@ function vertab1(){
 /* END - ver listado tab1 */
 //////////////////////////////////////////////////////////////
 
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en excel*/
+$(document).on('click', '#DescargarListaProveedorExcel', function(){
+
+	  //alert('ingresaste a la funcion descargar');
+	  var busqueda = $("#txt-busqueda").val();
+	  var lista_tipo_moneda = $("#lista-tipo-moneda").val();
+	  var dtmFechaInicial = $("#dtmFechaInicial").val();
+	  var dtmFechaFinal = $("#dtmFechaFinal").val();
+
+	  //alert('parametros> busqueda:'+busqueda+' && tipo_persona:'+tipo_persona);
+
+	  var url = '../../datos/compras/clases_ordencompra/reporteexcel.php?elemento='+busqueda+'&listatipomoneda='+lista_tipo_moneda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
+
+	  //alert(url);
+	  window.open(url);
+
+});
+/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
+//////////////////////////////////////////////////////////////
+
 </script>

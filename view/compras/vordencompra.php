@@ -156,7 +156,16 @@ include('../_include/rstheader.php');
                       </div>
                     </div>
                     <div class="box-footer clearfix">     
-                      <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-info btn-flat pull-left" onclick="verform()">Crear Orden de Compra</button>
+                      
+                      <!-- crear orden de compra -->
+                      <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-danger btn-flat" onclick="verform()"><i class="fa fa-plus" aria-hidden="true"></i> Crear Orden de Compra</button>
+                      
+                      <!-- generar reporte de orden de compra -->
+                      <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
+                        Descargar reporte EXCEL
+                      </button>
+
                     </div>
                   </div>
                   <!-- END TABLE: -->
