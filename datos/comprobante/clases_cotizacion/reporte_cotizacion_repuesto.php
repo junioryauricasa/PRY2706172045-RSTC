@@ -108,8 +108,7 @@
       <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/header-comprobantes.PNG">
     </header>
     <!-- END header pdf -->
-    
-    <div class="content" style="padding-top: -65px">
+    <div class="content" style="margin-top: -65px">
         <center>
             <span style="font-weight: bold; font-family: Arial;">
               COTIZACIÓN DE REPUESTOS Nº RSA-<?php echo $nvchNumeracion; ?>/<?php echo $year; ?>
