@@ -234,7 +234,7 @@ class KardexProducto
     }
   }
 
-  public function ListarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  public function ListarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda,$intIdSucursal)
   {
     try{
       $residuo = 0;
@@ -267,8 +267,8 @@ class KardexProducto
       /*$sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdProducto' => $this->intIdProducto, 
         ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));*/
-      $sql_comando = $sql_conectar->prepare('CALL PRUEBAKARDEX(:intIdProducto,:intIdTipoMoneda)');
-      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda));
+      $sql_comando = $sql_conectar->prepare('CALL KardexProducto(:intIdProducto,:intIdTipoMoneda,:intIdSucursal)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda,':intIdSucursal' => $intIdSucursal));
       $numpaginas = ceil($cantidad / $y);
       $j = 1;
       /*
@@ -408,7 +408,7 @@ class KardexProducto
     }  
   }
 
-  public function PaginarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
+  public function PaginarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdSucursal)
   {
     try{
       if($tipolistado == "N")
