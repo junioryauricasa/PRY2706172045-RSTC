@@ -85,48 +85,6 @@ include('../_include/rstheader.php');
                             $("#tipo-busquedaCol").hide();
                           </script>
                         </div>
-                        <div class="row">
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <label>Tipo Moneda:</label>
-                              <br>
-                              <select id="lista-tipo-moneda" class="form-control select2">
-                                <?php 
-                                  require_once '../../datos/conexion/bd_conexion.php';
-                                  try{
-                                  $sql_conexion = new Conexion_BD();
-                                  $sql_conectar = $sql_conexion->Conectar();
-                                  $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
-                                  $sql_comando->execute();
-                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                                  {
-                                    echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
-                                  }
-                                }catch(PDPExceptions $e){
-                                  echo $e->getMessage();
-                                }?>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="text-left">Fecha Inicial:</label>
-                                <input type="text" id="dtmFechaInicial" class="form-control select2" placeholder="dd/mm/aaaa" value="">
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="text-left">Fecha Final:</label>
-                                <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="text-left">Opción:</label>
-                                <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
-                            </div>
-                          </div>
-                        </div>
                         <div class="table-responsive">
                           <table class="ExcelTable2007 rwd-table" width="100%">
                             <thead>
@@ -171,8 +129,6 @@ include('../_include/rstheader.php');
                 </div>
 
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
-                      
-
                         <div id="TablaDetalleUbigeo">
                           <hr>
                           <input type="hidden" id="intIdProducto"/>
@@ -201,6 +157,48 @@ include('../_include/rstheader.php');
                               </div>
                             </div>
                           </div>
+                          <div class="row">
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Tipo Moneda:</label>
+                              <br>
+                              <select id="lista-tipo-moneda" class="form-control select2">
+                                <?php 
+                                  require_once '../../datos/conexion/bd_conexion.php';
+                                  try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrartipomoneda()');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo '<option value="'.$fila['intIdTipoMoneda'].'">'.$fila['nvchNombre'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="text-left">Fecha Inicial:</label>
+                                <input type="text" id="dtmFechaInicial" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="text-left">Fecha Final:</label>
+                                <input type="text" id="dtmFechaFinal" class="form-control select2" placeholder="dd/mm/aaaa" value="">
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="text-left">Opción:</label>
+                                <input type="button" id="btnBuscar" class="form-control select2 btn btn-md btn-primary btn-flat" value="Realizar Búsqueda">
+                            </div>
+                          </div>
+                        </div>
                         </div>
 
                       <div class="table-responsive">
@@ -228,18 +226,14 @@ include('../_include/rstheader.php');
                           </tbody>
                         </table>
                       </div>
-
                       <hr>
-                      
                       <div class="text-center">
                         <nav aria-label="">
                           <ul id="PaginacionDeKardex" class="pagination">
                           </ul>
                         </nav>
                       </div>
-
                 </div>
-
               </div>
             </div>
         </section>

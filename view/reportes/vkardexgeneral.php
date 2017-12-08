@@ -60,6 +60,8 @@ include('../_include/rstheader.php');
                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-2">
               <div class="form-group">
                 <label>Tipo Moneda:</label>
@@ -82,8 +84,6 @@ include('../_include/rstheader.php');
                 </select>
               </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-md-2">
               <div class="form-group">
                   <label class="text-left">Fecha Inicial:</label>
