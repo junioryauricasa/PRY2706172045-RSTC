@@ -243,6 +243,7 @@ class KardexProducto
       $i = 0;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
+      /*
       //Busqueda de KardexProducto por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
@@ -261,13 +262,16 @@ class KardexProducto
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
-      }
+      }*/
       //Busqueda de KardexProducto por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
+      /*$sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdProducto' => $this->intIdProducto, 
-        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));*/
+      $sql_comando = $sql_conectar->prepare('CALL PRUEBAKARDEX(:intIdProducto)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto));
       $numpaginas = ceil($cantidad / $y);
       $j = 1;
+      /*
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         if($fila['dcmPrecioEntrada'] == "" || $fila['dcmPrecioEntrada'] == null) { $fila['dcmPrecioEntrada'] = 0.00; }
@@ -331,6 +335,34 @@ class KardexProducto
             <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td>
             <td> 
               <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
+                <i class="fa fa-edit"></i> Ver Detalle
+              </button>
+            </td>  
+        </tr>';
+        $j++;
+      }
+      */
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        echo 
+        '<tr>
+            <td class="heading" data-th="ID"></td>
+            <td>'.$j.'</td>
+            <td>'.$fila["FechaMovimiento"].'</td>
+            <td>'.$fila["TipoMovimiento"].'</td>
+            <td>'.$fila["TipoComprobante"].'</td>
+            <td>'.$fila["Serie"].'</td>
+            <td>'.$fila["Numeracion"].'</td>
+            <td>'.$fila["Entrada"].'</td>
+            <td>'.$fila["Salida"].'</td>
+            <td>'.$fila["Stock"].'</td>
+            <td>'.$fila["PrecioEntrada"].'</td>
+            <td>'.$fila["TotalEntrada"].'</td>
+            <td>'.$fila["PrecioSalida"].'</td>
+            <td>'.$fila["TotalSalida"].'</td>
+            <td>'.$fila["SaldoValorizado"].'</td>
+            <td> 
+              <button type="button" id="" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
                 <i class="fa fa-edit"></i> Ver Detalle
               </button>
             </td>  

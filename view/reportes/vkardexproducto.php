@@ -64,7 +64,7 @@ include('../_include/rstheader.php');
                       </div>
                       <div class="box-body">
                         <div class="row">
-                          <?php include '../campos/cmbNumLista.php'; ?>
+                          <?php include '../campos/cmbNumListaProducto.php'; ?>
                           <div class="col-md-2">
                             <div class="form-group">
                               <label class="text-left">Ingresar Búsqueda:</label>
@@ -77,7 +77,7 @@ include('../_include/rstheader.php');
                               <br>
                               <select id="tipo-busqueda-producto" name="tipo-busqueda-producto" class="form-control select2" >
                                 <option value="C">Por Códigos</option>
-                                <option value="T">Resto de Campos</option>
+                                <!--<option value="T">Resto de Campos</option>-->
                               </select>
                             </div>
                           </div>

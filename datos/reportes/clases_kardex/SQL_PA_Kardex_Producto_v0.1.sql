@@ -214,15 +214,26 @@ END WHILE;
 
 DROP PROCEDURE IF EXISTS PRUEBAKARDEX;
 DELIMITER $$
-	CREATE PROCEDURE PRUEBAKARDEX()
+	CREATE PROCEDURE PRUEBAKARDEX(
+		IN _intIdProducto INT
+	)
 	BEGIN
-		SET @@Stock = 0;
+		SET @Stock = 0;
+		SET @PrecioPromedio = 0.00;
+		SET @SaldoValorizado = 0.00;
+		SET @PrecioSalida = 0.00;
+		SET @i = 1;
 		SELECT dtmFechaIngreso AS FechaMovimiento, 'Entrada' AS TipoMovimiento, 'Apertura' AS TipoComprobante, 
-		'-' AS Serie, '-' AS Numeracion, intCantidad AS Entrada , 0 AS Salida,
-		(@@Stock := intCantidad) AS Stock, (@@PrecioPromedio := 1000+125) AS PrecioEntrada, (dcmPrecioCompra*intCantidad) AS TotalEntrada,
-		0.00 AS PrecioSalida, 0.00 AS TotalSalida, (@@SaldoValorizado := dcmPrecioCompra*intCantidad) AS SaldoValorizado
+		'-' AS Serie, '-' AS Numeracion, intCantidadInicial AS Entrada , 0 AS Salida,
+		(@Stock := @Stock + intCantidadInicial) AS Stock, 
+		(@PrecioPromedio := ROUND((@PrecioPromedio + (dcmPrecioCompra/1.18)),2)) AS PrecioEntrada,
+		(ROUND(@PrecioPromedio,2)) AS PrecioPromedio,
+	 	@i AS CantidadEntradas,
+		ROUND((@PrecioPromedio*intCantidadInicial),2) AS TotalEntrada,
+		0.00 AS PrecioSalida, 0.00 AS TotalSalida, 
+		(@SaldoValorizado := ROUND((@SaldoValorizado + (@PrecioPromedio*intCantidadInicial)),2)) AS SaldoValorizado
 		FROM tb_producto
-		WHERE intIdProducto = 23
+		WHERE intIdProducto = _intIdProducto
 		UNION
 		SELECT dtmFechaCreacion AS FechaMovimiento,
 		CASE 
@@ -233,38 +244,49 @@ DELIMITER $$
 		CR.nvchSerie AS Serie,
 		CR.nvchNumeracion AS Numeracion,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN 0
-			WHEN CR.intTipoDetalle = 2 THEN DCR.intCantidad
+			WHEN DCR.intTipoDetalle = 1 THEN 0
+			WHEN DCR.intTipoDetalle = 2 THEN DCR.intCantidad
 		END AS Entrada,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN DCR.intCantidad
-			WHEN CR.intTipoDetalle = 2 THEN 0
+			WHEN DCR.intTipoDetalle = 1 THEN DCR.intCantidad
+			WHEN DCR.intTipoDetalle = 2 THEN 0
 		END AS Salida,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN @Stock := @Stock - DCR.intCantidad
-			WHEN CR.intTipoDetalle = 2 THEN @Stock := @Stock + DCR.intCantidad
+			WHEN DCR.intTipoDetalle = 1 THEN @Stock := @Stock - DCR.intCantidad
+			WHEN DCR.intTipoDetalle = 2 THEN @Stock := @Stock + DCR.intCantidad
 		END AS Stock,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN 0
-			WHEN CR.intTipoDetalle = 2 THEN DCR.dcmPrecioUnitario
+			WHEN DCR.intTipoDetalle = 1 THEN 0
+			WHEN DCR.intTipoDetalle = 2 THEN ROUND((DCR.dcmPrecioUnitario/1.18),2)
 		END AS PrecioEntrada,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN 0
-			WHEN CR.intTipoDetalle = 2 THEN DCR.dcmPrecioUnitario * DCR.intCantidad
+			WHEN DCR.intTipoDetalle = 1 THEN 0
+			WHEN DCR.intTipoDetalle = 2 THEN @PrecioPromedio := @PrecioPromedio + ROUND((DCR.dcmPrecioUnitario/1.18),2)
+		END AS PrecioPromedio,
+		CASE 
+			WHEN DCR.intTipoDetalle = 1 THEN 0
+			WHEN DCR.intTipoDetalle = 2 THEN @i := @i + 1
+		END AS CantidadEntradas,
+		CASE 
+			WHEN DCR.intTipoDetalle = 1 THEN 0
+			WHEN DCR.intTipoDetalle = 2 THEN ROUND((ROUND((DCR.dcmPrecioUnitario/1.18),2) * DCR.intCantidad),2)
 		END AS TotalEntrada,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN DCR.dcmPrecioUnitario
-			WHEN CR.intTipoDetalle = 2 THEN 0
+			WHEN DCR.intTipoDetalle = 1 THEN @PrecioSalida := 0.00 + ROUND((@PrecioPromedio / @i),2)
+			WHEN DCR.intTipoDetalle = 2 THEN 0
 		END AS PrecioSalida,
 		CASE 
-			WHEN CR.intTipoDetalle = 1 THEN DCR.dcmPrecioUnitario * DCR.intCantidad
-			WHEN CR.intTipoDetalle = 2 THEN 0
+			WHEN DCR.intTipoDetalle = 1 THEN ROUND((@PrecioSalida * DCR.intCantidad),2)
+			WHEN DCR.intTipoDetalle = 2 THEN 0
 		END AS TotalSalida,
-		DCR.dcmPrecioUnitario * DCR.intCantidad AS SaldoValorizado
+		CASE 
+			WHEN DCR.intTipoDetalle = 1 THEN ROUND((@SaldoValorizado := @SaldoValorizado - @PrecioSalida),2)
+			WHEN DCR.intTipoDetalle = 2 THEN ROUND((@SaldoValorizado := @SaldoValorizado + ROUND((ROUND((DCR.dcmPrecioUnitario/1.18),2) * DCR.intCantidad),2)),2)
+		END AS SaldoValorizado
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = 23
+		WHERE DCR.intIdProducto = _intIdProducto
 		GROUP BY CR.intIdComprobante;
     END 
 $$

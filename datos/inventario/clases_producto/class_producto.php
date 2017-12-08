@@ -376,6 +376,32 @@ class Producto
     }
   }
 
+  public function CantidadInicial($intIdProducto){
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL CANTIDADINICIALPRODUCTO(:intIdProducto)');
+      $sql_comando -> execute(array(':intIdProducto' => $intIdProducto));
+      echo 'ok';
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function CantidadInicialUbigeo($intIdProducto,$intIdSucursal){
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL CANTIDADINICIALPRODUCTO(:intIdProducto,:intIdSucursal)');
+      $sql_comando -> execute(array(':intIdProducto' => $intIdProducto,':intIdSucursal'=>$intIdSucursal));
+      echo 'ok';
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
   public function ES_StockUbigeo($intIdProducto,$intIdSucursal,$intCantidad,$TipoES)
   {
     try{

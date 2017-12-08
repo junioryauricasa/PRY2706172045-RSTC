@@ -400,6 +400,38 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS CANTIDADINICIALUBIGEO;
+DELIMITER $$
+	CREATE PROCEDURE CANTIDADINICIALUBIGEO(
+    	IN _intIdProducto INT,
+    	IN _intIdSucursal INT
+    )
+	BEGIN
+		UPDATE tb_ubigeo_producto
+		SET
+		intCantidadInicial = intCantidadUbigeo
+		WHERE 
+		intIdProducto = _intIdProducto AND
+		intIdSucursal = _intIdSucursal;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS CANTIDADINICIALPRODUCTO;
+DELIMITER $$
+	CREATE PROCEDURE CANTIDADINICIALPRODUCTO(
+    	IN _intIdProducto INT
+    )
+	BEGIN
+		UPDATE tb_producto
+		SET
+		intCantidadInicial = intCantidad
+		WHERE 
+		intIdProducto = _intIdProducto;
+    END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS CANTIDADTOTALPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE CANTIDADTOTALPRODUCTO(
