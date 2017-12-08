@@ -1283,4 +1283,36 @@ function MostrarSeleccionComprobante() {
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Cliente */
+$(document).on('click', '#DescargarListaComprobanteExcel', function(){
+  
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "L";
+  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intTipoDetalle = $("#intTipoDetalle").val();
+  
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  // invocando al excel
+  var url = '../../datos/comprobante/clases_comprobante/reporteexcel.php?elemento='+busqueda+'&intIdTipoComprobante='+intIdTipoComprobante+'&intIdTipoMoneda='+intIdTipoMoneda+'&intTipoDetalle='+intTipoDetalle+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
+  alert(url);
+  window.open(url);
+
+});
+/* FIN - Funcion Ajax - Listar Cliente */
+//////////////////////////////////////////////////////////////
+
 </script>

@@ -396,12 +396,11 @@
                 </ul>
               </nav>
             </div>
+
+            <br>
+            <button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-download" aria-hidden="true"></i> Agregar Proveedor</button> 
+            
             <script type="text/javascript">TotalComprobante();</script>
-            <!--
-            <div class="row">
-              
-            </div>
-            -->
           </div>
           <!-- FIN - Formulario Listar Venta -->
         </div>
