@@ -8,6 +8,7 @@ $dtmFechaInicial = date('Y-m-d H:i:s', strtotime($dtmFechaInicial));
 $dtmFechaFinal = str_replace('/', '-', $_GET['dtmFechaFinal']);
 $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
 $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
+$intIdSucursal = $_GET['intIdSucursal'];
  ob_start();
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
@@ -19,10 +20,16 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
 
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $intIdProducto, 
-          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      $sql_comando = $sql_conectar->prepare('CALL KardexProducto(:intIdProducto,:intIdTipoMoneda,:intIdSucursal)');
+      $sql_comando -> execute(array(':intIdProducto' => $intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda,':intIdSucursal' => $intIdSucursal));
       $j = 1;
+      if($intIdTipoMoneda == 1)
+        $nvchSimbolo = "S/.";
+      else if($intIdTipoMoneda == 2)
+        $nvchSimbolo = "US$";
+
+      if($dtmFechaInicial = "1969-12-31 19:00:00")
+        $dtmFechaInicial = "-";
   ?>
   <!DOCTYPE HTML>
   <html>
@@ -137,7 +144,7 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
         <th style="font-family: Calibri;"><small>Comprobante</small></th>
         <th style="font-family: Calibri;"><small>Serie</small></th>
         <th style="font-family: Calibri;"><small>Numeración</small></th>
-        <th style="font-family: Calibri;"><small>Ubicacion</small></th>
+        <!--<th style="font-family: Calibri;"><small>Ubicacion</small></th>-->
         <th style="font-family: Calibri;"><small>Cant. Entrada</small></th>
         <th style="font-family: Calibri;"><small>Cant. Salida</small></th>
         <th style="font-family: Calibri;"><small>Stock</small></th>
@@ -152,67 +159,24 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
     <?php 
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
-        if($fila['dcmPrecioEntrada'] == "" || $fila['dcmPrecioEntrada'] == null) { $fila['dcmPrecioEntrada'] = 0.00; }
-        if($fila['dcmTotalEntrada'] == "" || $fila['dcmTotalEntrada'] == null) { $fila['dcmTotalEntrada'] = 0.00; }
-        if($fila['dcmPrecioSalida'] == "" || $fila['dcmPrecioSalida'] == null) { $fila['dcmPrecioSalida'] = 0.00; }
-        if($fila['dcmTotalSalida'] == "" || $fila['dcmPrecioSalida'] == null) { $fila['dcmPrecioSalida'] = 0.00; }
-        if($fila['intCantidadEntrada'] == "" || $fila['intCantidadEntrada'] == null) { $fila['intCantidadEntrada'] = 0; }
-        if($fila['intCantidadSalida'] == "" || $fila['intCantidadSalida'] == null) { $fila['intCantidadSalida'] = 0; }
-        
-        $nvchSimbolo = "";
-        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
-        $sql_conexion_moneda = new Conexion_BD();
-        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
-        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
-        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
-        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
-        if($intIdTipoMoneda == 1){
-          $nvchSimbolo = "S/.";
-          if($fila['intIdTipoMoneda'] != 1) {
-            $fila['dcmPrecioEntrada'] = number_format($fila['dcmPrecioEntrada']*$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmTotalEntrada'] = number_format($fila['dcmTotalEntrada']*$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmPrecioSalida'] = number_format($fila['dcmPrecioSalida']*$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmTotalSalida'] = number_format($fila['dcmTotalSalida']*$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmSaldoValorizado'] = number_format($fila['dcmSaldoValorizado']*$fila_moneda['dcmCambio2'],2,'.',''); 
-          }
-        } 
-        else if ($intIdTipoMoneda == 2){
-          $nvchSimbolo = "US$";
-          if($fila['intIdTipoMoneda'] != 2){
-            $fila['dcmPrecioEntrada'] = number_format($fila['dcmPrecioEntrada']/$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmTotalEntrada'] = number_format($fila['dcmTotalEntrada']/$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmPrecioSalida'] = number_format($fila['dcmPrecioSalida']/$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmTotalSalida'] = number_format($fila['dcmTotalSalida']/$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmSaldoValorizado'] = number_format($fila['dcmSaldoValorizado']/$fila_moneda['dcmCambio2'],2,'.','');
-          }
-        }
-
         echo 
         '
         <tr>
           <!--td class="heading" data-th="ID"></td-->
           <td style="font-family: Calibri;"><small>'.$j.'</small></td>
-          <td><small>'.$fila["dtmFechaMovimiento"].'</small></td>';
-        if($fila["intTipoDetalle"] == 1){
-          echo '<td style="font-family: Calibri;"><small>Salida</small></td>';
-        } else if($fila["intTipoDetalle"] == 2){
-          echo '<td style="font-family: Calibri;"><small>Entrada</small></td>';
-        } else {
-          echo '<td style="font-family: Calibri;"><small>Inicial</small></td>';
-        }
-        echo 
-        '   <td class="heading" data-th="ID"></td>
-            <td style="font-family: Calibri;"><small>'.$fila["NombreComprobante"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$fila["nvchSerie"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$fila["nvchNumeracion"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$fila["intCantidadEntrada"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$fila["intCantidadSalida"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</small></td>
-            <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</small></td> 
+          <td style="font-family: Calibri;"><small>'.$fila["FechaMovimiento"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["TipoMovimiento"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["TipoComprobante"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["Serie"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["Numeracion"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["Entrada"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["Salida"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$fila["Stock"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["PrecioEntrada"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["TotalEntrada"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["PrecioSalida"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["TotalSalida"].'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["SaldoValorizado"].'</small></td> 
         </tr>';
         $j++;
       }
@@ -266,7 +230,7 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
     //$dompdf->stream($filename.".pdf");
     $dompdf->stream($filename.".pdf", array("Attachment" => false)); //previsualizar
   }
-  $filename = 'REPORTE KARDEX PRODUCTO'.$nvchCodigo;
+  $filename = 'Reporte_Kardex_Producto_'.$nvchCodigo;
   $dompdf = new DOMPDF();
   $html = utf8_decode(ob_get_clean());
   pdf_create($html,$filename,'A4','landscape');

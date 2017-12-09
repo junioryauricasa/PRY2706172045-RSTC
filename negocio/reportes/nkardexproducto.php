@@ -445,8 +445,8 @@ function ReporteKardex() {
   }
   var url = '../../datos/reportes/clases_kardex/reporte_kardex_producto.php?intIdProducto='+intIdProducto+
             '&busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+
-            '&intIdTipoMoneda='+intIdTipoMoneda;
-  window.open(url, '_blank');
+            '&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
+  window.open(url);
 }
 /* FIN - Funcion Ajax - Reporte Kardex */
 //////////////////////////////////////////////////////////////

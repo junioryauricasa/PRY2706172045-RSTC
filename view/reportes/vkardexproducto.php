@@ -118,7 +118,7 @@ include('../_include/rstheader.php');
                         
 
                       <div class="box-footer clearfix">     
-                        <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat pull-left">Generar Reporte PDF</button>
+                        
                       </div>
                       <div id="ReporteKardex"></div>
                     </div>
@@ -133,6 +133,7 @@ include('../_include/rstheader.php');
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                         <div id="TablaDetalleUbigeo">
                           <h4 id="lblTituloDetalleKardex" class="box-title text-left"></h4>
+                          <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat">Generar Reporte PDF</button>
                           <hr>
                           <input type="hidden" id="intIdProducto"/>
                           <input type="hidden" id="nvchCodigo"/>
