@@ -130,12 +130,13 @@ $(document).on('click', '.btn-mostrar-producto', function(){
 	   dataType:'json',
 	   success:function(datos)
 	   {
+	   	limpiarformProducto();
+	   	$("#intIdTipoProducto").val(datos.intIdTipoVenta);
+	   	$("#intIdTipoProducto").change();
 	   	if(datos.intIdTipoVenta == 1)
 	   		$("#nvchDescripcion").val(datos.nvchDescripcion);
 	   	else
 	   		$("#nvchDescripcionR").val(datos.nvchDescripcion);
-	   	$("#intIdTipoProducto").val(datos.intIdTipoVenta);
-	   	$("#intIdTipoProducto").change();
 	   	$("#nvchObservacion").val(datos.nvchObservacion);
 		$("#nvchUnidadMedida").val(datos.nvchUnidadMedida);
 		$("#intCantidad").val(datos.intCantidad);
