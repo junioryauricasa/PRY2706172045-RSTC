@@ -92,6 +92,7 @@ switch($_POST['funcion']){
     $Producto = new Producto();
     $Producto->CantidadInicialUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal']);
     $Producto->AumentarStockTotal($_POST['intIdProducto']);
+    $Producto->CantidadInicial($_SESSION['intIdProducto']);
     break;
   case "A":
     $Producto = new Producto();

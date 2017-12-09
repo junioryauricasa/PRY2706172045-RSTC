@@ -55,7 +55,7 @@ function AgregarUbigeo_II() {
 	   success:function(datos)
 	   {
 	   	datos = datos.replace(/\s/g,''); 
-	   	if(datos == "okokok"){
+	   	if(datos == "okokokok"){
 	   		MensajeNormal("Se agregó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
 	   		ListarProducto(x,y,$("#tipo-busqueda").val());
