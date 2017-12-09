@@ -3,9 +3,10 @@ require_once '../conexion/bd_conexion.php';
 class KardexGeneral
 {
   /* INICIO - Métodos de KardexGeneral */
-  public function ListarKardexGeneral($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda)
+  public function ListarKardexGeneral($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda,$intIdSucursal)
   {
     try{
+      /*
       $residuo = 0;
       $cantidad = 0;
       $numpaginas = 0;
@@ -35,10 +36,25 @@ class KardexGeneral
       $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':dtmFechaInicial' => $dtmFechaInicial,
         ':dtmFechaFinal' => $dtmFechaFinal));
-      $numpaginas = ceil($cantidad / $y);
+      $numpaginas = ceil($cantidad / $y);*/
+      if($intIdTipoMoneda == 1)
+          $nvchSimbolo = "S/.";
+        else if ($intIdTipoMoneda == 2)
+          $nvchSimbolo = "US$";
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => '', ':TipoBusqueda' => 'C'));
       $j = 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+      $sql_conexion_kgp = new Conexion_BD();
+      $sql_conectar_kgp = $sql_conexion_kgp->Conectar();
+      $sql_comando_kgp = $sql_conectar_kgp->prepare('CALL KardexGeneral(:intIdTipoMoneda,:intIdProducto,
+        :intIdSucursal)');
+      $sql_comando_kgp -> execute(array(':intIdTipoMoneda' => $intIdTipoMoneda,':intIdProducto' => $fila['intIdProducto'],':intIdSucursal' => $intIdSucursal));
+      $fila_kgp = $sql_comando_kgp -> fetch(PDO::FETCH_ASSOC);
+        /*
         if($fila['CantidadEntradaTotal'] == "" || $fila['CantidadEntradaTotal'] == null) { $fila['CantidadEntradaTotal'] = 0; }
         if($fila['CantidadSalidaTotal'] == "" || $fila['CantidadSalidaTotal'] == null) { $fila['CantidadSalidaTotal'] = 0; }
 
@@ -65,18 +81,17 @@ class KardexGeneral
         if(!is_numeric($fila['dcmSaldoValorizado'])){
           $fila["dcmSaldoValorizado"] = number_format(0.00,2,'.','');
         }
-
+        */
         echo 
         '<tr>
-            <td class="heading" data-th="ID" style="width: 25px !important"></td>
-            <td style="width: 30px; text-align: center">'.$j.'</td>
-            <td style="width: 100px; text-align: center">'.$fila["dtmFechaMovimiento"].'</td>
-            <td style="width: 140px; text-align: center">'.$fila["nvchCodigo"].'</td>
-            <td style="width: 450px">'.$fila["nvchDescripcion"].'</td>
-            <td style="width: 100px; text-align: center">'.$fila["CantidadEntradaTotal"].'</td>
-            <td style="width: 120px; text-align: center">'.$fila["CantidadSalidaTotal"].'</td>
-            <td style="width: 120px; text-align: center">'.$fila["intCantidadStock"].'</td>
-            <td style="width: 120px; text-align: center">'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td> 
+          <td class="heading" data-th="ID" style="width: 25px !important">'.$j.'</td>
+          <td style="width: 100px; text-align: center">'.$fila_kgp["FechaMovimiento"].'</td>
+          <td style="width: 140px; text-align: center">'.$fila["nvchCodigo"].'</td>
+          <td style="width: 450px">'.$fila["nvchDescripcion"].'</td>
+          <td style="width: 100px; text-align: center">'.$fila_kgp["Entrada"].'</td>
+          <td style="width: 120px; text-align: center">'.$fila_kgp["Salida"].'</td>
+          <td style="width: 120px; text-align: center">'.$fila_kgp["Stock"].'</td>
+          <td style="width: 120px; text-align: center">'.$nvchSimbolo.' '.$fila_kgp["SaldoValorizado"].'</td> 
         </tr>';
         $j++;
       }

@@ -117,7 +117,7 @@ function ListarKardex(x,y,tipolistado) {
           intIdSucursal:intIdSucursal},
       success:function(datos) {
 	      $("#ListaDeKardex").html(datos);
-	      PaginarKardex((x/y),y,tipolistado);
+	      //PaginarKardex((x/y),y,tipolistado);
       }
   });
 }

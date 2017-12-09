@@ -154,7 +154,7 @@ include('../_include/rstheader.php');
                             <div class="col-md-2">
                               <div class="form-group">
                                 <label>Elegir Sucursal:</label>
-                                <select onchange="MostrarSeleccionComprobante()" id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
+                                <select id="intIdSucursal" name="intIdSucursal"  class="form-control select2" form="form-comprobante">
                                 <option value="T">General</option>
                                 <?php
                                 require_once '../../datos/conexion/bd_conexion.php';

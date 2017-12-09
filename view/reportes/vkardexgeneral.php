@@ -60,6 +60,28 @@ include('../_include/rstheader.php');
                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Elegir Sucursal:</label>
+                <select id="intIdSucursal" name="intIdSucursal" class="form-control select2" form="form-comprobante">
+                <option value="T">General</option>
+                <?php
+                require_once '../../datos/conexion/bd_conexion.php';
+                  try{   
+                  $sql_conexion = new Conexion_BD();
+                  $sql_conectar = $sql_conexion->Conectar();
+                  $sql_comando = $sql_conectar->prepare('CALL mostrarsucursal()');
+                  $sql_comando->execute();
+                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                  {
+                    echo '<option value="'.$fila['intIdSucursal'].'">'.$fila['nvchNombre'].'</option>';
+                  }
+                }catch(PDPExceptions $e){
+                  echo $e->getMessage();
+                }?>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-2">
@@ -114,8 +136,8 @@ include('../_include/rstheader.php');
               <thead>
               <tr>
                 <th class="heading" width="25px">&nbsp;</th>
-                <th>Ítem</th>
-                <th>Fecha</th>
+                <!--<th>Ítem</th>-->
+                <th style="width: 150px">Fecha</th>
                 <th>Código del Producto</th>
                 <th>Descripción</th>
                 <th>Entrada Total</th>

@@ -44,7 +44,7 @@ function ListarKardex(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
-
+  var intIdSucursal = $("#intIdSucursal").val();
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
   } else {
@@ -60,11 +60,11 @@ function ListarKardex(x,y,tipolistado) {
       url:'../../datos/reportes/funcion_kardex_general.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,dtmFechaInicial:dtmFechaInicial,
-        dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda},
+        dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda,intIdSucursal:intIdSucursal},
       success:function(datos) {
 	      $("#ListaDeKardex").html(datos);
-	      PaginarKardex((x/y),y,tipolistado);
-        TotalKardexValorizado();
+	      //PaginarKardex((x/y),y,tipolistado);
+        //TotalKardexValorizado();
       }
   });
 }

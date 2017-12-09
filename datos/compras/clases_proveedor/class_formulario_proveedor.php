@@ -59,7 +59,7 @@ class FormularioProveedor
                     } else 
                     if($funcion == "M") {
                 ?>
-                    <h4 class="box-title text-center">Editar Proveedor</h4>
+                    <h4 class="box-title text-center">Modificar Proveedor</h4>
                 <?php 
                     } 
                 ?>

@@ -62,7 +62,7 @@ class FormularioCliente
                     } else 
                     if($funcion == "M") {
                   ?>
-                    <h4 class="box-title text-center">Editar Cliente</h4>
+                    <h4 class="box-title text-center">Modificar Cliente</h4>
                   <?php 
                     }
                   ?>

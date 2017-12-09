@@ -409,6 +409,7 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+/* INICIO - Kardex Producto Definitivo */
 DROP PROCEDURE IF EXISTS KARDEXPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE KARDEXPRODUCTO(
@@ -517,8 +518,9 @@ DELIMITER $$
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto
 		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden;
-		END IF;
-		IF (_intIdSucursal = 1 || _intIdSucursal = 2) THEN
+
+		ELSEIF (_intIdSucursal >= 1) THEN
+		
 		SELECT
 		@Cambio := (SELECT dcmCambio2 FROM tb_cambio_moneda_tributaria WHERE dtmFechaCambio = DATE(P.dtmFechaIngreso)) AS CambioMoneda,
 		P.dtmFechaIngreso AS FechaMovimiento, 
@@ -617,14 +619,48 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+/* FIN - Kardex Producto Definitivo */
 
-DROP PROCEDURE IF EXISTS KARDEXPRODUCTO;
+
+SET @Stock = 0;
+SET @PrecioPromedio = 0.00;
+SET @PrecioEntrada = 0.00;
+SET @SaldoValorizado = 0.00;
+SET @PrecioSalida = 0.00;
+SET @i = 1;
+IF (_intIdSucursal = "T") THEN
+SELECT
+@Cambio := (SELECT dcmCambio2 FROM tb_cambio_moneda_tributaria WHERE dtmFechaCambio = DATE(P.dtmFechaIngreso)) AS CambioMoneda,
+dtmFechaIngreso AS FechaMovimiento, 
+'Entrada' AS TipoMovimiento, 
+'Apertura' AS TipoComprobante, 
+'-' AS Serie, '-' AS Numeracion, 
+intCantidadInicial AS Entrada, 
+0 AS Salida,
+(@Stock := @Stock + intCantidadInicial) AS Stock, 
+CASE
+	WHEN P.intIdTipoMonedaCompra = _intIdTipoMoneda THEN ROUND((@PrecioPromedio := @PrecioPromedio + ROUND((P.dcmPrecioCompra/1.18),2)),2)
+	WHEN P.intIdTipoMonedaCompra != _intIdTipoMoneda THEN 
+		CASE 
+			WHEN _intIdTipoMoneda = 1 THEN ROUND((@PrecioPromedio := @PrecioPromedio + ROUND((ROUND((P.dcmPrecioCompra/1.18),2)*@Cambio),2)),2)
+			WHEN _intIdTipoMoneda = 2 THEN ROUND((@PrecioPromedio := @PrecioPromedio + ROUND((ROUND((P.dcmPrecioCompra/1.18),2)/@Cambio),2)),2)
+		END
+END AS PrecioEntrada,
+(ROUND(@PrecioPromedio,2)) AS PrecioPromedio,
+	@i AS CantidadEntradas,
+ROUND((@PrecioPromedio*intCantidadInicial),2) AS TotalEntrada,
+0.00 AS PrecioSalida, 0.00 AS TotalSalida, 
+(@SaldoValorizado := ROUND((@SaldoValorizado + (@PrecioPromedio*intCantidadInicial)),2)) AS SaldoValorizado,
+intIdTipoMonedaCompra AS TipoMoneda,
+P.intIdProducto AS IdProducto
+FROM tb_producto P
+UNION
+
+DROP PROCEDURE IF EXISTS KARDEXGENERAL;
 DELIMITER $$
-	CREATE PROCEDURE KARDEXPRODUCTO(
-		IN _intIdProducto INT,
-		IN _x INT,
-		IN _y INT,
+	CREATE PROCEDURE KARDEXGENERAL(
 		IN _intIdTipoMoneda INT,
+		IN _intIdProducto INT,
 		IN _intIdSucursal INT
 	)
 	BEGIN
@@ -634,7 +670,11 @@ DELIMITER $$
 		SET @SaldoValorizado = 0.00;
 		SET @PrecioSalida = 0.00;
 		SET @i = 1;
-		IF (_intIdSucursal = "T") THEN
+		SET @intIdProducto = 0;
+		
+		IF(_intIdSucursal = "T") THEN
+
+		SELECT * FROM (
 		SELECT
 		@Cambio := (SELECT dcmCambio2 FROM tb_cambio_moneda_tributaria WHERE dtmFechaCambio = DATE(P.dtmFechaIngreso)) AS CambioMoneda,
 		dtmFechaIngreso AS FechaMovimiento, 
@@ -653,14 +693,15 @@ DELIMITER $$
 				END
 		END AS PrecioEntrada,
 		(ROUND(@PrecioPromedio,2)) AS PrecioPromedio,
-	 	@i AS CantidadEntradas,
+			@i AS CantidadEntradas,
 		ROUND((@PrecioPromedio*intCantidadInicial),2) AS TotalEntrada,
 		0.00 AS PrecioSalida, 0.00 AS TotalSalida, 
 		(@SaldoValorizado := ROUND((@SaldoValorizado + (@PrecioPromedio*intCantidadInicial)),2)) AS SaldoValorizado,
 		intIdTipoMonedaCompra AS TipoMoneda,
-		0 AS Iden
+		'0' AS Iden,
+		P.intIdProducto
 		FROM tb_producto P
-		WHERE intIdProducto = _intIdProducto
+		WHERE P.intIdProducto = _intIdProducto
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -722,17 +763,21 @@ DELIMITER $$
 			WHEN DCR.intTipoDetalle = 2 THEN ROUND((@SaldoValorizado := @SaldoValorizado + @PrecioEntrada),2)
 		END AS SaldoValorizado,
 		CR.intIdTipoMoneda AS TipoMoneda,
-		CR.intIdComprobante AS Iden
+		CR.intIdComprobante AS Iden,
+		DCR.intIdProducto
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto
-		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden;
-		END IF;
-		IF (_intIdSucursal = 1 || _intIdSucursal = 2) THEN
+		ORDER BY DCR.intIdProducto,DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden)
+		AS KardexGeneral ORDER BY KardexGeneral.Iden DESC LIMIT 1;
+
+		ELSEIF(_intIdSucursal >= 1) THEN
+
+		SELECT * FROM (
 		SELECT
 		@Cambio := (SELECT dcmCambio2 FROM tb_cambio_moneda_tributaria WHERE dtmFechaCambio = DATE(P.dtmFechaIngreso)) AS CambioMoneda,
-		P.dtmFechaIngreso AS FechaMovimiento, 
+		dtmFechaIngreso AS FechaMovimiento, 
 		'Entrada' AS TipoMovimiento, 
 		'Apertura' AS TipoComprobante, 
 		'-' AS Serie, '-' AS Numeracion, 
@@ -748,12 +793,13 @@ DELIMITER $$
 				END
 		END AS PrecioEntrada,
 		(ROUND(@PrecioPromedio,2)) AS PrecioPromedio,
-	 	@i AS CantidadEntradas,
+			@i AS CantidadEntradas,
 		ROUND((@PrecioPromedio*UP.intCantidadInicial),2) AS TotalEntrada,
 		0.00 AS PrecioSalida, 0.00 AS TotalSalida, 
 		(@SaldoValorizado := ROUND((@SaldoValorizado + (@PrecioPromedio*UP.intCantidadInicial)),2)) AS SaldoValorizado,
-		P.intIdTipoMonedaCompra AS TipoMoneda,
-		0 AS Iden
+		intIdTipoMonedaCompra AS TipoMoneda,
+		'0' AS Iden,
+		P.intIdProducto
 		FROM tb_producto P
 		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
 		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal
@@ -818,12 +864,15 @@ DELIMITER $$
 			WHEN DCR.intTipoDetalle = 2 THEN ROUND((@SaldoValorizado := @SaldoValorizado + @PrecioEntrada),2)
 		END AS SaldoValorizado,
 		CR.intIdTipoMoneda AS TipoMoneda,
-		CR.intIdComprobante AS Iden
+		CR.intIdComprobante AS Iden,
+		DCR.intIdProducto
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal
-		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden;
+		ORDER BY DCR.intIdProducto,DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden)
+		AS KardexGeneral ORDER BY KardexGeneral.Iden DESC LIMIT 1;
+
 		END IF;
     END 
 $$
