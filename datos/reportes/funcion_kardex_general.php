@@ -21,7 +21,7 @@ switch($_POST['funcion']){
     $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $KardexGeneral->TotalKardexValorizado($_POST['busqueda'],$dtmFechaInicial,$dtmFechaFinal,
-        $_POST['intIdTipoMoneda']);
+        $_POST['intIdTipoMoneda'],$_POST['intIdSucursal']);
     break;
   case "P":
     $KardexGeneral = new KardexGeneral();

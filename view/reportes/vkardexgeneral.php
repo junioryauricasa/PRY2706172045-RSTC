@@ -138,8 +138,8 @@ include('../_include/rstheader.php');
                 <th class="heading" width="25px">&nbsp;</th>
                 <!--<th>Ítem</th>-->
                 <th style="width: 150px">Fecha</th>
-                <th>Código del Producto</th>
-                <th>Descripción</th>
+                <th style="width: 120px">Código</th>
+                <th style="width: 600px">Descripción</th>
                 <th>Entrada Total</th>
                 <th>Salida Total</th>
                 <th>Stock</th>
@@ -155,7 +155,7 @@ include('../_include/rstheader.php');
           <div class="text-center">
             <nav aria-label="...">
               <ul id="PaginacionDeKardex" class="pagination">
-                <script>PaginarKardex(0,10,"T");</script>
+                <!--<script>PaginarKardex(0,10,"T");</script>-->
               </ul>
             </nav>
           </div>

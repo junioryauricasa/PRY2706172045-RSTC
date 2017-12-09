@@ -133,24 +133,14 @@ include('../_include/rstheader.php');
                           <hr>
                           <input type="hidden" id="intIdProducto"/>
                           <div class="row">
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label>Mostrar:</label>
-                                <br>
-                                <select id="num-lista" name="num-lista"  class="form-control select2">
-                                      <option value="10">Ver 10 Resultados</option>
-                                      <option value="25">Ver 25 Resultados</option>
-                                      <option value="50">Ver 50 Resultados</option>
-                                      <option value="100">Ver 100 Resultados</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-md-2">
+                            <?php include '../campos/cmbNumLista.php'; ?>
+                            <div id="txt-busquedaCol" class="col-md-2">
                               <div class="form-group">
                                   <label class="text-left">Ingresar Búsqueda:</label>
                                   <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
                               </div>
                             </div>
+                           <script type="text/javascript">$("#txt-busquedaCol").hide();</script>
                             <div class="col-md-2">
                               <div class="form-group">
                                 <label>Elegir Sucursal:</label>
@@ -173,7 +163,7 @@ include('../_include/rstheader.php');
                                 </select>
                               </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                               <div class="form-group">
                                   <input type="button" value="Volver a la Página de Inicio" class="btn btn-sm btn-danger btn-flat pull-right" style="margin-top: 25px" onclick="$('#tab-kardex-producto-btn').click()">
                               </div>
