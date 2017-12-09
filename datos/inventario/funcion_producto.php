@@ -90,6 +90,7 @@ switch($_POST['funcion']){
     $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
     $UbigeoProducto->InsertarUbigeoProducto_II();
     $Producto = new Producto();
+    $Producto->CantidadInicialUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal']);
     $Producto->AumentarStockTotal($_POST['intIdProducto']);
     break;
   case "A":

@@ -20,11 +20,7 @@ function MostrarUbigeo(intIdProducto,tipolistado) {
 /* INICIO - Insertar Ubigeo Nueva */
 function AgregarUbigeo_II() {
 	var intIdSucursal = document.getElementById("intIdSucursal").value;
-	var nvchSucursal = "";
-	if(intIdSucursal == 1)
-		nvchSucursal = "Huancayo";
-	else
-		nvchSucursal = "San Jerónimo";
+	var nvchSucursal = $("#intIdSucursal option:selected").html().replace(/\s/g,'');
 	if(EsVacio("nvchUbicacion") == false){
 		return false;
 	}
@@ -33,8 +29,7 @@ function AgregarUbigeo_II() {
 	}
 	var validacion = true;
 	$('#ListaDeUbicaciones tr').each(function(){
-		var texto = $(this).find('td').eq(1).text().replace(/\s/g,'');;
-        if(texto == nvchSucursal){
+        if($(this).find('td').eq(1).text().replace(/\s/g,'') == nvchSucursal){
             validacion = false;
         }
     });
@@ -60,7 +55,7 @@ function AgregarUbigeo_II() {
 	   success:function(datos)
 	   {
 	   	datos = datos.replace(/\s/g,''); 
-	   	if(datos == "okok"){
+	   	if(datos == "okokok"){
 	   		MensajeNormal("Se agregó correctamente el Ubigeo del Producto",1);
 	   		MostrarUbigeo(intIdProducto,tipolistado);
 	   		ListarProducto(x,y,$("#tipo-busqueda").val());

@@ -24,7 +24,8 @@ function AgregarCodigo_II() {
 	var intIdTipoCodigoProducto = document.getElementById("tipo-codigo-producto").value;
 	var validacion = true;
 	$('#ListaDeCodigos tr').each(function(){
-        if($(this).find('td').eq(1).text() == 'Principal'){
+		var texto = $(this).find('td').eq(2).text().replace(/\s/g,'');
+        if(texto == 'Principal'){
             validacion = false;
         }
     });

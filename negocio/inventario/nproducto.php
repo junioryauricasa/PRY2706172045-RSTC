@@ -419,11 +419,7 @@ function AgregarCodigo() {
 /* INICIO - Listar Ubicaciones según Ingresa */
 function AgregarUbigeo() {
 	var intIdSucursal = document.getElementById("intIdSucursal").value;
-	var nvchSucursal = "";
-	if(intIdSucursal == 1)
-		nvchSucursal = "Huancayo";
-	else
-		nvchSucursal = "San Jerónimo";
+	var nvchSucursal =  $("#intIdSucursal option:selected").html().replace(/\s/g,'');
 	if(EsVacio("nvchUbicacion") == false){
 		return false;
 	}
@@ -432,7 +428,7 @@ function AgregarUbigeo() {
 	}
 	var validacion = true;
 	$('#ListaDeUbicaciones tr').each(function(){
-        if($(this).find('td').eq(1).text() == nvchSucursal){
+        if($(this).find('td').eq(1).text().replace(/\s/g,'') == nvchSucursal){
             validacion = false;
         }
     });
@@ -537,30 +533,6 @@ function mostrar(){
 //////////////////////////////////////////////////////////////
 /*	FIN - Función Mostrar Formulario de registro de producto   */
 
-
-/*	Función Mostrar Formulario de registro de producto   */
-//////////////////////////////////////////////////////////////
-/*
-function ver_formulario(){
-	$("li#li_show_table_products").removeClass("active");
-	$("a#show_table_products").attr("aria-expanded","false");
-	$("#tab_1").removeClass("active");
-
-	$("li#li_ver_editar_formulario").addClass("active");
-	$("a#ver_editar_formulario").attr("aria-expanded","true");
-	$("#tab_2").addClass("active");	
-
-	$("#btn-agregar-codigo-mostrar").hide();
-	$("#btn-agregar-codigo-nuevo").show();
-
-	$("#ListaDeUbicaciones").reload();
-
-}
-*/
-//////////////////////////////////////////////////////////////
-/*	FIN - Función Mostrar Formulario de registro de producto   */
-
-
 /*	Función Limpiar Formulario de registro de producto   */
 //////////////////////////////////////////////////////////////
 function limpiarformProducto(){
@@ -575,6 +547,11 @@ function limpiarformProducto(){
       RestablecerValidacion("dcmPrecioVenta3",1);
       RestablecerValidacion("dcmDescuentoVenta2",1);
       RestablecerValidacion("dcmDescuentoVenta3",1);
+      RestablecerValidacion("nvchCodigo",1);
+      RestablecerValidacion("nvchUbicacion",1);
+      RestablecerValidacion("intCantidadUbigeo",1);
+      $("tipo-codigo-producto").val(1);
+      $("intIdSucursal").val(1);
       $("#dcmDescuentoVenta2").val("7");
       $("#dcmDescuentoVenta3").val("15");
       $("#nvchObservacion").val("");
