@@ -10,6 +10,8 @@ include('../_include/rstheader.php');
     <?php require_once '../../negocio/reportes/nkardexproducto.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+    <?php require_once '../../negocio/operaciones/nestiloscomprobante.php'; ?>
+    <?php require_once '../../view/modals/vformComprobante.php'; ?>
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
@@ -130,8 +132,10 @@ include('../_include/rstheader.php');
 
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                         <div id="TablaDetalleUbigeo">
+                          <h4 id="lblTituloDetalleKardex" class="box-title text-left"></h4>
                           <hr>
                           <input type="hidden" id="intIdProducto"/>
+                          <input type="hidden" id="nvchCodigo"/>
                           <div class="row">
                             <?php include '../campos/cmbNumLista.php'; ?>
                             <div id="txt-busquedaCol" class="col-md-2">

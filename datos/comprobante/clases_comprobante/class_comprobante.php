@@ -89,7 +89,7 @@ class Comprobante{
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $salida['intIdComprobante'] = $fila['intIdComprobante'];
-
+      $salida['intTipoDetalle'] = $fila['intTipoDetalle'];
       $salida['dtmFechaCreacion'] = date('d/m/Y H:i:s', strtotime($fila['dtmFechaCreacion']));
       $salida['intIdSucursal'] = $fila['intIdSucursal'];
       $salida['intIdTipoComprobante'] = $fila['intIdTipoComprobante'];

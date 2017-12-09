@@ -336,21 +336,6 @@ function CalcularTotal(){
     ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
     IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
     ComprobanteTotal = ComprobanteTotal.toFixed(2);
-
-	/*
-	if(intIdTipoVenta == 1){
-		
-	} else if(intIdTipoVenta == 2) {
-		$('table tbody#ListaDeServiciosVender tr').each(function() {
-	        $(this).find("td input[name='dcmTotalS[]']").each(function() {
-	            ComprobanteTotal = ComprobanteTotal + Number(this.value);
-	        }); 
-	    });
-	    ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
-	    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
-	    ComprobanteTotal = ComprobanteTotal.toFixed(2);
-	}
-	*/
 	$("#ValorComprobante").val(nvchSimbolo + ' ' + ValorComprobante);
     $("#IGVComprobante").val(nvchSimbolo + ' ' + IGVComprobante);
 	$("#ComprobanteTotal").val(nvchSimbolo + ' ' + ComprobanteTotal);

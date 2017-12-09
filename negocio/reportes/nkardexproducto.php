@@ -1,4 +1,305 @@
 <script>
+function TipoLetra(){
+      var intIdTipoVenta = $("#intIdTipoVenta").val();
+      var Letra = "";
+      switch(intIdTipoVenta){
+        case "1":
+          Letra = "";
+          break;
+        case "2":
+          Letra = "S";
+          break;
+        case "3":
+          Letra = "M";
+          break;
+        case "4":
+          Letra = "I";
+          break;
+      }
+      $("#Letra").val(Letra);
+      return Letra;
+    }
+
+    function TipoTabla(){
+      var intIdTipoVenta = $("#intIdTipoVenta").val();
+      var Tabla = "";
+      switch(intIdTipoVenta){
+        case "1":
+          Tabla = "Productos";
+          break;
+        case "2":
+          Tabla = "Servicios";
+          break;
+        case "3":
+          Tabla = "Maquinarias";
+          break;
+        case "4":
+          Tabla = "Implementos";
+          break;
+      }
+      $("#Tabla").val(Tabla);
+      return Tabla;
+    }
+
+function CambiarMoneda(){
+  var intIdTipoVenta = $("#intIdTipoVenta").val();
+  var intIdTipoMoneda = $("#intIdTipoMonedaC").val();
+  var dcmDescuento = 0.00;
+  var intCantidad = 0;
+  var dcmPrecio = 0.00;
+  var dcmPrecioUnitario = 0.00;
+  var dcmTotal = 0.00;
+
+  Number(dcmPrecio);
+  Number(dcmPrecioUnitario);
+  Number(dcmTotal);
+  Number(dcmDescuento);
+  Number(intCantidad);
+
+  var Letra = TipoLetra();
+  var Tabla = TipoTabla();
+
+  var funcion = "MF";
+  var nvchFecha = $("#nvchFecha").val();
+  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+    $.ajax({
+     url:"../../datos/administrativo/funcion_moneda_comercial.php",
+     method:"POST",
+     data:{funcion:funcion,nvchFecha:nvchFecha},
+     success:function(datos)
+     {
+      if(intIdTipoVenta == 1){
+        if(intIdTipoComprobante < 5){
+          $('table tbody#ListaDeProductosVender tr').each(function() {
+              $(this).find("td input[name='fila[]']").each(function() {
+                if($("#dcmPrecio"+this.value).val() != ""){
+                  dcmPrecio = $("#dcmPrecio"+this.value).val();
+                  dcmDescuento = $("#dcmDescuento"+this.value).val();
+                  intCantidad = $("#intCantidad"+this.value).val();
+                  Number(datos);
+
+                  if(intIdTipoMoneda == 1) {
+                    dcmPrecio = (dcmPrecio * datos).toFixed(2);
+                  } else if(intIdTipoMoneda == 2){
+                    dcmPrecio = (dcmPrecio / datos).toFixed(2);
+                  }
+
+                  $("#dcmPrecio"+this.value).val(dcmPrecio);
+
+                  if($("#dcmDescuento"+this.value).val() != ""){
+                      dcmPrecioUnitario = (dcmPrecio - (dcmPrecio*(dcmDescuento/100))).toFixed(2);
+                    $("#dcmPrecioUnitario"+this.value).val(dcmPrecioUnitario);
+                  }
+                  if($("#intCantidad"+this.value).val() != ""){
+                    dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+                    $("#dcmTotal"+this.value).val(dcmTotal);
+                  }
+              }
+              }); 
+          });
+        } else if (intIdTipoComprobante >= 5){
+          $('table tbody#ListaDe'+Tabla+'Vender tr').each(function() {
+              $(this).find("td input[name='fila[]']").each(function() {
+                if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
+                  dcmPrecioUnitario = $("#dcmPrecioUnitario"+Letra+this.value).val();
+                intCantidad = $("#intCantidad"+Letra+this.value).val();
+                Number(datos);
+                if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
+                    if(intIdTipoMoneda == 1){
+                      dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
+                    } else if(intIdTipoMoneda == 2){
+                      dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
+                    }
+                    $("#dcmPrecioUnitario"+Letra+this.value).val(dcmPrecioUnitario);
+                  }
+
+                  if($("#intCantidad"+Letra+this.value).val() != ""){
+                    dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+                    $("#dcmTotal"+Letra+this.value).val(dcmTotal);
+                  }
+              }
+              }); 
+          });
+        }
+      } else if(intIdTipoVenta >= 2){
+      $('table tbody#ListaDe'+Tabla+'Vender tr').each(function() {
+          $(this).find("td input[name='fila[]']").each(function() {
+            if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
+            dcmPrecioUnitario = $("#dcmPrecioUnitario"+Letra+this.value).val();
+            intCantidad = $("#intCantidad"+Letra+this.value).val();
+            Number(datos);
+            if($("#dcmPrecioUnitario"+Letra+this.value).val() != ""){
+                if(intIdTipoMoneda == 1){
+                  dcmPrecioUnitario = (dcmPrecioUnitario * datos).toFixed(2);
+                } else if(intIdTipoMoneda == 2){
+                  dcmPrecioUnitario = (dcmPrecioUnitario / datos).toFixed(2);
+                }
+                $("#dcmPrecioUnitario"+Letra+this.value).val(dcmPrecioUnitario);
+              }
+
+              if($("#intCantidad"+Letra+this.value).val() != ""){
+                dcmTotal = (dcmPrecioUnitario * intCantidad).toFixed(2);
+                $("#dcmTotal"+Letra+this.value).val(dcmTotal);
+              }
+            }
+          }); 
+      });
+      }
+      CalcularTotal();
+     }
+    });
+}
+
+function CalcularTotal(){
+  var intIdTipoMoneda = $("#intIdTipoMonedaC").val();
+  var nvchSimbolo = "";
+
+  if(intIdTipoMoneda == 1){
+    nvchSimbolo = "S/.";
+  } else if (intIdTipoMoneda == 2){
+    nvchSimbolo = "US$";
+  }
+
+  var ComprobanteTotal = 0.00;
+  var IGVComprobante = 0.00;
+  var ValorComprobante = 0.00;
+  Number(IGVComprobante);
+  Number(ComprobanteTotal);
+  Number(ValorComprobante);
+
+  var Letra = TipoLetra();
+  var Tabla = TipoTabla();
+
+  $('table tbody#ListaDe'+Tabla+'Vender tr').each(function() {
+        $(this).find("td input[name='dcmTotal"+Letra+"[]']").each(function() {
+            ComprobanteTotal = ComprobanteTotal + Number(this.value);
+        }); 
+    });
+    ValorComprobante = (ComprobanteTotal / 1.18).toFixed(2);
+    IGVComprobante = (ComprobanteTotal - ValorComprobante).toFixed(2);
+    ComprobanteTotal = ComprobanteTotal.toFixed(2);
+  $("#ValorComprobante").val(nvchSimbolo + ' ' + ValorComprobante);
+    $("#IGVComprobante").val(nvchSimbolo + ' ' + IGVComprobante);
+  $("#ComprobanteTotal").val(nvchSimbolo + ' ' + ComprobanteTotal);
+}
+
+function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
+  var funcion = "MDCR";
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{intIdComprobante:intIdComprobante,funcion:funcion,intIdTipoVenta:intIdTipoVenta},
+     success:function(datos)
+     {
+      if(intIdTipoVenta == 1){
+        $("#ListaDeProductosVender").html(datos);
+        num = document.getElementById('ListaDeProductosVender').rows.length + 1;
+        $("#ListaDeProductosVender input").attr("readonly",true);
+      } else if(intIdTipoVenta == 2){
+        $("#ListaDeServiciosVender").html(datos);
+        nums = document.getElementById('ListaDeServiciosVender').rows.length + 1;
+        $("#ListaDeServiciosVender input").attr("readonly",true);
+      } else if(intIdTipoVenta == 3){
+        $("#ListaDeMaquinariasVender").html(datos);
+        numm = document.getElementById('ListaDeMaquinariasVender').rows.length + 1;
+        $("#ListaDeMaquinariasVender input").attr("readonly",true);
+      } else if(intIdTipoVenta == 4){
+        $("#ListaDeImplementosVender").html(datos);
+        numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
+        $("#ListaDeImplementosVender input").attr("readonly",true);
+      }
+      CalcularTotal();
+     }
+    });
+}
+
+function ElegirTabla(intIdTipoVenta){
+  if(intIdTipoVenta == 1){
+    $("#tablaRepuestos").show();
+    $("#tablaServicios").hide();
+    $("#tablaMaquinarias").hide();
+    $("#tablaImplementos").hide();
+    CalcularTotal();
+  } else if(intIdTipoVenta == 2) {
+    $("#tablaRepuestos").hide();
+    $("#tablaServicios").show();
+    $("#tablaMaquinarias").hide();
+    $("#tablaImplementos").hide();
+    CalcularTotal();
+  } else if(intIdTipoVenta == 3) {
+    $("#tablaRepuestos").hide();
+    $("#tablaServicios").hide();
+    $("#tablaMaquinarias").show();
+    $("#tablaImplementos").hide();
+    CalcularTotal();
+  } else if(intIdTipoVenta == 4) {
+    $("#tablaRepuestos").hide();
+    $("#tablaServicios").hide();
+    $("#tablaMaquinarias").hide();
+    $("#tablaImplementos").show();
+    CalcularTotal();
+  }
+}
+
+$(document).on('click', '.btn-mostrar-comprobante', function(){
+      var intIdComprobante = $(this).attr("id");
+      var funcion = "M";
+      var tipolistado = "T";
+  if(intIdComprobante != 0){
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{intIdComprobante:intIdComprobante,funcion:funcion},
+     dataType:"json",
+     success:function(datos)
+     {
+      $("#intIdComprobante").val(datos.intIdComprobante);
+      $("#intTipoDetalle").val(datos.intTipoDetalle);
+      $("#nvchFecha").val(datos.dtmFechaCreacion);
+      $("#intIdSucursalC").val(datos.intIdSucursal);
+      $("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
+      $("#nvchSerie").val(datos.nvchSerie);
+      $("#nvchNumeracion").val(datos.nvchNumeracion);
+      $("#intIdTipoVenta").val(datos.intIdTipoVenta);
+      $("#intIdTipoMoneda").val(datos.intIdTipoMoneda);
+      $("#intIdTipoPago").val(datos.intIdTipoPago);
+      $("#nvchNumDocumento").val(datos.nvchDNIRUC);
+      $("#nvchDenominacion").val(datos.nvchClienteProveedor);
+      $("#nvchDomicilio").val(datos.nvchDireccion);
+      $("#TipoCliente").val(datos.TipoCliente);
+      $("#intIdTipoCliente").val(datos.intIdTipoCliente);
+      $("#intIdClienteC").val(datos.intIdCliente);
+      $("#intIdProveedorC").val(datos.intIdProveedor);
+      $("textarea#nvchObservacion").val(datos.nvchObservacion);
+
+      $('#intIdSucursalC').attr("disabled", true);
+      $('#intIdTipoComprobante').attr("disabled", true);
+      $('#intIdTipoVenta').attr("disabled", true);
+      $('#intIdTipoPago').attr("disabled", true);
+      $("#nvchSerie").attr("readonly",true);
+      $("#nvchNumeracion").attr("readonly",true);
+      ElegirTabla(datos.intIdTipoVenta);
+      MostrarDetalleComprobante(datos.intIdComprobante,datos.intIdTipoVenta);
+      $("#formComprobante").modal("show");
+      if(datos.intTipoDetalle == 2 || datos.intIdTipoComprobante >=9){
+        $('.filaPrecio').hide();
+        $('.filaDescuento').hide();
+      } else if(datos.intTipoDetalle == 1 && datos.intIdTipoComprobante <=2){
+        $('.filaPrecio').show();
+        $('.filaDescuento').show();
+      }
+      if(datos.intTipoDetalle == 1)
+        $("#lblTituloComprobante").html("Detalles del Comprovante de Venta");
+      else
+        $("#lblTituloComprobante").html("Detalles del Comprovante de Compra");
+     }
+    });
+  } else {
+      MensajeNormal('La Apertura no tiene Comprobante',1);
+  }
+  return false;
+});
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Kardex */
 $(document).on('click', '#btn-form-crear-kardex', function(){
@@ -17,7 +318,6 @@ $(document).on('click', '#btn-form-crear-kardex', function(){
 });
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Kardex */
 //////////////////////////////////////////////////////////////
-
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Mostrar Kardex */
@@ -97,6 +397,7 @@ function ListarKardex(x,y,tipolistado) {
   var intIdProducto = document.getElementById("intIdProducto").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   var intIdSucursal = $("#intIdSucursal").val();
+  $("#lblTituloDetalleKardex").html("Kardex del Producto: "+$("#nvchCodigo").val());
 
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
@@ -186,6 +487,8 @@ function PaginarKardex(x,y,tipolistado) {
 function VerKardexProducto(seleccion) {
   var intIdProducto = $(seleccion).attr("id");
   $("#intIdProducto").val(intIdProducto);
+  var nvchCodigo = $(seleccion).attr("cod");
+  $("#nvchCodigo").val(nvchCodigo);
   ListarKardex(0,10,"T");
 }
 /* FIN - Funcion Ajax - Ver Kardex del Producto */

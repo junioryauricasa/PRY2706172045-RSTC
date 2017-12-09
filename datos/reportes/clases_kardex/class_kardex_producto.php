@@ -395,7 +395,7 @@ class KardexProducto
             <td>'.$nvchSimbolo.' '.$fila["TotalSalida"].'</td>
             <td>'.$nvchSimbolo.' '.$fila["SaldoValorizado"].'</td>
             <td> 
-              <button type="button" id="" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
+              <button type="button" id="'.$fila["Iden"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
                 <i class="fa fa-edit"></i> Ver Detalle
               </button>
             </td> 
@@ -558,7 +558,7 @@ class KardexProducto
                 </button>
               </td>
               <td> 
-                <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning" onclick="VerKardexProducto(this);clickdetalleskardex()">
+                <button type="button" id="'.$fila["intIdProducto"].'" cod="'.$fila["nvchCodigo"].'"  class="btn btn-xs btn-warning" onclick="VerKardexProducto(this);clickdetalleskardex()">
                   <i class="fa fa-edit"></i> Ver Kardex
                 </button>
               </td>  
