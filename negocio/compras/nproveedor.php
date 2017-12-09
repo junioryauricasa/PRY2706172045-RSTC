@@ -415,7 +415,7 @@ function AgregarDomicilio() {
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
 	$('#ListaDeDomicilios tr').each(function(){
-        if($(this).find('td').eq(5).text() == 'Fiscal'){
+        if($(this).find('td').eq(6).text().replace(/\s/g,'') == 'Fiscal'){
             validacion = false;
         }
     });
@@ -424,7 +424,7 @@ function AgregarDomicilio() {
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
 	} else if(validacion == false){
-    	if (intIdTipoDomicilio == 1) {
+    	if(intIdTipoDomicilio == 1){
 	    	MensajeNormal("No puede haber más de un Domicilio Fiscal",2);
 	    	return false;
     	}
@@ -562,19 +562,19 @@ function AgregarComunicacion_II() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Domicilio Nuevo */
 function AgregarDomicilio_II() {
-
-	var intIdCliente = document.getElementById("intIdCliente").value;
+	var intIdProveedor = document.getElementById("intIdProveedor").value;
 	var nvchPais = document.getElementById("nvchPais").value;
 	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
 	var intIdProvincia = document.getElementById("intIdProvincia").value;
 	var intIdDistrito = document.getElementById("intIdDistrito").value;
+	var nvchDepartamento = $("#intIdDepartamento option:selected").html();
+	var nvchProvincia = $("#intIdProvincia option:selected").html();
+	var nvchDistrito = $("#intIdDistrito option:selected").html();
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
-
-	//alert("AgregarDomicilio_II()");
 	var validacion = true;
 	$('#ListaDeDomicilios tr').each(function(){
-        if($(this).find('td').eq(5).text() == 'Fiscal'){
+        if($(this).find('td').eq(6).text().replace(/\s/g,'') == 'Fiscal'){
             validacion = false;
         }
     });
@@ -583,7 +583,7 @@ function AgregarDomicilio_II() {
 	} else if(EsVacio("nvchDireccion") == false) {
 		return false;
 	} else if(validacion == false){
-    	if (intIdTipoDomicilio == 1) {
+		if(intIdTipoDomicilio == 1){
 	    	MensajeNormal("No puede haber más de un Domicilio Fiscal",2);
 	    	return false;
     	}
@@ -605,7 +605,7 @@ function AgregarDomicilio_II() {
 	   {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
-	   		MostrarDomicilio(intIdCliente,tipolistado);
+	   		MostrarDomicilio(intIdProveedor,tipolistado);
 	   		$("#intIdDepartamento").val(1);
 			MostrarProvincia();
 			RestablecerValidacion('nvchDireccion',1);
@@ -757,7 +757,7 @@ function botonescrear(){
       $("#btn-actualizar-comunicacion").hide();
       $("#btn-cancelar-comunicacion").hide();
 
-      //$("#intIdCliente").val("");
+      //$("#intIdProveedor").val("");
       $("#btn-editar-proveedor-actualizar").hide();
       $("#btn-reset-actualizar").hide();
       $("#btn-crear-proveedor-nuevo").show();

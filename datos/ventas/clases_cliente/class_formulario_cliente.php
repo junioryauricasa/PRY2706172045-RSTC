@@ -57,12 +57,12 @@ class FormularioCliente
                   <?php 
                     if($funcion == "F"){ 
                   ?>
-                    <h3 class="box-title text-center">Nuevo Cliente</h3>
+                    <h4 class="box-title text-center">Nuevo Cliente</h4>
                   <?php 
                     } else 
                     if($funcion == "M") {
                   ?>
-                    <h3 class="box-title text-center">Editar Cliente</h3>
+                    <h4 class="box-title text-center">Editar Cliente</h4>
                   <?php 
                     }
                   ?>
@@ -189,8 +189,9 @@ class FormularioCliente
 
               <!-- formulario domicilio -->
               <div class="col-md-9">
-                  <h3 class="box-title text-left">Domicilio</h3>
-                  <hr>
+                <div class="box-header with-border">
+                  <h3 class="box-title">Domicilio</h3>
+                </div>
                   <div class="box-body">
                       <div class="row">
                           <div class="col-md-3">
@@ -332,8 +333,9 @@ class FormularioCliente
 
               <!-- formulario comunicacion -->
               <div class="col-md-9">
-                  <h3 class="box-title text-left">Comunicación</h3>
-                  <hr>
+                  <div class="box-header with-border">
+                  <h3 class="box-title">Comunicación (Opcional)</h3>
+                  </div>
                   <div class="box-body">
                     <div class="row">
                       <div class="col-md-3">

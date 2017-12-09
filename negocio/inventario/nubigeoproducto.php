@@ -65,6 +65,8 @@ function AgregarUbigeo_II() {
 	   	}
 	   }
 	  });
+	RestablecerValidacion("nvchUbicacion",1);
+	RestablecerValidacion("intCantidadUbigeo",1);
 }
 /* FIN - Insertar Ubigeo Nueva */
 //////////////////////////////////////////////////////////////

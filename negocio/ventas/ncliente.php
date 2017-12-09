@@ -358,7 +358,7 @@ function AgregarDomicilio() {
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
 	$('#ListaDeDomicilios tr').each(function(){
-        if($(this).find('td').eq(5).text() == 'Fiscal'){
+        if($(this).find('td').eq(6).text().replace(/\s/g,'') == 'Fiscal'){
             validacion = false;
         }
     });
@@ -515,7 +515,7 @@ function AgregarDomicilio_II() {
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
 	$('#ListaDeDomicilios tr').each(function(){
-        if($(this).find('td').eq(5).text() == 'Fiscal'){
+        if($(this).find('td').eq(6).text().replace(/\s/g,'') == 'Fiscal'){
             validacion = false;
         }
     });
@@ -544,17 +544,14 @@ function AgregarDomicilio_II() {
 	   		funcion:funcion},
 	   success:function(datos)
 	   {
+	   	datos = datos.replace(/\s/g,'');
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
 	   		MostrarDomicilio(intIdCliente,tipolistado);
-	   		$("#intIdDepartamento").val(1);
+	   		RestablecerValidacion('nvchPais',1);
+			$("#intIdDepartamento").val(1);
 			MostrarProvincia();
 			RestablecerValidacion('nvchDireccion',1);
-
-			//limpiar formulario
-	   		limpiarformCliente();
-
-	   		$("#").click();
 
 	   	} else {
 	   		alert(datos);

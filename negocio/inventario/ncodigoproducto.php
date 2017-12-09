@@ -62,6 +62,7 @@ function AgregarCodigo_II() {
 	   	}
 	   }
 	  });
+	RestablecerValidacion("nvchCodigo",1);
 }
 /* FIN - Insertar Codigo Nueva */
 //////////////////////////////////////////////////////////////
