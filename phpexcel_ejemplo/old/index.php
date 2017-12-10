@@ -8,10 +8,12 @@ $sql_conectar = $sql_conexion->Conectar();
 $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
 $sql_comando -> execute(array(':busqueda' => '', ':TipoBusqueda' => 'C'));
 $cantidad = $sql_comando -> rowCount();
+
 // Establecer propiedades
 $i = 1;
 $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 $objPHPExcel = new PHPExcel();
+
 // Establecer propiedades
 $objPHPExcel->getProperties()
 ->setCreator("Cattivo")
@@ -22,16 +24,20 @@ $objPHPExcel->getProperties()
 ->setKeywords("Excel Office 2007 openxml php")
 ->setCategory("Pruebas de Excel");
 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
+
 // Agregar Informacion
 if($i == 1){
-	$objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(18);
+	$objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(18);//ancho de las celda
 	$objPHPExcel->setActiveSheetIndex()->getColumnDimension('B')->setWidth(75);
+	$objPHPExcel->setActiveSheetIndex()->getColumnDimension('C')->setWidth(20);
+	$objPHPExcel->setActiveSheetIndex()->getColumnDimension('D')->setWidth(20);
+	$objPHPExcel->setActiveSheetIndex()->getColumnDimension('E')->setWidth(20);
 	$objPHPExcel->setActiveSheetIndex()
-	->setCellValue('A1', 'Código')
-	->setCellValue('B1', 'Descripcion')
-	->setCellValue('C1', 'Precio Venta 1')
-	->setCellValue('D1', 'Precio Venta 2')
-	->setCellValue('E1', 'Precio Venta 3');
+	->setCellValue('A1', 'CÓDIGO')
+	->setCellValue('B1', 'DESCRIPCIÓN')
+	->setCellValue('C1', 'PRECIO VENTA 1')
+	->setCellValue('D1', 'PRECIO VENTA 2')
+	->setCellValue('E1', 'PRECIO VENTA 3');
 	}
 if($i > 1){
 $objPHPExcel->setActiveSheetIndex()
@@ -47,6 +53,9 @@ $objPHPExcel->setActiveSheetIndex()
 ->setCellValue('C'.$i, '=SUM(C2:C'.($i-1).')')
 ->setCellValue('D'.$i, '=SUM(D2:D'.($i-1).')')
 ->setCellValue('E'.$i, '=SUM(E2:E'.($i-1).')');
+
+$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true); //FILA DE CLEDAS EN NEGRITA
+
 
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Tecnologia Simple');

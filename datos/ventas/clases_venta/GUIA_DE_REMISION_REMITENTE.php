@@ -33,7 +33,7 @@
   $nvchObservacion = $fila['nvchObservacion'];
 
   //variable de impresion
-  $descripcion = 'Lorem ipsum dolor sit amet, consectetur Aemo suaznabarso'; //56 carateres por linea de item
+  $descripcion = 'Lorem ipsum dolor si itt amet, consectetur Aeznabarso orem ipsum dolor si itt amet itt amettt'; //56 carateres por linea de item
 
   include('class_numero_a_texto.php'); //incluir funcion
 ?>
@@ -50,7 +50,7 @@
   <style>
     table tr td {
       color: black;
-      padding: 0.05em
+      padding: 0.035em
     }
     table#tabladetalle {
       border-collapse: collapse;
@@ -166,49 +166,35 @@
   </div>
 
   <div class="row">
-      <div class="" style="width: 100%; margin-top: 6px; text-align: left; z-index: 10">
-          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto; border: solid 2px transparent">
+      <div class="" style="width: 100%; margin-top: 23px; text-align: left; z-index: 10">
+          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto;">
             <tbody>
               <tr>
                 <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
                     <!--span>Señor(es):</span-->
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
-                    <span style="margin-left: -5px;">carlos montana</span>
+                    <span style="margin-left: -5px;">Pablo de la juan nepumusenos krispin </span>
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 20% !important;">
                     <!--span>Forma de Pago:</span--> 
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px;">Efectivo</span>
+                    <span style="margin-left: 0px; text-align: right;">GRUIA000000212</span>
                 </td>
               </tr>
-              <tr>
+              <tr style=";">
                 <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
                     <!--span>RUC / DNI:</span-->
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
-                    <span style="margin-left: -5px">10750005760</span>
+                    <span style="margin-left: -5px; margin-top: 10px">10750005760</span>
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
                     <!--span>Guía de remisión:</span-->
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px">GRUIA000000212</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
-                    <!--span>Dirección:</span-->
-                </td>
-                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
-                    <span style="margin-left: -5px">Psje Alamedas 123</span>
-                </td>
-                <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
-                    <!--span>Asesor de Ventas:</span--> 
-                </td>
-                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px">Hector vivanco</span>
+                    <span style="margin-left: 40px; text-align: right; margin-top: 10px">12/12/2017</span>
                 </td>
               </tr>
             </tbody>
@@ -217,32 +203,49 @@
   </div>
 
   <div class="row">
-    <div class="" style="width: 100%; margin-top: 10px; text-align: left; z-index: 10">
+      <div class="" style="width: 100%; margin-top: 25px; text-align: left; z-index: 10">
+          <table id="tablageneral" style="text-align: left; width: 86%; margin: 0 auto;">
+            <tbody>
+              <tr>
+                <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+                    <span style="">Pablo de la juan nepumusenos krispin </span>
+                </td>
+                <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+                    <span style="">Pablo de la juan nepumusenos krispin </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="" style="width: 100%; margin-top: -25px; text-align: left; z-index: 10">
         <table id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
           <tbody>
             <tr id="primerdetalle" style="">
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 8% !important; height: 25px !important">
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 7.89% !important; height: 10px !important">
                   <small>
                     <small>
                         <!--span>ITEM</span-->
                     </small>
                   </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 10.53% !important; height: 15px !important">
                 <small>
                     <small>
                         <!--span>CANT.</span-->
                   </small>
                 </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important; height: 25px !important">
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.15% !important; height: 25px !important">
                   <small>
                     <small>
                         <!--span>CÓDIGO</span-->
                     </small>
                   </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50% !important; height: 25px !important">
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 68.42% !important; height: 50px !important">
                 <small>
                     <small>
                         <!--span>DESCRIPCIÓN</span-->
@@ -265,38 +268,29 @@
               {
                 $TotalCotizacion += $fila['dcmTotal'];
             ?>
-            <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
-              <td style="width: 8% !important; font-size:x-small; padding:0px">
+            <tr class="segundodetalle" style="text-align: center; border-bottom: -30px solid; padding-top: -10px: ">
+              <td style="width: 7.89% !important; font-size:x-small; padding: 0px">
                 <span>
                   <?php //echo $i; ?>
                 </span>
               </td>
-              <td style="width: 16.67% !important; font-size:x-small; padding:0px">
+              <td style="width: 10.53% !important; font-size:x-small; padding: 0px">
                 <span>
                   20443881540
                 </span>
               </td>
-              <td style="width: 50% !important; font-size:x-small; padding:0px">
-                <span>
-                  <?php echo $descripcion; ?>
-                </span>
-              </td>
-              <td style="width: 11% !important; font-size:x-small; padding:0px">
+              <td style="width: 13.15% !important; font-size:x-small; padding: 0px">
                 <span>
                   <?php echo strlen($descripcion) ?>
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">
+              <td style="width: 68.42% !important; font-size:x-small; padding: 0px">
                 <span>
-                  
-                </span>
-              </td>
-              <td style="width: 13.8% !important; font-size:x-small; text-align: left padding:0px">
-                <span>
-                  
+                  <?php echo $descripcion; ?>
                 </span>
               </td>
             </tr>
+
             <?php
                 $i++;
               }
@@ -307,30 +301,24 @@
                   echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
                 }
             ?>
-              <td style="width: 8% !important; font-size:x-small;"><?php //echo $j ?></td>
-              <td style="width: 16.67% !important; font-size:x-small;">
+              <td style="width: 7.89% !important; font-size:x-small;">
                 <span>
-                  20443881540
+                  <?php //echo $j ?>
                 </span>
               </td>
-              <td style="width: 50% !important; max-width: 50% !important; font-size:x-small; text-align: left; padding-left: 7px; padding-right: 0px;word-wrap: break-word">
+              <td style="width: 10.53% !important; font-size:x-small; text-align: left; padding-right: 0px;word-wrap: break-word">
                 <span>
+                  12
+                </span>
+              </td>
+              <td style="width: 13.15% !important; font-size:x-small; text-align: left; padding-right: 0px;word-wrap: break-word">
+                <span>
+                    <?php echo '20443881540';//echo strlen($descripcion) ?>
+                </span>
+              </td>
+              <td style="width: 68.42% !important; font-size:x-small; text-align: left">
+                <span style="">
                     <?php echo $descripcion; ?>
-                </span>
-              </td>
-              <td style="width: 11% !important; font-size:x-small;">
-                <span>
-                  <?php echo strlen($descripcion) ?>
-                </span>
-              </td>
-              <td style="width: 13.8% !important; font-size:x-small;">
-                <span>
-                  
-                </span>
-              </td>
-              <td style="width: 13.8% !important; font-size:x-small;">
-                <span>
-                  
                 </span>
               </td>
             </tr>
@@ -344,56 +332,207 @@
     </div>
   </div>
 
-  <!-- table para el footer -->
-  <div class="row" style=" padding-top: 15px; z-index: 10">
-    <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
-      <!-- INICIO - row VALOR VENTA -->
+  <!-- INICIO - table MOTIVO DE TRASADO -->
+  <div class="row" style=" padding-top: 5px; z-index: 10">
+    <table  id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
       <tr>
-        <td style="width: 8% !important; font-size:x-small; padding:0px"></td>
-        <td style="width: 56.67% !important; font-size:x-small; padding:0px">
-            <span>
-                <?php 
-                    $numero = 1000.45;
-                    //convertir_a_letras(1900);
-                    echo 'Ciento cicncuenta y nueve mil trescientos cuarenta y cinco soles';
-                ?>      
-            </span>
-        </td>
-        <td style="width: 11% !important; font-size:x-small;">
-          <span></span>
-        </td>
-        <td style="width: 13.8% !important; font-size:x-small;"></td>
-        <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding-right: 7px;">
-          <span>159345.20</span>
+        <td>
+          <span style="font-weight: bolder; /*color: red*/; padding-left: 165px">
+            X
+          </span>
         </td>
       </tr>
-      <!-- END - row VALOR VENTA -->
-
-      <!-- INICIO - row IGV -->
-      <tr>
-        <td colspan="3"></td>
-        <td style="width: 11% !important; font-size:x-small;">
-          <span></span>
-        </td>
-        <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding-right: 6px; padding-top: 10px">
-          <span>159345.20</span>
-        </td>
-      </tr>
-      <!-- END - row IGV -->
-
-      <!-- INICIO - row TOTAL -->
-      <tr>
-        <td colspan="3"></td>
-        <td style="width: 11% !important; font-size:x-small;">
-          <span></span>
-        </td>
-        <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding-right: 6px; padding-top: 10px">
-          <span style="">159345.20</span>
-        </td>
-      </tr>
-      <!-- END - row TOTAL -->
     </table>
   </div>
+  <!-- END - table MOTIVO DE TRASADO -->
+
+  <!-- INICIO - table MOTIVO DE TRASADO -->
+  <!--div class="row" style=" padding-top: -5px; z-index: 10">
+    <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
+      <tr style="text-align: right; padding-top: 0px ">
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+             primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+             primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span style="">
+              primero
+          </span>
+        </td>
+      </tr>
+      <tr style="text-align: right; padding-top: 0px ">
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+            primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+             primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span style="">
+             primero
+          </span>
+        </td>
+      </tr>
+      <tr style="text-align: right; padding-top: 0px ">
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+            primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+            primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span style="">
+             primero
+          </span>
+        </td>
+      </tr>
+      <tr style="text-align: right; padding-top: 0px ">
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+            primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+            primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span style="">
+            primero
+          </span>
+        </td>
+      </tr>
+        <tr style="text-align: right; padding-top: 0px ">
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+           primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span>
+            primero
+          </span>
+        </td>
+        <td style="font-size:x-small; text-align: right; padding-right: 0px;word-wrap: break-word">
+          <span style="">
+            primero
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div-->
+  <!-- END - table MOTIVO DE TRASADO -->
+
+  <!-- INICIO - table DATOS DEL TRNSPORTISTA -->
+  <div class="row" style=" margin-top: 80px; z-index: 10">
+    <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
+      <tr>
+        <td style="width: 60%;text-align: right;">
+          <span style=" padding-right: 5px">
+            Nombre de razon social
+          </span>
+        </td>
+        <td style="width: 40%;text-align: right;">
+          <span style=" padding-right: 5px">
+            Vehiculo
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 60%;text-align: right;">
+          <span style=" padding-right: 5px">
+            RUC
+          </span>
+        </td>
+        <td style="width: 40%;text-align: right;">
+          <span style=" padding-right: 5px">
+            Placa N
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 60%;text-align: right;">
+          <span style=" padding-right: 5px">
+            Dirección
+          </span>
+        </td>
+        <td style="width: 40%;text-align: right;">
+          <span style=" padding-right: 5px">
+            Conducto
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 60%;text-align: right;">
+          <span style=" padding-right: 5px">
+            telefono
+          </span>
+        </td>
+        <td style="width: 40%;text-align: right;">
+          <span style=" padding-right: 5px">
+            Licencia Conductor
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- END - table DATOS DEL TRNSPORTISTA -->
+
+  <!-- INICIO - tabla despachado por -->
+  <div class="row" style=" margin-top: 20px; z-index: 10">
+    <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
+      <tr>
+        <td style="width: 58%;text-align: right; padding-top: 0px; font-size:x-small;">
+          <span style="font-size:x-small; padding-right: 5px">
+          </span>
+        </td>
+        <td style="width: 38%;text-align: right; padding-top: 0px; font-size:x-small;">
+          <span style="font-size:x-small; padding-right: 5px">
+            Nombre
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 58%;text-align: right; padding-top: 0px; font-size:x-small;">
+          <span style="font-size:x-small; padding-right: 5px">
+          </span>
+        </td>
+        <td style="width: 38%;text-align: right; padding-top: 0px; font-size:x-small;">
+          <span style="font-size:x-small; padding-right: 5px">
+            DNI
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 58%;text-align: right; padding-top: 0px; font-size:x-small;">
+          <span style="font-size:x-small; padding-right: 5px">
+          </span>
+        </td>
+        <td style="width: 38%;text-align: right; padding-top: 0px; font-size:x-small;">
+          <span style="font-size:x-small; padding-right: 5px">
+            Fecha
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- END - tabla despachado por -->
+
 <br>  
 
 <!--style>
