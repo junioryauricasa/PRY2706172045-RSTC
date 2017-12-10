@@ -66,22 +66,42 @@ $funcionComprobante = 0;
     			        <div class="box-body">
     			          <div class="row">
                       <?php include '../campos/cmbNumLista.php'; ?>
-    			            <div class="col-md-2">
+    			            <div class="col-md-4">
     			              <div class="form-group">
     			                <label class="text-left">Ingresar Búsqueda:</label>
     			                <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
     			              </div>
     			            </div>
-    			            <div id="tipo-busquedaCol" class="col-md-2">
-    			              <div class="form-group">
-    			                <label>Tipo de Búsqueda:</label>
-    			                <br>
-    			                <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2" >
-    			                  <option value="C">Por Códigos</option>
-    			                  <!--<option value="T">Resto de Campos</option>-->
-    			                </select>
-    			              </div>
-    			            </div>
+    			            <div id="divBusquedaAvanzada">
+                        <div id="" class="col-md-2">
+      			              <div class="form-group">
+      			                <label>Tipo de Búsqueda:</label>
+      			                <br>
+      			                <select id="tipo-busqueda" name="tipo-busqueda"  class="form-control select2" >
+      			                  <option value="C">Por Códigos</option>
+      			                  <!--<option value="T">Resto de Campos</option>-->
+      			                </select>
+      			              </div>
+      			            </div>
+                      </div>
+
+                      <!-- INICIO - busqueda avanzada button -->
+                      <div id="busqueda-AVANZADA" class="col-md-2" style="">
+                        <div class="form-group">
+                          <label id="label-busqueda-avanzada">Presione</label>
+                          <br>
+                          <input type="button" value="Busqueda avanzada" class="btn btn-sm btn-info btn-flat" id="btnBusqeudaAvanzada" onclick="mostrarBusquedaAvanzada()">
+                          <div id="loader" style="display: none"></div>
+                        </div>
+                      </div>
+                      <!-- END - busqueda avanzada button -->
+
+                      <!-- INICIO - formulario busqueda avanzada -->
+                      <!-- div del form -->
+                      
+                      
+                      <!-- END- formulario busqueda avanzada -->
+
                       <script type="text/javascript">
                         $("#tipo-busquedaCol").hide();
                       </script>
@@ -226,5 +246,70 @@ $funcionComprobante = 0;
 </div>-->
 <!-- END - elemento emergente estilo chat -->
 
+
+
+<!-- INICIO - elementos emergentes -->
+<style>
+  /* Center the loader */
+  #loader {
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid #3498db;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+
+    transition: 2s
+  }
+
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Add animation to "page content" */
+  .animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+  }
+
+  @-webkit-keyframes animatebottom {
+    from { bottom:-100px; opacity:0 } 
+    to { bottom:0px; opacity:1 }
+  }
+
+  @keyframes animatebottom { 
+    from{ bottom:-100px; opacity:0 } 
+    to{ bottom:0; opacity:1 }
+  }
+
+  #divBusquedaAvanzada {
+    display: none;
+  }
+</style>
+<script>
+
+  function mostrarBusquedaAvanzada() {
+      document.getElementById("loader").style.display = "block";
+      document.getElementById("btnBusqeudaAvanzada").style.display = "none";
+      document.getElementById("label-busqueda-avanzada").style.display = "none";
+      setTimeout(showPage, 3000);
+  }
+
+  function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("divBusquedaAvanzada").style.display = "block";
+  }
+</script>
+<!-- END - elementos emergentes -->
 
 <?php include('../_include/rstfooter.php'); ?>

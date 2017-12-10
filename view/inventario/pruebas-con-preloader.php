@@ -6,7 +6,7 @@
 </head>
 <body>
 	<!-- input de activacion para el preloader -->
-	<input type="button" id="btnBusqeudaAvanzada" value="Busqueda avanzada" onclick="mostrarBusquedaAvanzada()">
+	<input type="button" id="btnBusqeudaAvanzada" value="Busqueda Avanzada" onclick="mostrarBusquedaAvanzada()">
 	<!-- loader activado -->
 	<div class="" style="padding-top: 10px">
 		<div id="loader" style="display: none"></div>
