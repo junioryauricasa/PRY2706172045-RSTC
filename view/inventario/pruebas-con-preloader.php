@@ -6,9 +6,11 @@
 </head>
 <body>
 	<!-- input de activacion para el preloader -->
-	<input type="button" value="Busqeuda avanzada" onclick="myFunction()">
+	<input type="button" id="btnBusqeudaAvanzada" value="Busqueda avanzada" onclick="mostrarBusquedaAvanzada()">
 	<!-- loader activado -->
-	<div id="loader" style="display: none"></div>
+	<div class="" style="padding-top: 10px">
+		<div id="loader" style="display: none"></div>
+	</div>
 	<!-- div del form -->
 	<div id="divBusquedaAvanzada">
 		<input type="text" placeholder="nombre">
@@ -17,7 +19,9 @@
 		<br>
 		<input type="button" value="Enviar">
 	</div>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur maxime recusandae magni possimus nisi nihil ipsam aliquam quas delectus? Odio accusamus facilis totam dignissimos labore temporibus nihil itaque beatae incidunt.</p>
+	<div>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci eaque ab sint debitis vel mollitia nesciunt autem expedita voluptate ad architecto sunt voluptatibus tenetur, corporis sequi esse labore consequuntur amet.</p>
+	</div>
 
 </body>
 </html>
@@ -26,16 +30,6 @@
 <style>
 	/* Center the loader */
 	#loader {
-	  position: absolute;
-	  /*
-	  left: 50%;
-	  top: 50%;
-	  
-	  z-index: 1;
-	  */
-	  width: 50px;
-	  height: 50px;
-
 	  border: 6px solid #f3f3f3;
 	  border-radius: 50%;
 	  border-top: 6px solid #3498db;
@@ -43,6 +37,8 @@
 	  height: 30px;
 	  -webkit-animation: spin 2s linear infinite;
 	  animation: spin 2s linear infinite;
+
+	  transition: 2s
 	}
 
 	@-webkit-keyframes spin {
@@ -76,20 +72,20 @@
 
 	#divBusquedaAvanzada {
 	  display: none;
-	  margin-top: 10px
 	}
 </style>
 
 
 <script>
 
-	function myFunction() {
+	function mostrarBusquedaAvanzada() {
 	    document.getElementById("loader").style.display = "block";
-	    setTimeout(showPage, 2000);
+	    setTimeout(showPage, 3000);
 	}
 
 	function showPage() {
 	  document.getElementById("loader").style.display = "none";
+	  document.getElementById("btnBusqeudaAvanzada").style.display = "none";
 	  document.getElementById("divBusquedaAvanzada").style.display = "block";
 	}
 </script>
