@@ -302,7 +302,7 @@ $funcionComprobante = 0;
       document.getElementById("loader").style.display = "block";
       document.getElementById("btnBusqeudaAvanzada").style.display = "none";
       document.getElementById("label-busqueda-avanzada").style.display = "none";
-      setTimeout(showPage, 3000);
+      setTimeout(showPage, 1500); //timer de medidos en segundos
   }
 
   function showPage() {
