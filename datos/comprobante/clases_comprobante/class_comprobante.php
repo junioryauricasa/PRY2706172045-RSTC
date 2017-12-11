@@ -407,7 +407,7 @@ class Comprobante{
       }
       echo $output;
     }
-    catch(PDPExceptio $e){
+    catch(PDOException $e){
       echo $e->getMessage();
     }  
   }

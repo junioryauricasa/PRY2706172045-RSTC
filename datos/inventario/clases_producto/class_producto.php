@@ -435,6 +435,33 @@ class Producto
     }
   }
 
+  public function ES_StockUbigeo_II($intIdProducto,$intIdSucursal,$intCantidad,$TipoES)
+  {
+    try{
+      $sql_conexion_cantidad = new Conexion_BD();
+      $sql_conectar_cantidad = $sql_conexion_cantidad->Conectar();
+      $sql_comando = $sql_conectar_cantidad->prepare('CALL seleccionarUbigeoProducto_II(:intIdProducto,:intIdSucursal)');
+      $sql_comando -> execute(array(
+        ':intIdProducto' => $intIdProducto,
+        ':intIdSucursal' => $intIdSucursal));
+      $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
+      $intCantidadFinal = 0;
+      $intIdUbigeoProducto = $fila['intIdUbigeoProducto'];
+      $intCantidadInicial = $fila['intCantidadUbigeo'];
+      if($TipoES == 1){
+        $intCantidadFinal = $intCantidadInicial + $intCantidad;
+      } else if($TipoES == 0){
+        $intCantidadFinal = $intCantidadInicial - $intCantidad;
+      }
+      $sql_comando = $sql_conectar_cantidad->prepare('CALL ES_STOCKUBIGEO(:intIdUbigeoProducto,:intCantidadUbigeo)');
+      $sql_comando -> execute(array(':intIdUbigeoProducto' => $intIdUbigeoProducto, ':intCantidadUbigeo' => $intCantidadFinal));
+      echo "ok";
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }
+  }
+
   public function ES_StockTotal($intIdProducto)
   {
     try{
@@ -464,6 +491,27 @@ class Producto
       catch(PDPExceptio $e){
         echo $e->getMessage();
       }
+  }
+
+  public function RegresionCantidad($intIdComprobante){
+    try{
+      $intCantidad = 0;
+      $TipoES = 0;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL MOSTRARDETALLECOMPROBANTE(:intIdComprobante)');
+      $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
+            if($fila['intTipoDetalle'] == 1)
+              $TipoES = $fila['intTipoDetalle'];
+            else if($fila['intTipoDetalle'] == 2)
+              $TipoES = $fila['intTipoDetalle'] - 2;
+            $this->ES_StockUbigeo_II($fila['intIdProducto'],$fila['intIdSucursal'],$fila['intCantidad'],$TipoES);
+            $this->AumentarStockTotal($fila['intIdProducto']);
+      }
+    } catch(PDOException $e) {
+      echo $e->getMessage();
+    }
   }
 
   public function BuscarProducto($buscar,$intIdTipoMoneda)

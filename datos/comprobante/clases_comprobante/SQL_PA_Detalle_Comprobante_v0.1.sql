@@ -113,7 +113,8 @@ DELIMITER $$
     	IN _intIdComprobante INT
     )
 	BEGIN
-		SELECT DCR.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto,TMN.nvchSimbolo, CR.intIdTipoComprobante
+		SELECT DCR.*,CP.nvchCodigo AS CodigoProducto ,P.nvchDescripcion AS DescripcionProducto,TMN.nvchSimbolo, 
+		CR.intIdTipoComprobante, CR.intIdSucursal
 		FROM tb_detalle_comprobante DCR
 		LEFT JOIN tb_comprobante CR ON CR.intIdComprobante = DCR.intIdComprobante
 		LEFT JOIN tb_producto P ON DCR.intIdProducto = P.intIdProducto

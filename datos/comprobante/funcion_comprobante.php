@@ -61,7 +61,7 @@ switch($_POST['funcion']){
         $Producto = new Producto();
         $Producto->ES_StockUbigeo($_POST['intIdProducto'.$_POST['Letra']],$_POST['intIdSucursal'],$_POST['intCantidad'.$_POST['Letra']],((int)$_POST['intTipoDetalle']-1));
         $Producto->ES_StockTotal($_POST['intIdProducto'.$_POST['Letra']]);
-        $KardexProducto = new KardexProducto();
+        /*$KardexProducto = new KardexProducto();
         $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
         $KardexProducto->FechaMovimiento($dtmFechaCreacion);
         $KardexProducto->IdComprobante($_SESSION['intIdComprobante']);
@@ -76,7 +76,7 @@ switch($_POST['funcion']){
             $KardexProducto->CantidadEntrada($_POST['intCantidad'.$_POST['Letra']]);
             $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario'.$_POST['Letra']]);
         }
-        $KardexProducto->InsertarKardexProducto();
+        $KardexProducto->InsertarKardexProducto();*/
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
@@ -92,6 +92,8 @@ switch($_POST['funcion']){
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
     break;
   case "A":
+    $Producto = new Producto();
+    $Producto->RegresionCantidad($_POST['intIdComprobante']);
     $Comprobante = new Comprobante();
     $Comprobante->IdComprobante($_POST['intIdComprobante']);
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
@@ -130,6 +132,8 @@ switch($_POST['funcion']){
         $DetalleComprobante->Cantidad($_POST['intCantidad'.$_POST['Letra']]);
         $DetalleComprobante->Total($_POST['dcmTotal'.$_POST['Letra']]);
         $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
+        $Producto->ES_StockUbigeo($_POST['intIdProducto'.$_POST['Letra']],$_POST['intIdSucursal'],$_POST['intCantidad'.$_POST['Letra']],((int)$_POST['intTipoDetalle']-1));
+        $Producto->ES_StockTotal($_POST['intIdProducto'.$_POST['Letra']]);
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleComprobante->IdComprobante($_POST['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);

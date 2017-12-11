@@ -570,7 +570,7 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   success:function(datos)
 	   {
       datos = datos.replace(/\s/g,'');
-	   	if (datos=="okokokokokok" || datos=="okokok") {
+	   	if (datos=="okokokokok" || datos=="okokok") {
         if(intTipoDetalle == 1)
 	   		  MensajeNormal("Se generó correctamente la Venta",1);
         else
@@ -652,7 +652,7 @@ $(document).on('click', '#btn-editar-comprobante', function(){
      success:function(datos)
      {
       datos = datos.replace(/\s/g,'');
-      if (datos=="okok") {
+      if (datos=="okokokokokok") {
         if(intTipoDetalle == 1)
           MensajeNormal("Se Modificó correctamente la Venta",1);
         else
