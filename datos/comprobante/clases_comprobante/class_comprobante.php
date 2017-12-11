@@ -225,17 +225,6 @@ class Comprobante{
         $x = ($numpaginas - 1) * $y;
         $i = 1;
       } 
-      /*
-      else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_ii(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,
-          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal,':intTipoDetalle' => $intTipoDetalle));
-        $cantidad = $sql_comando -> rowCount();
-        $residuo = $cantidad % $y;
-        if($residuo == 0)
-        {$x = $x - $y;}
-      }
-      */
       //Busqueda de Cliente por el comando LIMIT
       $sql_comando = $sql_conectar->prepare('CALL buscarComprobante(:busqueda,:x,:y,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdTipoComprobante' => $intIdTipoComprobante,
@@ -287,17 +276,29 @@ class Comprobante{
           echo '<td>'.$fila["NombreProveedor"].'</td>';
         echo
         '<td>'.$fila["NombreUsuario"].'</td>
-        <td>'.$fila["dtmFechaCreacion"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["ValorComprobante"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
-        <td>'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>
-        <td> 
+        <td>'.$fila["dtmFechaCreacion"].'</td>';
+        if($fila['intIdTipoComprobante'] != 3 && $fila['intIdTipoComprobante'] != 7){
+          echo
+          '<td>'.$fila["SimboloMoneda"].' '.$fila["ValorComprobante"].'</td>
+          <td>'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
+          <td>'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>';
+        }
+        else {
+          echo
+          '<td> - </td>
+          <td> - </td>
+          <td> - </td>';
+        }
+        echo
+        '<td> 
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
             <i class="fa fa-edit"></i></button>
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-danger btn-anular-comprobante">
             <i class="fa fa-trash"></i></button>';
-        if($fila['intTipoDetalle'] == 1 || $fila['intIdTipoComprobante'] == 10){  
-        echo '<button type="button" id="'.$fila["intIdComprobante"].'" idcr="'.$fila["intIdTipoComprobante"].'" class="btn btn-xs btn-default btn-reporte-comprobante">
+        if($fila['intTipoDetalle'] == 1 || $fila['intIdTipoComprobante'] == 10 || $fila['intIdTipoComprobante'] == 4){  
+        echo 
+        '<button type="button" id="'.$fila["intIdComprobante"].'" idcr="'.$fila["intIdTipoComprobante"].'" 
+        idtv="'.$fila['intIdTipoVenta'].'" class="btn btn-xs btn-default btn-reporte-comprobante">
             <i class="fa fa-download"></i></button>';
         }
         echo '</td>

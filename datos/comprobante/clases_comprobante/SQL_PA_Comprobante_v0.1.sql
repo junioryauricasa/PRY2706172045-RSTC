@@ -134,6 +134,7 @@ DELIMITER $$
 		SELECT CR.*,
 		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		TMN.nvchNombre AS NombreMoneda,
+		TMN.nvchSimbolo AS SimboloMoneda,
 		TPG.nvchNombre AS NombrePago,
 		TV.nvchNombre AS NombreVenta,
 		TCL.nvchNombre AS TipoCliente,
