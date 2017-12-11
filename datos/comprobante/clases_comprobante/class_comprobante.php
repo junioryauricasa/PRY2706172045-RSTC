@@ -10,6 +10,7 @@ class Comprobante{
   private $nvchSerie;
   private $nvchNumeracion;
   private $intIdUsuario;
+  private $intIdUsuarioSolicitado;
   private $intIdCliente;
   private $IntIdProveedor;
   private $nvchClienteProveedor;
@@ -29,6 +30,7 @@ class Comprobante{
   public function Serie($nvchSerie){ $this->nvchSerie = $nvchSerie; }
   public function Numeracion($nvchNumeracion){ $this->nvchNumeracion = $nvchNumeracion; }
   public function IdUsuario($intIdUsuario){ $this->intIdUsuario = $intIdUsuario; }
+  public function IdUsuarioSolicitado($intIdUsuarioSolicitado){ $this->intIdUsuarioSolicitado = $intIdUsuarioSolicitado; }
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
   public function ClienteProveedor($nvchClienteProveedor){ $this->nvchClienteProveedor = $nvchClienteProveedor; }
@@ -48,8 +50,9 @@ class Comprobante{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarComprobante(@intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
-        :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,
-        :nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
+        :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdUsuarioSolicitado,:intIdCliente,
+        :intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,
+        :intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
         ':intTipoDetalle' => $this->intTipoDetalle,
@@ -58,6 +61,7 @@ class Comprobante{
         ':nvchSerie' => $this->nvchSerie,
         ':nvchNumeracion' => $this->nvchNumeracion,
         ':intIdUsuario' => $this->intIdUsuario,
+        ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
         ':intIdCliente' => $this->intIdCliente,
         ':intIdProveedor' => $this->intIdProveedor,
         ':nvchClienteProveedor' => $this->nvchClienteProveedor,
@@ -107,7 +111,7 @@ class Comprobante{
 
       $salida['intIdCliente'] = $fila['intIdCliente'];
       $salida['intIdProveedor'] = $fila['intIdProveedor'];
-  
+      $salida['intIdUsuarioSolicitado'] = $fila['intIdUsuarioSolicitado'];
       $salida['nvchObservacion'] = $fila['nvchObservacion'];
       echo json_encode($salida);
     }
@@ -122,8 +126,8 @@ class Comprobante{
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL ActualizarComprobante(:intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
-        :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdCliente,:intIdProveedor,
-        :nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,
+        :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdUsuarioSolicitado,:intIdCliente,
+        :intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:intIdTipoMoneda,:intIdTipoPago,
         :intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdComprobante' => $this->intIdComprobante,
@@ -134,6 +138,7 @@ class Comprobante{
         ':nvchSerie' => $this->nvchSerie,
         ':nvchNumeracion' => $this->nvchNumeracion,
         ':intIdUsuario' => $this->intIdUsuario,
+        ':intIdUsuarioSolicitado' => $this->intIdUsuarioSolicitado,
         ':intIdCliente' => $this->intIdCliente,
         ':intIdProveedor' => $this->intIdProveedor,
         ':nvchClienteProveedor' => $this->nvchClienteProveedor,

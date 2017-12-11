@@ -11,6 +11,7 @@ DELIMITER $$
 	IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
+	IN _intIdUsuarioSolicitado INT,
 	IN _intIdCliente INT,
 	IN _intIdProveedor INT,
 	IN _nvchClienteProveedor VARCHAR(350),
@@ -24,11 +25,13 @@ DELIMITER $$
     )
 	BEGIN
 		INSERT INTO tb_comprobante
-		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,intIdCliente,intIdProveedor,
-			nvchClienteProveedor,nvchDNIRUC,nvchDireccion,intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
+		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,
+			intIdUsuarioSolicitado,intIdCliente,intIdProveedor,nvchClienteProveedor,nvchDNIRUC,nvchDireccion,
+			intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
 		VALUES
-		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,_intIdUsuario,_intIdCliente,_intIdProveedor,
-			_nvchClienteProveedor,_nvchDNIRUC,_nvchDireccion,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,_nvchObservacion);
+		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,
+			_intIdUsuario,_intIdUsuarioSolicitado,_intIdCliente,_intIdProveedor,_nvchClienteProveedor,_nvchDNIRUC,
+			_nvchDireccion,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,_nvchObservacion);
 		SET _intIdComprobante = LAST_INSERT_ID();
     END 
 $$
@@ -61,6 +64,7 @@ DELIMITER $$
 	IN _nvchSerie VARCHAR(4),
 	IN _nvchNumeracion VARCHAR(10),
 	IN _intIdUsuario INT,
+	IN _intIdUsuarioSolicitado INT,
 	IN _intIdCliente INT,
 	IN _intIdProveedor INT,
 	IN _nvchClienteProveedor VARCHAR(350),
@@ -83,6 +87,7 @@ DELIMITER $$
 		nvchSerie = _nvchSerie,
 		nvchNumeracion = _nvchNumeracion,
 		intIdUsuario = _intIdUsuario,
+		intIdUsuarioSolicitado = _intIdUsuarioSolicitado,
 		intIdCliente = _intIdCliente,
 		intIdProveedor = _intIdProveedor,
 		nvchClienteProveedor = _nvchClienteProveedor,
@@ -109,16 +114,18 @@ DELIMITER $$
 		CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
 		TMN.nvchNombre AS NombreMoneda,
 		TPG.nvchNombre AS NombrePago,
-		TCR.nvchNombre AS NombreVenta,
+		TV.nvchNombre AS NombreVenta,
 		TCL.nvchNombre AS TipoCliente,
+		CONCAT(US.nvchNombres,' ',US.nvchApellidoPaterno,' ',US.nvchApellidoMaterno) AS NombreSolicitado,
 		TCL.intIdTipoCliente
 	    FROM tb_comprobante CR
 		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_usuario US ON CR.intIdUsuarioSolicitado = US.intIdUsuario
 		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
 		LEFT JOIN tb_tipo_cliente TCL ON C.intIdTipoCliente = TCL.intIdTipoCliente
 		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
 		LEFT JOIN tb_tipo_pago TPG ON CR.intIdTipoPago = TPG.intIdTipoPago
-		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TCR.intIdTipoVenta
+		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TV.intIdTipoVenta
 		WHERE 
 		CR.intIdComprobante = _intIdComprobante;
     END 

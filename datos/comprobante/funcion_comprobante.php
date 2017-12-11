@@ -31,6 +31,8 @@ switch($_POST['funcion']){
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    if($_POST['intIdTipoComprobante'] == 10)
+        $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Comprobante->IdCliente($_POST['intIdCliente']);
     $Comprobante->IdProveedor($_POST['intIdProveedor']);
     $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);
@@ -105,6 +107,8 @@ switch($_POST['funcion']){
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    if($_POST['intIdTipoComprobante'] == 10)
+        $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Comprobante->IdCliente($_POST['intIdCliente']);
     $Comprobante->IdProveedor($_POST['intIdProveedor']);
     $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);

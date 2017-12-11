@@ -155,6 +155,27 @@
                   <input type="button" class="form-control select2 btn btn-md btn-primary btn-flat" value="Buscar" onclick="form<?php echo $lblPersonaSingular;?>()">
                 </div>
               </div>
+              <div id="intIdUsuarioSolicitadoCol" class="col-md-3">
+                <div class="form-group">
+                  <label>Usuario que Solicitó:</label>
+                  <select id="intIdUsuarioSolicitado" name="intIdUsuarioSolicitado"  class="form-control select2"
+                  form="form-comprobante">
+                  <?php 
+                    try{
+                        $sql_conexion = new Conexion_BD();
+                        $sql_conectar = $sql_conexion->Conectar();
+                        $sql_comando = $sql_conectar->prepare('CALL listarusuarios()');
+                        $sql_comando->execute();
+                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                        {
+                          echo '<option value="'.$fila['intIdUsuario'].'">'.$fila['NombreUsuario'].'</option>';
+                        }
+                      }catch(PDPExceptions $e){
+                        echo $e->getMessage();
+                  }?>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-2">

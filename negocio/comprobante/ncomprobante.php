@@ -410,6 +410,7 @@ function HabilitacionOpciones(accion){
     $("#nvchNumeracion").attr("readonly",false);
 		$('.opcion-boton-nuevo').show();
 		$('.opcion-columna-nuevo').show();
+    $("#intIdUsuarioSolicitado").attr("disabled", false); // Guía Interna de Entrada
     $("#funcionC").val("I");
     OpcionFecha("2");
 	} else {
@@ -422,6 +423,7 @@ function HabilitacionOpciones(accion){
     $("#nvchNumeracion").attr("readonly",true);
 		$('.opcion-columna-nuevo').hide();
     $('.opcion-boton-editar').show();
+    $("#intIdUsuarioSolicitado").attr("disabled", true); // Guía Interna de Entrada
     $("#txtOpcionFecha").val("1");
     OpcionFecha("1");
     $("nvchFecha").attr("readonly",true);
@@ -620,10 +622,12 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
   		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
   		$("#intIdClienteC").val(datos.intIdCliente);
   		$("#intIdProveedorC").val(datos.intIdProveedor);
+      $("#intIdUsuarioSolicitado").val(datos.intIdUsuarioSolicitado);
   		$("textarea#nvchObservacion").val(datos.nvchObservacion);
   		HabilitacionOpciones(2);
   		ElegirTabla(datos.intIdTipoVenta);
   		MostrarDetalleComprobante(datos.intIdComprobante,datos.intIdTipoVenta);
+      CamposComprobante(datos.intIdTipoComprobante);
   	  $("#btnFormRealizarComprobante").click();
 	   }
 	  });
@@ -1253,6 +1257,7 @@ $(document).on('change', '#lugar-comprobante', function(){
 function MostrarSeleccionComprobante() {
     var intTipoDetalle = $("#intTipoDetalle").val();
 	  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+    CamposComprobante(intIdTipoComprobante);
     if((intTipoDetalle == 1 && intIdTipoComprobante >= 9) || intTipoDetalle == 2){
       $(".filaPrecio").hide();
       $(".filaDescuento").hide();
@@ -1289,6 +1294,12 @@ function MostrarSeleccionComprobante() {
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
 
+function CamposComprobante(intIdTipoComprobante){
+  if(intIdTipoComprobante == 10)
+    $("#intIdUsuarioSolicitadoCol").show();
+  else
+    $("#intIdUsuarioSolicitadoCol").hide();
+}
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Listar Cliente */

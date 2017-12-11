@@ -14,6 +14,7 @@
 
   $nvchSerie = $fila['nvchSerie'];
   $nvchNumeracion = $fila['nvchNumeracion'];
+  $NombreSolicitado = $fila['NombreSolicitado'];
   //$nvchAtencion = $fila['nvchAtencion'];
 
   $NombreUsuario = $fila['NombreUsuario'];
@@ -102,7 +103,7 @@
 <div class="content" style="padding-top: -65px">
     <center>
         <span style="font-weight: bold; font-family: Arial;">
-          INGRESO INTERNO DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
+          INGRESO INTERNO DE REPUESTOS Nº RSA-<?php echo $nvchNumeracion; ?>/<?php echo $year; ?>
         </span>
     </center>
     <br>
@@ -122,14 +123,14 @@
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important; padding-left: 5px"><small><small>Solicitado por</small></small></td>
-          <td style="font-family: Arial; width: 40%;"><small><small>: <?php //echo $nvchAtencion; ?></small></small></td>
+          <td style="font-family: Arial; width: 40%;"><small><small>: <?php echo $NombreSolicitado; ?></small></small></td>
 
           <td style="font-weight: bold; font-family: Arial; width: 20% !important;"><small><small>Fecha de Factura</small></small></td>
           <td style="font-family: Arial; width: 20%;"><small><small><small>: <?php echo $dtmFechaCreacion; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 20% !important;padding-left: 5px; padding-bottom: 20px"><small><small>Observación</small></small></td>
-          <td style="font-family: Arial; width: 40%; padding-bottom: 20px" colspan="3"><small><small>: <?php //echo $nvchObservacion; ?> Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.</small></small></td>
+          <td style="font-family: Arial; width: 40%; padding-bottom: 20px" colspan="3"><small><small>: <?php echo $nvchObservacion; ?></small></small></td>
         </tr>
       </tbody>
     </table>
