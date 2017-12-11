@@ -344,12 +344,16 @@
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Limpiear campos del Comprobante */
 function LimpiarCampos(){
+  RestablecerValidacion("dtmFechaTraslado",1);
+  RestablecerValidacion("nvchPuntoLlegada",1);
+  RestablecerValidacion("nvchPuntoPartida",1);
   RestablecerValidacion("nvchFecha",1);
   RestablecerValidacion("nvchSerie",1);
   RestablecerValidacion("nvchNumeracion",1);
   RestablecerValidacion("nvchAtencion",1);
   RestablecerValidacion("nvchDestino",1);
 	//$("#nvchFecha").val(FechaActual());
+  $("#intIdComprobanteReferencia").val("");
 	$("#nvchNumDocumento").val("");
 	$("#nvchDenominacion").val("");
 	$("#nvchDomicilio").val("");
@@ -609,6 +613,7 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
 	   dataType:"json",
 	   success:function(datos)
 	   {
+      LimpiarCampos();
       $("#intIdComprobante").val(datos.intIdComprobante);
 	   	$("#nvchFecha").val(datos.dtmFechaCreacion);
 	   	$("#intIdSucursalC").val(datos.intIdSucursal);
@@ -628,6 +633,10 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
       $("#intIdUsuarioSolicitado").val(datos.intIdUsuarioSolicitado); // Guías Internas
       $("#nvchAtencion").val(datos.nvchAtencion); // Guía Interna de Salida
       $("#nvchDestino").val(datos.nvchDestino); // Guía Interna de Salida
+      $("#nvchPuntoPartida").val(datos.nvchPuntoPartida);
+      $("#nvchPuntoLlegada").val(datos.nvchPuntoLlegada);
+      $("#intIdComprobanteReferencia").val(datos.intIdComprobanteReferencia);
+      $("#dtmFechaTraslado").val(datos.dtmFechaTraslado);
   		$("textarea#nvchObservacion").val(datos.nvchObservacion);
   		HabilitacionOpciones(2);
   		ElegirTabla(datos.intIdTipoVenta);
@@ -661,7 +670,7 @@ $(document).on('click', '#btn-editar-comprobante', function(){
      success:function(datos)
      {
       datos = datos.replace(/\s/g,'');
-      if (datos=="okokokokokok" || datos=="okokokokokokokokokok") {
+      if (datos=="okokokokokok" || datos=="okokokokokokokokokok" || datos=="okok") {
         if(intTipoDetalle == 1)
           MensajeNormal("Se Modificó correctamente la Venta",1);
         else
@@ -1073,6 +1082,7 @@ function SeleccionarCliente(seleccion) {
 	   	$("#TipoCliente").val(datos.TipoCliente);
 	   	$("#intIdTipoCliente").val(datos.intIdTipoCliente);
 	   	$("#nvchDomicilio").val(datos.nvchDomicilio);
+      $("#nvchPuntoLlegada").val(datos.nvchDomicilio);
 	   	$("#intIdClienteC").val(datos.intIdCliente);
 	   	$("#formCliente").modal("hide");
 	   }
@@ -1330,13 +1340,21 @@ function CamposComprobante(intIdTipoComprobante){
 }
 
 function CamposTabla(intTipoDetalle,intIdTipoComprobante){
-  if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2 || intIdTipoComprobante == 3){
+  if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2 || intIdTipoComprobante == 3 ||
+    intIdTipoComprobante == 4){
       if(intIdTipoComprobante == 3 || intIdTipoComprobante == 7){
         $(".filaPrecio").hide();
         $(".filaDescuento").hide();
         $(".filaPrecioUnitario").hide();
         $(".filaTotal").hide();
         $(".txtTotales").hide();
+      } else if(intIdTipoComprobante == 4){
+        $(".filaPrecio").hide();
+        $(".filaDescuento").hide();
+        $(".filaPrecioUnitario").show();
+        $(".filaTotal").show();
+        $(".txtTotales").show();
+        $(".txtPrecioUnitario").attr("readonly",true);
       } else {
         $(".filaPrecio").hide();
         $(".filaDescuento").hide();

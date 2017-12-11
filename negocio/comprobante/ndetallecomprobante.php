@@ -27,6 +27,8 @@ function EliminarFilasVacias() {
 /* INICIO - Mostrar Detalle Orden Compra Seleccionado */
 function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
 	var funcion = "MDCR";
+	var intTipoDetalle = $("#intTipoDetalle").val();
+	var intIdTipoComprobante = $("#intIdTipoComprobante").val();
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
@@ -46,6 +48,7 @@ function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
 	   		$("#ListaDeImplementosVender").html(datos);
 	   		numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
 	   	}
+	   	CamposTabla(intTipoDetalle,intIdTipoComprobante);
 	   	CalcularTotal();
 	   }
 	  });
@@ -534,6 +537,7 @@ function PaginarCotizaciones(x,y) {
 function InsertarVenta(seleccion) {
 	SeleccionarCliente(seleccion);
 	var intIdComprobante = $(seleccion).attr("idv");
+	$("#intIdComprobanteReferencia").val(intIdComprobante);
 	var NombreVenta = $(seleccion).attr("nv");
 	var funcion = "IV";
 	var intIdTipoMoneda = $(seleccion).attr("idtm");
