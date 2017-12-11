@@ -114,75 +114,6 @@ require_once '../../datos/conexion/bd_conexion.php';
       $("#formCliente").modal("show");
     }
     </script>
-    <style>
-    .pagination a {
-        margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
-    }
-    hr { 
-        display: block;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-        margin-left: auto;
-        margin-right: auto;
-        border-style: inset;
-        border-width: 1px;
-    }
-    .result
-    {
-        position: absolute;
-        z-index: 100;
-        width: 500px !important;
-        /*padding:10px;*/
-        display:none;
-        margin-top:-1px;
-        border-top:0px;
-        overflow:hidden;
-        border:1px #CCC solid;
-        background-color: white;
-    }
-    .show
-    {
-        padding:5px;
-        border-bottom:1px solid #000000;
-        font-size:15px; 
-        /*height:50px;*/
-    }
-    .show:hover
-    {
-        background:#4c66a4;
-        color:#FFF;
-        cursor:pointer;
-    }
-    
-    /*
-        @Nombre: Truncate Text
-        @Autor: JY
-        @Descripción: 
-            Antes >>
-
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ipsa sed, quas molestias quidem ducimus consectetur neque doloribus vitae quasi blanditiis qui iure, tempore explicabo exercitationem nisi hic officiis eos.
-
-            Despues >>
-
-            Lorem ipsum solor...
-    */
-    .truncate {
-      width: 500px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Text Bolder */
-    #textbolder{
-      font-weight:bolder; 
-      color: black
-    }
-    .show:hover > #textbolder{
-      color: white;
-    }
-
-    </style>
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
@@ -596,11 +527,66 @@ require_once '../../datos/conexion/bd_conexion.php';
   });
 </script>
 <style>
-  input{
-    padding: 2px 3px;
-  }
-  select{
-    padding: 3px;
-  }
+      /*
+      input{
+        padding: 2px 3px;
+      }
+      select{
+        padding: 3px;
+      }
+
+      .pagination a {
+          margin: 0 4px;
+      }
+      hr { 
+          display: block;
+          margin-top: 0.5em;
+          margin-bottom: 0.5em;
+          margin-left: auto;
+          margin-right: auto;
+          border-style: inset;
+          border-width: 1px;
+      }
+      .result
+      {
+          position: absolute;
+          z-index: 100;
+          display:none;
+          margin-top:-1px;
+          border-top:0px;
+          overflow:hidden;
+          border:1px #CCC solid;
+          background-color: white;
+      }
+      .show
+      {
+          padding: 5px;
+          border-bottom:1px solid #000000;
+          font-size:11px; 
+      }
+      .show:hover
+      {
+          background:#4c66a4;
+          color:#FFF;
+          cursor:pointer;
+      }
+      
+      
+      .truncate {
+        width: 500px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #textbolder{
+        font-weight:bolder; 
+        color: black
+      }
+      .show:hover > #textbolder{
+        color: white;
+      }
+
+
 </style>
 <?php include('../_include/rstfooter.php'); ?>

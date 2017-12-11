@@ -26,7 +26,6 @@
 </body>
 </html>
 
-
 <style>
 	/* Center the loader */
 	#loader {
