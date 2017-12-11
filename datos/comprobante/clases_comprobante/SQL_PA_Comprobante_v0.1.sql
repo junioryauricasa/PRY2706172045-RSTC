@@ -17,6 +17,8 @@ DELIMITER $$
 	IN _nvchClienteProveedor VARCHAR(350),
 	IN _nvchDNIRUC VARCHAR(11),
 	IN _nvchDireccion VARCHAR(450),
+	IN _nvchAtencion VARCHAR(150),
+	IN _nvchDestino VARCHAR(500),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
@@ -27,11 +29,12 @@ DELIMITER $$
 		INSERT INTO tb_comprobante
 		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,
 			intIdUsuarioSolicitado,intIdCliente,intIdProveedor,nvchClienteProveedor,nvchDNIRUC,nvchDireccion,
-			intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
+			nvchAtencion,nvchDestino,intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
 		VALUES
 		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,
 			_intIdUsuario,_intIdUsuarioSolicitado,_intIdCliente,_intIdProveedor,_nvchClienteProveedor,_nvchDNIRUC,
-			_nvchDireccion,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,_nvchObservacion);
+			_nvchDireccion,_nvchAtencion,_nvchDestino,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,
+			_nvchObservacion);
 		SET _intIdComprobante = LAST_INSERT_ID();
     END 
 $$
@@ -70,6 +73,8 @@ DELIMITER $$
 	IN _nvchClienteProveedor VARCHAR(350),
 	IN _nvchDNIRUC VARCHAR(11),
 	IN _nvchDireccion VARCHAR(450),
+	IN _nvchAtencion VARCHAR(150),
+	IN _nvchDestino VARCHAR(500),
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
@@ -93,6 +98,8 @@ DELIMITER $$
 		nvchClienteProveedor = _nvchClienteProveedor,
 		nvchDNIRUC = _nvchDNIRUC,
 		nvchDireccion = _nvchDireccion,
+		nvchAtencion = _nvchAtencion,
+		nvchDestino = _nvchDestino,
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
 		intIdTipoVenta = _intIdTipoVenta,

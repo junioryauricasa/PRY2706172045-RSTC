@@ -178,6 +178,26 @@
               </div>
             </div>
             <div class="row">
+              <div id="nvchAtencionCol" class="col-md-3">
+                <div id="nvchAtencionGroup" class="form-group">
+                  <label>Atención:</label>
+                  <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" value="" onkeyup="EsVacioOp('nvchAtencion')" maxlength="150" 
+                  form="form-comprobante">
+                  <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
+                  <div id="nvchAtencionObs" class=""></div>
+                </div>
+              </div>
+              <div id="nvchDestinoCol" class="col-md-3">
+                <div id="nvchDestinoGroup" class="form-group">
+                  <label>Destino:</label>
+                  <input type="text" id="nvchDestino" name="nvchDestino" class="form-control select2" placeholder="Ingrese Destino" value="" onkeyup="EsVacioOp('nvchDestino')" maxlength="500" 
+                  form="form-comprobante">
+                  <span id="nvchDestinoIcono" class="" aria-hidden=""></span>
+                  <div id="nvchDestinoObs" class=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
                   <label>DNI/RUC:</label>

@@ -14,7 +14,9 @@ $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
 $nvchSerie = $fila['nvchSerie'];
 $nvchNumeracion = $fila['nvchNumeracion'];
-//$nvchAtencion = $fila['nvchAtencion'];
+$NombreSolicitado = $fila['NombreSolicitado'];
+$nvchAtencion = $fila['nvchAtencion'];
+$nvchDestino = $fila['nvchDestino'];
 
 $NombreUsuario = $fila['NombreUsuario'];
 $nvchDNIRUC = $fila['nvchDNIRUC'];
@@ -103,7 +105,7 @@ $nvchObservacion = $fila['nvchObservacion'];
 
     <center>
         <span style="font-weight: bold; font-family: Arial;">
-          SALIDA INTERNA DE REPUESTOS Nº RSA-<?php echo $nvchSerie.'-'.$nvchNumeracion; ?>/<?php echo $year; ?>
+          SALIDA INTERNA DE REPUESTOS Nº RSA-<?php echo $nvchNumeracion; ?>/<?php echo $year; ?>
         </span>
     </center>
 <br>
@@ -121,20 +123,20 @@ $nvchObservacion = $fila['nvchObservacion'];
       <td style="font-family: Arial; width: 35%;"><small><small>: <?php echo $nvchClienteProveedor; ?></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important"><small><small>N° RUC / DNI</small></small></td>
-      <td style="font-family: Arial; width: 35%;"><small><small>: <?php echo $nvchDNIRUC; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php echo $nvchDNIRUC; ?></small></small></small></td>
     </tr>
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Atención</small></small></td>
-      <td style="font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php echo $nvchAtencion; ?></small></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;"><small><small>Destino</small></small></td>
-      <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php echo $nvchDestino; ?></small></small></td>
     </tr>
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Dirección</small></small></td>
-      <td style="font-family: Arial; width: 35%;"><small><small>:  <?php echo $nvchDireccion; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small><small>:  <?php echo $nvchDireccion; ?></small></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;"><small><small>Vendedor(a)</small></small></td>
       <td style="font-family: Arial; width: 35%;"><small><small><small>: <?php echo $NombreUsuario; ?></small></small></td>
@@ -142,7 +144,7 @@ $nvchObservacion = $fila['nvchObservacion'];
 
     <tr>
       <td style="font-weight: bold; font-family: Arial; width: 15% !important; padding-left: 5px"><small><small>Solicitado por</small></small></td>
-      <td style="font-family: Arial; width: 35%;"><small><small>: <?php //echo $; ?></small></small></td>
+      <td style="font-family: Arial; width: 35%;"><small><small>: <?php echo $NombreSolicitado; ?></small></small></td>
 
       <td style="font-weight: bold; font-family: Arial; width: 15% !important;"><small><small></small></small></td>
       <td style="font-weight: bold; font-family: Arial; width: 35%;"><small><small><small></small></small></td>

@@ -76,8 +76,8 @@ function CalcularPrecioTotal(accion) {
 	var intCantidad = $("#intCantidad"+intIdProducto).val();
 	var dcmPrecioUnitario = $("#dcmPrecioUnitario"+intIdProducto).val();
 	var intTipoDetalle = $("#intTipoDetalle").val();
-	var intIdTipoComprobante = $("#intIdTipoComprobanteI").val();
-	if(intTipoDetalle == 1 && intIdTipoComprobante == 0){
+	var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+	if(intTipoDetalle == 1 && intIdTipoComprobante < 3){
 		if((dcmDescuento == "" || dcmDescuento == null) && (intCantidad == "" || intCantidad == null)){
 			return false;
 		} else {
@@ -113,7 +113,7 @@ function CalcularPrecioTotal(accion) {
 				CalcularTotal();
 			}
 		}
-	} else if(intTipoDetalle == 2 || intIdTipoComprobante != 0) {
+	} else if(intTipoDetalle == 2 || intIdTipoComprobante > 2) {
 		if (intCantidad == "" || intCantidad == null) {
 			$("#dcmTotal"+intIdProducto).val("0.00");
 			return false;

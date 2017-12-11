@@ -351,6 +351,8 @@ function LimpiarCampos(){
   RestablecerValidacion("nvchFecha",1);
   RestablecerValidacion("nvchSerie",1);
   RestablecerValidacion("nvchNumeracion",1);
+  RestablecerValidacion("nvchAtencion",1);
+  RestablecerValidacion("nvchDestino",1);
 	//$("#nvchFecha").val(FechaActual());
 	$("#nvchNumDocumento").val("");
 	$("#nvchDenominacion").val("");
@@ -370,6 +372,7 @@ function LimpiarCampos(){
   $("#intIdTipoVenta").change();
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
+  $("#intIdUsuarioSolicitado").val(1);
 	LimpiarTablas();
 	HabilitacionOpciones(1);
 	$("#ValorComprobante").val("S/. 0.00");
@@ -410,7 +413,9 @@ function HabilitacionOpciones(accion){
     $("#nvchNumeracion").attr("readonly",false);
 		$('.opcion-boton-nuevo').show();
 		$('.opcion-columna-nuevo').show();
-    $("#intIdUsuarioSolicitado").attr("disabled", false); // Guía Interna de Entrada
+    $("#intIdUsuarioSolicitado").attr("disabled", false); // Guías Internas
+    $("#nvchAtencion").attr("readonly",false); // Guía Interna de Salida
+    $("#nvchDestino").attr("readonly",false); // Guía Interna de Salida
     $("#funcionC").val("I");
     OpcionFecha("2");
 	} else {
@@ -423,7 +428,9 @@ function HabilitacionOpciones(accion){
     $("#nvchNumeracion").attr("readonly",true);
 		$('.opcion-columna-nuevo').hide();
     $('.opcion-boton-editar').show();
-    $("#intIdUsuarioSolicitado").attr("disabled", true); // Guía Interna de Entrada
+    $("#intIdUsuarioSolicitado").attr("disabled", true); // Guías Internas
+    $("#nvchAtencion").attr("readonly",true); // Guía Interna de Salida
+    $("#nvchDestino").attr("readonly",true); // Guía Interna de Salida
     $("#txtOpcionFecha").val("1");
     OpcionFecha("1");
     $("nvchFecha").attr("readonly",true);
@@ -622,7 +629,9 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
   		$("#intIdTipoCliente").val(datos.intIdTipoCliente);
   		$("#intIdClienteC").val(datos.intIdCliente);
   		$("#intIdProveedorC").val(datos.intIdProveedor);
-      $("#intIdUsuarioSolicitado").val(datos.intIdUsuarioSolicitado);
+      $("#intIdUsuarioSolicitado").val(datos.intIdUsuarioSolicitado); // Guías Internas
+      $("#nvchAtencion").val(datos.nvchAtencion); // Guía Interna de Salida
+      $("#nvchDestino").val(datos.nvchDestino); // Guía Interna de Salida
   		$("textarea#nvchObservacion").val(datos.nvchObservacion);
   		HabilitacionOpciones(2);
   		ElegirTabla(datos.intIdTipoVenta);
@@ -656,7 +665,7 @@ $(document).on('click', '#btn-editar-comprobante', function(){
      success:function(datos)
      {
       datos = datos.replace(/\s/g,'');
-      if (datos=="okokokokokok") {
+      if (datos=="okokokokokok" || datos=="okokokokokokokokokok") {
         if(intTipoDetalle == 1)
           MensajeNormal("Se Modificó correctamente la Venta",1);
         else
@@ -1258,7 +1267,7 @@ function MostrarSeleccionComprobante() {
     var intTipoDetalle = $("#intTipoDetalle").val();
 	  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
     CamposComprobante(intIdTipoComprobante);
-    if((intTipoDetalle == 1 && intIdTipoComprobante >= 9) || intTipoDetalle == 2){
+    if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2){
       $(".filaPrecio").hide();
       $(".filaDescuento").hide();
       $(".txtPrecioUnitario").attr("readonly",false);
@@ -1295,10 +1304,23 @@ function MostrarSeleccionComprobante() {
 //////////////////////////////////////////////////////////////
 
 function CamposComprobante(intIdTipoComprobante){
-  if(intIdTipoComprobante == 10)
+  if(intIdTipoComprobante == 10 || intIdTipoComprobante == 9)
     $("#intIdUsuarioSolicitadoCol").show();
   else
     $("#intIdUsuarioSolicitadoCol").hide();
+  if(intIdTipoComprobante == 9){
+    $("#nvchAtencionCol").show();
+    $("#nvchDestinoCol").show();
+    $(".filaPrecio").hide();
+    $(".filaDescuento").hide();
+    $(".txtPrecioUnitario").attr("readonly",false);
+  } else {
+    $("#nvchAtencionCol").hide();
+    $("#nvchDestinoCol").hide();
+    $(".filaPrecio").show();
+    $(".filaDescuento").show();
+    $(".txtPrecioUnitario").attr("readonly",true);
+  }
 }
 
 //////////////////////////////////////////////////////////////
