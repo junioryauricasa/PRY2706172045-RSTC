@@ -253,6 +253,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		CR.intTipoDetalle = _intTipoDetalle AND
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		OR CR.intIdTipoComprobante = 4
 		GROUP BY CR.intIdComprobante
 		LIMIT _x,_y;
 	ELSEIF (_intTipoDetalle = 2 AND _intIdTipoComprobante != "T") THEN
@@ -309,6 +310,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		CR.intTipoDetalle = _intTipoDetalle AND
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		OR CR.intIdTipoComprobante = 8
 		GROUP BY CR.intIdComprobante
 		LIMIT _x,_y;
 	END IF;
@@ -379,6 +381,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		CR.intTipoDetalle = _intTipoDetalle AND
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		OR CR.intIdTipoComprobante = 4
 		GROUP BY CR.intIdComprobante;
 	ELSEIF (_intTipoDetalle = 2 AND _intIdTipoComprobante != "T") THEN
 		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
@@ -433,6 +436,7 @@ DELIMITER $$
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
 		CR.intTipoDetalle = _intTipoDetalle AND
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		OR CR.intIdTipoComprobante = 8
 		GROUP BY CR.intIdComprobante;
 	END IF;
     END 

@@ -6,8 +6,9 @@ DELIMITER $$
 		IN _intIdSucursal INT
     )
 	BEGIN
-		SELECT * FROM tb_serie
-		WHERE intIdSucursal = _intIdSucursal;
+		SELECT SE.*,SU.nvchDireccion FROM tb_serie SE
+		LEFT JOIN tb_sucursal SU ON SE.intIdSucursal = SU.intIdSucursal
+		WHERE SE.intIdSucursal = _intIdSucursal;
     END 
 $$
 DELIMITER ;

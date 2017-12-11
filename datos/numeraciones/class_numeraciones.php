@@ -83,6 +83,7 @@ class Numeraciones{
     $sql_comando->execute(array(':intIdSucursal' => $intIdSucursal));
     $fila = $sql_comando->fetch(PDO::FETCH_ASSOC);
     $salida['nvchSerie'] = $fila['nvchSerie'];
+    $salida['nvchDireccion'] = $fila['nvchDireccion'];
     $intIdSerie = $fila['intIdSerie'];
 
     $sql_comando = $sql_conectar->prepare('CALL MOSTRARNUMERACION(:intIdTipoComprobante,:intIdSerie)');

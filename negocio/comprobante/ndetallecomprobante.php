@@ -539,6 +539,7 @@ function InsertarVenta(seleccion) {
 	var intIdTipoMoneda = $(seleccion).attr("idtm");
 	var intIdTipoVenta = $(seleccion).attr("idtv");
 	var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+	var intTipoDetalle = $("#intTipoDetalle").val();
 	$("#intIdTipoVenta").val(intIdTipoVenta);
 	$.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
@@ -559,6 +560,7 @@ function InsertarVenta(seleccion) {
 	   		$("#ListaDeImplementosVender").html(datos);
 	   		numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
 	   	}
+	   	CamposTabla(intTipoDetalle,intIdTipoComprobante);
 	   	CalcularTotal();
 	   	$("#formComprobanteVenta").modal("hide");
 	   }

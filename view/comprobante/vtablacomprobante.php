@@ -14,9 +14,9 @@
           <th style="width: 110px" class="filaPrecio">Precio Lista</th>
           <th style="width: 110px" class="filaDescuento">Desc. (%)</th>
           <?php } ?>
-          <th style="width: 110px" >Precio Unit.</th>
+          <th style="width: 110px" class="filaPrecioUnitario">Precio Unit.</th>
           <th style="width: 110px" >Cantidad</th>
-          <th style="width: 110px" >Total</th>
+          <th style="width: 110px" class="filaTotal">Total</th>
           <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
         </tr>
         </thead>
@@ -43,15 +43,15 @@
                 onkeyup="CalcularPrecioTotal(this)"/>
             </td>
             <?php } ?>
-            <td>
+            <td class="filaPrecioUnitario">
                 <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="txtPrecioUnitario" <?php if($intTipoDetalle == 1) { ?> readonly="true" <?php } ?> />
             </td>
             <td>
                 <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"
               onkeyup="CalcularPrecioTotal(this)" class=""/>
             </td>
-            <td>
-                <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-comprobante" class="" readonly/>
+            <td class="filaTotal">
+                <input type="text" id="dcmTotal1" name="dcmTotal[]" class="" form="form-comprobante" readonly/>
             </td>
             <td style="width: 25px !important" >
                 <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -147,14 +147,15 @@
               <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
               <textarea id="nvchDescripcionM1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>
             </td>
-            <td>
-              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" class=""/>
+            <td class="filaPrecioUnitario">
+              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"
+              class="" />
             </td>
             <td> 
               <input type="text" id="intCantidadM1" name="intCantidadM[]" idsprt="1" form="form-comprobante" 
               onkeyup="CalcularPrecioTotalM(this)" class=""/>           
             </td>
-            <td>
+            <td class="filaTotal">
               <input type="text" id="dcmTotalM1" name="dcmTotalM[]" form="form-comprobante" class="" readonly/>
             </td>
             <td style="width: 25px !important" >
@@ -202,14 +203,15 @@
               <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
               <textarea id="nvchDescripcionI1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>
             </td>
-            <td>
-              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" class=""/>
+            <td class="filaPrecioUnitario">
+              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"
+              class="" />
             </td>
             <td> 
               <input type="text" id="intCantidadI1" name="intCantidadI[]" idsprt="1" form="form-comprobante" 
               onkeyup="CalcularPrecioTotalI(this)" class=""/>           
             </td>
-            <td>
+            <td class="filaTotal">
               <input type="text" id="dcmTotalI1" name="dcmTotalI[]" form="form-comprobante" class="" readonly/>
             </td>
             <td style="width: 25px !important" >
