@@ -1,4 +1,3 @@
-/* INICIO - Kardex Producto Definitivo */
 DROP PROCEDURE IF EXISTS KARDEXPRODUCTO_II;
 DELIMITER $$
 	CREATE PROCEDURE KARDEXPRODUCTO_II(
@@ -105,7 +104,7 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = _intIdProducto
+		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
 		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden;
 
 		ELSEIF (_intIdSucursal >= 1) THEN
@@ -202,15 +201,13 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal
+		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
 		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden;
 		END IF;
     END 
 $$
 DELIMITER ;
-/* FIN - Kardex Producto Definitivo */
 
-/* INICIO - Kardex Producto Paginación Definitivo */
 DROP PROCEDURE IF EXISTS KARDEXPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE KARDEXPRODUCTO(
@@ -319,7 +316,7 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = _intIdProducto
+		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
 		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden
 		LIMIT _x,_y;
 
@@ -417,16 +414,14 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal
+		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
 		ORDER BY DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden
 		LIMIT _x,_y;
 		END IF;
     END 
 $$
 DELIMITER ;
-/* FIN - Kardex Producto Paginación Definitivo */
 
-/* INICIO - Kardex General Definitivo */
 DROP PROCEDURE IF EXISTS KARDEXGENERAL;
 DELIMITER $$
 	CREATE PROCEDURE KARDEXGENERAL(
@@ -539,7 +534,7 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = _intIdProducto
+		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
 		ORDER BY DCR.intIdProducto,DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden)
 		AS KardexGeneral ORDER BY KardexGeneral.Iden DESC LIMIT 1;
 
@@ -640,7 +635,7 @@ DELIMITER $$
 		FROM tb_comprobante CR
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
-		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal
+		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
 		ORDER BY DCR.intIdProducto,DCR.dtmFechaRealizada,DCR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.Iden)
 		AS KardexGeneral ORDER BY KardexGeneral.Iden DESC LIMIT 1;
 
@@ -648,4 +643,3 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
-/* FIN - Kardex General Definitivo */
