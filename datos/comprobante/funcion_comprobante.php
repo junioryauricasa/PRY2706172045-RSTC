@@ -254,6 +254,26 @@ switch($_POST['funcion']){
     $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
     $Cotizacion->PaginarCotizaciones($_POST['busqueda'],$_POST['x'],$_POST['y'],"V",$dtmFechaInicial,$dtmFechaFinal);
     break;
+  case "IV":
+    $Comprobante = new Comprobante();
+    $Comprobante->InsertarVentaComprobante($_POST['intIdComprobante'],$_POST['num'],$_POST['intIdTipoVenta']);
+    break;
+  case "MV":
+    $Comprobante = new Comprobante();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Comprobante->ListarVentasComprobante($_POST['busqueda'],$_POST['x'],$_POST['y'],$dtmFechaInicial,$dtmFechaFinal);
+    break;
+  case "PV":
+    $Comprobante = new Comprobante();
+    $dtmFechaInicial = str_replace('/', '-', $_POST['dtmFechaInicial']);
+    $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
+    $dtmFechaFinal = str_replace('/', '-', $_POST['dtmFechaFinal']);
+    $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
+    $Comprobante->PaginarVentasComprobante($_POST['busqueda'],$_POST['x'],$_POST['y'],"V",$dtmFechaInicial,$dtmFechaFinal);
+    break;
   case "NCPR":
     $Numeraciones = new Numeraciones();
     $Numeraciones->NumeracionAlgoritmica($_POST['intIdTipoComprobante'],$_POST['intIdSucursal']);

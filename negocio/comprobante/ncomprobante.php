@@ -313,6 +313,10 @@
       $("#formCotizacion").modal("show");
     }
 
+    function formComprobanteVenta(){
+      $("#formComprobanteVenta").modal("show");
+    }
+
     function ElegirTabla(intIdTipoVenta){
       if(intIdTipoVenta == 1){
         $("#tablaRepuestos").show();

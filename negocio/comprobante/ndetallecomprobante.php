@@ -528,4 +528,121 @@ function PaginarCotizaciones(x,y) {
 }
 /* FIN - Paginar Clientes para la Selección */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Domicilios según Ingresa */
+function InsertarVenta(seleccion) {
+	SeleccionarCliente(seleccion);
+	var intIdComprobante = $(seleccion).attr("idv");
+	var NombreVenta = $(seleccion).attr("nv");
+	var funcion = "IV";
+	var intIdTipoMoneda = $(seleccion).attr("idtm");
+	var intIdTipoVenta = $(seleccion).attr("idtv");
+	var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+	$("#intIdTipoVenta").val(intIdTipoVenta);
+	$.ajax({
+	   url:"../../datos/comprobante/funcion_comprobante.php",
+	   method:"POST",
+	   data:{intIdComprobante:intIdComprobante,funcion:funcion,num:num,intIdTipoVenta:intIdTipoVenta},
+	   success:function(datos)
+	   {
+	   	//EliminarFilasVacias();
+	   	if(intIdTipoVenta == 1){
+	   		$("#ListaDeProductosVender").html(datos);
+	   		num = document.getElementById('ListaDeProductosVender').rows.length + 1;
+	   	}
+	   	else if(intIdTipoVenta == 3){
+	   		$("#ListaDeMaquinariasVender").html(datos);
+	   		numm = document.getElementById('ListaDeMaquinariasVender').rows.length + 1;
+	   	}
+	   	else if(intIdTipoVenta == 4){
+	   		$("#ListaDeImplementosVender").html(datos);
+	   		numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
+	   	}
+	   	CalcularTotal();
+	   	$("#formComprobanteVenta").modal("hide");
+	   }
+	});
+}
+/* FIN - Listar Domicilios según Ingresa */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Producto */
+function PaginacionVentas(seleccion) {
+	var y = 5;
+	var x = $(seleccion).attr("idp") * y;
+	ListarVentas(x,y);
+}
+
+$(document).on('keyup', '#BusquedaVenta', function(){
+	var y = 5;
+	var x = 0;
+	ListarVentas(x,y);
+});
+/* FIN - Funciones Ajax - Listar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Listar Productos para la Selección */
+function ListarVentas(x,y) {
+	var busqueda = document.getElementById("BusquedaVenta").value;
+	var funcion = "MV";
+
+	if(EsFecha("dtmFechaInicialV") == false){
+	  	var dtmFechaInicial = "";
+	  } else {
+	  	var dtmFechaInicial = $("#dtmFechaInicialV").val();
+	  }
+	  if(EsFecha("dtmFechaFinalV") == false){
+	  	var dtmFechaFinal = FechaActual();
+	  } else {
+	  	var dtmFechaFinal = $("#dtmFechaFinalV").val();
+	  }
+
+	  $.ajax({
+	   url:"../../datos/comprobante/funcion_comprobante.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,dtmFechaInicial:dtmFechaInicial,
+	   		dtmFechaFinal:dtmFechaFinal},
+	   success:function(datos)
+	   {
+	   	$("#ListaDeVentas").html(datos);
+	   	PaginarVentas((x/y),y);
+	   }
+	});
+}
+/* FIN - Listar Productos para la Selección */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Paginar Clientes para la Selección */
+function PaginarVentas(x,y) {
+	var busqueda = document.getElementById("BusquedaVenta").value;
+	var funcion = "PV";
+
+	if(EsFecha("dtmFechaInicialV") == false){
+	  	var dtmFechaInicial = "";
+	  } else {
+	  	var dtmFechaInicial = $("#dtmFechaInicialV").val();
+	  }
+	  if(EsFecha("dtmFechaFinalV") == false){
+	  	var dtmFechaFinal = FechaActual();
+	  } else {
+	  	var dtmFechaFinal = $("#dtmFechaFinalV").val();
+	  }
+
+	  $.ajax({
+	   url:"../../datos/comprobante/funcion_comprobante.php",
+	   method:"POST",
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,dtmFechaInicial:dtmFechaInicial,
+	   		dtmFechaFinal:dtmFechaFinal},
+	   success:function(datos)
+	   {
+	   	$("#PaginacionDeVentas").html(datos);
+	   }
+	  });
+}
+/* FIN - Paginar Clientes para la Selección */
+//////////////////////////////////////////////////////////////
 </script>

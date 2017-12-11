@@ -14,6 +14,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 <?php require_once '../../view/modals/vformCliente.php'; ?>
 <?php require_once '../../view/modals/vformProducto.php'; ?>
 <?php require_once '../../view/modals/vformCotizacion.php'; ?>
+<?php require_once '../../view/modals/vformComprobanteVenta.php'; ?>
 <?php require_once '../../negocio/operaciones/nestiloscomprobante.php'; ?>
     <script>
       $(document).ready(function(){

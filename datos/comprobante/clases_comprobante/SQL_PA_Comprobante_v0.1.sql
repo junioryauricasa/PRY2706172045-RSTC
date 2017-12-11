@@ -439,6 +439,89 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS BUSCARCOMPROBANTE_VENTA;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARCOMPROBANTE_VENTA(
+    	IN _elemento VARCHAR(250),
+		IN _x INT,
+		IN _y INT,
+		IN _dtmFechaInicial DATETIME,
+		IN _dtmFechaFinal DATETIME
+    )
+	BEGIN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TCR.nvchNombre AS NombreComprobante,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
+		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
+		SUM(DCR.dcmTotal) AS TotalComprobante,
+		TV.nvchNombre AS NombreVenta
+		FROM tb_comprobante CR
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
+		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TV.intIdTipoVenta
+		WHERE 
+		(CR.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
+		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
+		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		(CR.intIdTipoComprobante = 1 OR CR.intIdComprobante = 2) AND
+		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY CR.intIdComprobante
+		LIMIT _x,_y;	
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARCOMPROBANTE_VENTA_II;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARCOMPROBANTE_VENTA_II(
+    	IN _elemento VARCHAR(250),
+    	IN _dtmFechaInicial DATETIME,
+    	IN _dtmFechaFinal DATETIME
+    )
+	BEGIN
+		SELECT CR.*,CONCAT(U.nvchNombres,' ',U.nvchApellidoPaterno,' ',U.nvchApellidoMaterno) AS NombreUsuario,
+		CASE 
+			WHEN C.intIdTipoPersona = 1 THEN C.nvchRazonSocial
+			WHEN C.intIdTipoPersona = 2 THEN CONCAT(C.nvchNombres,' ',C.nvchApellidoPaterno,' ',C.nvchApellidoMaterno)
+		END AS NombreCliente,
+		TCR.nvchNombre AS NombreComprobante,
+		TMN.nvchSimbolo AS SimboloMoneda,
+		ROUND((SUM(DCR.dcmTotal)/1.18),2) AS ValorComprobante,
+		SUM(DCR.dcmTotal) - ROUND((SUM(DCR.dcmTotal)/1.18),2) AS IGVComprobante,
+		SUM(DCR.dcmTotal) AS TotalComprobante,
+		TV.nvchNombre AS NombreVenta
+		FROM tb_comprobante CR
+		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario
+		LEFT JOIN tb_cliente C ON CR.intIdCliente = C.intIdCliente
+		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
+		LEFT JOIN tb_tipo_moneda TMN ON CR.intIdTipoMoneda = TMN.intIdTipoMoneda
+		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
+		LEFT JOIN tb_tipo_venta TV ON CR.intIdTipoVenta = TV.intIdTipoVenta
+		WHERE 
+		(CR.nvchNumeracion LIKE CONCAT(_elemento,'%') OR
+		C.nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+		C.nvchNombres LIKE CONCAT(_elemento,'%') OR
+		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
+		(CR.intIdTipoComprobante = 1 OR CR.intIdComprobante = 2) AND
+		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
+		GROUP BY CR.intIdComprobante;
+    END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS LISTARULTIMOSCOMPROBANTE;
 DELIMITER $$
 	CREATE PROCEDURE LISTARULTIMOSCOMPROBANTE()

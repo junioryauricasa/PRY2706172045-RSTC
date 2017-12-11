@@ -448,6 +448,257 @@ class Comprobante{
       echo $e->getMessage();
     }  
   }
+
+  public function PaginarVentasComprobante($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal)
+  {
+    try{
+      if($tipolistado == "V" && $busqueda == ""){
+        $output = "";
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina-venta" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina-venta" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+      echo $output;
+      return false;
+      }
+      if($tipolistado == "N")
+      { $busqueda = ""; }
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarcomprobante_venta_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      $cantidad = $sql_comando -> rowCount();
+      $ipaginas = ceil($cantidad / $y);
+      if($tipolistado == "N" || $tipolistado == "D")
+      { $x = $ipaginas - 1; }
+      //else if($tipolistado == "E")
+      //{ $x = $x / $y; }
+      $output = "";
+      for($i = 0; $i < $ipaginas; $i++){
+        if($i==0)
+        {
+          //$output = 'No s eencontraron nada';
+          if($x==0)
+          {
+            $output .= 
+            '<li class="page-item disabled">
+                <a class="page-link" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+          } else {
+            $output .= 
+            '<li class="page-item">
+                <a idp="'.($x-1).'" class="page-link btn-pagina-venta" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+          }
+        }
+
+          if($x==$i){
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina-venta marca-venta">'.($i+1).'</a></li>';
+          }
+          else
+          {
+            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina-venta">'.($i+1).'</a></li>';
+          }
+
+        if($i==($ipaginas-1))
+        {
+          if($x==($ipaginas-1))
+          {
+            $output .= 
+            '<li class="page-item disabled">
+                <a class="page-link" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+          } else {
+            $output .= 
+            '<li class="page-item">
+                <a idp="'.($x+1).'" class="page-link btn-pagina-venta" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+          }
+        }
+      }
+      if($output == ""){
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina-venta" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina-venta" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+      }
+      echo $output;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function ListarVentasComprobante($busqueda,$x,$y,$dtmFechaInicial,$dtmFechaFinal)
+  {
+    try{
+      if($busqueda != "" || $busqueda != null) {
+        $sql_conexion = new Conexion_BD();
+        $sql_conectar = $sql_conexion->Conectar();
+        $sql_comando = $sql_conectar->prepare('CALL buscarComprobante_venta(:busqueda,:x,:y,:dtmFechaInicial,:dtmFechaFinal)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':dtmFechaInicial' => $dtmFechaInicial,
+                      ':dtmFechaFinal' => $dtmFechaFinal));
+        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+        {
+          echo '
+          <tr>
+            <td class="heading" data-th="ID"></td>
+            <td>'.$fila["nvchSerie"].'</td>
+            <td>'.$fila["nvchNumeracion"].'</td>
+            <td>'.$fila["NombreCliente"].'</td>
+            <td>'.$fila["NombreUsuario"].'</td>
+            <td>'.$fila["dtmFechaCreacion"].'</td>
+            <td>'.$fila["NombreVenta"].'</td>
+            <td> 
+              <button type="button" idscli="'.$fila["intIdCliente"].'" idtv="'.$fila['intIdTipoVenta'].'" 
+              idv="'.$fila["intIdComprobante"].'" nv="'.$fila["NombreVenta"].'" idtm="'.$fila['intIdTipoMoneda'].'"
+              class="btn btn-xs btn-warning" 
+              onclick="InsertarVenta(this)">
+                <i class="fa fa-edit"></i> Elegir
+              </button>
+            </td>
+          </tr>';
+        }
+      } else {
+        echo "";
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
+  public function InsertarVentaComprobante($intIdComprobante,$i,$intIdTipoVenta)
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
+      $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
+      $i = 1;
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+      $readonly = "readonly";
+      //$readonly = "";
+      $filaEliminar = '<td>'.
+          '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'.
+        '</td>';
+        if($intIdTipoVenta == 1){
+          echo
+          '<tr>
+            <td class="heading" data-th="ID">'.$i.'</td> '.
+            '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+                '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-comprobante" value="'.$fila['intIdProducto'].'" />'.
+                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" '.$readonly.' />'.
+                '<div class="result" id="result'.$i.'">'.
+            '</td>'.
+            '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-comprobante" value="'.$fila['nvchDescripcion'].'" readonly/></td>';
+            if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 3){
+            echo
+            '<td>'.
+              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-comprobante" value="'.$fila['dcmPrecio'].'" readonly />'.
+            '</td>'.
+            '<td><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-comprobante" idsprt="'.$i.'"'.
+              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" '.$readonly.' /></td>';
+            }
+            echo
+            '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-comprobante" value="'.$fila['dcmPrecioUnitario'].'"';
+            if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 3)
+              echo 'readonly/></td>';
+            else 
+              echo '/></td>';
+            echo '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
+              'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" '.$readonly.' /></td>'.
+            '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
+          '</tr>';
+              $i++;
+        } else if($intIdTipoVenta == 3){
+          echo
+          '<tr>'.
+          '<td class="heading" data-th="ID">'.$i.'</td>'.
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'.$i.'" name="intIdProductoM[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'.$i.'" name="nvchCodigoM[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
+              '<div class="result" id="resultM'.$i.'">'.
+          '</td>'.
+          '<td>'.
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+            '<textarea id="nvchDescripcionM'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
+          '</td>'.
+          '<td>'.
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'.$i.'" name="dcmPrecioUnitarioM[]" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
+          '</td>'.
+          '<td>'.
+            '<input type="text" id="intCantidadM'.$i.'" name="intCantidadM[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
+          '</td>'.
+          '<td>'.
+            '<input type="text" id="dcmTotalM'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalM[]" form="form-comprobante" readonly/>'.
+          '</td>'.$filaEliminar.
+        '</tr>';
+        $i++;
+        } else if($intIdTipoVenta == 4){
+          echo
+          '<tr>'.
+          '<td class="heading" data-th="ID">'.$i.'</td>'.
+          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'.$i.'" name="intIdProductoI[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
+              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'.$i.'" name="nvchCodigoI[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
+              '<div class="result" id="resultM'.$i.'">'.
+          '</td>'.
+          '<td>'.
+            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+            '<textarea id="nvchDescripcionI'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
+          '</td>'.
+          '<td>'.
+            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'.$i.'" name="dcmPrecioUnitarioI[]" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
+          '</td>'.
+          '<td>'.
+            '<input type="text" id="intCantidadI'.$i.'" name="intCantidadI[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
+          '</td>'.
+          '<td>'.
+            '<input type="text" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" readonly/>'.
+          '</td>'.$filaEliminar.
+        '</tr>';
+        $i++;
+        }  
+      }
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }    
+  }
   /* FIN - Métodos de Orden Compra */
 }
 ?>
