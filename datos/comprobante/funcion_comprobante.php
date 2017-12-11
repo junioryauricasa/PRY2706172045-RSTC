@@ -31,12 +31,13 @@ switch($_POST['funcion']){
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
-    if($_POST['intIdTipoComprobante'] == 10 || $_POST['intIdTipoComprobante'] == 9)
-        $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
-    if($_POST['intIdTipoComprobante'] == 9){
-        $Comprobante->Atencion($_POST['nvchAtencion']);
-        $Comprobante->Destino($_POST['nvchDestino']);
-    }
+    $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
+    $Comprobante->Atencion($_POST['nvchAtencion']);
+    $Comprobante->Destino($_POST['nvchDestino']);
+    $Comprobante->FechaTraslado($_POST['dtmFechaTraslado']);
+    $Comprobante->PuntoPartida($_POST['nvchPuntoPartida']);
+    $Comprobante->PuntoLlegada($_POST['nvchPuntoLlegada']);
+    $Comprobante->IdComprobanteReferencia($_POST['intIdComprobanteReferencia']);
     $Comprobante->IdCliente($_POST['intIdCliente']);
     $Comprobante->IdProveedor($_POST['intIdProveedor']);
     $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);
@@ -111,12 +112,20 @@ switch($_POST['funcion']){
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
+    /*
     if($_POST['intIdTipoComprobante'] == 10 || $_POST['intIdTipoComprobante'] == 9)
         $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     if($_POST['intIdTipoComprobante'] == 9){
         $Comprobante->Atencion($_POST['nvchAtencion']);
         $Comprobante->Destino($_POST['nvchDestino']);
-    }
+    }*/
+    $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
+    $Comprobante->Atencion($_POST['nvchAtencion']);
+    $Comprobante->Destino($_POST['nvchDestino']);
+    $Comprobante->FechaTraslado($_POST['dtmFechaTraslado']);
+    $Comprobante->PuntoPartida($_POST['nvchPuntoPartida']);
+    $Comprobante->PuntoLlegada($_POST['nvchPuntoLlegada']);
+    $Comprobante->IdComprobanteReferencia($_POST['intIdComprobanteReferencia']);
     $Comprobante->IdCliente($_POST['intIdCliente']);
     $Comprobante->IdProveedor($_POST['intIdProveedor']);
     $Comprobante->ClienteProveedor($_POST['nvchClienteProveedor']);

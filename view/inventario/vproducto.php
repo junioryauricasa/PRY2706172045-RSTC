@@ -86,14 +86,14 @@ $funcionComprobante = 0;
                       </div>
 
                       <!-- INICIO - busqueda avanzada button -->
-                      <div id="busqueda-AVANZADA" class="col-md-2" style="">
+                      <!--<div id="busqueda-AVANZADA" class="col-md-2" style="">
                         <div class="form-group">
                           <label id="label-busqueda-avanzada">Presione</label>
                           <br>
                           <input type="button" value="Busqueda avanzada" class="btn btn-sm btn-info btn-flat" id="btnBusqeudaAvanzada" onclick="mostrarBusquedaAvanzada()">
                           <div id="loader" style="display: none"></div>
                         </div>
-                      </div>
+                      </div>-->
                       <!-- END - busqueda avanzada button -->
 
                       <!-- INICIO - formulario busqueda avanzada -->

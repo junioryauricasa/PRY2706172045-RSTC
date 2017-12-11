@@ -18,6 +18,10 @@ class Comprobante{
   private $nvchDireccion;
   private $nvchAtencion;
   private $nvchDestino;
+  private $dtmFechaTraslado;
+  private $nvchPuntoPartida;
+  private $nvchPuntoLlegada;
+  private $intIdComprobanteReferencia;
   private $intIdTipoMoneda;
   private $intIdTipoPago;
   private $intIdTipoVenta;
@@ -40,6 +44,10 @@ class Comprobante{
   public function Direccion($nvchDireccion){ $this->nvchDireccion = $nvchDireccion; }
   public function Atencion($nvchAtencion){ $this->nvchAtencion = $nvchAtencion; }
   public function Destino($nvchDestino){ $this->nvchDestino = $nvchDestino; }
+  public function FechaTraslado($dtmFechaTraslado){ $this->dtmFechaTraslado = $dtmFechaTraslado; }
+  public function PuntoPartida($nvchPuntoPartida){ $this->nvchPuntoPartida = $nvchPuntoPartida; }
+  public function PuntoLlegada($nvchPuntoLlegada){ $this->nvchPuntoLlegada = $nvchPuntoLlegada; }
+  public function IdComprobanteReferencia($intIdComprobanteReferencia){ $this->intIdComprobanteReferencia = $intIdComprobanteReferencia; }
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
@@ -56,6 +64,7 @@ class Comprobante{
       $sql_comando = $sql_conectar->prepare('CALL insertarComprobante(@intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdUsuarioSolicitado,:intIdCliente,
         :intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchDestino,
+        :dtmFechaTraslado,:nvchPuntoPartida,:nvchPuntoLlegada,:intIdComprobanteReferencia,
         :intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
@@ -73,6 +82,10 @@ class Comprobante{
         ':nvchDireccion' => $this->nvchDireccion,
         ':nvchAtencion' => $this->nvchAtencion,
         ':nvchDestino' => $this->nvchDestino,
+        ':dtmFechaTraslado' => $this->dtmFechaTraslado,
+        ':nvchPuntoPartida' => $this->nvchPuntoPartida,
+        ':nvchPuntoLlegada' => $this->nvchPuntoLlegada,
+        ':intIdComprobanteReferencia' => $this->intIdComprobanteReferencia,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intIdTipoVenta' => $this->intIdTipoVenta,
@@ -114,6 +127,10 @@ class Comprobante{
       $salida['nvchDireccion'] = $fila['nvchDireccion'];
       $salida['nvchAtencion'] = $fila['nvchAtencion'];
       $salida['nvchDestino'] = $fila['nvchDestino'];
+      $salida['dtmFechaTraslado'] = date('d/m/Y H:i:s', strtotime($fila['dtmFechaTraslado']));
+      $salida['nvchPuntoPartida'] = $fila['nvchPuntoPartida'];
+      $salida['nvchPuntoLlegada'] = $fila['nvchPuntoLlegada'];
+      $salida['intIdComprobanteReferencia'] = $fila['intIdComprobanteReferencia'];
       $salida['TipoCliente'] = $fila['TipoCliente'];
       $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
 
@@ -136,6 +153,7 @@ class Comprobante{
       $sql_comando = $sql_conectar->prepare('CALL ActualizarComprobante(:intIdComprobante,:intIdTipoComprobante,:intTipoDetalle,:intIdSucursal,
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdUsuarioSolicitado,:intIdCliente,
         :intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchDestino,
+        :dtmFechaTraslado,:nvchPuntoPartida,:nvchPuntoLlegada,:intIdComprobanteReferencia,
         :intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdComprobante' => $this->intIdComprobante,
@@ -154,6 +172,10 @@ class Comprobante{
         ':nvchDireccion' => $this->nvchDireccion,
         ':nvchAtencion' => $this->nvchAtencion,
         ':nvchDestino' => $this->nvchDestino,
+        ':dtmFechaTraslado' => $this->dtmFechaTraslado,
+        ':nvchPuntoPartida' => $this->nvchPuntoPartida,
+        ':nvchPuntoLlegada' => $this->nvchPuntoLlegada,
+        ':intIdComprobanteReferencia' => $this->intIdComprobanteReferencia,
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intIdTipoVenta' => $this->intIdTipoVenta,

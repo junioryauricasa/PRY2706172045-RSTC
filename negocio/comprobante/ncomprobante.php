@@ -1321,6 +1321,23 @@ function CamposComprobante(intIdTipoComprobante){
     $(".filaDescuento").show();
     $(".txtPrecioUnitario").attr("readonly",true);
   }
+  if(intIdTipoComprobante == 1 || intIdTipoComprobante == 2)
+    $("#btnAgregarCotizacion").show();
+  else 
+    $("#btnAgregarCotizacion").hide();
+  if(intIdTipoComprobante == 3 || intIdTipoComprobante == 4)
+    $("#btnAgregarVenta").show();
+  else
+    $("#btnAgregarVenta").hide();
+  if(intIdTipoComprobante == 3){
+    $("#dtmFechaTrasladoCol").show();
+    $("#nvchPuntoPartidaCol").show();
+    $("#nvchPuntoLlegadaCol").show();
+  } else {
+    $("#dtmFechaTrasladoCol").hide();
+    $("#nvchPuntoPartidaCol").hide();
+    $("#nvchPuntoLlegadaCol").hide();
+  }
 }
 
 //////////////////////////////////////////////////////////////

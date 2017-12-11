@@ -227,6 +227,36 @@
               <?php } ?>
             </div>
             <div class="row">
+              <div id="dtmFechaTrasladoCol" class="col-md-2">
+                <div id="dtmFechaTrasladoGroup" class="form-group">
+                  <label>Fecha de Traslado:</label>
+                  <input type="text" id="dtmFechaTraslado" name="dtmFechaTraslado" class="form-control select2" placeholder="Ingrese Punto de Partida" value="" onkeyup="EsFecha('dtmFechaTraslado')" 
+                  maxlength="500" form="form-comprobante">
+                  <span id="dtmFechaTrasladoIcono" class="" aria-hidden=""></span>
+                  <div id="dtmFechaTrasladoObs" class=""></div>
+                  <script type="text/javascript">$("#dtmFechaTraslado").val(FechaActual());</script>
+                </div>
+              </div>
+              <div id="nvchPuntoPartidaCol" class="col-md-3">
+                <div id="nvchPuntoPartidaGroup" class="form-group">
+                  <label>Punto de Partida:</label>
+                  <input type="text" id="nvchPuntoPartida" name="nvchPuntoPartida" class="form-control select2" placeholder="Ingrese Punto de Partida" value="" onkeyup="EsVacio('nvchPuntoPartida')" 
+                  maxlength="500" form="form-comprobante">
+                  <span id="nvchPuntoPartidaIcono" class="" aria-hidden=""></span>
+                  <div id="nvchPuntoPartidaObs" class=""></div>
+                </div>
+              </div>
+              <div id="nvchPuntoLlegadaCol" class="col-md-3">
+                <div id="nvchPuntoLlegadaGroup" class="form-group">
+                  <label>Punto de Llegada:</label>
+                  <input type="text" id="nvchPuntoLlegada" name="nvchPuntoLlegada" class="form-control select2" placeholder="Ingrese Punto de Llegada" value="" onkeyup="EsVacio('nvchPuntoLlegada')" 
+                  maxlength="500" form="form-comprobante">
+                  <span id="nvchPuntoLlegadaIcono" class="" aria-hidden=""></span>
+                  <div id="nvchPuntoLlegadaObs" class=""></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Agregar Fila:</label>
@@ -234,10 +264,16 @@
                 </div>
               </div>
               <?php if($intTipoDetalle == 1) { ?>
-              <div class="col-md-2 opcion-boton-nuevo">
+              <div id="btnAgregarCotizacion" class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Cotización:</label>
                   <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
+                </div>
+              </div>
+              <div id="btnAgregarVenta" class="col-md-2 opcion-boton-nuevo">
+                <div class="form-group">
+                  <label>Seleccionar Venta:</label>
+                  <input type="button" onclick="formComprobanteVenta()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
               <?php } ?>

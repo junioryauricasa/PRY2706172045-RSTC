@@ -19,6 +19,10 @@ DELIMITER $$
 	IN _nvchDireccion VARCHAR(450),
 	IN _nvchAtencion VARCHAR(150),
 	IN _nvchDestino VARCHAR(500),
+	IN _dtmFechaTraslado DATETIME,
+	IN _nvchPuntoPartida VARCHAR(500),
+	IN _nvchPuntoLlegada VARCHAR(500),
+	IN _intIdComprobanteReferencia INT,
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
@@ -29,11 +33,13 @@ DELIMITER $$
 		INSERT INTO tb_comprobante
 		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,
 			intIdUsuarioSolicitado,intIdCliente,intIdProveedor,nvchClienteProveedor,nvchDNIRUC,nvchDireccion,
-			nvchAtencion,nvchDestino,intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
+			nvchAtencion,nvchDestino,dtmFechaTraslado,nvchPuntoPartida,nvchPuntoLlegada,intIdComprobanteReferencia,
+			intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
 		VALUES
 		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,
 			_intIdUsuario,_intIdUsuarioSolicitado,_intIdCliente,_intIdProveedor,_nvchClienteProveedor,_nvchDNIRUC,
-			_nvchDireccion,_nvchAtencion,_nvchDestino,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,
+			_nvchDireccion,_nvchAtencion,_nvchDestino,_dtmFechaTraslado,_nvchPuntoPartida,_nvchPuntoLlegada,
+			_intIdComprobanteReferencia,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,
 			_nvchObservacion);
 		SET _intIdComprobante = LAST_INSERT_ID();
     END 
@@ -75,6 +81,10 @@ DELIMITER $$
 	IN _nvchDireccion VARCHAR(450),
 	IN _nvchAtencion VARCHAR(150),
 	IN _nvchDestino VARCHAR(500),
+	IN _dtmFechaTraslado DATETIME,
+	IN _nvchPuntoPartida VARCHAR(500),
+	IN _nvchPuntoLlegada VARCHAR(500),
+	IN _intIdComprobanteReferencia INT,
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
@@ -100,6 +110,10 @@ DELIMITER $$
 		nvchDireccion = _nvchDireccion,
 		nvchAtencion = _nvchAtencion,
 		nvchDestino = _nvchDestino,
+		dtmFechaTraslado = _dtmFechaTraslado,
+		nvchPuntoPartida = _nvchPuntoLlegada,
+		nvchPuntoLlegada = _nvchPuntoPartida,
+		intIdComprobanteReferencia = _intIdComprobanteReferencia,
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
 		intIdTipoVenta = _intIdTipoVenta,
