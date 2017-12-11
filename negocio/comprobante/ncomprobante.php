@@ -198,10 +198,10 @@
           '</td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
           camposVender+
-          '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
+          '<td class="filaPrecioUnitario"><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
           '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
+          '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
           '<td>'+
             '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
           '</td>'+
@@ -244,13 +244,13 @@
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionM'+numm+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
-          '<td>'+
+          '<td class="filaPrecioUnitario">'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
           '<td>'+
             '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
-          '<td>'+
+          '<td class="filaTotal">'+
             '<input type="text" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
@@ -273,13 +273,13 @@
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionI'+numi+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
-          '<td>'+
+          '<td class="filaPrecioUnitario">'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'+numi+'" name="dcmPrecioUnitarioI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
           '<td>'+
             '<input type="text" id="intCantidadI'+numi+'" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
-          '<td>'+
+          '<td class="filaTotal">'+
             '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" form="form-comprobante" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
@@ -290,15 +290,7 @@
         '</tr>');
         numi++;
       }
-    if((intTipoDetalle == 1 && intIdTipoComprobante >= 9) || intTipoDetalle == 2){
-      $(".filaPrecio").hide();
-      $(".filaDescuento").hide();
-      $(".txtPrecioUnitario").attr("readonly",false);
-    } else {
-      $(".filaPrecio").show();
-      $(".filaDescuento").show();
-      $(".txtPrecioUnitario").attr("readonly",true);
-    }
+      CamposTabla(intTipoDetalle,intIdTipoComprobante);
     }
 
     function formCliente(){
@@ -1271,15 +1263,7 @@ function MostrarSeleccionComprobante() {
     var intTipoDetalle = $("#intTipoDetalle").val();
 	  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
     CamposComprobante(intIdTipoComprobante);
-    if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2){
-      $(".filaPrecio").hide();
-      $(".filaDescuento").hide();
-      $(".txtPrecioUnitario").attr("readonly",false);
-    } else {
-      $(".filaPrecio").show();
-      $(".filaDescuento").show();
-      $(".txtPrecioUnitario").attr("readonly",true);
-    }
+    CamposTabla(intTipoDetalle,intIdTipoComprobante);
     if(intTipoDetalle == 1 || intIdTipoComprobante == 9 || intIdTipoComprobante == 10)
     {
       var intIdSucursal = $("#intIdSucursalC").val();
@@ -1294,6 +1278,7 @@ function MostrarSeleccionComprobante() {
   	   	 if(datos.resultado == "ok"){
   		   	$("#nvchSerie").val(datos.nvchSerie);
   		   	$("#nvchNumeracion").val(datos.nvchNumeracion);
+          $("#nvchPuntoPartida").val(datos.nvchDireccion);
   	   	 } else {
   	   	 	alert(datos);
   	   	 }
@@ -1342,6 +1327,32 @@ function CamposComprobante(intIdTipoComprobante){
     $("#nvchPuntoPartidaCol").hide();
     $("#nvchPuntoLlegadaCol").hide();
   }
+}
+
+function CamposTabla(intTipoDetalle,intIdTipoComprobante){
+  if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2 || intIdTipoComprobante == 3){
+      if(intIdTipoComprobante == 3 || intIdTipoComprobante == 7){
+        $(".filaPrecio").hide();
+        $(".filaDescuento").hide();
+        $(".filaPrecioUnitario").hide();
+        $(".filaTotal").hide();
+        $(".txtTotales").hide();
+      } else {
+        $(".filaPrecio").hide();
+        $(".filaDescuento").hide();
+        $(".filaPrecioUnitario").show();
+        $(".filaTotal").show();
+        $(".txtTotales").show();
+        $(".txtPrecioUnitario").attr("readonly",false);
+      }
+    } else {
+      $(".filaPrecio").show();
+      $(".filaDescuento").show();
+      $(".filaPrecioUnitario").show();
+      $(".filaTotal").show();
+      $(".txtTotales").show();
+      $(".txtPrecioUnitario").attr("readonly",true);
+    }
 }
 
 //////////////////////////////////////////////////////////////

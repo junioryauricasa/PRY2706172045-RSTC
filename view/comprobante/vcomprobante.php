@@ -288,24 +288,26 @@
                 <div class="row col-lg-12">
                   <table border="1" class="ExcelTable2007 rwd-table" width="100%">
                     <tbody>
-                      <tr>
+                      <div>
+                      <tr class="txtTotales">
                           <th>Valor de <?php echo $lblTituloSingular; ?></th>
                           <td style="width: 120px !important">
                               <input type="text" id="ValorComprobante" name="ValorComprobante" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="txtTotales">
                           <th>IGV (18%)</th>
                           <td style="width: 120px !important">
                               <input type="text" id="IGVComprobante" name="IGVComprobante" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="txtTotales">
                           <th><?php echo $lblTituloSingular; ?> Total</th>
                           <td style="width: 120px !important">
                               <input type="text" id="ComprobanteTotal" name="ComprobanteTotal" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
+                      </div>
                     </tbody>
                   </table>
                 </div>
