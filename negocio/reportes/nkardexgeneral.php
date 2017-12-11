@@ -17,13 +17,13 @@ $(document).on('keyup', '#txt-busqueda', function(){
 
 $(document).on('change', '#intIdSucursal', function(){
   var y = document.getElementById("num-lista").value;
-  var x = 0;
+  var x = $(".marca").attr("idp") * y;
   var tipolistado = "T";
   ListarKardex(x,y,tipolistado);
 });
 
 $(document).on('click', '#btnBuscar', function(){
-  var y = document.getElementById("num-lista").value;
+    var y = document.getElementById("num-lista").value;
     var x = 0;
     var tipolistado = "T";
     ListarKardex(x,y,tipolistado);
@@ -70,7 +70,7 @@ function ListarKardex(x,y,tipolistado) {
         dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda,intIdSucursal:intIdSucursal},
       success:function(datos) {
 	      $("#ListaDeKardex").html(datos);
-	      //PaginarKardex((x/y),y,tipolistado);
+	      PaginarKardex((x/y),y,tipolistado);
         TotalKardexValorizado();
       }
   });

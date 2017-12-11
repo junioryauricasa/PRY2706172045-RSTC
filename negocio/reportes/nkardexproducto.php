@@ -418,7 +418,7 @@ function ListarKardex(x,y,tipolistado) {
           intIdSucursal:intIdSucursal},
       success:function(datos) {
 	      $("#ListaDeKardex").html(datos);
-	      //PaginarKardex((x/y),y,tipolistado);
+	      PaginarKardex((x/y),y,tipolistado);
       }
   });
 }
@@ -457,7 +457,9 @@ function PaginarKardex(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
   var intIdProducto = document.getElementById("intIdProducto").value;
-
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intIdSucursal = $("#intIdSucursal").val();
+  
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
   } else {
@@ -473,7 +475,8 @@ function PaginarKardex(x,y,tipolistado) {
       url:'../../datos/reportes/funcion_kardex_producto.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,intIdProducto:intIdProducto,
-        dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdSucursal:intIdSucursal},
+        dtmFechaInicial:dtmFechaInicial,dtmFechaFinal:dtmFechaFinal,intIdTipoMoneda:intIdTipoMoneda,
+          intIdSucursal:intIdSucursal},
       success:function(datos) {
           $("#PaginacionDeKardex").html(datos);
       }

@@ -12,9 +12,9 @@ class KardexGeneral
           $nvchSimbolo = "US$";
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'));
-      $j = 1;
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto(:busqueda,:x,:y,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':TipoBusqueda' => 'C'));
+      $j = $x + 1;
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         $sql_conexion_kgp = new Conexion_BD();
@@ -79,9 +79,8 @@ class KardexGeneral
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, 
-        ':dtmFechaFinal' => $dtmFechaFinal));
+      $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':TipoBusqueda' => 'C'));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

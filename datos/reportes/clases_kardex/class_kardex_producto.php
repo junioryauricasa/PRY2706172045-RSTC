@@ -243,141 +243,19 @@ class KardexProducto
       $i = 0;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      /*
-      //Busqueda de KardexProducto por el comando LIMIT
-      if($tipolistado == "N"){
-        $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto, 
-          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
-        $cantidad = $sql_comando -> rowCount();
-        $numpaginas = ceil($cantidad / $y);
-        $x = ($numpaginas - 1) * $y;
-        $i = 1;
-      } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_II(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto, 
-          ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
-        $cantidad = $sql_comando -> rowCount();
-        $residuo = $cantidad % $y;
-        if($residuo == 0)
-        {$x = $x - $y;}
-      }*/
-      //Busqueda de KardexProducto por el comando LIMIT
-      /*$sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO(:busqueda,:x,:y,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y, ':intIdProducto' => $this->intIdProducto, 
-        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));*/
-      $sql_comando = $sql_conectar->prepare('CALL KardexProducto(:intIdProducto,:intIdTipoMoneda,:intIdSucursal)');
-      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda,':intIdSucursal' => $intIdSucursal));
+      $sql_comando = $sql_conectar->prepare('CALL KardexProducto(:intIdProducto,:intIdTipoMoneda,:intIdSucursal,
+        :x,:y)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda,':intIdSucursal' => $intIdSucursal,':x' => $x, ':y' => $y));
+      $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       $j = 1;
-      /*
-      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-      {
-        if($fila['dcmPrecioEntrada'] == "" || $fila['dcmPrecioEntrada'] == null) { $fila['dcmPrecioEntrada'] = 0.00; }
-        if($fila['dcmTotalEntrada'] == "" || $fila['dcmTotalEntrada'] == null) { $fila['dcmTotalEntrada'] = 0.00; }
-        if($fila['dcmPrecioSalida'] == "" || $fila['dcmPrecioSalida'] == null) { $fila['dcmPrecioSalida'] = 0.00; }
-        if($fila['dcmTotalSalida'] == "" || $fila['dcmPrecioSalida'] == null) { $fila['dcmPrecioSalida'] = 0.00; }
-        if($fila['intCantidadEntrada'] == "" || $fila['intCantidadEntrada'] == null) { $fila['intCantidadEntrada'] = 0; }
-        if($fila['intCantidadSalida'] == "" || $fila['intCantidadSalida'] == null) { $fila['intCantidadSalida'] = 0; }
-        
-        $nvchSimbolo = "";
-        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
-        $sql_conexion_moneda = new Conexion_BD();
-        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
-        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
-        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
-        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
-        if($intIdTipoMoneda == 1){
-          $nvchSimbolo = "S/.";
-          if($fila['intIdTipoMoneda'] != 1) {
-            $fila['dcmPrecioEntrada'] = number_format($fila['dcmPrecioEntrada']*$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmTotalEntrada'] = number_format($fila['dcmTotalEntrada']*$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmPrecioSalida'] = number_format($fila['dcmPrecioSalida']*$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmTotalSalida'] = number_format($fila['dcmTotalSalida']*$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmSaldoValorizado'] = number_format($fila['dcmSaldoValorizado']*$fila_moneda['dcmCambio2'],2,'.',''); 
-          }
-        } 
-        else if ($intIdTipoMoneda == 2){
-          $nvchSimbolo = "US$";
-          if($fila['intIdTipoMoneda'] != 2){
-            $fila['dcmPrecioEntrada'] = number_format($fila['dcmPrecioEntrada']/$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmTotalEntrada'] = number_format($fila['dcmTotalEntrada']/$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmPrecioSalida'] = number_format($fila['dcmPrecioSalida']/$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['dcmTotalSalida'] = number_format($fila['dcmTotalSalida']/$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['dcmSaldoValorizado'] = number_format($fila['dcmSaldoValorizado']/$fila_moneda['dcmCambio2'],2,'.','');
-          }
-        }
-
-        echo 
-        '<tr>
-            <td class="heading" data-th="ID"></td>
-            <td>'.$j.'</td>
-            <td>'.$fila["dtmFechaMovimiento"].'</td>';
-            if($fila["intTipoDetalle"] == 1){
-              echo '<td>Salida</td>';
-            } else if($fila["intTipoDetalle"] == 2){
-              echo '<td>Entrada</td>';
-            } else {
-              echo '<td>Inicial</td>';
-            }
-            echo 
-            '<td>'.$fila["NombreComprobante"].'</td>
-            <td>'.$fila["nvchSerie"].'</td>
-            <td>'.$fila["nvchNumeracion"].'</td>
-            <td>'.$fila["intCantidadEntrada"].'</td>
-            <td>'.$fila["intCantidadSalida"].'</td>
-            <td>'.$fila["intCantidadStock"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["dcmPrecioEntrada"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["dcmTotalEntrada"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["dcmPrecioSalida"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["dcmTotalSalida"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</td>
-            <td> 
-              <button type="button" id="'.$fila["intIdMovimiento"].'" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
-                <i class="fa fa-edit"></i> Ver Detalle
-              </button>
-            </td>  
-        </tr>';
-        $j++;
-      }
-      */
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         $nvchSimbolo = "";
-        /*
-        $dtmFechaCambio =  date('Y-m-d', strtotime($fila['FechaMovimiento']));
-        $sql_conexion_moneda = new Conexion_BD();
-        $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
-        $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
-        $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
-        $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);*/
-        if($intIdTipoMoneda == 1){
+        if($intIdTipoMoneda == 1)
           $nvchSimbolo = "S/.";
-          /*
-          if($fila['TipoMoneda'] != 1) {
-            $fila['PrecioEntrada'] = number_format($fila['PrecioEntrada']*$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['TotalEntrada'] = number_format($fila['TotalEntrada']*$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['PrecioSalida'] = number_format($fila['PrecioSalida']*$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['TotalSalida'] = number_format($fila['TotalSalida']*$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['SaldoValorizado'] = number_format($fila['SaldoValorizado']*$fila_moneda['dcmCambio2'],2,'.',''); 
-          }*/
-        } 
-        else if ($intIdTipoMoneda == 2){
+        else if ($intIdTipoMoneda == 2)
           $nvchSimbolo = "US$";
-          /*if($fila['TipoMoneda'] != 2){
-            $fila['PrecioEntrada'] = number_format($fila['PrecioEntrada']/$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['TotalEntrada'] = number_format($fila['TotalEntrada']/$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['PrecioSalida'] = number_format($fila['PrecioSalida']/$fila_moneda['dcmCambio2'],2,'.',''); 
-            $fila['TotalSalida'] = number_format($fila['TotalSalida']/$fila_moneda['dcmCambio2'],2,'.','');
-            $fila['SaldoValorizado'] = number_format($fila['SaldoValorizado']/$fila_moneda['dcmCambio2'],2,'.','');
-            <td> 
-              <button type="button" id="" class="btn btn-xs btn-warning btn-mostrar-KardexProducto">
-                <i class="fa fa-edit"></i> Ver Detalle
-              </button>
-            </td> 
-          }*/
-        }
         echo 
         '<tr>
             <td class="heading" data-th="ID">'.$j.'</td>
@@ -408,16 +286,15 @@ class KardexProducto
     }  
   }
 
-  public function PaginarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdSucursal)
+  public function PaginarKardexProducto($busqueda,$x,$y,$tipolistado,$dtmFechaInicial,$dtmFechaFinal,$intIdTipoMoneda,$intIdSucursal)
   {
     try{
       if($tipolistado == "N")
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL BUSCARKARDEXPRODUCTO_ii(:busqueda,:intIdProducto,:dtmFechaInicial,:dtmFechaFinal)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdProducto' => $this->intIdProducto, 
-        ':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+      $sql_comando = $sql_conectar->prepare('CALL KardexProducto_II(:intIdProducto,:intIdTipoMoneda,:intIdSucursal)');
+      $sql_comando -> execute(array(':intIdProducto' => $this->intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda,':intIdSucursal' => $intIdSucursal));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")
