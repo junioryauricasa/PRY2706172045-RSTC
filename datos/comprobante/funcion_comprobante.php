@@ -24,6 +24,10 @@ switch($_POST['funcion']){
   case "I":
     $Comprobante = new Comprobante();
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    if($_POST['intIdTipoComprobante'] == 4)
+        $_POST['intTipoDetalle'] = 2;
+    if($_POST['intIdTipoComprobante'] == 8)
+        $_POST['intTipoDetalle'] = 1;
     $Comprobante->TipoDetalle($_POST['intTipoDetalle']);
     $Comprobante->IdSucursal($_POST['intIdSucursal']);
     $dtmFechaCreacion = date("Y-m-d H:i:s");
@@ -31,7 +35,8 @@ switch($_POST['funcion']){
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
-    $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
+    if($_POST['intIdTipoComprobante'] == 9 || $_POST['intIdTipoComprobante'] == 10)
+        $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Comprobante->Atencion($_POST['nvchAtencion']);
     $Comprobante->Destino($_POST['nvchDestino']);
     $Comprobante->FechaTraslado($_POST['dtmFechaTraslado']);
@@ -68,22 +73,6 @@ switch($_POST['funcion']){
         $Producto = new Producto();
         $Producto->ES_StockUbigeo($_POST['intIdProducto'.$_POST['Letra']],$_POST['intIdSucursal'],$_POST['intCantidad'.$_POST['Letra']],((int)$_POST['intTipoDetalle']-1));
         $Producto->ES_StockTotal($_POST['intIdProducto'.$_POST['Letra']]);
-        /*$KardexProducto = new KardexProducto();
-        $KardexProducto->IdTipoMoneda($_POST['intIdTipoMoneda']);
-        $KardexProducto->FechaMovimiento($dtmFechaCreacion);
-        $KardexProducto->IdComprobante($_SESSION['intIdComprobante']);
-        $KardexProducto->IdTipoComprobante($_POST['intIdTipoComprobante']);
-        $KardexProducto->TipoDetalle($_POST['intTipoDetalle']);
-        $KardexProducto->Serie($_POST['nvchSerie']);
-        $KardexProducto->Numeracion($_POST['nvchNumeracion']);
-        $KardexProducto->IdProducto($_POST['intIdProducto'.$_POST['Letra']]);
-        if($_POST['intTipoDetalle'] == 1)
-            $KardexProducto->CantidadSalida($_POST['intCantidad'.$_POST['Letra']]);
-        else if($_POST['intTipoDetalle'] == 2){
-            $KardexProducto->CantidadEntrada($_POST['intCantidad'.$_POST['Letra']]);
-            $KardexProducto->PrecioEntrada($_POST['dcmPrecioUnitario'.$_POST['Letra']]);
-        }
-        $KardexProducto->InsertarKardexProducto();*/
     } else if($_POST['intIdTipoVenta'] == 2) {
         $DetalleComprobante->IdComprobante($_SESSION['intIdComprobante']);
         $DetalleComprobante->IdTipoVenta($_POST['intIdTipoVenta']);
@@ -104,6 +93,10 @@ switch($_POST['funcion']){
     $Comprobante = new Comprobante();
     $Comprobante->IdComprobante($_POST['intIdComprobante']);
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
+    if($_POST['intIdTipoComprobante'] == 4)
+        $_POST['intTipoDetalle'] = 2;
+    if($_POST['intIdTipoComprobante'] == 8)
+        $_POST['intTipoDetalle'] = 1;
     $Comprobante->TipoDetalle($_POST['intTipoDetalle']);
     $Comprobante->IdSucursal($_POST['intIdSucursal']);
     $dtmFechaCreacion = str_replace('/', '-', $_POST['nvchFecha']);
@@ -112,14 +105,8 @@ switch($_POST['funcion']){
     $Comprobante->Serie($_POST['nvchSerie']);
     $Comprobante->Numeracion($_POST['nvchNumeracion']);
     $Comprobante->IdUsuario($_SESSION['intIdUsuarioSesion']);
-    /*
-    if($_POST['intIdTipoComprobante'] == 10 || $_POST['intIdTipoComprobante'] == 9)
+    if($_POST['intIdTipoComprobante'] == 9 || $_POST['intIdTipoComprobante'] == 10)
         $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
-    if($_POST['intIdTipoComprobante'] == 9){
-        $Comprobante->Atencion($_POST['nvchAtencion']);
-        $Comprobante->Destino($_POST['nvchDestino']);
-    }*/
-    $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Comprobante->Atencion($_POST['nvchAtencion']);
     $Comprobante->Destino($_POST['nvchDestino']);
     $Comprobante->FechaTraslado($_POST['dtmFechaTraslado']);

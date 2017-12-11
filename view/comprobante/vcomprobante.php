@@ -329,6 +329,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <input type="hidden" id="intIdComprobante" name="intIdComprobante" value="" form="form-comprobante">
+                  <input type="hidden" id="intIdComprobanteReferencia" name="intIdComprobanteReferencia" value="" form="form-comprobante">
                   <input type="hidden" id="intTipoDetalle" name="intTipoDetalle" value="<?php echo $intTipoDetalle; ?>" form="form-comprobante">
                   <input type="hidden" id="intIdTipoComprobanteI" name="intIdTipoComprobanteI" value="<?php echo $intIdTipoComprobante; ?>" form="form-comprobante">
                   <input type="hidden" name="funcion" id="funcionC" value="" form="form-comprobante">
