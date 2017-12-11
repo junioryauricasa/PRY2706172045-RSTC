@@ -34,10 +34,14 @@ function MostrarDetalleCotizacion(intIdCotizacion,intIdTipoVenta) {
 	   data:{intIdCotizacion:intIdCotizacion,funcion:funcion,intIdTipoVenta:intIdTipoVenta},
 	   success:function(datos)
 	   {
-	   	if(intIdTipoVenta == 1)
+	   	if(intIdTipoVenta == 1){
 	   		$("#ListaDeProductosVender").html(datos);
-	   	else if(intIdTipoVenta == 2)
+	   		num = document.getElementById('ListaDeProductosVender').rows.length + 1;
+	   	}
+	   	else if(intIdTipoVenta == 2){
 	   		$("#ListaDeServiciosVender").html(datos);
+	   		nums = document.getElementById('ListaDeServiciosVender').rows.length + 1;
+	   	}
 	   	CalcularTotal();
 	   }
 	  });

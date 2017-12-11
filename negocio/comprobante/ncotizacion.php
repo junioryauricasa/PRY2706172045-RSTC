@@ -291,9 +291,13 @@ function HabilitacionOpciones(accion){
     $('#intIdTipoPago').attr("disabled", true);
     $('.opcion-columna-nuevo').hide();
     $('.opcion-boton-editar').show();
+    $("#txtOpcionFecha").val("1");
+    OpcionFecha("1");
+    $("nvchFecha").attr("readonly",true);
     <?php } else {?>
     $('#btn-crear-cotizacion').hide();
     $('.opcion-boton-editar').show();
+    OpcionFecha("1");
     <?php } ?>
     $("#funcionC").val("A");
     $("#nvchNumeracionCol").show();

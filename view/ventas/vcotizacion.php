@@ -297,7 +297,7 @@ require_once '../../datos/conexion/bd_conexion.php';
                         <td>
                             <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-cotizacion" />
                             <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-cotizacion" />
-                            <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-cotizacion" />
+                            <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-cotizacion" onkeydown="return TeclaSeleccionCodigo(event)"/>
                             <div class="result" id="result1">
                         </td>
                         <td>

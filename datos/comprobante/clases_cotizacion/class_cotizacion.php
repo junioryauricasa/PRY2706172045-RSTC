@@ -104,7 +104,7 @@ class Cotizacion{
 
       $salida['intIdCotizacion'] = $fila['intIdCotizacion'];
 
-      $salida['dtmFechaCreacion'] = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
+      $salida['dtmFechaCreacion'] = date('d/m/Y H:i:s', strtotime($fila['dtmFechaCreacion']));
       $salida['nvchSerie'] = $fila['nvchSerie'];
       $salida['nvchNumeracion'] = $fila['nvchNumeracion'];
       $salida['intIdTipoVenta'] = $fila['intIdTipoVenta'];
