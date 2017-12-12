@@ -25,8 +25,6 @@ $objPHPExcel->getProperties()
 ->setCategory("Pruebas de Excel");
 
 
-
-
 //agregar imagen
 $objDrawing = new PHPExcel_Worksheet_Drawing();
 $objDrawing->setName('test_img');

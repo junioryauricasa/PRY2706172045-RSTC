@@ -229,7 +229,7 @@ function Parte($x)
 
 //-------------- Programa principal ------------------------ 
 
-   $total=134.56; 
+   $total=1134.56; 
    $V=new EnLetras(); 
    $con_letra=strtoupper($V->ValorEnLetras($total,"soles")); 
    echo "<b>".$con_letra."</b>";      
