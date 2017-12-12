@@ -425,7 +425,7 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_producto
 		SET
-		intCantidadInicial = intCantidad
+		intCantidadInicial = (SELECT SUM(intCantidadInicial) FROM tb_ubigeo_producto WHERE intIdProducto = _intIdProducto)
 		WHERE 
 		intIdProducto = _intIdProducto;
     END 

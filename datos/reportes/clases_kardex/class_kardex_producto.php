@@ -489,7 +489,7 @@ class KardexProducto
         }
 
           if($x==$i){
-            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina-producto marca">'.($i+1).'</a></li>';
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina-producto marca-producto">'.($i+1).'</a></li>';
           }
           else
           {

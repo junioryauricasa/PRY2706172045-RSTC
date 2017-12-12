@@ -550,8 +550,8 @@ function limpiarformProducto(){
       RestablecerValidacion("nvchCodigo",1);
       RestablecerValidacion("nvchUbicacion",1);
       RestablecerValidacion("intCantidadUbigeo",1);
-      $("tipo-codigo-producto").val(1);
-      $("intIdSucursal").val(1);
+      $("#tipo-codigo-producto").val(1);
+      $("#intIdSucursal").val(1);
       $("#dcmDescuentoVenta2").val("7");
       $("#dcmDescuentoVenta3").val("15");
       $("#nvchObservacion").val("");

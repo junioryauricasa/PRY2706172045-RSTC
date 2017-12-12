@@ -54,9 +54,9 @@ switch($_POST['funcion']){
     $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
     $UbigeoProducto->InsertarUbigeoProducto();
     $Producto->AumentarStockTotal_II($_SESSION['intIdProducto']);
-    $Producto->CantidadInicial($_SESSION['intIdProducto']);
     $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],1);
     $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],2);
+    $Producto->CantidadInicial($_SESSION['intIdProducto']);
     //$KardexProducto = new KardexProducto();
     //$KardexProducto->IdProducto($_SESSION['intIdProducto']);
     //$KardexProducto->InsertarKardexProductoInicial();
@@ -92,7 +92,7 @@ switch($_POST['funcion']){
     $Producto = new Producto();
     $Producto->CantidadInicialUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal']);
     $Producto->AumentarStockTotal_II($_POST['intIdProducto']);
-    $Producto->CantidadInicial($_SESSION['intIdProducto']);
+    $Producto->CantidadInicial($_POST['intIdProducto']);
     break;
   case "A":
     $Producto = new Producto();
