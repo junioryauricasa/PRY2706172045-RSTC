@@ -564,6 +564,7 @@ function InsertarVenta(seleccion) {
 	   		$("#ListaDeImplementosVender").html(datos);
 	   		numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
 	   	}
+	   	
 	   	CamposTabla(intTipoDetalle,intIdTipoComprobante);
 	   	CalcularTotal();
 	   	$("#formComprobanteVenta").modal("hide");

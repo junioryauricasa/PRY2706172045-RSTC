@@ -39,7 +39,9 @@ switch($_POST['funcion']){
         $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Comprobante->Atencion($_POST['nvchAtencion']);
     $Comprobante->Destino($_POST['nvchDestino']);
-    $Comprobante->FechaTraslado($_POST['dtmFechaTraslado']);
+    $dtmFechaTraslado = str_replace('/', '-', $_POST['dtmFechaTraslado']);
+    $dtmFechaTraslado = date('Y-m-d', strtotime($dtmFechaTraslado));
+    $Comprobante->FechaTraslado($dtmFechaTraslado);
     $Comprobante->PuntoPartida($_POST['nvchPuntoPartida']);
     $Comprobante->PuntoLlegada($_POST['nvchPuntoLlegada']);
     if($_POST['intIdTipoComprobante'] == 3 || $_POST['intIdTipoComprobante'] == 7 || 
@@ -115,7 +117,9 @@ switch($_POST['funcion']){
         $Comprobante->IdUsuarioSolicitado($_POST['intIdUsuarioSolicitado']);
     $Comprobante->Atencion($_POST['nvchAtencion']);
     $Comprobante->Destino($_POST['nvchDestino']);
-    $Comprobante->FechaTraslado($_POST['dtmFechaTraslado']);
+    $dtmFechaTraslado = str_replace('/', '-', $_POST['dtmFechaTraslado']);
+    $dtmFechaTraslado = date('Y-m-d', strtotime($dtmFechaTraslado));
+    $Comprobante->FechaTraslado($dtmFechaTraslado);
     $Comprobante->PuntoPartida($_POST['nvchPuntoPartida']);
     $Comprobante->PuntoLlegada($_POST['nvchPuntoLlegada']);
     if($_POST['intIdTipoComprobante'] == 3 || $_POST['intIdTipoComprobante'] == 7 || 

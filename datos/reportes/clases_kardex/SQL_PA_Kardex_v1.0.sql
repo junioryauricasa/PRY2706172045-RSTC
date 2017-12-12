@@ -105,7 +105,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
-		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden ORDER BY Comprobantes.FechaMovimiento;
+		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden;
 
 		ELSEIF (_intIdSucursal >= 1) THEN
 		
@@ -202,7 +202,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
-		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden ORDER BY Comprobantes.FechaMovimiento;
+		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden;
 		END IF;
     END 
 $$
@@ -317,7 +317,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
-		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden ORDER BY Comprobantes.FechaMovimiento
+		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden
 		LIMIT _x,_y;
 
 		ELSEIF (_intIdSucursal >= 1) THEN
@@ -415,7 +415,7 @@ DELIMITER $$
 		LEFT JOIN tb_tipo_comprobante TCR ON CR.intIdTipoComprobante = TCR.intIdTipoComprobante
 		LEFT JOIN tb_detalle_comprobante DCR ON CR.intIdComprobante = DCR.intIdComprobante
 		WHERE DCR.intIdProducto = _intIdProducto AND CR.intIdSucursal = _intIdSucursal AND CR.intIdTipoComprobante != 3 AND CR.intIdTipoComprobante != 7
-		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden ORDER BY Comprobantes.FechaMovimiento
+		ORDER BY CR.dtmFechaCreacion,CR.intIdComprobante ASC) AS Comprobantes GROUP BY Comprobantes.FechaMovimiento,Comprobantes.Iden
 		LIMIT _x,_y;
 		END IF;
     END 

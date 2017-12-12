@@ -323,27 +323,27 @@
                 }
             ?>
               <td style="width: 8% !important; font-size:x-small;"><?php //echo $j ?></td>
-              <td style="width: 16.67% !important; font-size:x-small;">
+              <td style="width: 16.67% !important; font-size:x-small; color: white;">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 50% !important; max-width: 50% !important; font-size:x-small; text-align: left; padding-left: 7px; padding-right: 0px;word-wrap: break-word">
+              <td style="width: 50% !important; max-width: 50% !important; font-size:x-small; text-align: left; padding-left: 7px; padding-right: 0px;word-wrap: break-word;color: white;">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 11% !important; font-size:x-small;">
+              <td style="width: 11% !important; font-size:x-small;color: white;">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small;">
+              <td style="width: 13.8% !important; font-size:x-small;color: white;">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small;">
+              <td style="width: 13.8% !important; font-size:x-small;color: white;">
                 <span>
                   |
                 </span>
