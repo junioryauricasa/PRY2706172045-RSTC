@@ -24,16 +24,40 @@ $objPHPExcel->getProperties()
 ->setKeywords("Excel Office 2007 openxml php")
 ->setCategory("Pruebas de Excel");
 
-$TituloDocumento = 'Reporte Productos';
-$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', $TituloDocumento);
+
+
+
+//agregar imagen
+$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing->setName('test_img');
+$objDrawing->setDescription('test_img');
+$objDrawing->setPath('new-microsoft-logo-SIZED-SQUARE-300x297.jpg');
+$objDrawing->setCoordinates('A1');                      
+//setOffsetX works properly
+$objDrawing->setOffsetX(5); 
+$objDrawing->setOffsetY(5);                
+$objDrawing->setWidth(100); // ancho
+$objDrawing->setHeight(70); //
+$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+
+
+$objPHPExcel->getActiveSheet()->getRowDimension('A1')->setRowHeight(150);
+
+
+// dando altura al fondo de una img
 $objPHPExcel->setActiveSheetIndex(0)->getStyle("A1")->getFont()->setSize(26); // tamaño de fuente
-$objPHPExcel->setActiveSheetIndex(0) ->mergeCells('A1:E1'); //CONBINAR CELDAS
-$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // alinemaiento Horizontal 
-$objPHPExcel->setActiveSheetIndex(0)->getStyle('A1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); // Alinemiento vertical
+
+
+$TituloDocumento = 'Reporte Productos';
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A2', $TituloDocumento);
+$objPHPExcel->setActiveSheetIndex(0)->getStyle("A2")->getFont()->setSize(26); // tamaño de fuente
+$objPHPExcel->setActiveSheetIndex(0) ->mergeCells('A2:E2'); //CONBINAR CELDAS
+$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // alinemaiento Horizontal 
+$objPHPExcel->setActiveSheetIndex(0)->getStyle('A2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); // Alinemiento vertical
+
 // funcion Background celda
 function cellColor($cells,$color){
     global $objPHPExcel;
-
     $objPHPExcel->setActiveSheetIndex(0)->getStyle($cells)->getFill()->applyFromArray(array(
         'type' => PHPExcel_Style_Fill::FILL_SOLID,
         'startcolor' => array(
@@ -41,7 +65,7 @@ function cellColor($cells,$color){
         )
     ));
 }
-cellColor('A3:E3', 'b2b2b2'); // Ejecutnado la funcion
+cellColor('A3:E3', '085c8c'); // Ejecutnado la funcion
 
 $objPHPExcel->setActiveSheetIndex(0)->getStyle('A3:E3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); //color de texto
 
@@ -61,11 +85,8 @@ $estiloBorderMedium = array(
   )
 );
 
-$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray($estiloBorderThin);
+$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray($estiloBorderMedium);
 // END - dar border phpexcel
-
-
-
 
 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
 	// Agregar Informacion
@@ -86,22 +107,37 @@ while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
 	$objPHPExcel->setActiveSheetIndex()
 	->setCellValue('A'.$i, $fila['nvchCodigo'])
 	->setCellValue('B'.$i, $fila['nvchDescripcion'])
-	->setCellValue('C'.$i, $fila['dcmPrecioVenta1'])
-	->setCellValue('D'.$i, $fila['dcmPrecioVenta2'])
-	->setCellValue('E'.$i, $fila['dcmPrecioVenta3']);
+	->setCellValue('C'.$i, round($fila['dcmPrecioVenta1'],2))
+	->setCellValue('D'.$i, round($fila['dcmPrecioVenta2'],2))
+	->setCellValue('E'.$i, round($fila['dcmPrecioVenta3'],2));
+
+	// formato moneda
+	$objPHPExcel->getActiveSheet()->getStyle('C'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
+	$objPHPExcel->getActiveSheet()->getStyle('D'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
+	$objPHPExcel->getActiveSheet()->getStyle('E'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
+	
 	}	
 
+	//$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true); //TEXTO DE FILA DE CLEDAS EN NEGRITA
 	$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A3:E3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Alienamiento central horizontal encabezado de columnas
 	$i++;
 }
 
-$objPHPExcel->setActiveSheetIndex()
-->setCellValue('C'.$i, '=SUM(C2:C'.($i-1).')')
-->setCellValue('D'.$i, '=SUM(D2:D'.($i-1).')')
-->setCellValue('E'.$i, '=SUM(E2:E'.($i-1).')');
+//dando formato a las celdas de resultado en valor moneda
+$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, '=SUM(C2:C'.($i-1).')');$objPHPExcel->getActiveSheet()->getStyle('C'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
+$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, '=SUM(D2:D'.($i-1).')');$objPHPExcel->getActiveSheet()->getStyle('D'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
+$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, '=SUM(E2:E'.($i-1).')');$objPHPExcel->getActiveSheet()->getStyle('E'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
 
 
-$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true); //TEXTO DE FILA DE CLEDAS EN NEGRITA
+// dando color a los resultados de cada columna
+cellColor('C'.$i, '085c8c');
+cellColor('D'.$i, '085c8c');
+cellColor('E'.$i, '085c8c');
+
+
+
+$objPHPExcel->setActiveSheetIndex(0)->getStyle('C'.$i.':E'.$i)->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); // color al texto
+
 
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Tecnologia Simple');
