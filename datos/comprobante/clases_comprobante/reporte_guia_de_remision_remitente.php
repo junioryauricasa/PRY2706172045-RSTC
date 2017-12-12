@@ -337,7 +337,7 @@
   </div>
 
   <!-- INICIO - table MOTIVO DE TRASADO -->
-  <div class="row" style=" padding-top: 5px; z-index: 10">
+  <!--<div class="row" style=" padding-top: 5px; z-index: 10">
     <table  id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
       <tr>
         <td>
@@ -347,7 +347,7 @@
         </td>
       </tr>
     </table>
-  </div>
+  </div>-->
   <!-- END - table MOTIVO DE TRASADO -->
 
   <!-- INICIO - table MOTIVO DE TRASADO -->
@@ -443,7 +443,7 @@
   <!-- END - table MOTIVO DE TRASADO -->
 
   <!-- INICIO - table DATOS DEL TRNSPORTISTA -->
-  <div class="row" style=" margin-top: 80px; z-index: 10">
+  <!--<div class="row" style=" margin-top: 80px; z-index: 10">
     <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
       <tr>
         <td style="width: 60%;text-align: right;">
@@ -494,10 +494,11 @@
         </td>
       </tr>
     </table>
-  </div>
+  </div>-->
   <!-- END - table DATOS DEL TRNSPORTISTA -->
 
   <!-- INICIO - tabla despachado por -->
+  <!--
   <div class="row" style=" margin-top: 20px; z-index: 10">
     <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
       <tr>
@@ -534,7 +535,7 @@
         </td>
       </tr>
     </table>
-  </div>
+  </div>-->
   <!-- END - tabla despachado por -->
 
 <br>  
