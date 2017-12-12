@@ -53,7 +53,7 @@ switch($_POST['funcion']){
     $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
     $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
     $UbigeoProducto->InsertarUbigeoProducto();
-    $Producto->ES_StockTotal($_SESSION['intIdProducto']);
+    $Producto->AumentarStockTotal_II($_SESSION['intIdProducto']);
     $Producto->CantidadInicial($_SESSION['intIdProducto']);
     $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],1);
     $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],2);
@@ -91,7 +91,7 @@ switch($_POST['funcion']){
     $UbigeoProducto->InsertarUbigeoProducto_II();
     $Producto = new Producto();
     $Producto->CantidadInicialUbigeo($_POST['intIdProducto'],$_POST['intIdSucursal']);
-    $Producto->ES_StockTotal($_POST['intIdProducto']);
+    $Producto->AumentarStockTotal_II($_POST['intIdProducto']);
     $Producto->CantidadInicial($_SESSION['intIdProducto']);
     break;
   case "A":
@@ -136,7 +136,7 @@ switch($_POST['funcion']){
     $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
     $UbigeoProducto->ActualizarUbigeoProducto();
     $Producto = new Producto();
-    $Producto->ES_StockTotal($_POST['intIdProducto']);
+    $Producto->AumentarStockTotal_II($_POST['intIdProducto']);
     break;
   case "M":
     $Producto = new Producto();
