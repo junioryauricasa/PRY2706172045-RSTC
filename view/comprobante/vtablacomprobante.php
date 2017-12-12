@@ -128,9 +128,9 @@
           <th class="heading" width="25px">&nbsp;</th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
-          <th style="width: 110px" >Precio Unit.</th>
+          <th style="width: 110px" class="filaPrecioUnitario">Precio Unit.</th>
           <th style="width: 110px" >Cantidad</th>
-          <th style="width: 110px" >Total</th>
+          <th style="width: 110px" class="filaTotal">Total</th>
           <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
         </tr>
         </thead>
@@ -184,9 +184,9 @@
           <th class="heading" width="25px">&nbsp;</th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
-          <th style="width: 110px" >Precio Unit.</th>
+          <th style="width: 110px" class="filaPrecioUnitario">Precio Unit.</th>
           <th style="width: 110px" >Cantidad</th>
-          <th style="width: 110px" >Total</th>
+          <th style="width: 110px" class="filaTotal">Total</th>
           <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
         </tr>
         </thead>

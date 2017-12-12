@@ -545,6 +545,7 @@ function InsertarVenta(seleccion) {
 	var intIdTipoComprobante = $("#intIdTipoComprobante").val();
 	var intTipoDetalle = $("#intTipoDetalle").val();
 	$("#intIdTipoVenta").val(intIdTipoVenta);
+	$("#intIdTipoVenta").change();
 	$.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
