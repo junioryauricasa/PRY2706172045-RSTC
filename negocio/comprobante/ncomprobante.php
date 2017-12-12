@@ -578,8 +578,8 @@ $(document).on('click', '#btn-crear-comprobante', function(){
 	   data: formData,
 	   success:function(datos)
 	   {
-      datos = datos.replace(/\s/g,'');
-	   	if (datos=="okokokokok" || datos=="okokok") {
+      datos = datos.replace(/\s/g,'');  // 5ok - Facturas, boleta y nota de de crédito | 3ok - Servicio | 2ok - Guía de Remisión
+	   	if (datos=="okokokokok" || datos=="okokok" || datos == "okok") {
         if(intTipoDetalle == 1)
 	   		  MensajeNormal("Se generó correctamente la Venta",1);
         else
@@ -669,8 +669,8 @@ $(document).on('click', '#btn-editar-comprobante', function(){
      data: formData,
      success:function(datos)
      {
-      datos = datos.replace(/\s/g,'');
-      if (datos=="okokokokokok" || datos=="okokokokokokokokokok" || datos=="okok") {
+      datos = datos.replace(/\s/g,''); // 5ok - Facturas, boleta y nota de de crédito | 3ok - Servicio | 2ok - Guía de Remisión 
+      if (datos=="okokokokok" || datos=="okokok" || datos == "okok") {
         if(intTipoDetalle == 1)
           MensajeNormal("Se Modificó correctamente la Venta",1);
         else

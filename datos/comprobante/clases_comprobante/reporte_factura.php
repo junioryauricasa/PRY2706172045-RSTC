@@ -141,7 +141,7 @@
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: -8px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 22px; padding-top: -10px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: 10px; color: transparent; height: 25px"></h1>
-        <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 11px; padding-top: -14px; text-align: center; font-weight: bolder">
+        <h1 style="font-family: 'Arial'; font-size: 11px; padding-top: -14px; text-align: center;">
             <span>
               <?php echo $nvchSerie.' - '.$nvchNumeracion; ?>
             </span>
@@ -153,9 +153,9 @@
       <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;/*color: green*/">
           <p style="width: 85% !important; margin: 0 auto; font-size: 14px">
               <!--span>Fecha de Emisión……..de………………………..de 20……...</span-->
-              <span style="margin-left: 110px !important;font-weight: bolder"><?php echo $nvchDia; ?></span> 
-              <span style="margin-left: 50px !important;font-weight: bolder"><?php echo $nvchMes ?></span>
-              <span style="margin-left: 105px !important;font-weight: bolder"><?php echo $nvchAnio; ?></span>
+              <span style="margin-left: 110px !important;"><?php echo $nvchDia; ?></span> 
+              <span style="margin-left: 50px !important;"><?php echo $nvchMes ?></span>
+              <span style="margin-left: 105px !important;"><?php echo $nvchAnio; ?></span>
           </p>
       </div>
   </div>
@@ -168,13 +168,13 @@
                 <td style="font-weight: bold; font-family: Arial; width: 13% !important;">
                     <!--span>Señor(es):</span-->
                 </td>
-                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
+                <td style="font-family: Arial; width: 42% !important; ">
                     <span style="margin-left: -5px;"><?php echo $nvchClienteProveedor; ?></span>
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 20% !important;">
                     <!--span>Forma de Pago:</span--> 
                 </td>
-                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                <td style="font-family: Arial; width: 15% !important; ">
                     <span style="margin-left: -20px;"><?php echo $NombrePago; ?></span>
                 </td>
               </tr>
@@ -182,7 +182,7 @@
                 <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
                     <!--span>RUC / DNI:</span-->
                 </td>
-                <td style="font-weight: bold; font-family: Arial; width: 42% !important;"> 
+                <td style="font-family: Arial; width: 42% !important;"> 
                     <span style="margin-left: -5px"><?php echo $nvchDNIRUC; ?></span>
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
@@ -196,13 +196,13 @@
                 <td style="font-weight: bold; font-family: Arial; width: 13% !important; ">
                     <!--span>Dirección:</span-->
                 </td>
-                <td style="font-weight: bold; font-family: Arial; width: 42% !important; ">
+                <td style="font-family: Arial; width: 42% !important; ">
                     <span style="margin-left: -5px"><?php echo $nvchDireccion; ?></span>
                 </td>
                 <td style="font-weight: bold; font-family: Arial; width: 20% !important; ">
                     <!--span>Asesor de Ventas:</span--> 
                 </td>
-                <td style="font-weight: bold; font-family: Arial; width: 15% !important; ">
+                <td style="font-family: Arial; width: 15% !important; ">
                     <span style="margin-left: -20px"><?php echo $NombreUsuario; ?></span>
                 </td>
               </tr>
@@ -216,42 +216,42 @@
         <table id="tabladetalle" style="text-align: left; width: 86%; z-index: 10; margin: 0 auto" cellpadding="3" cellspacing="1">
           <tbody>
             <tr id="primerdetalle" style="">
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 8% !important; height: 25px !important">
+              <td style="font-family: Arial; text-align: center; width: 8% !important; height: 25px !important">
                   <small>
                     <small>
                         <!--span>ITEM</span-->
                     </small>
                   </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 16.67% !important; height: 25px !important">
+              <td style="font-family: Arial; text-align: center; width: 16.67% !important; height: 25px !important">
                   <small>
                     <small>
                         <!--span>CÓDIGO</span-->
                     </small>
                   </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50% !important; height: 25px !important">
+              <td style="font-family: Arial; text-align: center; width: 50% !important; height: 25px !important">
                 <small>
                     <small>
                         <!--span>DESCRIPCIÓN</span-->
                     </small>
                 </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
+              <td style="font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
                 <small>
                     <small>
                         <!--span>CANT.</span-->
                   </small>
                 </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13.8% !important; height: 25px !important">
+              <td style="font-family: Arial; text-align: center; width: 13.8% !important; height: 25px !important">
                   <small>
                     <small>
                         <!--span>P. UNIT.</span-->
                     </small>
                   </small>
               </td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 13,8% !important; height: 25px !important">
+              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 25px !important">
                   <small>
                     <small>
                         <!--span>P. TOTAL</span-->
@@ -369,8 +369,8 @@
             <span>
                 <?php 
                     $numero = "1900";
-                    echo convertir_a_letras($numero);
-                    //echo 'Ciento cicncuenta y nueve mil trescientos cuarenta y cinco soles';
+                    //echo convertir_a_letras($numero);
+                    echo 'Ciento cicncuenta y nueve mil trescientos cuarenta y cinco soles';
                 ?>      
             </span>
         </td>

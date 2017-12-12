@@ -371,7 +371,6 @@ class Producto
       $sql_comando -> execute(array(
         ':intIdProducto' => $intIdProducto,
         ':intCantidad' => $intCantidad));
-      echo 'ok';
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -455,7 +454,6 @@ class Producto
       }
       $sql_comando = $sql_conectar_cantidad->prepare('CALL ES_STOCKUBIGEO(:intIdUbigeoProducto,:intCantidadUbigeo)');
       $sql_comando -> execute(array(':intIdUbigeoProducto' => $intIdUbigeoProducto, ':intCantidadUbigeo' => $intCantidadFinal));
-      echo "ok";
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
@@ -509,6 +507,7 @@ class Producto
             $this->ES_StockUbigeo_II($fila['intIdProducto'],$fila['intIdSucursal'],$fila['intCantidad'],$TipoES);
             $this->AumentarStockTotal($fila['intIdProducto']);
       }
+      echo "ok";
     } catch(PDOException $e) {
       echo $e->getMessage();
     }
