@@ -41,7 +41,7 @@ $(document).on('click', '#btn-crear-ordencompra', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="okok") {
-	   		MensajeNormal("Se agregó correctamente la cotización",1);
+	   		MensajeNormal("Se agregó correctamente el Órden de Compra",1);
 	   		vertab1();
 	   		$("#btn-form-ordencompra-remove").click();
 	   		$('#txt-busqueda').val("");
@@ -93,7 +93,7 @@ $(document).on('click', '#btn-editar-ordencompra', function(){
 	   success:function(datos)
 	   {
 	   	if (datos=="ok") {
-	   		MensajeNormal("Se modificó correctamente el Orden de Compra",1);
+	   		MensajeNormal("Se modificó correctamente el Órden de Compra",1);
 	   		$("#btn-form-cotizacion-remove").click();
 	   		ListarOrdenCompra(x,y,tipolistado);
 	   		PaginarOrdenCompra(x,y,tipolistado);

@@ -575,13 +575,16 @@ class Producto
               $fila['CantidadHuancayo'] = 0;
             if($fila['CantidadSanJeronimo'] == null || $fila['CantidadSanJeronimo'] == "") 
               $fila['CantidadSanJeronimo'] = 0;
+            $PrecioVenta = "";
+            if($intTipoDetalle == 1)
+              $PrecioVenta = ' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1'];
           ?>
               <li class="show truncate" align="left" id="">
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
                 </span>&nbsp;
-                <?php echo ' | '.$fila['nvchDescripcion'].' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1'].' | '.'Cantidad Huancayo: '.$fila['CantidadHuancayo'].' | Cantidad San Jerónimo: '.$fila['CantidadSanJeronimo']; ?>
+                <?php echo ' | '.$fila['nvchDescripcion'].$PrecioVenta.' | '.'Cantidad Huancayo: '.$fila['CantidadHuancayo'].' | Cantidad San Jerónimo: '.$fila['CantidadSanJeronimo']; ?>
               </li>
           <?php
           }
