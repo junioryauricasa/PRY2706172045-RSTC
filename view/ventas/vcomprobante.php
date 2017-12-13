@@ -244,7 +244,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Seleccionar el Tipo de Venta:</label>
+                  <label>Seleccionar el Tipo de :</label>
                   <select id="tipo-venta" name="intIdTipoVenta" onchange="MostrarTipoVenta()" class="form-control select2">
                     <?php try{
                       $sql_conexion = new Conexion_BD();

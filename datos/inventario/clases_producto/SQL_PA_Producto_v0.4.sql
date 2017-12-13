@@ -315,6 +315,42 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS BUSCARPRODUCTO_III;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARPRODUCTO_III(
+    	IN _elemento VARCHAR(500),
+    	IN _intIdTipoVenta INT
+    )
+	BEGIN
+		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
+		END) AS CantidadHuancayo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 2 THEN UP.intCantidadUbigeo
+		END) AS CantidadSanJeronimo,
+		CP.*
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_tipo_moneda TMN ON P.intIdTipoMonedaVenta = TMN.intIdTipoMoneda
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%') AND
+		P.intIdTipoVenta = _intIdTipoVenta) AND CP.intIdTipoCodigoProducto = 1
+		AND P.intIdTipoVenta = _intIdTipoVenta
+		GROUP BY P.intIdProducto
+		ORDER BY P.intIdProducto;
+    END 
+$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS INSERTARIMAGENPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE INSERTARIMAGENPRODUCTO(

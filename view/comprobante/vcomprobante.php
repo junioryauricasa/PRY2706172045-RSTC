@@ -89,7 +89,7 @@
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Seleccionar el Tipo de Venta:</label>
+                  <label>Seleccionar el Tipo de <?php echo $lblTituloSingular; ?>:</label>
                   <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="ElegirTabla(this.value)" class="form-control select2" form="form-comprobante">
                     <?php try{
                       $sql_conexion = new Conexion_BD();

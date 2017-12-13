@@ -541,14 +541,14 @@ class Producto
     }
   }
 
-  public function BuscarProducto($buscar,$intIdTipoMoneda)
+  public function BuscarProducto($buscar,$intIdTipoMoneda,$intIdTipoVenta,$intTipoDetalle)
   {
     try{
       if($buscar != ""){
         $sql_conexion = new Conexion_BD();
         $sql_conectar = $sql_conexion->Conectar();
-        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:buscar,:TipoBusqueda)');
-        $sql_comando -> execute(array(':buscar' => $buscar,':TipoBusqueda' => 'C'));
+        $sql_comando = $sql_conectar->prepare('CALL buscarproducto_iii(:buscar,:intIdTipoVenta)');
+        $sql_comando -> execute(array(':buscar' => $buscar, ':intIdTipoVenta' => $intIdTipoVenta));
         $cantidad = $sql_comando -> rowCount();
         if($cantidad > 0){
           while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))

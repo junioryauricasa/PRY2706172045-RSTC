@@ -63,14 +63,16 @@
       var Letra = TipoLetra();
       var search = $(this).val();
       search = search.replace(/\s/g,'');
-      var funcion = "BP"
+      var funcion = "BP";
+      var intIdTipoVenta = $("#intIdTipoVenta").val();
+      var intTipoDetalle = $("#intTipoDetalle").val();
       if(search != '')
       {
         var intIdTipoMoneda = $("#intIdTipoMoneda").val();
         $.ajax({
           type: "POST",
           url: "../../datos/inventario/funcion_producto.php",
-          data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
+          data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,intIdTipoVenta:intIdTipoVenta,intTipoDetalle:intTipoDetalle},
           cache: false,
           success: function(html)
           {

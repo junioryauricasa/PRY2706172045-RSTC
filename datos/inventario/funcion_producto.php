@@ -201,7 +201,7 @@ switch($_POST['funcion']){
     break;
   case "BP":
     $Producto = new Producto();
-    $Producto->BuscarProducto($_POST['search'],$_POST['intIdTipoMoneda']);
+    $Producto->BuscarProducto($_POST['search'],$_POST['intIdTipoMoneda'],$_POST['intIdTipoVenta'],$_POST['intTipoDetalle']);
     break;
   case "ES_P_SU":
     $Producto = new Producto();
