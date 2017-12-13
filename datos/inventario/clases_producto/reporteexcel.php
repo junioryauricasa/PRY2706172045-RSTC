@@ -15,7 +15,8 @@ $i = 3;
 $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 $objPHPExcel = new PHPExcel();
 
-// Establecer propiedades
+// INICIO - Establecer propiedades de la hoja
+////////////////////////////////////////////////////
 $objPHPExcel->getProperties()
 ->setCreator("PLATAFORMA RESTECO")
 ->setLastModifiedBy("PLATFORM")
@@ -24,7 +25,8 @@ $objPHPExcel->getProperties()
 ->setDescription("Demostracion sobre como crear archivos de Excel desde PHP.")
 ->setKeywords("Excel Office 2007 openxml php")
 ->setCategory("Pruebas de Excel");
-
+// END - Establecer propiedades de la hoja
+////////////////////////////////////////////////////
 
 // INICIO - Agregar imagen
 ////////////////////////////////////////////////////
@@ -41,8 +43,6 @@ $objDrawing->setHeight(70); //
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 // END - Agregar imagen
 ////////////////////////////////////////////////////
-
-
 
 $objPHPExcel->getActiveSheet()->getRowDimension('A1')->setRowHeight(150);
 
@@ -141,7 +141,6 @@ cellColor('E'.$i, '085c8c');
 
 $objPHPExcel->setActiveSheetIndex(0)->getStyle('C'.$i.':E'.$i)->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); // color al texto
 
-
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Tecnologia Simple');
 
@@ -150,7 +149,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 // Se modifican los encabezados del HTTP para indicar que se envia un archivo de Excel.
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="pruebaReal.xlsx"');
+header('Content-Disposition: attachment;filename="ReporteExcel-'.date('dmy_hms').'.xlsx"');
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output');
