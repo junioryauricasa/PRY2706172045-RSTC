@@ -24,7 +24,6 @@ $objPHPExcel->getProperties()
 ->setKeywords("Excel Office 2007 openxml php")
 ->setCategory("Pruebas de Excel");
 
-
 //agregar imagen
 $objDrawing = new PHPExcel_Worksheet_Drawing();
 $objDrawing->setName('test_img');
@@ -38,9 +37,7 @@ $objDrawing->setWidth(100); // ancho
 $objDrawing->setHeight(70); //
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
-
 $objPHPExcel->getActiveSheet()->getRowDimension('A1')->setRowHeight(150);
-
 
 // dando altura al fondo de una img
 $objPHPExcel->setActiveSheetIndex(0)->getStyle("A1")->getFont()->setSize(26); // tamaño de fuente
