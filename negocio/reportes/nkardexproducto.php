@@ -289,9 +289,9 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
         $('.filaDescuento').show();
       }
       if(datos.intTipoDetalle == 1)
-        $("#lblTituloComprobante").html("Detalles del Comprovante de Venta");
+        $("#lblTituloComprobante").html("Detalles del Comprobante de Venta");
       else
-        $("#lblTituloComprobante").html("Detalles del Comprovante de Compra");
+        $("#lblTituloComprobante").html("Detalles del Comprobante de Compra");
      }
     });
   } else {
