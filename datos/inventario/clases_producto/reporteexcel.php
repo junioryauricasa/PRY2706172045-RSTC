@@ -141,6 +141,7 @@ cellColor('E'.$i, '085c8c');
 
 $objPHPExcel->setActiveSheetIndex(0)->getStyle('C'.$i.':E'.$i)->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); // color al texto
 
+
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Tecnologia Simple');
 
