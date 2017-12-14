@@ -162,7 +162,26 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_comprobante
 		SET
+		nvchDNIRUC = '00000000000',
+		nvchClienteProveedor = 'ANULADO',
 		intEstado = 0
+		WHERE 
+		intIdComprobante = _intIdComprobante;
+    END 
+$$
+DELIMITER;
+
+DROP PROCEDURE IF EXISTS ANULARCOMPROBANTE_II;
+DELIMITER $$
+	CREATE PROCEDURE ANULARCOMPROBANTE_II(
+    	IN _intIdComprobante INT
+    )
+	BEGIN
+		UPDATE tb_detalle_comprobante
+		SET
+		dcmPrecioUnitario = 0,
+		intCantidad = 0,
+		dcmTotal = 0
 		WHERE 
 		intIdComprobante = _intIdComprobante;
     END 
