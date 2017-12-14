@@ -102,7 +102,10 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <table class="rwd-table ExcelTable2007" width="100%">
                     <thead>
                     <tr>
-                      <th class="heading" width="25px">&nbsp;</th>
+                      <!--th class="heading" width="25px">&nbsp;</th-->
+                      <th class="" width="25px" style="background: #a9c4e9">
+                        <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                      </th>
                       <th style="min-width: 50px; max-width: 50px">Código</th>
                       <th>Descripción</th>
                       <th>Tipo de Moneda Venta</th>
@@ -470,7 +473,10 @@ require_once '../../datos/conexion/bd_conexion.php';
                                                     <table class="ExcelTable2007 rwd-table" width="100%">
                                                       <thead>
                                                       <tr>
-                                                        <th class="heading" width="25px">&nbsp;</th>
+                                                        <!--th class="heading" width="25px">&nbsp;</th-->
+                                                        <th class="" width="25px" style="background: #a9c4e9">
+                                                          <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                                                        </th>
                                                         <th>Sucursal</th>
                                                         <th>Ubicación en el Almacén</th>
                                                         <th>Cantidad</th>

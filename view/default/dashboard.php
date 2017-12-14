@@ -162,7 +162,10 @@
                       <table class="rwd-table ExcelTable2007" style="width:100%">
                         <thead>
                         <tr>
-                          <th class="heading" style="width: 25px">&nbsp;</th>
+                          <!--th class="heading" width="25px">&nbsp;</th-->
+                          <th class="" width="25px" style="background: #a9c4e9">
+                              <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                          </th>
                           <th style="width: 140px" >Numeración</th>
                           <th style="width: 130px">Tipo</th>
                           <th style="min-width: 250px">Cliente</th>

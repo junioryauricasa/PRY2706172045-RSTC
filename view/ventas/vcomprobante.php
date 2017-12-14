@@ -312,7 +312,10 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
-                      <th class="heading" width="25px">&nbsp;</th>
+                      <!--th class="heading" width="25px">&nbsp;</th-->
+                      <th class="" width="25px" style="background: #a9c4e9">
+                        <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                      </th>
                       <th style="width:130px">Código</th>
                       <th>Descripción</th>
                       <th style="width:100px !important">Precio Lista</th>
@@ -487,7 +490,10 @@ require_once '../../datos/conexion/bd_conexion.php';
               <table class="ExcelTable2007 rwd-table" width="100%">
                 <thead>
                 <tr>
-                  <th class="heading" width="25px">&nbsp;</th>
+                  <!--th class="heading" width="25px">&nbsp;</th-->
+                  <th class="" width="25px" style="background: #a9c4e9">
+                    <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                  </th>
                   <th class="listaNumFactura">Número de Factura</th>
                   <th class="listaNumBoletaVenta">Número de Boleta</th>
                   <th class="listaNumNotaCredito">Número de Nota de Crédito</th>

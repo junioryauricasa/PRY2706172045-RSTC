@@ -304,7 +304,10 @@ require_once '../../datos/conexion/bd_conexion.php';
                   <table class="ExcelTable2007 rwd-table" width="100%">
                     <thead>
                     <tr>
-                      <th class="heading" width="25px">&nbsp;</th>
+                      <!--th class="heading" width="25px">&nbsp;</th-->
+                      <th class="" width="25px" style="background: #a9c4e9">
+                        <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                      </th>
                       <th>Descripción</th>
                       <th style="width: 110px" >Precio Unit.</th>
                       <th style="width: 110px" >Cantidad</th>
@@ -485,7 +488,10 @@ require_once '../../datos/conexion/bd_conexion.php';
               <table class="ExcelTable2007 rwd-table" width="100%">
                 <thead>
                 <tr>
-                  <th class="heading" width="25px">&nbsp;</th>
+                  <!--th class="heading" width="25px">&nbsp;</th-->
+                  <th class="" width="25px" style="background: #a9c4e9">
+                    <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                  </th>
                   <!--<th>Serie</th>-->
                   <th>Numeración</th>
                   <th>Tipo Cotizac.</th>
