@@ -167,26 +167,16 @@ DELIMITER $$
 		intEstado = 0
 		WHERE 
 		intIdComprobante = _intIdComprobante;
-    END 
-$$
-DELIMITER;
-
-DROP PROCEDURE IF EXISTS ANULARCOMPROBANTE_II;
-DELIMITER $$
-	CREATE PROCEDURE ANULARCOMPROBANTE_II(
-    	IN _intIdComprobante INT
-    )
-	BEGIN
 		UPDATE tb_detalle_comprobante
 		SET
-		dcmPrecioUnitario = 0,
+		dcmPrecioUnitario = 0.00,
 		intCantidad = 0,
-		dcmTotal = 0
+		dcmTotal = 0.00
 		WHERE 
 		intIdComprobante = _intIdComprobante;
     END 
 $$
-DELIMITER;
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS LISTARCOMPROBANTE;
 DELIMITER $$
