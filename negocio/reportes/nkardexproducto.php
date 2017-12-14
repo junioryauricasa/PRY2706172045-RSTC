@@ -469,7 +469,7 @@ function ReporteKardexExcel() {
   } else {
     var dtmFechaFinal = $("#dtmFechaFinal").val();
   }
-  var url = '../../datos/inventario/clases_producto/reporte_kardex_producto_excel.php?intIdProducto='+
+  var url = '../../datos/reportes/clases_kardex/reporte_kardex_producto_excel.php?intIdProducto='+
   intIdProducto+'&busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+
   dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
   window.open(url);
