@@ -14,7 +14,6 @@
             <ul class="nav nav-tabs">
               <li class="active"><a href="#formRegistroProducto" data-toggle="tab" aria-expanded="true">Datos del Producto</a></li>
             </ul>
-            <form id="form-producto" method="POST">
             <div class="tab-content">
               <div class="tab-pane active" id="formRegistroProducto">
                 <?php $funcionComprobante = 1; ?>
@@ -22,7 +21,6 @@
                 <script type="text/javascript">limpiarformProducto();</script>
               </div>
             </div>
-          </form>
           </div>
         </section>
     </div>

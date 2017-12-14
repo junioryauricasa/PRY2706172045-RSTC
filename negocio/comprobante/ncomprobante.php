@@ -374,6 +374,7 @@ function LimpiarCampos(){
   $("#intIdTipoVenta").change();
 	$("#intIdTipoMoneda").val(1);
 	$("#intIdTipoPago").val(1);
+  $("#intDescontarGR").val(0);
   $("#intIdUsuarioSolicitado").val(1);
 	LimpiarTablas();
 	HabilitacionOpciones(1);
@@ -638,6 +639,7 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
       $("#nvchPuntoPartida").val(datos.nvchPuntoPartida);
       $("#nvchPuntoLlegada").val(datos.nvchPuntoLlegada);
       $("#intIdComprobanteReferencia").val(datos.intIdComprobanteReferencia);
+      $("#intDescontarGR").val(datos.intDescontarGR);
       $("#dtmFechaTraslado").val(datos.dtmFechaTraslado);
   		$("textarea#nvchObservacion").val(datos.nvchObservacion);
   		HabilitacionOpciones(2);
@@ -1338,6 +1340,13 @@ function CamposComprobante(intIdTipoComprobante){
     $("#btnAgregarVenta").show();
   else
     $("#btnAgregarVenta").hide();
+
+  if(intIdTipoComprobante == 3 ||intIdTipoComprobante == 7){
+    $("#btnDescontarGR").show();
+  } else {
+    $("#btnDescontarGR").hide();
+  }
+
   if(intIdTipoComprobante == 3){
     $("#dtmFechaTrasladoCol").show();
     $("#nvchPuntoPartidaCol").show();
