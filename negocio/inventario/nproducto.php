@@ -254,34 +254,42 @@ $(document).on('click', '#btn-editar-producto', function(){
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Eliminar Producto */
 $(document).on('click', '.btn-eliminar-producto', function(){
-	var idreg = $(this).attr("id");
-	$('.mi-modal').modal('show');//mostrando modal
-	$(document).on('click', '.modal-btn-si', function(){
-		  	  var intIdProducto = idreg;
-		  	  var y = document.getElementById("num-lista").value;
-		  	  var x = $(".marca").attr("idp") * y;
-		  	  var tipolistado = "D";
-		  	  var funcion = "E";
-			  $.ajax({
-			   url:"../../datos/inventario/funcion_producto.php",
-			   method:"POST",
-			   data:{intIdProducto:intIdProducto,funcion:funcion},
-			   success:function(datos)
-			   {
-			   	datos = datos.replace(/\s/g,''); //quitando espacio
-			   	if (datos=="ok") { 
-			   		MensajeNormal("Se eliminó correctamente el Producto",1);
-			   		$('.mi-modal').modal('hide');
-			   		ListarProducto(x,y,tipolistado);
-			   		PaginarProducto(x,y,tipolistado);
-			   	}
-			   	else { $("#resultadocrud").html(datos); }
-			   }
-		  });
-	});
-	$(document).on('click', '.modal-btn-no', function(){
+var intIdProducto = $(this).attr("id");
+var nvchCodigo = $(this).attr("codp");
+$(".lblCodigoProducto").html(nvchCodigo);
+$('#MensajeEliminarProducto').modal('show');//mostrando modal
+$(document).on('click', '#MEP-btn-si', function(){
+  var y = document.getElementById("num-lista").value;
+  var x = $(".marca").attr("idp") * y;
+  var tipolistado = "D";
+  var funcion = "E";
+  $.ajax({
+  url:"../../datos/inventario/funcion_producto.php",
+	  ethod:"POST",
+  data:{intIdProducto:intIdProducto,funcion:funcion},
+	success:function(datos)
+  {
+	datos = datos.replace(/\s/g,''); //quitando espacio
+	if (datos=="ok") { 
+		MensajeNormal("Se eliminó correctamente el Producto",1);
 		$('.mi-modal').modal('hide');
-	});
+		ListarProducto(x,y,tipolistado);
+		PaginarProducto(x,y,tipolistado);
+	}
+	else { $("#resultadocrud").html(datos); }
+	   }
+  });
+});
+$(document).on('click', '#MEP-btn-no', function(){
+ $('#MensajeEliminarProducto').modal('hide');
+ });
+});
+
+$(document).on('click', '.btn-no-eliminar-producto', function(){
+var intIdProducto = $(this).attr("id");
+var nvchCodigo = $(this).attr("codp");
+$(".lblCodigoProducto").html(nvchCodigo);
+$('#MensajeNoEliminarProducto').modal('show');//mostrando modal
 });
 /* FIN - Funcion Ajax - Eliminar Producto */
 //////////////////////////////////////////////////////////////

@@ -243,11 +243,17 @@ class Producto
               <td align="right" data-th="Opciones" style="text-align:center"> 
                 <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto" data-toggle="tooltip" title="Editar">
                   <i class="fa fa-edit"></i>
-                </button>
-                <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-danger btn-eliminar-producto" data-toggle="tooltip" title="Eliminar">
+                </button> ';
+                if($fila['ExisteMovimiento'] == NULL){
+                echo '<button type="button" id="'.$fila["intIdProducto"].'" codp="'.$fila["nvchCodigo"].'" class="btn btn-xs btn-danger btn-eliminar-producto" data-toggle="tooltip" title="Eliminar">
                   <i class="fa fa-trash"></i>
-                </button>
-              </td>  
+                </button>';
+              } else {
+                echo '<button type="button" id="'.$fila["intIdProducto"].'" codp="'.$fila["nvchCodigo"].'" class="btn btn-xs btn-success btn-no-eliminar-producto" data-toggle="tooltip" title="Tiene Movimiento">
+                  <i class="fa fa-check-square-o"></i>
+                </button>';
+              }
+              echo '</td>  
           </tr>';
           $i++; $j++;
         }

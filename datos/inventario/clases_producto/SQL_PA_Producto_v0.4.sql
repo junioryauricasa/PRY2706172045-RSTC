@@ -260,6 +260,7 @@ DELIMITER $$
 		SUM(CASE 
 			WHEN UP.intIdSucursal = 2 THEN UP.intCantidadUbigeo
 		END) AS CantidadSanJeronimo,
+		(SELECT dtmFechaRealizada FROM tb_detalle_comprobante WHERE intIdProducto = P.intIdProducto LIMIT 1) AS ExisteMovimiento,
 		CP.*
 		FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto

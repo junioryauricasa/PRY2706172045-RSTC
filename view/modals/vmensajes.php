@@ -59,3 +59,45 @@
   </div>
 </div>
 <!-- FIN - Modal Confirmar Visualización de Códigos -->
+
+<!-- INICIO modal confirmar -->
+<div id="MensajeEliminarProducto" class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+      </div>
+      <div class="modal-body">
+        ¿ El Producto <span class="lblCodigoProducto"></span> no ha tenido movimiento, está seguro de eliminar el Producto ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="MEP-btn-si">Sí</button>
+        <button type="button" class="btn btn-primary" id="MEP-btn-no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END modal confirmar -->
+
+<div id="MensajeNoEliminarProducto" class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+      </div>
+      <div class="modal-body">
+        El Producto <span class="lblCodigoProducto"></span> ya ha tenido movimiento, por lo tanto no se puede eliminar.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END modal confirmar -->
