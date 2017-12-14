@@ -178,6 +178,8 @@ function BotonesUbigeo(accion) {
 		$("#btn-actualizar-ubigeo").hide();
 		$("#btn-cancelar-ubigeo").hide();
 
+		//alert("la cagaste");
+
 	} else if (accion == "A") {
 		RestablecerValidacion("nvchUbicacion",2);
 		RestablecerValidacion("intCantidadUbigeo",2);
@@ -185,6 +187,7 @@ function BotonesUbigeo(accion) {
 		$("#btn-actualizar-ubigeo").show();
 		$("#btn-cancelar-ubigeo").show();
 
+		//alert("la cagaste");
 	}
 }
 /* FIN - Ocultar Botones */
@@ -219,3 +222,4 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
+</script>
