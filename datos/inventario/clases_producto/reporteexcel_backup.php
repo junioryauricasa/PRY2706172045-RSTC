@@ -3,13 +3,13 @@
 
 	$busqueda = $_GET['busqueda'];
 	$tipo = isset($_REQUEST['t']) ? $_REQUEST['t'] : 'EXCEL';
-    $extension = $tipo == 'EXCEL' ? '.xls' : '.doc';
-    $NombreArchivo = 'ReporteProductos_'.$busqueda;
+  $extension = $tipo == 'EXCEL' ? '.xls' : '.doc';
+  $NombreArchivo = 'ReporteProductos_'.$busqueda;
 
-    header("Content-type: application/vnd.ms-$tipo");
-    header("Content-Disposition: attachment; filename=$NombreArchivo$extension");
-    header("Pragma: no-cache");
-    header("Expires: 0");
+  header("Content-type: application/vnd.ms-$tipo");
+  header("Content-Disposition: attachment; filename=$NombreArchivo$extension");
+  header("Pragma: no-cache");
+  header("Expires: 0");
     // end sentencias apra el excel
  	//http://localhost/proyectos/PRY2706172045-RSTC/datos/inventario/clases_producto/reporteexcel.php
     

@@ -3,15 +3,16 @@
   require_once '../../conexion/bd_conexion.php';
   require_once '../../../frameworks/PHPExcel-1.8/Classes/PHPExcel.php';
 
-  // Crea un nuevo objeto PHPExcel
+$busqueda = $_GET['busqueda']; // campo de ubsqueda
+
+// Crea un nuevo objeto PHPExcel
 $sql_conexion = new Conexion_BD();
 $sql_conectar = $sql_conexion->Conectar();
-$sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
-$sql_comando -> execute(array(':busqueda' => '', ':TipoBusqueda' => 'C'));
-$cantidad = $sql_comando -> rowCount();
+$sql_comando = $sql_conectar->prepare('CALL buscarproducto_II(:busqueda,:TipoBusqueda)');
+$sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'));
 
 // Establecer propiedades
-$i = 3;
+$i = 3; // contador de la fila desde dende se imprimira
 $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 $objPHPExcel = new PHPExcel();
 
@@ -138,7 +139,6 @@ cellColor('D'.$i, '085c8c');
 cellColor('E'.$i, '085c8c');
 
 
-
 $objPHPExcel->setActiveSheetIndex(0)->getStyle('C'.$i.':E'.$i)->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); // color al texto
 
 
@@ -150,7 +150,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 // Se modifican los encabezados del HTTP para indicar que se envia un archivo de Excel.
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="ReporteExcel-'.date('dmy_hms').'.xlsx"');
+header('Content-Disposition: attachment;filename="ReporteExcel-'.date('dmy_hms').'_'.$busqueda.'.xlsx"');
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output');
