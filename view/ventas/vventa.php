@@ -10,7 +10,7 @@ require_once '../../datos/conexion/bd_conexion.php';
 <?php require_once '../../negocio/comprobante/ncomprobante.php'; ?>
 <?php require_once '../../negocio/comprobante/ndetallecomprobante.php'; ?>
 <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
-<?php require_once '../../negocio/operaciones/nestilos.php'; ?>
+<?php require_once '../../negocio/operaciones/nestilos.php'; //stylos del autocompletado?>
 <?php require_once '../../view/modals/vformCliente.php'; ?>
 <?php require_once '../../view/modals/vformProducto.php'; ?>
 <?php require_once '../../view/modals/vformCotizacion.php'; ?>
