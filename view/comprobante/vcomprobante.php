@@ -270,6 +270,16 @@
                   <input type="button" onclick="formCotizacion()" value="Agregar +" class="form-control select2 btn btn-md btn-primary btn-flat" />
                 </div>
               </div>
+               <div id="btnDescontarGR" class="col-md-2 opcion-boton-nuevo">
+                <div class="form-group">
+                  <label>¿ Descontar ?:</label>
+                  <select id="intDescontarGR" name="intDescontarGR" class="form-control select2"
+                  form="form-comprobante">
+                  <option value="0">No</option>
+                  <option value="1">Sí</option>
+                  </select>
+                </div>
+              </div>
               <div id="btnAgregarVenta" class="col-md-2 opcion-boton-nuevo">
                 <div class="form-group">
                   <label>Seleccionar Venta:</label>

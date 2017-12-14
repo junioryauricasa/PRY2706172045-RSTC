@@ -55,6 +55,14 @@ switch($_POST['funcion']){
     $Comprobante->IdTipoMoneda($_POST['intIdTipoMoneda']);
     $Comprobante->IdTipoPago($_POST['intIdTipoPago']);
     $Comprobante->IdTipoVenta($_POST['intIdTipoVenta']);
+    $Descontar = 1;
+    if($_POST['intIdTipoComprobante'] == 3 || $_POST['intIdTipoComprobante'] == 7){
+        $Comprobante->DescontarGR($_POST['intDescontarGR']);
+        $Descontar = $_POST['intDescontarGR'];
+    } else{
+        $Comprobante->DescontarGR(1);
+        $Descontar = 1;
+    }
     $Comprobante->Observacion($_POST['nvchObservacion']);
     $Comprobante->InsertarComprobante();
     $DetalleComprobante = new DetalleComprobante();
@@ -74,7 +82,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->Cantidad($_POST['intCantidad'.$_POST['Letra']]);
         $DetalleComprobante->Total($_POST['dcmTotal'.$_POST['Letra']]);
         $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
-        if($_POST['intIdTipoComprobante'] != 3 && $_POST['intIdTipoComprobante'] != 7){
+        if($Descontar == 1){
         $Producto = new Producto();
         $Producto->ES_StockUbigeo($_POST['intIdProducto'.$_POST['Letra']],$_POST['intIdSucursal'],$_POST['intCantidad'.$_POST['Letra']],((int)$_POST['intTipoDetalle']-1));
         $Producto->ES_StockTotal($_POST['intIdProducto'.$_POST['Letra']]);
@@ -94,7 +102,15 @@ switch($_POST['funcion']){
     $Numeraciones->ActualizarNumeracion($_POST['intIdTipoComprobante'],$_POST['intIdSucursal'],$_POST['nvchNumeracion']);
     break;
   case "A":
-    if($_POST['intIdTipoComprobante'] != 3 && $_POST['intIdTipoComprobante'] != 7){
+    $Descontar = 1;
+    if($_POST['intIdTipoComprobante'] == 3 || $_POST['intIdTipoComprobante'] == 7){
+        $Comprobante->DescontarGR($_POST['intDescontarGR']);
+        $Descontar = $_POST['intDescontarGR'];
+    } else{
+        $Comprobante->DescontarGR(1);
+        $Descontar = 1;
+    }
+    if($Descontar == 1){
     $Producto = new Producto();
     $Producto->RegresionCantidad($_POST['intIdComprobante']);
     }
@@ -152,7 +168,7 @@ switch($_POST['funcion']){
         $DetalleComprobante->Cantidad($_POST['intCantidad'.$_POST['Letra']]);
         $DetalleComprobante->Total($_POST['dcmTotal'.$_POST['Letra']]);
         $DetalleComprobante->InsertarDetalleComprobante($_POST['funcion']);
-        if($_POST['intIdTipoComprobante'] != 3 && $_POST['intIdTipoComprobante'] != 7){
+        if($Descontar == 1){
         $Producto->ES_StockUbigeo($_POST['intIdProducto'.$_POST['Letra']],$_POST['intIdSucursal'],$_POST['intCantidad'.$_POST['Letra']],((int)$_POST['intTipoDetalle']-1));
         $Producto->ES_StockTotal($_POST['intIdProducto'.$_POST['Letra']]);
         }

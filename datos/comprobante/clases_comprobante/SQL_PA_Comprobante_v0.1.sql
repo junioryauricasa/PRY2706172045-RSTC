@@ -26,6 +26,7 @@ DELIMITER $$
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
+	IN _intDescontarGR INT,
 	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
@@ -34,12 +35,12 @@ DELIMITER $$
 		(intIdTipoComprobante,intTipoDetalle,intIdSucursal,dtmFechaCreacion,nvchSerie,nvchNumeracion,intIdUsuario,
 			intIdUsuarioSolicitado,intIdCliente,intIdProveedor,nvchClienteProveedor,nvchDNIRUC,nvchDireccion,
 			nvchAtencion,nvchDestino,dtmFechaTraslado,nvchPuntoPartida,nvchPuntoLlegada,intIdComprobanteReferencia,
-			intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intEstado,nvchObservacion)
+			intIdTipoMoneda,intIdTipoPago,intIdTipoVenta,intDescontarGR,intEstado,nvchObservacion)
 		VALUES
 		(_intIdTipoComprobante,_intTipoDetalle,_intIdSucursal,_dtmFechaCreacion,_nvchSerie,_nvchNumeracion,
 			_intIdUsuario,_intIdUsuarioSolicitado,_intIdCliente,_intIdProveedor,_nvchClienteProveedor,_nvchDNIRUC,
 			_nvchDireccion,_nvchAtencion,_nvchDestino,_dtmFechaTraslado,_nvchPuntoPartida,_nvchPuntoLlegada,
-			_intIdComprobanteReferencia,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intEstado,
+			_intIdComprobanteReferencia,_intIdTipoMoneda,_intIdTipoPago,_intIdTipoVenta,_intDescontarGR,_intEstado,
 			_nvchObservacion);
 		SET _intIdComprobante = LAST_INSERT_ID();
     END 
@@ -88,6 +89,7 @@ DELIMITER $$
 	IN _intIdTipoMoneda INT,
 	IN _intIdTipoPago INT,
 	IN _intIdTipoVenta INT,
+	IN _intDescontarGR INT,
 	IN _intEstado INT,
 	IN _nvchObservacion VARCHAR(2500)
     )
@@ -117,6 +119,7 @@ DELIMITER $$
 		intIdTipoMoneda = _intIdTipoMoneda,
 		intIdTipoPago = _intIdTipoPago,
 		intIdTipoVenta = _intIdTipoVenta,
+		intDescontarGR = _intDescontarGR,
 		intEstado = _intEstado,
 		nvchObservacion = _nvchObservacion
 		WHERE 

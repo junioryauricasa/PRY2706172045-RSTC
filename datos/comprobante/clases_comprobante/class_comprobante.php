@@ -25,6 +25,7 @@ class Comprobante{
   private $intIdTipoMoneda;
   private $intIdTipoPago;
   private $intIdTipoVenta;
+  private $intDescontarGR;
   private $intEstado;
   private $nvchObservacion;
   
@@ -51,6 +52,7 @@ class Comprobante{
   public function IdTipoMoneda($intIdTipoMoneda){ $this->intIdTipoMoneda = $intIdTipoMoneda; }
   public function IdTipoPago($intIdTipoPago){ $this->intIdTipoPago = $intIdTipoPago; }
   public function IdTipoVenta($intIdTipoVenta){ $this->intIdTipoVenta = $intIdTipoVenta; }
+  public function DescontarGR($intDescontarGR){ $this->intDescontarGR = $intDescontarGR; }
   public function Estado($intEstado){ $this->intEstado = $intEstado; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Orden Compra */
@@ -65,7 +67,7 @@ class Comprobante{
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdUsuarioSolicitado,:intIdCliente,
         :intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchDestino,
         :dtmFechaTraslado,:nvchPuntoPartida,:nvchPuntoLlegada,:intIdComprobanteReferencia,
-        :intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
+        :intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intDescontarGR,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
         ':intTipoDetalle' => $this->intTipoDetalle,
@@ -89,6 +91,7 @@ class Comprobante{
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intIdTipoVenta' => $this->intIdTipoVenta,
+        ':intDescontarGR' => $this->intDescontarGR,
         ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
@@ -133,6 +136,7 @@ class Comprobante{
       $salida['intIdComprobanteReferencia'] = $fila['intIdComprobanteReferencia'];
       $salida['TipoCliente'] = $fila['TipoCliente'];
       $salida['intIdTipoCliente'] = $fila['intIdTipoCliente'];
+      $salida['intDescontarGR'] = $fila['intDescontarGR'];
 
       $salida['intIdCliente'] = $fila['intIdCliente'];
       $salida['intIdProveedor'] = $fila['intIdProveedor'];
@@ -154,7 +158,7 @@ class Comprobante{
         :dtmFechaCreacion,:nvchSerie,:nvchNumeracion,:intIdUsuario,:intIdUsuarioSolicitado,:intIdCliente,
         :intIdProveedor,:nvchClienteProveedor,:nvchDNIRUC,:nvchDireccion,:nvchAtencion,:nvchDestino,
         :dtmFechaTraslado,:nvchPuntoPartida,:nvchPuntoLlegada,:intIdComprobanteReferencia,
-        :intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intEstado,:nvchObservacion)');
+        :intIdTipoMoneda,:intIdTipoPago,:intIdTipoVenta,:intDescontarGR,:intEstado,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdComprobante' => $this->intIdComprobante,
         ':intIdTipoComprobante' => $this->intIdTipoComprobante,
@@ -179,6 +183,7 @@ class Comprobante{
         ':intIdTipoMoneda' => $this->intIdTipoMoneda,
         ':intIdTipoPago' => $this->intIdTipoPago,
         ':intIdTipoVenta' => $this->intIdTipoVenta,
+        ':intDescontarGR' => $this->intDescontarGR,
         ':intEstado' => 1,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdComprobante'] = $this->intIdComprobante;
