@@ -18,6 +18,7 @@
       .pagination a {
           margin: 0 4px;
       }
+      
       hr { 
           display: block;
           margin-top: 0.5em;
