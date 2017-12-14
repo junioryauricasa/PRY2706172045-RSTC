@@ -427,7 +427,7 @@ function ListarKardex(x,y,tipolistado) {
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Reporte Kardex */
-function ReporteKardex() {
+function ReporteKardexPDF() {
   var busqueda = document.getElementById("txt-busqueda").value;
   var intIdProducto = document.getElementById("intIdProducto").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
@@ -449,6 +449,32 @@ function ReporteKardex() {
   window.open(url);
 }
 /* FIN - Funcion Ajax - Reporte Kardex */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en excel*/
+function ReporteKardexExcel() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var intIdProducto = document.getElementById("intIdProducto").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intIdSucursal = $("#intIdSucursal").val();
+
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+  var url = '../../datos/inventario/clases_producto/reporte_kardex_producto_excel.php?intIdProducto='+
+  intIdProducto+'&busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+
+  dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
+  window.open(url);
+}
+/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
@@ -806,5 +832,4 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
-
 </script>

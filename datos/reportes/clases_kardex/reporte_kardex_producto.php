@@ -20,7 +20,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
 
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL KardexProducto(:intIdProducto,:intIdTipoMoneda,:intIdSucursal)');
+      $sql_comando = $sql_conectar->prepare('CALL KardexProducto_II(:intIdProducto,:intIdTipoMoneda,:intIdSucursal)');
       $sql_comando -> execute(array(':intIdProducto' => $intIdProducto,':intIdTipoMoneda' => $intIdTipoMoneda,':intIdSucursal' => $intIdSucursal));
       $j = 1;
       if($intIdTipoMoneda == 1)

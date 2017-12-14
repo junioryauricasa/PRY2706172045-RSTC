@@ -206,10 +206,10 @@
             <tbody>
               <tr>
                 <td style="font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
-                    <span style=""><?php echo $nvchPuntoLlegada; ?></span>
+                    <span style=""><?php echo $nvchPuntoPartida; ?></span>
                 </td>
                 <td style="font-family: Arial; text-align: center; width: 11% !important; height: 25px !important">
-                    <span style=""><?php echo $nvchPuntoPartida; ?></span>
+                    <span style=""><?php echo $nvchPuntoLlegada; ?></span>
                 </td>
               </tr>
             </tbody>
