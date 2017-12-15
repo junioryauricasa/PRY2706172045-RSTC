@@ -136,7 +136,7 @@ include('../_include/rstheader.php');
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                         <div id="TablaDetalleUbigeo">
                           <h4 id="lblTituloDetalleKardex" class="box-title text-left"></h4>
-                          <button type="button" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat">Generar Reporte PDF</button>
+                          <button type="button" onclick="ReporteKardexPDF()" class="btn btn-sm btn-danger btn-flat">Generar Reporte PDF</button>
                           <button type="button" onclick="ReporteKardexExcel()" class="btn btn-sm btn-success btn-flat">Generar Reporte Excel</button>
                           <hr>
                           <input type="hidden" id="intIdProducto"/>

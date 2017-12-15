@@ -7,12 +7,24 @@ $dtmFechaInicial = date('Y-m-d H:i:s', strtotime($dtmFechaInicial));
 $dtmFechaFinal = str_replace('/', '-', $_GET['dtmFechaFinal']);
 $dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
 $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
+$intIdSucursal = $_GET['intIdSucursal'];
  ob_start();
+  if($intIdTipoMoneda == 1)
+    $nvchSimbolo = "S/.";
+  else if ($intIdTipoMoneda == 2)
+    $nvchSimbolo = "US$";
   $sql_conexion = new Conexion_BD();
   $sql_conectar = $sql_conexion->Conectar();
-  $sql_comando = $sql_conectar->prepare('CALL BUSCARKardexGeneral_II(:busqueda,:dtmFechaInicial,
-    :dtmFechaFinal)');
-  $sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
+  $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
+  $sql_comando -> execute(array(':busqueda' => $busqueda,':TipoBusqueda' => 'C'));
+
+  if($intIdTipoMoneda == 1)
+    $nvchSimbolo = "S/.";
+  else if($intIdTipoMoneda == 2)
+    $nvchSimbolo = "US$";
+
+  if($dtmFechaInicial = "1969-12-31 19:00:00")
+        $dtmFechaInicial = "-";
   $j = 1;
   ?>
   <!DOCTYPE HTML>
@@ -133,53 +145,36 @@ $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
                 </tr>
               </thead>
               <tbody style="font-size: small;">
-              <?php 
+              <?php
+                $TotalSaldoValorizado = 0.00;
                 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                {
-                  if($fila['CantidadEntradaTotal'] == "" || $fila['CantidadEntradaTotal'] == null) { $fila['CantidadEntradaTotal'] = 0; }
-                  if($fila['CantidadSalidaTotal'] == "" || $fila['CantidadSalidaTotal'] == null) { $fila['CantidadSalidaTotal'] = 0; }
-
-                  $nvchSimbolo = "";
-                  $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaMovimiento']));
-                  $sql_conexion_moneda = new Conexion_BD();
-                  $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
-                  $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDATRIBUTARIAFECHA(:dtmFechaCambio)');
-                  $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
-                  $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
-                  if($intIdTipoMoneda == 1){
-                    $nvchSimbolo = "S/.";
-                    if($fila['intIdTipoMoneda'] != 1) {
-                      $fila["dcmSaldoValorizado"] = number_format($fila["dcmSaldoValorizado"]*$fila_moneda['dcmCambio2'],2,'.','');
-                    }
-                  } 
-                  else if ($intIdTipoMoneda == 2){
-                    $nvchSimbolo = "US$";
-                    if($fila['intIdTipoMoneda'] != 2){
-                      $fila["dcmSaldoValorizado"] = number_format($fila["dcmSaldoValorizado"]/$fila_moneda['dcmCambio2'],2,'.','');
-                    }
-                  }
-
-                  if(!is_numeric($fila['dcmSaldoValorizado'])){
-                    $fila["dcmSaldoValorizado"] = number_format(0.00,2,'.','');
-                  }
-                  
+                { 
+                   $sql_conexion_kgp = new Conexion_BD();
+                    $sql_conectar_kgp = $sql_conexion_kgp->Conectar();
+                    $sql_comando_kgp = $sql_conectar_kgp->prepare('CALL KardexGeneral(:intIdTipoMoneda,:intIdProducto,
+                      :intIdSucursal)');
+                    $sql_comando_kgp -> execute(array(':intIdTipoMoneda' => $intIdTipoMoneda,':intIdProducto' => $fila['intIdProducto'],':intIdSucursal' => $intIdSucursal));
+                    $fila_kgp = $sql_comando_kgp -> fetch(PDO::FETCH_ASSOC);
                   echo 
                   '<tr>
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["dtmFechaMovimiento"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila_kgp["FechaMovimiento"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
                       <td style="font-family: Calibri; text-align: left; padding: 3px; word-wrap: break-word; "><small>'.$fila["nvchDescripcion"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["CantidadEntradaTotal"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["CantidadSalidaTotal"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["intCantidadStock"].'</small></td>
-                      <td style="font-family: Calibri; text-align: right; padding-right: 3px"><small>'.$nvchSimbolo.' '.$fila["dcmSaldoValorizado"].'</small>
+                      <td style="font-family: Calibri;"><small>'.$fila_kgp["Entrada"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila_kgp["Salida"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila_kgp["Stock"].'</small></td>
+                      <td style="font-family: Calibri; text-align: right; padding-right: 3px"><small>'.$nvchSimbolo.' '.$fila_kgp["SaldoValorizado"].'</small>
                       </td> 
                   </tr>';
+                  $TotalSaldoValorizado += $fila_kgp["SaldoValorizado"];
                   $j++;
                 }
               ?>
             </tbody>
           </table>
+          <br>
+          <div style="text-align: right;"><small>Total Saldo Valorizado: <?php echo $nvchSimbolo.' '.number_format($TotalSaldoValorizado,2,'.',''); ?></small></div>
       </div>
   </div>
 </div>

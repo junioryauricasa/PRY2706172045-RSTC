@@ -167,7 +167,8 @@ DELIMITER $$
 		SET
 		nvchDNIRUC = '00000000000',
 		nvchClienteProveedor = 'ANULADO',
-		intEstado = 0
+		intEstado = 0,
+		intDescontarGR = 0
 		WHERE 
 		intIdComprobante = _intIdComprobante;
 		UPDATE tb_detalle_comprobante
