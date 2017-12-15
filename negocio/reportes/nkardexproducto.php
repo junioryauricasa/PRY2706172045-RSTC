@@ -562,7 +562,7 @@ function ReporteKardexExcel() {
   var url = '../../datos/reportes/clases_kardex/reporte_kardex_producto_excel.php?intIdProducto='+
   intIdProducto+'&busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+
   dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
-  window.open(url);
+  window.location.href = url;
 }
 /* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
 //////////////////////////////////////////////////////////////
