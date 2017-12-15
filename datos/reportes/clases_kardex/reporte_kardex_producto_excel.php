@@ -111,12 +111,12 @@ $estiloBorderMedium = array(
 );
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(7);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('B')->setWidth(20);
-$objPHPExcel->setActiveSheetIndex()->getColumnDimension('C')->setWidth(14);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('C')->setWidth(10);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('D')->setWidth(23);
-$objPHPExcel->setActiveSheetIndex()->getColumnDimension('E')->setWidth(8);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('E')->setWidth(6);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('F')->setWidth(16);
-$objPHPExcel->setActiveSheetIndex()->getColumnDimension('G')->setWidth(20);
-$objPHPExcel->setActiveSheetIndex()->getColumnDimension('H')->setWidth(18);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('G')->setWidth(16);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('H')->setWidth(16);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('I')->setWidth(12);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('J')->setWidth(20);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('K')->setWidth(20);
@@ -126,7 +126,7 @@ $objPHPExcel->setActiveSheetIndex()->getColumnDimension('N')->setWidth(20);
 $objPHPExcel->setActiveSheetIndex()
 ->setCellValue('A3', 'ÍTEM')
 ->setCellValue('B3', 'FECHA')
-->setCellValue('C3', 'MOVIMIENTO')
+->setCellValue('C3', 'TIPO MOV.')
 ->setCellValue('D3', 'COMPROBANTE')
 ->setCellValue('E3', 'SERIE')
 ->setCellValue('F3', 'NUMERACIÓN')
@@ -159,7 +159,7 @@ while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
   ->setCellValue('L'.$i, round($fila['PrecioSalida'],2))
   ->setCellValue('M'.$i, round($fila['TotalSalida'],2))
   ->setCellValue('N'.$i, round($fila['SaldoValorizado'],2));
-
+  $objPHPExcel->setActiveSheetIndex(0) ->getStyle('A'.$i.':N'.$i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   // formato moneda
   $objPHPExcel->getActiveSheet()->getStyle('J'.$i)->getNumberFormat()->setFormatCode('_("'.$nvchSimbolo.'"* #,##0.00_);_("'.$nvchSimbolo.'"* \(#,##0.00\);_(@_)');
   $objPHPExcel->getActiveSheet()->getStyle('K'.$i)->getNumberFormat()->setFormatCode('_("'.$nvchSimbolo.'"* #,##0.00_);_("'.$nvchSimbolo.'"* \(#,##0.00\);_(@_)');
@@ -171,13 +171,14 @@ while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
 }
 
 //dando formato a las celdas de resultado en valor moneda
+/*
 $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$i, '=SUM(N4:N'.($i-1).')');$objPHPExcel->getActiveSheet()->getStyle('N'.$i)->getNumberFormat()->setFormatCode('_("'.$nvchSimbolo.'"* #,##0.00_);_("'.$nvchSimbolo.'"* \(#,##0.00\);_(@_)');
-
+cellColor('N'.$i, '085c8c');*/
 // dando color a los resultados de cada columna
-cellColor('N'.$i, '085c8c');
 
 
-$objPHPExcel->setActiveSheetIndex(0)->getStyle('N'.$i)->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); // color al texto
+
+//$objPHPExcel->setActiveSheetIndex(0)->getStyle('N'.$i)->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); // color al texto
 
 
 // Renombrar Hoja
