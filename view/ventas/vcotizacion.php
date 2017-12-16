@@ -401,6 +401,7 @@ require_once '../../datos/conexion/bd_conexion.php';
               <div class="col-md-12">
                 <div class="form-group">
                   <input type="hidden" name="funcion" id="funcionC" value="" form="form-cotizacion">
+                  <input type="hidden" id="intTipoDetalle" name="intTipoDetalle" value="1" form="form-cotizacion">
                   <input type="hidden" id="intIdCotizacion" name="intIdCotizacion" value="" form="form-cotizacion">
                   <input type="hidden" id="intIdClienteC" name="intIdCliente" value="" form="form-cotizacion">
                   <div class="text-center">

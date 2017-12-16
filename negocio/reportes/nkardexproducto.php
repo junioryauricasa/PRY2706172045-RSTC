@@ -288,7 +288,7 @@ var tipolistado = "T";
       $('#intIdTipoPago').attr("disabled", true);
       $("#nvchSerie").attr("readonly",true);
       $("#nvchNumeracion").attr("readonly",true);
-      if(datos.intTipoDetalle == 1)
+      if((datos.intTipoDetalle == 1 && datos.intIdTipoComprobante != 8) || datos.intIdTipoComprobante == 4)
         $("#TipoClienteCol").show();
       else
         $("#TipoClienteCol").hide();
@@ -300,9 +300,9 @@ var tipolistado = "T";
       //CamposTabla(datos.intTipoDetalle,datos.intIdTipoComprobante);
       CamposComprobante(datos.intIdTipoComprobante);
       $("#formComprobante").modal("show");
-      if(datos.intTipoDetalle == 1)
+      if((datos.intTipoDetalle == 1 && datos.intIdTipoComprobante != 8) || datos.intIdTipoComprobante == 4)
         $("#lblTituloComprobante").html("Detalles del Comprobante de Venta");
-      else
+      else 
         $("#lblTituloComprobante").html("Detalles del Comprobante de Compra");
      }
     });
@@ -339,7 +339,7 @@ function CamposComprobante(intIdTipoComprobante){
   else
     $("#btnAgregarVenta").hide();
 
-  if(intIdTipoComprobante == 3 ||intIdTipoComprobante == 7){
+  if(intIdTipoComprobante == 3 || intIdTipoComprobante == 7){
     $("#btnDescontarGR").show();
   } else {
     $("#btnDescontarGR").hide();
@@ -358,14 +358,14 @@ function CamposComprobante(intIdTipoComprobante){
 
 function CamposTabla(intTipoDetalle,intIdTipoComprobante){
   if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2 || intIdTipoComprobante == 3 ||
-    intIdTipoComprobante == 4){
+    intIdTipoComprobante == 4 || intIdTipoComprobante == 8){
       if(intIdTipoComprobante == 3 || intIdTipoComprobante == 7){
         $(".filaPrecio").hide();
         $(".filaDescuento").hide();
         $(".filaPrecioUnitario").hide();
         $(".filaTotal").hide();
         $(".txtTotales").hide();
-      } else if(intIdTipoComprobante == 4){
+      } else if(intIdTipoComprobante == 4 || intIdTipoComprobante == 8){
         $(".filaPrecio").hide();
         $(".filaDescuento").hide();
         $(".filaPrecioUnitario").show();

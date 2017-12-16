@@ -103,6 +103,7 @@ switch($_POST['funcion']){
     break;
   case "A":
     $Descontar = 1;
+    $Comprobante = new Comprobante();
     if($_POST['intIdTipoComprobante'] == 3 || $_POST['intIdTipoComprobante'] == 7){
         $Comprobante->DescontarGR($_POST['intDescontarGR']);
         $Descontar = $_POST['intDescontarGR'];
@@ -114,7 +115,6 @@ switch($_POST['funcion']){
     $Producto = new Producto();
     $Producto->RegresionCantidad($_POST['intIdComprobante']);
     }
-    $Comprobante = new Comprobante();
     $Comprobante->IdComprobante($_POST['intIdComprobante']);
     $Comprobante->IdTipoComprobante($_POST['intIdTipoComprobante']);
     if($_POST['intIdTipoComprobante'] == 4)
