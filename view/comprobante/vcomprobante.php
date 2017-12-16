@@ -352,7 +352,7 @@
                   <div class="text-center">
                     <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                      <input type="button" id="btn-editar-comprobante" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
-                    <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-success" value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                    <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-md btn-success" value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                   </div>
                 </div>
               </div>
@@ -402,7 +402,7 @@
               <div class="col-md-6">
                 <div class="text-right">
                   <div class="form-group">
-                    <input type="button" onclick="NuevoComprobante()" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva <?php echo $lblTituloSingular; ?>"/>
+                    <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-md btn-primary" form="form-comprobante" value="Nueva <?php echo $lblTituloSingular; ?>"/>
                   </div>
                 </div>
               </div>

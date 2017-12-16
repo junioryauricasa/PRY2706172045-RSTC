@@ -382,8 +382,8 @@ function LimpiarCampos(){
 	$("#IGVComprobante").val("S/. 0.00");
 	$("#ComprobanteTotal").val("S/. 0.00"); 
 	$("#nvchObservacion").val("");
-	if($("#intTipoDetalle").val() == 1)
-		MostrarSeleccionComprobante();
+	//if($("#intTipoDetalle").val() == 1)
+		//MostrarSeleccionComprobante();
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
 //////////////////////////////////////////////////////////////
