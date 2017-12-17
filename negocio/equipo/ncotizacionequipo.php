@@ -131,7 +131,8 @@ $(document).on('click', '#btn-crear-cotizacion', function(){
 $(document).on('click', '.btn-reporte-cotizacion', function(){
   var intIdCotizacionEquipo = $(this).attr("id");
   var url = '../../datos/equipo/clases_equipo/reporte_equipo.php?intIdCotizacionEquipo='+intIdCotizacionEquipo;
-  window.open(url, '_blank');
+  //window.open(url);
+  window.location.href = url;
 });
 /* FIN - Funcion Ajax - Reporte Cotizacion */
 //////////////////////////////////////////////////////////////
@@ -244,20 +245,6 @@ $(document).on('click', '.btn-eliminar-cotizacion', function(){
 	 return false;
 });
 /* FIN - Funcion Ajax - Eliminar Cliente */
-//////////////////////////////////////////////////////////////
-
-/* INICIO - Funcion Ajax - Reporte Cotizacion */
-$(document).on('click', '.btn-reporte-cotizacion', function(){
-	var intIdCotizacion = $(this).attr("id");
-	var intIdTipoVenta = $(this).attr("idtv");
-	if(intIdTipoVenta == 1)
-		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_repuesto.php?intIdCotizacion='+intIdCotizacion;
-	else if(intIdTipoVenta == 2)
-		var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_servicio.php?intIdCotizacion='+intIdCotizacion;
-
-	window.open(url, '_blank');
-});
-/* FIN - Funcion Ajax - Reporte Cotizacion */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////

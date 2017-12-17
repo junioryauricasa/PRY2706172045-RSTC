@@ -21,10 +21,12 @@
       if(search != '')
       {
         var intIdTipoMoneda = $("#intIdTipoMoneda").val();
+        var intTipoDetalle = $("#intTipoDetalle").val();
+        var intIdTipoVenta = $("#intIdTipoVenta").val();
         $.ajax({
           type: "POST",
           url: "../../datos/inventario/funcion_producto.php",
-          data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda},
+          data: {search:search,funcion:funcion,intIdTipoMoneda:intIdTipoMoneda,intTipoDetalle:intTipoDetalle,intIdTipoVenta:intIdTipoVenta},
           cache: false,
           success: function(html)
           {

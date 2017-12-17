@@ -50,8 +50,13 @@ DELIMITER $$
 	CREATE PROCEDURE MOSTRARTIPOCOMPROBANTE(
 		IN _inTipoDetalle INT)
 	BEGIN
-		SELECT * FROM tb_tipo_comprobante
-		WHERE intTipoDetalle = _inTipoDetalle;
+		IF(_inTipoDetalle = 1) THEN
+			SELECT * FROM tb_tipo_comprobante
+			WHERE intTipoDetalle = _inTipoDetalle;
+		ELSEIF(_inTipoDetalle = 2) THEN
+			SELECT * FROM tb_tipo_comprobante
+			WHERE intTipoDetalle = _inTipoDetalle AND intIdTipoComprobante != 7;
+		END IF;
     END 
 $$
 DELIMITER ;

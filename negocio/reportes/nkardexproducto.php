@@ -1,4 +1,6 @@
 <script>
+var intTipoDetalle = 0;
+var intIdTipoComprobante = 0;
 function TipoLetra(){
       var intIdTipoVenta = $("#intIdTipoVenta").val();
       var Letra = "";
@@ -208,6 +210,7 @@ function MostrarDetalleComprobante(intIdComprobante,intIdTipoVenta) {
         numi = document.getElementById('ListaDeImplementosVender').rows.length + 1;
         $("#ListaDeImplementosVender input").attr("readonly",true);
       }
+      CamposTabla(intTipoDetalle,intIdTipoComprobante);
       CalcularTotal();
      }
     });
@@ -242,9 +245,9 @@ function ElegirTabla(intIdTipoVenta){
 }
 
 $(document).on('click', '.btn-mostrar-comprobante', function(){
-      var intIdComprobante = $(this).attr("id");
-      var funcion = "M";
-      var tipolistado = "T";
+var intIdComprobante = $(this).attr("id");
+var funcion = "M";
+var tipolistado = "T";
   if(intIdComprobante != 0){
     $.ajax({
      url:"../../datos/comprobante/funcion_comprobante.php",
@@ -254,7 +257,6 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
      success:function(datos)
      {
       $("#intIdComprobante").val(datos.intIdComprobante);
-      $("#intTipoDetalle").val(datos.intTipoDetalle);
       $("#nvchFecha").val(datos.dtmFechaCreacion);
       $("#intIdSucursalC").val(datos.intIdSucursal);
       $("#intIdTipoComprobante").val(datos.intIdTipoComprobante);
@@ -270,6 +272,14 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
       $("#intIdTipoCliente").val(datos.intIdTipoCliente);
       $("#intIdClienteC").val(datos.intIdCliente);
       $("#intIdProveedorC").val(datos.intIdProveedor);
+      $("#intIdUsuarioSolicitado").val(datos.intIdUsuarioSolicitado); // Guías Internas
+      $("#nvchAtencion").val(datos.nvchAtencion); // Guía Interna de Salida
+      $("#nvchDestino").val(datos.nvchDestino); // Guía Interna de Salida
+      $("#nvchPuntoPartida").val(datos.nvchPuntoPartida);
+      $("#nvchPuntoLlegada").val(datos.nvchPuntoLlegada);
+      $("#intIdComprobanteReferencia").val(datos.intIdComprobanteReferencia);
+      $("#intDescontarGR").val(datos.intDescontarGR);
+      $("#dtmFechaTraslado").val(datos.dtmFechaTraslado);
       $("textarea#nvchObservacion").val(datos.nvchObservacion);
 
       $('#intIdSucursalC').attr("disabled", true);
@@ -278,19 +288,21 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
       $('#intIdTipoPago').attr("disabled", true);
       $("#nvchSerie").attr("readonly",true);
       $("#nvchNumeracion").attr("readonly",true);
+      if((datos.intTipoDetalle == 1 && datos.intIdTipoComprobante != 8) || datos.intIdTipoComprobante == 4)
+        $("#TipoClienteCol").show();
+      else
+        $("#TipoClienteCol").hide();
+
       ElegirTabla(datos.intIdTipoVenta);
       MostrarDetalleComprobante(datos.intIdComprobante,datos.intIdTipoVenta);
+      intTipoDetalle = datos.intTipoDetalle;
+      intIdTipoComprobante = datos.intIdTipoComprobante;
+      //CamposTabla(datos.intTipoDetalle,datos.intIdTipoComprobante);
+      CamposComprobante(datos.intIdTipoComprobante);
       $("#formComprobante").modal("show");
-      if(datos.intTipoDetalle == 2 || datos.intIdTipoComprobante >=9){
-        $('.filaPrecio').hide();
-        $('.filaDescuento').hide();
-      } else if(datos.intTipoDetalle == 1 && datos.intIdTipoComprobante <=2){
-        $('.filaPrecio').show();
-        $('.filaDescuento').show();
-      }
-      if(datos.intTipoDetalle == 1)
+      if((datos.intTipoDetalle == 1 && datos.intIdTipoComprobante != 8) || datos.intIdTipoComprobante == 4)
         $("#lblTituloComprobante").html("Detalles del Comprobante de Venta");
-      else
+      else 
         $("#lblTituloComprobante").html("Detalles del Comprobante de Compra");
      }
     });
@@ -299,6 +311,84 @@ $(document).on('click', '.btn-mostrar-comprobante', function(){
   }
   return false;
 });
+
+function CamposComprobante(intIdTipoComprobante){
+  if(intIdTipoComprobante == 10 || intIdTipoComprobante == 9)
+    $("#intIdUsuarioSolicitadoCol").show();
+  else
+    $("#intIdUsuarioSolicitadoCol").hide();
+  if(intIdTipoComprobante == 9){
+    $("#nvchAtencionCol").show();
+    $("#nvchDestinoCol").show();
+    $(".filaPrecio").hide();
+    $(".filaDescuento").hide();
+    $(".txtPrecioUnitario").attr("readonly",false);
+  } else {
+    $("#nvchAtencionCol").hide();
+    $("#nvchDestinoCol").hide();
+    $(".filaPrecio").show();
+    $(".filaDescuento").show();
+    $(".txtPrecioUnitario").attr("readonly",true);
+  }
+  if(intIdTipoComprobante == 1 || intIdTipoComprobante == 2)
+    $("#btnAgregarCotizacion").show();
+  else 
+    $("#btnAgregarCotizacion").hide();
+  if(intIdTipoComprobante == 3 || intIdTipoComprobante == 4)
+    $("#btnAgregarVenta").show();
+  else
+    $("#btnAgregarVenta").hide();
+
+  if(intIdTipoComprobante == 3 || intIdTipoComprobante == 7){
+    $("#btnDescontarGR").show();
+  } else {
+    $("#btnDescontarGR").hide();
+  }
+
+  if(intIdTipoComprobante == 3){
+    $("#dtmFechaTrasladoCol").show();
+    $("#nvchPuntoPartidaCol").show();
+    $("#nvchPuntoLlegadaCol").show();
+  } else {
+    $("#dtmFechaTrasladoCol").hide();
+    $("#nvchPuntoPartidaCol").hide();
+    $("#nvchPuntoLlegadaCol").hide();
+  }
+}
+
+function CamposTabla(intTipoDetalle,intIdTipoComprobante){
+  if((intTipoDetalle == 1 && intIdTipoComprobante == 9) || intTipoDetalle == 2 || intIdTipoComprobante == 3 ||
+    intIdTipoComprobante == 4 || intIdTipoComprobante == 8){
+      if(intIdTipoComprobante == 3 || intIdTipoComprobante == 7){
+        $(".filaPrecio").hide();
+        $(".filaDescuento").hide();
+        $(".filaPrecioUnitario").hide();
+        $(".filaTotal").hide();
+        $(".txtTotales").hide();
+      } else if(intIdTipoComprobante == 4 || intIdTipoComprobante == 8){
+        $(".filaPrecio").hide();
+        $(".filaDescuento").hide();
+        $(".filaPrecioUnitario").show();
+        $(".filaTotal").show();
+        $(".txtTotales").show();
+        $(".txtPrecioUnitario").attr("readonly",true);
+      } else {
+        $(".filaPrecio").hide();
+        $(".filaDescuento").hide();
+        $(".filaPrecioUnitario").show();
+        $(".filaTotal").show();
+        $(".txtTotales").show();
+        $(".txtPrecioUnitario").attr("readonly",false);
+      }
+    } else {
+      $(".filaPrecio").show();
+      $(".filaDescuento").show();
+      $(".filaPrecioUnitario").show();
+      $(".filaTotal").show();
+      $(".txtTotales").show();
+      $(".txtPrecioUnitario").attr("readonly",true);
+    }
+}
 
 //////////////////////////////////////////////////////////////
 /* INICIO - Funcion Ajax - Visualizar Formulario Crear Kardex */
@@ -472,7 +562,7 @@ function ReporteKardexExcel() {
   var url = '../../datos/reportes/clases_kardex/reporte_kardex_producto_excel.php?intIdProducto='+
   intIdProducto+'&busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+
   dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
-  window.open(url);
+  window.location.href = url;
 }
 /* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
 //////////////////////////////////////////////////////////////

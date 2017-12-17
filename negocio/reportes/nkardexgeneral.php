@@ -114,6 +114,7 @@ function TotalKardexValorizado() {
 function ReporteKardex() {
   var busqueda = document.getElementById("txt-busqueda").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intIdSucursal = $("#intIdSucursal").val();
 
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
@@ -126,10 +127,33 @@ function ReporteKardex() {
     var dtmFechaFinal = $("#dtmFechaFinal").val();
   }
   var url = '../../datos/reportes/clases_kardex/reporte_kardex_general.php?busqueda='+busqueda+'&dtmFechaInicial='+
-            dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda;
+            dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
   window.open(url, '_blank');
 }
 /* FIN - Funcion Ajax - Reporte Kardex */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en excel*/
+function ReporteKardexExcel() {
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intIdSucursal = $("#intIdSucursal").val();
+
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+  var url = '../../datos/reportes/clases_kardex/reporte_kardex_general_excel.php?busqueda='+busqueda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&intIdTipoMoneda='+intIdTipoMoneda+'&intIdSucursal='+intIdSucursal;
+  window.location.href = url;
+}
+/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
