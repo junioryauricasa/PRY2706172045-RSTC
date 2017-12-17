@@ -138,7 +138,6 @@
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
 
-
     .centered {text-align:center}
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
 </style>
