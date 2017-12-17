@@ -48,6 +48,10 @@
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
 
   <style>
+    *{
+      /*color: red !important; navegador*/
+      color: green !important; /*acrobad reader*/
+    }
     table tr td {
       color: black;
       padding: 0.05em
@@ -83,6 +87,10 @@
   </style>
   
 </head>
+
+
+
+
 
 <style>
     @page {
@@ -139,10 +147,10 @@
 
  <!--img src="../../imagenes/background-factura.JPG" alt="" width="100%" style=""-->
  
- <div class="row" style="margin-top: -10px">
+ <div class="row" style="margin-top: -10px"> <!-- codificacion de la codificacion -->
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
-    <div class="" style="width: 47% !important; height: 135px; float: left; border: solid 2px transparent; color: transparent;">
+    <div class="" style="width: 47% !important; height: 100px; float: left; border: solid 2px transparent; color: transparent;">
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: -8px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 22px; padding-top: -10px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: 10px; color: transparent; height: 25px"></h1>
@@ -154,7 +162,7 @@
     </div>
   </div>
   
-  <div class="row" style="">
+  <div class="row" style="margin-top: -100px">
       <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;/*color: green*/">
           <p style="width: 85% !important; margin: 0 auto; font-size: 14px">
               <!--span>Fecha de Emisión……..de………………………..de 20……...</span-->
@@ -440,7 +448,10 @@
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
 </style-->
 
+<script type="text/javascript"> try { this.print(); } catch (e) { window.onload = window.print; } </script>
+
 </body>
+
 
 </html>
 <?php
