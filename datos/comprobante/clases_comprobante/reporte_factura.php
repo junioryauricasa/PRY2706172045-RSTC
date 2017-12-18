@@ -291,7 +291,7 @@
                   <?php echo $fila['nvchCodigo']; ?>
                 </span>
               </td>
-              <td style="width: 50% !important; font-size:x-small; padding:0px">
+              <td style="width: 50% !important; font-size:x-small; padding:0px; text-align: center">
                 <span>
                   <?php echo $fila['nvchDescripcion']; ?>
                 </span>

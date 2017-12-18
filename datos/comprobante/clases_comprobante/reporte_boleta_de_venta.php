@@ -292,11 +292,11 @@
                 </span>
               </td>
               <td style="width: 50% !important; font-size:x-small; padding:0px">
-                <span>
+                <span style="text-align: left !important; float: left !important; ">
                   <?php echo $fila['nvchDescripcion']; ?>
                 </span>
               </td>
-              <td style="width: 11% !important; font-size:x-small; padding:0px">
+              <td style="width: 11% !important; font-size:x-small; padding:0px;">
                 <span>
                  <?php echo $fila['intCantidad']; ?>
                 </span>
