@@ -23,7 +23,7 @@ class UbigeoProducto
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       foreach ($this->intIdSucursal as $key => $value) {
-      $sql_comando = $sql_conectar->prepare('CALL insertarUbigeoProducto(:intIdProducto,:intIdSucursal,
+      $sql_comando = $sql_conectar->prepare('CALL ActualizarUbigeoProducto_II(:intIdProducto,:intIdSucursal,
       	:nvchUbicacion,:intCantidadUbigeo)');
       $sql_comando->execute(array(
         ':intIdProducto' => $this->intIdProducto, 
@@ -50,6 +50,31 @@ class UbigeoProducto
         ':intIdSucursal' => $this->intIdSucursal,
         ':nvchUbicacion' => $this->nvchUbicacion,
         ':intCantidadUbigeo' => $this->intCantidadUbigeo));
+      echo "ok";
+    }
+    catch(PDPExceptions $e){
+      echo $e->getMessage();
+    }
+  }
+
+  public function InsertarUbigeoProducto_III()
+  {
+    try{
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL MOSTRARSUCURSAL()');
+      $sql_comando->execute();
+      $sql_conexion_ubigeo = new Conexion_BD();
+      $sql_conectar_ubigeo = $sql_conexion_ubigeo->Conectar();
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
+        $sql_comando_ubigeo = $sql_conectar_ubigeo->prepare('CALL insertarUbigeoProducto(:intIdProducto,:intIdSucursal,
+        :nvchUbicacion,:intCantidadUbigeo)');
+        $sql_comando_ubigeo->execute(array(
+        ':intIdProducto' => $this->intIdProducto, 
+        ':intIdSucursal' => $fila['intIdSucursal'],
+        ':nvchUbicacion' => '',
+        ':intCantidadUbigeo' => 0));
+      }
       echo "ok";
     }
     catch(PDPExceptions $e){

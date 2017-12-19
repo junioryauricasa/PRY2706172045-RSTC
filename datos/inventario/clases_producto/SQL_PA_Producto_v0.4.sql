@@ -446,7 +446,8 @@ DELIMITER $$
 	BEGIN
 		UPDATE tb_ubigeo_producto
 		SET
-		intCantidadInicial = intCantidadUbigeo
+		intCantidadInicial = intCantidadUbigeo,
+		intEstado = 1
 		WHERE 
 		intIdProducto = _intIdProducto AND
 		intIdSucursal = _intIdSucursal;

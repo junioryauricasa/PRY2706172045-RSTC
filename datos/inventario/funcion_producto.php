@@ -49,14 +49,17 @@ switch($_POST['funcion']){
     $CodigoProducto->InsertarCodigoProducto();
     $UbigeoProducto = new UbigeoProducto();
     $UbigeoProducto->IdProducto($_SESSION['intIdProducto']);
-    $UbigeoProducto->IdSucursal($_POST['intIdSucursal']);
-    $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
-    $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
-    $UbigeoProducto->InsertarUbigeoProducto();
+    $UbigeoProducto->InsertarUbigeoProducto_III();
+    if(!empty($_POST['intIdSucursal'])){
+        $UbigeoProducto->IdSucursal($_POST['intIdSucursal']);
+        $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
+        $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
+        $UbigeoProducto->InsertarUbigeoProducto();
+    }
     $Producto->AumentarStockTotal_II($_SESSION['intIdProducto']);
-    $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],1);
-    $Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],2);
-    $Producto->CantidadInicial($_SESSION['intIdProducto']);
+    //$Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],1);
+    //$Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],2);
+    //$Producto->CantidadInicial($_SESSION['intIdProducto']);
     //$KardexProducto = new KardexProducto();
     //$KardexProducto->IdProducto($_SESSION['intIdProducto']);
     //$KardexProducto->InsertarKardexProductoInicial();
