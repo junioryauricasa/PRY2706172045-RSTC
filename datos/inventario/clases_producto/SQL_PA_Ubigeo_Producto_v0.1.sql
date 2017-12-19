@@ -22,7 +22,7 @@ DELIMITER $$
 	CREATE PROCEDURE ACTUALIZARUBIGEOPRODUCTO(
 	IN _intIdUbigeoProducto INT,
 	IN _intIdProducto INT,
-    IN _intIdSucursal VARCHAR(100),
+    IN _intIdSucursal INT,
     IN _nvchUbicacion VARCHAR(100),
     IN _intCantidadUbigeo INT
     )
@@ -35,6 +35,28 @@ DELIMITER $$
 		intCantidadUbigeo = _intCantidadUbigeo
 		WHERE 
 		intIdUbigeoProducto = _intIdUbigeoProducto;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ACTUALIZARUBIGEOPRODUCTO_II;
+DELIMITER $$
+	CREATE PROCEDURE ACTUALIZARUBIGEOPRODUCTO_II(
+	IN _intIdProducto INT,
+    IN _intIdSucursal INT,
+    IN _nvchUbicacion VARCHAR(100),
+    IN _intCantidadUbigeo INT
+    )
+	BEGIN
+		UPDATE tb_ubigeo_producto
+		SET
+		nvchUbicacion = _nvchUbicacion,
+		intCantidadUbigeo = _intCantidadUbigeo,
+		intCantidadInicial = _intCantidadUbigeo,
+		intEstado = 1
+		WHERE
+		intIdProducto = _intIdProducto AND
+		intIdSucursal = _intIdSucursal;
     END 
 $$
 DELIMITER ;

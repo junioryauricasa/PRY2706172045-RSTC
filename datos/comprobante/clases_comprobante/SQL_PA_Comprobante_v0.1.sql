@@ -492,7 +492,7 @@ DELIMITER $$
 		C.nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		C.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		U.nvchUsername LIKE CONCAT(_elemento,'%')) AND
-		(CR.intIdTipoComprobante = 1 OR CR.intIdComprobante = 2) AND
+		(CR.intIdTipoComprobante = 1 OR CR.intIdTipoComprobante = 2) AND
 		(CR.dtmFechaCreacion BETWEEN _dtmFechaInicial AND _dtmFechaFinal)
 		GROUP BY CR.intIdComprobante
 		LIMIT _x,_y;	

@@ -72,10 +72,12 @@ function ValidacionProducto(){
 	  } else if(num_filas_codigo == 0){
 	  	MensajeNormal("Ingrese por lo menos un Código de Producto",2);
 	  	return false;
-	  } else if(num_filas_ubicacion == 0){
+	  } 
+	  /*
+	  else if(num_filas_ubicacion == 0){
 	  	MensajeNormal("Ingresar por lo menos una Ubicación del Producto",2);
 	  	return false;
-	  }
+	  }*/
 	  return true;
 }
 
@@ -98,7 +100,7 @@ $(document).on('click', '#btn-crear-producto', function(){
 	   success:function(datos)
 	   {
 	   	datos = datos.replace(/\s/g,''); //quitando espacio
-	   	if (datos == "okokokokokokok") {
+	   	if (datos == "okokokokok" || datos == "okokokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		$("#tipo-busqueda").val("C");
