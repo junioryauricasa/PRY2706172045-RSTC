@@ -44,8 +44,9 @@
 
   <style>
     table tr td {
-      /*color: black;*/
-      padding: 0.05em
+      /*color: black;
+      padding: 0.05em*/
+      padding: 0px !important
     }
     table#tabladetalle {
       /*border-collapse: collapse;
@@ -70,14 +71,15 @@
       border-right: 0px solid black;*/
     }
 
-    /* font para eslogan */
-    #letterlogan, * {
+    /* font para eslogan #letterlogan, */
+    * {
       /*
       font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace; 
       font-size: 12px !important;
       */
-      font-family: Consolas, monaco, monospace;
-  font-size: 9px;
+      font-family: Consolas, monaco, monospace !important;
+      font-size: 10px !important;
+      padding: 0px !important
       
     }
   </style>
@@ -130,7 +132,6 @@
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
 
-
     .centered {text-align:center}
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
 </style>
@@ -138,21 +139,6 @@
 <body>
 
  <!--img src="../../imagenes/background-factura.JPG" alt="" width="100%" style=""-->
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
  <div class="row" style="margin-top: -10px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
@@ -389,7 +375,7 @@
                 <?php 
                     $numero = "1900";
                     //echo convertir_a_letras($numero);
-                    echo 'Ciento cicncuenta y nueve mil trescientos cuarenta y cinco soles';
+                    echo 'Ciento cincuenta y nueve mil trescientos cuarenta y cinco soles';
                 ?>      
             </span>
         </td>
