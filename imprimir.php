@@ -22,6 +22,6 @@ $Data .= "We Love PHP Indonesia\n";
 $Data .= "--------------------------\n";
 fwrite($handle, $Data);
 fclose($handle);
-copy($file, "localhost//EPSON LX-300+II ESC/P");  # Lakukan cetak
+copy($file, "C:/xampp/htdocs/proyectos/PRY2706172045-RSTC/imprimir.php/EPSON LX-300+II ESC/P");  # Lakukan cetak
 unlink($file);
 ?>
