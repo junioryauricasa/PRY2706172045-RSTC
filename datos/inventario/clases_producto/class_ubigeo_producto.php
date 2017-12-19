@@ -82,6 +82,167 @@ class UbigeoProducto
     }
   }
 
+   public function ListarUbigeoProductos($busqueda,$x,$y,$tipolistado)
+  {
+    try{
+      $residuo = 0;
+      $cantidad = 0;
+      $numpaginas = 0;
+      $i = 0;
+      $j = $x + 1;
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      //Busqueda de producto por el comando LIMIT
+      if($tipolistado == "N"){
+        $busqueda = "";
+        $sql_comando = $sql_conectar->prepare('CALL buscarubigeoproducto_ii(:busqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
+        $cantidad = $sql_comando -> rowCount();
+        $numpaginas = ceil($cantidad / $y);
+        $x = ($numpaginas - 1) * $y;
+        $i = 1;
+        $j = $x + 1;
+      } else if ($tipolistado == "D"){
+        $sql_comando = $sql_conectar->prepare('CALL buscarubigeoproducto_ii(:busqueda)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => $TipoBusqueda));
+        $cantidad = $sql_comando -> rowCount();
+        $residuo = $cantidad % $y;
+        if($residuo == 0)
+        {$x = $x - $y;}
+      }
+      //Busqueda de producto por el comando LIMIT
+      $sql_comando = $sql_conectar->prepare('CALL buscarubigeoproducto(:busqueda,:x,:y)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
+      $numpaginas = ceil($cantidad / $y);
+      while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+      {
+        if($fila["nvchCodigo"]!=""){
+          if($i == ($cantidad - $x) && $tipolistado == "N"){
+            echo '<tr bgcolor="#BEE1EB">';
+          } else if($fila["intIdUbigeoProducto"] == $_SESSION['intIdUbigeoProducto'] && $tipolistado == "E"){
+            echo '<tr bgcolor="#B3E4C0">';
+          }else {
+            echo '<tr>';
+          }
+          echo 
+          '<td class="heading" style="" data-th="ID">'.$j.'</td>
+          <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
+          <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
+          <td align="right"data-th="Tipo de Moneda Venta">'.$fila["NombreSucursal"].'</td>
+          <td align="right"data-th="Tipo de Moneda Venta">'.$fila["nvchUbicacion"].'</td>
+          <td align="right"data-th="Precio de Venta 1" style="text-align:center">'.$fila["intCantidad"].'</td>
+          <td align="right" data-th="Imágen" style="text-align:center">
+            <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
+              <i class="fa fa-search"></i> Ver 
+            </button>
+          </td>
+          <td align="right" data-th="Opciones" style="text-align:center"> 
+            <button type="button" id="'.$fila["intIdUbigeoProducto"].'" class="btn btn-xs btn-warning btn-mostrar-ubigeo-producto" data-toggle="tooltip" title="Editar">
+              <i class="fa fa-edit"></i>
+            </button>
+          </td>  
+          </tr>';
+          $i++; $j++;
+        }
+      }
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }      
+  }
+
+  public function PaginarUbigeoProductos($busqueda,$x,$y,$tipolistado)
+  {
+    try{
+      if($tipolistado == "N")
+      { $busqueda = ""; }
+      $sql_conexion = new Conexion_BD();
+      $sql_conectar = $sql_conexion->Conectar();
+      $sql_comando = $sql_conectar->prepare('CALL buscarubigeoproducto_ii(:busqueda)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda));
+      $cantidad = $sql_comando -> rowCount();
+      $numpaginas = ceil($cantidad / $y);
+      if($tipolistado == "N" || $tipolistado == "D")
+      { $x = $numpaginas - 1; }
+      else if($tipolistado == "E")
+      { $x = $x / $y; }
+      $output = "";
+      for($i = 0; $i < $numpaginas; $i++){
+        if($i==0)
+        {
+          if($x==0)
+          {
+            $output .= 
+            '<li class="page-item disabled">
+                <a class="page-link" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+          } else {
+            $output .= 
+            '<li class="page-item">
+                <a idp="'.($x-1).'" class="page-link btn-pagina-ubigeo" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+          }
+        }
+
+          if($x==$i){
+            $output.=  '<li class="page-item active"><a idp="'.$i.'" class="page-link btn-pagina-ubigeo marca-ubigeo">'.($i+1).'</a></li>';
+          }
+          else
+          {
+            $output.=  '<li class="page-item"><a idp="'.$i.'" class="page-link btn-pagina-ubigeo">'.($i+1).'</a></li>';
+          }
+
+        if($i==($numpaginas-1))
+        {
+          if($x==($numpaginas-1))
+          {
+            $output .= 
+            '<li class="page-item disabled">
+                <a class="page-link" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+          } else {
+            $output .= 
+            '<li class="page-item">
+                <a idp="'.($x+1).'" class="page-link btn-pagina-ubigeo" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+          }
+        }
+      }
+      if($output == ""){
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina-ubigeo" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+            </li>';
+        $output .= 
+            '<li class="page-item">
+                <a class="page-link btn-pagina-ubigeo" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+            </li>';
+      }
+      echo $output;
+    }
+    catch(PDPExceptio $e){
+      echo $e->getMessage();
+    }  
+  }
+
   public function MostrarUbigeoProducto($tipolistado)
   {
     try{

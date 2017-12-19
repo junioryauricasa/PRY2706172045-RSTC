@@ -129,6 +129,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </a>
               <ul class="dropdown-menu">
                 <li><a href="../inventario/vproducto">Registro de Producto</a></li>
+                <li><a href="../inventario/vubigeoproducto">Ubigeo del Producto</a></li>
                 <!--<li><a href="../inventario/ventrada">Administrar Entrada</a></li>
                 <li><a href="../inventario/vsalida">Administrar Salida</a></li>-->
               </ul>

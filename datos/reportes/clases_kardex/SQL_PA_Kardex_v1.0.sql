@@ -38,7 +38,7 @@ DELIMITER $$
 		intIdTipoMonedaCompra AS TipoMoneda,
 		0 AS Iden
 		FROM tb_producto P
-		WHERE intIdProducto = _intIdProducto
+		WHERE P.intIdProducto = _intIdProducto AND P.intCantidadInicial != 0
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -135,7 +135,7 @@ DELIMITER $$
 		0 AS Iden
 		FROM tb_producto P
 		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
-		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal
+		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal AND UP.intEstado = 1
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -250,7 +250,7 @@ DELIMITER $$
 		intIdTipoMonedaCompra AS TipoMoneda,
 		0 AS Iden
 		FROM tb_producto P
-		WHERE intIdProducto = _intIdProducto
+		WHERE P.intIdProducto = _intIdProducto AND P.intCantidadInicial != 0
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -348,7 +348,7 @@ DELIMITER $$
 		0 AS Iden
 		FROM tb_producto P
 		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
-		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal
+		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal AND UP.intEstado = 1
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -473,7 +473,7 @@ DELIMITER $$
 		'0' AS Iden,
 		P.intIdProducto
 		FROM tb_producto P
-		WHERE P.intIdProducto = _intIdProducto
+		WHERE P.intIdProducto = _intIdProducto AND P.intCantidadInicial != 0
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -574,7 +574,7 @@ DELIMITER $$
 		P.intIdProducto
 		FROM tb_producto P
 		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
-		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal
+		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal AND UP.intEstado = 1
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -695,7 +695,7 @@ DELIMITER $$
 		'0' AS Iden,
 		P.intIdProducto
 		FROM tb_producto P
-		WHERE P.intIdProducto = _intIdProducto
+		WHERE P.intIdProducto = _intIdProducto AND P.intCantidadInicial != 0
 		UNION
 		SELECT * FROM (
 		SELECT
@@ -796,7 +796,7 @@ DELIMITER $$
 		P.intIdProducto
 		FROM tb_producto P
 		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
-		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal
+		WHERE P.intIdProducto = _intIdProducto AND UP.intIdSucursal = _intIdSucursal AND UP.intEstado = 1
 		UNION
 		SELECT * FROM (
 		SELECT

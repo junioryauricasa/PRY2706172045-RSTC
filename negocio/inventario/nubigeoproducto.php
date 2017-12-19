@@ -222,4 +222,133 @@ function LimpiarDetalleUbigeo() {
 }
 /* FIN - Ver Detalle del Ubigeo del Producto Solicitado */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Buscar Producto */
+$(document).on('change', '#num-lista-ubigeo', function(){
+  	  var y = document.getElementById("num-lista-ubigeo").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  ListarUbigeo(x,y,tipolistado);
+});
+
+$(document).on('change', '#tipo-busqueda-ubigeo', function(){
+  	  var y = document.getElementById("num-lista-ubigeo").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  ListarUbigeo(x,y,tipolistado);
+});
+
+$(document).on('click', '.btn-pagina-ubigeo', function(){
+  	  var y = document.getElementById("num-lista-ubigeo").value;
+  	  var x = $(this).attr("idp") * y;
+  	  var tipolistado = "T";
+  	  ListarUbigeo(x,y,tipolistado);
+});
+
+$(document).on('keyup', '#txt-busqueda-ubigeo', function(){
+  	  var y = document.getElementById("num-lista-ubigeo").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  ListarUbigeo(x,y,tipolistado);
+});
+/* FIN - Funcion Ajax - Buscar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Listar Producto */
+function ListarUbigeo(x,y,tipolistado) {
+  var busqueda = document.getElementById("txt-busqueda-ubigeo").value;
+  var funcion = "LUP";
+  $.ajax({
+      url:'../../datos/inventario/funcion_producto.php',
+      method:"POST",
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      success:function(datos) {
+          $("#ListaDeUbigeos").html(datos);
+          PaginarUbigeo((x/y),y,tipolistado);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Listar Producto */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Paginar Producto */
+function PaginarUbigeo(x,y,tipolistado) {
+  var busqueda = document.getElementById("txt-busqueda-ubigeo").value;
+  var funcion = "PUP";
+  $.ajax({
+      url:'../../datos/inventario/funcion_producto.php',
+      method:"POST",
+      data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado},
+      success:function(datos) {
+          $("#PaginacionDeUbigeos").html(datos);
+      }
+  });
+}
+/* FIN - Funcion Ajax - Paginar Producto */
+//////////////////////////////////////////////////////////////
+
+$(document).on('click', '.btn-mostrar-ubigeo-producto', function(){
+	var intIdUbigeoProducto = $(this).attr("id");
+	var funcion = "SUP";
+	  $.ajax({
+	   url:"../../datos/inventario/funcion_producto.php",
+	   method:"POST",
+	   data:{intIdUbigeoProducto:intIdUbigeoProducto,funcion:funcion},
+	   dataType:"json",
+	   success:function(datos)
+	   {
+	   	$("#intIdUbigeoProductoM").val(datos.intIdUbigeoProducto);
+	   	$("#intIdProductoM").val(datos.intIdProducto);
+	   	$("#intIdSucursalM").val(datos.intIdSucursal);
+	   	$("#nvchUbicacionM").val(datos.nvchUbicacion);
+	   	$("#intCantidadUbigeoM").val(datos.intCantidadUbigeo);
+	   	$('#formUbigeoProducto').modal('show');
+	   }
+	  });
+	 return false;
+});
+
+$(document).on('click', '#btn-editar-ubigeo-producto', function(){
+	if(EsVacio("nvchUbicacion") == false){
+		return false;
+	}
+	if(EsNumeroEntero("intCantidadUbigeo") == false){
+		return false;
+	}
+	var intIdUbigeoProducto = document.getElementById("intIdUbigeoProductoM").value;
+	var intIdProducto = document.getElementById("intIdProductoM").value;
+	var intIdSucursal = document.getElementById("intIdSucursalM").value;
+	var nvchUbicacion = document.getElementById("nvchUbicacionM").value;
+	var intCantidadUbigeo = document.getElementById("intCantidadUbigeoM").value;
+	var tipolistado = "A";
+	var accion = "I";
+	var funcion = "AUP";
+	var y = document.getElementById("num-lista-ubigeo").value;
+  	var x = $(".marca-ubigeo").attr("id") * y;
+	  $.ajax({
+	   url:"../../datos/inventario/funcion_producto.php",
+	   method:"POST",
+	   data:{intIdUbigeoProducto:intIdUbigeoProducto,
+	   		intIdProducto:intIdProducto,
+	   		intIdSucursal:intIdSucursal,
+	   		nvchUbicacion:nvchUbicacion,
+	   		intCantidadUbigeo:intCantidadUbigeo,
+	   		funcion:funcion},
+	   success:function(datos)
+	   {
+	   	datos = datos.replace(/\s/g,''); 
+	   	if(datos == "okok"){
+	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
+	   		ListarUbigeo(x,y,'E');
+	   		PaginarUbigeo(x,y,'E');
+	   	} else {
+	   		alert(datos);
+	   	}
+	   }
+	  });
+	 return false;
+});
 </script>

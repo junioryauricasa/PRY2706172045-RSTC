@@ -115,3 +115,54 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARUBIGEOPRODUCTO;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARUBIGEOPRODUCTO(
+    	IN _elemento VARCHAR(500),
+		IN _x INT,
+		IN _y INT
+    )
+	BEGIN
+		SELECT P.*,UP.intCantidadUbigeo,UP.intIdUbigeoProducto,UP.nvchUbicacion,S.nvchNombre AS NombreSucursal,CP.nvchCodigo FROM tb_ubigeo_producto UP
+		LEFT JOIN tb_producto P ON UP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_sucursal S ON UP.intIdSucursal = S.intIdSucursal
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		GROUP BY P.intIdProducto
+		ORDER BY P.intIdProducto
+		LIMIT _x,_y;
+    	END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARUBIGEOPRODUCTO_II;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARUBIGEOPRODUCTO_II(
+    	IN _elemento VARCHAR(500)
+    )
+	BEGIN
+		SELECT P.*,UP.intCantidadUbigeo,UP.intIdUbigeoProducto,UP.nvchUbicacion,S.nvchNombre AS NombreSucursal,CP.nvchCodigo FROM tb_ubigeo_producto UP
+		LEFT JOIN tb_producto P ON UP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_sucursal S ON UP.intIdSucursal = S.intIdSucursal
+		WHERE
+		P.intIdProducto IN (
+		SELECT P.intIdProducto
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		WHERE 
+		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
+		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
+		GROUP BY P.intIdProducto
+		ORDER BY P.intIdProducto;
+    	END 
+$$
+DELIMITER ;

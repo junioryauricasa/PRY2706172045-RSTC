@@ -55,6 +55,7 @@ switch($_POST['funcion']){
         $UbigeoProducto->Ubicacion($_POST['nvchUbicacion']);
         $UbigeoProducto->CantidadUbigeo($_POST['intCantidadUbigeo']);
         $UbigeoProducto->InsertarUbigeoProducto();
+        $Producto->CantidadInicial($_SESSION['intIdProducto']);
     }
     $Producto->AumentarStockTotal_II($_SESSION['intIdProducto']);
     //$Producto->CantidadInicialUbigeo($_SESSION['intIdProducto'],1);
@@ -213,6 +214,14 @@ switch($_POST['funcion']){
   case "ES_P_ST":
     $Producto = new Producto();
     $Producto->ES_StockTotal($_POST['intIdProducto'],$_POST['intCantidad'],$_POST['TipoES']);
+    break;
+  case "LUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->ListarUbigeoProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
+    break;
+  case "PUP":
+    $UbigeoProducto = new UbigeoProducto();
+    $UbigeoProducto->PaginarUbigeoProductos($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado']);
     break;
 }
 ?>
