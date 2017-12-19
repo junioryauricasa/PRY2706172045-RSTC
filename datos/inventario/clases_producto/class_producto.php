@@ -221,19 +221,20 @@ class Producto
             echo '<tr>';
           }
           echo 
-          '<td class="heading" style="" data-th="ID">'.$j.'</td>
-           <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
-           <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
-           <td align="right"data-th="Tipo de Moneda Venta">'.$fila["nvchSimbolo"].'</td>
-           <td align="right"data-th="Precio de Venta 1" style="text-align:center">'.$fila["dcmPrecioVenta1"].'</td>
-           <td align="right"data-th="Precio de venta 2" style="text-align:center">'.$fila["dcmPrecioVenta2"].'</td>
-           <td align="right"data-th="Precio de Venta 3" style="text-align:center">'.$fila["dcmPrecioVenta3"].'</td>
-           <td align="right" data-th="Cant. Total" style="text-align:center">'.$fila["intCantidad"].'</td>
-           <td align="right"data-th="Ubicación" style="text-align:center">
-           <button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">
+          '
+              <td class="heading" style="" data-th="ID">'.$j.'</td>
+              <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
+              <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
+              <td align="right"data-th="Tipo de Moneda Venta">'.$fila["nvchSimbolo"].'</td>
+              <td align="right"data-th="Precio de Venta 1" style="text-align:center">'.$fila["dcmPrecioVenta1"].'</td>
+              <td align="right"data-th="Precio de venta 2" style="text-align:center">'.$fila["dcmPrecioVenta2"].'</td>
+              <td align="right"data-th="Precio de Venta 3" style="text-align:center">'.$fila["dcmPrecioVenta3"].'</td>
+              <td align="right" data-th="Cant. Total" style="text-align:center">'.$fila["intCantidad"].'</td>
+              <td align="right"data-th="Ubicación" style="text-align:center">
+                <button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">
                   <i class="fa fa-edit"></i> Ver Detalle
-           </button>
-           </td>
+                </button>
+              </td>
               <td align="right" data-th="Imágen" style="text-align:center">
                 <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
                   <i class="fa fa-search"></i> Ver 
@@ -242,7 +243,17 @@ class Producto
               <td align="right" data-th="Opciones" style="text-align:center"> 
                 <button type="button" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-warning btn-mostrar-producto" data-toggle="tooltip" title="Editar">
                   <i class="fa fa-edit"></i>
-              </td>  
+                </button> ';
+                if($fila['ExisteMovimiento'] == NULL){
+                echo '<button type="button" id="'.$fila["intIdProducto"].'" codp="'.$fila["nvchCodigo"].'" class="btn btn-xs btn-danger btn-eliminar-producto" data-toggle="tooltip" title="Eliminar">
+                  <i class="fa fa-trash"></i>
+                </button>';
+              } else {
+                echo '<button type="button" id="'.$fila["intIdProducto"].'" codp="'.$fila["nvchCodigo"].'" class="btn btn-xs btn-success btn-no-eliminar-producto" data-toggle="tooltip" title="Tiene Movimiento">
+                  <i class="fa fa-check-square-o"></i>
+                </button>';
+              }
+              echo '</td>
           </tr>';
           $i++; $j++;
         }
