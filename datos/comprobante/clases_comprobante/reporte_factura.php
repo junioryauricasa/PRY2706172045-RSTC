@@ -142,7 +142,7 @@
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 22px; padding-top: -10px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: 10px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'Arial'; font-size: 11px; padding-top: -14px; text-align: center;">
-            <span>
+            <span style="color: black; font-weight: 100">
               <?php echo $nvchSerie.' - '.$nvchNumeracion; ?>
             </span>
         </h1>
@@ -282,17 +282,17 @@
             ?>
             <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
               <td style="width: 8% !important; font-size:x-small; padding:0px">
-                <span>
+                <span style="color: black; font-weight: 100">
                   <?php echo $i; ?>
                 </span>
               </td>
               <td style="width: 16.67% !important; font-size:x-small; padding:0px">
-                <span>
+                <span style="color: black; font-weight: 100">
                   <?php echo $fila['nvchCodigo']; ?>
                 </span>
               </td>
-              <td style="width: 50% !important; font-size:x-small; padding:0px">
-                <span>
+              <td style="width: 50% !important; font-size:x-small; padding:0px; text-align: center">
+                <span style="text-align: left !important; float: left !important; color: black; font-weight: 100">
                   <?php echo $fila['nvchDescripcion']; ?>
                 </span>
               </td>

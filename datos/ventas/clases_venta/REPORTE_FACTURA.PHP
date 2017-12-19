@@ -447,7 +447,15 @@
     .fixed-bottom {position:fixed;bottom:55px;width:100%;}
 </style-->
 
-<script type="text/javascript"> try { this.print(); } catch (e) { window.onload = window.print; } </script>
+<script type="text/javascript"> 
+    try { 
+      this.print(); 
+    } catch (e) { 
+      window.onload = window.print; 
+    } 
+
+    $('.print default').click();
+</script>
 
 </body>
 
