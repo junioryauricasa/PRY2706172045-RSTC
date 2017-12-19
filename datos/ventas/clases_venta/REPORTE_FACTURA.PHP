@@ -34,7 +34,6 @@
 
   //variable de impresion
   $descripcion = 'Lorem ipsum dolor sit amet, consectetur Aemo suaznabarso'; //56 carateres por linea de item
-
   include('class_numero_a_texto.php'); //incluir funcion
 ?>
 

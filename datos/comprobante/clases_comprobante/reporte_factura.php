@@ -44,11 +44,11 @@
 
   <style>
     table tr td {
-      color: black;
+      /*color: black;*/
       padding: 0.05em
     }
     table#tabladetalle {
-      border-collapse: collapse;
+      /*border-collapse: collapse;
     }
     table#tablageneral {
       border: 0px solid black;
@@ -67,13 +67,18 @@
     tr.ultimodetalle>td{
       border-bottom: 0px solid black; 
       border-left: 0px solid black;
-      border-right: 0px solid black;
+      border-right: 0px solid black;*/
     }
 
     /* font para eslogan */
-    #letterlogan{
-      font-family: brush-script-std, sans-serif;
-      font-size: 13px !important;
+    #letterlogan, * {
+      /*
+      font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace; 
+      font-size: 12px !important;
+      */
+      font-family: Consolas, monaco, monospace;
+  font-size: 9px;
+      
     }
   </style>
   
@@ -133,7 +138,21 @@
 <body>
 
  <!--img src="../../imagenes/background-factura.JPG" alt="" width="100%" style=""-->
- 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
  <div class="row" style="margin-top: -10px">
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
