@@ -381,22 +381,27 @@
     <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px;*/ border-collapse: collapse;">
       <!-- INICIO - row VALOR VENTA -->
       <tr>
-        <td colspan="" style="border: solid 1px; /*width: 72.4%*/">
+        <td colspan="" style="border: solid 0px; width: 77% !important">
             <span style="margin-left: 5px">
                 <?php 
                     $numero = "1900";
                     //echo convertir_a_letras($numero);
-                    echo 'SON: Ciento cincuenta y nueve mil trescientos cuarenta y cinco soles';
+                    //echo 'SON: Ciento cincuenta y nueve mil trescientos cuarenta y cinco soles';
+                    //$letras = NumberToLetter::numToLetter(12345.67, 'colones', 'centimos');
+                    $english_format_number = number_format($TotalVenta, 2, '.', '');
+
+                    echo $monto_letras=numletras($english_format_number,4);
+
                 ?>  
             </span>
         </td>
-        <td style="width: 15% !important; font-size:x-small; border: solid 1px;">
-          <span style=" padding: 10px !important">
+        <td style="width: 11.5% !important; font-size:x-small; border: solid 1px;">
+          <span style=" padding-right: 0px !important; text-align: right;">
             VALOR DE VENTA
           </span>
         </td>
-        <td style="width: 10% !important; font-size:x-small; text-align: right; border: solid 1px;">
-          <span style=" padding: 10px !important; text-align: right;">
+        <td style="width: 11.5% !important; font-size:x-small; text-align: right; border: solid 1px;">
+          <span style=" padding-right: 0px !important; text-align: right;">
             <?php echo $ValorVenta; ?>
           </span>
         </td>
@@ -405,14 +410,14 @@
 
       <!-- INICIO - row IGV -->
       <tr>
-        <td colspan="" style="border: solid 1px; /*width: 72.4%*/"></td>
-        <td style="width: 15% !important; font-size:x-small; border: solid 1px;">
-          <span style=" padding-right: 10px !important; text-align: right;">
+        <td colspan="" style="border: solid 0px; width: 77% !important"></td>
+        <td style="width: 11.5% !important; font-size:x-small; border: solid 1px;">
+          <span style=" padding-right: 0px !important; text-align: right;">
             I.G.V.
           </span>
         </td>
-        <td style="width: 10% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
-          <span style=" padding: 10px !important; text-align: right;">
+        <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
+          <span style=" padding-right: 0px !important; text-align: right;">
             <?php echo $IGVVenta; ?>
           </span>
         </td>
@@ -421,15 +426,20 @@
 
       <!-- INICIO - row TOTAL -->
       <tr>
-        <td colspan="" style="border: solid 1px; /*width: 72.4%*/"></td>
-        <td style="width: 15% !important; font-size:x-small; border: solid 1px">
-          <span style=" padding: 10px !important; text-align: right;">
+        <td colspan="" style="border: solid 0px; width: 77% !important"></td>
+        <td style="width: 11.5% !important; font-size:x-small; border: solid 1px">
+          <span style=" padding-right: 0px !important; text-align: right;">
               TOTAL
           </span>
         </td>
-        <td style="width: 10% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
-          <span style=" padding: 10px !important; text-align: right;">
-            <?php echo $TotalVenta; ?>
+        <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
+          <span style=" padding-right: 0px !important; text-align: right;">
+            <?php 
+              //echo $TotalVenta;
+              $number = $TotalVenta;
+              //money_format('%.2n', $TotalVenta);
+              echo $english_format_number = number_format($number, 2, '.', ''); // formato con dos decimales
+            ?>
           </span>
         </td>
       </tr>
