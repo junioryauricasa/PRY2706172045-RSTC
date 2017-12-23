@@ -302,8 +302,8 @@
                   <?php echo $fila['nvchCodigo']; ?>
                 </span>
               </td>
-              <td style="width: 50% !important; font-size:x-small; padding:0px; text-align: center; border-right: solid 1px">
-                <span style="text-align: left !important; float: left !important; color: black; font-weight: 100; margin-left: 5px">
+              <td style="width: 50% !important; font-size:x-small; padding:0px; text-align: left !important;  border-right: solid 1px">
+                <span style="text-align: left !important; color: black; font-weight: 100; margin-left: 5px">
                   <?php echo $fila['nvchDescripcion']; ?>
                 </span>
               </td>
@@ -388,9 +388,9 @@
                     //echo convertir_a_letras($numero);
                     //echo 'SON: Ciento cincuenta y nueve mil trescientos cuarenta y cinco soles';
                     //$letras = NumberToLetter::numToLetter(12345.67, 'colones', 'centimos');
-                    $english_format_number = number_format($TotalVenta, 2, '.', '');
+                    $english_format_number = number_format($TotalVenta, 2, '.', ''); // dando formato primero
 
-                    echo 'SON: '.$monto_letras=numletras($english_format_number,4);
+                    echo 'SON: '.$monto_letras=numletras($english_format_number,4); // nivoca a la funcion para impresion de letra en numeros
 
                 ?>  
             </span>
