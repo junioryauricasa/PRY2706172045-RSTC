@@ -8,101 +8,102 @@ $_moneda=1=Colones, 2=Dólares 3=Euros 4=Soles
 Las siguientes funciones (unidad() hasta milmillon() forman parte de ésta función 
 */ 
 { 
-switch($_moneda) 
-{ 
-case 1: 
-$_nommoneda='COLONES'; 
-break; 
-case 2: 
-$_nommoneda='DÓLARES'; 
-break; 
-case 3: 
-$_nommoneda='EUROS'; 
-break; 
-case 4: 
-$_nommoneda='SOLES'; 
-break; 
-} 
+  switch($_moneda) 
+  { 
+    case 1: 
+    $_nommoneda='COLONES'; 
+    break; 
+    case 2: 
+    $_nommoneda='DÓLARES'; 
+    break; 
+    case 3: 
+    $_nommoneda='EUROS'; 
+    break; 
+    case 4: 
+    $_nommoneda='SOLES'; 
+    break; 
+  } 
 //*** 
 $tempnum = explode('.',$numero); 
 
 if ($tempnum[0] !== ""){ 
-$numf = milmillon($tempnum[0]); 
-if ($numf == "UNO") 
-{ 
-$numf = substr($numf, 0, -1); 
+  $numf = milmillon($tempnum[0]); 
+  if ($numf == "UNO") 
+  { 
+    $numf = substr($numf, 0, -1); 
+  } 
+
+  $TextEnd = $numf.' '; 
+  $TextEnd .= $_nommoneda.' CON '; 
 } 
 
-$TextEnd = $numf.' '; 
-$TextEnd .= $_nommoneda.' CON '; 
-} 
 if ($tempnum[1] == "" || $tempnum[1] >= 100) 
 { 
-$tempnum[1] = "00" ; 
+  $tempnum[1] = "00" ; 
 } 
-$TextEnd .= $tempnum[1] ; 
-$TextEnd .= "/100"; 
-return $TextEnd; 
+  $TextEnd .= $tempnum[1] ; 
+  $TextEnd .= "/100"; 
+  return $TextEnd; 
 } 
 ?> 
 
 <?php 
 
 function unidad($numuero){ 
-switch ($numuero) 
-{ 
-case 9: 
-{ 
-$numu = "NUEVE"; 
-break; 
-} 
-case 8: 
-{ 
-$numu = "OCHO"; 
-break; 
-} 
-case 7: 
-{ 
-$numu = "SIETE"; 
-break; 
-} 
-case 6: 
-{ 
-$numu = "SEIS"; 
-break; 
-} 
-case 5: 
-{ 
-$numu = "CINCO"; 
-break; 
-} 
-case 4: 
-{ 
-$numu = "CUATRO"; 
-break; 
-} 
-case 3: 
-{ 
-$numu = "TRES"; 
-break; 
-} 
-case 2: 
-{ 
-$numu = "DOS"; 
-break; 
-} 
-case 1: 
-{ 
-$numu = "UNO"; 
-break; 
-} 
-case 0: 
-{ 
-$numu = ""; 
-break; 
-} 
-} 
-return $numu; 
+  switch ($numuero) 
+  { 
+  case 9: 
+  { 
+    $numu = "NUEVE"; 
+    break; 
+  } 
+  case 8: 
+  { 
+    $numu = "OCHO"; 
+    break; 
+  } 
+  case 7: 
+  { 
+    $numu = "SIETE"; 
+    break; 
+  } 
+  case 6: 
+  { 
+    $numu = "SEIS"; 
+    break; 
+  } 
+  case 5: 
+  { 
+    $numu = "CINCO"; 
+    break; 
+  } 
+  case 4: 
+  { 
+    $numu = "CUATRO"; 
+    break; 
+  } 
+  case 3: 
+  { 
+    $numu = "TRES"; 
+    break; 
+  } 
+  case 2: 
+  { 
+    $numu = "DOS"; 
+    break; 
+  } 
+  case 1: 
+  { 
+    $numu = "UNO"; 
+    break; 
+  } 
+  case 0: 
+  { 
+    $numu = ""; 
+    break; 
+  } 
+  } 
+  return $numu; 
 } 
 
 function decena($numdero){ 

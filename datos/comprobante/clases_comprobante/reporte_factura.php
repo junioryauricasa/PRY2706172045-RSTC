@@ -390,7 +390,7 @@
                     //$letras = NumberToLetter::numToLetter(12345.67, 'colones', 'centimos');
                     $english_format_number = number_format($TotalVenta, 2, '.', '');
 
-                    echo $monto_letras=numletras($english_format_number,4);
+                    echo 'SON: '.$monto_letras=numletras($english_format_number,4);
 
                 ?>  
             </span>
