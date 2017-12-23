@@ -119,31 +119,30 @@ $intIdSucursal = $_GET['intIdSucursal'];
   
   <br>
   <div class="cuerpo">
-      <span style="font-weight: bold; font-size: 16px; text-transform: uppercase;">reporte ubigeo de productos</span>
+      <span style="font-weight: bold; font-size: 16px !important; text-transform: uppercase;">reporte ubigeo de productos</span>
       <br>
       <div style="text-align: left; font-family: Calibri;">
-          <span style="font-weight: bold; font-size: 11px">
+          <!--span style="font-weight: bold; font-size: 11px">
             Fecha de Inicio: <?php echo $dtmFechaInicial; ?>
           </span>
           <br>
           <span style="font-weight: bold; font-size: 11px">
             Fecha Final: <?php echo $dtmFechaFinal; ?>
-          </span>
+          </span-->
           
-          <br>
           <br>
 
           <table style="text-align: center; width: 100%;" border="1"
            cellpadding="1" cellspacing="0">
               <thead>
                 <tr style="text-transform: uppercase;">
-                  <th style="font-family: Calibri; width: 5%"><small>Ítem</small></th>
-                  <th style="font-family: Calibri; width: 15%"><small>Cód Producto</small></th>
+                  <th style="font-family: Calibri; width: 7%"><small>Ítem</small></th>
+                  <th style="font-family: Calibri; width: 15%"><small>Código</small></th>
                   <th style="font-family: Calibri; "><small>Descripción</small></th>
                   <th style="font-family: Calibri; "><small>Ubic. Huancayo</small></th>
-                  <th style="font-family: Calibri; "><small>CANT.</small></th>
+                  <th style="font-family: Calibri; width: 10%"><small>CANT.</small></th>
                   <th style="font-family: Calibri; "><small>Ubic. San Jeronimo</small></th>
-                  <th style="font-family: Calibri; "><small>CANT.</small></th>
+                  <th style="font-family: Calibri; width: 50px"><small>CANT.</small></th>
                 </tr>
               </thead>
               <tbody style="font-size: small;">
@@ -161,7 +160,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
                   '<tr>
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["nvchDescripcion"].'</small></td>
+                      <td style="font-family: Calibri; text-align: left; padding-left: 5px"><small>'.$fila["nvchDescripcion"].'</small></td>
                       <td style="font-family: Calibri; text-align: left; padding: 3px; word-wrap: break-word; ">
                         <small>
                         '.$fila_kgp["FechaMovimiento"].'
@@ -179,7 +178,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
             </tbody>
           </table>
           <br>
-          <div style="text-align: right;"><small>Total Saldo Valorizado: <?php echo $nvchSimbolo.' '.number_format($TotalSaldoValorizado,2,'.',''); ?></small></div>
+          <div style="text-align: right;"><small></small></div>
       </div>
   </div>
 </div>
