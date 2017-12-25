@@ -97,8 +97,8 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini" id="scrool-slim">
 <script type="text/javascript">MostrarUsuarioPerfilNav(<?php echo $_SESSION['intIdUsuarioSesion']; ?>);</script>
-<div class="wrapper">
 
+<div class="wrapper">
   <header class="main-header">
     <a href="#" class="logo" id="RestecoSFT">
       <span class="logo-mini"><b>R</b>SF</span>
@@ -114,10 +114,34 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         <span class="icon-bar"></span>
       </a>
 
+
+<?php 
+  $nvbr_inicio = 'active';
+  $nvbr_infogeneral = '';
+  // inventario
+  $nvbr_inventario = '';
+  $nvbr_inventario_registroproducto = '';
+  $nvbr_inventario_ubigeoproducto = '';
+  // compras
+  $nvbr_compras = '';
+  $nvbr_compras_registroproveedores = '';
+  $nvbr_compras_registrocompras = '';
+  $nvbr_compras_ordenesporcompra = '';
+  // ventas
+  $nvbr_ventas = '';
+  $nvbr_ventas_registroclientes = '';
+  $nvbr_ventas_registroventas = '';
+  $nvbr_ventas_registrocotizacion = '';
+  // reportes
+  $nvbr_reportes = '';
+  $nvbr_reportes_kardexproducto = '';
+  $nvbr_reportes_kardexgeneral = '';
+?>
+
       <div class="navbar-custom-menu" style="float: left;">
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
-            <li class="" id="ver-en-pc"><a href="../default/">Inicio</a></li>
-            <li class="" id=""><a href="../default/dashboard">Información General</a></li>
+            <li class="<?php echo $nvbr_inicio; ?>" id="ver-en-pc"><a href="../default/">Inicio</a></li>
+            <li class="<?php echo $nvbr_infogeneral; ?>" id=""><a href="../default/dashboard">Información General</a></li>
             <?php 
               if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Almacenero'){
                 echo ""
@@ -813,4 +837,9 @@ table tr .deshabilitado{
   margin-bottom: 0px;
 }
 
+
+/* alineamiento de moneda */
+#dcmTotal1{
+  /*text-align: right;*/
+}
 </style>
