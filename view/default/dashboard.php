@@ -173,7 +173,7 @@
                           <th>Moneda</th>
                           <th>Valor Venta</th>
                           <th>IGV</th>
-                          <th>Venta</th>
+                          <th style="">Venta</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -192,10 +192,10 @@
                                     <td data-th="Tipo">'.$fila["NombreComprobante"].'</td>
                                     <td data-th="Cliente">'.$fila["NombreCliente"].'</td>
                                     <td data-th="Fecha">'.$fila["dtmFechaCreacion"].'</td>
-                                    <td data-th="Moneda">'.$fila["SimboloMoneda"].'</td>
-                                    <td data-th="Valor Venta">'.$fila["ValorComprobante"].'</td>
-                                    <td data-th="IGV">'.$fila["IGVComprobante"].'</td>
-                                    <td data-th="Venta">'.$fila["TotalComprobante"].'</td>
+                                    <td data-th="Moneda" style="text-align: right;">'.$fila["SimboloMoneda"].'</td>
+                                    <td data-th="Valor Venta" style="text-align: right;">'.$fila["ValorComprobante"].'</td>
+                                    <td data-th="IGV" style="text-align: right;">'.$fila["IGVComprobante"].'</td>
+                                    <td data-th="Venta" style="text-align: right;">'.$fila["TotalComprobante"].'</td>
                                 </tr>';
                               }
                             } catch(PDPExceptio $e) {

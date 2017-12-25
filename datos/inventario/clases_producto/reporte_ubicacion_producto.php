@@ -98,8 +98,8 @@ $intIdSucursal = $_GET['intIdSucursal'];
   <body>
  
   <!-- INICIO header pdf -->
-  <header class="" id="header" style="">
-    <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/header-kardex.PNG">
+  <header class="" id="header" style="text-align: center">
+    <img style="width: 90%;" alt="logo resteco azul" src="../../imagenes/header-comprobantes.PNG">
   </header>
   <!-- END header pdf -->
 
@@ -129,7 +129,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
           <span style="font-weight: bold; font-size: 11px">
             Fecha Final: <?php echo $dtmFechaFinal; ?>
           </span-->
-          
+
           <br>
 
           <table style="text-align: center; width: 100%;" border="1"
