@@ -311,11 +311,8 @@ $(document).on('click', '.btn-mostrar-ubigeo-producto', function(){
 	 return false;
 });
 
-$(document).on('click', '#btn-editar-ubigeo-producto', function(){
-	if(EsVacio("nvchUbicacion") == false){
-		return false;
-	}
-	if(EsNumeroEntero("intCantidadUbigeo") == false){
+function ModificarUbigeoProducto(){
+	if(EsVacio("nvchUbicacionM") == false){
 		return false;
 	}
 	var intIdUbigeoProducto = document.getElementById("intIdUbigeoProductoM").value;
@@ -323,7 +320,6 @@ $(document).on('click', '#btn-editar-ubigeo-producto', function(){
 	var intIdSucursal = document.getElementById("intIdSucursalM").value;
 	var nvchUbicacion = document.getElementById("nvchUbicacionM").value;
 	var intCantidadUbigeo = document.getElementById("intCantidadUbigeoM").value;
-	var tipolistado = "A";
 	var accion = "I";
 	var funcion = "AUP";
 	var y = document.getElementById("num-lista-ubigeo").value;
@@ -344,11 +340,11 @@ $(document).on('click', '#btn-editar-ubigeo-producto', function(){
 	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
 	   		ListarUbigeo(x,y,'E');
 	   		PaginarUbigeo(x,y,'E');
+	   		$('#formUbigeoProducto').modal('hide');
 	   	} else {
 	   		alert(datos);
 	   	}
 	   }
 	  });
-	 return false;
-});
+}
 </script>
