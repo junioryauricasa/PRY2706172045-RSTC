@@ -186,13 +186,13 @@ class DetalleCompra
                   <i class="fa fa-search"></i> Ver 
                 </button>
               </td>
-              <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsDecimalTecla(event)" 
+              <td><input type="text" idsprt="'.$fila['intIdProducto'].'" style="text-align: right;"  onkeypress="return EsDecimalTecla(event)" 
                 onkeyup="CalcularPrecioTotal(this)" name="SdcmPrecioUnitario['.$fila['intIdProducto'].']" class="form-control select2"
                 placeholder="Ingrese Precio"/></td>
-              <td><input type="text" idsprt="'.$fila['intIdProducto'].'" onkeypress="return EsNumeroEnteroTecla(event)" 
+              <td><input type="text" idsprt="'.$fila['intIdProducto'].'" style="text-align: right;" onkeypress="return EsNumeroEnteroTecla(event)" 
                 onkeyup="CalcularPrecioTotal(this)" name="SintCantidad['.$fila['intIdProducto'].']"  class="form-control select2" 
                 placeholder="Ingrese Cantidad"></td>
-              <td><input type="text" name="SdcmTotal['.$fila['intIdProducto'].']" value="0.00" class="form-control select2" readonly/></td>
+              <td><input type="text" name="SdcmTotal['.$fila['intIdProducto'].']" style="text-align: right;" value="0.00" class="form-control select2" readonly/></td>
               <td>
               <button type="button" idsprt="'.$fila['intIdProducto'].'" class="btn btn-xs btn-warning" onclick="SeleccionarProducto(this)">
                   <i class="fa fa-edit"></i> Elegir

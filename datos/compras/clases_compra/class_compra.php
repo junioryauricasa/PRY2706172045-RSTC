@@ -218,10 +218,10 @@ class Compra
             <td>'.$fila["nvchRazonSocial"].'</td>
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>
-            <td>'.$fila["SimboloMoneda"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCompra"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCompra"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCompra"].'</td>
+            <td style="text-align: right;">'.$fila["SimboloMoneda"].'</td>
+            <td style="text-align: right;">'.$fila["SimboloMoneda"].' '.$fila["ValorCompra"].'</td>
+            <td style="text-align: right;">'.$fila["SimboloMoneda"].' '.$fila["IGVCompra"].'</td>
+            <td style="text-align: right;">'.$fila["SimboloMoneda"].' '.$fila["TotalCompra"].'</td>
             <td> 
               <button type="submit" id="'.$fila["intIdCompra"].'" class="btn btn-xs btn-warning btn-mostrar-compra">
                 <i class="fa fa-edit"></i> Ver Detalle

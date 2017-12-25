@@ -230,9 +230,9 @@ class OrdenCompra{
             <td>'.$fila["nvchRazonSocial"].'</td>
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorOrdenCompra"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
+            <td style="text-align: right;" >'.$fila["SimboloMoneda"].' '.$fila["ValorOrdenCompra"].'</td>
+            <td style="text-align: right;" >'.$fila["SimboloMoneda"].' '.$fila["IGVOrdenCompra"].'</td>
+            <td style="text-align: right;" >'.$fila["SimboloMoneda"].' '.$fila["TotalOrdenCompra"].'</td>
             <td> 
               <button type="button" id="'.$fila["intIdOrdenCompra"].'" class="btn btn-xs btn-warning btn-mostrar-ordencompra" onclick="verform()">
                 <i class="fa fa-edit"></i></button>

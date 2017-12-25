@@ -95,8 +95,8 @@ class DetalleOrdenCompra
         <td><input type="hidden" name="nvchCodigo[]" value="'.$fila['nvchCodigo'].'"/>'.$fila['nvchCodigo'].'</td>
         <td><input type="hidden" name="nvchDescripcion[]" value="'.$fila['nvchDescripcion'].'"/>'.$fila['nvchDescripcion'].'</td>
         <td><input type="hidden" name="intCantidad[]" value="'.$fila['intCantidad'].'"/>'.$fila['intCantidad'].'</td>
-        <td><input type="hidden" name="dcmPrecio[]" value="'.$fila['dcmPrecio'].'"/>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecio'].'</td>
-        <td><input type="hidden" name="dcmTotal[]" value="'.$fila['dcmTotal'].'"/>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
+        <td><input type="hidden" name="dcmPrecio[]" style="text-align: right;" value="'.$fila['dcmPrecio'].'"/>'.$fila['nvchSimbolo'].' '.$fila['dcmPrecio'].'</td>
+        <td><input type="hidden" name="dcmTotal[]" style="text-align: right;" value="'.$fila['dcmTotal'].'"/>'.$fila['nvchSimbolo'].' '.$fila['dcmTotal'].'</td>
         <td> 
           <button type="button" idooc="'.$fila['intIdOperacionOrdenCompra'].'" class="btn btn-xs btn-warning" onclick="SeleccionarDetalleOrdenCompra(this)">
             <i class="fa fa-edit"></i> Editar
