@@ -135,7 +135,7 @@ $funcionComprobante = 0;
   </div>
   <!-- /.content-wrapper -->
 <!-- Scripts DataTable -->
-
+<?php require_once '../../view/modals/vformUbigeoProducto.php'; ?>
 <!-- ENd Scripts DataTable -->
 <style>
   input{
