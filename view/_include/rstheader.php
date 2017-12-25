@@ -4,6 +4,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 {
     header("Location: ../../");
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -113,30 +114,8 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-
-
-<?php 
-  $nvbr_inicio = 'active';
-  $nvbr_infogeneral = '';
-  // inventario
-  $nvbr_inventario = '';
-  $nvbr_inventario_registroproducto = '';
-  $nvbr_inventario_ubigeoproducto = '';
-  // compras
-  $nvbr_compras = '';
-  $nvbr_compras_registroproveedores = '';
-  $nvbr_compras_registrocompras = '';
-  $nvbr_compras_ordenesporcompra = '';
-  // ventas
-  $nvbr_ventas = '';
-  $nvbr_ventas_registroclientes = '';
-  $nvbr_ventas_registroventas = '';
-  $nvbr_ventas_registrocotizacion = '';
-  // reportes
-  $nvbr_reportes = '';
-  $nvbr_reportes_kardexproducto = '';
-  $nvbr_reportes_kardexgeneral = '';
-?>
+      
+      <?php //include('camposnavbar.php'); // navbar ?>
 
       <div class="navbar-custom-menu" style="float: left;">
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
