@@ -19,11 +19,7 @@
     $nvbr_reportes = '';
     $nvbr_reportes_kardexproducto = '';
     $nvbr_reportes_kardexgeneral = '';
-    // reportes
-    $nvbr_reportes = '';
-    $nvbr_reportes_kardexproducto = '';
-    $nvbr_reportes_kardexgeneral = '';
-    // reportes
+    // administrativo
     $nvbr_administrativo = '';
     $nvbr_administrativo_cambiomonedatributaria = '';
     $nvbr_administrativo_cambiomonedacomercial = '';

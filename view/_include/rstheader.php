@@ -120,19 +120,27 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       <div class="navbar-custom-menu" style="float: left;">
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
             <li class="<?php echo $nvbr_inicio; ?>" id="ver-en-pc"><a href="../default/">Inicio</a></li>
-            <li class="<?php echo $nvbr_infogeneral; ?>" id=""><a href="../default/dashboard">Información General</a></li>
+            <li class="<?php echo $nvbr_infogeneral; ?>" id="">
+              <a href="../default/dashboard">
+                Información General
+              </a>
+            </li>
             <?php 
               if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Almacenero'){
                 echo ""
             ?>
-            <li class="dropdown" id="ver-en-pc">
+            <li class="dropdown <?php echo $nvbr_inventario; ?>" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Inventario 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="../inventario/vproducto">Registro de Producto</a></li>
-                <li><a href="../inventario/vubigeoproducto">Ubigeo del Producto</a></li>
+                <li class="<?php echo $nvbr_inventario_registroproducto; ?>">
+                    <a href="../inventario/vproducto">Registro de Producto</a>
+                </li>
+                <li class="<?php echo $nvbr_inventario_ubigeoproducto ?>>
+                    <a href="../inventario/vubigeoproducto">Ubigeo del Producto</a>
+                </li>
                 <!--<li><a href="../inventario/ventrada">Administrar Entrada</a></li>
                 <li><a href="../inventario/vsalida">Administrar Salida</a></li>-->
               </ul>
@@ -145,17 +153,25 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Almacenero'){
                 echo ""
             ?>
-            <li class="dropdown">
+            
+            <li class="dropdown <?php echo $nvbr_compras ?>">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Compras
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="../compras/vproveedor">Registro de Proveedores</a></li>
-                <li><a href="../compras/vcompra">Registro de Compras</a></li>
-                <li><a href="../compras/vordencompra">Registro de Órdenes de Compra</a></li>
+                <li class="<?php echo $nvbr_compras_registroproveedores; ?>">
+                    <a href="../compras/vproveedor">Registro de Proveedores</a>
+                </li>
+                <li class="<?php echo $nvbr_compras_registrocompras; ?>">
+                    <a href="../compras/vcompra">Registro de Compras</a>
+                </li>
+                <li class="<?php echo $nvbr_compras_ordenesporcompra; ?>">
+                    <a href="../compras/vordencompra">Registro de Órdenes de Compra</a>
+                </li>
               </ul>
             </li>
+
             <?php 
             "";
               }
@@ -164,15 +180,21 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               if($_SESSION['NombrePermiso'] == 'Administrador' || $_SESSION['NombrePermiso'] == 'Vendedor'){
                 echo ""
             ?>
-            <li class="dropdown" id="ver-en-tablet">
+            <li class="dropdown <?php echo $nvbr_ventas; ?>" id="ver-en-tablet">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Ventas 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="../ventas/vcliente">Registro de Clientes</a></li>
-                <li><a href="../ventas/vventa">Registro de Ventas</a></li>
-                <li><a href="../ventas/vcotizacion">Registro de Cotización</a></li>
+                <li class="<?php echo $nvbr_ventas_registroventas; ?>">
+                    <a href="../ventas/vcliente">Registro de Clientes</a>
+                </li>
+                <li class="<?php echo $nvbr_ventas_registroventas; ?>">
+                    <a href="../ventas/vventa">Registro de Ventas</a>
+                </li>
+                <li class="<?php echo $nvbr_ventas_registrocotizacion; ?>">
+                    <a href="../ventas/vcotizacion">Registro de Cotización</a>
+                </li>
               </ul>
             </li>
             <?php 
@@ -183,14 +205,18 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               if($_SESSION['NombrePermiso'] == 'Administrador'){
                 echo ""
             ?>
-            <li class="dropdown" id="ver-en-tablet" role="menu">
+            <li class="dropdown <?php echo $nvbr_reportes ?>" id="ver-en-tablet" role="menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Reportes
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="../reportes/vkardexproducto">Reporte Kardex Producto</a></li>
-                <li><a href="../reportes/vkardexgeneral">Reporte Kardex General</a></li>
+                <li class="<?php echo $nvbr_reportes_kardexproducto ?>">
+                    <a href="../reportes/vkardexproducto">Reporte Kardex Producto</a>
+                </li>
+                <li class="<?php echo $nvbr_reportes_kardexgeneral ?>">
+                    <a href="../reportes/vkardexgeneral">Reporte Kardex General</a>
+                </li>
               </ul>
             </li>
             <?php 
@@ -212,21 +238,31 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               if($_SESSION['NombrePermiso'] == 'Administrador'){
                 echo ""
             ?>
-            <li class="dropdown" id="ver-en-pc">
+            <li class="dropdown <?php echo $nvbr_administrativo; ?>" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Administrativo 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="../administrativo/vmonedatributaria">Administrar Cambio de Moneda Tributaria</a></li>
-                <li><a href="../administrativo/vmonedacomercial">Administrar Cambio de Moneda Comercial</a></li>
-                <li><a href="../administrativo/vnumeracion">Administrar Numeración de Comprobantes</a></li>
-                <li class="dropdown-submenu">
+                <li class='<?php echo $nvbr_administrativo_cambiomonedatributaria; ?>'>
+                    <a href="../administrativo/vmonedatributaria">Administrar Cambio de Moneda Tributaria</a>
+                </li>
+                <li class='<?php echo $nvbr_administrativo_cambiomonedacomercial; ?>'>
+                    <a href="../administrativo/vmonedacomercial">Administrar Cambio de Moneda Comercial</a>
+                </li>
+                <li class='<?php echo $$nvbr_administrativo_numeraciondecomprobantes; ?>'>
+                    <a href="../administrativo/vnumeracion">Administrar Numeración de Comprobantes</a>
+                </li>
+                <li class="dropdown-submenu <?php echo $nvbr_administrativo_modulousuarios; ?>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulo Usuarios</a>
                     <ul class="dropdown-menu">
-                        <li><a href="../usuarios/vusuario">Registro de Usuarios</a></li>
+                        <li class='<?php echo $nvbr_administrativo_modulousuarios_registrousuario ?>'>
+                            <a href="../usuarios/vusuario">Registro de Usuarios</a>
+                        </li>
                         <!--<li><a href="../usuarios/vpermisos">Administrar Permisos</a></li>-->
-                        <li><a href="../historialacceso/vhistorialacceso">Historial de Accesos</a></li>
+                        <li class='<?php echo $nvbr_administrativo_modulousuarios_historialusuarios ?>'>
+                            <a href="../historialacceso/vhistorialacceso">Historial de Accesos</a>
+                        </li>
                     </ul>
                 </li>
               </ul>
@@ -239,19 +275,23 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               if($_SESSION['NombrePermiso'] == 'Administrador'){
                 echo ""
             ?>
-            <li class="" id=""><a href="../equipo/vcotizacionequipo">Equipos</a></li>
+            <li class="<?php echo $nvbr_equipos; ?>" id=""><a href="../equipo/vcotizacionequipo">Equipos</a></li>
             <?php 
             "";
               }
             ?>
-            <li class="dropdown" id="ver-en-pc">
+            <li class="dropdown <?php echo $nvbr_cuentas; ?>" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Mi Cuenta 
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="../perfil/vperfil">Mi Perfil</a></li>
-                <li><a href="../../logout.php">Cerrar Sesión</a></li>
+                <li class="<?php echo $nvbr_cuentas_miperfil; ?>">
+                    <a href="../perfil/vperfil">Mi Perfil</a>
+                </li>
+                <li class="<?php echo $nvbr_cuentas_cerrarsession; ?>">
+                    <a href="../../logout.php">Cerrar Sesión</a>
+                </li>
               </ul>
             </li>
           </ul>

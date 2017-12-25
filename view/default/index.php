@@ -37,6 +37,7 @@
     $nvbr_cuentas = '';
     $nvbr_cuentas_miperfil = '';
     $nvbr_cuentas_cerrarsession = '';
+
 		include('../_include/rstheader.php');
 ?>
     <script>
