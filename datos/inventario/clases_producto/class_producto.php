@@ -226,9 +226,9 @@ class Producto
               <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
               <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
               <td align="right" data-th="Tipo de Moneda Venta" style="text-align:right">'.$fila["nvchSimbolo"].'</td>
-              <td align="right" data-th="Precio de Venta 1" style="text-align:right">'.$fila["dcmPrecioVenta1"].'</td>
-              <td align="right" data-th="Precio de venta 2" style="text-align:right">'.$fila["dcmPrecioVenta2"].'</td>
-              <td align="right" data-th="Precio de Venta 3" style="text-align:right">'.$fila["dcmPrecioVenta3"].'</td>
+              <td align="right" data-th="Precio de Venta 1" style="text-align:right">'.number_format($fila["dcmPrecioVenta1"],2,'.',',').'</td>
+              <td align="right" data-th="Precio de venta 2" style="text-align:right">'.number_format($fila["dcmPrecioVenta2"],2,'.',',').'</td>
+              <td align="right" data-th="Precio de Venta 3" style="text-align:right">'.number_format($fila["dcmPrecioVenta3"],2,'.',',').'</td>
               <td align="right" data-th="Cant. Total" style="text-align:center">'.$fila["intCantidad"].'</td>
               <td align="right"data-th="Ubicación" style="text-align:center">
                 <button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">

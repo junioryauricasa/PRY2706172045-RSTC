@@ -267,11 +267,11 @@ class KardexProducto
             <td>'.$fila["Entrada"].'</td>
             <td>'.$fila["Salida"].'</td>
             <td>'.$fila["Stock"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["PrecioEntrada"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["TotalEntrada"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["PrecioSalida"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["TotalSalida"].'</td>
-            <td>'.$nvchSimbolo.' '.$fila["SaldoValorizado"].'</td>
+            <td>'.$nvchSimbolo.' '.number_format($fila["PrecioEntrada"],2,'.',',').'</td>
+            <td>'.$nvchSimbolo.' '.number_format($fila["TotalEntrada"],2,'.',',').'</td>
+            <td>'.$nvchSimbolo.' '.number_format($fila["PrecioSalida"],2,'.',',').'</td>
+            <td>'.$nvchSimbolo.' '.number_format($fila["TotalSalida"],2,'.',',').'</td>
+            <td>'.$nvchSimbolo.' '.number_format($fila["SaldoValorizado"],2,'.',',').'</td>
             <td> 
               <button type="button" id="'.$fila["Iden"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
                 <i class="fa fa-edit"></i> Ver Detalle
