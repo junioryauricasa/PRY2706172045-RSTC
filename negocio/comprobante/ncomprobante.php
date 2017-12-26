@@ -753,6 +753,20 @@ $(document).on('click', '.btn-reporte-comprobante', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Ubigeo Cotizacion */
+$(document).on('click', '.btn-ubigeo-comprobante', function(){
+  var intIdComprobante = $(this).attr("id");
+  var intIdTipoVenta = $(this).attr("idtv");
+  if(intIdTipoVenta != 2)
+  var url = '../../datos/inventario/clases_producto/reporte_ubicacion_producto.php?intIdComprobante='+intIdComprobante;
+  else
+  MensajeNormal('Es un Servicio, no tiene ubicación de almacén',2);
+  window.open(url, '_blank');
+});
+/* FIN - Funcion Ajax - Ubigeo Cotizacion */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
 /* INICIO - Ocultar Botones */
 function AccionCabecerasTablaComprobante(intIdTipoComprobante) {
 	if(intIdTipoComprobante == "1"){

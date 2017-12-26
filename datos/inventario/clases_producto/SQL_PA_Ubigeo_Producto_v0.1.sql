@@ -166,3 +166,29 @@ DELIMITER $$
     	END 
 $$
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARUBIGEOPRODUCTO_III;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARUBIGEOPRODUCTO_III(
+    	IN _intIdProducto INT
+    )
+	BEGIN
+		SELECT
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 1 AND intIdProducto = _intIdProducto) AS UbicacionHuancayo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
+		END) AS CantidadHuancayo,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 2 AND intIdProducto = _intIdProducto) AS UbicacionSanJeronimo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 2 THEN UP.intCantidadUbigeo
+		END) AS CantidadSanJeronimo
+		FROM tb_ubigeo_producto UP
+		WHERE
+		UP.intIdProducto = _intIdProducto AND UP.nvchUbicacion IS NOT NULL
+		GROUP BY UP.intIdProducto
+		ORDER BY UP.intIdProducto;
+    	END 
+$$
+DELIMITER ;

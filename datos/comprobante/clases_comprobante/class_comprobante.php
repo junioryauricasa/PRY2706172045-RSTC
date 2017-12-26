@@ -295,18 +295,21 @@ class Comprobante{
           <td> - </td>';
         }
         echo
-        '<td> 
+        '<td class="text-center"> 
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
             <i class="fa fa-edit"></i></button>
           <button type="button" id="'.$fila["intIdComprobante"].'" class="btn btn-xs btn-danger btn-anular-comprobante">
-            <i class="fa fa-trash"></i></button>';
+            <i class="fa fa-trash"></i></button> ';
         if($fila['intTipoDetalle'] == 1 || $fila['intIdTipoComprobante'] == 10 || $fila['intIdTipoComprobante'] == 4){  
         echo 
         '<button type="button" id="'.$fila["intIdComprobante"].'" idcr="'.$fila["intIdTipoComprobante"].'" 
         idtv="'.$fila['intIdTipoVenta'].'" class="btn btn-xs btn-default btn-reporte-comprobante">
             <i class="fa fa-download"></i></button>';
         }
-        echo '</td>
+        echo '
+        <button type="button" id="'.$fila["intIdComprobante"].'" idtv="'.$fila['intIdTipoVenta'].'" class="btn btn-xs btn-success btn-ubigeo-comprobante">
+            <i class="fa fa-download"></i></button>
+        </td>
         </tr>';
         $i++;
       }

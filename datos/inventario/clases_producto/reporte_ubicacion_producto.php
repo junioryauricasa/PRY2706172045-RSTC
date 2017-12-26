@@ -1,37 +1,14 @@
 <?php
 session_start();
 require_once '../../conexion/bd_conexion.php';
-$busqueda = $_GET['busqueda'];
-$dtmFechaInicial = str_replace('/', '-', $_GET['dtmFechaInicial']);
-$dtmFechaInicial = date('Y-m-d H:i:s', strtotime($dtmFechaInicial));
-$dtmFechaFinal = str_replace('/', '-', $_GET['dtmFechaFinal']);
-$dtmFechaFinal = date('Y-m-d H:i:s', strtotime($dtmFechaFinal." 23:59:59"));
-$intIdTipoMoneda = $_GET['intIdTipoMoneda'];
-$intIdSucursal = $_GET['intIdSucursal'];
- ob_start();
-  if($intIdTipoMoneda == 1)
-    $nvchSimbolo = "S/.";
-  else if ($intIdTipoMoneda == 2)
-    $nvchSimbolo = "US$";
-  $sql_conexion = new Conexion_BD();
-  $sql_conectar = $sql_conexion->Conectar();
-  $sql_comando = $sql_conectar->prepare('CALL buscarproducto_ii(:busqueda,:TipoBusqueda)');
-  $sql_comando -> execute(array(':busqueda' => $busqueda,':TipoBusqueda' => 'C'));
-
-  if($intIdTipoMoneda == 1)
-    $nvchSimbolo = "S/.";
-  else if($intIdTipoMoneda == 2)
-    $nvchSimbolo = "US$";
-
-  if($dtmFechaInicial = "1969-12-31 19:00:00")
-        $dtmFechaInicial = "-";
-  $j = 1;
+$intIdComprobante = $_GET['intIdComprobante'];
+ob_start();
   ?>
   <!DOCTYPE HTML>
   <html>
   <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-    <title>REPORTE KARDEX GENERAL</title>
+    <title>Reporte de ubigeo de almacén del comprobante</title>
   </head>
 
   <style>
@@ -122,13 +99,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
       <span style="font-weight: bold; font-size: 16px !important; text-transform: uppercase;">reporte ubigeo de productos</span>
       <br>
       <div style="text-align: left; font-family: Calibri;">
-          <!--span style="font-weight: bold; font-size: 11px">
-            Fecha de Inicio: <?php echo $dtmFechaInicial; ?>
-          </span>
-          <br>
-          <span style="font-weight: bold; font-size: 11px">
-            Fecha Final: <?php echo $dtmFechaFinal; ?>
-          </span-->
+
 
           <br>
 
@@ -147,31 +118,28 @@ $intIdSucursal = $_GET['intIdSucursal'];
               </thead>
               <tbody style="font-size: small;">
               <?php
-                $TotalSaldoValorizado = 0.00;
+                $sql_conexion = new Conexion_BD();
+                $sql_conectar = $sql_conexion->Conectar();
+                $sql_comando = $sql_conectar->prepare('CALL MostrarDetalleComprobante(:intIdComprobante)');
+                $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
+                $j = 1;
                 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                 { 
-                   $sql_conexion_kgp = new Conexion_BD();
-                    $sql_conectar_kgp = $sql_conexion_kgp->Conectar();
-                    $sql_comando_kgp = $sql_conectar_kgp->prepare('CALL KardexGeneral(:intIdTipoMoneda,:intIdProducto,
-                      :intIdSucursal)');
-                    $sql_comando_kgp -> execute(array(':intIdTipoMoneda' => $intIdTipoMoneda,':intIdProducto' => $fila['intIdProducto'],':intIdSucursal' => $intIdSucursal));
-                    $fila_kgp = $sql_comando_kgp -> fetch(PDO::FETCH_ASSOC);
+                  $sql_conexion_ubigeo = new Conexion_BD();
+                  $sql_conectar_ubigeo = $sql_conexion_ubigeo->Conectar();
+                  $sql_comando_ubigeo = $sql_conectar_ubigeo->prepare('CALL BUSCARUBIGEOPRODUCTO_III(:intIdProducto)');
+                  $sql_comando_ubigeo -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+                  $fila_ub = $sql_comando_ubigeo -> fetch(PDO::FETCH_ASSOC);
                   echo 
                   '<tr>
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
                       <td style="font-family: Calibri; text-align: left; padding-left: 5px"><small>'.$fila["nvchDescripcion"].'</small></td>
-                      <td style="font-family: Calibri; text-align: left; padding: 3px; word-wrap: break-word; ">
-                        <small>
-                        '.$fila_kgp["FechaMovimiento"].'
-                        </small>
-                      </td>
-                      <td style="font-family: Calibri;"><small>'.$fila_kgp["Entrada"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila_kgp["Salida"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila_kgp["Stock"].'</small></td>
-                      
+                      <td style="font-family: Calibri;"><small>'.$fila_ub["UbicacionHuancayo"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila_ub["CantidadHuancayo"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila_ub["UbicacionSanJeronimo"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila_ub["CantidadSanJeronimo"].'</small></td>  
                   </tr>';
-                  $TotalSaldoValorizado += $fila_kgp["SaldoValorizado"];
                   $j++;
                 }
               ?>
@@ -231,7 +199,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
 
   }
 
-  $filename = 'REPORTE KARDEX GENERAL';
+  $filename = 'Reporte_Ubigeo_Comprobante';
   $dompdf = new DOMPDF();
   $html = utf8_decode(ob_get_clean());
   //pdf_create($html,$filename,'A4','landscape');
