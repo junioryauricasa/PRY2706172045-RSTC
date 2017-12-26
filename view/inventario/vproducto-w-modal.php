@@ -1,6 +1,6 @@
 <?php 
-include('../_include/rstheader.php');
-require_once '../../datos/conexion/bd_conexion.php';
+    include('../_include/rstheader.php');
+    require_once '../../datos/conexion/bd_conexion.php';
 ?>
     <script>
       $(document).ready(function(){

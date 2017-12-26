@@ -138,7 +138,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li class="<?php echo $nvbr_inventario_registroproducto; ?>">
                     <a href="../inventario/vproducto">Registro de Producto</a>
                 </li>
-                <li class="<?php echo $nvbr_inventario_ubigeoproducto ?>>
+                <li class="<?php echo $nvbr_inventario_ubigeoproducto ?>">
                     <a href="../inventario/vubigeoproducto">Ubigeo del Producto</a>
                 </li>
                 <!--<li><a href="../inventario/ventrada">Administrar Entrada</a></li>
@@ -186,7 +186,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li class="<?php echo $nvbr_ventas_registroventas; ?>">
+                <li class="<?php echo $nvbr_ventas_registroclientes; ?>">
                     <a href="../ventas/vcliente">Registro de Clientes</a>
                 </li>
                 <li class="<?php echo $nvbr_ventas_registroventas; ?>">
