@@ -220,11 +220,10 @@
               class="" />
             </td>
             <td> 
-              <input type="text" id="intCantidadI1" name="intCantidadI[]" idsprt="1" form="form-comprobante" 
-              onkeyup="CalcularPrecioTotalI(this)" class=""/>           
+              <input type="text" id="intCantidadI1" name="intCantidadI[]" idsprt="1" form="form-comprobante"   style="text-align: right;" onkeyup="CalcularPrecioTotalI(this)" class=""/>           
             </td>
             <td class="filaTotal">
-              <input type="text" id="dcmTotalI1" name="dcmTotalI[]" form="form-comprobante" class="" readonly/>
+              <input type="text" id="dcmTotalI1" name="dcmTotalI[]" style="text-align: right !important?" form="form-comprobante" class="" readonly/>
             </td>
             <td style="width: 25px !important" >
               <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">

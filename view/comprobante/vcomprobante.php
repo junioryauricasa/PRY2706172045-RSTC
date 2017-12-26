@@ -302,19 +302,19 @@
                       <tr class="txtTotales">
                           <th>Valor de <?php echo $lblTituloSingular; ?></th>
                           <td style="width: 120px !important">
-                              <input type="text" id="ValorComprobante" name="ValorComprobante" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
+                              <input type="text" id="ValorComprobante" name="ValorComprobante" style="text-align: right;" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       <tr class="txtTotales">
                           <th>IGV (18%)</th>
                           <td style="width: 120px !important">
-                              <input type="text" id="IGVComprobante" name="IGVComprobante" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
+                              <input type="text" id="IGVComprobante" name="IGVComprobante" style="text-align: right;" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       <tr class="txtTotales">
                           <th><?php echo $lblTituloSingular; ?> Total</th>
                           <td style="width: 120px !important">
-                              <input type="text" id="ComprobanteTotal" name="ComprobanteTotal" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
+                              <input type="text" id="ComprobanteTotal" name="ComprobanteTotal" style="text-align: right;" class="form-control select2" value="S/. 0.00" readonly form="form-comprobante"/>
                           </td>
                       </tr>
                       </div>
