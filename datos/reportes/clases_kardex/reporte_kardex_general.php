@@ -164,7 +164,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
                       <td style="font-family: Calibri;"><small>'.$fila_kgp["Entrada"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila_kgp["Salida"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila_kgp["Stock"].'</small></td>
-                      <td style="font-family: Calibri; text-align: right; padding-right: 3px"><small>'.$nvchSimbolo.' '.$fila_kgp["SaldoValorizado"].'</small>
+                      <td style="font-family: Calibri; text-align: right; padding-right: 3px"><small>'.$nvchSimbolo.' '.number_format($fila_kgp["SaldoValorizado"],2,'.',',').'</small>
                       </td> 
                   </tr>';
                   $TotalSaldoValorizado += $fila_kgp["SaldoValorizado"];
@@ -174,7 +174,7 @@ $intIdSucursal = $_GET['intIdSucursal'];
             </tbody>
           </table>
           <br>
-          <div style="text-align: right;"><small>Total Saldo Valorizado: <?php echo $nvchSimbolo.' '.number_format($TotalSaldoValorizado,2,'.',''); ?></small></div>
+          <div style="text-align: right;"><small>Total Saldo Valorizado: <?php echo $nvchSimbolo.' '.number_format($TotalSaldoValorizado,2,'.',','); ?></small></div>
       </div>
   </div>
 </div>

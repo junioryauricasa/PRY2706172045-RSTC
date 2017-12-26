@@ -172,11 +172,11 @@ $intIdSucursal = $_GET['intIdSucursal'];
           <td style="font-family: Calibri;"><small>'.$fila["Entrada"].'</small></td>
           <td style="font-family: Calibri;"><small>'.$fila["Salida"].'</small></td>
           <td style="font-family: Calibri;"><small>'.$fila["Stock"].'</small></td>
-          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["PrecioEntrada"].'</small></td>
-          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["TotalEntrada"].'</small></td>
-          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["PrecioSalida"].'</small></td>
-          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["TotalSalida"].'</small></td>
-          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.$fila["SaldoValorizado"].'</small></td> 
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.number_format($fila["PrecioEntrada"],2,'.',',').'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.number_format($fila["TotalEntrada"],2,'.',',').'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.number_format($fila["PrecioSalida"],2,'.',',').'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.number_format($fila["TotalSalida"],2,'.',',').'</small></td>
+          <td style="font-family: Calibri;"><small>'.$nvchSimbolo.' '.number_format($fila["SaldoValorizado"],2,'.',',').'</small></td> 
         </tr>';
         $j++;
       }

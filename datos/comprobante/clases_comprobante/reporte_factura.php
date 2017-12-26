@@ -309,17 +309,17 @@
               </td>
               <td style="width: 11% !important; font-size:x-small; padding:0px; border-right: solid 1px">
                 <span>
-                  <?php echo $fila['intCantidad']; ?>
+                  <?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?>
                 </span>
               </td>
               <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; border-right: solid 1px">
                 <span>
-                  <?php echo $fila['dcmPrecioUnitario']; ?>
+                  <?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?>
                 </span>
               </td>
               <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; ">
                 <span style="">
-                  <?php echo $fila['dcmTotal']; ?>
+                  <?php echo number_format($fila['dcmTotal'],2,'.',','); ?>
                 </span>
               </td>
             </tr>
@@ -402,7 +402,7 @@
         </td>
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
-            <?php echo $ValorVenta; ?>
+            <?php echo number_format($ValorVenta, 2, '.', ','); ?>
           </span>
         </td>
       </tr>
@@ -418,7 +418,7 @@
         </td>
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
-            <?php echo $IGVVenta; ?>
+            <?php echo number_format($IGVVenta, 2, '.', ','); ?>
           </span>
         </td>
       </tr>
@@ -435,10 +435,7 @@
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
           <span style=" padding-right: 0px !important; text-align: right;">
             <?php 
-              //echo $TotalVenta;
-              $number = $TotalVenta;
-              //money_format('%.2n', $TotalVenta);
-              echo $english_format_number = number_format($number, 2, '.', ''); // formato con dos decimales
+             echo number_format($TotalVenta, 2, '.', ','); // formato con dos decimales
             ?>
           </span>
         </td>
