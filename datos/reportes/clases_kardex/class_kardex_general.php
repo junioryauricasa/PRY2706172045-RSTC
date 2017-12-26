@@ -32,7 +32,7 @@ class KardexGeneral
             <td style="width: 100px; text-align: center">'.$fila_kgp["Entrada"].'</td>
             <td style="width: 120px; text-align: center">'.$fila_kgp["Salida"].'</td>
             <td style="width: 120px; text-align: center">'.$fila_kgp["Stock"].'</td>
-            <td style="width: 120px; text-align: center">'.$nvchSimbolo.' '.$fila_kgp["SaldoValorizado"].'</td> 
+            <td style="width: 120px; text-align: center">'.$nvchSimbolo.' '.number_format($fila_kgp["SaldoValorizado"],2,'.',',').'</td> 
           </tr>';
           $j++;
       }
@@ -65,7 +65,7 @@ class KardexGeneral
         $fila_kgp = $sql_comando_kgp -> fetch(PDO::FETCH_ASSOC);
         $TotalSaldoValorizado += $fila_kgp["SaldoValorizado"];
       }
-      echo $nvchSimbolo.' '.round($TotalSaldoValorizado,2);
+      echo $nvchSimbolo.' '.number_format($TotalSaldoValorizado,2,'.',',');
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

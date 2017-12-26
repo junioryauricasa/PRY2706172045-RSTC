@@ -284,9 +284,9 @@ class Comprobante{
         <td>'.$fila["dtmFechaCreacion"].'</td>';
         if($fila['intIdTipoComprobante'] != 3 && $fila['intIdTipoComprobante'] != 7){
           echo
-          '<td>'.$fila["SimboloMoneda"].' '.$fila["ValorComprobante"].'</td>
-          <td>'.$fila["SimboloMoneda"].' '.$fila["IGVComprobante"].'</td>
-          <td>'.$fila["SimboloMoneda"].' '.$fila["TotalComprobante"].'</td>';
+          '<td>'.$fila["SimboloMoneda"].' '.number_format($fila["ValorComprobante"],2,'.',',').'</td>
+          <td>'.$fila["SimboloMoneda"].' '.number_format($fila["IGVComprobante"],2,'.',',').'</td>
+          <td>'.$fila["SimboloMoneda"].' '.number_format($fila["TotalComprobante"],2,'.',',').'</td>';
         }
         else {
           echo
@@ -359,7 +359,7 @@ class Comprobante{
       } else if($intIdTipoMoneda == 2){
         $SimboloMoneda = "US$";
       }
-      echo $SimboloMoneda.' '.$TotalComprobantes;
+      echo $SimboloMoneda.' '.number_format($TotalComprobantes,2,'.',',');
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();

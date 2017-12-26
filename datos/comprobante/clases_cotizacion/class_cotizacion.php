@@ -254,9 +254,9 @@ class Cotizacion{
             <td>'.$fila["NombreCliente"].'</td>
             <td>'.$fila["NombreUsuario"].'</td>
             <td>'.$fila["dtmFechaCreacion"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["ValorCotizacion"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["IGVCotizacion"].'</td>
-            <td>'.$fila["SimboloMoneda"].' '.$fila["TotalCotizacion"].'</td>
+            <td>'.$fila["SimboloMoneda"].' '.number_format($fila["ValorCotizacion"],2,'.',',').'</td>
+            <td>'.$fila["SimboloMoneda"].' '.number_format($fila["IGVCotizacion"],2,'.',',').'</td>
+            <td>'.$fila["SimboloMoneda"].' '.number_format($fila["TotalCotizacion"],2,'.',',').'</td>
             <td> 
               <button type="button" id="'.$fila["intIdCotizacion"].'" class="btn btn-xs btn-warning btn-mostrar-cotizacion" data-toggle="tooltip" data-placement="top" title="Ver Detalle de Cotización">
                 <i class="fa fa-edit"></i>
@@ -314,7 +314,7 @@ class Cotizacion{
       } else if($intIdTipoMoneda == 2){
         $SimboloMoneda = "US$";
       }
-      echo $SimboloMoneda.' '.$TotalCotizaciones;
+      echo $SimboloMoneda.' '.number_format($TotalCotizaciones,2,'.',',');
     }
     catch(PDPExceptio $e){
       echo $e->getMessage();
