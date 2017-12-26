@@ -25,7 +25,7 @@
     $nvbr_administrativo_cambiomonedatributaria = '';
     $nvbr_administrativo_cambiomonedacomercial = '';
     $nvbr_administrativo_numeraciondecomprobantes = '';
-    $nvbr_administrativo_modulousuarios = '';
+    $nvbr_administrativo_modulousuarios = 'active';
     $nvbr_administrativo_modulousuarios_registrousuario = '';
     $nvbr_administrativo_modulousuarios_historialusuarios = 'active';
     // equipos

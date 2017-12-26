@@ -861,4 +861,10 @@ table tr .deshabilitado{
 #dcmTotal1{
   /*text-align: right;*/
 }
+
+.navbar-custom-menu > ul > li > ul > li.active > a , 
+.navbar-custom-menu > ul > li > ul > li > ul > li.active > a 
+{
+  background-color: #eaeaea !important;
+}
 </style>
