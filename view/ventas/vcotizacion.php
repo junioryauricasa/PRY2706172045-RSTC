@@ -282,6 +282,13 @@
                       </th>
                       <th style="width: 110px" >Código</th>
                       <th>Descripción</th>
+                      <th>Huancayo</th>
+                      <th>San Jerónimo</th>
+                      <!--
+                      <th class="filaUbicacionHuancayo">Ubigeo</th>
+                      <th class="filaCantidadHuancayo">Cantidad</th>
+                      <th class="filaUbicacionSanJeronimo">Ubigeo</th>
+                      <th class="filaCantidadSanJeronimo">Cantidad</th>-->
                       <th style="width: 110px" >Precio Lista</th>
                       <th style="width: 110px" >Desc. (%)</th>
                       <th style="width: 110px" >Precio Unit.</th>
@@ -302,6 +309,25 @@
                         <td>
                             <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-cotizacion" readonly/>
                         </td>
+                        <td class="filaUbigeoHuancayo">
+                            <input type="text" style="width: 100%" id="UbigeoHuancayo1" form="form-comprobante" class="" readonly/>
+                        </td>
+                        <td class="filaUbigeoSanJeronimo">
+                            <input type="text" style="width: 100%" id="UbigeoSanJeronimo1" form="form-comprobante" class="" readonly/>
+                        </td>
+                        <!--
+                        <td class="filaUbicacionHuancayo">
+                            <input type="text" style="width: 80%" id="UbicacionHuancayo1" name="UbicacionHuancayo[]" form="form-comprobante" class="" readonly/>
+                        </td>
+                        <td class="filaCantidadHuancayo">
+                            <input type="text" style="width: 70%" id="CantidadHuancayo1" name="CantidadHuancayo[]" form="form-comprobante" class="" readonly/>
+                        </td>
+                        <td class="filaUbicacionSanJeronimo">
+                            <input type="text" style="width: 80%" id="UbicacionHuancayo1" name="UbicacionSanJeronimo[]" form="form-comprobante" class="" readonly/>
+                        </td>
+                        <td class="filaCantidadSanJeronimo">
+                            <input type="text" style="width: 70%" id="CantidadSanJeronimo1" name="CantidadSanJeronimo[]" form="form-comprobante" class="" readonly/>
+                        </td>-->
                         <td>
                             <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-cotizacion" readonly />
                             <input type="hidden" id="dcmDescuentoVenta21" form="form-cotizacion" readonly />
@@ -607,7 +633,7 @@
   {
       position: absolute;
       z-index: 1;
-      width:500px;
+      width:1200px;
       /*
       padding:10px;
       */

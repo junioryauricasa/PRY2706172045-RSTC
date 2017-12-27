@@ -13,6 +13,13 @@
           </th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
+          <th>Huancayo</th>
+          <th>San Jerónimo</th>
+          <!--
+          <th class="filaUbicacionHuancayo">Ubigeo</th>
+          <th class="filaCantidadHuancayo">Cantidad</th>
+          <th class="filaUbicacionSanJeronimo">Ubigeo</th>
+          <th class="filaCantidadSanJeronimo">Cantidad</th>-->
           <?php if($intTipoDetalle == 1) { ?>
           <th style="width: 110px" class="filaPrecio">Precio Lista</th>
           <th style="width: 110px" class="filaDescuento">Desc. (%)</th>
@@ -35,6 +42,25 @@
             <td>
                 <input type="text" style="width: 100%" id="nvchDescripcion1" name="nvchDescripcion[]" form="form-comprobante" class="" readonly/>
             </td>
+            <td class="filaUbigeoHuancayo">
+                <input type="text" style="width: 100%" id="UbigeoHuancayo1" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaUbigeoSanJeronimo">
+                <input type="text" style="width: 100%" id="UbigeoSanJeronimo1" form="form-comprobante" class="" readonly/>
+            </td>
+            <!--
+            <td class="filaUbicacionHuancayo">
+                <input type="text" style="width: 80%" id="UbicacionHuancayo1" name="UbicacionHuancayo[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaCantidadHuancayo">
+                <input type="text" style="width: 70%" id="CantidadHuancayo1" name="CantidadHuancayo[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaUbicacionSanJeronimo">
+                <input type="text" style="width: 80%" id="UbicacionHuancayo1" name="UbicacionSanJeronimo[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaCantidadSanJeronimo">
+                <input type="text" style="width: 70%" id="CantidadSanJeronimo1" name="CantidadSanJeronimo[]" form="form-comprobante" class="" readonly/>
+            </td>-->
             <?php if($intTipoDetalle == 1) { ?>
             <td class="filaPrecio">
                 <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="" readonly />
@@ -137,6 +163,8 @@
           </th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
+          <th>Huancayo</th>
+          <th>San Jerónimo</th>
           <th style="width: 110px" class="filaPrecioUnitario">Precio Unit.</th>
           <th style="width: 110px" >Cantidad</th>
           <th style="width: 110px" class="filaTotal">Total</th>
@@ -156,6 +184,25 @@
               <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
               <textarea id="nvchDescripcionM1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>
             </td>
+            <td class="filaUbigeoHuancayo">
+                <input type="text" style="width: 100%" id="UbigeoHuancayoM1" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaUbigeoSanJeronimo">
+                <input type="text" style="width: 100%" id="UbigeoSanJeronimoM1" form="form-comprobante" class="" readonly/>
+            </td>
+            <!--
+            <td class="filaUbicacionHuancayo">
+                <input type="text" style="width: 80%" id="UbicacionHuancayoM1" name="UbicacionHuancayoM[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaCantidadHuancayo">
+                <input type="text" style="width: 70%" id="CantidadHuancayoM1" name="CantidadHuancayoM[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaUbicacionSanJeronimo">
+                <input type="text" style="width: 80%" id="UbicacionHuancayoM1" name="UbicacionSanJeronimoM[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaCantidadSanJeronimo">
+                <input type="text" style="width: 70%" id="CantidadSanJeronimoM1" name="CantidadSanJeronimoM[]" form="form-comprobante" class="" readonly/>
+            </td>-->
             <td class="filaPrecioUnitario">
               <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM1" name="dcmPrecioUnitarioM[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"
               class="" />
@@ -196,6 +243,8 @@
           </th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
+          <th>Huancayo</th>
+          <th>San Jerónimo</th>
           <th style="width: 110px" class="filaPrecioUnitario">Precio Unit.</th>
           <th style="width: 110px" >Cantidad</th>
           <th style="width: 110px" class="filaTotal">Total</th>
@@ -215,6 +264,25 @@
               <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
               <textarea id="nvchDescripcionI1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>
             </td>
+            <td class="filaUbigeoHuancayo">
+                <input type="text" style="width: 100%" id="UbigeoHuancayoI1" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaUbigeoSanJeronimo">
+                <input type="text" style="width: 100%" id="UbigeoSanJeronimoI1" form="form-comprobante" class="" readonly/>
+            </td>
+            <!--
+            <td class="filaUbicacionHuancayo">
+                <input type="text" style="width: 80%" id="UbicacionHuancayoI1" name="UbicacionHuancayoI[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaCantidadHuancayo">
+                <input type="text" style="width: 70%" id="CantidadHuancayoI1" name="CantidadHuancayoI[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaUbicacionSanJeronimo">
+                <input type="text" style="width: 80%" id="UbicacionHuancayoI1" name="UbicacionSanJeronimoI[]" form="form-comprobante" class="" readonly/>
+            </td>
+            <td class="filaCantidadSanJeronimo">
+                <input type="text" style="width: 70%" id="CantidadSanJeronimoI1" name="CantidadSanJeronimoI[]" form="form-comprobante" class="" readonly/>
+            </td>-->
             <td class="filaPrecioUnitario">
               <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"
               class="" />

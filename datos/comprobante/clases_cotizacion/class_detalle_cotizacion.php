@@ -125,12 +125,12 @@ class DetalleCotizacion
             '</td>';
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
+        $sql_conexion_producto = new Conexion_BD();
+        $sql_conectar_producto = $sql_conexion_producto->Conectar();
+        $sql_comando_producto = $sql_conectar_producto->prepare('CALL MOSTRARPRODUCTO(:intIdProducto)');
+        $sql_comando_producto -> execute(array(':intIdProducto' => $fila['intIdProducto']));
+        $fila_producto = $sql_comando_producto -> fetch(PDO::FETCH_ASSOC);
         if($intIdTipoVenta == 1){
-          $sql_conexion_producto = new Conexion_BD();
-          $sql_conectar_producto = $sql_conexion_producto->Conectar();
-          $sql_comando_producto = $sql_conectar_producto->prepare('CALL MOSTRARPRODUCTO(:intIdProducto)');
-          $sql_comando_producto -> execute(array(':intIdProducto' => $fila['intIdProducto']));
-          $fila_producto = $sql_comando_producto -> fetch(PDO::FETCH_ASSOC);
           echo
         	'<tr>
             <td class="heading" data-th="ID">'.$i.'</td> '.
@@ -140,6 +140,12 @@ class DetalleCotizacion
                 '<div class="result" id="result'.$i.'">'.
             '</td>'.
             '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-cotizacion" value="'.$fila['nvchDescripcion'].'" readonly/></td>'.
+            '<td class="filaUbigeoHuancayo">'.
+              '<input type="text" style="width: 100%" id="UbigeoHuancayo'.$i.'" form="form-comprobante" class="" value="'.$fila_producto['UbicacionHuancayo'].' | '.$fila_producto['CantidadHuancayo'].'" readonly/>'.
+            '</td>'.
+            '<td class="filaUbigeoSanJeronimo">'.
+              '<input type="text" style="width: 100%" id="UbigeoSanJeronimo'.$i.'" form="form-comprobante" class="" value="'.$fila_producto['UbicacionSanJeronimo'].' | '.$fila_producto['CantidadSanJeronimo'].'" readonly/>'.
+            '</td>'.
             '<td>'.
               '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-cotizacion" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
               '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.

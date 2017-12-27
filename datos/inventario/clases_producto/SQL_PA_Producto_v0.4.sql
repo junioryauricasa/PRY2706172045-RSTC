@@ -85,8 +85,20 @@ DELIMITER $$
     	IN _intIdProducto INT
     )
 	BEGIN
-		SELECT P.*,CP.nvchCodigo FROM tb_producto P
+		SELECT P.*,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 1 AND intIdProducto = _intIdProducto) AS UbicacionHuancayo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
+		END) AS CantidadHuancayo,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 2 AND intIdProducto = _intIdProducto) AS UbicacionSanJeronimo,
+		SUM(CASE 
+			WHEN UP.intIdSucursal = 2 THEN UP.intCantidadUbigeo
+		END) AS CantidadSanJeronimo
+		,CP.nvchCodigo FROM tb_producto P
 		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
+		LEFT JOIN tb_ubigeo_producto UP ON P.intIdProducto = UP.intIdProducto
 		WHERE 
 		P.intIdProducto = _intIdProducto AND
 		CP.intIdTipoCodigoProducto = 1;
@@ -324,6 +336,10 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 1 AND intIdProducto = P.intIdProducto) AS UbicacionHuancayo,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 2 AND intIdProducto = P.intIdProducto) AS UbicacionSanJeronimo,
 		SUM(CASE 
 			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
 		END) AS CantidadHuancayo,
