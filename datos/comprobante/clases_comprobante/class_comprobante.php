@@ -284,9 +284,9 @@ class Comprobante{
         <td>'.$fila["dtmFechaCreacion"].'</td>';
         if($fila['intIdTipoComprobante'] != 3 && $fila['intIdTipoComprobante'] != 7){
           echo
-          '<td>'.$fila["SimboloMoneda"].' '.number_format($fila["ValorComprobante"],2,'.',',').'</td>
-          <td>'.$fila["SimboloMoneda"].' '.number_format($fila["IGVComprobante"],2,'.',',').'</td>
-          <td>'.$fila["SimboloMoneda"].' '.number_format($fila["TotalComprobante"],2,'.',',').'</td>';
+          '<td style="text-align: right;">'.$fila["SimboloMoneda"].' '.number_format($fila["ValorComprobante"],2,'.',',').'</td>
+           <td style="text-align: right;">'.$fila["SimboloMoneda"].' '.number_format($fila["IGVComprobante"],2,'.',',').'</td>
+           <td style="text-align: right;">'.$fila["SimboloMoneda"].' '.number_format($fila["TotalComprobante"],2,'.',',').'</td>';
         }
         else {
           echo
@@ -637,20 +637,21 @@ class Comprobante{
             if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 3){
             echo
             '<td class="filaPrecio">'.
-              '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-comprobante" value="'.$fila['dcmPrecio'].'" readonly />'.
+              '<input type="text" id="dcmPrecio'.$i.'" style="text-align: right;" name="dcmPrecio[]" form="form-comprobante" value="'.$fila['dcmPrecio'].'" readonly />'.
             '</td>'.
             '<td class="filaDescuento"><input type="text" style="max-width: 105px !important" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" '.$readonly.' /></td>';
             }
             echo
-            '<td class="filaPrecioUnitario"><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-comprobante" value="'.$fila['dcmPrecioUnitario'].'"';
+            '<td class="filaPrecioUnitario">
+                <input type="text" style="max-width: 105px !important" style="text-align: right;" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-comprobante" value="'.$fila['dcmPrecioUnitario'].'"';
             if($fila['intTipoDetalle'] == 1 && $fila['intIdTipoComprobante'] < 3)
               echo 'readonly/></td>';
             else 
               echo '/></td>';
             echo '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" /></td>'.
-            '<td class="filaTotal"><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
+            '<td class="filaTotal"><input type="text" style="text-align: right;" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
           '</tr>';
               $i++;
         } else if($intIdTipoVenta == 3){
@@ -691,13 +692,13 @@ class Comprobante{
             '<textarea id="nvchDescripcionI'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
           '</td>'.
           '<td class="filaPrecioUnitario">'.
-            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'.$i.'" name="dcmPrecioUnitarioI[]" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
+            '<input style="max-width: 105px !important" style="text-align: right;" type="text" id="dcmPrecioUnitarioI'.$i.'" name="dcmPrecioUnitarioI[]" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
           '</td>'.
           '<td>'.
             '<input type="text" id="intCantidadI'.$i.'" name="intCantidadI[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalI(this)"/>'.
           '</td>'.
           '<td class="filaTotal">'.
-            '<input type="text" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" readonly/>'.
+            '<input type="text" style="text-align: right;" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" readonly/>'.
           '</td>'.$filaEliminar.
         '</tr>';
         $i++;
