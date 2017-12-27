@@ -303,8 +303,12 @@
                 </span>
               </td>
               <td style="width: 50% !important; font-size:x-small; padding:0px; text-align: left !important;  border-right: solid 1px">
-                <span style="text-align: left !important; color: black; font-weight: 100; margin-left: 5px">
-                  <?php echo $fila['nvchDescripcion']; ?>
+                <span style="text-align: left !important; color: black; font-weight: 100; margin-left: 5px; text-transform: uppercase;">
+                  <?php 
+                      // Original >> str_replace(find,replace,string,count)
+                      // echo $fila['nvchDescripcion']; 
+                      echo str_replace('- ',' <br> <span>&nbsp;&nbsp;</span> - ', $fila['nvchDescripcion']); 
+                  ?>
                 </span>
               </td>
               <td style="width: 11% !important; font-size:x-small; padding:0px; border-right: solid 1px">
