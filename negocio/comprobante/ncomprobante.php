@@ -193,16 +193,16 @@
                   '<input type="hidden" id="dcmDescuentoVenta2'+num+'" form="form-comprobante" readonly />'+
                   '<input type="hidden" id="dcmDescuentoVenta3'+num+'" form="form-comprobante" readonly />'+
                 '</td>'+
-                '<td class="filaDescuento"><input type="text" style="max-width: 105px !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
+                '<td class="filaDescuento"><input type="text" style="width: 100% !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
                   'onkeyup="CalcularPrecioTotal(this)"/></td>';
 	  }
     if(intIdTipoVenta == 1){
         $('#ListaDeProductosVender').append(
         '<tr>'+
           '<td class="heading" data-th="ID">'+num+'</td>'+
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+          '<td><input type="hidden" style="width: 100% !important" name="fila[]" value="'+num+'" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 100% !important" id="intIdProducto'+num+'" name="intIdProducto[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 100% !important" class="buscar" id="nvchCodigo'+num+'" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="result'+num+'">'+
           '</td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
@@ -213,8 +213,8 @@
             '<input type="text" style="width: 100%" id="UbigeoSanJeronimo'+num+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           camposVender+
-          '<td class="filaPrecioUnitario"><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
-          '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
+          '<td class="filaPrecioUnitario"><input type="text" style="width: 100% !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
+          '<td><input type="text" style="width: 100% !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
           '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
           '<td>'+
@@ -227,19 +227,19 @@
         '<tr>'+
           '<td class="heading" data-th="ID">'+nums+'</td>'+
           '<td>'+
-            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+nums+'" form="form-comprobante" />'+
+            '<input style="width: 100% !important" type="hidden" name="fila[]" value="'+nums+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionS'+nums+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
           '<td>'+
-            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input style="width: 100% !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input type="text" style="width: 100% !important" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-comprobante" readonly/>'+
+            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" style="width: 100% !important" form="form-comprobante" readonly/>'+
           '</td>'+
-          '<td style="width: 25px !important" >'+
+          '<td style="width: 25px !important">'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
                 '<i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i>' +
             '</button>'+
@@ -251,28 +251,28 @@
         '<tr>'+
           '<td class="heading" data-th="ID">'+numm+'</td>'+
           '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'+numm+'" name="intIdProductoM[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'+numm+'" name="nvchCodigoM[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+              '<input type="hidden" style="width: 100% !important" id="intIdProductoM'+numm+'" name="intIdProductoM[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 100% !important" class="buscar" id="nvchCodigoM'+numm+'" name="nvchCodigoM[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="resultM'+numm+'">'+
           '</td>'+
           '<td>'+
-            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
+            '<input style="width: 100% !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionM'+numm+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
           '<td class="filaUbigeoHuancayo">'+
-            '<input type="text" style="width: 100%" id="UbigeoHuancayoM'+numm+'" form="form-comprobante" class="" readonly/>'+
+            '<input type="text" style="width: 100% !important; text-align: right;" id="UbigeoHuancayoM'+numm+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           '<td class="filaUbigeoSanJeronimo">'+
-            '<input type="text" style="width: 100%" id="UbigeoSanJeronimoM'+numm+'" form="form-comprobante" class="" readonly/>'+
+            '<input type="text" style="width: 100% !important; text-align: right;" id="UbigeoSanJeronimoM'+numm+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           '<td class="filaPrecioUnitario">'+
-            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
+            '<input style="width: 100% !important; text-align: right;" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
+            '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" style="text-align: right; width: 100% !important;" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
           '<td class="filaTotal">'+
-            '<input type="text" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" readonly/>'+
+            '<input type="text" style="text-align: right; width: 100% !important;" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
@@ -285,29 +285,29 @@
         $('#ListaDeImplementosVender').append(
         '<tr>'+
           '<td class="heading" data-th="ID">'+numi+'</td>'+
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'+numi+'" name="intIdProductoI[]" form="form-comprobante" />'+
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'+numi+'" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
+          '<td><input type="hidden" style="width: 100% !important" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
+              '<input type="hidden" style="width: 100% !important" id="intIdProductoI'+numi+'" name="intIdProductoI[]" form="form-comprobante" />'+
+              '<input type="text" style="width: 100% !important" class="buscar" id="nvchCodigoI'+numi+'" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>'+
               '<div class="result" id="resultI'+numi+'">'+
           '</td>'+
           '<td>'+
-            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
+            '<input style="width: 100% !important" type="hidden" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionI'+numi+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
           '<td class="filaUbigeoHuancayo">'+
-            '<input type="text" style="width: 100%" id="UbigeoHuancayoI'+numi+'" form="form-comprobante" class="" readonly/>'+
+            '<input type="text" style="width: 100% !important" id="UbigeoHuancayoI'+numi+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           '<td class="filaUbigeoSanJeronimo">'+
-            '<input type="text" style="width: 100%" id="UbigeoSanJeronimoI'+numi+'" form="form-comprobante" class="" readonly/>'+
+            '<input type="text" style="width: 100% !important" id="UbigeoSanJeronimoI'+numi+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           '<td class="filaPrecioUnitario">'+
-            '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'+numi+'" name="dcmPrecioUnitarioI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
+            '<input style="width: 100% !important" type="text" id="dcmPrecioUnitarioI'+numi+'" name="dcmPrecioUnitarioI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadI'+numi+'" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
+            '<input type="text" id="intCantidadI'+numi+'" style="width: 100% !important" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
           '<td class="filaTotal">'+
-            '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" form="form-comprobante" readonly/>'+
+            '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" style="width: 100% !important" form="form-comprobante" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+

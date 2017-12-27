@@ -13,20 +13,15 @@
           </th>
           <th style="width: 110px" >Código</th>
           <th>Descripción</th>
-          <th>Huancayo</th>
-          <th>San Jerónimo</th>
-          <!--
-          <th class="filaUbicacionHuancayo">Ubigeo</th>
-          <th class="filaCantidadHuancayo">Cantidad</th>
-          <th class="filaUbicacionSanJeronimo">Ubigeo</th>
-          <th class="filaCantidadSanJeronimo">Cantidad</th>-->
+          <th style="width: 7% !important">Huancayo</th>
+          <th style="width: 7% !important">San Jerónimo</th>
           <?php if($intTipoDetalle == 1) { ?>
-          <th style="width: 110px" class="filaPrecio">Precio Lista</th>
-          <th style="width: 110px" class="filaDescuento">Desc. (%)</th>
+          <th style="width: 6% !important" class="filaPrecio">Precio Lista</th>
+          <th style="width: 6% !important" class="filaDescuento">Desc. (%)</th>
           <?php } ?>
-          <th style="width: 110px" class="filaPrecioUnitario">Precio Unit.</th>
-          <th style="width: 110px" >Cantidad</th>
-          <th style="width: 110px" class="filaTotal">Total</th>
+          <th style="width: 6% !important" class="filaPrecioUnitario">Precio Unit.</th>
+          <th style="width: 3% !important" >Cant.</th>
+          <th style="width: 6% !important" class="filaTotal">Total</th>
           <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
         </tr>
         </thead>
@@ -34,9 +29,9 @@
           <tr>
             <td class="heading" data-th="ID">1</td>
             <td>
-                <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
-                <input style="width: 110px !important" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
-                <input style="width: 110px !important" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
+                <input style="width: 100%" type="hidden" name="fila[]" value="1" form="form-comprobante" />
+                <input style="width: 100%" type="hidden" id="intIdProducto1" name="intIdProducto[]" form="form-comprobante" />
+                <input style="width: 100%" type="text" class="buscar" id="nvchCodigo1" name="nvchCodigo[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
                 <div class="result" id="result1">
             </td>
             <td>
@@ -69,19 +64,19 @@
                 <input type="hidden" style="text-align: right;" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
             </td>
             <td class="filaDescuento">
-                <input style="max-width: 105px !important; text-align: right;" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
+                <input style="max-width: 105px !important; text-align: right !important;" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
                 onkeyup="CalcularPrecioTotal(this)"/>
             </td>
             <?php } ?>
             <td class="filaPrecioUnitario">
-                <input style="max-width: 105px !important; text-align: right;"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="txtPrecioUnitario" <?php if($intTipoDetalle == 1) { ?> readonly="true" <?php } ?> />
+                <input style="width: 100% !important; text-align: right !important;"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="txtPrecioUnitario" <?php if($intTipoDetalle == 1) { ?> readonly="true" <?php } ?> />
             </td>
             <td>
-                <input type="text" id="intCantidad1" name="intCantidad[]" style="text-align: right;" form="form-comprobante" idsprt="1"
+                <input type="text" id="intCantidad1" name="intCantidad[]" style="text-align: right !important; width: 100% !important" form="form-comprobante" idsprt="1"
               onkeyup="CalcularPrecioTotal(this)" class=""/>
             </td>
             <td class="filaTotal">
-                <input type="text" id="dcmTotal1" name="dcmTotal[]" class="" style="text-align: right;" form="form-comprobante" readonly/>
+                <input type="text" id="dcmTotal1" name="dcmTotal[]" class="" style="text-align: right !important;" form="form-comprobante" readonly/>
             </td>
             <td style="width: 25px !important" >
                 <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -126,14 +121,14 @@
               <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
             </td>
             <td>
-              <input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" class=""/>
+              <input style="max-width: 105px !important; text-align: right !important;" type="text" id="dcmPrecioUnitarioS1" name="dcmPrecioUnitarioS[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" class=""/>
             </td>
             <td> 
-              <input type="text" id="intCantidadS1" name="intCantidadS[]" idsprt="1" form="form-comprobante" 
+              <input type="text" id="intCantidadS1" style="text-align: right !important;" name="intCantidadS[]" idsprt="1" form="form-comprobante" 
               onkeyup="CalcularPrecioTotalS(this)" class=""/>           
             </td>
             <td>
-              <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-comprobante" class="" readonly/>
+              <input type="text" id="dcmTotalS1" style="text-align: right !important;" name="dcmTotalS[]" form="form-comprobante" class="" readonly/>
             </td>
             <td style="width: 25px !important" >
               <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
