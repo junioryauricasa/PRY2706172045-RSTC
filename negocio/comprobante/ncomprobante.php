@@ -190,7 +190,7 @@
       readonlyVender = 'readonly="true"';
       camposVender ='<td class="filaPrecio">'+
                   '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" style="width: 100% !important; text-align: right" form="form-comprobante" readonly />'+
-                  '<input type="hidden" id="dcmDescuentoVenta2'+num+'" style="width: 100% !important; text-align: right" form="form-comprobante" readonly />'+
+                  '<input type="hidden" id="dcmDescuentoVenta2'+num+'" style="width: 100% !important;s" form="form-comprobante" readonly />'+
                   '<input type="hidden" id="dcmDescuentoVenta3'+num+'" style="width: 100% !important; text-align: right" form="form-comprobante" readonly />'+
                 '</td>'+
                 '<td class="filaDescuento"><input type="text" style="width: 100% !important; width: 100% !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
@@ -232,10 +232,10 @@
             '<textarea id="nvchDescripcionS'+nums+'" style="resize: vertical;" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
           '<td>'+
-            '<input style="width: 100% !important" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input style="width: 100% !important; text-align: right" type="text" id="dcmPrecioUnitarioS'+nums+'" name="dcmPrecioUnitarioS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" style="width: 100% !important" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
+            '<input type="text" style="width: 100% !important; text-align: right" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
             '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" style="width: 100% !important" form="form-comprobante" readonly/>'+
