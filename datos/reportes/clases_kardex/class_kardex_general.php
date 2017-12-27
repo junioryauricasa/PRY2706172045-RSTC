@@ -26,13 +26,13 @@ class KardexGeneral
           echo 
           '<tr>
             <td class="heading" data-th="ID" style="width: 25px !important">'.$j.'</td>
-            <td style="width: 100px; text-align: center">'.$fila_kgp["FechaMovimiento"].'</td>
-            <td style="width: 140px; text-align: center">'.$fila["nvchCodigo"].'</td>
+            <td style="width: 100px; text-align: center;">'.$fila_kgp["FechaMovimiento"].'</td>
+            <td style="width: 140px; text-align: center;">'.$fila["nvchCodigo"].'</td>
             <td style="width: 450px">'.$fila["nvchDescripcion"].'</td>
-            <td style="width: 100px; text-align: center">'.$fila_kgp["Entrada"].'</td>
-            <td style="width: 120px; text-align: center">'.$fila_kgp["Salida"].'</td>
-            <td style="width: 120px; text-align: center">'.$fila_kgp["Stock"].'</td>
-            <td style="width: 120px; text-align: center">'.$nvchSimbolo.' '.number_format($fila_kgp["SaldoValorizado"],2,'.',',').'</td> 
+            <td style="width: 100px; text-align: right;">'.$fila_kgp["Entrada"].'</td>
+            <td style="width: 120px; text-align: right;">'.$fila_kgp["Salida"].'</td>
+            <td style="width: 120px; text-align: right;">'.$fila_kgp["Stock"].'</td>
+            <td style="width: 120px; text-align: right;">'.$nvchSimbolo.' '.number_format($fila_kgp["SaldoValorizado"],2,'.',',').'</td> 
           </tr>';
           $j++;
       }

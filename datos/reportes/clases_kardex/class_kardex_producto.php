@@ -259,19 +259,19 @@ class KardexProducto
         echo 
         '<tr>
             <td class="heading" data-th="ID">'.$j.'</td>
-            <td>'.$fila["FechaMovimiento"].'</td>
+            <td style="text-align: center;">'.$fila["FechaMovimiento"].'</td>
             <td>'.$fila["TipoMovimiento"].'</td>
             <td>'.$fila["TipoComprobante"].'</td>
             <td>'.$fila["Serie"].'</td>
             <td>'.$fila["Numeracion"].'</td>
-            <td>'.$fila["Entrada"].'</td>
-            <td>'.$fila["Salida"].'</td>
-            <td>'.$fila["Stock"].'</td>
-            <td>'.$nvchSimbolo.' '.number_format($fila["PrecioEntrada"],2,'.',',').'</td>
-            <td>'.$nvchSimbolo.' '.number_format($fila["TotalEntrada"],2,'.',',').'</td>
-            <td>'.$nvchSimbolo.' '.number_format($fila["PrecioSalida"],2,'.',',').'</td>
-            <td>'.$nvchSimbolo.' '.number_format($fila["TotalSalida"],2,'.',',').'</td>
-            <td>'.$nvchSimbolo.' '.number_format($fila["SaldoValorizado"],2,'.',',').'</td>
+            <td style="text-align: right;">'.$fila["Entrada"].'</td>
+            <td style="text-align: right;">'.$fila["Salida"].'</td>
+            <td style="text-align: right;">'.$fila["Stock"].'</td>
+            <td style="text-align: right;">'.$nvchSimbolo.' '.number_format($fila["PrecioEntrada"],2,'.',',').'</td>
+            <td style="text-align: right;">'.$nvchSimbolo.' '.number_format($fila["TotalEntrada"],2,'.',',').'</td>
+            <td style="text-align: right;">'.$nvchSimbolo.' '.number_format($fila["PrecioSalida"],2,'.',',').'</td>
+            <td style="text-align: right;">'.$nvchSimbolo.' '.number_format($fila["TotalSalida"],2,'.',',').'</td>
+            <td style="text-align: right;">'.$nvchSimbolo.' '.number_format($fila["SaldoValorizado"],2,'.',',').'</td>
             <td> 
               <button type="button" id="'.$fila["Iden"].'" class="btn btn-xs btn-warning btn-mostrar-comprobante">
                 <i class="fa fa-edit"></i> Ver Detalle
