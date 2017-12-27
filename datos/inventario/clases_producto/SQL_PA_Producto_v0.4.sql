@@ -324,6 +324,10 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT P.*,TMN.nvchSimbolo,TMN.nvchNombre AS NombreMoneda,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 1 AND intIdProducto = P.intIdProducto) AS UbicacionHuancayo,
+		(SELECT nvchUbicacion FROM tb_ubigeo_producto 
+		WHERE intIdSucursal = 2 AND intIdProducto = P.intIdProducto) AS UbicacionSanJeronimo,
 		SUM(CASE 
 			WHEN UP.intIdSucursal = 1 THEN UP.intCantidadUbigeo
 		END) AS CantidadHuancayo,

@@ -607,7 +607,7 @@
   {
       position: absolute;
       z-index: 1;
-      width:500px;
+      width:1200px;
       /*
       padding:10px;
       */

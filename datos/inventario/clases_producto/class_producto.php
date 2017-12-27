@@ -590,7 +590,7 @@ class Producto
                 <span class="nvchCodigo" id="textbolder" style="">
                 <?php echo ''.$fila['nvchCodigo'].""; ?>
                 </span>&nbsp;
-                <?php echo ' | '.$fila['nvchDescripcion'].$PrecioVenta.' | '.'Cantidad Huancayo: '.$fila['CantidadHuancayo'].' | Cantidad San Jerónimo: '.$fila['CantidadSanJeronimo']; ?>
+                <?php echo ' | '.$fila['nvchDescripcion'].$PrecioVenta.' | '.'Ubicación Huancayo: '.$fila['UbicacionHuancayo'].' | '.'Cantidad Huancayo: '.$fila['CantidadHuancayo'].' | '.'Ubicación San Jerónimo: '.$fila['UbicacionSanJeronimo'].' | '.'Cantidad San Jerónimo: '.$fila['CantidadSanJeronimo']; ?>
               </li>
           <?php
           }
