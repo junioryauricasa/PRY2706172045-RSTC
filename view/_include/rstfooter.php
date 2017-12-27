@@ -1,6 +1,6 @@
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.7.0607
+      <b>Version</b> 12.26.1554
     </div>
     <strong>Copyright &copy; 2017 <a href="http://resteco.com">Resteco Software</a>.</strong> Todos los derechos reservados.
   </footer>
