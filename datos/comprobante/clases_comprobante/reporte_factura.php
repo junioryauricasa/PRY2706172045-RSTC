@@ -394,7 +394,7 @@
                     //$letras = NumberToLetter::numToLetter(12345.67, 'colones', 'centimos');
                     $english_format_number = number_format($TotalVenta, 2, '.', ''); // dando formato primero
 
-                    echo 'SON: '.$monto_letras=numletras($english_format_number,4); // nivoca a la funcion para impresion de letra en numeros
+                    echo 'SON: '.$monto_letras=numletras($english_format_number,4).' SOLES'; // nivoca a la funcion para impresion de letra en numeros
 
                 ?>  
             </span>

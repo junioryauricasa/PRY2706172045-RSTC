@@ -20,7 +20,7 @@ Las siguientes funciones (unidad() hasta milmillon() forman parte de ésta funci
     $_nommoneda='EUROS'; 
     break; 
     case 4: 
-    $_nommoneda='SOLES'; 
+    $_nommoneda=''; 
     break; 
   } 
 //*** 
