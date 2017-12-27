@@ -43,7 +43,9 @@
     $intIdTipoComprobante = 0;
     include('../_include/rstheader.php');
     require_once '../../datos/conexion/bd_conexion.php';
+
 ?>  
+
 <?php require_once '../../negocio/comprobante/ncomprobante.php'; ?>
 <?php require_once '../../negocio/comprobante/ndetallecomprobante.php'; ?>
 <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>

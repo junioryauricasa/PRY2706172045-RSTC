@@ -476,7 +476,7 @@
                   <?php } else if($intTipoDetalle == 2) { ?>
                   <th>Proveedor</th>
                   <?php } ?>
-                  <th>Usuario que Generó</th>
+                  <th>Generado por </th>
                   <th>Fecha de Creación</th>
                   <th>Valor de <?php echo $lblTituloSingular; ?></th>
                   <th>IGV</th>
