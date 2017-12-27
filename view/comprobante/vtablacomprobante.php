@@ -60,27 +60,28 @@
             </td>
             <td class="filaCantidadSanJeronimo">
                 <input type="text" style="width: 70%" id="CantidadSanJeronimo1" name="CantidadSanJeronimo[]" form="form-comprobante" class="" readonly/>
-            </td>-->
+            </td>
+            -->
             <?php if($intTipoDetalle == 1) { ?>
             <td class="filaPrecio">
-                <input type="text" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="" readonly />
-                <input type="hidden" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
-                <input type="hidden" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
+                <input type="text" style="text-align: right;" id="dcmPrecio1" name="dcmPrecio[]" form="form-comprobante" class="" readonly />
+                <input type="hidden" style="text-align: right;" id="dcmDescuentoVenta21" form="form-comprobante" readonly />
+                <input type="hidden" style="text-align: right;" id="dcmDescuentoVenta31" form="form-comprobante" readonly />
             </td>
             <td class="filaDescuento">
-                <input style="max-width: 105px !important" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
+                <input style="max-width: 105px !important; text-align: right;" type="text" id="dcmDescuento1" name="dcmDescuento[]" form="form-comprobante" class="" idsprt="1" 
                 onkeyup="CalcularPrecioTotal(this)"/>
             </td>
             <?php } ?>
             <td class="filaPrecioUnitario">
-                <input style="max-width: 105px !important"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="txtPrecioUnitario" <?php if($intTipoDetalle == 1) { ?> readonly="true" <?php } ?> />
+                <input style="max-width: 105px !important; text-align: right;"  type="text" id="dcmPrecioUnitario1" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="1" class="txtPrecioUnitario" <?php if($intTipoDetalle == 1) { ?> readonly="true" <?php } ?> />
             </td>
             <td>
-                <input type="text" id="intCantidad1" name="intCantidad[]" form="form-comprobante" idsprt="1"
+                <input type="text" id="intCantidad1" name="intCantidad[]" style="text-align: right;" form="form-comprobante" idsprt="1"
               onkeyup="CalcularPrecioTotal(this)" class=""/>
             </td>
             <td class="filaTotal">
-                <input type="text" id="dcmTotal1" name="dcmTotal[]" class="" form="form-comprobante" readonly/>
+                <input type="text" id="dcmTotal1" name="dcmTotal[]" class="" style="text-align: right;" form="form-comprobante" readonly/>
             </td>
             <td style="width: 25px !important" >
                 <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
