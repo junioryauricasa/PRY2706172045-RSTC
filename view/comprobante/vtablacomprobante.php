@@ -21,7 +21,7 @@
           <?php } ?>
           <th style="width: 7% !important" class="filaPrecioUnitario">Precio Unit.</th>
           <th style="width: 4.32% !important" >Cant.</th>
-          <th style="width: 6% !important" class="filaTotal">Total</th>
+          <th style="width: 7% !important" class="filaTotal">Total</th>
           <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
         </tr>
         </thead>
@@ -238,23 +238,23 @@
             <tr>
               <td class="heading" data-th="ID">1</td>
               <td>
-                  <input style="width: 100% !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
-                  <input style="width: 100% !important" type="hidden" id="intIdProductoI1" name="intIdProductoI[]" form="form-comprobante" />
-                  <input style="width: 100% !important" type="text" class="buscar" id="nvchCodigoI1" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
+                  <input style="width: 100% !important;" type="hidden" name="fila[]" value="1" form="form-comprobante" />
+                  <input style="width: 100% !important;" type="hidden" id="intIdProductoI1" name="intIdProductoI[]" form="form-comprobante" />
+                  <input style="width: 100% !important;" type="text" class="buscar" id="nvchCodigoI1" name="nvchCodigoI[]" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)"/>
                   <div class="result" id="resultI1">
               </td>
               <td>
-                <input style="width: 100% !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
+                <input style="width: 100% !important; text-align: right" type="hidden" name="fila[]" value="1" form="form-comprobante" />
                 <textarea id="nvchDescripcionI1" style="resize: vertical;" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>
               </td>
               <td class="filaUbigeoHuancayo">
-                  <input type="text" style="width: 100%" id="UbigeoHuancayoI1" form="form-comprobante" class="" readonly/>
+                  <input type="text" style="width: 100%; text-align: right;" id="UbigeoHuancayoI1" form="form-comprobante" class="" readonly/>
               </td>
               <td class="filaUbigeoSanJeronimo">
-                  <input type="text" style="width: 100%" id="UbigeoSanJeronimoI1" form="form-comprobante" class="" readonly/>
+                  <input type="text" style="width: 100%; text-align: right;" id="UbigeoSanJeronimoI1" form="form-comprobante" class="" readonly/>
               </td>
               <td class="filaPrecioUnitario">
-                <input style="width: 100% !important" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"
+                <input style="width: 100% !important; text-align: right;" type="text" id="dcmPrecioUnitarioI1" name="dcmPrecioUnitarioI[]" idsprt="1" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"
                 class="" />
               </td>
               <td> 

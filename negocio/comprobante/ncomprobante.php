@@ -189,9 +189,9 @@
     if(intTipoDetalle == 1 && intIdTipoComprobante < 9){
       readonlyVender = 'readonly="true"';
       camposVender ='<td class="filaPrecio">'+
-                  '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" style="width: 100% !important" form="form-comprobante" readonly />'+
-                  '<input type="hidden" id="dcmDescuentoVenta2'+num+'" style="width: 100% !important" form="form-comprobante" readonly />'+
-                  '<input type="hidden" id="dcmDescuentoVenta3'+num+'" style="width: 100% !important" form="form-comprobante" readonly />'+
+                  '<input type="text" id="dcmPrecio'+num+'" name="dcmPrecio[]" style="width: 100% !important; text-align: right" form="form-comprobante" readonly />'+
+                  '<input type="hidden" id="dcmDescuentoVenta2'+num+'" style="width: 100% !important; text-align: right" form="form-comprobante" readonly />'+
+                  '<input type="hidden" id="dcmDescuentoVenta3'+num+'" style="width: 100% !important; text-align: right" form="form-comprobante" readonly />'+
                 '</td>'+
                 '<td class="filaDescuento"><input type="text" style="width: 100% !important; width: 100% !important" id="dcmDescuento'+num+'" name="dcmDescuento[]" form="form-comprobante" idsprt="'+num+'"'+
                   'onkeyup="CalcularPrecioTotal(this)"/></td>';
@@ -213,8 +213,9 @@
             '<input type="text" style="width: 100%" id="UbigeoSanJeronimo'+num+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           camposVender+
-          '<td class="filaPrecioUnitario"><input type="text" style="width: 100% !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
-          '<td><input type="text" style="width: 100% !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
+          '<td class="filaPrecioUnitario">'+
+          '<input type="text" style="width: 100% !important; text-align: right !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
+          '<td><input type="text" style="width: 100% !important; text-align: right !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
           '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" style="width: 100% !important" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
           '<td>'+
@@ -269,7 +270,7 @@
             '<input style="width: 100% !important; text-align: right;" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" style="text-align: right; width: 100% !important;" onkeyup="CalcularPrecioTotalM(this)"/>'+
+            '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" style="text-align: right !important; width: 100% !important;" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
           '<td class="filaTotal">'+
             '<input type="text" style="text-align: right; width: 100% !important;" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" readonly/>'+
@@ -304,7 +305,7 @@
             '<input style="width: 100% !important; text-align: right !important" type="text" id="dcmPrecioUnitarioI'+numi+'" name="dcmPrecioUnitarioI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="intCantidadI'+numi+'" style="width: 100% !important;" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
+            '<input type="text" id="intCantidadI'+numi+'" style="text-align: right !important; width: 100% !important;" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
           '<td class="filaTotal">'+
             '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" style="width: 100% !important; text-align: right !important; text-align: right !important" form="form-comprobante" readonly/>'+
