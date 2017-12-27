@@ -649,6 +649,11 @@ class Producto
         $salida['dcmPrecioVenta1'] = $fila['dcmPrecioVenta1'];
         $salida['dcmDescuentoVenta2'] = $fila['dcmDescuentoVenta2'];
         $salida['dcmDescuentoVenta3'] = $fila['dcmDescuentoVenta3'];
+        $salida['dcmDescuentoVenta3'] = $fila['dcmDescuentoVenta3'];
+        $salida['UbicacionHuancayo'] = $fila['UbicacionHuancayo'];
+        $salida['CantidadHuancayo'] = $fila['CantidadHuancayo'];
+        $salida['UbicacionSanJeronimo'] = $fila['UbicacionSanJeronimo'];
+        $salida['CantidadSanJeronimo'] = $fila['CantidadSanJeronimo'];
         $salida['detalleUbigeoProducto'] = '<button onclick="VerDetalleUbigeo(this);showmodaldetalles()" type="button" codigo="'.$fila["nvchCodigo"].'" id="'.$fila["intIdProducto"].'" class="btn btn-xs btn-success btn-modal-detalleproductos">
                   <i class="fa fa-edit"></i> Ver Detalle
                   </button>';

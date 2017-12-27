@@ -167,6 +167,13 @@
         $("#nvchCodigo"+Letra+id).val(datos.nvchCodigo);
         //$("#detalleUbigeoProducto"+id).html(datos.detalleUbigeoProducto);
         $("#nvchDescripcion"+Letra+id).val(datos.nvchDescripcion);
+        $("#UbigeoHuancayo"+Letra+id).val(datos.UbicacionHuancayo+' | '+datos.CantidadHuancayo);
+        $("#UbigeoSanJeronimo"+Letra+id).val(datos.UbicacionSanJeronimo+' | '+datos.CantidadSanJeronimo);
+        /*
+        $("#UbicacionHuancayo"+Letra+id).val(datos.UbicacionHuancayo);
+        $("#CantidadHuancayo"+Letra+id).val(datos.CantidadHuancayo);
+        $("#UbicacionSanJeronimo"+Letra+id).val(datos.UbicacionSanJeronimo);
+        $("#CantidadSanJeronimo"+Letra+id).val(datos.CantidadSanJeronimo);*/
         $("#dcmPrecio"+Letra+id).val(datos.dcmPrecioVenta1);
         $("#dcmDescuentoVenta2"+Letra+id).val(datos.dcmDescuentoVenta2);
         $("#dcmDescuentoVenta3"+Letra+id).val(datos.dcmDescuentoVenta3);
@@ -199,6 +206,12 @@
               '<div class="result" id="result'+num+'">'+
           '</td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-comprobante" readonly/></td>'+
+          '<td class="filaUbigeoHuancayo">'+
+            '<input type="text" style="width: 100%" id="UbigeoHuancayo'+num+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
+          '<td class="filaUbigeoSanJeronimo">'+
+            '<input type="text" style="width: 100%" id="UbigeoSanJeronimo'+num+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
           camposVender+
           '<td class="filaPrecioUnitario"><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
           '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
@@ -246,6 +259,12 @@
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numm+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionM'+numm+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4"></textarea>'+
           '</td>'+
+          '<td class="filaUbigeoHuancayo">'+
+            '<input type="text" style="width: 100%" id="UbigeoHuancayoM'+numm+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
+          '<td class="filaUbigeoSanJeronimo">'+
+            '<input type="text" style="width: 100%" id="UbigeoSanJeronimoM'+numm+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
           '<td class="filaPrecioUnitario">'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioM'+numm+'" name="dcmPrecioUnitarioM[]" idsprt="'+numm+'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
@@ -274,6 +293,12 @@
           '<td>'+
             '<input style="width: 110px !important" type="hidden" name="fila[]" value="'+numi+'" form="form-comprobante" />'+
             '<textarea id="nvchDescripcionI'+numi+'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4"></textarea>'+
+          '</td>'+
+          '<td class="filaUbigeoHuancayo">'+
+            '<input type="text" style="width: 100%" id="UbigeoHuancayoI'+numi+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
+          '<td class="filaUbigeoSanJeronimo">'+
+            '<input type="text" style="width: 100%" id="UbigeoSanJeronimoI'+numi+'" form="form-comprobante" class="" readonly/>'+
           '</td>'+
           '<td class="filaPrecioUnitario">'+
             '<input style="max-width: 105px !important" type="text" id="dcmPrecioUnitarioI'+numi+'" name="dcmPrecioUnitarioI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
@@ -383,7 +408,7 @@ function LimpiarCampos(){
 	$("#ComprobanteTotal").val("S/. 0.00"); 
 	$("#nvchObservacion").val("");
 	//if($("#intTipoDetalle").val() == 1)
-		//MostrarSeleccionComprobante();
+	//MostrarSeleccionComprobante();
 }
 /* FIN - Funcion Ajax - Limpiear campos del Comprobante */
 //////////////////////////////////////////////////////////////
@@ -1298,11 +1323,23 @@ $(document).on('change', '#lugar-comprobante', function(){
 function MostrarSeleccionComprobante() {
     var intTipoDetalle = $("#intTipoDetalle").val();
 	  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
+    var intIdSucursal = $("#intIdSucursalC").val();
+    /*
+    if(intIdSucursal == 1){
+      $(".filaUbicacionHuancayo").show();
+      $(".filaCantidadHuancayo").show();
+      $(".filaUbicacionSanJeronimo").hide();
+      $(".filaCantidadSanJeronimo").hide();
+    } else if(intIdSucursal == 2){
+      $(".filaUbicacionHuancayo").hide();
+      $(".filaCantidadHuancayo").hide();
+      $(".filaUbicacionSanJeronimo").show();
+      $(".filaCantidadSanJeronimo").show();
+    }*/
     CamposComprobante(intIdTipoComprobante);
     CamposTabla(intTipoDetalle,intIdTipoComprobante);
     if(intTipoDetalle == 1 || intIdTipoComprobante == 9 || intIdTipoComprobante == 10)
     {
-      var intIdSucursal = $("#intIdSucursalC").val();
   	  var funcion = "NCPR";
   	  $.ajax({
   	   url:"../../datos/comprobante/funcion_comprobante.php",

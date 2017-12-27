@@ -523,6 +523,12 @@ class Cotizacion{
             '<div class="result" id="result'.$i.'">'.
         '</td>'.
         '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'.$i.'" name="nvchDescripcion[]" form="form-comprobante" value="'.$fila_producto['nvchDescripcion'].'" readonly/></td>'.
+        '<td class="filaUbigeoHuancayo">'.
+          '<input type="text" style="width: 100%" id="UbigeoHuancayo'.$i.'" form="form-comprobante" class="" value="'.$fila_producto['UbicacionHuancayo'].' | '.$fila_producto['CantidadHuancayo'].'" readonly/>'.
+        '</td>'.
+        '<td class="filaUbigeoSanJeronimo">'.
+          '<input type="text" style="width: 100%" id="UbigeoSanJeronimo'.$i.'" form="form-comprobante" class="" value="'.$fila_producto['UbicacionSanJeronimo'].' | '.$fila_producto['CantidadSanJeronimo'].'" readonly/>'.
+        '</td>'.
         '<td>'.
           '<input type="text" id="dcmPrecio'.$i.'" name="dcmPrecio[]" form="form-comprobante" value="'.$fila_producto['dcmPrecioVenta1'].'" readonly />'.
           '<input type="hidden" id="dcmDescuentoVenta2'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta2'].'" readonly />'.

@@ -132,8 +132,16 @@
        {
         $("#intIdProducto"+id).val(datos.intIdProducto);
         $("#nvchCodigo"+id).val(datos.nvchCodigo);
-        $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
         $("#nvchDescripcion"+id).val(datos.nvchDescripcion);
+        $("#UbigeoHuancayo"+id).val(datos.UbicacionHuancayo+' | '+datos.CantidadHuancayo);
+        $("#UbigeoSanJeronimo"+id).val(datos.UbicacionSanJeronimo+' | '+datos.CantidadSanJeronimo);
+        /*
+        $("#UbicacionHuancayo").val(datos.UbicacionHuancayo);
+        $("#CantidadHuancayo").val(datos.CantidadHuancayo);
+        $("#UbicacionSanJeronimo").val(datos.UbicacionSanJeronimo);
+        $("#CantidadSanJeronimo").val(datos.CantidadSanJeronimo);
+        */
+        $("#dcmPrecio"+id).val(datos.dcmPrecioVenta1);
         $("#dcmDescuentoVenta2"+id).val(datos.dcmDescuentoVenta2);
         $("#dcmDescuentoVenta3"+id).val(datos.dcmDescuentoVenta3);
        }
@@ -159,6 +167,12 @@
               '<div class="result" id="result'+num+'">'+
           '</td>'+
           '<td><input type="text" style="width: 100% !important" id="nvchDescripcion'+num+'" name="nvchDescripcion[]" form="form-cotizacion" readonly/></td>'+
+          '<td class="filaUbigeoHuancayo">'+
+            '<input type="text" style="width: 100%" id="UbigeoHuancayo'+num+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
+          '<td class="filaUbigeoSanJeronimo">'+
+            '<input type="text" style="width: 100%" id="UbigeoSanJeronimo'+num+'" form="form-comprobante" class="" readonly/>'+
+          '</td>'+
           camposVender+
           '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-cotizacion" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" readonly /></td>'+
           '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-cotizacion" idsprt="'+num+'"'+
