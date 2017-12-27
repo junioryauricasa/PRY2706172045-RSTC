@@ -23,6 +23,10 @@ switch($_POST['funcion']){
     $Proveedor->ApellidoMaterno($_POST['nvchApellidoMaterno']);
     $Proveedor->Nombres($_POST['nvchNombres']);
     $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
+    $dtmFechaNacimiento = str_replace('/', '-', $_POST['dtmFechaNacimiento']);
+    $dtmFechaNacimiento = date('Y-m-d', strtotime($dtmFechaNacimiento));
+    $Proveedor->FechaNacimiento($dtmFechaNacimiento);
+    $Proveedor->Gustos($_POST['nvchGustos']);
     $Proveedor->Observacion($_POST['nvchObservacion']);
     $Proveedor->InsertarProveedor();
     $DomicilioProveedor = new DomicilioProveedor();
@@ -72,6 +76,10 @@ switch($_POST['funcion']){
     $Proveedor->ApellidoMaterno($_POST['nvchApellidoMaterno']);
     $Proveedor->Nombres($_POST['nvchNombres']);
     $Proveedor->IdTipoPersona($_POST['intIdTipoPersona']);
+    $dtmFechaNacimiento = str_replace('/', '-', $_POST['dtmFechaNacimiento']);
+    $dtmFechaNacimiento = date('Y-m-d', strtotime($dtmFechaNacimiento));
+    $Proveedor->FechaNacimiento($dtmFechaNacimiento);
+    $Proveedor->Gustos($_POST['nvchGustos']);
     $Proveedor->Observacion($_POST['nvchObservacion']);
     $Proveedor->ActualizarProveedor();
     break;

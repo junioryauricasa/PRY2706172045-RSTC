@@ -186,7 +186,7 @@
               </div>
             </div>
             <div class="col-md-9">
-                <div class="box box-info">
+                <div class="box box-primary">
                   <div class="box-header with-border">
                     <h3 class="box-title">10 Últimas Ventas Hechas</h3>
 
@@ -223,11 +223,12 @@
                               $sql_conectar = $sql_conexion->Conectar();
                               $sql_comando = $sql_conectar->prepare('CALL LISTARULTIMASVENTAS()');
                               $sql_comando -> execute();
+                              $i = 1;
                               while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                               {
                                 echo
                                 '<tr>
-                                    <td data-th="ID" class="heading"></td>
+                                    <td data-th="ID" class="heading">'.$i.'</td>
                                     <td data-th="Numeración">'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
                                     <td data-th="Tipo">'.$fila["NombreComprobante"].'</td>
                                     <td data-th="Cliente">'.$fila["NombreCliente"].'</td>
@@ -237,6 +238,7 @@
                                     <td data-th="IGV" style="text-align: right;">'.$fila["IGVComprobante"].'</td>
                                     <td data-th="Venta" style="text-align: right;">'.$fila["TotalComprobante"].'</td>
                                 </tr>';
+                                $i++;
                               }
                             } catch(PDPExceptio $e) {
                               echo $e->getMessage();
@@ -259,6 +261,67 @@
                     </a>
                   </div>-->
                   <!-- /.box-footer -->
+                </div>
+                <!-- CUMPLEAÑOS CLIENTES -->
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Lista de Clientes Cumpleañeros</h3>
+
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <div class="table-responsive">
+                      <table class="rwd-table ExcelTable2007" style="width:100%">
+                        <thead>
+                        <tr>
+                          <!--th class="heading" width="25px">&nbsp;</th-->
+                          <th class="" width="25px" style="background: #a9c4e9">
+                              <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                          </th>
+                          <th>DNI/RUC</th>
+                          <th>Cliente</th>
+                          <th>Tipo Cliente</th>
+                          <th>Fecha Cumpleaños</th>
+                          <th>Días Restantes</th>
+                          <th>Gustos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <?php  
+                            try {
+                              $sql_conexion = new Conexion_BD();
+                              $sql_conectar = $sql_conexion->Conectar();
+                              $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_HAPPY()');
+                              $sql_comando -> execute();
+                              $i = 1;
+                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                              {
+                                echo
+                                '<tr>
+                                    <td data-th="ID" class="heading">'.$i.'</td>
+                                    <td data-th="Numeración">'.$fila["DNIRUC"].'</td>
+                                    <td data-th="Tipo">'.$fila["NombreCliente"].'</td>
+                                    <td data-th="Cliente">'.$fila["TipoCliente"].'</td>
+                                    <td data-th="Fecha">'.$fila["FechaNacimiento"].'</td>
+                                    <td data-th="Moneda" style="text-align: right;">'.$fila["DiasRestantes"].'</td>
+                                    <td data-th="Valor Venta" style="text-align: right;">'.$fila["nvchGustos"].'</td>
+                                </tr>';
+                                $i++;
+                              }
+                            } catch(PDPExceptio $e) {
+                              echo $e->getMessage();
+                            }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
                 </div>
             </div>
           </div>

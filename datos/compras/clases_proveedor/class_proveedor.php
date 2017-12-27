@@ -12,6 +12,8 @@ class Proveedor
   private $nvchApellidoMaterno;
   private $nvchNombres;
   private $intIdTipoPersona;
+  private $dtmFechaNacimiento;
+  private $nvchGustos;
   private $nvchObservacion;
   
   public function IdProveedor($intIdProveedor){ $this->intIdProveedor = $intIdProveedor; }
@@ -22,6 +24,8 @@ class Proveedor
   public function ApellidoMaterno($nvchApellidoMaterno){ $this->nvchApellidoMaterno = $nvchApellidoMaterno; }
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
   public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
+  public function FechaNacimiento($dtmFechaNacimiento){ $this->dtmFechaNacimiento = $dtmFechaNacimiento; }
+  public function Gustos($nvchGustos){ $this->nvchGustos = $nvchGustos; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Proveedor */
 
@@ -32,7 +36,7 @@ class Proveedor
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarproveedor(@intIdProveedor,:nvchDNI,:nvchRUC,:nvchRazonSocial,
-      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:nvchObservacion)');
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:dtmFechaNacimiento,:nvchGustos,:nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDNI' => $this->nvchDNI, 
         ':nvchRUC' => $this->nvchRUC,
@@ -41,6 +45,8 @@ class Proveedor
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
         ':intIdTipoPersona' => $this->intIdTipoPersona,
+        ':dtmFechaNacimiento' => $this->dtmFechaNacimiento,
+        ':nvchGustos' => $this->nvchGustos,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdProveedor as intIdProveedor");
@@ -74,6 +80,12 @@ class Proveedor
       $formularioproveedor->ApellidoMaterno($fila['nvchApellidoMaterno']);
       $formularioproveedor->Nombres($fila['nvchNombres']);
       $formularioproveedor->IdTipoPersona($fila['intIdTipoPersona']);
+      if($fila['dtmFechaNacimiento'] != NULL)
+        $fila['dtmFechaNacimiento'] = date('d/m/Y', strtotime($fila['dtmFechaNacimiento']));
+      else
+        $fila['dtmFechaNacimiento'] = "";
+      $formularioproveedor->FechaNacimiento($fila['dtmFechaNacimiento']);
+      $formularioproveedor->Gustos($fila['nvchGustos']);
       $formularioproveedor->Observacion($fila['nvchObservacion']);
       $formularioproveedor->ConsultarFormulario($funcion);
     }
@@ -156,7 +168,8 @@ class Proveedor
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarproveedor(:intIdProveedor,:nvchDNI,:nvchRUC,
-      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:nvchObservacion)');
+      	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:dtmFechaNacimiento,:nvchGustos,
+        :nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdProveedor' => $this->intIdProveedor,
         ':nvchDNI' => $this->nvchDNI, 
@@ -166,6 +179,8 @@ class Proveedor
         ':nvchApellidoMaterno' => $this->nvchApellidoMaterno,
         ':nvchNombres' => $this->nvchNombres,
         ':intIdTipoPersona' => $this->intIdTipoPersona,
+        ':dtmFechaNacimiento' => $this->dtmFechaNacimiento,
+        ':nvchGustos' => $this->nvchGustos,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdProveedor'] = $this->intIdProveedor;
       echo "ok";

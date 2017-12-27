@@ -386,7 +386,10 @@ function MostrarTipoPersona() {
       	$(".nvchRUC").show();
       	$(".nvchRazonSocial").show();
       	$("#nvchRUC").attr("onkeyup","EsNumeroEntero('nvchRUC')");
-      	RestablecerValidacion("nvchRUC",1);
+      	if($("#funcion").val() == "I")
+			RestablecerValidacion("nvchRUC",1);
+		else
+			RestablecerValidacion("nvchRUC",2);
       } else if(tipo_persona == "2"){
       	$(".nvchDNI").show();
       	$(".nvchApellidoPaterno").show();
@@ -395,7 +398,10 @@ function MostrarTipoPersona() {
       	$(".nvchRUC").show();
       	$(".nvchRazonSocial").hide();
       	$("#nvchRUC").attr("onkeyup","EsNumeroEnteroOp('nvchRUC')");
-      	RestablecerValidacion("nvchRUC",1);
+      	if($("#funcion").val() == "I")
+			RestablecerValidacion("nvchRUC",1);
+		else
+			RestablecerValidacion("nvchRUC",2);
       }
 }
 /* FIN - Mostrar Campos de acuerdo al Tipo de Persona */

@@ -11,6 +11,8 @@ class FormularioCliente
   private $nvchNombres;
   private $intIdTipoPersona;
   private $intIdTipoCliente;
+  private $dtmFechaNacimiento;
+  private $nvchGustos;
   private $nvchObservacion;
 
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
@@ -22,6 +24,8 @@ class FormularioCliente
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
   public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
   public function IdTipoCliente($intIdTipoCliente){ $this->intIdTipoCliente = $intIdTipoCliente; }
+  public function FechaNacimiento($dtmFechaNacimiento){ $this->dtmFechaNacimiento = $dtmFechaNacimiento; }
+  public function Gustos($nvchGustos){ $this->nvchGustos = $nvchGustos; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
 
   function ConsultarFormulario($funcion)
@@ -167,6 +171,26 @@ class FormularioCliente
                       </select>
                     </div>
                     <input type="hidden" id="intIdTipoCliente" value="<?php echo $this->intIdTipoCliente; ?>">
+                  </div>
+                  <div class="col-md-12">
+                    <div id="dtmFechaNacimientoGroup" class="form-group">
+                      <label>Fecha de Nacimiento (Opcional):</label>
+                      <input type="text" id="dtmFechaNacimiento" name="dtmFechaNacimiento" class="form-control select2" 
+                      placeholder="Ingrese Fecha Nacimiento" value="<?php echo $this->dtmFechaNacimiento; ?>" 
+                      onkeyup="EsFechaOp('dtmFechaNacimiento')" maxlength="10" required>
+                      <span id="dtmFechaNacimientoIcono" class="" aria-hidden=""></span>
+                      <div id="dtmFechaNacimientoObs" class=""></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div id="nvchGustosGroup" class="form-group">
+                      <label>Gustos (Opcional):</label>
+                      <input type="text" id="nvchGustos" name="nvchGustos" class="form-control select2" 
+                      placeholder="Ingrese Gustos" value="<?php echo $this->nvchGustos; ?>" 
+                      onkeyup="EsVacioOp('nvchGustos')" maxlength="120" required>
+                      <span id="nvchGustosIcono" class="" aria-hidden=""></span>
+                      <div id="nvchGustosObs" class=""></div>
+                    </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
@@ -415,9 +439,9 @@ class FormularioCliente
                   </div>
                   <div class="box-footer clearfix">
                       <?php if($funcion == "F"){ ?>
-                      <input type="hidden" name="funcion" value="I" />
+                      <input type="hidden" name="funcion" id="funcion" value="I" />
                       <?php } else if($funcion == "M") { ?>
-                      <input type="hidden" name="funcion" value="A" />
+                      <input type="hidden" name="funcion" id="funcion" value="A" />
                       <?php } ?>
                       <input type="hidden" name="intIdCliente" id="intIdCliente" value="<?php echo $this->intIdCliente; ?>" />
                       <?php if($funcion == "F"){ ?>

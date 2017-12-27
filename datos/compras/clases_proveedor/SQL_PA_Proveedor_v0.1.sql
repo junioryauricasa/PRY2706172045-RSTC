@@ -11,15 +11,17 @@ DELIMITER $$
     IN _nvchApellidoMaterno VARCHAR(120),
 	IN _nvchNombres VARCHAR(250),
 	IN _intIdTipoPersona INT,
+	IN _dtmFechaNacimiento DATETIME,
+	IN _nvchGustos VARCHAR(500),
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		INSERT INTO tb_proveedor 
-		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona,
+		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona,dtmFechaNacimiento,nvchGustos,
 			nvchObservacion)
 		VALUES
 		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona,
-			_nvchObservacion);
+			_dtmFechaNacimiento,_nvchGustos,_nvchObservacion);
 		SET _intIdProveedor = LAST_INSERT_ID();
     END 
 $$
@@ -36,6 +38,8 @@ DELIMITER $$
     IN _nvchApellidoMaterno VARCHAR(120),
 	IN _nvchNombres VARCHAR(250),
 	IN _intIdTipoPersona INT,
+	IN _dtmFechaNacimiento DATETIME,
+	IN _nvchGustos VARCHAR(500),
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
@@ -48,6 +52,8 @@ DELIMITER $$
 		nvchApellidoMaterno = _nvchApellidoMaterno,
 		nvchNombres = _nvchNombres,
 		intIdTipoPersona = _intIdTipoPersona,
+		dtmFechaNacimiento = _dtmFechaNacimiento,
+		nvchGustos = _nvchGustos,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdProveedor = _intIdProveedor;

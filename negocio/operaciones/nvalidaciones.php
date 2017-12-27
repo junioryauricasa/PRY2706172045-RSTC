@@ -98,6 +98,24 @@ function EsVacio(NombreId)
   }
 }
 
+function EsFechaOp(NombreId){
+  var Valor = $("#"+NombreId).val();
+  if (EsVacioOp2(NombreId) == true){
+    return true;
+  } else if(/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/.test(Valor) == false) {
+    $("#"+NombreId+"Group").attr("class","form-group has-error has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-remove form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").attr("class","text-danger");
+    $("#"+NombreId+"Obs").html("Debe tener el formato dd/mm/aaaa");
+    return false;
+  } else {
+    $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
+    $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
+    return true;
+  }
+}
+
 function EsVacioOp(NombreId)
 {
   var Valor = $("#"+NombreId).val();
@@ -109,6 +127,17 @@ function EsVacioOp(NombreId)
   } else if(Valor != "" || Valor != null) {
     $("#"+NombreId+"Group").attr("class","form-group has-success has-feedback");
     $("#"+NombreId+"Icono").attr({"class":"glyphicon glyphicon-ok form-control-feedback", "aria-hidden":"true"});
+    $("#"+NombreId+"Obs").html("");
+    return true;
+  }
+}
+
+function EsVacioOp2(NombreId)
+{
+  var Valor = $("#"+NombreId).val();
+  if (Valor == "" || Valor == null){
+    $("#"+NombreId+"Group").attr("class","form-group");
+    $("#"+NombreId+"Icono").attr({"class":"", "aria-hidden":""});
     $("#"+NombreId+"Obs").html("");
     return true;
   }

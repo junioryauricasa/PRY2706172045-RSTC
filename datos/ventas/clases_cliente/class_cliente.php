@@ -13,6 +13,8 @@ class Cliente
   private $nvchNombres;
   private $intIdTipoPersona;
   private $intIdTipoCliente;
+  private $dtmFechaNacimiento;
+  private $nvchGustos;
   private $nvchObservacion;
   
   public function IdCliente($intIdCliente){ $this->intIdCliente = $intIdCliente; }
@@ -24,6 +26,8 @@ class Cliente
   public function Nombres($nvchNombres){ $this->nvchNombres = $nvchNombres; }
   public function IdTipoPersona($intIdTipoPersona){ $this->intIdTipoPersona = $intIdTipoPersona; }
   public function IdTipoCliente($intIdTipoCliente){ $this->intIdTipoCliente = $intIdTipoCliente; }
+  public function FechaNacimiento($dtmFechaNacimiento){ $this->dtmFechaNacimiento = $dtmFechaNacimiento; }
+  public function Gustos($nvchGustos){ $this->nvchGustos = $nvchGustos; }
   public function Observacion($nvchObservacion){ $this->nvchObservacion = $nvchObservacion; }
   /* FIN - Atributos de Cliente */
 
@@ -34,7 +38,8 @@ class Cliente
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL insertarCliente(@intIdCliente,:nvchDNI,:nvchRUC,:nvchRazonSocial,
-      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:intIdTipoCliente,:nvchObservacion)');
+      	:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,:intIdTipoCliente,:dtmFechaNacimiento,:nvchGustos,
+        :nvchObservacion)');
       $sql_comando->execute(array(
         ':nvchDNI' => $this->nvchDNI, 
         ':nvchRUC' => $this->nvchRUC,
@@ -44,6 +49,8 @@ class Cliente
         ':nvchNombres' => $this->nvchNombres,
         ':intIdTipoPersona' => $this->intIdTipoPersona,
         ':intIdTipoCliente' => $this->intIdTipoCliente,
+        ':dtmFechaNacimiento' => $this->dtmFechaNacimiento,
+        ':nvchGustos' => $this->nvchGustos,
         ':nvchObservacion' => $this->nvchObservacion));
       $sql_comando->closeCursor();
       $salidas = $sql_conectar->query("select @intIdCliente as intIdCliente");
@@ -76,6 +83,12 @@ class Cliente
       $formularioCliente->IdTipoPersona($fila['intIdTipoPersona']);
       $formularioCliente->IdTipoCliente($fila['intIdTipoCliente']);
       $formularioCliente->Observacion($fila['nvchObservacion']);
+      if($fila['dtmFechaNacimiento'] != NULL)
+        $fila['dtmFechaNacimiento'] = date('d/m/Y', strtotime($fila['dtmFechaNacimiento']));
+      else
+        $fila['dtmFechaNacimiento'] = "";
+      $formularioCliente->FechaNacimiento($fila['dtmFechaNacimiento']);
+      $formularioCliente->Gustos($fila['nvchGustos']);
       $formularioCliente->ConsultarFormulario($funcion);
     }
     catch(PDPExceptio $e){
@@ -161,7 +174,7 @@ class Cliente
       $sql_conectar = $sql_conexion->Conectar();
       $sql_comando = $sql_conectar->prepare('CALL actualizarCliente(:intIdCliente,:nvchDNI,:nvchRUC,
       	:nvchRazonSocial,:nvchApellidoPaterno,:nvchApellidoMaterno,:nvchNombres,:intIdTipoPersona,
-        :intIdTipoCliente,:nvchObservacion)');
+        :intIdTipoCliente,:dtmFechaNacimiento,:nvchGustos,:nvchObservacion)');
       $sql_comando->execute(array(
         ':intIdCliente' => $this->intIdCliente,
         ':nvchDNI' => $this->nvchDNI, 
@@ -172,6 +185,8 @@ class Cliente
         ':nvchNombres' => $this->nvchNombres,
         ':intIdTipoPersona' => $this->intIdTipoPersona,
         ':intIdTipoCliente' => $this->intIdTipoCliente,
+        ':dtmFechaNacimiento' => $this->dtmFechaNacimiento,
+        ':nvchGustos' => $this->nvchGustos,
         ':nvchObservacion' => $this->nvchObservacion));
       $_SESSION['intIdCliente'] = $this->intIdCliente;
       echo "ok";

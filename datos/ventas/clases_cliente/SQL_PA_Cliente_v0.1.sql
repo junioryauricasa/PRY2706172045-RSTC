@@ -12,15 +12,17 @@ DELIMITER $$
 	IN _nvchNombres VARCHAR(250),
 	IN _intIdTipoPersona INT,
 	IN _intIdTipoCliente INT,
+	IN _dtmFechaNacimiento DATETIME,
+	IN _nvchGustos VARCHAR(500),
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
 		INSERT INTO tb_cliente 
 		(nvchDNI,nvchRUC,nvchRazonSocial,nvchApellidoPaterno,nvchApellidoMaterno,nvchNombres,intIdTipoPersona,
-			intIdTipoCliente,nvchObservacion)
+			intIdTipoCliente,dtmFechaNacimiento,nvchGustos,nvchObservacion)
 		VALUES
 		(_nvchDNI,_nvchRUC,_nvchRazonSocial,_nvchApellidoPaterno,_nvchApellidoMaterno,_nvchNombres,_intIdTipoPersona,
-			_intIdTipoCliente,_nvchObservacion);
+			_intIdTipoCliente,_dtmFechaNacimiento,_nvchGustos,_nvchObservacion);
 		SET _intIdCliente = LAST_INSERT_ID();
     END 
 $$
@@ -38,6 +40,8 @@ DELIMITER $$
 	IN _nvchNombres VARCHAR(250),
 	IN _intIdTipoPersona INT,
 	IN _intIdTipoCliente INT,
+	IN _dtmFechaNacimiento DATETIME,
+	IN _nvchGustos VARCHAR(500),
 	IN _nvchObservacion VARCHAR(800)
     )
 	BEGIN
@@ -51,6 +55,8 @@ DELIMITER $$
 		nvchNombres = _nvchNombres,
 		intIdTipoPersona = _intIdTipoPersona,
 		intIdTipoCliente = _intIdTipoCliente,
+		dtmFechaNacimiento = _dtmFechaNacimiento,
+		nvchGustos = _nvchGustos,
 		nvchObservacion = _nvchObservacion
 		WHERE 
 		intIdCliente = _intIdCliente;
@@ -174,6 +180,37 @@ DELIMITER $$
 		CL.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 		CL.nvchNombres LIKE CONCAT(_elemento,'%') ) AND
 		CL.intIdTipoPersona = _intIdTipoPersona;
+    END 
+$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS BUSCARCLIENTE_HAPPY;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARCLIENTE_HAPPY()
+	BEGIN
+		SET @Dia = 0;
+		SET @Dias = 0;
+		SELECT CL.*,
+		@Dia := 0 + abs(datediff(DATE_FORMAT(NOW(),'%m-%d'),DATE_FORMAT(CL.dtmFechaNacimiento,'%m-%d'))),
+		@Dias:= 0 + datediff(DATE_FORMAT(NOW(),'%m-%d'),DATE_FORMAT(CL.dtmFechaNacimiento,'%m-%d')),
+		CASE 
+			WHEN CL.intIdTipoPersona = 1 THEN CL.nvchRUC
+			WHEN CL.intIdTipoPersona = 2 THEN CL.nvchDNI
+		END AS DNIRUC,
+		CASE 
+			WHEN CL.intIdTipoPersona = 1 THEN CL.nvchRazonSocial
+			WHEN CL.intIdTipoPersona = 2 THEN CONCAT(CL.nvchNombres,' ',CL.nvchApellidoPaterno,' ',CL.nvchApellidoMaterno)
+		END AS NombreCliente,
+		DATE_FORMAT(CL.dtmFechaNacimiento,'%d/%m/%Y') AS FechaNacimiento,
+		TCL.nvchNombre AS TipoCliente,
+		CASE
+			WHEN @Dias < 4 AND @Dias > 0 THEN CONCAT('Faltan ',@Dia,' Días')
+			WHEN @Dias = 0 THEN CONCAT('Es Hoy')
+			WHEN @Dias < 0 AND @Dias > -4 THEN CONCAT('Pasaron ',@Dia,' Días')
+		END AS DiasRestantes
+		FROM tb_cliente CL
+		LEFT JOIN tb_tipo_cliente TCL ON TCL.intIdTipoCliente = CL.intIdTipoCliente
+		WHERE @Dia < 4;
     END 
 $$
 DELIMITER ;

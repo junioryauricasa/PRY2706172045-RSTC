@@ -24,6 +24,10 @@ switch($_POST['funcion']){
     $Cliente->Nombres($_POST['nvchNombres']);
     $Cliente->IdTipoPersona($_POST['intIdTipoPersona']);
     $Cliente->IdTipoCliente($_POST['intIdTipoCliente']);
+    $dtmFechaNacimiento = str_replace('/', '-', $_POST['dtmFechaNacimiento']);
+    $dtmFechaNacimiento = date('Y-m-d', strtotime($dtmFechaNacimiento));
+    $Cliente->FechaNacimiento($dtmFechaNacimiento);
+    $Cliente->Gustos($_POST['nvchGustos']);
     $Cliente->Observacion($_POST['nvchObservacion']);
     $Cliente->InsertarCliente();
     $DomicilioCliente = new DomicilioCliente();
@@ -74,6 +78,10 @@ switch($_POST['funcion']){
     $Cliente->Nombres($_POST['nvchNombres']);
     $Cliente->IdTipoPersona($_POST['intIdTipoPersona']);
     $Cliente->IdTipoCliente($_POST['intIdTipoCliente']);
+    $dtmFechaNacimiento = str_replace('/', '-', $_POST['dtmFechaNacimiento']);
+    $dtmFechaNacimiento = date('Y-m-d', strtotime($dtmFechaNacimiento));
+    $Cliente->FechaNacimiento($dtmFechaNacimiento);
+    $Cliente->Gustos($_POST['nvchGustos']);
     $Cliente->Observacion($_POST['nvchObservacion']);
     $Cliente->ActualizarCliente();
     break;
