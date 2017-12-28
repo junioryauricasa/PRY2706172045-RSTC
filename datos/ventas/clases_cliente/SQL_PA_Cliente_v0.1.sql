@@ -190,9 +190,11 @@ DELIMITER $$
 	BEGIN
 		SET @Dia = 0;
 		SET @Dias = 0;
-		SELECT CL.*,
-		@Dia := 0 + abs(datediff(DATE_FORMAT(NOW(),'%m-%d'),DATE_FORMAT(CL.dtmFechaNacimiento,'%m-%d'))),
-		@Dias:= 0 + datediff(DATE_FORMAT(NOW(),'%m-%d'),DATE_FORMAT(CL.dtmFechaNacimiento,'%m-%d')),
+		SET @Anio = DATE_FORMAT(NOW(),'%Y');
+		SELECT
+		CL.dtmFechaNacimiento,
+		@Dia := 0 + abs(datediff(DATE_FORMAT(CL.dtmFechaNacimiento,CONCAT(@Anio,'-%m-%d')),DATE_FORMAT(NOW(),'%Y-%m-%d'))),
+		@Dias:= 0 + datediff(DATE_FORMAT(CL.dtmFechaNacimiento,CONCAT(@Anio,'-%m-%d')),DATE_FORMAT(NOW(),'%Y-%m-%d')),
 		CASE 
 			WHEN CL.intIdTipoPersona = 1 THEN CL.nvchRUC
 			WHEN CL.intIdTipoPersona = 2 THEN CL.nvchDNI
@@ -203,14 +205,15 @@ DELIMITER $$
 		END AS NombreCliente,
 		DATE_FORMAT(CL.dtmFechaNacimiento,'%d/%m/%Y') AS FechaNacimiento,
 		TCL.nvchNombre AS TipoCliente,
+		CL.nvchGustos,
 		CASE
-			WHEN @Dias < 4 AND @Dias > 0 THEN CONCAT('Faltan ',@Dia,' Días')
+			WHEN @Dias > 0 THEN CONCAT('Faltan ',@Dia,' Días')
 			WHEN @Dias = 0 THEN CONCAT('Es Hoy')
-			WHEN @Dias < 0 AND @Dias > -4 THEN CONCAT('Pasaron ',@Dia,' Días')
+			WHEN @Dias < 0 THEN CONCAT('Pasaron ',@Dia,' Días')
 		END AS DiasRestantes
 		FROM tb_cliente CL
 		LEFT JOIN tb_tipo_cliente TCL ON TCL.intIdTipoCliente = CL.intIdTipoCliente
-		WHERE @Dia < 4;
+		WHERE CL.dtmFechaNacimiento IS NOT NULL AND @Dia < 4;
     END 
 $$
 DELIMITER ;

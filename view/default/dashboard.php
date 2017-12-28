@@ -308,7 +308,7 @@
                                     <td data-th="Tipo">'.$fila["NombreCliente"].'</td>
                                     <td data-th="Cliente">'.$fila["TipoCliente"].'</td>
                                     <td data-th="Fecha">'.$fila["FechaNacimiento"].'</td>
-                                    <td data-th="Moneda" style="text-align: right;">'.$fila["DiasRestantes"].'</td>
+                                    <td data-th="Moneda" style="text-align: right;">'.utf8_encode($fila["DiasRestantes"]).'</td>
                                     <td data-th="Valor Venta" style="text-align: right;">'.$fila["nvchGustos"].'</td>
                                 </tr>';
                                 $i++;
