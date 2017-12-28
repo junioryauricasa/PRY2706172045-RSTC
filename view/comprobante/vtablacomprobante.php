@@ -117,7 +117,7 @@
             <td class="heading" data-th="ID">1</td>
             <td>
               <input style="width: 110px !important" type="hidden" name="fila[]" value="1" form="form-comprobante" />
-              <textarea id="nvchDescripcionS1" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>
+              <textarea id="nvchDescripcionS1" style="resize: vertical;" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4"></textarea>
               <!--<input type="text" style="width: 100%" id="nvchDescripcionS1" name="nvchDescripcionS[]" form="form-comprobante" />-->
             </td>
             <td>

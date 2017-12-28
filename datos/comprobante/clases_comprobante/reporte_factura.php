@@ -23,7 +23,8 @@
   $intIdTipoMoneda = $fila['intIdTipoMoneda'];
   $dtmFechaCreacion = $fila['dtmFechaCreacion'];
   $nvchObservacion = $fila['nvchObservacion'];
-  $nvchAnio = date('y', strtotime($fila['dtmFechaCreacion'])); // anio en 2 digitos
+  //$nvchAnio = date('y', strtotime($fila['dtmFechaCreacion'])); // anio en 2 digitos
+  $nvchAnio = date('Y', strtotime($fila['dtmFechaCreacion'])); // anio en 4 digitos
   $nvchDia = date('d', strtotime($fila['dtmFechaCreacion']));
   $numMes = Round(date('m', strtotime($fila['dtmFechaCreacion'])));
   $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -169,11 +170,14 @@
     <div class="" style="width: 53% !important; height: 100px; float: left; border: solid 2px transparent; ">
     </div>
     <div class="" style="width: 47% !important; height: 135px; float: left; border: solid 2px transparent; color: transparent;">
-        <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: -8px; color: transparent; height: 25px"></h1>
-        <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 22px; padding-top: -10px; color: transparent; height: 25px"></h1>
-        <h1 style="font-family: 'verdana'; font-weight: bolder; font-size: 24px; padding-top: 10px; color: transparent; height: 25px"></h1>
+        <h1 style="font-family: 'verdana'; 
+        font-size: 24px; padding-top: -8px; color: transparent; height: 25px"></h1>
+        <h1 style="font-family: 'verdana';
+        font-size: 22px; padding-top: -10px; color: transparent; height: 25px"></h1>
+        <h1 style="font-family: 'verdana'; 
+        font-size: 24px; padding-top: 10px; color: transparent; height: 25px"></h1>
         <h1 style="font-family: 'Arial'; font-size: 11px; padding-top: -14px; text-align: center;">
-            <span style="color: black; font-weight: 100">
+            <span style="">
               <?php echo $nvchSerie.' - '.$nvchNumeracion; ?>
             </span>
         </h1>
@@ -183,10 +187,8 @@
   <div class="row" style="">
       <div class="" style="width: 100%; margin-top: 169px; text-align: left; z-index: 10;/*color: green*/">
           <p style="width: 85% !important; margin: 0 auto; font-size: 14px">
-              <!--span>Fecha de Emisión……..de………………………..de 20……...</span-->
-              <span style="margin-left: 110px !important;"><?php echo $nvchDia; ?></span> 
-              <span style="margin-left: 50px !important;"><?php echo $nvchMes ?></span>
-              <span style="margin-left: 105px !important;"><?php echo $nvchAnio; ?></span>
+              <!--span>……..de………………………..de 20……...</span-->
+              <span style="/* margin-left: 110px !important; */">Fecha de Emisión: <?php echo $nvchDia; ?> de <?php echo $nvchMes ?> del <?php echo $nvchAnio; ?></span> 
           </p>
       </div>
   </div>
@@ -248,7 +250,7 @@
           <tbody style="border: solid 1px black;">
           <!--tbody style="border: dashed 1px black;"-->
             <tr id="primerdetalle" style="margin-bottom: 10px">
-              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black;*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 3% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black;*/ border-right: solid 1px black">
                   <small>
                     <small>
                         <span>ITEM</span>
@@ -262,14 +264,14 @@
                     </small>
                   </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; /* width: 13,8% !important */; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                 <small>
                     <small>
                         <span>DESCRIPCIÓN</span>
                     </small>
                 </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 4% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                 <small>
                     <small>
                         <span>CANT.</span>
@@ -312,19 +314,20 @@
               {
                 $TotalVenta += $fila['dcmTotal'];
             ?>
+
             <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
-              <td style="width: 8% !important; font-size:x-small; padding:0px; border-right: solid 1px">
-                <span style="color: black; font-weight: 100">
+              <td style="width: 8% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+                <span style="color: black; margin: 0 auto; margin-left: 50%">
                   <?php echo $i; ?>
                 </span>
               </td>
-              <td style="width: 16.67% !important; font-size:x-small; padding:0px; border-right: solid 1px">
-                <span style="color: black; font-weight: 100">
+              <td style="width: 16.67% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+                <span style="color: black; margin: 0 auto; margin-left: 25%">
                   <?php echo $fila['nvchCodigo']; ?>
                 </span>
               </td>
-              <td style="width: 50% !important; font-size:x-small; padding:0px; text-align: left !important;  border-right: solid 1px">
-                <span style="text-align: left !important; color: black; font-weight: 100; margin-left: 5px; text-transform: uppercase;">
+              <td style="/* width: 50% !important; */font-size:x-small; padding:0px; text-align: left !important;  border-right: solid 1px">
+                <span style="text-align: left !important; color: black; margin-left: 5px; text-transform: uppercase;">
                   <?php 
                       // Original >> str_replace(find,replace,string,count)
                       // echo $fila['nvchDescripcion']; 
@@ -332,18 +335,18 @@
                   ?>
                 </span>
               </td>
-              <td style="width: 11% !important; font-size:x-small; padding:0px; border-right: solid 1px">
-                <span>
+              <td style="/*width: 11% !important;*/; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+                <span style="color: black; margin: 0 auto; margin-left: 50%">
                   <?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?>
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; border-right: solid 1px">
-                <span>
+              <td style="width: 13.8% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+                <span style="color: black; margin: 0 auto; margin-right: 1%">
                   <?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?>
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; ">
-                <span style="">
+              <td style="width: 13.8% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+                <span style="color: black; margin: 0 auto; margin-right: 1%">
                   <?php echo number_format($fila['dcmTotal'],2,'.',','); ?>
                 </span>
               </td>
