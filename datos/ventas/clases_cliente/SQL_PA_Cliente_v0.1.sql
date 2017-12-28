@@ -207,13 +207,13 @@ DELIMITER $$
 		TCL.nvchNombre AS TipoCliente,
 		CL.nvchGustos,
 		CASE
-			WHEN @Dias > 0 THEN CONCAT('Faltan ',@Dia,' Días')
+			WHEN @Dias < 0 THEN CONCAT('Faltan ',@Dia,' Días')
 			WHEN @Dias = 0 THEN CONCAT('Es Hoy')
-			WHEN @Dias < 0 THEN CONCAT('Pasaron ',@Dia,' Días')
+			WHEN @Dias > 0 THEN CONCAT('Pasaron ',@Dia,' Días')
 		END AS DiasRestantes
 		FROM tb_cliente CL
 		LEFT JOIN tb_tipo_cliente TCL ON TCL.intIdTipoCliente = CL.intIdTipoCliente
-		WHERE CL.dtmFechaNacimiento IS NOT NULL AND @Dia < 4;
+		WHERE CL.dtmFechaNacimiento IS NOT NULL AND abs(datediff(DATE_FORMAT(CL.dtmFechaNacimiento,CONCAT(@Anio,'-%m-%d')),DATE_FORMAT(NOW(),'%Y-%m-%d'))) < 4;
     END 
 $$
 DELIMITER ;
