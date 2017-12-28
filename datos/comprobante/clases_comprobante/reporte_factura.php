@@ -20,6 +20,7 @@
   $NombrePago = $fila['NombrePago'];
   $NombreVenta = $fila['NombreVenta'];
   $intIdTipoVenta = $fila['intIdTipoVenta'];
+  $intIdTipoMoneda = $fila['intIdTipoMoneda'];
   $dtmFechaCreacion = $fila['dtmFechaCreacion'];
   $nvchObservacion = $fila['nvchObservacion'];
   $nvchAnio = date('y', strtotime($fila['dtmFechaCreacion'])); // anio en 2 digitos
@@ -37,17 +38,17 @@
     * 1 = Soles
   */
 
-  $tipoMoneda = 0;
+  //$tipoMoneda = 0;
 
-  if($tipoMoneda == 0){
-    $tipoMoneda = 3.5;
+  if($intIdTipoMoneda == 2){
+    //$tipoMoneda = 3.5;
     $simboloMoneda = ' DOLARES';
-    $simboloMoneda1 = ' USD ';
+    //$simboloMoneda1 = ' USD ';
   }else
-  if($tipoMoneda == 1){
-    $tipoMoneda = 1;
+  if($intIdTipoMoneda == 1){
+    //$tipoMoneda = 1;
     $simboloMoneda = ' SOLES';
-    $simboloMoneda1 = ' S/. ';
+    //$simboloMoneda1 = ' S/. ';
   }
 
   include('class_numero_a_texto.php'); //incluir funcion
@@ -428,7 +429,7 @@
         </td>
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
-            <?php echo $simboloMoneda1.number_format($ValorVenta, 2, '.', ','); ?>
+            <?php echo $nvchSimbolo.' '.number_format($ValorVenta, 2, '.', ','); ?>
           </span>
         </td>
       </tr>
@@ -444,7 +445,7 @@
         </td>
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
-            <?php echo $simboloMoneda1.number_format($IGVVenta, 2, '.', ','); ?>
+            <?php echo $nvchSimbolo.' '.number_format($IGVVenta, 2, '.', ','); ?>
           </span>
         </td>
       </tr>
@@ -461,7 +462,7 @@
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
           <span style=" padding-right: 0px !important; text-align: right;">
             <?php 
-             echo $simboloMoneda1.number_format($TotalVenta, 2, '.', ','); // formato con dos decimales
+             echo $nvchSimbolo.' '.number_format($TotalVenta, 2, '.', ','); // formato con dos decimales
             ?>
           </span>
         </td>
