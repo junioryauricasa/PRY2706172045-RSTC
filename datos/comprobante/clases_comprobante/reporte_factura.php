@@ -30,6 +30,22 @@
   //variable de impresion
   $descripcion = 'Lorem ipsum dolor sit amet, consectetur Aemo suaznabarso'; //56 carateres por linea de item
 
+
+  // Tipo de moneda 
+
+  $tipoMoneda = 0;
+
+  if($tipoMoneda == 0){
+    $tipoMoneda = 3.5;
+    $simboloMoneda = ' DOLARES';
+    $simboloMoneda1 = ' USD ';
+  }else
+  if($tipoMoneda == 1){
+    $tipoMoneda = 1;
+    $simboloMoneda = ' SOLES';
+    $simboloMoneda1 = ' S/. ';
+  }
+
   include('class_numero_a_texto.php'); //incluir funcion
 ?>
 
@@ -185,7 +201,7 @@
                     <span style="text-transform: uppercase;">Forma de Pago:</span> 
                 </td>
                 <td style="font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px;"><?php echo $NombrePago; ?></span>
+                    <span style="margin-left: -20px; text-transform: uppercase;"><?php echo $NombrePago; ?></span>
                 </td>
               </tr>
               <tr>
@@ -213,7 +229,7 @@
                     <span style="text-transform: uppercase;">Asesor de Ventas:</span> 
                 </td>
                 <td style="font-family: Arial; width: 15% !important; ">
-                    <span style="margin-left: -20px"><?php echo $NombreUsuario; ?></span>
+                    <span style="margin-left: -20px; text-transform: uppercase;"><?php echo $NombreUsuario; ?></span>
                 </td>
               </tr>
             </tbody>
@@ -394,7 +410,9 @@
                     //$letras = NumberToLetter::numToLetter(12345.67, 'colones', 'centimos');
                     $english_format_number = number_format($TotalVenta, 2, '.', ''); // dando formato primero
 
-                    echo 'SON: '.$monto_letras=numletras($english_format_number,4).' SOLES'; // nivoca a la funcion para impresion de letra en numeros
+                    //echo 'SON: '.$monto_letras=numletras($english_format_number,4).' SOLES'; // nivoca a la funcion para impresion de letra en numeros
+
+                    echo 'SON: '.$monto_letras=numletras($english_format_number,4).$simboloMoneda; // nivoca a la funcion para impresion de letra en numeros
 
                 ?>  
             </span>
@@ -406,7 +424,7 @@
         </td>
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
-            <?php echo number_format($ValorVenta, 2, '.', ','); ?>
+            <?php echo $simboloMoneda1.number_format($ValorVenta, 2, '.', ','); ?>
           </span>
         </td>
       </tr>
@@ -422,7 +440,7 @@
         </td>
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
-            <?php echo number_format($IGVVenta, 2, '.', ','); ?>
+            <?php echo $simboloMoneda1.number_format($IGVVenta, 2, '.', ','); ?>
           </span>
         </td>
       </tr>
@@ -439,7 +457,7 @@
         <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
           <span style=" padding-right: 0px !important; text-align: right;">
             <?php 
-             echo number_format($TotalVenta, 2, '.', ','); // formato con dos decimales
+             echo $simboloMoneda1.number_format($TotalVenta, 2, '.', ','); // formato con dos decimales
             ?>
           </span>
         </td>
