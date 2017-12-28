@@ -31,7 +31,11 @@
   $descripcion = 'Lorem ipsum dolor sit amet, consectetur Aemo suaznabarso'; //56 carateres por linea de item
 
 
-  // Tipo de moneda 
+  /* 
+    Tipo de moneda
+    * Cero = dolar 
+    * 1 = Soles
+  */
 
   $tipoMoneda = 0;
 
