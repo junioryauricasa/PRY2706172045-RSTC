@@ -295,6 +295,13 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </ul>
             </li>
           </ul>
+
+          <ul class="nav navbar-nav navbar-right" style="float: right !important; position: absolute; right: 10px">
+            <li class="active" style="font-weight:bolder">
+              <a href="#">1USD = 3.5PEN</a>
+            </li>
+          </ul>
+
       </div>
 
     </nav>
