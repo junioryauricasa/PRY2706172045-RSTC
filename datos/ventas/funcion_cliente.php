@@ -52,9 +52,9 @@ switch($_POST['funcion']){
   	$DomicilioCliente = new DomicilioCliente();
     $DomicilioCliente->IdCliente($_POST['intIdCliente']);
     $DomicilioCliente->Pais($_POST['nvchPais']);
-    $DomicilioCliente->Region($_POST['nvchRegion']);
-    $DomicilioCliente->Provincia($_POST['nvchProvincia']);
-    $DomicilioCliente->Distrito($_POST['nvchDistrito']);
+    $DomicilioCliente->IdDepartamento($_POST['intIdDepartamento']);
+    $DomicilioCliente->IdProvincia($_POST['intIdProvincia']);
+    $DomicilioCliente->IdDistrito($_POST['intIdDistrito']);
     $DomicilioCliente->Direccion($_POST['nvchDireccion']);
     $DomicilioCliente->IdTipoDomicilio($_POST['intIdTipoDomicilio']);
     $DomicilioCliente->InsertarDomicilioCliente_II();

@@ -353,7 +353,7 @@ function MostrarTipoPersona() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
 function AgregarDomicilio() {
-	var nvchPais = document.getElementById("nvchPais").value;
+	var nvchPais = $("#nvchPais").val();
 	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
 	var intIdProvincia = document.getElementById("intIdProvincia").value;
 	var intIdDistrito = document.getElementById("intIdDistrito").value;
@@ -393,7 +393,7 @@ function AgregarDomicilio() {
 		intIdTipoDomicilio+'"/>'+$("#tipo-domicilio option:selected").html()+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
-	RestablecerValidacion('nvchPais',1);
+	//RestablecerValidacion('nvchPais',1);
 	$("#intIdDepartamento").val(1);
 	MostrarProvincia();
 	RestablecerValidacion('nvchDireccion',1);
@@ -554,7 +554,7 @@ function AgregarDomicilio_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
 	   		MostrarDomicilio(intIdCliente,tipolistado);
-	   		RestablecerValidacion('nvchPais',1);
+	   		//RestablecerValidacion('nvchPais',1);
 			$("#intIdDepartamento").val(1);
 			MostrarProvincia();
 			RestablecerValidacion('nvchDireccion',1);
@@ -788,7 +788,7 @@ function BotonesComunicacion(accion) {
 }
 function BotonesDomicilio(accion) {
 	if(accion == "I"){
-		RestablecerValidacion('nvchPais',1);
+		RestablecerValidacion('nvchPais',2);
 		RestablecerValidacion('nvchRegion',1);
 		RestablecerValidacion('nvchProvincia',1);
 		RestablecerValidacion('nvchDistrito',1);
@@ -862,7 +862,7 @@ function limpiarformCliente(){
       $("#nvchObservacion").val("");
 
       //domicilio
-      $("#nvchPais").val("");
+      $("#nvchPais").val("PERU");
       $("#intIdDepartamento").val(1);
       $("#intIdProvincia").val(1);
       $("#intIdDistrito").val(1);

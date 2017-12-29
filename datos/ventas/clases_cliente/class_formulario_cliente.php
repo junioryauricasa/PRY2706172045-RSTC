@@ -218,16 +218,17 @@ class FormularioCliente
                 </div>
                   <div class="box-body">
                       <div class="row">
-                          <div class="col-md-3">
+                          <div id="nvchPaisCol" class="col-md-3">
                             <div id="nvchPaisGroup" class="form-group">
                               <label>País:</label>
                               <input type="text" name="Pais" id="nvchPais" class="form-control select2" 
-                              placeholder="Ingrese el País" value="" onkeypress="return EsLetraTecla(event)" 
-                              onkeyup="EsLetra('nvchPais')" maxlength="150">
+                              placeholder="Ingrese el País" value="PERU" onkeypress="return EsLetraTecla(event)" 
+                              onkeyup="EsLetra('nvchPais')" maxlength="150" />
                               <span id="nvchPaisIcono" class="" aria-hidden=""></span>
                               <div id="nvchPaisObs" class=""></div>
                             </div>
                           </div>
+                          <script type="text/javascript">$("#nvchPaisCol").hide();</script>
                           <div class="col-md-3">
                             <div id="intIdDepartamentoGroup" class="form-group">
                               <label>Departamento:</label>
