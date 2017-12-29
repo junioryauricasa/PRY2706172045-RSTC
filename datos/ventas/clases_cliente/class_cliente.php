@@ -104,12 +104,23 @@ class Cliente
         $sql_conectar = $sql_conexion->Conectar();
         $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
         $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+        $j = $x + 1;
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
           echo '
           <tr>
-            <td class="heading" data-th="ID"></td>
-          ';
+            <td class="heading" data-th="ID">'.$j.'</td>
+            <td>'.$fila["DNIRUC"].'</td>
+            <td>'.$fila["NombreCliente"].'</td>
+            <td>'.$fila["TipoCliente"].'</td>
+            <td> 
+                <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-success" onclick="SeleccionarCliente(this)">
+                  <i class="fa fa-edit"></i> Seleccionar
+                </button>
+            </td>
+          </tr>';
+          $j++;
+        /*
           if($intIdTipoPersona == 2) { 
             echo '<td>'.$fila["nvchDNI"].'</td>'; 
           }
@@ -121,15 +132,7 @@ class Cliente
           echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
           <td>'.$fila["nvchApellidoMaterno"].'</td>
           <td>'.$fila["nvchNombres"].'</td>';
-          }
-          echo 
-          '<td>'.$fila["TipoCliente"].'</td>
-          <td> 
-            <button type="button" idscli="'.$fila['intIdCliente'].'" class="btn btn-xs btn-success" onclick="SeleccionarCliente(this)">
-              <i class="fa fa-edit"></i> Seleccionar
-            </button>
-          </td>
-          </tr>';
+          }*/
         }
       } else {
         echo "";
@@ -233,6 +236,7 @@ class Cliente
       $cantidad = 0;
       $numpaginas = 0;
       $i = 0;
+      $j = $x + 1;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       //Busqueda de Cliente por el comando LIMIT
@@ -244,6 +248,7 @@ class Cliente
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
+        $j = $x + 1;
       } else if ($tipolistado == "D"){
         $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona)');
         $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
@@ -259,21 +264,13 @@ class Cliente
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
         if($i == ($cantidad - $x) && $tipolistado == "N"){
-          echo '
-          <tr bgcolor="#BEE1EB">
-            <td class="heading" data-th="ID"></td>
-          ';
+          echo '<tr bgcolor="#BEE1EB">';
         } else if($fila["intIdCliente"] == $_SESSION['intIdCliente'] && $tipolistado == "E"){
-          echo '
-          <tr bgcolor="#B3E4C0">
-            <td class="heading" data-th="ID"></td>
-          ';
+          echo '<tr bgcolor="#B3E4C0">';
         }else {
-          echo '
-          <tr>
-            <td class="heading" data-th="ID"></td>
-          ';
+          echo '<tr>';
         }
+        /*
         if($intIdTipoPersona == 2) { 
             echo '<td>'.$fila["nvchDNI"].'</td>'; 
         }
@@ -285,18 +282,22 @@ class Cliente
             echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
             <td>'.$fila["nvchApellidoMaterno"].'</td>
             <td>'.$fila["nvchNombres"].'</td>';
-        }
-        echo '
-            <td> 
-              <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente" onclick="verformulario()">
-                <i class="fa fa-edit" data-toggle="tooltip" title="Editar"></i> Editar 
-              </button>
-              <button type="submit" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-danger btn-eliminar-cliente">
-                <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> Eliminar
-              </button>
-            </td>
+        }*/
+        echo 
+        '<td class="heading" data-th="ID">'.$j.'</td>
+        <td>'.$fila["DNIRUC"].'</td>
+        <td>'.$fila["NombreCliente"].'</td>
+        <td>'.$fila["TipoCliente"].'</td> 
+        <td> 
+          <button type="button" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-warning btn-mostrar-cliente" onclick="verformulario()">
+            <i class="fa fa-edit" data-toggle="tooltip" title="Editar"></i> Editar 
+          </button>
+          <button type="button" id="'.$fila["intIdCliente"].'" class="btn btn-xs btn-danger btn-eliminar-cliente">
+            <i class="fa fa-edit" data-toggle="tooltip" title="Eliminar"></i> Eliminar
+          </button>
+        </td>
         </tr>';
-        $i++;
+        $i++; $j++;
       }
     }
     catch(PDPExceptio $e){

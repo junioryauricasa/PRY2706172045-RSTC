@@ -851,7 +851,7 @@ function limpiarformCliente(){
 
       //persona
       $("#tipo-persona").val(1);
-      $("#intIdTipoPersona").val("");
+      //$("#intIdTipoPersona").val("");
       $("#nvchDNI").val("");
       $("#nvchRUC").val("");
       $("#nvchRazonSocial").val("");
