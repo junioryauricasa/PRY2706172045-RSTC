@@ -203,72 +203,120 @@ class FormularioProveedor
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-3">
-                          <div id="nvchPaisGroup" class="form-group">
-                            <label>País:</label>
-                            <input type="text" name="Pais" id="nvchPais" class="form-control select2" 
-                            placeholder="Ingrese el País" value="" onkeypress="return EsLetraTecla(event)" 
-                            onkeyup="EsLetra('nvchPais')" maxlength="150">
-                            <span id="nvchPaisIcono" class="" aria-hidden=""></span>
-                            <div id="nvchPaisObs" class=""></div>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div id="intIdDepartamentoGroup" class="form-group">
-                            <label>Departamento:</label>
-                            <select onchange="MostrarProvincia()" id="intIdDepartamento" class="form-control select2" >
-                              <?php try{
-                                $sql_conexion = new Conexion_BD();
-                                $sql_conectar = $sql_conexion->Conectar();
-                                $sql_comando = $sql_conectar->prepare('CALL mostrardepartamento()');
-                                $sql_comando->execute();
-                                while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                                {
-                                  echo '<option value="'.$fila['intIdDepartamento'].'">'.$fila['nvchDepartamento'].'</option>';
-                                }
-                              }catch(PDPExceptions $e){
-                                echo $e->getMessage();
-                              }?>
+                          <div class="form-group">
+                            <label>Tipo de País:</label>
+                            <select onchange="TipoPais()" id="tipo-pais" class="form-control select2">
+                              <option value="1">Nacional</option>
+                              <option value="2">Internacional</option>
                             </select>
                           </div>
                         </div>
-                        <div class="col-md-3">
-                          <div id="intIdProvinciaGroup" class="form-group">
-                            <label>Provincia:</label>
-                            <select onchange="MostrarDistrito()" id="intIdProvincia" class="form-control select2" >
-                              <?php try{
-                                $sql_conexion = new Conexion_BD();
-                                $sql_conectar = $sql_conexion->Conectar();
-                                $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(1)');
-                                $sql_comando->execute();
-                                while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                                {
-                                  echo'<option value="'.$fila['intIdProvincia'].'">'.$fila['nvchProvincia'].'</option>';
-                                }
-                              }catch(PDPExceptions $e){
-                                echo $e->getMessage();
-                              }?>
-                            </select>
+                      </div>
+                      <div id="camposPaisNacional">
+                      <div class="row">
+                          <div class="col-md-3">
+                            <div id="intIdDepartamentoGroup" class="form-group">
+                              <label>Departamento:</label>
+                              <select onchange="MostrarProvincia()" id="intIdDepartamento" class="form-control select2" >
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrardepartamento()');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo '<option value="'.$fila['intIdDepartamento'].'">'.$fila['nvchDepartamento'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div id="intIdProvinciaGroup" class="form-group">
+                              <label>Provincia:</label>
+                              <select onchange="MostrarDistrito()" id="intIdProvincia" class="form-control select2" >
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(1)');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo'<option value="'.$fila['intIdProvincia'].'">'.$fila['nvchProvincia'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div id="intIdDistritoGroup" class="form-group">
+                              <label>Distrito:</label>
+                              <select id="intIdDistrito" class="form-control select2" >
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL MostrarDistrito(1)');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo'<option value="'.$fila['intIdDistrito'].'">'.$fila['nvchDistrito'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-md-3">
-                          <div id="intIdDistritoGroup" class="form-group">
-                            <label>Distrito:</label>
-                            <select id="intIdDistrito" class="form-control select2" >
-                              <?php try{
-                                $sql_conexion = new Conexion_BD();
-                                $sql_conectar = $sql_conexion->Conectar();
-                                $sql_comando = $sql_conectar->prepare('CALL MostrarDistrito(1)');
-                                $sql_comando->execute();
-                                while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                                {
-                                  echo'<option value="'.$fila['intIdDistrito'].'">'.$fila['nvchDistrito'].'</option>';
-                                }
-                              }catch(PDPExceptions $e){
-                                echo $e->getMessage();
-                              }?>
-                            </select>
+                      </div>
+                      <div id="camposPaisInternacional">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div id="nvchPaisGroup" class="form-group">
+                              <label>País:</label>
+                              <input type="text" name="Pais" id="nvchPais" class="form-control select2" 
+                              placeholder="Ingrese el País" value="PERU" onkeypress="return EsLetraTecla(event)" 
+                              onkeyup="EsLetra('nvchPais')" maxlength="450">
+                              <span id="nvchPaisIcono" class="" aria-hidden=""></span>
+                              <div id="nvchPaisObs" class=""></div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div id="DepartamentoGroup" class="form-group">
+                              <label>Estado / Departamento:</label>
+                              <input type="text" name="Departamento" id="Departamento" class="form-control select2" 
+                              placeholder="Ingrese el Estado / Departamento" value="" onkeypress="return EsLetraTecla(event)" 
+                              onkeyup="EsLetra('Departamento')" maxlength="450">
+                              <span id="DepartamentoIcono" class="" aria-hidden=""></span>
+                              <div id="DepartamentoObs" class=""></div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div id="ProvinciaGroup" class="form-group">
+                              <label>Provincia:</label>
+                              <input type="text" name="Provincia" id="Provincia" class="form-control select2" 
+                              placeholder="Ingrese la Provincia" value="" onkeypress="return EsLetraTecla(event)" 
+                              onkeyup="EsLetra('Provincia')" maxlength="450">
+                              <span id="ProvinciaIcono" class="" aria-hidden=""></span>
+                              <div id="ProvinciaObs" class=""></div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div id="DistritoGroup" class="form-group">
+                              <label>Distrito / Ciudad:</label>
+                              <input type="text" name="Distrito" id="Distrito" class="form-control select2" 
+                              placeholder="Ingrese el Distrito / Ciudad" value="" onkeypress="return EsLetraTecla(event)" 
+                              onkeyup="EsLetra('Distrito')" maxlength="450">
+                              <span id="DistritoIcono" class="" aria-hidden=""></span>
+                              <div id="DistritoObs" class=""></div>
+                            </div>
                           </div>
                         </div>
+                        <script type="text/javascript">TipoPais();</script>
                     </div>
                     <div class="row">
                         <div class="col-md-5">

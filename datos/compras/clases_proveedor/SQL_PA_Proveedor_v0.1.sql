@@ -68,7 +68,10 @@ DELIMITER $$
     )
 	BEGIN
 		SELECT PRO.*,
-		CONCAT(DPR.nvchDireccion,' ',DT.nvchDistrito,' - ',PR.nvchProvincia,' - ',DP.nvchDepartamento) AS nvchDomicilio
+		CASE 
+			WHEN DPR.nvchPais = 'PERU' THEN CONCAT(DPR.nvchDireccion,' ',DT.nvchDistrito,' - ',PR.nvchProvincia,' - ',DP.nvchDepartamento)
+			WHEN DPR.nvchPais != 'PERU' THEN  CONCAT(DPR.nvchDireccion,' ',DPR.intIdDistrito,' - ',DPR.intIdProvincia,' - ',DPR.intIdDepartamento)
+		END AS nvchDomicilio
 		FROM tb_proveedor PRO
 		LEFT JOIN tb_domicilio_proveedor DPR ON PRO.intIdProveedor = DPR.intIdProveedor
 		LEFT JOIN tb_distritos DT ON DPR.intIdDistrito = DT.intIdDistrito
