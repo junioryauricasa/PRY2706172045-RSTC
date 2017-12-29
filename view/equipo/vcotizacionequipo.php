@@ -61,17 +61,6 @@
       }
     </style>
   <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Cotización de Equipos
-        <small>Módulo de Equipos</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Estatico</li>
-      </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -82,6 +71,32 @@
           <li class=""><a href="#formListarCotizacion" id="btnFormListarCotizacion" data-toggle="tab" aria-expanded="false">Lista de Cotizaciones</a></li>
         </ul>
         <div class="tab-content">
+          <div class="col-md-12" style="margin-bottom: 20px">
+            <h3>
+              Cotización de Equipos
+              <small>Módulo de Equipos</small>
+            </h3>
+            <!-- INICIO - buttons eventos -->
+            <div class="pull-right">
+
+              <input type="button" id="btn-crear-cotizacion" class="btn btn-sm btn-primary opcion-boton-nuevo" value="Realizar Cotización de Equipo" form="form-cotizacion">
+              <input type="button" id="btn-editar-cotizacion" class="btn btn-sm btn-primary opcion-boton-editar" value="Modificar Cotización de Equipo" form="form-cotizacion">
+              <input type="button" onclick="NuevaCotizacion()" class="btn btn-sm btn-success" value="Nueva Cotización de Equipo" form="form-cotizacion">
+
+              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick="">
+                <i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                Reporte Excel
+              </button>
+              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-left" onclick="">
+                <i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                Reporte PDF
+              </button>
+
+            </div>
+            <!-- END - buttons eventos -->
+          </div>
+          
+          
           <!-- INICIO - Formulario Realizar Venta -->
           <form id="form-cotizacion" method="POST"></form>
           <div class="tab-pane active" id="formRealizarCotizacion">
@@ -316,11 +331,6 @@
                   <input type="hidden" id="intIdCliente" name="intIdCliente" value="" form="form-cotizacion">
                   <input type="hidden" id="intIdUsuario" name="intIdUsuario" value="" form="form-cotizacion">
                   <input type="hidden" id="intIdCotizacionEquipo" name="intIdCotizacionEquipo" value="" form="form-cotizacion">
-                  <div class="text-center">
-                    <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización de Equipo" form="form-cotizacion">
-                    <input type="button" id="btn-editar-cotizacion" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar Cotización de Equipo" form="form-cotizacion">
-                    <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-success" value="Nueva Cotización de Equipo" form="form-cotizacion">
-                  </div>
                 </div>
               </div>
               <script>HabilitacionOpciones(1);</script>
