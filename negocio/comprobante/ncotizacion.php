@@ -258,7 +258,7 @@ function LimpiarCampos(){
 	$("#intIdClienteC").val("");
 	$("#intIdTipoVenta").val(1);
 	$("#intIdTipoVenta").change();
-	$("#intIdTipoMoneda").val(1);
+	$("#intIdTipoMoneda").val(2);
 	$("#intIdTipoPago").val(1);
 	$("#ListaDeProductosVender").html("");
 	$("#ListaDeServiciosVender").html("");

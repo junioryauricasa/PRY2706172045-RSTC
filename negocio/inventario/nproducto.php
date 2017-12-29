@@ -567,8 +567,8 @@ function limpiarformProducto(){
       $("#nvchObservacion").val("");
       $("#nvchDireccionImg").val("");
       $("#resultadoimagen").attr("src","../../datos/inventario/imgproducto/productosinfoto.png");
-      $("#intIdTipoMonedaCompra").val(1);
-      $("#intIdTipoMonedaVenta").val(1);
+      $("#intIdTipoMonedaCompra").val(2);
+      $("#intIdTipoMonedaVenta").val(2);
       $("#intIdProducto").val("");
       $("#intIdTipoProducto").val(1);
       $("#intIdTipoProducto").change();

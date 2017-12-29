@@ -18,7 +18,7 @@ $("#nvchDomicilio").val("");
 $("#TipoCliente").val("");
 $("#intIdCliente").val("");
 $("#intIdTipoVenta").val(3);
-$("#intIdTipoMoneda").val(1);
+$("#intIdTipoMoneda").val(2);
 $("#intIdTipoVenta").change();
 $("#intIdPlantillaCotizacion").val(1);
 $("#intIdAutor").val(1);

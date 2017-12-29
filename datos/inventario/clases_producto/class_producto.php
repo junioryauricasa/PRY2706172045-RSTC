@@ -583,7 +583,7 @@ class Producto
               $fila['CantidadSanJeronimo'] = 0;
             $PrecioVenta = "";
             if($intTipoDetalle == 1)
-              $PrecioVenta = ' | '.$fila['nvchSimbolo'].' '.$fila['dcmPrecioVenta1'];
+              $PrecioVenta = ' | '.$fila['nvchSimbolo'].' '.number_format($fila['dcmPrecioVenta1'],2,'.',',');
           ?>
               <li class="show truncate" align="left" id="">
                 <input type="hidden" class="intIdProducto" value="<?php echo $fila['intIdProducto']; ?>">
