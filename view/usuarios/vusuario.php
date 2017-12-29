@@ -99,7 +99,12 @@
                   <div class="col-md-12">
                       <div class="">
                         <h3 class="">Registro de Usuarios</h3>
-                        <div class="">
+                        <div class="pull-right">
+                              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" onclick="clickdetallesUsuario()"><i class="fa fa-plus-square" aria-hidden="true" style="padding-right: 5px"></i> Agregar Usuario</button>
+                              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                              Reporte Excel</button>
+                              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-left" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                              Reporte PDF</button>
                         </div>
                       </div>
                       <div class="">
@@ -142,7 +147,7 @@
                           </nav>
                         </div>
                         <br>
-                        <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" onclick="clickdetallesUsuario()">Agregar Usuario</button>
+                        
                       </div> 
                   </div>                 
                 </div>
