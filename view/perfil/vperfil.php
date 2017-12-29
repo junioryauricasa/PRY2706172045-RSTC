@@ -395,11 +395,16 @@
                         <div class="col-sm-4">
                            <input type="password" class="form-control" id="nvchUserPassword" name="nvchUserPassword" placeholder="Ingrese Nueva Contraseña" required>
                         </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Repita Contraseña:</label>
                         <div class="col-sm-4">
-                           <input type="password" class="form-control" id="nvchUserPasswordRep" name="nvchUserPasswordRep" placeholder="Ingrese Contraseña Nuevamente" onkeyup="ComprobarPassword()" required>
+                           <input type="password" class="form-control" id="nvchUserPasswordRep" name="nvchUserPasswordRep" placeholder="Repita Nueva Contraseña" onkeyup="ComprobarPassword()" required>
                            <div id="nvchUserPasswordRepObs" class=""></div>
                         </div>
                       </div>
+
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                           <input type="hidden" name="intIdUsuario" value="<?php echo $_SESSION['intIdUsuarioSesion']; ?>"/>
