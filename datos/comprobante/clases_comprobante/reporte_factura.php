@@ -264,7 +264,7 @@
                     </small>
                   </small>
               </td>
-              <td style="font-family: Arial; text-align: center; /* width: 13,8% !important */; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; /*  */; width: 55.6% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                 <small>
                     <small>
                         <span>DESCRIPCIÓN</span>
@@ -316,7 +316,7 @@
             ?>
 
             <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
-              <td style="width: 8% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+              <td style="width: 3% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
                 <span style="color: black; margin: 0 auto; margin-left: 50%">
                   <?php echo $i; ?>
                 </span>

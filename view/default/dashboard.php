@@ -70,10 +70,6 @@
           <h1>
             Información General
           </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
-            <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-          </ol>
         </section>
 
         <!-- Main content -->
@@ -124,211 +120,212 @@
             </div>
           </div>
           <!-- END Panel de consulta tiempo real datos -->
-
+  
           <div class="row">
-            
-            <div class="col-md-3">
-              <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Productos con Stock Mínimo</h3>
+            <div class="col-md-12">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Productos con Stock Mínimo</a></li>
+                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">10 Últimas Ventas Hechas</a></li>
+                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Lista de Clientes Cumpleañeros</a></li>
+                </ul>
+                <div class="tab-content">
+                  <!-- Productos con Stock Mínimo -->
+                  <div class="tab-pane active" id="tab_1">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Productos con Stock Mínimo</h3>
+                      </div>
+                      <!-- /.box-header -->
+                      <div class="box-body">
+                        <div class="table-responsive">
+                          <table class="rwd-table ExcelTable2007" style="width:100%">
+                            <thead>
+                            <tr>
+                              <!--th class="heading" width="25px">&nbsp;</th-->
+                              <th class="" width="25px" style="background: #a9c4e9">
+                                  <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                              </th>
+                              <th style="width: 140px" >Código</th>
+                              <th style="min-width: 250px">Descripción</th>
+                              <th style="width: 140px">Sucursal</th>
+                              <th style="width: 130px">Cantidad</th>
+                              <th>Imagen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <?php  
+                                try {
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL LISTARCANTIDADMINIMA()');
+                                  $sql_comando -> execute();
+                                  $i = 1;
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo
+                                    '<tr>
+                                        <td data-th="ID" class="heading">'.$i.'</td>
+                                        <td data-th="Numeración" style="text-align: rigth;">'.$fila["nvchCodigo"].'</td>
+                                        <td data-th="Tipo">'.$fila["nvchDescripcion"].'</td>
+                                        <td data-th="Cliente" style="text-align: center;">'.$fila["nvchNombre"].'</td>
+                                        <td data-th="Fecha" style="text-align: center;">'.$fila["intCantidadUbigeo"].'</td>
+                                        <td data-th="Moneda" style="text-align: center;">
+                                          <input type="button" value="Ver Imagen" class="btn btn-xs btn-danger">
+                                        </td>
+                                    </tr>';
+                                    $i++;
+                                  }
+                                } catch(PDPExceptio $e) {
+                                  echo $e->getMessage();
+                                }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                      </div>
 
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+
                   </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                  <ul class="products-list product-list-in-box">
-                    <?php  
-                      try{
-                        $sql_conexion = new Conexion_BD();
-                        $sql_conectar = $sql_conexion->Conectar();
-                        $sql_comando = $sql_conectar->prepare('CALL LISTARCANTIDADMINIMA()');
-                        $sql_comando -> execute();
-                        while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                        {
-                    ?>
-                    <li class="item">
-                      <div class="product-img">
-                        <?php if($fila['nvchDireccionImg'] != "") {?>
-                        <img src="<?php echo '../../datos/inventario/imgproducto/'.$fila['nvchDireccionImg']; ?>" alt="Product Image">
-                        <?php } else { ?>
-                        <img src="http://mobile--shop2.ecudemo4320.cafe24.com/web/product/medium/14_shop2_120454.jpg" alt="Product Image">
-                        <?php } ?>
+                  <!-- 10 Últimas Ventas Hechas -->
+                  <div class="tab-pane" id="tab_2">
+
+                      <div class="box-header with-border">
+                        <h3 class="box-title">10 Últimas Ventas Hechas</h3>
                       </div>
-                      <div class="product-info">
-                        <div class="product-title"><?php echo $fila['nvchCodigo']; ?>
-                          <span class="label label-danger pull-right"><?php echo $fila['nvchNombre']; ?></span><div>
-                            <span class="product-description">
-                              <div class="pull-left"><?php echo $fila['nvchDescripcion']; ?></div>
-                              <div class="pull-right">Cantidad: <?php echo $fila['intCantidadUbigeo']; ?></div>
-                            </span>
+                      <!-- /.box-header -->
+                      <div class="box-body">
+                        <div class="table-responsive">
+                          <table class="rwd-table ExcelTable2007" style="width:100%">
+                            <thead>
+                            <tr>
+                              <!--th class="heading" width="25px">&nbsp;</th-->
+                              <th class="" width="25px" style="background: #a9c4e9">
+                                  <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                              </th>
+                              <th style="width: 140px" >Numeración</th>
+                              <th style="width: 130px">Tipo</th>
+                              <th style="min-width: 250px">Cliente</th>
+                              <th style="width: 140px">Fecha</th>
+                              <th>Moneda</th>
+                              <th>Valor Venta</th>
+                              <th>IGV</th>
+                              <th style="">Venta</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <?php  
+                                try {
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL LISTARULTIMASVENTAS()');
+                                  $sql_comando -> execute();
+                                  $i = 1;
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo
+                                    '<tr>
+                                        <td data-th="ID" class="heading">'.$i.'</td>
+                                        <td data-th="Numeración">'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
+                                        <td data-th="Tipo">'.$fila["NombreComprobante"].'</td>
+                                        <td data-th="Cliente">'.$fila["NombreCliente"].'</td>
+                                        <td data-th="Fecha">'.$fila["dtmFechaCreacion"].'</td>
+                                        <td data-th="Moneda" style="text-align: right;">'.$fila["SimboloMoneda"].'</td>
+                                        <td data-th="Valor Venta" style="text-align: right;">'.$fila["ValorComprobante"].'</td>
+                                        <td data-th="IGV" style="text-align: right;">'.$fila["IGVComprobante"].'</td>
+                                        <td data-th="Venta" style="text-align: right;">'.$fila["TotalComprobante"].'</td>
+                                    </tr>';
+                                    $i++;
+                                  }
+                                } catch(PDPExceptio $e) {
+                                  echo $e->getMessage();
+                                }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.table-responsive -->
                       </div>
-                    </li>
-                    <?php
-                        }
-                      }
-                      catch(PDPExceptio $e){
-                        echo $e->getMessage();
-                      }
-                    ?>
-                  </ul>
+                      <!-- /.box-body -->
+                      <!--<div class="box-footer clearfix">
+                        <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">
+                            <i class="ion-plus-circled"></i>
+                            Ingresar Nuevo pedido
+                        </a>
+                        <a href="" class="btn btn-sm btn-default btn-flat pull-right">
+                            <i class="ion-eye"></i>
+                            Ver Todos los Pedidos
+                        </a>
+                      </div>-->
+                      <!-- /.box-footer -->
+
+                  </div>
+                  <!-- Lista de Clientes Cumpleañeros -->
+                  <div class="tab-pane" id="tab_3">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Lista de Clientes Cumpleañeros</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="table-responsive">
+                          <table class="rwd-table ExcelTable2007" style="width:100%">
+                            <thead>
+                            <tr>
+                              <!--th class="heading" width="25px">&nbsp;</th-->
+                              <th class="" width="25px" style="background: #a9c4e9">
+                                  <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                              </th>
+                              <th>DNI/RUC</th>
+                              <th>Cliente</th>
+                              <th>Tipo Cliente</th>
+                              <th>Fecha Cumpleaños</th>
+                              <th>Días Restantes</th>
+                              <th>Gustos</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <?php  
+                                try {
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_HAPPY()');
+                                  $sql_comando -> execute();
+                                  $i = 1;
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo
+                                    '<tr>
+                                        <td data-th="ID" class="heading">'.$i.'</td>
+                                        <td data-th="Numeración">'.$fila["DNIRUC"].'</td>
+                                        <td data-th="Tipo">'.$fila["NombreCliente"].'</td>
+                                        <td data-th="Cliente">'.$fila["TipoCliente"].'</td>
+                                        <td data-th="Fecha">'.$fila["FechaNacimiento"].'</td>
+                                        <td data-th="Moneda" style="text-align: right;">'.utf8_encode($fila["DiasRestantes"]).'</td>
+                                        <td data-th="Valor Venta" style="text-align: right;">'.$fila["nvchGustos"].'</td>
+                                    </tr>';
+                                    $i++;
+                                  }
+                                } catch(PDPExceptio $e) {
+                                  echo $e->getMessage();
+                                }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                      </div>
+                  </div>
+                  <!-- /.tab-pane -->
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                  <a href="../inventario/vproducto" class="uppercase">
-                      Ver todos los Productos
-                  </a>
-                </div>
-                <!-- /.box-footer -->
+                <!-- /.tab-content -->
               </div>
+              <!-- nav-tabs-custom -->
             </div>
-            <div class="col-md-9">
-                <div class="box box-primary">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">10 Últimas Ventas Hechas</h3>
-
-                    <div class="box-tools pull-right">
-                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                  </div>
-                  <!-- /.box-header -->
-                  <div class="box-body">
-                    <div class="table-responsive">
-                      <table class="rwd-table ExcelTable2007" style="width:100%">
-                        <thead>
-                        <tr>
-                          <!--th class="heading" width="25px">&nbsp;</th-->
-                          <th class="" width="25px" style="background: #a9c4e9">
-                              <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
-                          </th>
-                          <th style="width: 140px" >Numeración</th>
-                          <th style="width: 130px">Tipo</th>
-                          <th style="min-width: 250px">Cliente</th>
-                          <th style="width: 140px">Fecha</th>
-                          <th>Moneda</th>
-                          <th>Valor Venta</th>
-                          <th>IGV</th>
-                          <th style="">Venta</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          <?php  
-                            try {
-                              $sql_conexion = new Conexion_BD();
-                              $sql_conectar = $sql_conexion->Conectar();
-                              $sql_comando = $sql_conectar->prepare('CALL LISTARULTIMASVENTAS()');
-                              $sql_comando -> execute();
-                              $i = 1;
-                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                              {
-                                echo
-                                '<tr>
-                                    <td data-th="ID" class="heading">'.$i.'</td>
-                                    <td data-th="Numeración">'.$fila["nvchSerie"].'-'.$fila["nvchNumeracion"].'</td>
-                                    <td data-th="Tipo">'.$fila["NombreComprobante"].'</td>
-                                    <td data-th="Cliente">'.$fila["NombreCliente"].'</td>
-                                    <td data-th="Fecha">'.$fila["dtmFechaCreacion"].'</td>
-                                    <td data-th="Moneda" style="text-align: right;">'.$fila["SimboloMoneda"].'</td>
-                                    <td data-th="Valor Venta" style="text-align: right;">'.$fila["ValorComprobante"].'</td>
-                                    <td data-th="IGV" style="text-align: right;">'.$fila["IGVComprobante"].'</td>
-                                    <td data-th="Venta" style="text-align: right;">'.$fila["TotalComprobante"].'</td>
-                                </tr>';
-                                $i++;
-                              }
-                            } catch(PDPExceptio $e) {
-                              echo $e->getMessage();
-                            }
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- /.table-responsive -->
-                  </div>
-                  <!-- /.box-body -->
-                  <!--<div class="box-footer clearfix">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">
-                        <i class="ion-plus-circled"></i>
-                        Ingresar Nuevo pedido
-                    </a>
-                    <a href="" class="btn btn-sm btn-default btn-flat pull-right">
-                        <i class="ion-eye"></i>
-                        Ver Todos los Pedidos
-                    </a>
-                  </div>-->
-                  <!-- /.box-footer -->
-                </div>
-                <!-- CUMPLEAÑOS CLIENTES -->
-                <div class="box box-primary">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Lista de Clientes Cumpleañeros</h3>
-
-                    <div class="box-tools pull-right">
-                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                  </div>
-                  <!-- /.box-header -->
-                  <div class="box-body">
-                    <div class="table-responsive">
-                      <table class="rwd-table ExcelTable2007" style="width:100%">
-                        <thead>
-                        <tr>
-                          <!--th class="heading" width="25px">&nbsp;</th-->
-                          <th class="" width="25px" style="background: #a9c4e9">
-                              <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
-                          </th>
-                          <th>DNI/RUC</th>
-                          <th>Cliente</th>
-                          <th>Tipo Cliente</th>
-                          <th>Fecha Cumpleaños</th>
-                          <th>Días Restantes</th>
-                          <th>Gustos</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          <?php  
-                            try {
-                              $sql_conexion = new Conexion_BD();
-                              $sql_conectar = $sql_conexion->Conectar();
-                              $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_HAPPY()');
-                              $sql_comando -> execute();
-                              $i = 1;
-                              while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
-                              {
-                                echo
-                                '<tr>
-                                    <td data-th="ID" class="heading">'.$i.'</td>
-                                    <td data-th="Numeración">'.$fila["DNIRUC"].'</td>
-                                    <td data-th="Tipo">'.$fila["NombreCliente"].'</td>
-                                    <td data-th="Cliente">'.$fila["TipoCliente"].'</td>
-                                    <td data-th="Fecha">'.$fila["FechaNacimiento"].'</td>
-                                    <td data-th="Moneda" style="text-align: right;">'.utf8_encode($fila["DiasRestantes"]).'</td>
-                                    <td data-th="Valor Venta" style="text-align: right;">'.$fila["nvchGustos"].'</td>
-                                </tr>';
-                                $i++;
-                              }
-                            } catch(PDPExceptio $e) {
-                              echo $e->getMessage();
-                            }
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- /.table-responsive -->
-                  </div>
-                </div>
-            </div>
-          </div>
-
+          </div>    
 
         </section><!-- /.content -->
-      </div>
+
+</div>
 
 <script>
   // Modal
