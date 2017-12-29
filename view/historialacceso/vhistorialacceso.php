@@ -58,28 +58,23 @@
       }
     </style>
   <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Historial de Accesos
-        <small>Vista al Historial de Accesos</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="#">Historial Acceso</a></li>
-        <li class="active">Tabla</li>
-      </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content">
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Registro de Historial de Accesos</h3>
+          <h2 class="box-title">Registro de Historial de Accesos</h2>
           <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <!--a href="" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte</a-->
+            <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick="">
+                <i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                Reporte Excel
+              </button>
+            <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-left" onclick="">
+                <i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                Reporte PDF
             </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
           </div>
         </div>
         <div class="box-body">
@@ -129,8 +124,7 @@
             </nav>
           </div>
         </div>
-        <div class="box-footer clearfix">     
-          <a href="" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte</a>
+        <div class="box-footer clearfix">
         </div>
       </div>
 
