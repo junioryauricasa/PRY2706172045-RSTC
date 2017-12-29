@@ -64,31 +64,30 @@
       }
     </style>
   <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Kardex General
-        <small>Módulo de Reportes</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content">
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Kardex General</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
+          <h3 class="box-title">Kardex General <small> Módulo de Reportes</small></h3>
         </div>
+
         <div class="box-body">
+          
+          <div class="pull-right">
+              <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                 Generar Reporte PDF
+              </button>
+              <button type="button" id="btn-reporte-kardex" onclick="ReporteKardexExcel()" class="btn btn-sm btn-success btn-flat ">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                 Generar Reporte EXCEL
+              </button>
+          </div>
+
+          <br>
+
           <div class="row">
             <?php include '../campos/cmbNumLista.php'; ?>
             <div class="col-md-2">
@@ -201,8 +200,6 @@
           </div>
         </div>
         <div class="box-footer clearfix">     
-          <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat">Generar Reporte PDF</button>
-          <button type="button" id="btn-reporte-kardex" onclick="ReporteKardexExcel()" class="btn btn-sm btn-success btn-flat ">Generar Reporte PDF</button>
         </div>
       </div>
 
