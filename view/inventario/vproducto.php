@@ -85,19 +85,24 @@
 
 		    <div class="tab-content">
 		      <div class="tab-pane active" id="tab_1">
-    			    <section class="content-header">
-    			      <h1>
+              <section class="content-header">
+    			      <h1 style="">
     			        Registro de Productos
     			        <small>Módulo de Inventario</small>
-    			      </h1>
-    			      <ol class="breadcrumb">
-    			        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    			        <li><a href="#">Layout</a></li>
-    			        <li class="active">Fixed</li>
-    			      </ol>
+    			      </h1>                  
     			    </section>
     			    <!-- Main content -->
     			    <section class="content">
+                <div class="row pull-right" style="">
+                    <!-- Modal for New Product -->
+                    <button type="button" style="margin-left: 5px" class="btn btn-sm btn-info btn-flat pull-right" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo Producto</button>
+                    <!-- button para descarga de excel -->
+                    <a href="#" style="margin-left: 5px" class="btn btn-sm btn-success btn-flat pull-right" id="DescargarListaProductoExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
+
+                    <!-- button para descarga de excel -->
+                    <a href="#" style="margin-left: 5px" class="btn btn-sm btn-danger btn-flat pull-right" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
+                </div>
+
     			      <!-- TABLE: LATEST USERS -->
     			      <div class="">
     			        <div class="box-body">
@@ -177,17 +182,20 @@
     			          </div>
     			        </div>
     			        <div class="box-footer clearfix">
-    			          <div class="row">
-    			            <div class="col-md-5">
+    			          <!--
+                    <div class="row">
+    			            
+                      <div class="col-md-5">
 
-                        <!-- Modal for New Product -->
-                        <button type="button" class="btn btn-sm btn-danger btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo Producto</button>
+                        <button type="button" class="btn btn-sm btn-info btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo Producto</button>
 
-                        <!-- button para descarga de excel -->
                         <a href="#" class="btn btn-sm btn-success btn-flat" id="DescargarListaProductoExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
+
+                        <a href="#" class="btn btn-sm btn-danger btn-flat" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
     			            
                       </div>
     			          </div>
+                  -->
     			        </div>
     			      </div>
     			    </section>
