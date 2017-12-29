@@ -68,11 +68,6 @@
         Administrar Cambios de Moneda Comercial
         <small>Módulo Administrativo</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Estatico</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -81,10 +76,9 @@
       <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Registro de Cambios de Monedas</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+
+          <div class="pull-right">
+              <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
           </div>
         </div>
         <div class="box-body">
@@ -114,7 +108,8 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table class="ExcelTable2007 rwd-table" width="100%">
+            <table class="ExcelTable2007 rwd-table" width="50%">
+            <!--table class="ExcelTable2007 rwd-table" width="100%"-->
               <thead>
               <tr>
                 <!--th class="heading" width="25px">&nbsp;</th-->
@@ -132,8 +127,7 @@
               </tbody>
             </table>
           </div>
-          <hr>
-          <div class="text-center">
+          <div class="text-center" style="width: 50%">
             <nav aria-label="...">
               <ul id="PaginacionDeMonedaComercial" class="pagination">
                 <script>PaginarMonedaComercial(0,10,"T");</script>
@@ -144,7 +138,6 @@
         <div class="box-footer clearfix">     
           <!--button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Comercial</button-->
           <!-- Modal for New moneda tributaria -->
-          <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
 
           <!-- script for modal -->
           <script type="text/javascript">
