@@ -2,8 +2,6 @@
   session_start();
   require_once '../../conexion/bd_conexion.php';
 
-  $year = date('Y') ;
-
   $intIdComprobante = $_GET['intIdComprobante'];
   ob_start();
   $sql_conexion = new Conexion_BD();
@@ -11,7 +9,7 @@
   $sql_comando = $sql_conectar->prepare('CALL MostrarComprobante(:intIdComprobante)');
   $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
   $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-
+  $year = date('Y', strtotime($fila['dtmFechaCreacion']));
   $nvchSerie = $fila['nvchSerie'];
   $nvchNumeracion = $fila['nvchNumeracion'];
   $NombreSolicitado = $fila['NombreSolicitado'];
@@ -161,7 +159,7 @@
         ?>
         <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
           <td style="width: 7% !important; font-size:x-small;"><?php echo $i; ?></td>
-          <td style="width: 7% !important; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
+          <td style="width: 7% !important; font-size:x-small;"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
           <td style="width: 20% !important; font-size:x-small;"><?php echo $fila['nvchCodigo']; ?></td>
           <td style="width: 66% !important; font-size:x-small; text-align: left; padding-left: 5px"><?php echo $fila['nvchDescripcion']; ?></td>
         </tr>
