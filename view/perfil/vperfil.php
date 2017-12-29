@@ -391,7 +391,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Contraseña:</label>
+                        <label class="col-sm-3 control-label">Nueva Contraseña:</label>
                         <div class="col-sm-4">
                            <input type="password" class="form-control" id="nvchUserPassword" name="nvchUserPassword" placeholder="Ingrese Nueva Contraseña" required>
                         </div>
