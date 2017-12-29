@@ -2,8 +2,6 @@
   session_start();
   require_once '../../conexion/bd_conexion.php';
 
-  $year = date('Y') ;
-
   $intIdCotizacion = $_GET['intIdCotizacion'];
   ob_start();
   $sql_conexion = new Conexion_BD();
@@ -11,7 +9,7 @@
   $sql_comando = $sql_conectar->prepare('CALL MostrarCotizacion(:intIdCotizacion)');
   $sql_comando -> execute(array(':intIdCotizacion' => $intIdCotizacion));
   $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
-
+  $year = date('Y', strtotime($fila['dtmFechaCreacion']));
   $nvchSerie = $fila['nvchSerie'];
   $nvchNumeracion = $fila['nvchNumeracion'];
   $nvchAtencion = $fila['nvchAtencion'];
@@ -33,7 +31,7 @@
   $nvchClienteProveedor = $fila['nvchClienteProveedor'];
   $nvchDireccion = $fila['nvchDireccion'];
 
-  $dtmFechaCreacion = $fila['dtmFechaCreacion'];
+  $dtmFechaCreacion = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
   $nvchObservacion = $fila['nvchObservacion'];
 ?>
 <!DOCTYPE HTML>
@@ -261,10 +259,10 @@
       ?>
       <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
         <td style="width: 10% !important; font-size:x-small;"><?php echo $i; ?></td>
-        <td style="width: 15% !important; font-size:x-small;"><?php echo $fila['intCantidad']; ?></td>
+        <td style="width: 15% !important; font-size:x-small;"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
         <td style="width: 50% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $fila['nvchDescripcion']; ?></td>
-        <td style="width: 10% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $SimboloMoneda.' '.$fila['dcmPrecioUnitario']; ?></td>
-        <td style="width: 15% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $SimboloMoneda.' '.$fila['dcmTotal']; ?></td>
+        <td style="width: 10% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $SimboloMoneda.' '.number_format($fila['dcmPrecioUnitario'],2,'.',','); ?></td>
+        <td style="width: 15% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $SimboloMoneda.' '.number_format($fila['dcmTotal'],2,'.',','); ?></td>
       </tr>
       <?php
           $i++;
@@ -301,7 +299,7 @@
         <td class="celdatotales" style="text-align: center; width: 15% !important;">
             <small>
             		<small>
-              		<?php echo $SimboloMoneda.' '.$TotalCotizacion; ?>       
+              		<?php echo $SimboloMoneda.' '.number_format($TotalCotizacion,2,'.',','); ?>       
             		</small>
             </small>
         </td>
