@@ -139,7 +139,7 @@ function limpiarformProveedor(){
 
       //persona
       $("#tipo-persona").val(1);
-      $("#intIdTipoPersona").val("");
+      //$("#intIdTipoPersona").val("");
       $("#nvchDNI").val("");
       $("#nvchRUC").val("");
       $("#nvchRazonSocial").val("");
@@ -251,6 +251,7 @@ $(document).on('click', '#btn-editar-proveedor-actualizar', function(){
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		$("#btn-form-proveedor-remove").click();
+	   		$("#btn-listaproveedores").click();
 	   	}
 	   	else { $("#resultadocrud").html(datos); }
 	   }

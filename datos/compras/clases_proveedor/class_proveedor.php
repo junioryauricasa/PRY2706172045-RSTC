@@ -102,8 +102,10 @@ class Proveedor
         $sql_conectar = $sql_conexion->Conectar();
         $sql_comando = $sql_conectar->prepare('CALL BUSCARProveedor(:busqueda,:x,:y,:intIdTipoPersona)');
         $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+        $j = $x + 1;
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {
+          /*
           echo '
           <tr>
             <td class="heading" data-th="ID"></td>
@@ -119,14 +121,19 @@ class Proveedor
           echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
           <td>'.$fila["nvchApellidoMaterno"].'</td>
           <td>'.$fila["nvchNombres"].'</td>';
-          }
+          }*/
           echo
-          '<td> 
+          '<tr>
+          <td class="heading" data-th="ID">'.$j.'</td>
+            <td>'.$fila["DNIRUC"].'</td>
+            <td>'.$fila["NombreCliente"].'</td>
+            <td> 
             <button type="button" idspro="'.$fila['intIdProveedor'].'" class="btn btn-xs btn-success" onclick="SeleccionarProveedor(this)">
               <i class="fa fa-edit"></i> Seleccionar
             </button>
           </td>
           </tr>';
+          $j++;
         }
       } else {
         echo "";
@@ -227,6 +234,7 @@ class Proveedor
       $cantidad = 0;
       $numpaginas = 0;
       $i = 0;
+      $j = $x + 1;
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
       //Busqueda de Proveedor por el comando LIMIT
@@ -238,6 +246,7 @@ class Proveedor
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
+        $j = $x + 1;
       } else if ($tipolistado == "D"){
         $sql_comando = $sql_conectar->prepare('CALL buscarproveedor_ii(:busqueda,:intIdTipoPersona)');
         $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
@@ -259,7 +268,7 @@ class Proveedor
         } else {
           echo '<tr>';
         }
-        
+        /*
         echo '
           <td class="heading" data-th="ID"></td>
         ';
@@ -271,17 +280,21 @@ class Proveedor
         echo '<td>'.$fila["nvchApellidoPaterno"].'</td>
         <td>'.$fila["nvchApellidoMaterno"].'</td>
         <td>'.$fila["nvchNombres"].'</td>';
-        }
-        echo '<td> 
-          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-proveedor" onclick="verformularioproveedor()">
+        }*/
+        echo 
+        '<td class="heading" data-th="ID">'.$j.'</td>
+        <td>'.$fila["DNIRUC"].'</td>
+        <td>'.$fila["NombreCliente"].'</td>
+        <td>
+          <button type="button" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-warning btn-mostrar-proveedor" onclick="verformularioproveedor()">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button type="submit" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-danger btn-eliminar-proveedor">
+          <button type="button" id="'.$fila["intIdProveedor"].'" class="btn btn-xs btn-danger btn-eliminar-proveedor">
             <i class="fa fa-edit"></i> Eliminar
           </button>
         </td>
         </tr>';
-        $i++;
+        $i++; $j++;
       }
     }
     catch(PDPExceptio $e){

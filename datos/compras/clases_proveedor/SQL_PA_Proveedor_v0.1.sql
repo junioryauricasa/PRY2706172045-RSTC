@@ -142,21 +142,68 @@ DELIMITER $$
 		IN _intIdTipoPersona INT
     )
 	BEGIN
-		SELECT * FROM tb_proveedor
+		SELECT *,
+		CASE
+			WHEN intIdTipoPersona = 1 THEN nvchRazonSocial
+			WHEN intIdTipoPersona = 2 THEN CONCAT(nvchNombres,' ',nvchApellidoPaterno,' ',nvchApellidoMaterno)
+		END AS NombreCliente,
+		CASE
+			WHEN intIdTipoPersona = 1 THEN nvchRUC
+			WHEN intIdTipoPersona = 2 THEN
+			CASE
+				WHEN nvchRUC = NULL OR nvchRUC = '' THEN nvchDNI
+				WHEN nvchRUC != NULL OR nvchRUC != '' THEN CONCAT(nvchRUC,' / ',nvchDNI)
+			END
+		END AS DNIRUC 
+		FROM tb_proveedor
 		WHERE 
-		( intIdProveedor LIKE CONCAT(_elemento,'%') OR
+		(
 		nvchDNI LIKE CONCAT(_elemento,'%') OR
 		nvchRUC LIKE CONCAT(_elemento,'%') OR
 		nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
 		nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
-		nvchNombres LIKE CONCAT(_elemento,'%') ) AND
-		intIdTipoPersona = _intIdTipoPersona
+		nvchNombres LIKE CONCAT(_elemento,'%'))
 		LIMIT _x,_y;
     END 
 $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS BUSCARPROVEEDOR_II;
+DELIMITER $$
+	CREATE PROCEDURE BUSCARPROVEEDOR_II(
+    	IN _elemento VARCHAR(250),
+    	IN _intIdTipoPersona INT
+    )
+	BEGIN
+		SELECT *,
+		CASE
+			WHEN intIdTipoPersona = 1 THEN nvchRazonSocial
+			WHEN intIdTipoPersona = 2 THEN CONCAT(nvchNombres,' ',nvchApellidoPaterno,' ',nvchApellidoMaterno)
+		END AS NombreCliente,
+		CASE
+			WHEN intIdTipoPersona = 1 THEN nvchRUC
+			WHEN intIdTipoPersona = 2 THEN
+			CASE
+				WHEN nvchRUC = NULL OR nvchRUC = '' THEN nvchDNI
+				WHEN nvchRUC != NULL OR nvchRUC != '' THEN CONCAT(nvchRUC,' / ',nvchDNI)
+			END
+		END AS DNIRUC 
+		FROM tb_proveedor
+		WHERE 
+		( 
+			nvchDNI LIKE CONCAT(_elemento,'%') OR
+			nvchRUC LIKE CONCAT(_elemento,'%') OR
+			nvchRazonSocial LIKE CONCAT(_elemento,'%') OR
+			nvchApellidoPaterno LIKE CONCAT(_elemento,'%') OR
+			nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
+			nvchNombres LIKE CONCAT(_elemento,'%') 
+		);
+    END 
+$$
+DELIMITER ;
+
+/*
 DROP PROCEDURE IF EXISTS BUSCARPROVEEDOR_II;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARPROVEEDOR_II(
@@ -179,3 +226,4 @@ DELIMITER $$
     END 
 $$
 DELIMITER ;
+*/
