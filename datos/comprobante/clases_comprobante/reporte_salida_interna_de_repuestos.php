@@ -10,7 +10,7 @@ $sql_comando = $sql_conectar->prepare('CALL MostrarComprobante(:intIdComprobante
 $sql_comando -> execute(array(':intIdComprobante' => $intIdComprobante));
 $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 $year = date('Y', strtotime($fila['dtmFechaCreacion']));
-$nvchSerie = $fila['nvchSerie'];
+$nvchSerie = (int)$fila['nvchSerie'];
 $nvchNumeracion = $fila['nvchNumeracion'];
 $NombreSolicitado = $fila['NombreSolicitado'];
 $nvchAtencion = $fila['nvchAtencion'];
@@ -103,7 +103,7 @@ $nvchObservacion = $fila['nvchObservacion'];
 
     <center>
         <span style="font-weight: bold; font-family: Arial;">
-          SALIDA INTERNA DE REPUESTOS Nº RSA-<?php echo $nvchNumeracion; ?>/<?php echo $year; ?>
+          SALIDA INTERNA DE REPUESTOS Nº RSA-<?php echo $nvchSerie.$nvchNumeracion; ?>/<?php echo $year; ?>
         </span>
     </center>
 <br>
