@@ -215,9 +215,9 @@
           camposVender+
           '<td class="filaPrecioUnitario">'+
           '<input type="text" style="width: 100% !important; text-align: right !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
-          '<td><input type="text" style="width: 5% !important; text-align: right !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
+          '<td><input type="text" style="width: 100% !important; text-align: right !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" style="width: 9% !important; text-align: right" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
+          '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" style="width: 100% !important; text-align: right" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
           '<td>'+
             '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
           '</td>'+
