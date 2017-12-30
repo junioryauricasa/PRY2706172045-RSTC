@@ -89,12 +89,13 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	   		$("#lista-persona").val($("#tipo-persona").val());
 	   		//$("#btn-form-cliente-remove").click();
 	   		limpiarformCliente();
-	   		botonescrear();
-	   		$("#lilistarclientes").click();//volver a la primera pestana
-	   		
+	   		botonesCrear();
+	   		//volver a la primera pestana
+	   		if(SNuevoCliente != "I")
+	   		  $("#lilistarclientes").click();
 	   		if(SNuevoCliente == "I"){
-	   		crear_nuevo_cliente();
-	   		ConsultarIdCliente();
+	   		  crear_nuevo_cliente();
+	   		  ConsultarIdCliente();
 			}
 
 		}
@@ -773,7 +774,6 @@ function EliminarDomicilio(seleccion) {
 	   }
 	  });
 }
-
 /* FIN - Eliminar Comunicacion Seleccionado */
 //////////////////////////////////////////////////////////////
 
@@ -918,12 +918,9 @@ function limpiarformCliente(){
 //////////////////////////////////////////////////////////////
 /*	FIN * Función Limpiar Formulario de registro de cliente   */
 
-
 /*	Función Mostrar botones formularios de cliente   */
 ///////////////////////////////////////////////////////////
 function botonescrear(){
-
-
       $("#btn-agregar-domicilio").show();
       $("#btn-agregar-domicilio").hide();
       $("#btn-actualizar-domicilio").hide();
@@ -939,7 +936,6 @@ function botonescrear(){
       $("#btn-reset-actualizar").hide();
       $("#btn-crear-cliente-nuevo").show();
       $("#btn-reset-nuevo").show();	  
-
       //alert("se resetearon los botones para crear adecuadamente");
 }
 

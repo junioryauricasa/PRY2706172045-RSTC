@@ -124,10 +124,10 @@ $(document).on('click', '#btn-crear-proveedor-nuevo', function(){
 	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
-	   		if(SNuevoProveedor != "I")
-			$("#btn-listaproveedores").click();
 	   		limpiarformProveedor();//limpiar formulario
 	   		botonescrear();
+	   		if(SNuevoProveedor != "I")
+			$("#btn-listaproveedores").click();
 	   		if(SNuevoProveedor == "I"){
 	   		crear_nuevo_proveedor();
 	   		ConsultarIdProveedor();
