@@ -8,6 +8,15 @@
           <!-- INICIO - Formulario Realizar Venta -->
           <form id="form-comprobante" method="POST"></form>
           <div class="tab-pane active" id="formRealizarComprobante">
+
+            <div class="col-md-12" style="margin-bottom: 20px">
+              <div class="pull-right">
+                <input type="button" id="btn-crear-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                <input type="button" id="btn-editar-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-success btn-flat " value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-2">
                 <div id="nvchFechaGroup" class="form-group">
@@ -350,9 +359,7 @@
                   <input type="hidden" id="intIdProveedorC" name="intIdProveedor" value="" form="form-comprobante">
                   <input type="hidden" id="intIdClienteC" name="intIdCliente" value="" form="form-comprobante">
                   <div class="text-center">
-                    <input type="button" id="btn-crear-comprobante" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
-                     <input type="button" id="btn-editar-comprobante" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
-                    <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-md btn-success" value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                    
                   </div>
                 </div>
               </div>
@@ -368,6 +375,10 @@
 
           <!-- INICIO - Formulario Listar Venta -->
           <div class="tab-pane" id="formListarComprobante">
+            <div class="pull-right">
+              <button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Reporte EXCEL</button> 
+            </div>
+
             <div class="row">
               <?php include '../campos/cmbNumLista.php'; ?>
               <div class="col-md-2">
@@ -500,9 +511,7 @@
             </div>
 
             <br>
-            <!--button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-download" aria-hidden="true"></i> Agregar Proveedor</button--> 
-
-            <button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Reporte EXCEL</button> 
+            <!--button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-download" aria-hidden="true"></i> Agregar Proveedor</button-->
             
             <script type="text/javascript">TotalComprobante();</script>
           </div>

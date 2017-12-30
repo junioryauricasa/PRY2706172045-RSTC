@@ -120,7 +120,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
       <div class="navbar-custom-menu" style="float: left;">
           <ul style="margin-right: 10px; margin-left: 5px" class="nav navbar-nav">
             <li class="<?php echo $nvbr_inicio; ?>" id="ver-en-pc"><a href="../default/">Inicio</a></li>
-            <li class="<?php echo $nvbr_infogeneral; ?>" id="">
+            <li class="<?php echo $nvbr_infogeneral; ?>" id="ver-en-pc">
               <a href="../default/dashboard">
                 Información General
               </a>
@@ -154,7 +154,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 echo ""
             ?>
             
-            <li class="dropdown <?php echo $nvbr_compras ?>">
+            <li class="dropdown <?php echo $nvbr_compras ?>" id="ver-en-pc">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Compras
                 <b class="caret"></b>
@@ -275,7 +275,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               if($_SESSION['NombrePermiso'] == 'Administrador'){
                 echo ""
             ?>
-            <li class="<?php echo $nvbr_equipos; ?>" id=""><a href="../equipo/vcotizacionequipo">Equipos</a></li>
+            <li class="<?php echo $nvbr_equipos; ?>" id="ver-en-pc"><a href="../equipo/vcotizacionequipo">Equipos</a></li>
             <?php 
             "";
               }
@@ -296,14 +296,13 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
             </li>
           </ul>
 
-          <ul class="nav navbar-nav navbar-right" style="float: right !important; position: absolute; right: 10px">
+          <ul  id="tasa_de_cambio" class="nav navbar-nav navbar-right" style="float: right !important; position: absolute; right: 10px">
             <li class="active" style="font-weight:bolder">
               <a href="#">1USD = 3.5PEN</a>
             </li>
           </ul>
 
       </div>
-
     </nav>
   </header>
 
@@ -874,4 +873,15 @@ table tr .deshabilitado{
 {
   background-color: #eaeaea !important;
 }
+
+/* Estilo para tasa de cambio */
+#tasa_de_cambio{
+      display: none;
+}
+@media screen and (min-width: 480px){
+  #tasa_de_cambio{
+      display: block;
+  }
+}
+
 </style>

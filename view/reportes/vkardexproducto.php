@@ -174,9 +174,20 @@
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                         <div id="TablaDetalleUbigeo">
                           <h4 id="lblTituloDetalleKardex" class="box-title text-left"></h4>
-                          <button type="button" onclick="ReporteKardexPDF()" class="btn btn-sm btn-danger btn-flat">Generar Reporte PDF</button>
-                          <button type="button" onclick="ReporteKardexExcel()" class="btn btn-sm btn-success btn-flat">Generar Reporte Excel</button>
-                          <hr>
+                          
+                          <div class="pull-right">
+                              <button type="button" onclick="ReporteKardexPDF()" class="btn btn-sm btn-danger btn-flat">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                Reporte PDF
+                              </button>
+                              <button type="button" onclick="ReporteKardexExcel()" class="btn btn-sm btn-success btn-flat">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                Reporte Excel
+                              </button>
+                          </div>
+                          
+
+                          <br>
                           <input type="hidden" id="intIdProducto"/>
                           <input type="hidden" id="nvchCodigo"/>
                           <div class="row">

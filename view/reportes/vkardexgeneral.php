@@ -78,11 +78,11 @@
           <div class="pull-right">
               <button type="button" id="btn-reporte-kardex" onclick="ReporteKardex()" class="btn btn-sm btn-danger btn-flat">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                 Generar Reporte PDF
+                Reporte PDF
               </button>
               <button type="button" id="btn-reporte-kardex" onclick="ReporteKardexExcel()" class="btn btn-sm btn-success btn-flat ">
                 <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                 Generar Reporte EXCEL
+                Reporte EXCEL
               </button>
           </div>
 

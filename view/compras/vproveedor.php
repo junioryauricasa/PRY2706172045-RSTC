@@ -70,11 +70,6 @@
         Registro de Proveedores
         <small>Módulo de Compras</small>
       </h1>
-      <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li>Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -82,22 +77,48 @@
         <div class="row">
             <div class="col-lg-12">
               <div class="nav-tabs-custom">
+                  
                   <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#lilistaproveedores" data-toggle="tab" aria-expanded="false" id="btn-listaproveedores">Relación de Proveedores</a>
+                        <a href="#lilistaproveedores" data-toggle="tab" aria-expanded="false" id="btn-listaproveedores">
+                            Relación de Proveedores
+                        </a>
                     </li>
                     <li class="">
-                        <a href="#liformularioproveedores" data-toggle="tab" id="btn-formularioproveedores">Formulario de Proveedores</a>
+                        <a href="#liformularioproveedores" data-toggle="tab" id="btn-formularioproveedores">
+                            Formulario de Proveedores
+                        </a>
                     </li>
                   </ul>
+
                   <div class="tab-content">
                     <div class="tab-pane active" id="lilistaproveedores">
-                      
                       <!-- Main content -->
                       <section class="content">
                         <!-- TABLE: LATEST USERS -->
                         <div class="">
-                          <h3 class="box-title">Registro de Proveedores</h3>
+                          <!--h3 class="box-title">Registro de Proveedores</h3-->
+                          
+                          <div class="pull-right">
+                            <!-- Agregar proveedor -->
+                            <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat" onclick="verformularioproveedor()">
+                              <i class="fa fa-plus-square" aria-hidden="true"></i>
+                              Agregar Proveedor
+                            </button> 
+    
+                            <!-- button para descarga de excel -->
+                            <a href="#" class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
+                              <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                              Descargar Excel
+                            </a> 
+
+                            <!-- button para descarga de pdf -->
+                            <a href="#" class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorExcel">
+                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                              Descargar PDF
+                            </a> 
+                          </div>
+
                           <div class="box-body">
                             <div class="row">
                               <?php include '../campos/cmbNumLista.php'; ?>
@@ -143,15 +164,7 @@
                                 </ul>
                               </nav>
                             </div>
-    
-                            <!-- Agregar proveedor -->
-                            <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-danger btn-flat" onclick="verformularioproveedor()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Proveedor</button> 
-    
-                            <!-- button para descarga de excel -->
-                            <a href="#" class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
-
-                          </div>    
-                          
+                          </div>
                         </div>
                       
                       </section>
@@ -171,32 +184,29 @@
     </section>
   </div>
 
-        <!-- INICIO modal confirmar -->
-        <div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
-              </div>
-              <div class="modal-body">
-                Estas seguro de eliminar registro?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default modal-btn-si" id="">Si</button>
-                <button type="button" class="btn btn-primary modal-btn-no" id="">No</button>
-              </div>
-            </div>
-          </div>
+  <!-- INICIO modal confirmar -->
+  <div class="modal fade mi-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
         </div>
-        <!-- END modal confirmar -->
+        <div class="modal-body">
+          Estas seguro de eliminar registro?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default modal-btn-si" id="">Si</button>
+          <button type="button" class="btn btn-primary modal-btn-no" id="">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END modal confirmar -->
 
 
-
-
-  <!-- /.content-wrapper -->
 <!-- Scripts DataTable -->
 <script>
   // Modal
