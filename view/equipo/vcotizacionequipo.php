@@ -68,14 +68,16 @@
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#formRealizarCotizacion" id="btnFormRealizarCotizacion" data-toggle="tab" aria-expanded="true">Realizar Cotización</a></li>
-          <li class=""><a href="#formListarCotizacion" id="btnFormListarCotizacion" data-toggle="tab" aria-expanded="false">Lista de Cotizaciones</a></li>
+          <li class=""><a href="#formListarCotizacion" id="btnFormListarCotizacion" data-toggle="tab" aria-expanded="false">Lista Cotizaciones</a></li>
         </ul>
         <div class="tab-content">
-          <div class="col-md-12" style="margin-bottom: 20px">
             <h3>
               Cotización de Equipos
               <small>Módulo de Equipos</small>
             </h3>
+            
+            <div class="col-md-12" style="margin-bottom: 20px">
+            
             <!-- INICIO - buttons eventos -->
             <div class="pull-right">
 

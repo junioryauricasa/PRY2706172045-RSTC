@@ -66,17 +66,13 @@
           border-width: 1px;
       }
     </style>
-  <div class="content-wrapper">
+
+  <div class="content-wrapper" style="padding-top:30px">
     <section class="content-header">
       <h1>
         Registro de Clientes
         <small>Módulo de Ventas</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->
