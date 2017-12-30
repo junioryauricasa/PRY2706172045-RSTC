@@ -47,6 +47,7 @@
     <?php require_once '../../negocio/operaciones/ndatosgenerales.php'; ?>
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>}
+    <script type="text/javascript">reporteFuncionCliente = 1;</script>
     <!--<script type="text/javascript" src="../../negocio/ventas/ncliente.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/ndatosgenerales.js"></script>-->
     <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
@@ -109,6 +110,66 @@
                           </div>
                         </div>
                         <?php include '../campos/cmbListaPersona.php'; ?>
+                        <div class="col-md-2">
+                            <div id="intIdDepartamentoGroup" class="form-group">
+                              <label>Departamento:</label>
+                              <select onchange="MostrarProvincia()" id="intIdDepartamento" class="form-control select2" >
+                                <option value="T">GENERAL</option>
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrardepartamento()');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo '<option value="'.$fila['intIdDepartamento'].'">'.$fila['nvchDepartamento'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div id="intIdProvinciaGroup" class="form-group">
+                              <label>Provincia:</label>
+                              <select onchange="MostrarDistrito()" id="intIdProvincia" class="form-control select2" >
+                                <option value="T">GENERAL</option>
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL mostrarProvincia(1)');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo'<option value="'.$fila['intIdProvincia'].'">'.$fila['nvchProvincia'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div id="intIdDistritoGroup" class="form-group">
+                              <label>Distrito:</label>
+                              <select id="intIdDistrito" class="form-control select2" >
+                                <option value="T">GENERAL</option>
+                                <?php try{
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL MostrarDistrito(1)');
+                                  $sql_comando->execute();
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo'<option value="'.$fila['intIdDistrito'].'">'.$fila['nvchDistrito'].'</option>';
+                                  }
+                                }catch(PDPExceptions $e){
+                                  echo $e->getMessage();
+                                }?>
+                              </select>
+                            </div>
+                          </div>
                       </div>
                       <div class="table-responsive">
                         <table class="ExcelTable2007 rwd-table" width="100%">

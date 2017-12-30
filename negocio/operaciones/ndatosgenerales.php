@@ -1,6 +1,7 @@
 <script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Mostrar Ubigeo Departamento - Provincia - Distrito */
+var reporteFuncionCliente = 0;
 function MostrarProvincia(){
 	var intIdDepartamento = $("#intIdDepartamento").val();
 	var funcion = "MP";
@@ -11,7 +12,12 @@ function MostrarProvincia(){
 	   data:{funcion:funcion,intIdDepartamento:intIdDepartamento},
 	   success:function(datos)
 	   {
-	   	$("#intIdProvincia").html(datos);
+	   	if(reporteFuncionCliente == 0)
+	   		$("#intIdProvincia").html(datos);
+	   	else {
+	   		$("#intIdProvincia").html('<option value="T">GENERAL</option>');
+	   		$("#intIdProvincia").append(datos);
+	   	}
 	   }
 	  });
 	
@@ -36,8 +42,13 @@ function MostrarDistrito(){
 	   method:'POST',
 	   data:{funcion:funcion,intIdProvincia:intIdProvincia},
 	   success:function(datos)
-	   {
-	   	$("#intIdDistrito").html(datos);
+	   {	
+	    if(reporteFuncionCliente == 0)
+	   		$("#intIdDistrito").html(datos);
+	   	else {
+	   		$("#intIdDistrito").html('<option value="T">GENERAL</option>');
+	   		$("#intIdDistrito").append(datos);
+	   	}
 	   }
 	  });
 }
@@ -50,7 +61,12 @@ function MostrarProvincia_II(intIdDepartamento){
 	   data:{funcion:funcion,intIdDepartamento:intIdDepartamento},
 	   success:function(datos)
 	   {
-	   	$("#intIdProvincia").html(datos);
+	   	if(reporteFuncionCliente == 0)
+	   		$("#intIdProvincia").html(datos);
+	   	else {
+	   		$("#intIdProvincia").html('<option value="T">GENERAL</option>');
+	   		$("#intIdProvincia").append(datos);
+	   	}
 	   }
 	  });
 }
@@ -63,7 +79,12 @@ function MostrarDistrito_II(intIdProvincia){
 	   data:{funcion:funcion,intIdProvincia:intIdProvincia},
 	   success:function(datos)
 	   {
-	   	$("#intIdDistrito").html(datos);
+	   	if(reporteFuncionCliente == 0)
+	   		$("#intIdDistrito").html(datos);
+	   	else {
+	   		$("#intIdDistrito").html('<option value="T">GENERAL</option>');
+	   		$("#intIdDistrito").append(datos);
+	   	}
 	   }
 	  });
 }
@@ -76,7 +97,12 @@ function MostrarProvincia_III(intIdDepartamento,intIdProvincia){
 	   data:{funcion:funcion,intIdDepartamento:intIdDepartamento},
 	   success:function(datos)
 	   {
-	   	$("#intIdProvincia").html(datos);
+	   	if(reporteFuncionCliente == 0)
+	   		$("#intIdProvincia").html(datos);
+	   	else {
+	   		$("#intIdProvincia").html('<option value="T">GENERAL</option>');
+	   		$("#intIdProvincia").append(datos);
+	   	}
 	   	$("#intIdProvincia").val(intIdProvincia);
 	   }
 	  });
@@ -90,7 +116,12 @@ function MostrarDistrito_III(intIdProvincia,intIdDistrito){
 	   data:{funcion:funcion,intIdProvincia:intIdProvincia},
 	   success:function(datos)
 	   {
-	   	$("#intIdDistrito").html(datos);
+	   	if(reporteFuncionCliente == 0)
+	   		$("#intIdDistrito").html(datos);
+	   	else {
+	   		$("#intIdDistrito").html('<option value="T">GENERAL</option>');
+	   		$("#intIdDistrito").append(datos);
+	   	}
 	   	$("#intIdDistrito").val(intIdDistrito);
 	   }
 	  });
