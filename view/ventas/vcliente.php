@@ -105,7 +105,7 @@
                         <div class="col-md-2">
                             <div id="intIdDepartamentoGroup" class="form-group">
                               <label>Departamento:</label>
-                              <select onchange="MostrarProvincia()" id="intIdDepartamento" class="form-control select2" >
+                              <select onchange="MostrarProvinciaB()" id="intIdDepartamentoB" class="form-control select2" >
                                 <option value="T">GENERAL</option>
                                 <?php try{
                                   $sql_conexion = new Conexion_BD();
@@ -125,7 +125,7 @@
                           <div class="col-md-2">
                             <div id="intIdProvinciaGroup" class="form-group">
                               <label>Provincia:</label>
-                              <select onchange="MostrarDistrito()" id="intIdProvincia" class="form-control select2" >
+                              <select onchange="MostrarDistritoB()" id="intIdProvinciaB" class="form-control select2" >
                                 <option value="T">GENERAL</option>
                                 <?php try{
                                   $sql_conexion = new Conexion_BD();
@@ -145,7 +145,7 @@
                           <div class="col-md-2">
                             <div id="intIdDistritoGroup" class="form-group">
                               <label>Distrito:</label>
-                              <select id="intIdDistrito" class="form-control select2" >
+                              <select id="intIdDistritoB" class="form-control select2" >
                                 <option value="T">GENERAL</option>
                                 <?php try{
                                   $sql_conexion = new Conexion_BD();

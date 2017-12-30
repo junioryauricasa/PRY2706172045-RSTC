@@ -96,14 +96,16 @@ class Cliente
     }    
   }
 
-  public function ListarClienteComprobante($busqueda,$x,$y,$intIdTipoPersona)
+  public function ListarClienteComprobante($busqueda,$x,$y,$intIdTipoPersona,$intIdDepartamento,$intIdProvincia,$intIdDistrito)
   {
     try{
       if($busqueda != "" || $busqueda != null) {
         $sql_conexion = new Conexion_BD();
         $sql_conectar = $sql_conexion->Conectar();
-        $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+        $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE(:busqueda,:x,:y,:intIdTipoPersona,:intIdDepartamento,:intIdProvincia,
+        :intIdDistrito)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona,
+          ':intIdDepartamento' => $intIdDepartamento,':intIdProvincia' => $intIdProvincia,':intIdDistrito' => $intIdDistrito));
         $j = $x + 1;
         while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
         {

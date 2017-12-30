@@ -278,7 +278,7 @@ $(document).on('change', '#lista-persona', function(){
 	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
 });
 
-$(document).on('change', '#intIdDepartamento', function(){
+$(document).on('change', '#intIdDepartamentoB', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "T";
@@ -287,7 +287,7 @@ $(document).on('change', '#intIdDepartamento', function(){
 	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
 });
 
-$(document).on('change', '#intIdProvincia', function(){
+$(document).on('change', '#intIdProvinciaB', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "T";
@@ -296,7 +296,7 @@ $(document).on('change', '#intIdProvincia', function(){
 	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
 });
 
-$(document).on('change', '#intIdDistrito', function(){
+$(document).on('change', '#intIdDistritoB', function(){
   	  var y = document.getElementById("num-lista").value;
   	  var x = 0;
   	  var tipolistado = "T";
@@ -312,9 +312,9 @@ $(document).on('change', '#intIdDistrito', function(){
 function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
-  var intIdDepartamento = $("#intIdDepartamento").val();
-  var intIdProvincia = $("#intIdProvincia").val();
-  var intIdDistrito = $("#intIdDistrito").val();
+  var intIdDepartamento = $("#intIdDepartamentoB").val();
+  var intIdProvincia = $("#intIdProvinciaB").val();
+  var intIdDistrito = $("#intIdDistritoB").val();
   $.ajax({
       url:'../../datos/ventas/funcion_cliente.php',
       method:"POST",
@@ -334,9 +334,9 @@ function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
 function PaginarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
-  var intIdDepartamento = $("#intIdDepartamento").val();
-  var intIdProvincia = $("#intIdProvincia").val();
-  var intIdDistrito = $("#intIdDistrito").val();
+  var intIdDepartamento = $("#intIdDepartamentoB").val();
+  var intIdProvincia = $("#intIdProvinciaB").val();
+  var intIdDistrito = $("#intIdDistritoB").val();
   $.ajax({
       url:'../../datos/ventas/funcion_cliente.php',
       method:"POST",

@@ -436,10 +436,13 @@ function ListarClientesSeleccion(x,y) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "MCL";
 	var intIdTipoPersona = document.getElementById("lista-persona").value;
+	var intIdDepartamento = "T";
+  	var intIdProvincia = "T";
+  	var intIdDistrito = "T";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona,intIdDepartamento:intIdDepartamento,intIdProvincia:intIdProvincia,intIdDistrito:intIdDistrito},
 	   success:function(datos)
 	   {
 	   	$("#ListaDeClientesSeleccion").html(datos);
@@ -455,10 +458,13 @@ function ListarClientesSeleccion(x,y) {
 function PaginarClientesSeleccion(x,y,intIdTipoPersona) {
 	var busqueda = document.getElementById("BusquedaCliente").value;
 	var funcion = "PCL";
+	var intIdDepartamento = "T";
+  	var intIdProvincia = "T";
+  	var intIdDistrito = "T";
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
-	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona},
+	   data:{busqueda:busqueda,funcion:funcion,x:x,y:y,intIdTipoPersona:intIdTipoPersona,intIdDepartamento:intIdDepartamento,intIdProvincia:intIdProvincia,intIdDistrito:intIdDistrito},
 	   success:function(datos)
 	   {
 	   	$("#PaginacionDeClientes").html(datos);
