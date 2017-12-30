@@ -376,8 +376,10 @@ class FormularioUsuario
                       </div>
                       <input type="hidden" name="IdComunicacionUsuario" id="intIdComunicacionUsuario" value="" />
                     </div>
+                    
                     <br>
                     <br>
+
                     <div class="col-md-5">
                       <div class="form-group">
                         <script type="text/javascript">BotonesComunicacion('I');</script>
@@ -395,7 +397,9 @@ class FormularioUsuario
                           <table class="ExcelTable2007 rwd-table" width="100%">
                             <thead>
                             <tr>
-                              <th class="heading" width="25px">&nbsp;</th>
+                              <th class="" width="25px" style="background: #a9c4e9">
+                                <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                              </th>
                               <th>Medio</th>
                               <th>Lugar</th>
                               <th>Tipo de Comunicación</th>

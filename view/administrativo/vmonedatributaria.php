@@ -84,7 +84,7 @@
                 <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-danger btn-flat pull-right" onclick="showmodalNuevaMonedaTrib()">Nueva Moneda Comercial</button>
             </div>
             <!-- END - button -->
-            
+
           <br>
           <br>
 
@@ -120,7 +120,7 @@
           </div>
           <div class="table-responsive">
             <!--table class="ExcelTable2007 rwd-table" width="100%"-->
-            <table class="ExcelTable2007 rwd-table" width="50%">
+            <table class="ExcelTable2007 rwd-table" width="50%" style="text-align: center; margin: 0 auto">
               <thead>
               <tr>
                 <!--th class="heading" width="25px">&nbsp;</th-->
@@ -138,7 +138,7 @@
               </tbody>
             </table>
           </div>
-          <div class="text-center" style="width: 50%">
+          <div class="text-center" style="width: 50%;text-align: center !important; margin: 0 auto">
             <nav aria-label="...">
               <ul id="PaginacionDeMonedaTributaria" class="pagination">
                 <script>PaginarMonedaTributaria(0,10,"T");</script>

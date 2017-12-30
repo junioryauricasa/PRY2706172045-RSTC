@@ -162,7 +162,7 @@
     			                <th style="width: 125px">Pr. Venta 1</th>
     			                <th style="width: 125px">Pr. Venta 2</th>
     			                <th style="width: 125px">Pr. Venta 3</th>
-    			                <th style="width: 120px !important">Cant. Total</th>
+    			                <th style="width: 125px !important">Cant. Total</th>
     			                <th style="width: 80px">Ubicación</th>
     			                <th style="width: 70px">Imágen</th>
     			                <th style="width: 100px; text-align:center">Opciones</th>
