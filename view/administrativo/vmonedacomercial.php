@@ -78,14 +78,12 @@
           <h3 class="box-title">Registro de Cambios de Monedas</h3>
         </div>
         <div class="box-body">
-          <div class="row" style="margin-top: 20px; margin-bottom: 20px">
-              <div class="col-md-12">
-                <div class="" style="text-align: right; float: right;">
-                  <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
-                </div>
-              </div>
+          <div class="col-md-12" style="text-align: right;">
+             <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-right" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
           </div>
           <br>
+          <br>
+
           <div class="row">
             <?php include '../campos/cmbNumLista.php'; ?>
             <div class="col-md-2">

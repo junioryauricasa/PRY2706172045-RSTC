@@ -80,10 +80,13 @@
         <div class="box-body">
           <div class="row">
             <!-- INICIO - button -->
-            <div class="col-md-12" style="text-align: right !important; ">
-                <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaTrib()">Nueva Moneda Comercial</button>
+            <div class="col-md-12" style="text-align: right;">
+                <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-danger btn-flat pull-right" onclick="showmodalNuevaMonedaTrib()">Nueva Moneda Comercial</button>
             </div>
             <!-- END - button -->
+            
+          <br>
+          <br>
 
             <?php include '../campos/cmbNumLista.php'; ?>
             <div class="col-md-2">
