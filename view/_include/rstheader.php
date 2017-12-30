@@ -895,4 +895,14 @@ table tr .deshabilitado{
   }
 }
 
+/*
+  truncate Texto
+*/
+.truncate {
+    white-space: nowrap; 
+    width: 50px !important; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
 </style>

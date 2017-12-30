@@ -84,9 +84,9 @@
           <br>
           <br>
 
-          <div class="row">
+          <div class="row" >
             <?php include '../campos/cmbNumLista.php'; ?>
-            <div class="col-md-2">
+            <div class="col-md-2" style="text-align: center !important; margin: 0 auto">
               <div class="form-group">
                 <label>Tipo de Cambio:</label>
                 <br>

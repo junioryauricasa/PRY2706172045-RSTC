@@ -224,7 +224,7 @@ class Producto
           '
               <td class="heading" style="" data-th="ID">'.$j.'</td>
               <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
-              <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
+              <td align="right" data-th="Descripción" class="truncate">'.$fila["nvchDescripcion"].'</td>
               <td align="right" data-th="Tipo de Moneda Venta" style="text-align:right">'.$fila["nvchSimbolo"].'</td>
               <td align="right" data-th="Precio de Venta 1" style="text-align:right">'.number_format($fila["dcmPrecioVenta1"],2,'.',',').'</td>
               <td align="right" data-th="Precio de venta 2" style="text-align:right">'.number_format($fila["dcmPrecioVenta2"],2,'.',',').'</td>
