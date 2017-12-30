@@ -187,11 +187,11 @@ switch($_POST['funcion']){
     break;
   case "MCL":
     $Cliente = new Cliente();
-    $Cliente->ListarClienteComprobante($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona']);
+    $Cliente->ListarClienteComprobante($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['intIdTipoPersona'],"T","T","T");
     break;
   case "PCL":
     $Cliente = new Cliente();
-    $Cliente->PaginarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],'V',$_POST['intIdTipoPersona']);
+    $Cliente->PaginarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],'V',$_POST['intIdTipoPersona'],"T","T","T");
     break;
   case "MPT":
     $DetalleCotizacion = new DetalleCotizacion();
