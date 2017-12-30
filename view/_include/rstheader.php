@@ -43,6 +43,10 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     }
   </script>
 <style>
+    input[type="text"]{
+      width: 100% !important;
+    }
+
     div .table-responsive{
       /*border: solid 1px #a9c4e9 !important;*/
     }
