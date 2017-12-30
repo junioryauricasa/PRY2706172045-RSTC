@@ -97,11 +97,11 @@ switch($_POST['funcion']){
     break;
   case "L":
     $Cliente = new Cliente();
-    $Cliente->ListarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoPersona']);
+    $Cliente->ListarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoPersona'],$_POST['intIdDepartamento'],$_POST['intIdProvincia'],$_POST['intIdDistrito']);
     break;
   case "P":
     $Cliente = new Cliente();
-    $Cliente->PaginarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoPersona']);
+    $Cliente->PaginarClientes($_POST['busqueda'],$_POST['x'],$_POST['y'],$_POST['tipolistado'],$_POST['intIdTipoPersona'],$_POST['intIdDepartamento'],$_POST['intIdProvincia'],$_POST['intIdDistrito']);
     break;
   case "F":
     $FormularioCliente = new FormularioCliente();

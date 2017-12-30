@@ -48,10 +48,6 @@
     <?php require_once '../../negocio/operaciones/nvalidaciones.php'; ?>
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>}
     <script type="text/javascript">reporteFuncionCliente = 1;</script>
-    <!--<script type="text/javascript" src="../../negocio/ventas/ncliente.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/ndatosgenerales.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nvalidaciones.js"></script>-->
-    <!--<script type="text/javascript" src="../../negocio/operaciones/nestilos.js"></script>-->
     <style>
       .pagination a {
           margin: 0 4px; /* 0 is for top and bottom. Feel free to change it */
