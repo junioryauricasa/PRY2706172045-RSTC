@@ -157,12 +157,12 @@
                               <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
                           </th>
     			                <th style="width: 120px">Código</th>
-    			                <th style="width: 500px">Descripción</th>
+    			                <th style="width: 300px">Descripción</th>
     			                <th style="width: 150px">Moneda</th>
     			                <th style="width: 125px">Pr. Venta 1</th>
     			                <th style="width: 125px">Pr. Venta 2</th>
     			                <th style="width: 125px">Pr. Venta 3</th>
-    			                <th style="width: 90px">Cant. Total</th>
+    			                <th style="width: 100px">Cant. Total</th>
     			                <th style="width: 80px">Ubicación</th>
     			                <th style="width: 70px">Imágen</th>
     			                <th style="width: 100px; text-align:center">Opciones</th>
