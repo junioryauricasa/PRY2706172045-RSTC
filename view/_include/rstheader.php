@@ -42,7 +42,6 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
         });
     }
   </script>
-
 <style>
     div .table-responsive{
       /*border: solid 1px #a9c4e9 !important;*/
@@ -295,10 +294,18 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
               </ul>
             </li>
           </ul>
-
+          <?php 
+            require_once '../../datos/conexion/bd_conexion.php';
+            $dtmFechaCambio =  date('Y-m-d');
+            $sql_conexion_moneda = new Conexion_BD();
+            $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
+            $sql_comando_moneda = $sql_conectar_moneda->prepare('CALL MOSTRARMONEDACOMERCIALFECHA(:dtmFechaCambio)');
+            $sql_comando_moneda -> execute(array(':dtmFechaCambio' => $dtmFechaCambio));
+            $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
+          ?>
           <ul  id="tasa_de_cambio" class="nav navbar-nav navbar-right" style="float: right !important; position: absolute; right: 10px">
             <li class="active" style="font-weight:bolder">
-              <a href="#">1USD = 3.5PEN</a>
+              <a href="#">1USD = <?php echo number_format($fila_moneda['dcmCambio2'],2,'.',','); ?>PEN</a>
             </li>
           </ul>
 
