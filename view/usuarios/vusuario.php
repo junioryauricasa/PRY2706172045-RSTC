@@ -89,7 +89,8 @@
                   <a href="#tab_1" data-toggle="tab" id="tab-listado-usuario-btn">Administrar Usuarios</a>
               </li>
               <li>
-                  <a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulário de Usuarios</a>
+                  <!--a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulário de Usuarios</a-->
+                  <a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulário</a>
               </li>
             </ul>
 
@@ -97,16 +98,19 @@
             <div class="tab-pane active" id="tab_1">
                 <div class="row">
                   <div class="col-md-12">
-                      <div class="">
+                      <!--div class="">
                         <h3 class="">Registro de Usuarios</h3>
-                        <div class="pull-right">
-                              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" onclick="clickdetallesUsuario()"><i class="fa fa-plus-square" aria-hidden="true" style="padding-right: 5px"></i> Agregar Usuario</button>
-                              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
-                              Reporte Excel</button>
-                              <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-left" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
-                              Reporte PDF</button>
-                        </div>
+                      </div-->
+                      <div class="pull-right" style="margin-bottom: 20px">
+                            <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-info btn-flat pull-left" onclick="clickdetallesUsuario()"><i class="fa fa-plus-square" aria-hidden="true" style="padding-right: 5px"></i> Agregar Usuario</button>
+                            <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                            Reporte Excel</button>
+                            <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-left" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                            Reporte PDF</button>
                       </div>
+
+                      <br>
+
                       <div class="">
                         <div class="row">
                           <?php include '../campos/cmbNumLista.php'; ?>
