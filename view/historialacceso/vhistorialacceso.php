@@ -57,15 +57,18 @@
           border-width: 1px;
       }
     </style>
-  <div class="content-wrapper">
 
+  <div class="content-wrapper" style="min-height: min-content">
     <!-- Main content -->
     <section class="content">
       <!-- TABLE: LATEST USERS -->
       <div class="box box-info">
         <div class="box-header with-border">
           <h2 class="box-title">Registro de Historial de Accesos</h2>
-          <div class="box-tools pull-right">
+        </div>
+        <div class="box-body">
+
+          <div class="pull-right" style="margin-bottom: 20px">
             <!--a href="" class="btn btn-sm btn-success btn-flat pull-left" style="margin: 0px 5px">Generar Reporte</a-->
             <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick="">
                 <i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
@@ -76,8 +79,7 @@
                 Reporte PDF
             </button>
           </div>
-        </div>
-        <div class="box-body">
+
           <div class="row">
             <?php include '../campos/cmbNumLista.php'; ?>
             <div class="col-md-2">
