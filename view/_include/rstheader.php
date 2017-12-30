@@ -898,7 +898,7 @@ table tr .deshabilitado{
 /*
   truncate Texto
 */
-.truncate {
+.truncate-text {
     white-space: nowrap; 
     width: 50px !important; 
     overflow: hidden;
