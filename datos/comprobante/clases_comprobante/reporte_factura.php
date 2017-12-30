@@ -250,42 +250,42 @@
           <tbody style="border: solid 1px black;">
           <!--tbody style="border: dashed 1px black;"-->
             <tr id="primerdetalle" style="margin-bottom: 10px">
-              <td style="font-family: Arial; text-align: center; width: 3% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black;*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 5% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black;*/ border-right: solid 1px black">
                   <small>
                     <small>
-                        <span>ITEM</span>
+                        <span style="margin-left: 3px">ITEM</span>
                     </small>
                   </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 15,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                   <small>
                     <small>
                         <span>CÓDIGO</span>
                     </small>
                   </small>
               </td>
-              <td style="font-family: Arial; text-align: center; /*  */; width: 55.6% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; /*  ; width: 50.6% !important */; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                 <small>
                     <small>
                         <span>DESCRIPCIÓN</span>
                     </small>
                 </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 4% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 5% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                 <small>
                     <small>
-                        <span>CANT.</span>
+                        <span style="margin-left: 3px">CANT.</span>
                   </small>
                 </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 10,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                   <small>
                     <small>
                         <span>P. UNIT.</span>
                     </small>
                   </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 13,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="font-family: Arial; text-align: center; width: 10,8% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                   <small>
                     <small>
                         <span>P. TOTAL</span>
@@ -316,12 +316,12 @@
             ?>
 
             <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid; padding-top: -10px: ">
-              <td style="width: 3% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
+              <td style="width: 5% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
                 <span style="color: black; margin: 0 auto; margin-left: 50%">
                   <?php echo $i; ?>
                 </span>
               </td>
-              <td style="width: 16.6% !important; font-size:x-small; padding:0px;  border-right: solid 1px;">
+              <td style="width: 15.8% !important; font-size:x-small; padding:0px; border-right: solid 1px;">
                   <span style="float: top">
                     <?php echo $fila['nvchCodigo']; ?>
                   </span>
@@ -335,17 +335,17 @@
                   ?>
                 </span>
               </td>
-              <td style="/*width: 11% !important;*/; font-size:x-small; padding:0px; border-right: solid 1px;">
+              <td style="width: 5% !important;; font-size:x-small; padding:0px; border-right: solid 1px;">
                 <span style="float: top">
                   <?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?>
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; border-right: solid 1px">
+              <td style="width: 10.8% !important; font-size:x-small; text-align: right; padding:0px; border-right: solid 1px">
                 <span style="float: top">
                   <?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?>
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; ">
+              <td style="width: 10.8% !important; font-size:x-small; text-align: right; padding:0px; ">
                 <span style="float: top">
                   <?php echo number_format($fila['dcmTotal'],2,'.',','); ?>
                 </span>
@@ -363,32 +363,32 @@
                 }
             ?>
 
-              <td style="width: 8% !important; font-size:x-small; color:white; border-right: solid 1px black">
+              <td style="width: 5% !important; font-size:x-small; color:white; border-right: solid 1px black">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 16.67% !important; font-size:x-small; color:white; border-right: solid 1px black">
+              <td style="width: 15.8% !important; font-size:x-small; color:white; border-right: solid 1px black">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 50% !important; max-width: 50% !important; font-size:x-small; text-align: left; padding-left: 7px; padding-right: 0px;word-wrap: break-word; color:white; border-right: solid 1px black">
+              <td style="/* width: 50% !important ; max-width: 50% !important; */font-size:x-small; text-align: left; padding-left: 7px; padding-right: 0px;word-wrap: break-word; color:white; border-right: solid 1px black">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 11% !important; font-size:x-small; color:white; border-right: solid 1px black">
+              <td style="width: 5% !important; font-size:x-small; color:white; border-right: solid 1px black">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; color:white; border-right: solid 1px black">
+              <td style="width: 10.8% !important; font-size:x-small; color:white; border-right: solid 1px black">
                 <span>
                   |
                 </span>
               </td>
-              <td style="width: 13.8% !important; font-size:x-small; color:white">
+              <td style="width: 10.8% !important; font-size:x-small; color:white">
                 <span>
                   |
                 </span>
@@ -409,7 +409,7 @@
     <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px;*/ border-collapse: collapse;">
       <!-- INICIO - row VALOR VENTA -->
       <tr>
-        <td colspan="" style="border: solid 0px; width: 77% !important">
+        <td colspan="" style="border: solid 0px; width: 78.4% !important">
             <span style="margin-left: 5px">
                 <?php 
                     $numero = "1900";
@@ -425,12 +425,12 @@
                 ?>  
             </span>
         </td>
-        <td style="width: 11.5% !important; font-size:x-small; border: solid 1px;">
+        <td style="width: 10.8% !important; font-size:x-small; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
             VALOR DE VENTA
           </span>
         </td>
-        <td style="width: 11.5% !important; font-size:x-small; text-align: right; border: solid 1px;">
+        <td style="width: 10.8% !important; font-size:x-small; text-align: right; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
             <?php echo $nvchSimbolo.' '.number_format($ValorVenta, 2, '.', ','); ?>
           </span>
@@ -440,13 +440,13 @@
 
       <!-- INICIO - row IGV -->
       <tr>
-        <td colspan="" style="border: solid 0px; width: 77% !important"></td>
-        <td style="width: 11.5% !important; font-size:x-small; border: solid 1px;">
+        <td colspan="" style="border: solid 0px; width: 78.4% !important"></td>
+        <td style="width: 10.8% !important; font-size:x-small; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
             I.G.V.
           </span>
         </td>
-        <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
+        <td style="width: 10.8% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px;">
           <span style=" padding-right: 0px !important; text-align: right;">
             <?php echo $nvchSimbolo.' '.number_format($IGVVenta, 2, '.', ','); ?>
           </span>
@@ -456,13 +456,13 @@
 
       <!-- INICIO - row TOTAL -->
       <tr>
-        <td colspan="" style="border: solid 0px; width: 77% !important"></td>
-        <td style="width: 11.5% !important; font-size:x-small; border: solid 1px">
+        <td colspan="" style="border: solid 0px; width: 78.4% !important"></td>
+        <td style="width: 10.8% !important; font-size:x-small; border: solid 1px">
           <span style=" padding-right: 0px !important; text-align: right;">
               TOTAL
           </span>
         </td>
-        <td style="width: 11.5% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
+        <td style="width: 10.8% !important; font-size:x-small; text-align: right; padding-top: 10px; border: solid 1px">
           <span style=" padding-right: 0px !important; text-align: right;">
             <?php 
              echo $nvchSimbolo.' '.number_format($TotalVenta, 2, '.', ','); // formato con dos decimales
