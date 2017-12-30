@@ -112,7 +112,7 @@
 
           <div class="">
               <div class="table-responsive">
-                <table class="ExcelTable2007 rwd-table" width="50%">
+                <table class="ExcelTable2007 rwd-table" width="50%" style="text-align: center !important; margin: 0 auto">
                 <!--table class="ExcelTable2007 rwd-table" width="100%"-->
                   <thead>
                   <tr>
