@@ -941,6 +941,36 @@ function ConsultarIdProducto(){
 /* FIN - Funcion Ajax - Insertar Producto */
 //////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+// INICIO - funcion creada para autoselecionar cliente despues de su registro
+function SeleccionarClienteS(intIdCliente) {
+  var funcion = "SCL";
+    $.ajax({
+     url:"../../datos/comprobante/funcion_comprobante.php",
+     method:"POST",
+     data:{intIdCliente:intIdCliente,funcion:funcion},
+     dataType:"json",
+     success:function(datos)
+     {
+      if(datos.intIdTipoPersona == 1){
+       $("#nvchNumDocumento").val(datos.nvchRUC);
+       $("#nvchDenominacion").val(datos.nvchRazonSocial);
+      } else if(datos.intIdTipoPersona == 2){
+       $("#nvchNumDocumento").val(datos.nvchDNI);
+       $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+      }
+      $("#intIdClienteC").val(datos.intIdCliente);
+      $("#TipoCliente").val(datos.TipoCliente);
+      $("#intIdTipoCliente").val(datos.intIdTipoCliente);
+      $("#nvchDomicilio").val(datos.nvchDomicilio);
+      $("#intIdClienteC").val(datos.intIdCliente);
+      $("#formCliente").modal("hide");
+     }
+    });
+}
+// END - funcion creada para autoselecionar cliente despues de su registro
+/////////////////////////////////////////////////////////////////////////////
+
 //////////////////////////////////////////////////////////////
 /* INICIO - Seleccion del Cliente */
 function MostrarSeleccionCliente(intIdTipoPersona) {

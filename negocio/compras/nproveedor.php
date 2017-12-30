@@ -835,12 +835,10 @@ function SeleccionarDomicilio(seleccion) {
 ///////////////////////////////////////////////////////////
 function botonescrear(){
       $("#btn-agregar-domicilio").show();
-      $("#btn-agregar-domicilio").hide();
       $("#btn-actualizar-domicilio").hide();
       $("#btn-cancelar-domicilio").hide();
 
       $("#btn-agregar-comunicacion").show();
-      $("#btn-agregar-comunicacion").hide();
       $("#btn-actualizar-comunicacion").hide();
       $("#btn-cancelar-comunicacion").hide();
 
@@ -853,12 +851,10 @@ function botonescrear(){
 
 function botonesactualizar(){
       $("#btn-agregar-domicilio").hide();
-      $("#btn-agregar-domicilio").show();
       $("#btn-actualizar-domicilio").show();
       $("#btn-cancelar-domicilio").show();
 
       $("#btn-agregar-comunicacion").hide();
-      $("#btn-agregar-comunicacion").show();
       $("#btn-actualizar-comunicacion").show();
       $("#btn-cancelar-comunicacion").show();
 

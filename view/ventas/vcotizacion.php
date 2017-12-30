@@ -45,7 +45,6 @@
     <?php require_once '../../negocio/operaciones/nestilos.php'; ?>
     <?php require_once '../../view/modals/vformCliente.php'; ?>
     <?php require_once '../../view/modals/vformProducto.php'; ?>
-    <?php require_once '../../negocio/operaciones/ndatosgenerales.php';?>
     <script>
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip(); 

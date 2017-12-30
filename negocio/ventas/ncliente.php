@@ -82,22 +82,20 @@ $(document).on('click', '#btn-crear-cliente-nuevo', function(){
 	   {
 	   	if (datos=="okok" || datos=="okokok") {
 	   		MensajeNormal("Se agregó correctamente el nuevo Cliente",1);
-	   		$('#txt-busqueda').val("");
-	   		AccionCabecerasTabla(intIdTipoPersona);
-	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
-	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
-	   		$("#lista-persona").val($("#tipo-persona").val());
-	   		//$("#btn-form-cliente-remove").click();
-	   		limpiarformCliente();
-	   		botonesCrear();
-	   		//volver a la primera pestana
-	   		if(SNuevoCliente != "I")
+	   		if(SNuevoCliente != "I"){
+	   		  $('#txt-busqueda').val("");
+	   		  AccionCabecerasTabla(intIdTipoPersona);
+	   		  $("#lista-persona").val($("#tipo-persona").val());
+	   		  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+	   	      PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		  $("#lilistarclientes").click();
+	   		}
 	   		if(SNuevoCliente == "I"){
 	   		  crear_nuevo_cliente();
 	   		  ConsultarIdCliente();
 			}
-
+	   		limpiarformCliente();
+	   		botonescrear();
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -201,8 +199,7 @@ $(document).on('click', '#btn-editar-cliente-actualizar', function(){
 	   		ListarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarCliente(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
-	   		//$("#btn-form-cliente-remove").click();
-			
+	   		//$("#btn-form-cliente-remove").click();		
 	   		limpiarformCliente();//limpiar formulario
 	   		$("#lilistarclientes").click();//volver a la primera pestana
 	   		botonescrear();
@@ -922,12 +919,10 @@ function limpiarformCliente(){
 ///////////////////////////////////////////////////////////
 function botonescrear(){
       $("#btn-agregar-domicilio").show();
-      $("#btn-agregar-domicilio").hide();
       $("#btn-actualizar-domicilio").hide();
       $("#btn-cancelar-domicilio").hide();
 
       $("#btn-agregar-comunicacion").show();
-      $("#btn-agregar-comunicacion").hide();
       $("#btn-actualizar-comunicacion").hide();
       $("#btn-cancelar-comunicacion").hide();
 
@@ -941,12 +936,10 @@ function botonescrear(){
 
 function botonesactualizar(){
       $("#btn-agregar-domicilio").hide();
-      $("#btn-agregar-domicilio").show();
       $("#btn-actualizar-domicilio").show();
       $("#btn-cancelar-domicilio").show();
 
       $("#btn-agregar-comunicacion").hide();
-      $("#btn-agregar-comunicacion").show();
       $("#btn-actualizar-comunicacion").show();
       $("#btn-cancelar-comunicacion").show();
 
