@@ -235,8 +235,12 @@
   /*
     END autoclose
   */
+</script>
 
-
+<script>
+  $(document).ready(function() {
+    $('input').css({ 'width':'100% !important'});
+  });
 </script>
 
 <?php require_once '../modals/vmensajes.php'; ?>

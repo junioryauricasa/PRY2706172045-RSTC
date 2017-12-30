@@ -78,7 +78,7 @@
 		      </li>
 		      <li id="li_ver_editar_formulario">
 		      	<a href="#tab_2" data-toggle="tab" aria-expanded="false" id="btnFormProducto">
-		      		Formulario Producto
+		      		Formulario
 		      	</a>
 		      </li>
 		    </ul>
