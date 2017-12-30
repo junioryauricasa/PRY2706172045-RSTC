@@ -131,7 +131,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="text-center" style="width: 50%">
+              <div class="text-center" style="width: 50%;text-align: center !important; margin: 0 auto">
                 <nav aria-label="...">
                   <ul id="PaginacionDeMonedaComercial" class="pagination">
                     <script>PaginarMonedaComercial(0,10,"T");</script>
