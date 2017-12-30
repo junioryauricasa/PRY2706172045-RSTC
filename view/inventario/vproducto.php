@@ -159,9 +159,9 @@
     			                <th style="width: 120px">Código</th>
     			                <th style="width: 500px">Descripción</th>
     			                <th style="width: 150px">Moneda</th>
-    			                <th style="width: 125px">Precio Venta 1</th>
-    			                <th style="width: 125px">Precio Venta 2</th>
-    			                <th style="width: 125px">Precio Venta 3</th>
+    			                <th style="width: 125px">Pr. Venta 1</th>
+    			                <th style="width: 125px">Pr. Venta 2</th>
+    			                <th style="width: 125px">Pr. Venta 3</th>
     			                <th style="width: 90px">Cant. Total</th>
     			                <th style="width: 80px">Ubicación</th>
     			                <th style="width: 70px">Imágen</th>
