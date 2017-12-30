@@ -76,12 +76,16 @@
       <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Registro de Cambios de Monedas</h3>
-
-          <div class="pull-right">
-              <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
-          </div>
         </div>
         <div class="box-body">
+          <div class="row" style="margin-top: 20px; margin-bottom: 20px">
+              <div class="col-md-12">
+                <div class="" style="text-align: right; float: right;">
+                  <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
+                </div>
+              </div>
+          </div>
+          <br>
           <div class="row">
             <?php include '../campos/cmbNumLista.php'; ?>
             <div class="col-md-2">
@@ -107,33 +111,37 @@
               </div>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="ExcelTable2007 rwd-table" width="50%">
-            <!--table class="ExcelTable2007 rwd-table" width="100%"-->
-              <thead>
-              <tr>
-                <!--th class="heading" width="25px">&nbsp;</th-->
-                <th class="" width="25px" style="background: #a9c4e9">
-                  <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
-                </th>
-                <th>Fecha</th>
-                <th>Valor EstadoUnidense</th>
-                <th>Valor Sol</th>
-                <th>Opciones</th>
-              </tr>
-              </thead>
-              <tbody id="ListaDeMonedaComercial">
-                <script>ListarMonedaComercial(0,10,"T");</script>
-              </tbody>
-            </table>
+
+          <div class="">
+              <div class="table-responsive">
+                <table class="ExcelTable2007 rwd-table" width="50%">
+                <!--table class="ExcelTable2007 rwd-table" width="100%"-->
+                  <thead>
+                  <tr>
+                    <!--th class="heading" width="25px">&nbsp;</th-->
+                    <th class="" width="25px" style="background: #a9c4e9">
+                      <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                    </th>
+                    <th>Fecha</th>
+                    <th>Valor EstadoUnidense</th>
+                    <th>Valor Sol</th>
+                    <th>Opciones</th>
+                  </tr>
+                  </thead>
+                  <tbody id="ListaDeMonedaComercial">
+                    <script>ListarMonedaComercial(0,10,"T");</script>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-center" style="width: 50%">
+                <nav aria-label="...">
+                  <ul id="PaginacionDeMonedaComercial" class="pagination">
+                    <script>PaginarMonedaComercial(0,10,"T");</script>
+                  </ul>
+                </nav>
+              </div>
           </div>
-          <div class="text-center" style="width: 50%">
-            <nav aria-label="...">
-              <ul id="PaginacionDeMonedaComercial" class="pagination">
-                <script>PaginarMonedaComercial(0,10,"T");</script>
-              </ul>
-            </nav>
-          </div>
+
         </div>
         <div class="box-footer clearfix">     
           <!--button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-info btn-flat pull-left">Agregar Moneda Comercial</button-->

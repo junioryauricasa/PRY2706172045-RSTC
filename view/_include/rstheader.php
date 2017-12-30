@@ -878,7 +878,7 @@ table tr .deshabilitado{
 #tasa_de_cambio{
       display: none;
 }
-@media screen and (min-width: 480px){
+@media screen and (min-width: 944px){
   #tasa_de_cambio{
       display: block;
   }

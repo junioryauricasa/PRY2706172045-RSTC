@@ -76,12 +76,15 @@
       <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Registro de Cambios de Monedas</h3>
-          <div class="pull-right">
-            <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaTrib()">Nueva Moneda Comercial</button>
-          </div>
         </div>
         <div class="box-body">
           <div class="row">
+            <!-- INICIO - button -->
+            <div class="col-md-12" style="text-align: right !important; ">
+                <button type="button" id="btn-form-crear-moneda-tributaria" class="btn btn-sm btn-danger btn-flat pull-left" onclick="showmodalNuevaMonedaTrib()">Nueva Moneda Comercial</button>
+            </div>
+            <!-- END - button -->
+
             <?php include '../campos/cmbNumLista.php'; ?>
             <div class="col-md-2">
               <div class="form-group">

@@ -9,11 +9,13 @@
           <form id="form-comprobante" method="POST"></form>
           <div class="tab-pane active" id="formRealizarComprobante">
 
-            <div class="col-md-12" style="margin-bottom: 20px">
-              <div class="pull-right">
-                <input type="button" id="btn-crear-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
-                <input type="button" id="btn-editar-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
-                <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-success btn-flat " value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+            <div class="row" style="margin-top:20px; margin-bottom: 20px">
+              <div class="col-md-12">
+                <div class="" style="text-align: right;">
+                  <input type="button" id="btn-crear-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                  <input type="button" id="btn-editar-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                  <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-success btn-flat " value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                </div>
               </div>
             </div>
 
@@ -98,7 +100,8 @@
               </div>
               <div class="col-md-2">
                 <div class="form-group">
-                  <label>Seleccionar el Tipo de <?php echo $lblTituloSingular; ?>:</label>
+                  <label>Tipo de <?php echo $lblTituloSingular; ?>:</label>
+                  <!--label>Seleccionar el Tipo de <?php echo $lblTituloSingular; ?>:</label-->
                   <select id="intIdTipoVenta" name="intIdTipoVenta" onchange="ElegirTabla(this.value)" class="form-control select2" form="form-comprobante">
                     <?php try{
                       $sql_conexion = new Conexion_BD();
@@ -375,8 +378,12 @@
 
           <!-- INICIO - Formulario Listar Venta -->
           <div class="tab-pane" id="formListarComprobante">
-            <div class="pull-right">
-              <button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Reporte EXCEL</button> 
+            <div class="row" style="margin-top:20px; margin-bottom: 20px">
+              <div class="col-md-12">
+                <div class="" style="text-align: right;">
+                  <button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Reporte EXCEL</button> 
+                </div>
+              </div>
             </div>
 
             <div class="row">
