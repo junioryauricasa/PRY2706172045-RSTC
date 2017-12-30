@@ -345,7 +345,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Observación y/o Datos Adicionales (Opcional):</label>
-                  <textarea id="nvchObservacion" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-comprobante" rows="6"></textarea>
+                  <textarea id="nvchObservacion" style="resize: vertical;" class="form-control select2" maxlength="800" name="nvchObservacion" form="form-comprobante" rows="6"></textarea>
                 </div>
               </div>
             </div>
