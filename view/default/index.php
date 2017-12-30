@@ -68,11 +68,6 @@
           <h1>
             Bienvenido al portal Resteco <?php echo $_SESSION['NombresApellidos'] ?>
           </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-            <li><a href="#">Ejemplo </a></li>
-            <li class="active">Perfil Usuario</li>
-          </ol>
         </section>
 
         <!-- Main content -->

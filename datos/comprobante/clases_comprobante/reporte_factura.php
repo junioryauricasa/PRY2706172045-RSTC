@@ -335,18 +335,18 @@
                   ?>
                 </span>
               </td>
-              <td style="/*width: 11% !important;*/; font-size:x-small; padding:0px; border-right: solid 1px">
-                <span>
+              <td style="/*width: 11% !important;*/; font-size:x-small; padding:0px; border-right: solid 1px;">
+                <span style="float: top">
                   <?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?>
                 </span>
               </td>
               <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; border-right: solid 1px">
-                <span>
+                <span style="float: top">
                   <?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?>
                 </span>
               </td>
               <td style="width: 13.8% !important; font-size:x-small; text-align: right; padding:0px; ">
-                <span style="margin-top: 0">
+                <span style="float: top">
                   <?php echo number_format($fila['dcmTotal'],2,'.',','); ?>
                 </span>
               </td>

@@ -100,7 +100,7 @@
                     <a href="#" style="margin-left: 5px" class="btn btn-sm btn-success btn-flat pull-right" id="DescargarListaProductoExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
 
                     <!-- button para descarga de excel -->
-                    <a href="#" style="margin-left: 5px" class="btn btn-sm btn-danger btn-flat pull-right" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
+                    <!--a href="#" style="margin-left: 5px" class="btn btn-sm btn-danger btn-flat pull-right" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a-->
                 </div>
 
     			      <!-- TABLE: LATEST USERS -->

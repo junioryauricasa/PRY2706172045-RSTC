@@ -150,7 +150,7 @@
                               <th style="min-width: 250px">Descripción</th>
                               <th style="width: 140px">Sucursal</th>
                               <th style="width: 130px">Cantidad</th>
-                              <th>Imágen</th>
+                              <!--th>Imágen</th-->
                             </tr>
                             </thead>
                             <tbody>
@@ -170,11 +170,11 @@
                                         <td data-th="Tipo">'.$fila["nvchDescripcion"].'</td>
                                         <td data-th="Cliente" style="text-align: center;">'.$fila["nvchNombre"].'</td>
                                         <td data-th="Fecha" style="text-align: center;">'.$fila["intCantidadUbigeo"].'</td>
-                                        <td data-th="Moneda" style="text-align: center;">
+                                        <!--td data-th="Moneda" style="text-align: center;">
                                           <button onclick="VerImagenProducto(this)" type="button" imagen="" class="btn btn-xs btn-primary">
                                             <i class="fa fa-search"></i> Ver 
                                           </button>
-                                        </td>
+                                        </td-->
                                     </tr>';
                                     $i++;
                                   }
