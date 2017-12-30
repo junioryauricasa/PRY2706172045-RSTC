@@ -128,7 +128,7 @@ class DetalleComprobante
             <td class="heading" data-th="ID">'.$i.'</td> '.
             '<td><input type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
                 '<input type="hidden" id="intIdProducto'.$i.'" name="intIdProducto[]" form="form-comprobante" value="'.$fila_producto['intIdProducto'].'" />'.
-                '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" value="'.$fila_producto['nvchCodigo'].'" form="form-comprobante" '.$readonly.' />'.
+                '<input type="text" style="width: 100% !important" class="buscar" id="nvchCodigo'.$i.'" name="nvchCodigo[]" value="'.$fila_producto['nvchCodigo'].'" form="form-comprobante" '.$readonly.' />'.
                 '<div class="result" id="result'.$i.'">'.
             '</td>'.
             '<td>
@@ -147,7 +147,7 @@ class DetalleComprobante
               '<input type="hidden" style="text-align: right;" id="dcmDescuentoVenta3'.$i.'" form="form-comprobante" value="'.$fila_producto['dcmDescuentoVenta3'].'" readonly />'.
             '</td>'.
             '<td class="filaDescuento">
-              <input type="text" style="text-align: right;" style="max-width: 105px !important;text-align: right;" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-comprobante" idsprt="'.$i.'"'.
+              <input type="text" style="text-align: right;" style="width: 100% !important;text-align: right;" id="dcmDescuento'.$i.'" name="dcmDescuento[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['dcmDescuento'].'" ';
              if($fila['intTipoDetalle'] == 1 && ($fila['intIdTipoComprobante'] < 3 || $fila['intIdTipoComprobante'] == 4))
               echo 'readonly/></td>';
@@ -155,14 +155,14 @@ class DetalleComprobante
               echo $readonly.' /></td>';
             echo
             '<td class="filaPrecioUnitario">
-                <input type="text" style="text-align: right;" style="max-width: 105px !important; text-align: right;" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-comprobante" value="'.$fila['dcmPrecioUnitario'].'"';
+                <input type="text" style="text-align: right;" style="width: 100% !important; text-align: right;" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-comprobante" value="'.$fila['dcmPrecioUnitario'].'"';
             if($fila['intTipoDetalle'] == 1 && ($fila['intIdTipoComprobante'] < 3 || $fila['intIdTipoComprobante'] == 4))
               echo 'readonly/></td>';
             else 
               echo '/></td>';
             echo '
             <td>
-                <input type="text" style="text-align: right;" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
+                <input type="text" style="text-align: right; width: 100% !important" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" '.$readonly.' /></td>'.
             '<td class="filaTotal">
                 <input type="text" style="text-align: right;" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
@@ -173,11 +173,11 @@ class DetalleComprobante
               '<tr>'.
                 '<td class="heading" data-th="ID">'.$i.'</td>'.
                 '<td>'.
-                  '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+                  '<input style="width: 100% !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
                   '<textarea id="nvchDescripcionS'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionS[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
                 '</td>'.
                 '<td>'.
-                  '<input style="max-width: 105px !important; text-align: right;" type="text" id="dcmPrecioUnitarioS'.$i.'" name="dcmPrecioUnitarioS[]" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" value="'.$fila['dcmPrecioUnitario'].'" '.$readonly.'/>'.
+                  '<input style="max-width: 1005 !important; text-align: right;" type="text" id="dcmPrecioUnitarioS'.$i.'" name="dcmPrecioUnitarioS[]" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)" value="'.$fila['dcmPrecioUnitario'].'" '.$readonly.'/>'.
                 '</td>'.
                 '<td>'.
                   '<input type="text" style="text-align: right;" id="intCantidadS'.$i.'" name="intCantidadS[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalS(this)" '.$readonly.'/>'.
@@ -191,13 +191,13 @@ class DetalleComprobante
           echo
           '<tr>'.
           '<td class="heading" data-th="ID">'.$i.'</td>'.
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoM'.$i.'" name="intIdProductoM[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoM'.$i.'" name="nvchCodigoM[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
+          '<td><input type="hidden" style="width: 100% !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+              '<input type="hidden" style="width: 100% !important" id="intIdProductoM'.$i.'" name="intIdProductoM[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
+              '<input type="text" style="width: 100% !important" class="buscar" id="nvchCodigoM'.$i.'" name="nvchCodigoM[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
               '<div class="result" id="resultM'.$i.'">'.
           '</td>'.
           '<td>'.
-            '<input style="width: 110px !important; text-align: right;" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+            '<input style="width: 100% !important; text-align: right;" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
             '<textarea id="nvchDescripcionM'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionM[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila['nvchDescripcion'].'</textarea>'.
           '</td>'.
           '<td class="filaUbigeoHuancayo">'.
@@ -207,7 +207,7 @@ class DetalleComprobante
             '<input type="text" style="width: 100%" id="UbigeoSanJeronimoM'.$i.'" form="form-comprobante" class="" value="'.$fila_producto['UbicacionSanJeronimo'].' | '.$fila_producto['CantidadSanJeronimo'].'" readonly/>'.
           '</td>'.
           '<td class="filaPrecioUnitario">'.
-            '<input style="max-width: 105px !important" type="text" style="text-align: right;" id="dcmPrecioUnitarioM'.$i.'" name="dcmPrecioUnitarioM[]" style="text-align: right;" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
+            '<input style="max-width: 100% !important" type="text" style="text-align: right;" id="dcmPrecioUnitarioM'.$i.'" name="dcmPrecioUnitarioM[]" style="text-align: right;" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
           '</td>'.
           '<td>'.
             '<input type="text" style="text-align: right;" style="text-align: right;" id="intCantidadM'.$i.'" name="intCantidadM[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
@@ -221,13 +221,13 @@ class DetalleComprobante
           echo
           '<tr>'.
           '<td class="heading" data-th="ID">'.$i.'</td>'.
-          '<td><input type="hidden" style="width: 110px !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
-              '<input type="hidden" style="width: 110px !important" id="intIdProductoI'.$i.'" name="intIdProductoI[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
-              '<input type="text" style="width: 110px !important" class="buscar" id="nvchCodigoI'.$i.'" name="nvchCodigoI[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
+          '<td><input type="hidden" style="width: 100% !important" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+              '<input type="hidden" style="width: 100% !important" id="intIdProductoI'.$i.'" name="intIdProductoI[]" value="'.$fila['intIdProducto'].'" form="form-comprobante" />'.
+              '<input type="text" style="width: 100% !important" class="buscar" id="nvchCodigoI'.$i.'" name="nvchCodigoI[]" value="'.$fila['nvchCodigo'].'" form="form-comprobante" onkeydown="return TeclaSeleccionCodigo(event)" '.$readonly.'/>'.
               '<div class="result" id="resultM'.$i.'">'.
           '</td>'.
           '<td>'.
-            '<input style="width: 110px !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
+            '<input style="width: 100% !important" type="hidden" name="fila[]" value="'.$i.'" form="form-comprobante" />'.
             '<textarea id="nvchDescripcionI'.$i.'" class="form-control select2 textoarea" maxlength="800" name="nvchDescripcionI[]" form="form-comprobante" rows="4" '.$readonly.'>'.$fila_producto['nvchDescripcion'].'</textarea>'.
           '</td>'.
           '<td class="filaUbigeoHuancayo">'.
@@ -237,7 +237,7 @@ class DetalleComprobante
             '<input type="text" style="width: 100%" id="UbigeoSanJeronimoI'.$i.'" form="form-comprobante" class="" value="'.$fila_producto['UbicacionSanJeronimo'].' | '.$fila_producto['CantidadSanJeronimo'].'" readonly/>'.
           '</td>'.
           '<td class="filaPrecioUnitario">'.
-            '<input style="max-width: 105px !important; text-align: right;" type="text" id="dcmPrecioUnitarioI'.$i.'" name="dcmPrecioUnitarioI[]" style="text-align: right;" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
+            '<input style="max-width: 100% !important; text-align: right;" type="text" id="dcmPrecioUnitarioI'.$i.'" name="dcmPrecioUnitarioI[]" style="text-align: right;" value="'.$fila['dcmPrecioUnitario'].'" idsprt="'.$i.'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
           '</td>'.
           '<td>'.
             '<input type="text" style="text-align: right;" style="text-align: right;" id="intCantidadI'.$i.'" name="intCantidadI[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
