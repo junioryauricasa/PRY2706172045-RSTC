@@ -5,9 +5,9 @@ DELIMITER $$
 	CREATE PROCEDURE INSERTARDOMICILIOPROVEEDOR(
 	IN _intIdProveedor INT,
     IN _nvchPais VARCHAR(150),
-    IN _intIdDepartamento INT,
-    IN _intIdProvincia INT,
-	IN _intIdDistrito INT,
+    IN _intIdDepartamento VARCHAR(450),
+    IN _intIdProvincia VARCHAR(450),
+	IN _intIdDistrito VARCHAR(450),
 	IN _nvchDireccion VARCHAR(450),
 	IN _intIdTipoDomicilio INT
     )
@@ -26,9 +26,9 @@ DELIMITER $$
 	IN _intIdDomicilioProveedor INT,
 	IN _intIdProveedor INT,
     IN _nvchPais VARCHAR(150),
-    IN _intIdDepartamento INT,
-    IN _intIdProvincia INT,
-	IN _intIdDistrito INT,
+    IN _intIdDepartamento VARCHAR(450),
+    IN _intIdProvincia VARCHAR(450),
+	IN _intIdDistrito VARCHAR(450),
 	IN _nvchDireccion VARCHAR(450),
 	IN _intIdTipoDomicilio INT
     )
@@ -80,14 +80,26 @@ DELIMITER $$
     	IN _intIdProveedor INT
     )
 	BEGIN
-		SELECT DPR.*,TP.nvchNombre AS NombreTD,DP.nvchDepartamento,P.nvchProvincia,DT.nvchDistrito 
+		SELECT DPR.*,TP.nvchNombre AS NombreTD,
+		CASE
+			WHEN nvchPais = 'PERU' THEN DP.nvchDepartamento
+			WHEN nvchPais != 'PERU' THEN DPR.intIdDepartamento
+		END AS nvchDepartamento,
+		CASE
+			WHEN nvchPais = 'PERU' THEN P.nvchProvincia
+			WHEN nvchPais != 'PERU' THEN DPR.intIdProvincia
+		END AS nvchProvincia,
+		CASE
+			WHEN nvchPais = 'PERU' THEN DT.nvchDistrito
+			WHEN nvchPais != 'PERU' THEN DPR.intIdDistrito
+		END AS nvchDistrito 
 		FROM tb_domicilio_proveedor DPR
 		LEFT JOIN tb_tipo_domicilio TP ON DPR.intIdTipoDomicilio = TP.intIdTipoDomicilio
 		LEFT JOIN tb_departamentos DP ON DPR.intIdDepartamento = DP.intIdDepartamento
 		LEFT JOIN tb_provincias P ON DPR.intIdProvincia = P.intIdProvincia 
 		LEFT JOIN tb_distritos DT ON DPR.intIdDistrito = DT.intIdDistrito 
 		WHERE 
-		DPR.intIdProveedor = _intIdProveedor;
+		DPR.intIdProveedor = _intIdProveedor ORDER BY DPR.intIdDomicilioProveedor;
     END 
 $$
 DELIMITER ;

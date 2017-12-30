@@ -32,6 +32,43 @@ function crear_nuevo_proveedor(){
 	 return false;
 }
 
+function LimpiarTipoPais(){
+  var tipopais = $("#tipo-pais").val();
+  if(tipopais == 1){
+  	RestablecerValidacion('nvchPais',2);
+  	$("nvchPais").val("PERU");
+    $("#intIdDepartamento").val(1);
+	MostrarProvincia();
+	RestablecerValidacion('nvchDireccion',1);
+  } else {
+	RestablecerValidacion('nvchPais',1);
+    RestablecerValidacion('Departamento',1);
+    RestablecerValidacion('Provincia',1);
+    RestablecerValidacion('Distrito',1);
+    RestablecerValidacion('nvchDireccion',1);
+  }
+}
+
+function TipoPais(){
+  var tipopais = $("#tipo-pais").val();
+  if(tipopais == 1){
+  	$("#camposPaisNacional").show();
+    $("#camposPaisInternacional").hide();
+    RestablecerValidacion('nvchPais',2);
+    $("nvchPais").val("PERU");
+    RestablecerValidacion('Departamento',1);
+    RestablecerValidacion('Provincia',1);
+    RestablecerValidacion('Distrito',1);
+    RestablecerValidacion('nvchDireccion',1);
+  } else {
+  	$("#camposPaisNacional").hide();
+    $("#camposPaisInternacional").show();
+    RestablecerValidacion('nvchPais',1);
+    $("#intIdDepartamento").val(1);
+	MostrarProvincia();
+	RestablecerValidacion('nvchDireccion',1);
+  }
+}
 
 /* FIN - Funcion Ajax - Visualizar Formulario Crear Proveedor */
 //////////////////////////////////////////////////////////////
@@ -87,14 +124,14 @@ $(document).on('click', '#btn-crear-proveedor-nuevo', function(){
 	   		ListarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		PaginarProveedor(x,y,tipolistado,intIdTipoPersona);
 	   		$("#lista-persona").val($("#tipo-persona").val());
-
+	   		if(SNuevoProveedor != "I")
+			$("#btn-listaproveedores").click();
 	   		limpiarformProveedor();//limpiar formulario
 	   		botonescrear();
 	   		if(SNuevoProveedor == "I"){
 	   		crear_nuevo_proveedor();
 	   		ConsultarIdProveedor();
 			}
-			$("#btn-listaproveedores").click();
 		}
 	   	else { $("#resultadocrud").html(datos); }
 	   }
@@ -113,7 +150,7 @@ function ConsultarIdProveedor(){
 	   	datos = datos.replace(/\s/g,'');
 	   	SeleccionarProveedorS(datos);
    		$('#btntabbuscarproveedor').click();
-		$('#formProveedor').modal('hide')
+		$('#formProveedor').modal('hide');
 	   }
 	  });
 }
@@ -150,7 +187,7 @@ function limpiarformProveedor(){
       $("#nvchObservacion").val("");
 
       //domicilio
-      $("#nvchPais").val("");
+      $("#nvchPais").val("PERU");
       $("#intIdDepartamento").val(1);
       $("#intIdProvincia").val(1);
       $("#intIdDistrito").val(1);
@@ -168,6 +205,7 @@ function limpiarformProveedor(){
       $("#ListaDeDomicilios").html("");//vacia tabla
       //limpiando tablas
       $("#ListaDeComunicaciones").html("");//vacia tabla
+      LimpiarTipoPais();
       
 }
 //////////////////////////////////////////////////////////////
@@ -411,13 +449,29 @@ function MostrarTipoPersona() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Listar Domicilios según Ingresa */
 function AgregarDomicilio() {
+	var tipopais = $("#tipo-pais").val();
 	var nvchPais = document.getElementById("nvchPais").value;
-	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
-	var intIdProvincia = document.getElementById("intIdProvincia").value;
-	var intIdDistrito = document.getElementById("intIdDistrito").value;
-	var nvchDepartamento = $("#intIdDepartamento option:selected").html();
-	var nvchProvincia = $("#intIdProvincia option:selected").html();
-	var nvchDistrito = $("#intIdDistrito option:selected").html();
+	var intIdDepartamento;
+	var intIdProvincia;
+	var intIdDistrito;
+	var nvchDepartamento;
+	var nvchProvincia;
+	var nvchDistrito;
+	if(tipopais == 1){
+		intIdDepartamento = document.getElementById("intIdDepartamento").value;
+		intIdProvincia = document.getElementById("intIdProvincia").value;
+		intIdDistrito = document.getElementById("intIdDistrito").value;
+		nvchDepartamento = $("#intIdDepartamento option:selected").html();
+		nvchProvincia = $("#intIdProvincia option:selected").html();
+		nvchDistrito = $("#intIdDistrito option:selected").html();
+	} else {
+		intIdDepartamento = document.getElementById("Departamento").value;
+		intIdProvincia = document.getElementById("Provincia").value;
+		intIdDistrito = document.getElementById("Distrito").value;
+		nvchDepartamento = intIdDepartamento;
+		nvchProvincia = intIdProvincia;
+		nvchDistrito = intIdDistrito;
+	}
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -451,10 +505,7 @@ function AgregarDomicilio() {
 		intIdTipoDomicilio+'"/>'+$("#tipo-domicilio option:selected").html()+'</td>'+
 		'<td><button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i> Eliminar</button></td>'+
 		'</tr>');
-	RestablecerValidacion('nvchPais',1);
-	$("#intIdDepartamento").val(1);
-	MostrarProvincia();
-	RestablecerValidacion('nvchDireccion',1);
+	LimpiarTipoPais();
 }
 /* FIN - Listar Domicilios según Ingresa */
 //////////////////////////////////////////////////////////////
@@ -569,14 +620,21 @@ function AgregarComunicacion_II() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Insertar Domicilio Nuevo */
 function AgregarDomicilio_II() {
+	var tipopais = $("#tipo-pais").val();
 	var intIdProveedor = document.getElementById("intIdProveedor").value;
 	var nvchPais = document.getElementById("nvchPais").value;
-	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
-	var intIdProvincia = document.getElementById("intIdProvincia").value;
-	var intIdDistrito = document.getElementById("intIdDistrito").value;
-	var nvchDepartamento = $("#intIdDepartamento option:selected").html();
-	var nvchProvincia = $("#intIdProvincia option:selected").html();
-	var nvchDistrito = $("#intIdDistrito option:selected").html();
+	var intIdDepartamento;
+	var intIdProvincia;
+	var intIdDistrito;
+	if(tipopais == 1){
+		intIdDepartamento = document.getElementById("intIdDepartamento").value;
+		intIdProvincia = document.getElementById("intIdProvincia").value;
+		intIdDistrito = document.getElementById("intIdDistrito").value;
+	} else {
+		intIdDepartamento = document.getElementById("Departamento").value;
+		intIdProvincia = document.getElementById("Provincia").value;
+		intIdDistrito = document.getElementById("Distrito").value;
+	}
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -613,9 +671,7 @@ function AgregarDomicilio_II() {
 	   	if(datos == "ok"){
 	   		MensajeNormal("Se agregó correctamente el nuevo Domicilio",1);
 	   		MostrarDomicilio(intIdProveedor,tipolistado);
-	   		$("#intIdDepartamento").val(1);
-			MostrarProvincia();
-			RestablecerValidacion('nvchDireccion',1);
+	   		LimpiarTipoPais();
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -668,13 +724,24 @@ function ActualizarComunicacion() {
 //////////////////////////////////////////////////////////////
 /* INICIO - Actualizar Domicilio Seleccionado */
 function ActualizarDomicilio() {
-	
+	var tipopais = $("#tipo-pais").val();
 	var intIdDomicilioProveedor = document.getElementById("intIdDomicilioProveedor").value;
 	var intIdProveedor = document.getElementById("intIdProveedor").value;
 	var nvchPais = document.getElementById("nvchPais").value;
-	var intIdDepartamento = document.getElementById("intIdDepartamento").value;
-	var intIdProvincia = document.getElementById("intIdProvincia").value;
-	var intIdDistrito = document.getElementById("intIdDistrito").value;
+
+	var intIdDepartamento;
+	var intIdProvincia;
+	var intIdDistrito;
+
+	if(tipopais == 1){
+		intIdDepartamento = document.getElementById("intIdDepartamento").value;
+		intIdProvincia = document.getElementById("intIdProvincia").value;
+		intIdDistrito = document.getElementById("intIdDistrito").value;
+	} else {
+		intIdDepartamento = document.getElementById("Departamento").value;
+		intIdProvincia = document.getElementById("Provincia").value;
+		intIdDistrito = document.getElementById("Distrito").value;
+	}
 	var nvchDireccion = document.getElementById("nvchDireccion").value;
 	var intIdTipoDomicilio = document.getElementById("tipo-domicilio").value;
 	var validacion = true;
@@ -715,6 +782,7 @@ function ActualizarDomicilio() {
 	   		MensajeNormal("Se modificó correctamente el Domicilio",1);
 	   		MostrarDomicilio(intIdProveedor,tipolistado);
 	   		BotonesDomicilio(accion);
+	   		LimpiarTipoPais();
 	   	} else {
 	   		alert(datos);
 	   	}
@@ -738,9 +806,21 @@ function SeleccionarDomicilio(seleccion) {
 	   success:function(datos)
 	   {
 	   	$("#nvchPais").val(datos.nvchPais);
-	   	$("#intIdDepartamento").val(datos.intIdDepartamento);
-	   	MostrarProvincia_III(datos.intIdDepartamento,datos.intIdProvincia);
-	   	MostrarDistrito_III(datos.intIdProvincia,datos.intIdDistrito);
+	   	if(datos.nvchPais == 'PERU') {
+	   		$("#intIdDepartamento").val(datos.intIdDepartamento);
+	   		MostrarProvincia_III(datos.intIdDepartamento,datos.intIdProvincia);
+	   		MostrarDistrito_III(datos.intIdProvincia,datos.intIdDistrito);
+	   		$("#tipo-pais").val(1);
+	   		$('#camposPaisNacional').show();
+	   		$('#camposPaisInternacional').hide();
+	   	} else {
+	   		$("#Departamento").val(datos.intIdDepartamento);
+	   		$("#Provincia").val(datos.intIdProvincia);
+	   		$("#Distrito").val(datos.intIdDistrito);
+	   		$("#tipo-pais").val(2);
+	   		$('#camposPaisNacional').hide();
+	   		$('#camposPaisInternacional').show();
+	   	}
 	   	$("#nvchDireccion").val(datos.nvchDireccion);
 	   	$("#tipo-domicilio").val(datos.intIdTipoDomicilio);
 	   	$("#intIdDomicilioProveedor").val(datos.intIdDomicilioProveedor);
@@ -878,7 +958,7 @@ function BotonesComunicacion(accion) {
 }
 function BotonesDomicilio(accion) {
 	if(accion == "I"){
-		RestablecerValidacion('nvchPais',1);
+		RestablecerValidacion('nvchPais',2);
 		RestablecerValidacion('nvchRegion',1);
 		RestablecerValidacion('nvchProvincia',1);
 		RestablecerValidacion('nvchDistrito',1);
