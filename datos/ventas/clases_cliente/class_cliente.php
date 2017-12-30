@@ -228,7 +228,7 @@ class Cliente
     }
   }
 
-  public function ListarClientes($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
+  public function ListarClientes($busqueda,$x,$y,$tipolistado,$intIdTipoPersona,$intIdDepartamento,$intIdProvincia,$intIdDistrito)
   {
     try{
       $salida = "";
@@ -242,24 +242,30 @@ class Cliente
       //Busqueda de Cliente por el comando LIMIT
       if($tipolistado == "N"){
         $busqueda = "";
-        $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona,:intIdDepartamento,:intIdProvincia,
+        :intIdDistrito)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona,
+          ':intIdDepartamento' => $intIdDepartamento,':intIdProvincia' => $intIdProvincia,':intIdDistrito' => $intIdDistrito));
         $cantidad = $sql_comando -> rowCount();
         $numpaginas = ceil($cantidad / $y);
         $x = ($numpaginas - 1) * $y;
         $i = 1;
         $j = $x + 1;
       } else if ($tipolistado == "D"){
-        $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona)');
-        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
+        $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona,:intIdDepartamento,:intIdProvincia,
+        :intIdDistrito)');
+        $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona,
+          ':intIdDepartamento' => $intIdDepartamento,':intIdProvincia' => $intIdProvincia,':intIdDistrito' => $intIdDistrito));
         $cantidad = $sql_comando -> rowCount();
         $residuo = $cantidad % $y;
         if($residuo == 0)
         {$x = $x - $y;}
       }
       //Busqueda de Cliente por el comando LIMIT
-      $sql_comando = $sql_conectar->prepare('CALL buscarCliente(:busqueda,:x,:y,:intIdTipoPersona)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona));
+      $sql_comando = $sql_conectar->prepare('CALL buscarCliente(:busqueda,:x,:y,:intIdTipoPersona,:intIdDepartamento,:intIdProvincia,
+        :intIdDistrito)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y,':intIdTipoPersona' => $intIdTipoPersona,
+        ':intIdDepartamento' => $intIdDepartamento,':intIdProvincia' => $intIdProvincia,':intIdDistrito' => $intIdDistrito));
       $numpaginas = ceil($cantidad / $y);
       while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
       {
@@ -305,7 +311,7 @@ class Cliente
     }  
   }
 
-  public function PaginarClientes($busqueda,$x,$y,$tipolistado,$intIdTipoPersona)
+  public function PaginarClientes($busqueda,$x,$y,$tipolistado,$intIdTipoPersona,$intIdDepartamento,$intIdProvincia,$intIdDistrito)
   {
     try{
       if($tipolistado == "V" && $busqueda == ""){
@@ -341,8 +347,10 @@ class Cliente
       { $busqueda = ""; }
       $sql_conexion = new Conexion_BD();
       $sql_conectar = $sql_conexion->Conectar();
-      $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona)');
-      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona));
+      $sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona,:intIdDepartamento,:intIdProvincia,
+        :intIdDistrito)');
+      $sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => $intIdTipoPersona,
+        ':intIdDepartamento' => $intIdDepartamento,':intIdProvincia' => $intIdProvincia,':intIdDistrito' => $intIdDistrito));
       $cantidad = $sql_comando -> rowCount();
       $numpaginas = ceil($cantidad / $y);
       if($tipolistado == "N" || $tipolistado == "D")

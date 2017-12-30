@@ -277,6 +277,33 @@ $(document).on('change', '#lista-persona', function(){
   	  AccionCabecerasTabla(intIdTipoPersona);
 	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
 });
+
+$(document).on('change', '#intIdDepartamento', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  AccionCabecerasTabla(intIdTipoPersona);
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('change', '#intIdProvincia', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  AccionCabecerasTabla(intIdTipoPersona);
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
+
+$(document).on('change', '#intIdDistrito', function(){
+  	  var y = document.getElementById("num-lista").value;
+  	  var x = 0;
+  	  var tipolistado = "T";
+  	  var intIdTipoPersona = document.getElementById("lista-persona").value;
+  	  AccionCabecerasTabla(intIdTipoPersona);
+	  ListarCliente(x,y,tipolistado,intIdTipoPersona);
+});
 /* FIN - Funcion Ajax - Cambiar Número de Elementos de Lista Cliente */
 //////////////////////////////////////////////////////////////
 
@@ -285,11 +312,14 @@ $(document).on('change', '#lista-persona', function(){
 function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
+  var intIdDepartamento = $("#intIdDepartamento").val();
+  var intIdProvincia = $("#intIdProvincia").val();
+  var intIdDistrito = $("#intIdDistrito").val();
   $.ajax({
       url:'../../datos/ventas/funcion_cliente.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-      intIdTipoPersona:intIdTipoPersona},
+      intIdTipoPersona:intIdTipoPersona,intIdDepartamento:intIdDepartamento,intIdProvincia:intIdProvincia,intIdDistrito:intIdDistrito},
       success:function(datos) {
           $("#ListaDeClientes").html(datos);
           PaginarCliente((x/y),y,tipolistado,intIdTipoPersona);
@@ -304,11 +334,14 @@ function ListarCliente(x,y,tipolistado,intIdTipoPersona) {
 function PaginarCliente(x,y,tipolistado,intIdTipoPersona) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
+  var intIdDepartamento = $("#intIdDepartamento").val();
+  var intIdProvincia = $("#intIdProvincia").val();
+  var intIdDistrito = $("#intIdDistrito").val();
   $.ajax({
       url:'../../datos/ventas/funcion_cliente.php',
       method:"POST",
       data:{busqueda:busqueda,x:x,y:y,funcion:funcion,tipolistado:tipolistado,
-      intIdTipoPersona:intIdTipoPersona},
+      intIdTipoPersona:intIdTipoPersona,intIdDepartamento:intIdDepartamento,intIdProvincia:intIdProvincia,intIdDistrito:intIdDistrito},
       success:function(datos) {
           $("#PaginacionDeClientes").html(datos);
       }
