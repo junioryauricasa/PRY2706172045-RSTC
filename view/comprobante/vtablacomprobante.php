@@ -106,9 +106,9 @@
             <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
           </th>
           <th>Descripción</th>
-          <th style="width: 110px" >Precio Unit.</th>
-          <th style="width: 110px" >Cantidad</th>
-          <th style="width: 110px" >Total</th>
+          <th style="width: 9% !important" >Precio Unit.</th>
+          <th style="width: 5% !important" >Cantidad</th>
+          <th style="width: 9% !important" >Total</th>
           <th style="width: 25px !important" class="opcion-columna-nuevo"></th>
         </tr>
         </thead>
