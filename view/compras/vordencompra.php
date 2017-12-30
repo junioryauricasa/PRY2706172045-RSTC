@@ -94,6 +94,22 @@
             <div class="tab-content">
                 <!-- INICIO tab 1  -->
                 <div class="tab-pane active" id="tab_1">
+                  
+                  <br>
+
+                  <div class="" style="text-align: right; ">
+                      <!-- crear orden de compra -->
+                      <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-danger btn-flat" onclick="verform()">
+                          <i class="fa fa-plus" aria-hidden="true"></i> Crear Orden de Compra
+                      </button>
+                      
+                      <!-- generar reporte de orden de compra -->
+                      <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
+                        Descargar reporte EXCEL
+                      </button>
+                  </div>
+
                   <!-- INICIO TABLE: -->
                   <div class="">
                     <div class="box-header with-border">
@@ -195,14 +211,6 @@
                     </div>
                     <div class="box-footer clearfix">     
                       
-                      <!-- crear orden de compra -->
-                      <button type="button" id="btn-form-crear-ordencompra" class="btn btn-sm btn-danger btn-flat" onclick="verform()"><i class="fa fa-plus" aria-hidden="true"></i> Crear Orden de Compra</button>
-                      
-                      <!-- generar reporte de orden de compra -->
-                      <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
-                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
-                        Descargar reporte EXCEL
-                      </button>
 
                     </div>
                   </div>
@@ -212,6 +220,8 @@
 
                 <!-- INICIO tab 2  -->
                 <div class="tab-pane" id="tab_2">
+                  <br>
+                  <br>
                   <div class="result"></div>
                   <div id="formulario-crud"></div>
                   <div id="resultadocrud"></div>

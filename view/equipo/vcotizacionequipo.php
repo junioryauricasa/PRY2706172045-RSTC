@@ -82,9 +82,9 @@
           <div class="tab-pane active" id="formRealizarCotizacion">
 
 
-               <div class="col-md-12" style="margin-bottom: 20px">
+               <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px; text-align: right;">
                 <!-- INICIO - buttons eventos -->
-                <div class="pull-right">
+                <div class="">
                   <input type="button" id="btn-crear-cotizacion" class="btn btn-sm btn-primary opcion-boton-nuevo" value="Realizar Cotización de Equipo" form="form-cotizacion">
                   <input type="button" id="btn-editar-cotizacion" class="btn btn-sm btn-primary opcion-boton-editar" value="Modificar Cotización de Equipo" form="form-cotizacion">
                   <input type="button" onclick="NuevaCotizacion()" class="btn btn-sm btn-success" value="Nueva Cotización de Equipo" form="form-cotizacion">
@@ -338,21 +338,22 @@
           <!-- INICIO - Formulario Listar Venta -->
           <div class="tab-pane" id="formListarCotizacion">
 
-
-            <div class="col-md-12" style="margin-bottom: 20px">
-              <!-- INICIO - buttons eventos -->
-              <div class="pull-right">
-                <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-left" onclick="">
-                  <i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
-                  Reporte Excel
-                </button>
-                <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-left" onclick="">
-                  <i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
-                  Reporte PDF
-                </button>
+            <div class="row">
+                <!-- INICIO - buttons eventos -->
+              <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px;">
+                  <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat pull-right" onclick="">
+                    <i class="fa fa-file-excel-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                    Reporte Excel
+                  </button>
+                  <button type="button" style="margin-right: 5px" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat pull-right" onclick="">
+                    <i class="fa fa-file-pdf-o" aria-hidden="true" style="padding-right: 5px"></i> 
+                    Reporte PDF
+                  </button>
               </div>
               <!-- END - buttons eventos -->
             </div>
+
+            <br>
 
             <div class="row">
               <?php include '../campos/cmbNumLista.php'; ?>
