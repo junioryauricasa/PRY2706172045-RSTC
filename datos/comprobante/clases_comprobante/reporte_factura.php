@@ -321,10 +321,10 @@
                   <?php echo $i; ?>
                 </span>
               </td>
-              <td style="width: 16.67% !important; font-size:x-small; padding:0px; border-right: solid 1px; margin: 0 auto">
-                <span style="color: black; margin: 0 auto; margin-left: 25%">
-                  <?php echo $fila['nvchCodigo']; ?>
-                </span>
+              <td style="width: 16.6% !important; font-size:x-small; padding:0px;  border-right: solid 1px;">
+                  <span style="float: top">
+                    <?php echo $fila['nvchCodigo']; ?>
+                  </span>
               </td>
               <td style="/* width: 50% !important; */font-size:x-small; padding:0px; text-align: left !important;  border-right: solid 1px">
                 <span style="text-align: left !important; color: black; margin-left: 5px; text-transform: uppercase;">

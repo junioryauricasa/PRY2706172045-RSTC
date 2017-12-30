@@ -253,9 +253,9 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
                 <li class='<?php echo $nvbr_administrativo_cambiomonedacomercial; ?>'>
                     <a href="../administrativo/vmonedacomercial">Administrar Cambio de Moneda Comercial</a>
                 </li>
-                <li class='<?php echo $$nvbr_administrativo_numeraciondecomprobantes; ?>'>
+                <!--li class='<?php echo $$nvbr_administrativo_numeraciondecomprobantes; ?>'>
                     <a href="../administrativo/vnumeracion">Administrar Numeración de Comprobantes</a>
-                </li>
+                </li-->
                 <li class="dropdown-submenu <?php echo $nvbr_administrativo_modulousuarios; ?>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Módulo Usuarios</a>
                     <ul class="dropdown-menu">
