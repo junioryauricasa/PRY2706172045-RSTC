@@ -321,7 +321,7 @@
                   <?php echo $i; ?>
                 </span>
               </td>
-              <td style="width: 15.8% !important; font-size:x-small; padding:0px; border-right: solid 1px;">
+              <td style="width: 15.8% !important; font-size:x-small; padding:0px; border-right: solid 1px; text-transform: uppercase;">
                   <span style="float: top">
                     <?php echo $fila['nvchCodigo']; ?>
                   </span>

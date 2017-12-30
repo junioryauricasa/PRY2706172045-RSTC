@@ -200,7 +200,7 @@
                   <div class="col-md-5">
                     <div id="nvchCodigoGroup" class="form-group">
                       <label>Código:</label>
-                      <input type="text" id="nvchCodigo" class="form-control select2" 
+                      <input type="text" id="nvchCodigo" maxlength="18" class="form-control select2" 
                       placeholder="Ingrese Código" onkeyup="EsVacio('nvchCodigo')"
                       maxlength="85"/>
                       <span id="nvchCodigoIcono" class="" aria-hidden=""></span>
