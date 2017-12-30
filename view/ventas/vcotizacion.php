@@ -57,11 +57,6 @@
         Registro de Cotizaciones
         <small>Módulo de Ventas</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="../default/index">Inicio</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->
