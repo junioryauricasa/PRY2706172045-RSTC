@@ -75,61 +75,70 @@
         <!-- Main content -->
         <section class="content">
 
-          <!-- Panel de consulta tiempo real datos -->
-          <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion-bag"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Productos</span>
-                  <span class="info-box-number">
-                      <small><?php echo ContarProductos(); ?> Existentes</small>
-                  </span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="ion-person-stalker"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Usuarios</span>
-                  <span class="info-box-number">
-                      <small><?php echo ContarUsuarios(); ?> Existentes</small>
-                  </span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <div class="clearfix visible-sm-block"></div>
 
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="ion-ios-person"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Clientes</span>
-                  <span class="info-box-number">
-                      <small><?php echo ContarClientes(); ?> Existentes</small>
-                  </span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
+
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <i class="fa fa-warning"></i>
+              <h3 class="box-title">Resumen del Sistema</h3>
             </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="ion-bag"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Productos</span>
+                      <span class="info-box-number">
+                          <small><?php echo ContarProductos(); ?> Existentes</small>
+                      </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="ion-person-stalker"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Usuarios</span>
+                          <span class="info-box-number">
+                              <small><?php echo ContarUsuarios(); ?> Existentes</small>
+                          </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
+                  </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="ion-ios-person"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Clientes</span>
+                      <span class="info-box-number">
+                          <small><?php echo ContarClientes(); ?> Existentes</small>
+                      </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+            </div>
+            <!-- /.box-body -->
           </div>
-          <!-- END Panel de consulta tiempo real datos -->
+
+
   
           <div class="row">
             <div class="col-md-12">
               <!-- Custom Tabs -->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Productos con Stock Mínimo</a></li>
-                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">10 Últimas Ventas Hechas</a></li>
-                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Lista de Clientes Cumpleañeros</a></li>
-                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Lista de Productos que no se venden</a></li>
+                  <!--li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Productos con Stock Mínimo</a></li-->
+                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">En STOCK</a></li>
+                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Últimas Ventas</a></li>
+                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Onomásticos</a></li>
+                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">No se Vende</a></li>
                 </ul>
                 <div class="tab-content">
                   <!-- Productos con Stock Mínimo -->
