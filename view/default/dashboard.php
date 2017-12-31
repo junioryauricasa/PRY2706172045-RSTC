@@ -345,20 +345,18 @@
                                 try {
                                   $sql_conexion = new Conexion_BD();
                                   $sql_conectar = $sql_conexion->Conectar();
-                                  $sql_comando = $sql_conectar->prepare('CALL BUSCARPRODUCTO_NOMOVIMIENTO()');
-                                  $sql_comando -> execute();
+                                  $sql_comando = $sql_conectar->prepare('CALL BUSCARPRODUCTO_NOMOVIMIENTO(:busqueda,:TipoBusqueda)');
+                                  $sql_comando -> execute(array(':busqueda' => '', ':TipoBusqueda' => 'T'));
                                   $i = 1;
                                   while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                                   {
                                     echo
                                     '<tr>
-                                        <td data-th="ID" class="heading">'.$i.'</td>
-                                        <td data-th="Numeración">'.$fila["DNIRUC"].'</td>
-                                        <td data-th="Tipo">'.$fila["NombreCliente"].'</td>
-                                        <td data-th="Cliente">'.$fila["TipoCliente"].'</td>
-                                        <td data-th="Fecha">'.$fila["FechaNacimiento"].'</td>
-                                        <td data-th="Moneda" style="text-align: right;">'.utf8_encode($fila["DiasRestantes"]).'</td>
-                                        <td data-th="Valor Venta" style="text-align: right;">'.$fila["nvchGustos"].'</td>
+                                        <td data-th="Ítem" class="heading">'.$i.'</td>
+                                        <td data-th="Código">'.$fila["nvchCodigo"].'</td>
+                                        <td data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
+                                        <td data-th="Precio Venta">'.$fila["nvchSimbolo"].' '.$fila["dcmPrecioVenta1"].'</td>
+                                        <td data-th="Fecha Creación">'.$fila["dtmFechaIngreso"].'</td>
                                     </tr>';
                                     $i++;
                                   }
