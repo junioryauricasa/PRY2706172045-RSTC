@@ -64,11 +64,6 @@
         Registro de Salidas
         <small>Módulo de Inventario</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="../default/index">Inicio</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->

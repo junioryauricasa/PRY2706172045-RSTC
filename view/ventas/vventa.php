@@ -67,11 +67,6 @@
       Registro de Ventas
       <small>Módulo de Ventas</small>
     </h1>
-    <ol class="breadcrumb">
-      <li><a href="../default/index"></a></li>
-      <li><a href="#"></a></li>
-      <li class="active"></li>
-    </ol>
   </section>
 
   <!-- Main content -->

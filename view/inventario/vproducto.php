@@ -78,22 +78,20 @@
 		      </li>
 		      <li id="li_ver_editar_formulario">
 		      	<a href="#tab_2" data-toggle="tab" aria-expanded="false" id="btnFormProducto">
-		      		Formulario
+		      		Formulario de Registro
 		      	</a>
 		      </li>
 		    </ul>
 
 		    <div class="tab-content">
 		      <div class="tab-pane active" id="tab_1">
-              <section class="content-header">
-    			      <h1 style="">
-    			        Registro de Productos
-    			        <small>Módulo de Inventario</small>
-    			      </h1>                  
-    			    </section>
     			    <!-- Main content -->
     			    <section class="content">
-                <div class="row pull-right" style="">
+                 
+                <div class="col-md-12" style="">
+                    <h3 style="">
+                      Registro de Productos <!--small>Módulo de Inventario</small-->
+                    </h3>
                     <!-- Modal for New Product -->
                     <button type="button" style="margin-left: 5px" class="btn btn-sm btn-info btn-flat pull-right" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo Producto</button>
                     <!-- button para descarga de excel -->
