@@ -73,22 +73,18 @@
                     <a href="#tab-kardex-producto" id="tab-kardex-producto-btn" data-toggle="tab">Kardex de Productos</a>
                 </li>
                 <li>
-                    <a href="#tab-detalles-kardex-producto" id="tab-detalles-kardex-producto-btn" data-toggle="tab">Detalles kardex de Producto</a>
+                    <a href="#tab-detalles-kardex-producto" id="tab-detalles-kardex-producto-btn" data-toggle="tab">Detalles</a>
                 </li>
               </ul>
               <div class="tab-content">
 
                 <div class="tab-pane active" id="tab-kardex-producto">
                   <section class="content-header">
+                    <br>
                     <h1>
                       Kardex
                       <small>Módulo de Reportes</small>
                     </h1>
-                    <!--ol class="breadcrumb">
-                      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                      <li><a href="#">Layout</a></li>
-                      <li class="active">Fixed</li>
-                    </ol-->
                   </section>
                   <!-- Inicio - Main content -->
                   <section class="content">
@@ -173,9 +169,8 @@
 
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                         <div id="TablaDetalleUbigeo">
-                          <h4 id="lblTituloDetalleKardex" class="box-title text-left"></h4>
                           
-                          <div class="pull-right">
+                          <div class="col-md-12" style="text-align: right !important; height: 30px">
                               <button type="button" onclick="ReporteKardexPDF()" class="btn btn-sm btn-danger btn-flat">
                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 Reporte PDF
