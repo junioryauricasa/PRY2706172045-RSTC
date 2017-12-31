@@ -95,23 +95,21 @@ if (isset($_POST['btnIngresar'])) {
     <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="loginform">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Ingrese Usuario" name="nvchUserName" required="" autocomplete="off">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Ingrese Contraseña" name="nvchUserPassword" required="" autocomplete="off">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <button type="submit" name="btnIngresar" class="col-xs-6 btn btn-primary btn-block btn-flat">Ingresar</button>
-          <button type="reset" class="col-xs-6 btn btn-danger btn-block btn-flat">Limpiar campos</button>
-        </div>
+      <div class="form-group has-feedback">
+        <button type="submit" name="btnIngresar" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+        <button type="reset" class="btn btn-danger btn-block btn-flat">Limpiar campos</button>
       </div>
     </form>
     <div class="col-12">
         <?php if (isset($MensajeError)) { echo $MensajeError; } ?>
     </div>
-    <br>
+    
     <!--
     <a href="#">Olvide mi contraseña</a>
     <a href="#" class="text-center">Registrar nuevo cuenta</a>

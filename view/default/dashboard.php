@@ -129,6 +129,7 @@
                   <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Productos con Stock Mínimo</a></li>
                   <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">10 Últimas Ventas Hechas</a></li>
                   <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Lista de Clientes Cumpleañeros</a></li>
+                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Lista de Productos que no se venden</a></li>
                 </ul>
                 <div class="tab-content">
                   <!-- Productos con Stock Mínimo -->
@@ -292,6 +293,59 @@
                                   $sql_conexion = new Conexion_BD();
                                   $sql_conectar = $sql_conexion->Conectar();
                                   $sql_comando = $sql_conectar->prepare('CALL BUSCARCLIENTE_HAPPY()');
+                                  $sql_comando -> execute();
+                                  $i = 1;
+                                  while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
+                                  {
+                                    echo
+                                    '<tr>
+                                        <td data-th="ID" class="heading">'.$i.'</td>
+                                        <td data-th="Numeración">'.$fila["DNIRUC"].'</td>
+                                        <td data-th="Tipo">'.$fila["NombreCliente"].'</td>
+                                        <td data-th="Cliente">'.$fila["TipoCliente"].'</td>
+                                        <td data-th="Fecha">'.$fila["FechaNacimiento"].'</td>
+                                        <td data-th="Moneda" style="text-align: right;">'.utf8_encode($fila["DiasRestantes"]).'</td>
+                                        <td data-th="Valor Venta" style="text-align: right;">'.$fila["nvchGustos"].'</td>
+                                    </tr>';
+                                    $i++;
+                                  }
+                                } catch(PDPExceptio $e) {
+                                  echo $e->getMessage();
+                                }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                      </div>
+                  </div>
+
+                  <!-- Lista de Clientes Cumpleañeros -->
+                  <div class="tab-pane" id="tab_4">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Lista de Productos que no se venden</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="table-responsive">
+                          <table class="rwd-table ExcelTable2007" style="width:100%">
+                            <thead>
+                            <tr>
+                              <!--th class="heading" width="25px">&nbsp;</th-->
+                              <th class="" width="25px" style="background: #a9c4e9">
+                                  <img src="../../datos/usuarios/imgperfil/excel-2007-header-left.gif" alt="" align="right" style="padding-right: 5px; padding-top: 5px; padding-bottom: 5px">
+                              </th>
+                              <th>Código</th>
+                              <th>Descripción</th>
+                              <th>Precio Venta</th>
+                              <th>Fecha de Creación</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <?php  
+                                try {
+                                  $sql_conexion = new Conexion_BD();
+                                  $sql_conectar = $sql_conexion->Conectar();
+                                  $sql_comando = $sql_conectar->prepare('CALL BUSCARPRODUCTO_NOMOVIMIENTO()');
                                   $sql_comando -> execute();
                                   $i = 1;
                                   while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
