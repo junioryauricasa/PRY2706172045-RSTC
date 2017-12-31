@@ -134,22 +134,20 @@
               <!-- Custom Tabs -->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <!--li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Productos con Stock Mínimo</a></li-->
-                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">En STOCK</a></li>
-                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Últimas Ventas</a></li>
-                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Onomásticos</a></li>
-                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">No se Vende</a></li>
+                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Productos con Stock Mínimo</a></li>
+                  <!--li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">En STOCK</a></li-->
+                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Últimas Ventas Realizadas</a></li>
+                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Onomásticos de Clientes</a></li>
+                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Productos que no se Venden</a></li>
                 </ul>
                 <div class="tab-content">
                   <!-- Productos con Stock Mínimo -->
                   <div class="tab-pane active" id="tab_1">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Productos con Stock Mínimo</h3>
-                      </div>
+
                       <!-- /.box-header -->
                       <div class="box-body">
                         <div class="table-responsive">
-                          <table class="rwd-table ExcelTable2007" style="width:100%">
+                          <table class=" ExcelTable2007" style="width:100%">
                             <thead>
                             <tr>
                               <!--th class="heading" width="25px">&nbsp;</th-->
@@ -204,9 +202,8 @@
                   <!-- 10 Últimas Ventas Hechas -->
                   <div class="tab-pane" id="tab_2">
 
-                      <div class="box-header with-border">
-                        <h3 class="box-title">10 Últimas Ventas Hechas</h3>
-                      </div>
+                      
+
                       <!-- /.box-header -->
                       <div class="box-body">
                         <div class="table-responsive">
@@ -276,9 +273,8 @@
                   </div>
                   <!-- Lista de Clientes Cumpleañeros -->
                   <div class="tab-pane" id="tab_3">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Lista de Clientes Cumpleañeros</h3>
-                      </div>
+                      
+                      
                       <div class="box-body">
                         <div class="table-responsive">
                           <table class="rwd-table ExcelTable2007" style="width:100%">
@@ -331,9 +327,8 @@
 
                   <!-- Lista de Clientes Cumpleañeros -->
                   <div class="tab-pane" id="tab_4">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Lista de Productos que no se venden</h3>
-                      </div>
+                      
+
                       <div class="box-body">
                         <div class="table-responsive">
                           <table class="rwd-table ExcelTable2007" style="width:100%">

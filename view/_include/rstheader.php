@@ -699,7 +699,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
 
     /* Responsive table */
 
-
+/*
 .rwd-table th {
   display: none;
 }
@@ -707,18 +707,16 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
   display: block;
 }
 .rwd-table td:first-child {
-  /*padding-top: .5em;*/
   margin-top: 15px
 }
 .rwd-table td:last-child {
-  /*padding-bottom: .5em;*/
   margin-bottom: 15px
 }
 .rwd-table td:before {
   content: attr(data-th) ": ";
   font-weight: bold;
 }
-
+*/
 @media (min-width: 480px) {
   .rwd-table td:before {
     display: none;
