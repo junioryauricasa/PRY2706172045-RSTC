@@ -86,11 +86,11 @@
 
             <ul class="nav nav-tabs">
               <li class="active">
-                  <a href="#tab_1" data-toggle="tab" id="tab-listado-usuario-btn">Administrar Usuarios</a>
+                  <a href="#tab_1" data-toggle="tab" id="tab-listado-usuario-btn">Lista de Usuarios</a>
               </li>
               <li>
                   <!--a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulário de Usuarios</a-->
-                  <a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulário</a>
+                  <a href="#tab_2" data-toggle="tab" id="tab-detalles-usuario-btn">Formulario de Registro</a>
               </li>
             </ul>
 
@@ -102,11 +102,11 @@
                         <h3 class="">Registro de Usuarios</h3>
                       </div-->
                       <div class="pull-right">
-                            <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-primary btn-flat" onclick="clickdetallesUsuario()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Usuario</button>
-                            <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-danger btn-flat" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
-                            Reporte PDF</button>
-                            <button type="button"  id="btn-form-crear-usuario" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> 
-                            Reporte Excel</button>
+                        <button type="button" id="btn-form-crear-usuario" class="btn btn-sm btn-primary btn-flat" onclick="clickdetallesUsuario()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Usuario</button>
+                        <button type="button" id="DescargarListaUsuarioPDF" class="btn btn-sm btn-danger btn-flat" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+                        Reporte PDF</button>
+                        <button type="button" id="DescargarListaUsuarioExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> 
+                        Reporte Excel</button>
                       </div>
 
                       <br>

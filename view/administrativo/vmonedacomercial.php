@@ -79,13 +79,14 @@
         </div>
         <div class="box-body">
           <div class="col-md-12" style="text-align: right;">
-             <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-danger btn-flat pull-right" onclick="showmodalNuevaMonedaCom()">Nueva Moneda Comercial</button>
+             <button type="button" id="btn-form-crear-moneda-comercial" class="btn btn-sm btn-primary btn-flat pull-right" onclick="showmodalNuevaMonedaCom()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Moneda Comercial</button>
           </div>
           <br>
           <br>
 
           <div class="row" >
             <?php include '../campos/cmbNumLista.php'; ?>
+          <div id="camposBusquedaMoneda">
             <div class="col-md-2" style="text-align: center !important; margin: 0 auto">
               <div class="form-group">
                 <label>Tipo de Cambio:</label>
@@ -109,7 +110,8 @@
               </div>
             </div>
           </div>
-
+          <script type="text/javascript">$("#camposBusquedaMoneda").hide();</script>
+          </div>
           <div class="">
               <div class="table-responsive">
                 <table class="ExcelTable2007 rwd-table" width="50%" style="text-align: center !important; margin: 0 auto">

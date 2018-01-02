@@ -552,4 +552,24 @@ $(document).on('click', '#btn-editar-userpassword', function(){
 });
 /* FIN - Cambiar Contraseña */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Cliente para descargar reporte en Excel */
+$(document).on('click', '#DescargarListaUsuarioExcel', function(){
+	  var busqueda = $("#txt-busqueda").val();
+	  var url = '../../datos/usuarios/clases_usuario/reporte_usuario_excel.php?busqueda='+busqueda;
+	  window.open(url);
+});
+/* FIN - Funcion Ajax - Mostrar Cliente para descargar reporte en Excel */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Cliente para descargar reporte en PDF */
+$(document).on('click', '#DescargarListaUsuarioPDF', function(){
+	  var busqueda = $("#txt-busqueda").val();
+	  var url = '../../datos/usuarios/clases_usuario/reporte_usuario_pdf.php?busqueda='+busqueda;
+	  window.open(url);
+});
+/* FIN - Funcion Ajax - Mostrar Cliente para descargar reporte en PDF */
+//////////////////////////////////////////////////////////////
 </script>
