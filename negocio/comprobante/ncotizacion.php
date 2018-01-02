@@ -993,4 +993,52 @@ function MostrarSeleccionCliente(intIdTipoPersona) {
 }
 /* FIN - Seleccion del Cliente */
 //////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Descargar Reporte Comprobante en Excel */
+$(document).on('click', '#DescargarListaCotizacionExcel', function(){
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  // invocando al excel
+  var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_excel.php?busqueda='+busqueda+'&intIdTipoMoneda='+intIdTipoMoneda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
+  window.open(url);
+});
+/* FIN - Descargar Reporte Comprobante en Excel */
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+/* INICIO - Descargar Reporte Comprobante en PDF */
+$(document).on('click', '#DescargarListaCotizacionPDF', function(){
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  // invocando al excel
+  var url = '../../datos/comprobante/clases_cotizacion/reporte_cotizacion_pdf.php?busqueda='+busqueda+'&intIdTipoMoneda='+intIdTipoMoneda+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
+  window.open(url);
+});
+/* FIN - Descargar Reporte Comprobante en PDF */
+//////////////////////////////////////////////////////////////
 </script>

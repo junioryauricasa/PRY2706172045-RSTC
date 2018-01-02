@@ -1447,9 +1447,7 @@ function CamposTabla(intTipoDetalle,intIdTipoComprobante){
 //////////////////////////////////////////////////////////////
 /* INICIO - Descargar Reporte Comprobante en Excel */
 $(document).on('click', '#DescargarListaComprobanteExcel', function(){
-  
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "L";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   var intTipoDetalle = $("#intTipoDetalle").val();
@@ -1476,11 +1474,9 @@ $(document).on('click', '#DescargarListaComprobanteExcel', function(){
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Descargar Reporte Comprobante en Excel */
+/* INICIO - Descargar Reporte Comprobante en PDF */
 $(document).on('click', '#DescargarListaComprobantePDF', function(){
-  
   var busqueda = document.getElementById("txt-busqueda").value;
-  var funcion = "L";
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   var intTipoDetalle = $("#intTipoDetalle").val();
@@ -1503,6 +1499,6 @@ $(document).on('click', '#DescargarListaComprobantePDF', function(){
   var url = '../../datos/comprobante/clases_comprobante/reporte_comprobante_pdf.php?busqueda='+busqueda+'&intIdTipoComprobante='+intIdTipoComprobante+'&intIdTipoMoneda='+intIdTipoMoneda+'&intTipoDetalle='+intTipoDetalle+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&lblPersonaSingular='+lblPersonaSingular+'&lblTituloSingular='+lblTituloSingular+'&lblTituloPlural='+lblTituloPlural;
   window.open(url);
 });
-/* FIN - Descargar Reporte Comprobante en Excel */
+/* FIN - Descargar Reporte Comprobante en PDF */
 //////////////////////////////////////////////////////////////
 </script>

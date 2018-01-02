@@ -8,13 +8,14 @@ require_once 'clases_cotizacion/class_detalle_cotizacion.php';
 if(empty($_SESSION['intIdCotizacion'])){
   $_SESSION['intIdCotizacion'] = 0;
 }
-if(empty($_SESSION['intIdOperacionCotizacion'])){
-  $_SESSION['intIdOperacionCotizacion'] = 0;
+if(empty($_SESSION['intIdDetalleCotizacion'])){
+  $_SESSION['intIdDetalleCotizacion'] = 0;
 }
 switch($_POST['funcion']){
   case "I":
     $Cotizacion = new Cotizacion();
-    $dtmFechaCreacion = date("Y-m-d H:i:s");
+    $dtmFechaCreacion = str_replace('/', '-', $_POST['nvchFecha']);
+    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($dtmFechaCreacion));
     $Cotizacion->FechaCreacion($dtmFechaCreacion);
     $Cotizacion->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Cotizacion->IdCliente($_POST['intIdCliente']);
@@ -68,11 +69,11 @@ switch($_POST['funcion']){
     break;
   case "A":
     $Cotizacion = new Cotizacion();
-    $dtmFechaCreacion = date("Y-m-d H:i:s");
     $Cotizacion->IdCotizacion($_POST['intIdCotizacion']);
     $Cotizacion->Serie($_POST['nvchSerie']);
     $Cotizacion->Numeracion($_POST['nvchNumeracion']);
-    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($_POST['nvchFecha']));
+    $dtmFechaCreacion = str_replace('/', '-', $_POST['nvchFecha']);
+    $dtmFechaCreacion = date('Y-m-d H:i:s', strtotime($dtmFechaCreacion));
     $Cotizacion->FechaCreacion($dtmFechaCreacion);
     $Cotizacion->IdUsuario($_SESSION['intIdUsuarioSesion']);
     $Cotizacion->IdCliente($_POST['intIdCliente']);

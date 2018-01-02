@@ -2,15 +2,9 @@
 session_start();
 require_once '../../conexion/bd_conexion.php';
 $busqueda = $_GET['busqueda'];
-$intIdTipoComprobante = $_GET['intIdTipoComprobante'];
 $intIdTipoMoneda = $_GET['intIdTipoMoneda'];
-$intTipoDetalle = $_GET['intTipoDetalle'];
 $dtmFechaInicial = $_GET['dtmFechaInicial'];
 $dtmFechaFinal = $_GET['dtmFechaFinal'];
-
-$lblPersonaSingular = $_GET['lblPersonaSingular'];
-$lblTituloSingular = $_GET['lblTituloSingular'];
-$lblTituloPlural = $_GET['lblTituloPlural'];
 
 $dtmFechaInicial = str_replace('/', '-', $dtmFechaInicial);
 $dtmFechaInicial = date('Y-m-d', strtotime($dtmFechaInicial));
@@ -27,15 +21,15 @@ else
 ob_start();
 $sql_conexion = new Conexion_BD();
 $sql_conectar = $sql_conexion->Conectar();
-$sql_comando = $sql_conectar->prepare('CALL BUSCARCOMPROBANTE_II(:busqueda,:intIdTipoComprobante,:dtmFechaInicial,:dtmFechaFinal,:intTipoDetalle)');
-$sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' => $intIdTipoComprobante,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal, ':intTipoDetalle' => $intTipoDetalle));
+$sql_comando = $sql_conectar->prepare('CALL buscarCotizacion_ii(:busqueda,:dtmFechaInicial,:dtmFechaFinal)');
+$sql_comando -> execute(array(':busqueda' => $busqueda,':dtmFechaInicial' => $dtmFechaInicial, ':dtmFechaFinal' => $dtmFechaFinal));
   $j = 1;
   ?>
   <!DOCTYPE HTML>
   <html>
   <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-    <title>Reporte de <?php echo $lblTituloPlural; ?> PDF</title>
+    <title>Reporte de Cotización PDF</title>
   </head>
 
   <style>
@@ -120,40 +114,30 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' 
   
   <br>
   <div class="cuerpo">
-      <span style="font-weight: bold; font-size: 16px">REPORTE DE COMPROBANTES DE <?php echo strtoupper($lblTituloPlural); ?></span>
+      <span style="font-weight: bold; font-size: 16px">REPORTE DE COTIZACIONES</span>
       <br>
       <div style="text-align: left; font-family: Calibri;">
           <br>
-          <?php
-          $nClienteProveedor;
-          if($intTipoDetalle == 1)
-            $nClienteProveedor = 'Cliente';
-          else if($intTipoDetalle == 2)
-            $nClienteProveedor = 'Proveedor'; 
-          ?>
           <table style="text-align: center; width: 100%;" border="1"
            cellpadding="1" cellspacing="0">
               <thead>
                 <tr>
                   <th style="font-family: Calibri; width: 3%;"><small>Ítem</small></th>
-                  <th style="font-family: Calibri; width: 2%;"><small>Serie</small></th>
                   <th style="font-family: Calibri; width: 4%;"><small>Numeración</small></th>
-                  <th style="font-family: Calibri; width: 9%;"><small>Tipo de Comprob.</small></th>
-                  <th style="font-family: Calibri; width: 10%;"><small>Nombre del <?php echo $nClienteProveedor; ?></small></th>
-                  <th style="font-family: Calibri; width: 10%;"><small>Generado Por</small></th>
+                  <th style="font-family: Calibri; width: 6%;"><small>Tipo de Cotizac.</small></th>
+                  <th style="font-family: Calibri; width: 11%;"><small>Nombre del Cliente</small></th>
+                  <th style="font-family: Calibri; width: 11%;"><small>Generado Por</small></th>
                   <th style="font-family: Calibri; width: 7%;"><small>Fecha</small></th>
-                  <th style="font-family: Calibri; width: 8%;"><small>Valor de <?php echo $lblTituloSingular; ?></small></th>
-                  <th style="font-family: Calibri; width: 7%;"><small>IGV</small></th>
-                  <th style="font-family: Calibri; width: 8%;"><small><?php echo $lblTituloSingular; ?> Total</small></th>
+                  <th style="font-family: Calibri; width: 7%;"><small>Valor de Venta</small></th>
+                  <th style="font-family: Calibri; width: 6%;"><small>IGV</small></th>
+                  <th style="font-family: Calibri; width: 7%;"><small>Venta Total</small></th>
                 </tr>
               </thead>
               <tbody style="font-size: small;">
               <?php
-                $SumTotalComprobante = 0.00;
+                $SumTotalCotizacion = 0.00;
                 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC))
                 { 
-                  $ClienteProveedor;
-                  $ValorComprobante; $IGVComprobante; $TotalComprobante;
                   $dtmFechaCambio =  date('Y-m-d', strtotime($fila['dtmFechaCreacion']));
                   $sql_conexion_moneda = new Conexion_BD();
                   $sql_conectar_moneda = $sql_conexion_moneda->Conectar();
@@ -162,55 +146,44 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' 
                   $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
                   if($intIdTipoMoneda == 1){
                     if($fila['intIdTipoMoneda'] != 1) {
-                      $fila['TotalComprobante'] = number_format($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2,'.','');
-                      $fila['IGVComprobante'] = number_format($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2,'.',''); 
-                      $fila['ValorComprobante'] = number_format($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2,'.',''); 
+                      $fila['TotalCotizacion'] = number_format($fila['TotalCotizacion']*$fila_moneda['dcmCambio2'],2,'.','');
+                      $fila['IGVCotizacion'] = number_format($fila['IGVCotizacion']*$fila_moneda['dcmCambio2'],2,'.',''); 
+                      $fila['ValorCotizacion'] = number_format($fila['ValorCotizacion']*$fila_moneda['dcmCambio2'],2,'.',''); 
                       $fila['SimboloMoneda'] = "S/.";
                     }
                   } 
                   else if ($intIdTipoMoneda == 2){
                     if($fila['intIdTipoMoneda'] != 2){
-                      $fila['TotalComprobante'] = number_format($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
-                      $fila['IGVComprobante'] = number_format($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
-                      $fila['ValorComprobante'] = number_format($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
+                      $fila['TotalCotizacion'] = number_format($fila['TotalCotizacion']/$fila_moneda['dcmCambio2'],2,'.','');
+                      $fila['IGVCotizacion'] = number_format($fila['IGVCotizacion']/$fila_moneda['dcmCambio2'],2,'.','');
+                      $fila['ValorCotizacion'] = number_format($fila['ValorCotizacion']/$fila_moneda['dcmCambio2'],2,'.','');
                       $fila['SimboloMoneda'] = "US$";
                     }
                   }
-                  if($intTipoDetalle == 1)
-                    $ClienteProveedor = $fila["NombreCliente"];
-                  else if($intTipoDetalle == 2)
-                    $ClienteProveedor = $fila["NombreProveedor"];
-                  if($fila['intIdTipoComprobante'] != 3 && $fila['intIdTipoComprobante'] != 7){
-                    $ValorComprobante = $fila["SimboloMoneda"].' '.number_format($fila["ValorComprobante"],2,'.',',');
-                    $IGVComprobante = $fila["SimboloMoneda"].' '.number_format($fila["IGVComprobante"],2,'.',',');
-                    $TotalComprobante = $fila["SimboloMoneda"].' '.number_format($fila["TotalComprobante"],2,'.',',');
-                  }
-                  else {
-                    $ValorComprobante = "-";
-                    $IGVComprobante = "-";
-                    $TotalComprobante = "-";
-                  }
+
+                  $ValorCotizacion = $fila["SimboloMoneda"].' '.number_format($fila["ValorCotizacion"],2,'.',',');
+                  $IGVCotizacion = $fila["SimboloMoneda"].' '.number_format($fila["IGVCotizacion"],2,'.',',');
+                  $TotalCotizacion = $fila["SimboloMoneda"].' '.number_format($fila["TotalCotizacion"],2,'.',',');
 
                   echo 
                   '<tr>
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["nvchSerie"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["nvchNumeracion"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["NombreComprobante"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$ClienteProveedor.'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila["NombreVenta"].'</small></td>
+                      <td style="font-family: Calibri;"><small>'.$fila["NombreCliente"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.$fila["NombreUsuario"].'</small></td>
                       <td style="font-family: Calibri;"><small>'.date('d/m/Y H:i:s', strtotime($fila['dtmFechaCreacion'])).'</small></td>
-                      <td style="font-family: Calibri; text-align: right; padding-right: 2px;"><small>'.$ValorComprobante.'</small></td>
-                      <td style="font-family: Calibri; text-align: right; padding-right: 2px;"><small>'.$IGVComprobante.'</small></td>
-                      <td style="font-family: Calibri; text-align: right; padding-right: 2px;"><small>'.$TotalComprobante.'</small></td>
+                      <td style="font-family: Calibri; text-align: right; padding-right: 2px;"><small>'.$ValorCotizacion.'</small></td>
+                      <td style="font-family: Calibri; text-align: right; padding-right: 2px;"><small>'.$IGVCotizacion.'</small></td>
+                      <td style="font-family: Calibri; text-align: right; padding-right: 2px;"><small>'.$TotalCotizacion.'</small></td>
                   </tr>';
-                  $SumTotalComprobante += $fila["TotalComprobante"];
+                  $SumTotalCotizacion += $fila["TotalCotizacion"];
                   $j++;
                 }
               ?>
             </tbody>
           </table>
-          <div style="text-align: right; padding-top: 4px"><small>Total <?php echo $lblTituloSingular; ?>: <?php echo $nvchSimbolo.' '.number_format($SumTotalComprobante,2,'.',','); ?></small></div>
+          <div style="text-align: right; padding-top: 4px"><small>Total Cotizado: <?php echo $nvchSimbolo.' '.number_format($SumTotalCotizacion,2,'.',','); ?></small></div>
       </div>
   </div>
 </div>
@@ -263,7 +236,7 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':intIdTipoComprobante' 
 
   }
 
-  $filename = 'Reporte'.$lblTituloSingular.'-'.date('d-m-Y_h:i:s').'_'.$busqueda;
+  $filename = 'ReporteCotizacion-'.date('d-m-Y_h:i:s').'_'.$busqueda;
   $dompdf = new DOMPDF();
   $html = utf8_decode(ob_get_clean());
   //pdf_create($html,$filename,'A4','landscape');
