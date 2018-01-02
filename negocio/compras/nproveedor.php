@@ -999,22 +999,22 @@ function AccionCabecerasTabla(intIdTipoPersona) {
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en Excel */
+/* INICIO - Funcion Ajax - Mostrar Proveedor para descargar reporte en Excel */
 $(document).on('click', '#DescargarListaProveedorExcel', function(){
 	  var busqueda = $("#txt-busqueda").val();
 	  var url = '../../datos/compras/clases_proveedor/reporte_proveedor_excel.php?busqueda='+busqueda;
 	  window.open(url);
 });
-/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en Excel */
+/* FIN - Funcion Ajax - Mostrar Proveedor para descargar reporte en Excel */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en PDF */
+/* INICIO - Funcion Ajax - Mostrar Proveedor para descargar reporte en PDF */
 $(document).on('click', '#DescargarListaProveedorPDF', function(){
 	  var busqueda = $("#txt-busqueda").val();
 	  var url = '../../datos/compras/clases_proveedor/reporte_proveedor_pdf.php?busqueda='+busqueda;
 	  window.open(url);
 });
-/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en PDF */
+/* FIN - Funcion Ajax - Mostrar Proveedor para descargar reporte en PDF */
 //////////////////////////////////////////////////////////////
 </script>

@@ -201,7 +201,7 @@ DELIMITER $$
 			CL.nvchNombres LIKE CONCAT(_elemento,'%') ) AND DCL.intIdTipoDomicilio = 1
 			AND DCL.intIdDepartamento = _intIdDepartamento
 			LIMIT _x,_y;
-		ELSEIF(_intIdDepartamento != "T" AND _intIdProvincia != "T" AND (_intIdDistrito = "T" OR _intIdDistrito != "T")) THEN
+		ELSEIF(_intIdDepartamento != "T" AND _intIdProvincia != "T" AND _intIdDistrito = "T") THEN
 			SELECT CL.*,
 			CASE
 				WHEN CL.intIdTipoPersona = 1 THEN CL.nvchRazonSocial
@@ -321,7 +321,7 @@ DELIMITER $$
 			CL.nvchApellidoMaterno LIKE CONCAT(_elemento,'%') OR
 			CL.nvchNombres LIKE CONCAT(_elemento,'%') ) AND DCL.intIdTipoDomicilio = 1
 			AND DCL.intIdDepartamento = _intIdDepartamento;
-		ELSEIF(_intIdDepartamento != "T" AND _intIdProvincia != "T" AND (_intIdDistrito = "T" OR _intIdDistrito != "T")) THEN
+		ELSEIF(_intIdDepartamento != "T" AND _intIdProvincia != "T" AND _intIdDistrito = "T") THEN
 			SELECT CL.*,
 			CASE
 				WHEN CL.intIdTipoPersona = 1 THEN CL.nvchRazonSocial

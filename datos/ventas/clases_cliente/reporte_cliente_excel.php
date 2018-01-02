@@ -4,12 +4,17 @@
   require_once '../../../frameworks/PHPExcel-1.8/Classes/PHPExcel.php';
 
 $busqueda = $_GET['busqueda']; // campo de ubsqueda
+$intIdDepartamento = $_GET['intIdDepartamento'];
+$intIdProvincia = $_GET['intIdProvincia'];
+$intIdDistrito = $_GET['intIdDistrito'];
 
 // Crea un nuevo objeto PHPExcel
 $sql_conexion = new Conexion_BD();
 $sql_conectar = $sql_conexion->Conectar();
-$sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda,:intIdTipoPersona)');
-$sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => 'T'));
+$sql_comando = $sql_conectar->prepare('CALL buscarCliente_ii(:busqueda,:intIdTipoPersona,:intIdDepartamento,:intIdProvincia,
+  :intIdDistrito)');
+$sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => 'T',
+  ':intIdDepartamento' => $intIdDepartamento,':intIdProvincia' => $intIdProvincia,':intIdDistrito' => $intIdDistrito));
 
 // Establecer propiedades
 $i = 4; // contador de la fila desde dende se imprimira
@@ -20,11 +25,11 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()
 ->setCreator("PLATAFORMA RESTECO")
 ->setLastModifiedBy("PLATFORM")
-->setTitle("REPORTE EXCEL PROVEEDORES")
-->setSubject("REPORTE EXCEL PROVEEDORES")
-->setDescription("Reporte de Proveedores en Excel")
+->setTitle("REPORTE EXCEL CLIENTES")
+->setSubject("REPORTE EXCEL CLIENTES")
+->setDescription("Reporte de Clientes en Excel")
 ->setKeywords("Excel Office 2007 openxml php")
-->setCategory("Compras");
+->setCategory("Ventas");
 // END - Establecer propiedades de la hoja
 ////////////////////////////////////////////////////
 
@@ -51,10 +56,10 @@ $objPHPExcel->getActiveSheet()->getRowDimension('A1')->setRowHeight(150);
 $objPHPExcel->setActiveSheetIndex(0)->getStyle("A1")->getFont()->setSize(26); // tamaño de fuente
 
 
-$TituloDocumento = 'Reporte de Proveedores';
+$TituloDocumento = 'Reporte de Clientes';
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A2', $TituloDocumento);
 $objPHPExcel->setActiveSheetIndex(0)->getStyle("A2")->getFont()->setSize(26); // tamaño de fuente
-$objPHPExcel->setActiveSheetIndex(0) ->mergeCells('A2:C2'); //CONBINAR CELDAS
+$objPHPExcel->setActiveSheetIndex(0) ->mergeCells('A2:D2'); //CONBINAR CELDAS
 $objPHPExcel->setActiveSheetIndex(0) ->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // alinemaiento Horizontal 
 $objPHPExcel->setActiveSheetIndex(0)->getStyle('A2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); // Alinemiento vertical
 
@@ -68,9 +73,9 @@ function cellColor($cells,$color){
         )
     ));
 }
-cellColor('A3:C3', '085c8c'); // Ejecutnado la funcion
+cellColor('A3:D3', '085c8c'); // Ejecutnado la funcion
 
-$objPHPExcel->setActiveSheetIndex(0)->getStyle('A3:C3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); //color de texto
+$objPHPExcel->setActiveSheetIndex(0)->getStyle('A3:D3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); //color de texto
 
 // INICIO - dar border phpexcel
 $estiloBorderThin = array( 
@@ -90,24 +95,27 @@ $estiloBorderMedium = array(
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(10);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('B')->setWidth(25);//ancho de las celda
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('C')->setWidth(75);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('D')->setWidth(20);
 $objPHPExcel->setActiveSheetIndex()
 ->setCellValue('A3', 'ÍTEM')
 ->setCellValue('B3', 'RUC / DNI')
-->setCellValue('C3', 'RAZÓN SOCIAL / NOMBRES');
-$objPHPExcel->getActiveSheet()->getStyle('A3:C3')->applyFromArray($estiloBorderMedium);
+->setCellValue('C3', 'RAZÓN SOCIAL / NOMBRES')
+->setCellValue('D3', 'TIPON DE CLIENTE');
+$objPHPExcel->getActiveSheet()->getStyle('A3:D3')->applyFromArray($estiloBorderMedium);
 // END - dar border phpexcel
-$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A3:C3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Alienamiento central horizontal encabezado de columnas
+$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A3:D3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Alienamiento central horizontal encabezado de columnas
 $j=1;
 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
   // Agregar Informacion
   $objPHPExcel->setActiveSheetIndex()
   ->setCellValue('A'.$i, $j)
   ->setCellValue('B'.$i, $fila['DNIRUC'])
-  ->setCellValue('C'.$i, $fila['NombreCliente']);
-
+  ->setCellValue('C'.$i, $fila['NombreCliente'])
+  ->setCellValue('D'.$i, $fila['TipoCliente']);
+  //$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true); //TEXTO DE FILA DE CLEDAS EN NEGRITA
   $objPHPExcel->setActiveSheetIndex(0) ->getStyle('B'.$i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
   $objPHPExcel->setActiveSheetIndex(0) ->getStyle('C'.$i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-  //$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true); //TEXTO DE FILA DE CLEDAS EN NEGRITA
+  $objPHPExcel->setActiveSheetIndex(0) ->getStyle('D'.$i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $i++; $j++;
 }
 
@@ -127,14 +135,14 @@ $objPHPExcel->setActiveSheetIndex(0)->getStyle('D'.$i.':F'.$i)->getFont()->getCo
 
 
 // Renombrar Hoja
-$objPHPExcel->getActiveSheet()->setTitle('Reporte Producto');
+$objPHPExcel->getActiveSheet()->setTitle('Reporte Cliente');
 
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 
 // Se modifican los encabezados del HTTP para indicar que se envia un archivo de Excel.
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="ReporteProveedor-'.date('d-m-Y_h:i:s').'_'.$busqueda.'.xlsx"');
+header('Content-Disposition: attachment;filename="ReporteCliente-'.date('d-m-Y_h:i:s').'_'.$busqueda.'.xlsx"');
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output');

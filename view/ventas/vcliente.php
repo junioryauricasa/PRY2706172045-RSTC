@@ -101,12 +101,12 @@
                       </button> 
                       
                       <!-- button para descarga de pdf -->
-                      <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorExcel">
+                      <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaClientePDF">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF
                       </button> 
 
                       <!-- button para descarga de excel -->
-                      <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
+                      <button class="btn btn-sm btn-success btn-flat" id="DescargarListaClienteExcel">
                         <i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel
                       </button> 
                     </div>

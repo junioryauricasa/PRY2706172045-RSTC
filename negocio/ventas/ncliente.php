@@ -954,6 +954,31 @@ function botonesactualizar(){
 ///////////////////////////////////////////////////////////
 /*	END * Función Mostrar botones formularios de cliente   */
 
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Cliente para descargar reporte en Excel */
+$(document).on('click', '#DescargarListaClienteExcel', function(){
+	  var busqueda = $("#txt-busqueda").val();
+	  var intIdDepartamento = $("#intIdDepartamentoB").val();
+	  var intIdProvincia = $("#intIdProvinciaB").val();
+	  var intIdDistrito = $("#intIdDistritoB").val();
+	  var url = '../../datos/ventas/clases_cliente/reporte_cliente_excel.php?busqueda='+busqueda+'&intIdDepartamento='+
+	  intIdDepartamento+'&intIdProvincia='+intIdProvincia+'&intIdDistrito='+intIdDistrito;
+	  window.open(url);
+});
+/* FIN - Funcion Ajax - Mostrar Cliente para descargar reporte en Excel */
+//////////////////////////////////////////////////////////////
 
-
+//////////////////////////////////////////////////////////////
+/* INICIO - Funcion Ajax - Mostrar Cliente para descargar reporte en PDF */
+$(document).on('click', '#DescargarListaClientePDF', function(){
+	  var busqueda = $("#txt-busqueda").val();
+	  var intIdDepartamento = $("#intIdDepartamentoB").val();
+	  var intIdProvincia = $("#intIdProvinciaB").val();
+	  var intIdDistrito = $("#intIdDistritoB").val();
+	  var url = '../../datos/ventas/clases_cliente/reporte_cliente_pdf.php?busqueda='+busqueda+'&intIdDepartamento='+
+	  intIdDepartamento+'&intIdProvincia='+intIdProvincia+'&intIdDistrito='+intIdDistrito;
+	  window.open(url);
+});
+/* FIN - Funcion Ajax - Mostrar Cliente para descargar reporte en PDF */
+//////////////////////////////////////////////////////////////
 </script>
