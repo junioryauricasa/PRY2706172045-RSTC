@@ -54,7 +54,7 @@ $objPHPExcel->setActiveSheetIndex(0)->getStyle("A1")->getFont()->setSize(26); //
 $TituloDocumento = 'Reporte Productos';
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A2', $TituloDocumento);
 $objPHPExcel->setActiveSheetIndex(0)->getStyle("A2")->getFont()->setSize(26); // tamaño de fuente
-$objPHPExcel->setActiveSheetIndex(0) ->mergeCells('A2:F2'); //CONBINAR CELDAS
+$objPHPExcel->setActiveSheetIndex(0) ->mergeCells('A2:H2'); //CONBINAR CELDAS
 $objPHPExcel->setActiveSheetIndex(0) ->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // alinemaiento Horizontal 
 $objPHPExcel->setActiveSheetIndex(0)->getStyle('A2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); // Alinemiento vertical
 
@@ -68,9 +68,9 @@ function cellColor($cells,$color){
         )
     ));
 }
-cellColor('A3:F3', '085c8c'); // Ejecutnado la funcion
+cellColor('A3:H3', '085c8c'); // Ejecutnado la funcion
 
-$objPHPExcel->setActiveSheetIndex(0)->getStyle('A3:F3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); //color de texto
+$objPHPExcel->setActiveSheetIndex(0)->getStyle('A3:H3')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE); //color de texto
 
 // INICIO - dar border phpexcel
 $estiloBorderThin = array( 
@@ -90,19 +90,23 @@ $estiloBorderMedium = array(
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(10);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('B')->setWidth(18);//ancho de las celda
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('C')->setWidth(75);
-$objPHPExcel->setActiveSheetIndex()->getColumnDimension('D')->setWidth(20);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('D')->setWidth(10);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('E')->setWidth(20);
 $objPHPExcel->setActiveSheetIndex()->getColumnDimension('F')->setWidth(20);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('G')->setWidth(20);
+$objPHPExcel->setActiveSheetIndex()->getColumnDimension('H')->setWidth(20);
 $objPHPExcel->setActiveSheetIndex()
 ->setCellValue('A3', 'ÍTEM')
 ->setCellValue('B3', 'CÓDIGO')
 ->setCellValue('C3', 'DESCRIPCIÓN')
-->setCellValue('D3', 'PRECIO VENTA 1')
-->setCellValue('E3', 'PRECIO VENTA 2')
-->setCellValue('F3', 'PRECIO VENTA 3');
-$objPHPExcel->getActiveSheet()->getStyle('A3:F3')->applyFromArray($estiloBorderMedium);
+->setCellValue('D3', 'MONEDA')
+->setCellValue('E3', 'PRECIO VENTA 1')
+->setCellValue('F3', 'PRECIO VENTA 2')
+->setCellValue('G3', 'PRECIO VENTA 3')
+->setCellValue('H3', 'CANTIDAD TOTAL');
+$objPHPExcel->getActiveSheet()->getStyle('A3:H3')->applyFromArray($estiloBorderMedium);
 // END - dar border phpexcel
-$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A3:F3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Alienamiento central horizontal encabezado de columnas
+$objPHPExcel->setActiveSheetIndex(0) ->getStyle('A3:H3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Alienamiento central horizontal encabezado de columnas
 $j=1;
 while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
   // Agregar Informacion
@@ -110,14 +114,15 @@ while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
   ->setCellValue('A'.$i, $j)
   ->setCellValue('B'.$i, $fila['nvchCodigo'])
   ->setCellValue('C'.$i, $fila['nvchDescripcion'])
-  ->setCellValue('D'.$i, round($fila['dcmPrecioVenta1'],2))
-  ->setCellValue('E'.$i, round($fila['dcmPrecioVenta2'],2))
-  ->setCellValue('F'.$i, round($fila['dcmPrecioVenta3'],2));
-
+  ->setCellValue('D'.$i, $fila['nvchSimbolo'])
+  ->setCellValue('E'.$i, number_format($fila['dcmPrecioVenta1'],2,'.',''))
+  ->setCellValue('F'.$i, number_format($fila['dcmPrecioVenta2'],2,'.',''))
+  ->setCellValue('G'.$i, number_format($fila['dcmPrecioVenta3'],2,'.',''))
+  ->setCellValue('H'.$i, $fila['intCantidad']);
   // formato moneda
-  $objPHPExcel->getActiveSheet()->getStyle('D'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
   $objPHPExcel->getActiveSheet()->getStyle('E'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
   $objPHPExcel->getActiveSheet()->getStyle('F'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$i)->getNumberFormat()->setFormatCode("#,##0.00");
   //$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->setBold(true); //TEXTO DE FILA DE CLEDAS EN NEGRITA
   $i++; $j++;
 }
@@ -145,7 +150,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 // Se modifican los encabezados del HTTP para indicar que se envia un archivo de Excel.
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="ReporteProducto-'.date('dmy_hms').'_'.$busqueda.'.xlsx"');
+header('Content-Disposition: attachment;filename="ReporteProducto-'.date('d-m-Y_h:i:s').'_'.$busqueda.'.xlsx"');
 header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output');

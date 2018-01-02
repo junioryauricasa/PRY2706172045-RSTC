@@ -80,7 +80,7 @@
                   <img style="padding:50px;" src="../../frameworks/dist/img/logoResteco-for_init.JPG" alt="Logo CCPJ" id="logo-ccpj-default" width="100%">
                 </div>
                 <div class="box-footer clearfix">     
-		            <a href="dashboard" class="btn btn-sm btn-info btn-flat pull-left" style="margin: 0px 5px; border-radius: 3px">
+		            <a href="dashboard" class="btn btn-sm btn-primary btn-flat pull-left" style="margin: 0px 5px; border-radius: 3px">
                     <i class="fa fa-tachometer" aria-hidden="true"></i> Ver Información General
                 </a>
 
