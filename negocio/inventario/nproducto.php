@@ -612,24 +612,23 @@ function botonesActualizar(){
     $("#btn-cancelar-ubigeo").hide();
 }
 
-
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en excel*/
+/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en Excel */
 $(document).on('click', '#DescargarListaProductoExcel', function(){
 	  var busqueda = $("#txt-busqueda").val();
 	  var url = '../../datos/inventario/clases_producto/reporte_producto_excel.php?busqueda='+busqueda;
 	  window.open(url);
 });
-/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
+/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en Excel */
 //////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en excel*/
+/* INICIO - Funcion Ajax - Mostrar Producto para descargar reporte en PDF */
 $(document).on('click', '#DescargarListaProductoPDF', function(){
 	  var busqueda = $("#txt-busqueda").val();
 	  var url = '../../datos/inventario/clases_producto/reporte_producto_pdf.php?busqueda='+busqueda;
 	  window.open(url);
 });
-/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en excel */
+/* FIN - Funcion Ajax - Mostrar Producto para descargar reporte en PDF */
 //////////////////////////////////////////////////////////////
 </script>

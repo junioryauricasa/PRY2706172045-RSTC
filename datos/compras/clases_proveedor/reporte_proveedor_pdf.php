@@ -5,15 +5,15 @@ $busqueda = $_GET['busqueda'];
  ob_start();
 $sql_conexion = new Conexion_BD();
 $sql_conectar = $sql_conexion->Conectar();
-$sql_comando = $sql_conectar->prepare('CALL buscarproducto_II(:busqueda,:TipoBusqueda)');
-$sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'));
+$sql_comando = $sql_conectar->prepare('CALL buscarProveedor_ii(:busqueda,:intIdTipoPersona)');
+$sql_comando -> execute(array(':busqueda' => $busqueda,':intIdTipoPersona' => 'T'));
   $j = 1;
   ?>
   <!DOCTYPE HTML>
   <html>
   <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-    <title>Reporte de Productos PDF</title>
+    <title>Reporte de Proveedores PDF</title>
   </head>
 
   <style>
@@ -98,7 +98,7 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'))
   
   <br>
   <div class="cuerpo">
-      <span style="font-weight: bold; font-size: 16px">REPORTE DE PRODUCTOS</span>
+      <span style="font-weight: bold; font-size: 16px">REPORTE DE PROVEEDORES</span>
       <br>
       <div style="text-align: left; font-family: Calibri;">
           <br>
@@ -107,13 +107,8 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'))
               <thead>
                 <tr>
                   <th style="font-family: Calibri; width: 4%;"><small>Ítem</small></th>
-                  <th style="font-family: Calibri; width: 12%;"><small>Código</small></th>
-                  <th style="font-family: Calibri; width: 40%;"><small>Descripción</small></th>
-                  <th style="font-family: Calibri; width: 5%;"><small>Moneda</small></th>
-                  <th style="font-family: Calibri; width: 8%;"><small>Precio Venta 1</small></th>
-                  <th style="font-family: Calibri; width: 8%;"><small>Precio Venta 2</small></th>
-                  <th style="font-family: Calibri; width: 8%;"><small>Precio Venta 3</small></th>
-                  <th style="font-family: Calibri; width: 8%;"><small>Cantidad Total</small></th>
+                  <th style="font-family: Calibri; width: 12%;"><small>RUC / DNI</small></th>
+                  <th style="font-family: Calibri; width: 50%;"><small>Razón Social / Nombres</small></th>
                 </tr>
               </thead>
               <tbody style="font-size: small;">
@@ -123,13 +118,8 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'))
                   echo 
                   '<tr>
                       <td style="font-family: Calibri;"><small>'.$j.'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["nvchCodigo"].'</small></td>
-                      <td style="font-family: Calibri; text-align:left; padding-left: 2px;"><small>'.$fila["nvchDescripcion"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["nvchSimbolo"].'</small></td>
-                      <td style="font-family: Calibri;"><small>'.number_format($fila["dcmPrecioVenta1"],2,'.',',').'</small></td>
-                      <td style="font-family: Calibri;"><small>'.number_format($fila["dcmPrecioVenta2"],2,'.',',').'</small></td>
-                      <td style="font-family: Calibri;"><small>'.number_format($fila["dcmPrecioVenta3"],2,'.',',').'</small></td>
-                      <td style="font-family: Calibri;"><small>'.$fila["intCantidad"].'</small></td>
+                      <td style="font-family: Calibri; text-align:left; padding-left: 2px;"><small>'.$fila["DNIRUC"].'</small></td>
+                      <td style="font-family: Calibri; text-align:left; padding-left: 2px;"><small>'.$fila["NombreCliente"].'</small></td>
                   </tr>';
                   $j++;
                 }
@@ -188,9 +178,9 @@ $sql_comando -> execute(array(':busqueda' => $busqueda, ':TipoBusqueda' => 'C'))
 
   }
 
-  $filename = 'ReporteProducto-'.date('d-m-Y_h:i:s').'_'.$busqueda;
+  $filename = 'ReporteProveedor-'.date('d-m-Y_h:i:s').'_'.$busqueda;
   $dompdf = new DOMPDF();
   $html = utf8_decode(ob_get_clean());
   //pdf_create($html,$filename,'A4','landscape');
-  pdf_create($html,$filename,'A4','landscape');
+  pdf_create($html,$filename,'A4','portraid');
 ?>

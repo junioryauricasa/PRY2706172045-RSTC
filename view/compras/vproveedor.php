@@ -106,7 +106,7 @@
                             </button> 
                             
                             <!-- button para descarga de pdf -->
-                            <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorExcel">
+                            <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorPDF">
                               <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF
                             </button> 
 
