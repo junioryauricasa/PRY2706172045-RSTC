@@ -1445,7 +1445,7 @@ function CamposTabla(intTipoDetalle,intIdTipoComprobante){
 }
 
 //////////////////////////////////////////////////////////////
-/* INICIO - Funcion Ajax - Listar Cliente */
+/* INICIO - Descargar Reporte Comprobante en Excel */
 $(document).on('click', '#DescargarListaComprobanteExcel', function(){
   
   var busqueda = document.getElementById("txt-busqueda").value;
@@ -1453,6 +1453,9 @@ $(document).on('click', '#DescargarListaComprobanteExcel', function(){
   var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
   var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
   var intTipoDetalle = $("#intTipoDetalle").val();
+  var lblPersonaSingular = '<?php echo $lblPersonaSingular; ?>';
+  var lblTituloSingular = '<?php echo $lblTituloSingular; ?>';
+  var lblTituloPlural = '<?php echo $lblTituloPlural; ?>';
   
   if(EsFecha("dtmFechaInicial") == false){
     var dtmFechaInicial = "";
@@ -1466,11 +1469,40 @@ $(document).on('click', '#DescargarListaComprobanteExcel', function(){
   }
 
   // invocando al excel
-  var url = '../../datos/comprobante/clases_comprobante/reporteexcel.php?elemento='+busqueda+'&intIdTipoComprobante='+intIdTipoComprobante+'&intIdTipoMoneda='+intIdTipoMoneda+'&intTipoDetalle='+intTipoDetalle+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal;
+  var url = '../../datos/comprobante/clases_comprobante/reporte_comprobante_excel.php?busqueda='+busqueda+'&intIdTipoComprobante='+intIdTipoComprobante+'&intIdTipoMoneda='+intIdTipoMoneda+'&intTipoDetalle='+intTipoDetalle+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&lblPersonaSingular='+lblPersonaSingular+'&lblTituloSingular='+lblTituloSingular+'&lblTituloPlural='+lblTituloPlural;
   window.open(url);
-
 });
-/* FIN - Funcion Ajax - Listar Cliente */
+/* FIN - Descargar Reporte Comprobante en Excel */
 //////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+/* INICIO - Descargar Reporte Comprobante en Excel */
+$(document).on('click', '#DescargarListaComprobantePDF', function(){
+  
+  var busqueda = document.getElementById("txt-busqueda").value;
+  var funcion = "L";
+  var intIdTipoComprobante = document.getElementById("lista-comprobante").value;
+  var intIdTipoMoneda = document.getElementById("lista-tipo-moneda").value;
+  var intTipoDetalle = $("#intTipoDetalle").val();
+  var lblPersonaSingular = '<?php echo $lblPersonaSingular; ?>';
+  var lblTituloSingular = '<?php echo $lblTituloSingular; ?>';
+  var lblTituloPlural = '<?php echo $lblTituloPlural; ?>';
+  
+  if(EsFecha("dtmFechaInicial") == false){
+    var dtmFechaInicial = "";
+  } else {
+    var dtmFechaInicial = $("#dtmFechaInicial").val();
+  }
+  if(EsFecha("dtmFechaFinal") == false){
+    var dtmFechaFinal = FechaActual();
+  } else {
+    var dtmFechaFinal = $("#dtmFechaFinal").val();
+  }
+
+  // invocando al excel
+  var url = '../../datos/comprobante/clases_comprobante/reporte_comprobante_pdf.php?busqueda='+busqueda+'&intIdTipoComprobante='+intIdTipoComprobante+'&intIdTipoMoneda='+intIdTipoMoneda+'&intTipoDetalle='+intTipoDetalle+'&dtmFechaInicial='+dtmFechaInicial+'&dtmFechaFinal='+dtmFechaFinal+'&lblPersonaSingular='+lblPersonaSingular+'&lblTituloSingular='+lblTituloSingular+'&lblTituloPlural='+lblTituloPlural;
+  window.open(url);
+});
+/* FIN - Descargar Reporte Comprobante en Excel */
+//////////////////////////////////////////////////////////////
 </script>

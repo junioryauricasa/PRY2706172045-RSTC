@@ -154,11 +154,11 @@ while($fila = $sql_comando -> fetch(PDO::FETCH_ASSOC)){
   ->setCellValue('G'.$i, $fila['Entrada'])
   ->setCellValue('H'.$i, $fila['Salida'])
   ->setCellValue('I'.$i, $fila['Stock'])
-  ->setCellValue('J'.$i, round($fila['PrecioEntrada'],2))
-  ->setCellValue('K'.$i, round($fila['TotalEntrada'],2))
-  ->setCellValue('L'.$i, round($fila['PrecioSalida'],2))
-  ->setCellValue('M'.$i, round($fila['TotalSalida'],2))
-  ->setCellValue('N'.$i, round($fila['SaldoValorizado'],2));
+  ->setCellValue('J'.$i, number_format($fila['PrecioEntrada'],2,'.',''))
+  ->setCellValue('K'.$i, number_format($fila['TotalEntrada'],2,'.',''))
+  ->setCellValue('L'.$i, number_format($fila['PrecioSalida'],2,'.',''))
+  ->setCellValue('M'.$i, number_format($fila['TotalSalida'],2,'.',''))
+  ->setCellValue('N'.$i, number_format($fila['SaldoValorizado'],2,'.',''));
   $objPHPExcel->setActiveSheetIndex(0) ->getStyle('A'.$i.':N'.$i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   // formato moneda
   $objPHPExcel->getActiveSheet()->getStyle('J'.$i)->getNumberFormat()->setFormatCode('_("'.$nvchSimbolo.'"* #,##0.00_);_("'.$nvchSimbolo.'"* \(#,##0.00\);_(@_)');

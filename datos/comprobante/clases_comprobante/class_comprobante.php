@@ -245,17 +245,17 @@ class Comprobante{
         $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
         if($intIdTipoMoneda == 1){
           if($fila['intIdTipoMoneda'] != 1) {
-            $fila['TotalComprobante'] = round($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2);
-            $fila['IGVComprobante'] = round($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2); 
-            $fila['ValorComprobante'] = round($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2); 
+            $fila['TotalComprobante'] = number_format($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['IGVComprobante'] = number_format($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2,'.',''); 
+            $fila['ValorComprobante'] = number_format($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2,'.',''); 
             $fila['SimboloMoneda'] = "S/.";
           }
         } 
         else if ($intIdTipoMoneda == 2){
           if($fila['intIdTipoMoneda'] != 2){
-            $fila['TotalComprobante'] = round($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2);
-            $fila['IGVComprobante'] = round($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2);
-            $fila['ValorComprobante'] = round($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2);
+            $fila['TotalComprobante'] = number_format($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['IGVComprobante'] = number_format($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
+            $fila['ValorComprobante'] = number_format($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
             $fila['SimboloMoneda'] = "US$";
           }
         }
@@ -339,16 +339,16 @@ class Comprobante{
           $fila_moneda = $sql_comando_moneda -> fetch(PDO::FETCH_ASSOC);
           if($intIdTipoMoneda == 1){
             if($fila['intIdTipoMoneda'] != 1) {
-              $fila['TotalComprobante'] = round($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2);
-              $fila['IGVComprobante'] = round($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2); 
-              $fila['ValorComprobante'] = round($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2); 
+              $fila['TotalComprobante'] = number_format($fila['TotalComprobante']*$fila_moneda['dcmCambio2'],2,'.','');
+              $fila['IGVComprobante'] = number_format($fila['IGVComprobante']*$fila_moneda['dcmCambio2'],2,'.',''); 
+              $fila['ValorComprobante'] = number_format($fila['ValorComprobante']*$fila_moneda['dcmCambio2'],2,'.',''); 
             }
           } 
           else if ($intIdTipoMoneda == 2){
             if($fila['intIdTipoMoneda'] != 2){
-              $fila['TotalComprobante'] = round($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2);
-              $fila['IGVComprobante'] = round($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2);
-              $fila['ValorComprobante'] = round($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2);
+              $fila['TotalComprobante'] = number_format($fila['TotalComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
+              $fila['IGVComprobante'] = number_format($fila['IGVComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
+              $fila['ValorComprobante'] = number_format($fila['ValorComprobante']/$fila_moneda['dcmCambio2'],2,'.','');
             }
           }
           $TotalComprobantes += $fila['TotalComprobante'];

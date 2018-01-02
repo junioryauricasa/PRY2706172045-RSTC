@@ -333,7 +333,7 @@ $(document).on('keyup', '#txt-busqueda', function(){
 function ListarProducto(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "L";
-  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+  var TipoBusqueda = 'T';
   $.ajax({
       url:'../../datos/inventario/funcion_producto.php',
       method:"POST",
@@ -352,7 +352,7 @@ function ListarProducto(x,y,tipolistado) {
 function PaginarProducto(x,y,tipolistado) {
   var busqueda = document.getElementById("txt-busqueda").value;
   var funcion = "P";
-  var TipoBusqueda = document.getElementById("tipo-busqueda").value;
+  var TipoBusqueda = 'T';
   $.ajax({
       url:'../../datos/inventario/funcion_producto.php',
       method:"POST",

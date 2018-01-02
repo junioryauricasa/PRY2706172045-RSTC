@@ -390,7 +390,7 @@
               </button>
 
               <!--Reporte PDF-->
-              <button type="button" class="btn btn-sm btn-danger btn-flat" id="DescargarListaComprobanteExcel" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button> 
+              <button type="button" class="btn btn-sm btn-danger btn-flat" id="DescargarListaComprobantePDF" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button> 
 
               <!--Reporte Excel-->
               <button type="button" class="btn btn-sm btn-success btn-flat" id="DescargarListaComprobanteExcel" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel</button> 
