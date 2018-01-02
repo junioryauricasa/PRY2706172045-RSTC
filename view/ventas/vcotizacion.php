@@ -70,6 +70,21 @@
           <!-- INICIO - Formulario Realizar Venta -->
           <form id="form-cotizacion" method="POST"></form>
           <div class="tab-pane active" id="formRealizarCotizacion">
+            <div class="row" style="margin-top:20px; margin-bottom: 20px">
+              <div class="col-md-12">
+                <div class="" style="text-align: right;">
+                  <button id="btn-crear-cotizacion" class="btn btn-sm btn-success btn-flat opcion-boton-nuevo" form="form-cotizacion"><i class="fa fa-check-square" aria-hidden="true"></i> Realizar Cotización</button>
+                  <button id="btn-editar-cotizacion" class="btn btn-sm btn-success btn-flat opcion-boton-editar" form="form-cotizacion"><i class="fa fa-check-square" aria-hidden="true"></i> Modificar Cotización</button>
+                  <button onclick="NuevaCotizacion(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-primary btn-flat" form="form-cotizacion"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Cotización</button>
+                  <!--
+                  <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización" form="form-cotizacion">
+                     <input type="button" id="btn-editar-cotizacion" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar Cotización" form="form-cotizacion">
+                    <input type="button" onclick="NuevaCotizacion()" class="btn btn-md btn-success" value="Nueva Cotización" form="form-cotizacion">
+                -->
+                </div>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-2">
                 <div id="nvchFechaGroup" class="form-group">
@@ -482,6 +497,18 @@
 
           <!-- INICIO - Formulario Listar Venta -->
           <div class="tab-pane" id="formListarCotizacion">
+            <div class="pull-right">
+              <!--Nueva Cotización-->
+              <button class="btn btn-sm btn-primary btn-flat" onclick="NuevoCotizacion();" form="form-cotizacion"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Cotización
+              </button>
+
+              <!--Reporte PDF-->
+              <button type="button" class="btn btn-sm btn-danger btn-flat" id="DescargarListaComprobanteExcel" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button> 
+
+              <!--Reporte Excel-->
+              <button type="button" class="btn btn-sm btn-success btn-flat" id="DescargarListaComprobanteExcel" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel</button> 
+            </div>
+
             <div class="row">
               <?php include '../campos/cmbNumLista.php'; ?>
               <div class="col-md-2">
@@ -490,6 +517,7 @@
                     <input type="text" name="txt-busqueda" id="txt-busqueda" class="form-control select2" placeholder="Ingrese Búsqueda" value="">
                 </div>
               </div>
+              <!--
               <div class="col-md-8">
                 <div class="text-right">
                   <div class="form-group">
@@ -497,6 +525,7 @@
                   </div>
                 </div>
               </div>
+              -->
             </div>
             <div class="row">
               <div class="col-md-2">

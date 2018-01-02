@@ -89,9 +89,28 @@
                 <section class="content">
                   <!-- TABLE: LATEST USERS -->
                   <div class="">
+                    <!--
                     <div class="box-header with-border">
                       <h3 class="box-title">Clientes</h3>
+                    </div>-->
+
+                    <div class="pull-right">
+                      <!-- Agregar proveedor -->
+                      <button type="button" id="btn-form-crear-cliente" class="btn btn-sm btn-primary btn-flat" onclick="verformularioproveedor()">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Agregar Cliente
+                      </button> 
+                      
+                      <!-- button para descarga de pdf -->
+                      <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorExcel">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF
+                      </button> 
+
+                      <!-- button para descarga de excel -->
+                      <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel
+                      </button> 
                     </div>
+
                     <div class="box-body">
                       <div class="row">
                         <?php include '../campos/cmbNumLista.php'; ?>
@@ -199,9 +218,11 @@
                         </nav>
                       </div>
                     </div>
+                    <!--
                     <div class="box-footer clearfix">     
                       <button type="button" id="btn-form-crear-cliente" class="btn btn-sm btn-info btn-flat pull-left" onclick="verformulario()">Agregar Cliente</button>
                     </div>
+                  -->
                   </div>
                 </section>
                 <!-- /.content -->

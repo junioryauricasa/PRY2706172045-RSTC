@@ -87,18 +87,19 @@
 		      <div class="tab-pane active" id="tab_1">
     			    <!-- Main content -->
     			    <section class="content">
-                 
-                <div class="col-md-12" style="">
-                    <h3 style="">
-                      Registro de Productos <!--small>Módulo de Inventario</small-->
-                    </h3>
-                    <!-- Modal for New Product -->
-                    <button type="button" style="margin-left: 5px" class="btn btn-sm btn-info btn-flat pull-right" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo Producto</button>
-                    <!-- button para descarga de excel -->
-                    <a href="#" style="margin-left: 5px" class="btn btn-sm btn-success btn-flat pull-right" id="DescargarListaProductoExcel"><i class="fa fa-download" aria-hidden="true"></i> Descargar Excel</a>
+                <h3 style="">
+                  Registro de Productos <!--small>Módulo de Inventario</small-->
+                </h3>
+
+                <div class="pull-right">
+                    <!-- boton agregar nuevo producto -->
+                    <button type="button" class="btn btn-sm btn-primary btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Producto</button>
 
                     <!-- button para descarga de excel -->
-                    <a href="#" style="margin-left: 5px" class="btn btn-sm btn-danger btn-flat pull-right" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
+                    <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button>
+
+                    <!-- button para descarga de excel -->
+                    <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProductoExcel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel</button>
                 </div>
 
     			      <!-- TABLE: LATEST USERS -->

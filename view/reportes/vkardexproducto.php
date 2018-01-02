@@ -70,10 +70,10 @@
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#tab-kardex-producto" id="tab-kardex-producto-btn" data-toggle="tab">Kardex de Productos</a>
+                    <a href="#tab-kardex-producto" id="tab-kardex-producto-btn" data-toggle="tab">Lista de Productos</a>
                 </li>
                 <li>
-                    <a href="#tab-detalles-kardex-producto" id="tab-detalles-kardex-producto-btn" data-toggle="tab">Detalles</a>
+                    <a href="#tab-detalles-kardex-producto" id="tab-detalles-kardex-producto-btn" data-toggle="tab">Kardex del Producto</a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -170,7 +170,7 @@
                 <div class="tab-pane" id="tab-detalles-kardex-producto">
                         <div id="TablaDetalleUbigeo">
                           
-                          <div class="col-md-12" style="text-align: right !important; height: 30px">
+                          <div class="pull-right">
                               <button type="button" onclick="ReporteKardexPDF()" class="btn btn-sm btn-danger btn-flat">
                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 Reporte PDF
@@ -180,9 +180,6 @@
                                 Reporte Excel
                               </button>
                           </div>
-                          
-
-                          <br>
                           <input type="hidden" id="intIdProducto"/>
                           <input type="hidden" id="nvchCodigo"/>
                           <div class="row">

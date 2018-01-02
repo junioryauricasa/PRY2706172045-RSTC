@@ -12,9 +12,14 @@
             <div class="row" style="margin-top:20px; margin-bottom: 20px">
               <div class="col-md-12">
                 <div class="" style="text-align: right;">
+                  <button id="btn-crear-comprobante" class="btn btn-sm btn-success btn-flat opcion-boton-nuevo" form="form-comprobante"><i class="fa fa-check-square" aria-hidden="true"></i> Realizar <?php echo $lblTituloSingular; ?></button>
+                  <button id="btn-editar-comprobante" class="btn btn-sm btn-success btn-flat opcion-boton-editar" form="form-comprobante"><i class="fa fa-check-square" aria-hidden="true"></i> Modificar <?php echo $lblTituloSingular; ?></button>
+                  <button onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-primary btn-flat" ><i class="fa fa-plus" aria-hidden="true"></i> Nueva <?php echo $lblTituloSingular; ?></button>
+                  <!--
                   <input type="button" id="btn-crear-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-nuevo" value="Realizar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                   <input type="button" id="btn-editar-comprobante" class="btn btn-sm btn-primary btn-flat opcion-boton-editar" value="Modificar <?php echo $lblTituloSingular; ?>" form="form-comprobante">
                   <input type="button" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-success btn-flat " value="Nueva <?php echo $lblTituloSingular; ?>" form="form-comprobante">
+                -->
                 </div>
               </div>
             </div>
@@ -378,13 +383,19 @@
 
           <!-- INICIO - Formulario Listar Venta -->
           <div class="tab-pane" id="formListarComprobante">
-            <div class="row" style="margin-top:20px; margin-bottom: 20px">
-              <div class="col-md-12">
-                <div class="" style="text-align: right;">
-                  <button type="button" id="DescargarListaComprobanteExcel" class="btn btn-sm btn-success btn-flat" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar Reporte EXCEL</button> 
-                </div>
-              </div>
+
+            <div class="pull-right">
+              <!--Nueva Venta-->
+              <button class="btn btn-sm btn-primary btn-flat" onclick="NuevoComprobante(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-primary btn-flat" form="form-comprobante"><i class="fa fa-plus" aria-hidden="true"></i> Nueva <?php echo $lblTituloSingular; ?>
+              </button>
+
+              <!--Reporte PDF-->
+              <button type="button" class="btn btn-sm btn-danger btn-flat" id="DescargarListaComprobanteExcel" onclick=""><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button> 
+
+              <!--Reporte Excel-->
+              <button type="button" class="btn btn-sm btn-success btn-flat" id="DescargarListaComprobanteExcel" onclick=""><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel</button> 
             </div>
+
 
             <div class="row">
               <?php include '../campos/cmbNumLista.php'; ?>
@@ -417,6 +428,7 @@
                   </select>
                 </div>
               </div>
+              <!--
               <div class="col-md-6">
                 <div class="text-right">
                   <div class="form-group">
@@ -424,6 +436,7 @@
                   </div>
                 </div>
               </div>
+            -->
             </div>
             <div class="row">
               <div class="col-md-2">

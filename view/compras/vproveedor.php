@@ -101,22 +101,19 @@
                           
                           <div class="pull-right">
                             <!-- Agregar proveedor -->
-                            <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-info btn-flat" onclick="verformularioproveedor()">
-                              <i class="fa fa-plus-square" aria-hidden="true"></i>
-                              Agregar Proveedor
+                            <button type="button" id="btn-form-crear-proveedor" class="btn btn-sm btn-primary btn-flat" onclick="verformularioproveedor()">
+                              <i class="fa fa-plus" aria-hidden="true"></i> Agregar Proveedor
                             </button> 
-    
-                            <!-- button para descarga de excel -->
-                            <a href="#" class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
-                              <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                              Descargar Excel
-                            </a> 
-
+                            
                             <!-- button para descarga de pdf -->
-                            <a href="#" class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorExcel">
-                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                              Descargar PDF
-                            </a> 
+                            <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProveedorExcel">
+                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF
+                            </button> 
+
+                            <!-- button para descarga de excel -->
+                            <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProveedorExcel">
+                              <i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel
+                            </button> 
                           </div>
 
                           <div class="box-body">
