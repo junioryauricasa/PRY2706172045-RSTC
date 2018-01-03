@@ -165,7 +165,7 @@ class UbigeoProducto
       if($tipolistado == "N" || $tipolistado == "D")
       { $x = $numpaginas - 1; }
       else if($tipolistado == "E")
-      { $x = $x / $y; }
+      { $x = $x; }
       $output = "";
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)
@@ -299,6 +299,7 @@ class UbigeoProducto
       $fila = $sql_comando -> fetch(PDO::FETCH_ASSOC);
 
       $salida['intIdUbigeoProducto'] = $fila['intIdUbigeoProducto'];
+      $salida['intIdProducto'] = $fila['intIdProducto'];
       $salida['intIdSucursal'] = $fila['intIdSucursal'];
       $salida['nvchUbicacion'] = $fila['nvchUbicacion'];
       $salida['intCantidadUbigeo'] = $fila['intCantidadUbigeo'];

@@ -278,7 +278,7 @@ class Producto
       if($tipolistado == "N" || $tipolistado == "D")
       { $x = $numpaginas - 1; }
       else if($tipolistado == "E")
-      { $x = $x / $y; }
+      { $x = $x; }
       $output = "";
       for($i = 0; $i < $numpaginas; $i++){
         if($i==0)

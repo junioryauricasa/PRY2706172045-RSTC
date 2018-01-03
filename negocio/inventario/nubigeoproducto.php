@@ -323,7 +323,7 @@ function ModificarUbigeoProducto(){
 	var accion = "I";
 	var funcion = "AUP";
 	var y = document.getElementById("num-lista-ubigeo").value;
-  	var x = $(".marca-ubigeo").attr("id") * y;
+  	var x = $(".marca-ubigeo").attr("idp") * y;
 	  $.ajax({
 	   url:"../../datos/inventario/funcion_producto.php",
 	   method:"POST",
@@ -337,9 +337,8 @@ function ModificarUbigeoProducto(){
 	   {
 	   	datos = datos.replace(/\s/g,''); 
 	   	if(datos == "okok"){
-	   		MensajeNormal("Se modificó correctamente el Ubigeo del Producto",1);
+	   		MensajeNormal("Se Modificó correctamente el Ubigeo del Producto",1);
 	   		ListarUbigeo(x,y,'E');
-	   		PaginarUbigeo(x,y,'E');
 	   		$('#formUbigeoProducto').modal('hide');
 	   	} else {
 	   		alert(datos);

@@ -240,7 +240,7 @@ $(document).on('click', '#btn-editar-producto', function(){
 	   		MensajeNormal("Se modificó correctamente el Producto",1);
 	   		$("#btn-form-producto-remove").click();
 	   		ListarProducto(x,y,tipolistado);
-	   		PaginarProducto(x,y,tipolistado);
+	   		//PaginarProducto(x,y,tipolistado);
 	   		limpiarformProducto();
 	   		botonesRegistrar();
 	   		$('#btnListarProducto').click();

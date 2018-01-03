@@ -116,6 +116,14 @@ DELIMITER $$
 $$
 DELIMITER ;
 
+		SELECT CP.nvchCodigo,P.nvchDescripcion,UP.intCantidadUbigeo,S.nvchNombre,P.nvchDireccionImg
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON CP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_ubigeo_producto UP ON UP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_sucursal S ON S.intIdSucursal = UP.intIdSucursal
+		WHERE  
+		UP.intCantidadUbigeo <= P.intCantidadMinima AND CP.intIdTipoCodigoProducto = 1;
+
 DROP PROCEDURE IF EXISTS BUSCARUBIGEOPRODUCTO;
 DELIMITER $$
 	CREATE PROCEDURE BUSCARUBIGEOPRODUCTO(
@@ -124,10 +132,11 @@ DELIMITER $$
 		IN _y INT
     )
 	BEGIN
-		SELECT P.*,UP.intCantidadUbigeo,UP.intIdUbigeoProducto,UP.nvchUbicacion,S.nvchNombre AS NombreSucursal,CP.nvchCodigo FROM tb_ubigeo_producto UP
-		LEFT JOIN tb_producto P ON UP.intIdProducto = P.intIdProducto
-		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_sucursal S ON UP.intIdSucursal = S.intIdSucursal
+		SELECT P.*,UP.intCantidadUbigeo,UP.intIdUbigeoProducto,UP.nvchUbicacion,S.nvchNombre AS NombreSucursal,CP.nvchCodigo 
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON CP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_ubigeo_producto UP ON UP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_sucursal S ON S.intIdSucursal = UP.intIdSucursal
 		WHERE
 		P.intIdProducto IN (
 		SELECT P.intIdProducto
@@ -136,7 +145,6 @@ DELIMITER $$
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
-		GROUP BY P.intIdProducto
 		ORDER BY P.intIdProducto
 		LIMIT _x,_y;
     	END 
@@ -149,10 +157,11 @@ DELIMITER $$
     	IN _elemento VARCHAR(500)
     )
 	BEGIN
-		SELECT P.*,UP.intCantidadUbigeo,UP.intIdUbigeoProducto,UP.nvchUbicacion,S.nvchNombre AS NombreSucursal,CP.nvchCodigo FROM tb_ubigeo_producto UP
-		LEFT JOIN tb_producto P ON UP.intIdProducto = P.intIdProducto
-		LEFT JOIN tb_codigo_producto CP ON P.intIdProducto = CP.intIdProducto
-		LEFT JOIN tb_sucursal S ON UP.intIdSucursal = S.intIdSucursal
+		SELECT P.*,UP.intCantidadUbigeo,UP.intIdUbigeoProducto,UP.nvchUbicacion,S.nvchNombre AS NombreSucursal,CP.nvchCodigo 
+		FROM tb_producto P
+		LEFT JOIN tb_codigo_producto CP ON CP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_ubigeo_producto UP ON UP.intIdProducto = P.intIdProducto
+		LEFT JOIN tb_sucursal S ON S.intIdSucursal = UP.intIdSucursal
 		WHERE
 		P.intIdProducto IN (
 		SELECT P.intIdProducto
@@ -161,7 +170,6 @@ DELIMITER $$
 		WHERE 
 		CP.nvchCodigo LIKE CONCAT(_elemento,'%') OR 
 		P.nvchDescripcion LIKE CONCAT(_elemento,'%')) AND CP.intIdTipoCodigoProducto = 1
-		GROUP BY P.intIdProducto
 		ORDER BY P.intIdProducto;
     	END 
 $$
