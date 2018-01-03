@@ -165,7 +165,7 @@ class DetalleComprobante
                 <input type="text" style="text-align: right; width: 100% !important" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" '.$readonly.' /></td>'.
             '<td class="filaTotal">
-                <input type="text" style="text-align: right;" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
+                <input type="text" style="text-align: right;" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" onkeydown="return TeclaAgregarFila(event)" readonly/></td>'.$filaEliminar;
           '</tr>';
               $i++;
         } else if($intIdTipoVenta == 2){
@@ -183,7 +183,7 @@ class DetalleComprobante
                   '<input type="text" style="text-align: right;" id="intCantidadS'.$i.'" name="intCantidadS[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalS(this)" '.$readonly.'/>'.
                 '</td>'.
                 '<td>'.
-                  '<input type="text" id="dcmTotalS'.$i.'" style="text-align: right;" name="dcmTotalS[]" value="'.$fila['dcmTotal'].'" form="form-comprobante" readonly/>'.
+                  '<input type="text" id="dcmTotalS'.$i.'" style="text-align: right;" name="dcmTotalS[]" value="'.$fila['dcmTotal'].'" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'.
                 '</td>'.$filaEliminar;
               '</tr>';
               $i++;
@@ -213,7 +213,7 @@ class DetalleComprobante
             '<input type="text" style="text-align: right; width: 100% !important" id="intCantidadM'.$i.'" name="intCantidadM[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalM(this)" '.$readonly.'/>'.
           '</td>'.
           '<td class="filaTotal">'.
-            '<input type="text" style="text-align: right; width: 100% !important" id="dcmTotalM'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalM[]" form="form-comprobante" readonly/>'.
+            '<input type="text" style="text-align: right; width: 100% !important" id="dcmTotalM'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalM[]" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'.
           '</td>'.$filaEliminar.
         '</tr>';
         $i++;
@@ -243,7 +243,7 @@ class DetalleComprobante
             '<input type="text" style="text-align: right; width: 100% !important" id="intCantidadI'.$i.'" name="intCantidadI[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalI(this)" '.$readonly.'/>'.
           '</td>'.
           '<td class="filaTotal">'.
-            '<input type="text" text-align="text-align: right; width: 100% !important" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" readonly/>'.
+            '<input type="text" text-align="text-align: right; width: 100% !important" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'.
           '</td>'.$filaEliminar.
         '</tr>';
         $i++;

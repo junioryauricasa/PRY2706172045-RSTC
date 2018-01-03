@@ -662,7 +662,7 @@ class Comprobante{
               echo '/></td>';
             echo '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-comprobante" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'" /></td>'.
-            '<td class="filaTotal"><input type="text" style="text-align: right;" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar;
+            '<td class="filaTotal"><input type="text" style="text-align: right;" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-comprobante" value="'.$fila['dcmTotal'].'" onkeydown="return TeclaAgregarFila(event)" readonly/></td>'.$filaEliminar;
           '</tr>';
               $i++;
         } else if($intIdTipoVenta == 3){
@@ -691,7 +691,7 @@ class Comprobante{
             '<input type="text" id="intCantidadM'.$i.'" name="intCantidadM[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalM(this)"/>'.
           '</td>'.
           '<td class="filaTotal">'.
-            '<input type="text" id="dcmTotalM'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalM[]" form="form-comprobante" readonly/>'.
+            '<input type="text" id="dcmTotalM'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalM[]" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'.
           '</td>'.$filaEliminar.
         '</tr>';
         $i++;
@@ -721,7 +721,7 @@ class Comprobante{
             '<input type="text" id="intCantidadI'.$i.'" name="intCantidadI[]" idsprt="'.$i.'" form="form-comprobante" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalI(this)"/>'.
           '</td>'.
           '<td class="filaTotal">'.
-            '<input type="text" style="text-align: right;" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" readonly/>'.
+            '<input type="text" style="text-align: right;" id="dcmTotalI'.$i.'" value="'.$fila['dcmTotal'].'" name="dcmTotalI[]" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'.
           '</td>'.$filaEliminar.
         '</tr>';
         $i++;

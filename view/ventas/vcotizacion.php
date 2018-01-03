@@ -354,7 +354,7 @@
                           onkeyup="CalcularPrecioTotal(this)"/>
                         </td>
                         <td>
-                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-cotizacion" readonly/>
+                            <input type="text" id="dcmTotal1" name="dcmTotal[]" form="form-cotizacion" onkeydown="return TeclaAgregarFila(event)" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                             <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">
@@ -406,7 +406,7 @@
                           onkeyup="CalcularPrecioTotalS(this)"/>           
                         </td>
                         <td>
-                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-cotizacion" readonly/>
+                          <input type="text" id="dcmTotalS1" name="dcmTotalS[]" form="form-cotizacion" onkeydown="return TeclaAgregarFila(event)" readonly/>
                         </td>
                         <td style="width: 25px !important" >
                           <button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">

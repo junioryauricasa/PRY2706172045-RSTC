@@ -120,6 +120,12 @@
       }
     }
 
+     function TeclaAgregarFila(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if(charCode == 13)
+        AgregarFila($("#intIdTipoVenta").val());
+    }
+
     function InsertarProductoElegido(intIdProducto,id){
       var funcion = "SP";
       var intIdTipoMoneda = $("#intIdTipoMoneda").val();
@@ -177,7 +183,7 @@
           '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-cotizacion" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" readonly /></td>'+
           '<td><input type="text" id="intCantidad'+num+'" name="intCantidad[]" form="form-cotizacion" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-cotizacion" readonly/></td>'+
+          '<td><input type="text" id="dcmTotal'+num+'" name="dcmTotal[]" form="form-cotizacion" onkeydown="return TeclaAgregarFila(event)" readonly/></td>'+
           '<td>'+
             '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
           '</td>'+
@@ -198,7 +204,7 @@
             '<input type="text" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-cotizacion" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-cotizacion" readonly/>'+
+            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" form="form-cotizacion" onkeydown="return TeclaAgregarFila(event)" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+

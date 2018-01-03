@@ -217,7 +217,7 @@
           '<input type="text" style="width: 100% !important; text-align: right !important" id="dcmPrecioUnitario'+num+'" name="dcmPrecioUnitario[]" form="form-comprobante" onkeyup="CalcularPrecioTotal(this)" idsprt="'+num+'" class="txtPrecioUnitario" '+readonlyVender+' /></td>'+
           '<td><input type="text" style="width: 100% !important; text-align: right !important" id="intCantidad'+num+'" name="intCantidad[]" form="form-comprobante" idsprt="'+num+'"'+
             'onkeyup="CalcularPrecioTotal(this)"/></td>'+
-          '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" style="width: 100% !important; text-align: right" name="dcmTotal[]" form="form-comprobante" readonly/></td>'+
+          '<td class="filaTotal"><input type="text" id="dcmTotal'+num+'" style="width: 100% !important; text-align: right" name="dcmTotal[]" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/></td>'+
           '<td>'+
             '<button type="button" style="width: 25px !important" onclick="EliminarFila(this)" class="btn btn-xs btn-danger"><i class="fa fa-edit" data-toggle="tooltip" title="Eliminar!"></i></button>'+
           '</td>'+
@@ -238,7 +238,7 @@
             '<input type="text" style="width: 100% !important; text-align: right" id="intCantidadS'+nums+'" name="intCantidadS[]" idsprt="'+nums+'" form="form-comprobante" onkeyup="CalcularPrecioTotalS(this)"/>'+
           '</td>'+
           '<td>'+
-            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" style="width: 100% !important" form="form-comprobante" readonly/>'+
+            '<input type="text" id="dcmTotalS'+nums+'" name="dcmTotalS[]" style="width: 100% !important" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important">'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
@@ -273,7 +273,7 @@
             '<input type="text" id="intCantidadM'+numm+'" name="intCantidadM[]" idsprt="'+numm+'" form="form-comprobante" style="text-align: right !important; width: 100% !important;" onkeyup="CalcularPrecioTotalM(this)"/>'+
           '</td>'+
           '<td class="filaTotal">'+
-            '<input type="text" style="text-align: right; width: 100% !important;" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" readonly/>'+
+            '<input type="text" style="text-align: right; width: 100% !important;" id="dcmTotalM'+numm+'" name="dcmTotalM[]" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+
@@ -308,7 +308,7 @@
             '<input type="text" id="intCantidadI'+numi+'" style="text-align: right !important; width: 100% !important;" name="intCantidadI[]" idsprt="'+numi+'" form="form-comprobante" onkeyup="CalcularPrecioTotalI(this)"/>'+
           '</td>'+
           '<td class="filaTotal">'+
-            '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" style="width: 100% !important; text-align: right !important; text-align: right !important" form="form-comprobante" readonly/>'+
+            '<input type="text" id="dcmTotalI'+numi+'" name="dcmTotalI[]" style="width: 100% !important; text-align: right !important; text-align: right !important" form="form-comprobante" onkeydown="return TeclaAgregarFila(event)" readonly/>'+
           '</td>'+
           '<td style="width: 25px !important" >'+
             '<button type="button" onclick="EliminarFila(this)" class="btn btn-xs btn-danger">'+

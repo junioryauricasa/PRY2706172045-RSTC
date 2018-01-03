@@ -156,7 +156,7 @@ class DetalleCotizacion
             '<td><input type="text" style="max-width: 105px !important" id="dcmPrecioUnitario'.$i.'" name="dcmPrecioUnitario[]" form="form-cotizacion" value="'.$fila['dcmPrecioUnitario'].'" readonly/></td>'.
             '<td><input type="text" id="intCantidad'.$i.'" name="intCantidad[]" form="form-cotizacion" idsprt="'.$i.'"'.
               'onkeyup="CalcularPrecioTotal(this)" value="'.$fila['intCantidad'].'"/></td>'.
-            '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-cotizacion" value="'.$fila['dcmTotal'].'" readonly/></td>'.$filaEliminar.
+            '<td><input type="text" id="dcmTotal'.$i.'" name="dcmTotal[]" form="form-cotizacion" value="'.$fila['dcmTotal'].'" onkeydown="return TeclaAgregarFila(event)" readonly/></td>'.$filaEliminar.
           '</tr>';
           $i++;
         } else if($intIdTipoVenta == 2){
@@ -174,7 +174,7 @@ class DetalleCotizacion
                   '<input type="text" id="intCantidadS'.$i.'" name="intCantidadS[]" idsprt="'.$i.'" form="form-cotizacion" value="'.$fila['intCantidad'].'" onkeyup="CalcularPrecioTotalS(this)"/>'.
                 '</td>'.
                 '<td>'.
-                  '<input type="text" id="dcmTotalS'.$i.'" name="dcmTotalS[]" value="'.$fila['dcmTotal'].'" form="form-cotizacion" readonly/>'.
+                  '<input type="text" id="dcmTotalS'.$i.'" name="dcmTotalS[]" value="'.$fila['dcmTotal'].'" form="form-cotizacion" onkeydown="return TeclaAgregarFila(event)" readonly/>'.
                 '</td>'.$filaEliminar.
               '</tr>';
               $i++;
