@@ -271,7 +271,7 @@
                     </small>
                 </small>
               </td>
-              <td style="font-family: Arial; text-align: center; width: 5% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
+              <td style="text-align: center; width: 5% !important; height: 20px !important; border-bottom: solid 1px black; /*border-top: dashed 1px black*/ border-right: solid 1px black">
                 <small>
                     <small>
                         <span style="margin-left: 3px">CANT.</span>
@@ -412,7 +412,6 @@
         <td colspan="" style="border: solid 0px; width: 78.4% !important">
             <span style="margin-left: 5px">
                 <?php 
-                    $numero = "1900";
                     //echo convertir_a_letras($numero);
                     //echo 'SON: Ciento cincuenta y nueve mil trescientos cuarenta y cinco soles';
                     //$letras = NumberToLetter::numToLetter(12345.67, 'colones', 'centimos');

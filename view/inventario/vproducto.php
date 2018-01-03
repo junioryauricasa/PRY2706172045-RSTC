@@ -87,19 +87,25 @@
 		      <div class="tab-pane active" id="tab_1">
     			    <!-- Main content -->
     			    <section class="content">
-                <h3 style="">
-                  Registro de Productos <!--small>Módulo de Inventario</small-->
-                </h3>
 
-                <div class="pull-right">
-                    <!-- boton agregar nuevo producto -->
-                    <button type="button" class="btn btn-sm btn-primary btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Producto</button>
+                <div class="row" style="padding-top: 10px">
+                  <div class="col-md-6">
+                    <h3 style="">
+                      Registro de Productos <!--small>Módulo de Inventario</small-->
+                    </h3>
+                  </div>
+                  <div class="col-md-6" style="text-align: right;">
+                    <div class="pull-right">
+                        <!-- boton agregar nuevo producto -->
+                        <button type="button" class="btn btn-sm btn-primary btn-flat" onclick="limpiarformProducto();botonesRegistrar(); $('#btnFormProducto').click()"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Producto</button>
 
-                    <!-- button para descarga de excel -->
-                    <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button>
+                        <!-- button para descarga de excel -->
+                        <button class="btn btn-sm btn-danger btn-flat" id="DescargarListaProductoPDF"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Reporte PDF</button>
 
-                    <!-- button para descarga de excel -->
-                    <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProductoExcel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel</button>
+                        <!-- button para descarga de excel -->
+                        <button class="btn btn-sm btn-success btn-flat" id="DescargarListaProductoExcel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Excel</button>
+                    </div>
+                  </div>
                 </div>
 
     			      <!-- TABLE: LATEST USERS -->
