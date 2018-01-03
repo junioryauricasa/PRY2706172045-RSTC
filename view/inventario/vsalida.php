@@ -63,7 +63,7 @@
       <h1>
         Registro de Salidas
         <small>Módulo de Inventario</small>
-      </h1>
+      </h1> 
     </section>
 
     <!-- Main content -->
