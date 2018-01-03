@@ -46,17 +46,33 @@
  content="text/html; charset=utf-8">
   <title>Reporte Cotización Repuestos</title>
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
+
   <style>
     @page { 
-      margin: 100px 30px 200px 30px; 
+      margin: 100px 30px 60px 30px; 
     }
     header { 
-      position: fixed; top: -100px; left: 0px; right: 0px; /*background-color: gray; */height: 100px; 
+      position: fixed; 
+      top: -100px; 
+      left: 0px; 
+      right: 0px; 
+      /*background-color: gray; */
+      height: 100px; 
     }
-
+    div.content{
+      margin-top: 60px;
+      margin-bottom: 15px;
+    }
     footer { 
-      position: fixed; bottom:-200px; left: 0px; right: 0px; /*background-color: black;*/ height: 200px; 
+      position: fixed; 
+      bottom:-60px; 
+      left: 0px; 
+      right: 0px; 
+      /*background-color: black;*/ 
+      height: 60px; 
     }
+    p { page-break-after: always; }
+    p:last-child { page-break-after: never; }
     table#tabladetalle {
       border-collapse: collapse;
     }
@@ -93,8 +109,6 @@
     </header>
     <!-- END header pdf -->
     <footer>
-      <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/footer-cotizacion-repuesto.PNG">
-      <br>
       <img style="width: 100%; " alt="" src="../../imagenes/footer-comprobantes.PNG">
       <!--img style="height: 40px " alt="" src="../../imagenes/footer-comprobantes.PNG"-->
 
@@ -226,8 +240,8 @@
             <?php
                 $i++;
               }
-              for($j = $i ; $j <= 53; $j++){
-                if($j == 53) {
+              for($j = $i ; $j <= 60; $j++){
+                if($j == 60) {
                   echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
                 } else {
                   echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
@@ -258,14 +272,14 @@
                 </small>
               </td>
 
-              <td class="celdatotales" colspan="2" style="vertical-align: top; font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
+              <td class="celdatotales" colspan="2" style="font-weight: bold; text-align: right; font-family: Arial; width: 50px;">
                   <small>
                     <small>
                       TOTAL
                     </small>
                   </small>
               </td>
-              <td class="celdatotales" style="vertical-align: top; width: 86px; text-align: right; padding-right: 3px">
+              <td class="celdatotales" style="width: 86px; text-align: right; padding-right: 3px">
                   <small><small">
                     <?php echo $SimboloMoneda.' '.number_format($TotalCotizacion, 2, '.', ','); ?>       
                   </small></small>
@@ -273,6 +287,9 @@
             </tr>
           </tbody>
         </table>
+
+        <br>
+
         <!-- INICIO - Tabla de informacion de contacto -->
         <!--table id="tablacontactos" style="text-align: left; width: 100%; ">
           <tbody>
@@ -335,6 +352,7 @@
           </tbody>
         </table-->
         <!-- INICIO - Tabla de informacion de contacto -->
+        <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/footer-cotizacion-repuesto.PNG">
     </div>
 </body>
 </html>
