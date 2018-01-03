@@ -33,13 +33,18 @@
 
   $dtmFechaCreacion = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
   $nvchObservacion = $fila['nvchObservacion'];
+  $NombreMoneda = "";
+  if($fila['intIdTipoMoneda'] == 1)
+    $NombreMoneda = "Soles";
+  else
+    $NombreMoneda = "Dolares";
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
   <meta http-equiv="content-type"
  content="text/html; charset=utf-8">
-  <title>REPORTE COTIZACION REPUESTOS</title>
+  <title>Reporte Cotización Repuestos</title>
   <script src="//use.edgefonts.net/brush-script-std.js"></script>
 
   <style>
@@ -83,11 +88,11 @@
     }
     div.content{
       margin-top: 60px;
-      margin-bottom: 100px
+      margin-bottom: 15px;
     }
     footer { 
       position: fixed; 
-      bottom: -60px; 
+      bottom:-60px; 
       left: 0px; 
       right: 0px; 
       /*background-color: black;*/ 
@@ -117,18 +122,18 @@
             <tr>
               <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small style="padding-left: 3px">Señor (es)</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 220px;"><small style="padding-left: 5px"><?php echo $nvchClienteProveedor; ?></small></td>
+              <td style="width: 220px;"><small><small style="padding-left: 0px"><?php echo $nvchClienteProveedor; ?></small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small style="padding-left: 3px">Fecha</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 230px;"><small style="padding-left: 5px"><?php echo $dtmFechaCreacion; ?></small></td>
+              <td style="width: 230px;"><small><small style="padding-left: 0px"><?php echo $dtmFechaCreacion; ?></small></small></td>
             </tr>
             <tr>
               <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small style="padding-left: 3px">DNI o RUC</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 220px;"><small><?php echo $nvchDNIRUC; ?></small></td>
+              <td style="width: 220px;"><small><small><?php echo $nvchDNIRUC; ?></small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small style="padding-left: 3px">Moneda</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 230px;"><small><?php echo $SimboloMoneda; ?></small></td>
+              <td style="width: 230px;"><small><small><?php echo $NombreMoneda; ?></small></small></td>
             </tr>
             <tr>
               <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small style="padding-left: 3px">Dirección</small></small></td>
@@ -136,15 +141,15 @@
               <td style="width: 220px; font-size:xx-small;"><?php echo $nvchDireccion; ?></td>
               <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small style="padding-left: 3px">Forma de Pago</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 230px;"><small><?php echo $NombrePago; ?></small></td>
+              <td style="width: 230px;"><small><small><?php echo $NombrePago; ?></small></small></td>
             </tr>
             <tr>
               <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small style="padding-left: 3px">Atención</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 220px;"><small><?php echo $nvchAtencion; ?></small></td>
+              <td style="width: 220px;"><small><small><?php echo $nvchAtencion; ?></small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small style="padding-left: 3px">Validéz de Oferta</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 230px;"><small><?php echo $intDiasValidez.' Días'; ?></small></td>
+              <td style="width: 230px;"><small><small><?php echo $intDiasValidez.' Días'; ?></small></small></td>
             </tr>
             <tr>
               <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small style="padding-left: 3px">Teléfono</small></small></td>
@@ -152,7 +157,7 @@
               <td style="width: 220px;"></td>
               <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small style="padding-left: 3px">Asesor de Ventas</small></small></td>
               <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-              <td style="width: 230px;"><small><?php echo $NombreUsuario; ?></small></td>
+              <td style="width: 230px;"><small><small><?php echo $NombreUsuario; ?></small></small></td>
             </tr>
             <tr>
               <td style="font-weight: bold; font-family: Arial; width: 71px;"><small><small style="padding-left: 3px">E-mail:</small></small></td>
@@ -171,16 +176,16 @@
         <br>
 
         <table id="tabladetalle" style="text-align: left; width: 100%; height: 130px;" cellpadding="3" cellspacing="1">
-          <tbody style="font-size: 14px !important">
+          <tbody style="font-size: 14px">
             <tr id="primerdetalle">
               <td style="font-weight: bold; font-family: Arial; text-align: center; width: 22px;"><small><small>ÍTEM</small></small></td>
               <td style="font-weight: bold; font-family: Arial; text-align: center; width: 77px;"><small><small>CÓDIGO</small></small></td>
               <td style="font-weight: bold; font-family: Arial; text-align: center; width: 179px;"><small><small>DESCRIPCIÓN</small></small></td>
               <td style="font-weight: bold; font-family: Arial; text-align: center; width: 17px;"><small><small>CANT.</small></small></td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 76px;"><small><small>P.VTA.</small></small></td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 76px;"><small><small>P.VTA. (<?php echo $SimboloMoneda; ?>)</small></small></td>
               <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50px;"><small><small>DCTO%</small></small></td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 81px;"><small><small>P.UNIT</small></small></td>
-              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 86px;"><small><small>TOTAL</small></small></td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 81px;"><small><small>P.UNIT (<?php echo $SimboloMoneda; ?>)</small></small></td>
+              <td style="font-weight: bold; font-family: Arial; text-align: center; width: 86px;"><small><small>TOTAL (<?php echo $SimboloMoneda; ?>)</small></small></td>
             </tr>
             <?php
               $ValorCotizacion = 0.00;
@@ -197,33 +202,33 @@
                 $TotalCotizacion += $fila['dcmTotal'];
             ?>
             <tr class="segundodetalle" style="/*text-align: center*/; border-bottom: 0px solid">
-              <td style="width: 22px; font-size:x-small; text-align: center"><?php echo $i; ?></td>
-              <td style="width: 77px; font-size:x-small; text-align: center"><?php if($intConfirmacion == 1) echo $fila['CodigoProducto']; else echo '';?></td>
-              <td style="width: 179px; font-size:x-small; text-align: left"><span style="padding-left: 5px"><?php echo $fila['DescripcionProducto']; ?></span></td>
-              <td style="width: 17px; font-size:x-small; text-align: center"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
-              <td style="width: 76px; font-size:x-small;"><span style="padding-left: 3px"><?php echo $SimboloMoneda.' '.number_format($fila['dcmPrecio'], 2, '.', ','); ?></span></td>
-              <td style="width: 50px; font-size:x-small; text-align: center"><?php echo round($fila['dcmDescuento'],0).'%'; ?></td>
-              <td style="width: 81px; font-size:x-small;"><span style="padding-left: 3px"><?php echo $SimboloMoneda.' '.number_format($fila['dcmPrecioUnitario'], 2, '.', ','); ?></span></td>
-              <td style="width: 86px; font-size:x-small;"><span style="padding-left: 3px;"><?php echo $SimboloMoneda.' '.number_format($fila['dcmTotal'], 2, '.', ','); ?></span></td>
+              <td style="width: 22px; font-size:xx-small; text-align: center"><?php echo $i; ?></td>
+              <td style="width: 70px; font-size:xx-small; text-align: center"><?php if($intConfirmacion == 1) echo $fila['CodigoProducto']; else echo '';?></td>
+              <td style="width: 179px; font-size:xx-small; text-align: left"><span style="padding-left: 5px"><?php echo $fila['DescripcionProducto']; ?></span></td>
+              <td style="width: 17px; font-size:xx-small; text-align: center"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
+              <td style="width: 76px; font-size:xx-small; text-align: right;"><span style="padding-right: 3px"><?php echo number_format($fila['dcmPrecio'], 2, '.', ','); ?></span></td>
+              <td style="width: 50px; font-size:xx-small; text-align: center"><?php if($fila['dcmDescuento'] < 10) echo '0'.number_format($fila['dcmDescuento'], 0, '.', '').'%'; else echo number_format($fila['dcmDescuento'], 0, '.', '').'%'; ?></td>
+              <td style="width: 81px; font-size:xx-small; text-align: right;"><span style="padding-right: 3px"><?php echo number_format($fila['dcmPrecioUnitario'], 2, '.', ','); ?></span></td>
+              <td style="width: 86px; font-size:xx-small; text-align: right;"><span style="padding-right: 3px;"><?php echo number_format($fila['dcmTotal'], 2, '.', ','); ?></span></td>
             </tr>
             <?php
                 $i++;
               }
-              for($j = $i ; $j <= 28; $j++){
-                if($j == 28) {
+              for($j = $i ; $j <= 50; $j++){
+                if($j == 50) {
                   echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
                 } else {
                   echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
                 }
             ?>
-              <td style="width: 22px; font-size:x-small;">|</td>
-              <td style="width: 77px; font-size:x-small;">|</td>
-              <td style="width: 179px; font-size:x-small;">|</td>
-              <td style="width: 17px; font-size:x-small;">|</td>
-              <td style="width: 76px; font-size:x-small;">|</td>
-              <td style="width: 50px; font-size:x-small;">|</td>
-              <td style="width: 81px; font-size:x-small;">|</td>
-              <td style="width: 86px; font-size:x-small;">|</td>
+              <td style="width: 22px; font-size:xx-small;">|</td>
+              <td style="width: 77px; font-size:xx-small;">|</td>
+              <td style="width: 179px; font-size:xx-small;">|</td>
+              <td style="width: 17px; font-size:xx-small;">|</td>
+              <td style="width: 76px; font-size:xx-small;">|</td>
+              <td style="width: 50px; font-size:xx-small;">|</td>
+              <td style="width: 81px; font-size:xx-small;">|</td>
+              <td style="width: 86px; font-size:xx-small;">|</td>
             </tr>
             <?php
               }
@@ -248,8 +253,8 @@
                     </small>
                   </small>
               </td>
-              <td class="celdatotales" style="width: 86px; text-align: center;">
-                  <small><small>
+              <td class="celdatotales" style="width: 86px; text-align: right; padding-right: 3px">
+                  <small><small">
                     <?php echo $SimboloMoneda.' '.number_format($TotalCotizacion, 2, '.', ','); ?>       
                   </small></small>
               </td>
@@ -321,11 +326,8 @@
           </tbody>
         </table-->
         <!-- INICIO - Tabla de informacion de contacto -->
-
         <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/footer-cotizacion-repuesto.PNG">
-
     </div>
-
     <footer>
       <img style="width: 100%; " alt="" src="../../imagenes/footer-comprobantes.PNG">
       <!--img style="height: 40px " alt="" src="../../imagenes/footer-comprobantes.PNG"-->
