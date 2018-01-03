@@ -141,7 +141,7 @@ DELIMITER $$
 		TPG.nvchNombre AS NombrePago,
 		TV.nvchNombre AS NombreVenta,
 		TCL.nvchNombre AS TipoCliente,
-		CONCAT(US.nvchNombres,' ',US.nvchApellidoPaterno,' ',US.nvchApellidoMaterno) AS NombreSolicitado,
+		CONCAT(US.nvchApellidoPaterno,' ',US.nvchApellidoMaterno,' ',US.nvchNombres) AS NombreSolicitado,
 		TCL.intIdTipoCliente
 	    FROM tb_comprobante CR
 		LEFT JOIN tb_usuario U ON CR.intIdUsuario = U.intIdUsuario

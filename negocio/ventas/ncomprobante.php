@@ -501,8 +501,8 @@ function SeleccionarCliente(seleccion) {
 	   	 $("#nvchNumDocumento").val(datos.nvchRUC);
 	   	 $("#nvchDenominacion").val(datos.nvchRazonSocial);
 	   	} else if(datos.intIdTipoPersona == 2){
-	   	 $("#nvchNumDocumento").val(datos.nvchDNI);
-	   	 $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+	   	 $("#nvchNumDocumento").val(datos.nvchRUC);
+	   	 $("#nvchDenominacion").val(datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno + " " + datos.nvchNombres);
 	   	}
 	   	$("#intIdCliente").val(datos.intIdCliente);
 	   	$("#TipoCliente").val(datos.TipoCliente);

@@ -1116,6 +1116,7 @@ function PaginarProveedoresSeleccion(x,y,intIdTipoPersona) {
 function SeleccionarCliente(seleccion) {
 	var intIdCliente = $(seleccion).attr("idscli");
 	var funcion = "SCL";
+  var intIdTipoComprobante = $("#intIdTipoComprobante").val();
 	  $.ajax({
 	   url:"../../datos/comprobante/funcion_comprobante.php",
 	   method:"POST",
@@ -1127,8 +1128,15 @@ function SeleccionarCliente(seleccion) {
 	   	 $("#nvchNumDocumento").val(datos.nvchRUC);
 	   	 $("#nvchDenominacion").val(datos.nvchRazonSocial);
 	   	} else if(datos.intIdTipoPersona == 2){
-	   	 $("#nvchNumDocumento").val(datos.nvchDNI);
-	   	 $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+        if((intIdTipoComprobante == 1) && (datos.nvchRUC == null || datos.nvchRUC == "")){
+            MensajeNormal("No tiene RUC el Cliente, debe Registrar el RUC del Cliente Seleccionado",2);
+            return false;
+        } else if((intIdTipoComprobante != 1) && (datos.nvchRUC == null || datos.nvchRUC == "")){
+            $("#nvchNumDocumento").val(datos.nvchDNI);
+        } else {
+            $("#nvchNumDocumento").val(datos.nvchRUC);
+        }
+	   	 $("#nvchDenominacion").val(datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno + " " + datos.nvchNombres);
 	   	}
 	   	$("#intIdClienteC").val(datos.intIdCliente);
 	   	$("#TipoCliente").val(datos.TipoCliente);
@@ -1235,8 +1243,15 @@ function SeleccionarProveedor(seleccion) {
        $("#nvchNumDocumento").val(datos.nvchRUC);
        $("#nvchDenominacion").val(datos.nvchRazonSocial);
       } else if(datos.intIdTipoPersona == 2){
-       $("#nvchNumDocumento").val(datos.nvchDNI);
-       $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
+       if((intIdTipoComprobante == 5) && (datos.nvchRUC == null || datos.nvchRUC == "")){
+            MensajeNormal("No tiene RUC el Proveedor, debe Registrar el RUC del Proveedor Seleccionado",2);
+            return false;
+       } else if((intIdTipoComprobante != 5) && (datos.nvchRUC == null || datos.nvchRUC == "")){
+          $("#nvchNumDocumento").val(datos.nvchDNI);
+       } else {
+          $("#nvchNumDocumento").val(datos.nvchRUC);
+       }
+       $("#nvchDenominacion").val(datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno + " " + datos.nvchNombres);
       }
       $("#intIdProveedorC").val(datos.intIdProveedor);
       $("#nvchDomicilio").val(datos.nvchDomicilio);

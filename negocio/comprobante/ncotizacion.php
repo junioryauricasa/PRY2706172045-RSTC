@@ -849,7 +849,11 @@ function SeleccionarCliente(seleccion) {
 	   	 $("#nvchNumDocumento").val(datos.nvchRUC);
 	   	 $("#nvchDenominacion").val(datos.nvchRazonSocial);
 	   	} else if(datos.intIdTipoPersona == 2){
-	   	 $("#nvchNumDocumento").val(datos.nvchDNI);
+	   	 if(datos.nvchRUC == null || datos.nvchRUC == ""){
+            $("#nvchNumDocumento").val(datos.nvchDNI);
+        } else {
+            $("#nvchNumDocumento").val(datos.nvchRUC);
+        }
 	   	 $("#nvchDenominacion").val(datos.nvchNombres + " " + datos.nvchApellidoPaterno + " " + datos.nvchApellidoMaterno);
 	   	}
 	   	$("#intIdClienteC").val(datos.intIdCliente);
