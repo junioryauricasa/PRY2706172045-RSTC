@@ -33,6 +33,11 @@
 
   $dtmFechaCreacion = date('d/m/Y', strtotime($fila['dtmFechaCreacion']));
   $nvchObservacion = $fila['nvchObservacion'];
+
+  if($fila['intIdTipoMoneda'] == 1)
+    $NombreMoneda = "Soles";
+  else
+    $NombreMoneda = "Dolares";
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -71,7 +76,7 @@
     }
 
     @page { 
-      margin: 100px 30px 60px 30px; 
+      margin: 100px 30px 200px 30px; 
     }
     header { 
       position: fixed; 
@@ -87,11 +92,11 @@
     }
     footer { 
       position: fixed; 
-      bottom: -60px; 
+      bottom: -200px; 
       left: 0px; 
       right: 0px; 
       /*background-color: black;*/ 
-      height: 60px; 
+      height: 200px; 
     }
     p { page-break-after: always; }
     p:last-child { page-break-after: never; }
@@ -106,6 +111,39 @@
     </header>
     <!-- END header pdf -->
 
+    <footer>
+    <div>
+      <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/footer-cotizacion-servicio.PNG">
+    </div>
+      <br>
+      <img style="width: 100%; " alt="" src="../../imagenes/footer-comprobantes.PNG">
+      <!--img style="height: 40px " alt="" src="../../imagenes/footer-comprobantes.PNG"-->
+
+      <!-- INICIO - Paginador footer -->
+      <span style="background-color: gray">
+          <script type='text/php'>
+            if ( isset($pdf) ) { 
+              $font = Font_Metrics::get_font('helvetica', 'normal');
+              $size = 9;
+              $y = $pdf->get_height() - 24;
+              $x = $pdf->get_width() - 15 - Font_Metrics::get_text_width('1/1', $font, $size);
+              $pdf->page_text($x, $y, '{PAGE_NUM}/{PAGE_COUNT}', $font, $size);
+            } 
+          </script>
+      </span>
+      <!--script type='text/php'>
+        if ( isset($pdf) ) { 
+          $font = Font_Metrics::get_font('helvetica', 'normal');
+          $size = 9;
+          $y = $pdf->get_height() - 24;
+          $x = $pdf->get_width() - 30 - Font_Metrics::get_text_width('1/1', $font, $size);
+          $pdf->page_text($x, $y, 'pag {PAGE_NUM}/{PAGE_COUNT}', $font, $size);
+        } 
+      </script-->
+      <!-- END - paginador footer -->
+
+    </footer>
+
     <center>
         <span style="font-weight: bold; font-family: Arial;">
           COTIZACIÓN DE SERVICIOS Nº RSA-<?php echo $nvchNumeracion.'/'.$year; ?>
@@ -117,10 +155,10 @@
         <tr style="">
           <td style="font-weight: bold; font-family: Arial; width: 130px; padding-left: 5px"><small><small>Nombre/Razón Social</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style="width: 300px;"><small><?php echo $nvchClienteProveedor; ?></small></td>
+          <td style="width: 300px;"><small><small><?php echo $nvchClienteProveedor; ?></small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 140px;"><small><small>Fecha</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style=""><small><?php echo $dtmFechaCreacion; ?></small></td>
+          <td style=""><small><small><?php echo $dtmFechaCreacion; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 130px;padding-left: 5px"><small><small>Atención</small></small></td>
@@ -130,17 +168,17 @@
 
           <td style="font-weight: bold; font-family: Arial; width: 140px;"><small><small>Moneda</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style=""><small><?php echo $SimboloMoneda; ?></small></td>
+          <td style=""><small><small><?php echo $NombreMoneda; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 130px;padding-left: 5px"><small><small>DNI / RUC</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style="width: 300px;"><small><?php echo $nvchDNIRUC; ?></small></td>
+          <td style="width: 300px;"><small><small><?php echo $nvchDNIRUC; ?></small></small></td>
 
           
           <td style="font-weight: bold; font-family: Arial; width: 140px;"><small><small>Forma de Pago</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style=""><small><?php echo $NombrePago; ?></small></td>
+          <td style=""><small><small><?php echo $NombrePago; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 130px;padding-left: 5px"><small><small>Dirección</small></small></td>
@@ -149,28 +187,28 @@
 
           <td style="font-weight: bold; font-family: Arial; width: 140px;"><small><small>Tiempo de Entrega</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style=""><small><?php echo ' Días'; ?></small></td>
+          <td style=""><small><small><?php echo ' Días'; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 100px;padding-left: 5px"><small><small>Teléfono</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style="width: 300px;"></td>
+          <td style="width: 300px;"><small><small></small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Validéz de Oferta</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style=""><small><?php echo $intDiasValidez.' Días'; ?></small></td>
+          <td style=""><small><small><?php echo $intDiasValidez.' Días'; ?></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 100px;padding-left: 5px"><small><small>Lugar</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style="width: 300px;"></td>
+          <td style="width: 300px;"><small><small></small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small>Tipo de Servicio</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small>:</small></small></td>
-          <td style=""><small></small></td>
+          <td style=""><small><small></small></small></td>
         </tr>
         <tr>
           <td style="font-weight: bold; font-family: Arial; width: 100px;padding-left: 5px"><small><small>E-mail</small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small>:<small></small></small></td>
-          <td style="width: 300px;"></td>
+          <td style="width: 300px;"><small><small></small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 120px;"><small><small></small></small></td>
           <td style="font-weight: bold; font-family: Arial; width: 0px;"><small><small></small></small></td>
           <td style=""><small></small></td>
@@ -240,8 +278,8 @@
         <td style="font-weight: bold; font-family: Arial; text-align: center; width: 10% !important;"><small><small>ITEM</small></small></td>
         <td style="font-weight: bold; font-family: Arial; text-align: center; width: 15% !important;"><small><small>CANT.</small></small></td>
         <td style="font-weight: bold; font-family: Arial; text-align: center; width: 50% !important;"><small><small>DESCRIPCION</small></small></td>
-        <td style="font-weight: bold; font-family: Arial; text-align: center; width: 10% !important;"><small><small>P.UNIT</small></small></td>
-        <td style="font-weight: bold; font-family: Arial; text-align: center; width: 15% !important;"><small><small>P.TOTAL</small></small></td>
+        <td style="font-weight: bold; font-family: Arial; text-align: center; width: 10% !important;"><small><small>P.UNIT (<?php echo $SimboloMoneda; ?>)</small></small></td>
+        <td style="font-weight: bold; font-family: Arial; text-align: center; width: 15% !important;"><small><small>P.TOTAL (<?php echo $SimboloMoneda; ?>)</small></small></td>
       </tr>
       <?php
         $ValorCotizacion = 0.00;
@@ -261,14 +299,14 @@
         <td style="width: 10% !important; font-size:x-small;"><?php echo $i; ?></td>
         <td style="width: 15% !important; font-size:x-small;"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
         <td style="width: 50% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $fila['nvchDescripcion']; ?></td>
-        <td style="width: 10% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $SimboloMoneda.' '.number_format($fila['dcmPrecioUnitario'],2,'.',','); ?></td>
-        <td style="width: 15% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $SimboloMoneda.' '.number_format($fila['dcmTotal'],2,'.',','); ?></td>
+        <td style="width: 10% !important; font-size:x-small; text-align: right; padding-right: 3px"><?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?></td>
+        <td style="width: 15% !important; font-size:x-small; text-align: right; padding-right: 3px"><?php echo number_format($fila['dcmTotal'],2,'.',','); ?></td>
       </tr>
       <?php
           $i++;
         }
-        for($j = $i ; $j <= 33; $j++){
-          if($j == 33) {
+        for($j = $i ; $j <= 38; $j++){
+          if($j == 38) {
             echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
           } else {
             echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
@@ -289,14 +327,14 @@
         <td style="width: 10% !important; font-size:x-small;"></td>
         <td style="width: 15% !important; font-size:x-small;"></td>
         <td style="width: 50% !important; font-size:x-small;"></td>
-        <td style="width: 15% !important; text-align: center; border: solid 2px black">
+        <td style="width: 15% !important; text-align: center; border: solid 2px black; vertical-align: top;">
             <small>
               <small>
                 TOTAL
               </small>
             </small>
         </td>
-        <td class="celdatotales" style="text-align: center; width: 15% !important;">
+        <td class="celdatotales" style="vertical-align: top; text-align: right; width: 15% !important; padding-right: 1px;">
             <small>
             		<small>
               		<?php echo $SimboloMoneda.' '.number_format($TotalCotizacion,2,'.',','); ?>       
@@ -307,9 +345,9 @@
     </tbody>
   </table>  
   <br>
-
+<!--
 <div class="" style="text-align: left; width: 100%;">
-  <!--table id="" style="width: 100%">
+  table id="" style="width: 100%">
     <tbody>
       <tr style="font-family: Arial; font-weight: bold;">
         <td style="text-align: center; width: 147px;" colspan="7">
@@ -356,38 +394,9 @@
         <td style="font-family: Arial; width: 147px;"><small><small>942087405 - #942087405</small></small></td>
       </tr>
     </tbody>
-  </table-->
+  </table
   <img style="width: 100%;" alt="logo resteco azul" src="../../imagenes/footer-cotizacion-servicio.PNG">
-</div>
-
-    <footer>
-      <img style="width: 100%; " alt="" src="../../imagenes/footer-comprobantes.PNG">
-      <!--img style="height: 40px " alt="" src="../../imagenes/footer-comprobantes.PNG"-->
-
-      <!-- INICIO - Paginador footer -->
-      <span style="background-color: gray">
-          <script type='text/php'>
-            if ( isset($pdf) ) { 
-              $font = Font_Metrics::get_font('helvetica', 'normal');
-              $size = 9;
-              $y = $pdf->get_height() - 24;
-              $x = $pdf->get_width() - 15 - Font_Metrics::get_text_width('1/1', $font, $size);
-              $pdf->page_text($x, $y, '{PAGE_NUM}/{PAGE_COUNT}', $font, $size);
-            } 
-          </script>
-      </span>
-      <!--script type='text/php'>
-        if ( isset($pdf) ) { 
-          $font = Font_Metrics::get_font('helvetica', 'normal');
-          $size = 9;
-          $y = $pdf->get_height() - 24;
-          $x = $pdf->get_width() - 30 - Font_Metrics::get_text_width('1/1', $font, $size);
-          $pdf->page_text($x, $y, 'pag {PAGE_NUM}/{PAGE_COUNT}', $font, $size);
-        } 
-      </script-->
-      <!-- END - paginador footer -->
-
-    </footer>
+</div>-->
 </body>
 </html>
 <?php

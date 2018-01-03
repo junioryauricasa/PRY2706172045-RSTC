@@ -73,9 +73,9 @@
             <div class="row" style="margin-top:20px; margin-bottom: 20px">
               <div class="col-md-12">
                 <div class="" style="text-align: right;">
-                  <button id="btn-crear-cotizacion" class="btn btn-sm btn-success btn-flat opcion-boton-nuevo" form="form-cotizacion"><i class="fa fa-check-square" aria-hidden="true"></i> Realizar Cotización</button>
-                  <button id="btn-editar-cotizacion" class="btn btn-sm btn-success btn-flat opcion-boton-editar" form="form-cotizacion"><i class="fa fa-check-square" aria-hidden="true"></i> Modificar Cotización</button>
-                  <button onclick="NuevaCotizacion(); <?php if($intTipoDetalle == 1) echo 'MostrarSeleccionComprobante();' ?>" class="btn btn-sm btn-primary btn-flat" form="form-cotizacion"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Cotización</button>
+                  <button id="btn-crear-cotizacion" class="btn btn-sm btn-success btn-flat opcion-boton-nuevo"><i class="fa fa-check-square" aria-hidden="true"></i> Realizar Cotización</button>
+                  <button id="btn-editar-cotizacion" class="btn btn-sm btn-success btn-flat opcion-boton-editar"><i class="fa fa-check-square" aria-hidden="true"></i> Modificar Cotización</button>
+                  <button onclick="NuevaCotizacion();" class="btn btn-sm btn-primary btn-flat"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Cotización</button>
                   <!--
                   <input type="button" id="btn-crear-cotizacion" class="btn btn-md btn-primary opcion-boton-nuevo" value="Realizar Cotización" form="form-cotizacion">
                      <input type="button" id="btn-editar-cotizacion" class="btn btn-md btn-primary opcion-boton-editar" value="Modificar Cotización" form="form-cotizacion">
@@ -174,7 +174,7 @@
                   <label>Validez de Oferta:</label>
                   <input type="text" id="intDiasValidez" name="intDiasValidez" class="form-control select2" placeholder="Ingrese número de días" 
                   value="" onkeypress="return EsNumeroEnteroTecla(event)" 
-                  onkeyup="EsNumeroEntero('intDiasValidez')" maxlength="3" form="form-cotizacion" required>
+                  onkeyup="EsNumeroEntero('intDiasValidez')" maxlength="3" form="form-cotizacion">
                   <span id="intDiasValidezIcono" class="" aria-hidden=""></span>
                   <div id="intDiasValidezObs" class=""></div>
                 </div>
@@ -185,7 +185,7 @@
                 <div id="nvchAtencionGroup" class="form-group">
                   <label>Atención:</label>
                   <input type="text" id="nvchAtencion" name="nvchAtencion" class="form-control select2" placeholder="Ingrese Atención" 
-                  value="" onkeyup="EsVacio('nvchAtencion')" maxlength="250" form="form-cotizacion" required>
+                  value="" onkeyup="EsVacio('nvchAtencion')" maxlength="250" form="form-cotizacion">
                   <span id="nvchAtencionIcono" class="" aria-hidden=""></span>
                   <div id="nvchAtencionObs" class=""></div>
                 </div>
