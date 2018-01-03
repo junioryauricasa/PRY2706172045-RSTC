@@ -214,20 +214,20 @@
                 $TotalCotizacion += $fila['dcmTotal'];
             ?>
             <tr class="segundodetalle" style="/*text-align: center*/; border-bottom: 0px solid">
-              <td style="width: 22px; font-size:xx-small; text-align: center"><?php echo $i; ?></td>
-              <td style="width: 70px; font-size:xx-small; text-align: center"><?php if($intConfirmacion == 1) echo $fila['CodigoProducto']; else echo '';?></td>
-              <td style="width: 179px; font-size:xx-small; text-align: left"><span style="padding-left: 5px"><?php echo $fila['DescripcionProducto']; ?></span></td>
-              <td style="width: 17px; font-size:xx-small; text-align: center"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
-              <td style="width: 76px; font-size:xx-small; text-align: right;"><span style="padding-right: 3px"><?php echo number_format($fila['dcmPrecio'], 2, '.', ','); ?></span></td>
-              <td style="width: 50px; font-size:xx-small; text-align: center"><?php if($fila['dcmDescuento'] < 10) echo '0'.number_format($fila['dcmDescuento'], 0, '.', '').'%'; else echo number_format($fila['dcmDescuento'], 0, '.', '').'%'; ?></td>
-              <td style="width: 81px; font-size:xx-small; text-align: right;"><span style="padding-right: 3px"><?php echo number_format($fila['dcmPrecioUnitario'], 2, '.', ','); ?></span></td>
-              <td style="width: 86px; font-size:xx-small; text-align: right;"><span style="padding-right: 3px;"><?php echo number_format($fila['dcmTotal'], 2, '.', ','); ?></span></td>
+              <td style="width: 22px; font-size:x-small; text-align: center"><?php echo $i; ?></td>
+              <td style="width: 70px; font-size:x-small; text-align: center"><?php if($intConfirmacion == 1) echo $fila['CodigoProducto']; else echo '';?></td>
+              <td style="width: 179px; font-size:x-small; text-align: left"><span style="padding-left: 5px"><?php echo $fila['DescripcionProducto']; ?></span></td>
+              <td style="width: 17px; font-size:x-small; text-align: center"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
+              <td style="width: 76px; font-size:x-small; text-align: right;"><span style="padding-right: 3px"><?php echo number_format($fila['dcmPrecio'], 2, '.', ','); ?></span></td>
+              <td style="width: 50px; font-size:x-small; text-align: center"><?php if($fila['dcmDescuento'] < 10) echo '0'.number_format($fila['dcmDescuento'], 0, '.', '').'%'; else echo number_format($fila['dcmDescuento'], 0, '.', '').'%'; ?></td>
+              <td style="width: 81px; font-size:x-small; text-align: right;"><span style="padding-right: 3px"><?php echo number_format($fila['dcmPrecioUnitario'], 2, '.', ','); ?></span></td>
+              <td style="width: 86px; font-size:x-small; text-align: right;"><span style="padding-right: 3px;"><?php echo number_format($fila['dcmTotal'], 2, '.', ','); ?></span></td>
             </tr>
             <?php
                 $i++;
               }
-              for($j = $i ; $j <= 53; $j++){
-                if($j == 53) {
+              for($j = $i ; $j <= 51; $j++){
+                if($j == 51) {
                   echo '<tr class="ultimodetalle" style="text-align: center; color:white;">';
                 } else {
                   echo '<tr class="segundodetalle" style="text-align: center; color:white;">';
