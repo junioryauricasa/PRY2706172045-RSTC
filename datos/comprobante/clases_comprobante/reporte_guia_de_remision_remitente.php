@@ -37,7 +37,6 @@
   include('class_numero_a_texto.php'); //incluir funcion
 ?>
 
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -516,7 +515,7 @@
   <div class="row" style=" margin-top: 20px; z-index: 10">
     <table style="text-align: left; width: 86%; margin: 0 auto; /*border: solid 2px*/">
       <tr>
-        <td  colspan="2" style="text-align: right; text-transform: uppercase; font-weight: bolder">
+        <td  colspan="3" style="text-align: right; text-transform: uppercase; font-weight: bolder">
           RECIBIDO POR: 
         </td>
       </tr>
