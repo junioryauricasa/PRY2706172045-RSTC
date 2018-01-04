@@ -339,6 +339,7 @@ function ModificarUbigeoProducto(){
 	   	if(datos == "okok"){
 	   		MensajeNormal("Se Modificó correctamente el Ubigeo del Producto",1);
 	   		ListarUbigeo(x,y,'E');
+	   		RestablecerValidacion('nvchUbicacionM',2);
 	   		$('#formUbigeoProducto').modal('hide');
 	   	} else {
 	   		alert(datos);

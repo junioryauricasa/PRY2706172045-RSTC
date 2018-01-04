@@ -110,6 +110,8 @@ class UbigeoProducto
         if($residuo == 0)
         {$x = $x - $y;}
       }
+      $nvchCodigo;
+      $z = 0;
       //Busqueda de producto por el comando LIMIT
       $sql_comando = $sql_conectar->prepare('CALL buscarubigeoproducto(:busqueda,:x,:y)');
       $sql_comando -> execute(array(':busqueda' => $busqueda,':x' => $x,':y' => $y));
@@ -119,18 +121,28 @@ class UbigeoProducto
         if($fila["nvchCodigo"]!=""){
           if($i == ($cantidad - $x) && $tipolistado == "N"){
             echo '<tr bgcolor="#BEE1EB">';
+            $color="#BEE1EB";
           } else if($fila["intIdUbigeoProducto"] == $_SESSION['intIdUbigeoProducto'] && $tipolistado == "E"){
             echo '<tr bgcolor="#B3E4C0">';
+            $color="#B3E4C0";
           }else {
             echo '<tr>';
+            $color="";
           }
+          if($intIdProducto != $fila['intIdProducto']){
+          $intIdProducto = $fila['intIdProducto'];
           echo 
-          '<td class="heading" style="" data-th="ID">'.$j.'</td>
-          <td align="left" data-th="Código">'.$fila["nvchCodigo"].'</td>
-          <td align="right" data-th="Descripción">'.$fila["nvchDescripcion"].'</td>
-          <td align="right"data-th="Tipo de Moneda Venta">'.$fila["NombreSucursal"].'</td>
-          <td align="right"data-th="Tipo de Moneda Venta">'.$fila["nvchUbicacion"].'</td>
-          <td align="right"data-th="Precio de Venta 1" style="text-align:center">'.$fila["intCantidad"].'</td>
+          '<td class="heading PRT'.$intIdProducto.'" style="" data-th="Ítem" rowspan="" bgcolor="">'.$j.'</td>
+          <td align="left" class="PRT'.$intIdProducto.'" data-th="Código" rowspan="" bgcolor="">'.$fila["nvchCodigo"].'</td>
+          <td align="right" class="PRT'.$intIdProducto.'" data-th="Descripción" rowspan="" bgcolor="">'.$fila["nvchDescripcion"].'</td>';
+          $j++; $z=1;
+          }
+          echo '<script>$(".PRT'.$intIdProducto.'").attr("rowspan","'.$z.'");</script>';
+          echo '<script>$(".PRT'.$intIdProducto.'").attr("bgcolor","'.$color.'");</script>';
+          echo
+          '<td align="right" data-th="Tipo de Moneda Venta">'.$fila["NombreSucursal"].'</td>
+          <td align="right" data-th="Tipo de Moneda Venta">'.$fila["nvchUbicacion"].'</td>
+          <td align="right" data-th="Precio de Venta 1" style="text-align:center">'.$fila["intCantidad"].'</td>
           <td align="right" data-th="Imágen" style="text-align:center">
             <button onclick="VerImagenProducto(this)" type="button" imagen="'.$fila["nvchDireccionImg"].'" class="btn btn-xs btn-primary">
               <i class="fa fa-search"></i> Ver 
@@ -142,7 +154,7 @@ class UbigeoProducto
             </button>
           </td>  
           </tr>';
-          $i++; $j++;
+          $i++; $z++;
         }
       }
     }
