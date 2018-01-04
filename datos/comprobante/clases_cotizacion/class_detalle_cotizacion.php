@@ -60,6 +60,7 @@ class DetalleCotizacion
             ':intCantidad' => $value,
             ':dcmTotal' => $this->dcmTotal[$key]));
           } else if($this->intIdTipoVenta == 2){
+            //$open=str_replace(PHP_EOL,"<br>",$this->nvchDescripcion[$key]);
             $sql_comando->execute(array(
             ':intIdCotizacion' => $this->intIdCotizacion,
             ':intIdTipoVenta' => $this->intIdTipoVenta,

@@ -315,6 +315,7 @@ function ModificarUbigeoProducto(){
 	if(EsVacio("nvchUbicacionM") == false){
 		return false;
 	}
+	$('#formUbigeoProducto').modal('hide');
 	var intIdUbigeoProducto = document.getElementById("intIdUbigeoProductoM").value;
 	var intIdProducto = document.getElementById("intIdProductoM").value;
 	var intIdSucursal = document.getElementById("intIdSucursalM").value;
@@ -340,7 +341,6 @@ function ModificarUbigeoProducto(){
 	   		MensajeNormal("Se Modificó correctamente el Ubigeo del Producto",1);
 	   		ListarUbigeo(x,y,'E');
 	   		RestablecerValidacion('nvchUbicacionM',2);
-	   		$('#formUbigeoProducto').modal('hide');
 	   	} else {
 	   		alert(datos);
 	   	}

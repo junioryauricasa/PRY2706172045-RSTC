@@ -70,23 +70,7 @@ if(!isset($_SESSION['intIdUsuarioSesion']))
     /*
       *  STYLE for scrool
     */
-    #scrool-slim::-webkit-scrollbar-track
-    {
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-      background-color: #F5F5F5;
-    }
-
-    #scrool-slim::-webkit-scrollbar
-    {
-      width: 6px;
-      height: 6px;
-      background-color: #F5F5F5;
-    }
-
-    #scrool-slim::-webkit-scrollbar-thumb
-    {
-      background-color: #000000;
-    }
+    
 
     /* CLASS PARA QUITAR EL BORDE A LOS INPUT */
     .input-without-border{
