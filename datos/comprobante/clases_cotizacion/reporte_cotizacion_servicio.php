@@ -296,11 +296,11 @@
           $TotalCotizacion += $fila['dcmTotal'];
       ?>
       <tr class="segundodetalle" style="text-align: center; border-bottom: 0px solid">
-        <td style="width: 10% !important; font-size:x-small;"><?php echo $i; ?></td>
-        <td style="width: 15% !important; font-size:x-small;"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
-        <td style="width: 50% !important; font-size:x-small; text-align: left; padding-left: 3px"><?php echo $fila['nvchDescripcion']; ?></td>
-        <td style="width: 10% !important; font-size:x-small; text-align: right; padding-right: 3px"><?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?></td>
-        <td style="width: 15% !important; font-size:x-small; text-align: right; padding-right: 3px"><?php echo number_format($fila['dcmTotal'],2,'.',','); ?></td>
+        <td style="width: 10% !important; font-size:x-small; vertical-align: top;"><?php echo $i; ?></td>
+        <td style="width: 15% !important; font-size:x-small; vertical-align: top;"><?php if($fila['intCantidad'] < 10) echo "0".$fila['intCantidad']; else echo $fila['intCantidad']; ?></td>
+        <td style="width: 50% !important; font-size:x-small; text-align: left; padding-left: 3px; vertical-align: top;"><?php echo $fila['nvchDescripcion']; ?></td>
+        <td style="width: 10% !important; font-size:x-small; text-align: right; padding-right: 3px; vertical-align: top;"><?php echo number_format($fila['dcmPrecioUnitario'],2,'.',','); ?></td>
+        <td style="width: 15% !important; font-size:x-small; text-align: right; padding-right: 3px; vertical-align: top;"><?php echo number_format($fila['dcmTotal'],2,'.',','); ?></td>
       </tr>
       <?php
           $i++;

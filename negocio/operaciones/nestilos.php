@@ -1,3 +1,9 @@
+<style type="text/css">
+	body.modal-open {
+    overflow: visible;
+}
+</style>
+
 <script>
 //////////////////////////////////////////////////////////////
 /* INICIO - Dirigirse al div */
@@ -11,6 +17,7 @@ function goToBox(box){
 //////////////////////////////////////////////////////////////
 /* INICIO - Dirigirse al div */
 function MensajeNormal(texto,tipomensaje){
+
 	//$("#MensajeNormalHeader").css("background-color", "#78909c");
     $("#MensajeNormalHeader").css("background-color", "rgb(17, 126, 180)");
     $("#MensajeNormalTitulo").css("color", "#FFFFFF");
